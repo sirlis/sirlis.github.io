@@ -10,7 +10,7 @@ tags: OpenGL
 
 使用OpenGL和Direct3D等图形api，图形处理单元（GPU）在内部采用单精度（32位）浮点数字进行操作，这些数字在很大程度上遵循IEEE 754规范。单精度值通常被认为有7个精确的十进制数字；因此，随着数字越来越大，数字的表示也越来越不精确。在大型场景渲染中，渲染远距离的对象很常见，如果渲染不正确，对象可能会在视觉上发生**抖颤**（jitter）。当观察者靠近物体时，这个问题变得更加明显。
 
-![](assets/img/postsimg/2020-06-09-precision-loss-and-jitter/01.nojitter.png)  ![](assets/img/postsimg/2020-06-09-precision-loss-and-jitter/01.jitter.png)
+![](https://sirlis.github.io/assets/img/postsimg/2020-06-09-precision-loss-and-jitter/01.nojitter.png)  ![](https://sirlis.github.io/assets/img/postsimg/2020-06-09-precision-loss-and-jitter/01.jitter.png)
 
 <center>图 1 无抖颤和存在抖颤时的场景。场景按照真实比例渲染，单位米，两颗卫星运行于地球静止轨道（轨道半径42164137m），相距2.75m。</center>
 
