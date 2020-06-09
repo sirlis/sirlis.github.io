@@ -133,9 +133,9 @@ void main()
 
 
 
-**参考文献**
+<font size=5>**参考文献**</font>
 
-<span id="ref1">[1]</span>	LearnOpenGL. 
+<span id="ref1">[1]</span>	LearnOpenGL. [Depth Testing](https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/01%20Depth%20testing/)
 
 <span id="ref2">[2]</span>	Outerra. [Maximizing Depth Buffer Range and Precision](https://outerra.blogspot.com/2012/11/maximizing-depth-buffer-range-and.html)
 
