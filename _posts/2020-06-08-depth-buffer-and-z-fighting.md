@@ -12,8 +12,6 @@ OpenGL是一个右手坐标系。简单来说，就是正x轴在你的右手边�
 
 ![平截头体](https://learnopengl-cn.github.io/img/01/08/coordinate_systems_right_handed.png)
 
-![平截头体](assets\img\postsimg\2020-06-08-logarithmic-depth-buffer\coordinate_systems_right_handed.png)
-
 <center>图 1 坐标系定义</center>
 
 OpenGL在绘制图形时，有些图形在前，有些图形在后，这时候就用到了z坐标。当然，并不一定图形1的z坐标大于图形2的z坐标，就说图形1会绘制在图形2的前面，因为图形的前后顺序决于我们的观察平面，即摄像机的位置。
