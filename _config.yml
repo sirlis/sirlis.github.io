@@ -1,1 +1,36 @@
-theme: jekyll-theme-cayman
+# Site settings
+title: CELELAS
+email: jakeli@live.cn
+description: > # this means to ignore newlines until "baseurl:"
+  Blogs and technical notes.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://sirli.cn" # the base hostname & protocol for your site
+
+
+# Sidebar filter
+# Choose 'tag' or 'category' as filter in sidebar.
+filter: 'tag'
+
+
+# Social account
+# twitter:  username
+# weibo:    ID
+github:   sirlis
+# codepen:  username
+# dribbble: username
+
+
+# Comment
+# disqus_shortname: discussion_shortname
+
+
+# Google Analytics
+# google_analytics: tracking_ID
+
+
+# Build settings
+markdown: kramdown
+sass:
+  style: compressed
+gems:
+  - jekyll-sitemap
