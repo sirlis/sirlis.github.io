@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "对数深度缓冲"
+title:  "深度缓冲和深度冲突"
 date:   2020-06-08 22:21:49
 categories: Coding
 tags: OpenGL
