@@ -133,7 +133,7 @@ void main()
 
 
 
-<font size=5>**参考文献**</font>
+**参考文献**
 
 <span id="ref1">[1]</span>	LearnOpenGL. [Depth Testing](https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/01%20Depth%20testing/)
 
@@ -143,3 +143,4 @@ void main()
 
 <span id="ref4">[4]</span>	Cesium. [Hybrid Multi-Frustum Logarithmic Depth Buffer](https://cesium.com/blog/2018/05/24/logarithmic-depth/)
 
+[5]	sirlis. [Logarithmic Depth Buffer in OpenGL with glad/glfw](https://stackoverflow.com/questions/61967926/logarithmic-depth-buffer-in-opengl-with-glad-glfw)
