@@ -61,7 +61,7 @@ OpenGL在绘制图形时，有些图形在前，有些图形在后，这时候�
 
 ![](http://latex.codecogs.com/gif.latex? z=w\cdot [2\cdot\frac{log{(C \cdot w + 1)}}{log(C \cdot far+1)}-1])
 
-其中，$C$是常量。不同的$C$值会影响深度的精度；w是。
+其中，$C$是常量。不同的$C$值会影响深度的精度；$w$是```gl_Position.w```。
 
 相应的代码实现如下。顶点着色器中：
 
@@ -135,7 +135,7 @@ void main()
 
 **参考文献**
 
-<span id="ref1">[1]</span>	LearnOpenGL. [Depth Testing](https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/01%20Depth%20testing/)
+<span id="ref1">[1]</span>	LearnOpenGL. 
 
 <span id="ref2">[2]</span>	Outerra. [Maximizing Depth Buffer Range and Precision](https://outerra.blogspot.com/2012/11/maximizing-depth-buffer-range-and.html)
 
