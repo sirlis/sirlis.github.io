@@ -1,8 +1,20 @@
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
 ---
 layout: post
 title:  "深度缓冲和深度冲突"
 date:   2020-06-08 22:21:49
 categories: Coding
+
 tags: OpenGL
 ---
 
@@ -21,6 +33,10 @@ OpenGL在绘制图形时，有些图形在前，有些图形在后，这时候�
 深度缓冲是由窗口系统自动创建的，它会以16、24或32位float的形式储存它的深度值。在大部分的系统中，深度缓冲的精度都是24位的。深度缓冲包含了一个介于0.0和1.0之间的深度值，它将会与观察者视角所看见的场景中所有物体的z值进行比较。观察空间的z值可能是投影平截头体的近平面(Near)和远平面(Far)之间的任何值。我们需要一种方式来将这些观察空间的z值变换到[0, 1]范围之间，其中的一种方式就是将它们线性变换到[0, 1]范围之间。下面这个（线性）方程将z值变换到了0.0到1.0之间的深度值[[1](#ref1)]：
 
 ![](http://latex.codecogs.com/gif.latex?F_{depth}=\frac{z-near}{far-near})
+
+$$
+F_{depth}=\frac{z-near}{far-near}
+$$
 
 这里的$near$和$far$值是我们之前提供给投影矩阵设置可视平截头体的近平面（near plane）和远平面（far plane）。这个方程需要平截头体中的一个$z$值，并将它变换到了$[0, 1]$的范围中。可以看出，这个方程计算得到的深度值是线性的，然而，在实践中是几乎永远不会使用这样的线性深度缓冲（Linear Depth Buffer）的。
 
