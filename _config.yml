@@ -4,8 +4,8 @@ email: jakeli@live.cn
 description: > # this means to ignore newlines until "baseurl:"
   Blogs and technical notes.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://sirli.cn" # the base hostname & protocol for your site
-
+url: "http://sirlis.github.io" # the base hostname & protocol for your site
+permalink: :year-:month-:day-:title/ #永久链接格式
 
 # Sidebar filter
 # Choose 'tag' or 'category' as filter in sidebar.
