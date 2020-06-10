@@ -32,8 +32,6 @@ OpenGL在绘制图形时，有些图形在前，有些图形在后，这时候�
 
 深度缓冲是由窗口系统自动创建的，它会以16、24或32位float的形式储存它的深度值。在大部分的系统中，深度缓冲的精度都是24位的。深度缓冲包含了一个介于0.0和1.0之间的深度值，它将会与观察者视角所看见的场景中所有物体的z值进行比较。观察空间的z值可能是投影平截头体的近平面(Near)和远平面(Far)之间的任何值。我们需要一种方式来将这些观察空间的z值变换到[0, 1]范围之间，其中的一种方式就是将它们线性变换到[0, 1]范围之间。下面这个（线性）方程将z值变换到了0.0到1.0之间的深度值[[1](#ref1)]：
 
-![](http://latex.codecogs.com/gif.latex?F_{depth}=\frac{z-near}{far-near})
-
 $$
 F_{depth}=\frac{z-near}{far-near}
 $$
@@ -48,7 +46,9 @@ $$
 
 考虑一种深度缓冲与$z$成反比的非线性方程如下：
 
-![](http://latex.codecogs.com/gif.latex?F_{depth}=\frac{1/z-1/near}{1/far-1/near})
+$$
+F_{depth}=\frac{1/z-1/near}{1/far-1/near}
+$$
 
 由于深度值与$ 1/z$ 成正比，在1.0和2.0之间的z值将会变换至1.0到0.5之间的深度值，这就是一个float提供给我们的一半精度了，这在z值很小的情况下提供了非常大的精度，而在$z$值很大时，比如$z$在50.0和100.0之间的z值将会只占2%的float精度，这正是我们所需要的。也就是说，深度值很大一部分是由很小的$z$值所决定的，这给了近处的物体很大的深度精度（靠近相机的地方精度更高）。
 
@@ -81,7 +81,11 @@ $$
 
 **对数深度缓冲**（Logarithmic Depth Buffer）使得大尺寸场景（比如行星际尺寸）能够按照真实比例渲染，而**几乎**不会出现因精度不足导致的深度冲突现象。公式如下[[2](#ref2)]：
 
-![](http://latex.codecogs.com/gif.latex? z=w\cdot [2\cdot\frac{log{(C \cdot w + 1)}}{log(C \cdot far+1)}-1])
+公式
+
+$$
+z= \left( 2\cdot\frac{log{(C \cdot w + 1)}}{log(C \cdot far + 1)} - 1 \right)  \cdot  w
+$$
 
 其中，$C$是常量。不同的$C$值会影响深度的精度；$w$是```gl_Position.w```。
 
@@ -156,11 +160,7 @@ void main()
 ## 参考文献
 
 <span id="ref1">[1]</span>	LearnOpenGL. [Depth Testing](https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/01%20Depth%20testing/)
-
 <span id="ref2">[2]</span>	Outerra. [Maximizing Depth Buffer Range and Precision](https://outerra.blogspot.com/2012/11/maximizing-depth-buffer-range-and.html)
-
 <span id="ref3">[3]</span>	Outerra. [Logarithmic depth buffer optimizations & fixes](https://outerra.blogspot.com/2013/07/logarithmic-depth-buffer-optimizations.html)
-
 <span id="ref4">[4]</span>	Cesium. [Hybrid Multi-Frustum Logarithmic Depth Buffer](https://cesium.com/blog/2018/05/24/logarithmic-depth/)
-
 [5]	sirlis. [Logarithmic Depth Buffer in OpenGL with glad/glfw](https://stackoverflow.com/questions/61967926/logarithmic-depth-buffer-in-opengl-with-glad-glfw)
