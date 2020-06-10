@@ -1,23 +1,12 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "欢迎使用Jekyll！"
 date:   2015-03-08 22:21:49
 categories: Coding
-tags: Post
+tags: Post发 _posts directory that follows the convention YYYY-MM-DD-name-of-post.ext and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+发布的帖子位于 `_posts` 目录。如果想新建帖子，在 `_posts` 目录中新建一个`.md`文件，文件名命名为 `YYYY-MM-DD-title` 的格式。
 
 Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
 
@@ -31,7 +20,7 @@ permalink: :year/:month/:day/:title/
 
 会导致使用相对路径插入图片的帖子（如`./assets/img/postsimg/20200505/1.jpg`）无法定位到图片的真正位置。因此需在`_config.yml`中修改为以下语句：
 
-```json
+```
 permalink: :year-:month-:day-:title/
 ```
 
