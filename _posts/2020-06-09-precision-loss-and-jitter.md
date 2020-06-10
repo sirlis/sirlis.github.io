@@ -54,7 +54,7 @@ floatValue = 131072.09; // 131072.0937500
 
 90年代STK推出时，人们很快发现，当渲染地球和轨道上的物体（比如飞行器Space Shuttle时），抖动很快就表现出来了。一种解决方案是**将对象相对于观察者进行渲染**，而不是相对于世界坐标系原点进行渲染。世界空间中靠近观察者的像素区域要比远离观察者的区域小得多；因此，随着观察者接近对象，需要越来越精确地渲染对象且不能产生抖动。相对于观察者渲染对象可提供所需的精度。
 
-首先介绍**相对于中心的渲染（Rendering Relative to Center, RTC）**技术。RTC技术的核心是重新计算`ModelView`矩阵，涉及的向量包括：
+首先介绍**相对于中心的渲染（Rendering Relative to Center, RTC）**技术。RTC技术的核心是重新计算ModelView矩阵，涉及的向量包括：
 
 - `MV_GPU`：从CPU传递到GPU的单精度的ModelView矩阵，用以将飞行器（SpaceShuttle）从世界空间变换至相机空间
 
@@ -64,7 +64,7 @@ floatValue = 131072.09; // 131072.0937500
 
 - `SpaceShuttle_World`：飞行器在世界空间中的坐标
 
-首先根据`Model`矩阵和`View`矩阵计算`ModelView`矩阵`MV_CPU`，然后根据行器在世界空间中的坐标计算飞行器相对于观察者的坐标：
+首先根据`Model`矩阵和`View`矩阵计算ModelView矩阵`MV_CPU`，然后根据行器在世界空间中的坐标计算飞行器相对于观察者的坐标：
 
 ```c
 SpaceShuttle_Eye = MV_CPU * SpaceShuttle_World;
@@ -78,7 +78,7 @@ MV_CPU[1, 3] = SpaceShuttle_Eye.y;
 MV_CPU[2, 3] = SpaceShuttle_Eye.z;
 ```
 
-最后，将`MV_CPU`传递给GPU，得到*MV~GPU~*，其中存在双精度向单精度的转换：
+最后，将`MV_CPU`传递给GPU，得到`MV_GPU`，其中存在双精度向单精度的转换：
 
 ```c
 MV_GPU = MV_CPU;
@@ -103,7 +103,8 @@ MV_CPU = [
 则飞行器相对于相机观察者的相对坐标为
 
 ```c
-SpaceShuttle_Eye = MV_CPU * SpaceShuttle_World; // = (-13.790775, -11.572596, -95.070125)
+SpaceShuttle_Eye = MV_CPU * SpaceShuttle_World;
+// = (-13.790775, -11.572596, -95.070125)
 ```
 
 将上述值插入`MV_CPU`的平移分量可以得到:
