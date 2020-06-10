@@ -3,7 +3,7 @@ layout: post
 title:  "欢迎使用Jekyll！"
 date:   2015-03-08 22:21:49
 categories: Coding
-tags: Post发 _posts directory that follows the convention YYYY-MM-DD-name-of-post.ext and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+tags: Post
 ---
 
 发布的帖子位于 `_posts` 目录。如果想新建帖子，在 `_posts` 目录中新建一个`.md`文件，文件名命名为 `YYYY-MM-DD-title` 的格式。
