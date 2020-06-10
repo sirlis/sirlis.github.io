@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "深度缓冲和深度冲突"
+date:   2020-06-08 22:21:49
+categories: Coding
+tags: OpenGL
+
+---
+
 <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     <script type="text/x-mathjax-config">
@@ -9,15 +18,6 @@
         });
     </script>
 </head>
-
----
-layout: post
-title:  "深度缓冲和深度冲突"
-date:   2020-06-08 22:21:49
-categories: Coding
-tags: OpenGL
-
----
 
 ## 深度缓冲
 
