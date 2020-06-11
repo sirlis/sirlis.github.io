@@ -1,1 +1,0 @@
-./gh-md-toc.exe 2020-06-08-depth-buffer-and-z-fighting.md
