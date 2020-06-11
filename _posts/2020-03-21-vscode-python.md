@@ -26,6 +26,7 @@ tags: Python
   * [生成配置文件](#生成配置文件)
     * [解释配置文件（settings.json）](#解释配置文件（settings.json）)
     * [调试配置文件（launch.json）](#调试配置文件（launch.json）)
+  * [调试运行测试](#调试运行测试)
 * [错误集合](#错误集合)
   * [无法将conda项识别为cmdet...](#无法将conda项识别为cmdet...)
   * [提示CommandNotFoundError](#提示CommandNotFoundError)
