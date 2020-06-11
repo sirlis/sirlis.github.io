@@ -9,8 +9,8 @@ tags: Python
 # 目录
 
 * [目录](#目录)
-* [简介](#简介)
-* [下载与安装](#下载与安装)
+* [VSCode简介](#VSCode简介)
+* [VSCode下载与安装](#VSCode下载与安装)
 * [配置Python开发环境](#配置Python开发环境)
   * [部署解释器](#部署解释器)
   * [安装Anaconda](#安装Anaconda)
@@ -24,15 +24,15 @@ tags: Python
       * [conda镜像源](#conda镜像源)
     * [常用命令](#常用命令)
   * [生成配置文件](#生成配置文件)
-    * [解释配置文件（settings.json）](#解释配置文件（settings.json）)
-    * [调试配置文件（launch.json）](#调试配置文件（launch.json）)
+    * [解释配置（settings.json）](#解释配置（settings.json）)
+    * [调试配置（launch.json）](#调试配置（launch.json）)
   * [调试运行测试](#调试运行测试)
 * [错误集合](#错误集合)
   * [无法将conda项识别为cmdet...](#无法将conda项识别为cmdet...)
   * [提示CommandNotFoundError](#提示CommandNotFoundError)
 * [参考文献](#参考文献)
 
-# 简介
+# VSCode简介
 
 [VSCode](https://code.visualstudio.com/)是微软推出的一款跨平台开源编辑器，凭借强大的第三方插件支持C/C++、Python、Java等众多语言，体积小巧功能丰富，适合小型工程项目的开发调试。下面简单介绍VSCode开发环境的部署。
 
@@ -40,7 +40,7 @@ tags: Python
 
 一个现代编译器的主要工作流程如下： [源代码](http://zh.wikipedia.org/wiki/源代码) (source code) => [预处理器](http://zh.wikipedia.org/wiki/预处理器) (preprocessor) => [编译器](http://zh.wikipedia.org/wiki/编译器) (compiler) => [汇编程序](http://zh.wikipedia.org/wiki/汇编程序) (assembler) => [目标代码](http://zh.wikipedia.org/wiki/目标代码) (object code) => [链接器](http://zh.wikipedia.org/wiki/链接器) (Linker) => [可执行文件](http://zh.wikipedia.org/wiki/執行檔) (executables)。VSCode 本身仅仅是一个源代码编辑器。不过，当配合插件和编译器后，VSCode也能够完成绝大部分的源代码编译调试工作。
 
-# 下载与安装
+# VSCode下载与安装
 
 前往官网（https://code.visualstudio.com/）下载安装，支持Windows、Linux和Mac系统。可以下载安装版，也可以选择解压即用的绿色版。区别在于安装板会向系统路径写入配置信息，绿色版所有的依赖信息和配置信息均存放于一个目录中。安装版可以在线下载更新和安装更新，绿色版只能下载新版本的绿色安装包解压后覆盖来更新。
 
@@ -270,7 +270,7 @@ conda update -n base -c defaults conda
 
 在项目工作路径下新建 `.vscode` 文件夹，其中新建以下两个配置文件，并用下面的内容填充。
 
-### 解释配置文件（settings.json）
+### 解释配置（settings.json）
 
 ```
 {
@@ -280,7 +280,7 @@ conda update -n base -c defaults conda
 
 其中具体的python路径位置因Anaconda安装位置不同而不同，注意转义字符 `\\`。
 
-### 调试配置文件（launch.json）
+### 调试配置（launch.json）
 
 ```
 {
