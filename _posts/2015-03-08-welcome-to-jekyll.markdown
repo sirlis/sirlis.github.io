@@ -2,8 +2,8 @@
 layout: post
 title:  "欢迎使用Jekyll！"
 date:   2015-03-08 22:21:49
-categories: Coding
-tags: Post
+categories: Tech
+tags: HTML
 ---
 
 发布的帖子位于 `_posts` 目录。如果想新建帖子，在 `_posts` 目录中新建一个`.md`文件，文件名命名为 `YYYY-MM-DD-title` 的格式。
