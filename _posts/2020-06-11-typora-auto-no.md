@@ -3,7 +3,7 @@ layout: post
 title:  "Typora标题自动编号"
 date:   2020-06-11 12:21:49
 categories: Tech
-tags: CSS
+tags: HTML/CSS
 ---
 
 # 目录
