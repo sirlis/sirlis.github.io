@@ -9,7 +9,7 @@ tags: Python
 # 目录
 
 * [目录](#目录)
-* [VSCode简介](#VSCode简介)
+* [简介](#简介)
 * [VSCode下载与安装](#VSCode下载与安装)
 * [配置Python开发环境](#配置Python开发环境)
   * [部署解释器](#部署解释器)
@@ -17,8 +17,9 @@ tags: Python
   * [新建和备份环境](#新建和备份环境)
   * [配置依赖包](#配置依赖包)
     * [更新包管理工具](#更新包管理工具)
-      * [pip（推荐）](#pip（推荐）)
+      * [pip](#pip)
       * [conda](#conda)
+      * [说明](#说明)
     * [更换镜像源](#更换镜像源)
       * [pip镜像源](#pip镜像源)
       * [conda镜像源](#conda镜像源)
@@ -32,13 +33,9 @@ tags: Python
   * [提示CommandNotFoundError](#提示CommandNotFoundError)
 * [参考文献](#参考文献)
 
-# VSCode简介
+# 简介
 
-[VSCode](https://code.visualstudio.com/)是微软推出的一款跨平台开源编辑器，凭借强大的第三方插件支持C/C++、Python、Java等众多语言，体积小巧功能丰富，适合小型工程项目的开发调试。下面简单介绍VSCode开发环境的部署。
-
-注意，VSCode仅仅是一个前端文本**编辑器**，本质上与记事本并无不同，在没有插件和编译器的情况下只能进行文件的读写，并不能进行源程序编译调试。与之相对，微软自家的Visual Studio是一个**集成开发环境（IDE）**，下载安装后可以直接进行源程序的编译调试。
-
-一个现代编译器的主要工作流程如下： [源代码](http://zh.wikipedia.org/wiki/源代码) (source code) => [预处理器](http://zh.wikipedia.org/wiki/预处理器) (preprocessor) => [编译器](http://zh.wikipedia.org/wiki/编译器) (compiler) => [汇编程序](http://zh.wikipedia.org/wiki/汇编程序) (assembler) => [目标代码](http://zh.wikipedia.org/wiki/目标代码) (object code) => [链接器](http://zh.wikipedia.org/wiki/链接器) (Linker) => [可执行文件](http://zh.wikipedia.org/wiki/執行檔) (executables)。VSCode 本身仅仅是一个源代码编辑器。不过，当配合插件和编译器后，VSCode也能够完成绝大部分的源代码编译调试工作。
+Python是一种跨平台的计算机程序设计语言。 是一个高层次的结合了解释性、编译性、互动性和面向对象的脚本语言。最初被设计用于编写自动化脚本(shell)，随着版本的不断更新和语言新功能的添加，越多被用于独立的、大型项目的开发。
 
 # VSCode下载与安装
 
@@ -106,7 +103,7 @@ Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anacon
 
 ### 更新包管理工具
 
-#### pip（推荐）
+#### pip
 
 Python默认的包管理工具是**pip**。输入以下命令查看pip版本
 
@@ -151,6 +148,20 @@ conda update -n base conda
 期间提示是否更新包，输入y确认
 
 ![Anaconda](..\assets\img\postsimg\20200321\13.updateconda.png)
+
+#### 说明
+
+Conda和pip通常被认为几乎完全相同。虽然这两个工具的某些功能重叠，但它们设计用于不同的目的。 [Pip](https://pip.pypa.io/en/stable/)是Python Packaging Authority推荐的用于从[Python Package Index](https://pypi.org/)安装包的工具。 Pip安装打包为wheels或源代码分发的Python软件。后者可能要求系统安装兼容的编译器和库。
+
+[Conda](https://conda.io/docs/)是跨平台的包和环境管理器，可以安装和管理来自[Anaconda repository](https://repo.anaconda.com/)以 [Anaconda Cloud](https://anaconda.org/)的conda包。 Conda包是二进制文件，徐需要使用编译器来安装它们。另外，conda包不仅限于Python软件。它们还可能包含C或C ++库，R包或任何其他软件。
+
+这是conda和pip之间的关键区别。 Pip安装Python包，而conda安装包可能包含用任何语言编写的软件的包。**在使用pip之前，必须通过系统包管理器或下载并运行安装程序来安装Python解释器。而Conda可以直接安装Python包以及Python解释器**，即conda将python本身也当做一个包来管理。
+
+另外，conda查看环境中安装的所有包时，可以包含从Anaconda界面安装的包，而pip则只能查看到所有通过命令行安装的包。如下图所示，通过Anaconda界面安装的cudatoolkit和cudnn包，在pip中无法查到。
+
+![不同包管理工具的查看区别](..\assets\img\postsimg\20200322\08.different.png)
+
+对于用户而言，尽可能从一而终的采用一种包管理工具。若使用Anaconda配置的python环境，则推荐使用conda，配合Anaconda界面使用更加友好，除非某些包无法通过conda安装，则可采用pip安装。
 
 ### 更换镜像源
 
