@@ -17,14 +17,21 @@ tags: Python
 * [配置PyTorch](#配置PyTorch)
 
   * [部署PyTorch](#部署PyTorch)
+  
   * [部署其它包](#部署其它包)
+  
     * [CUDA](#CUDA)
+    
     * [cuDNN](#cuDNN)
+    
     * [Numpy](#Numpy)
 
     * [matplotlib](#matplotlib)
+    
     * [pandas](#pandas)
+    
   * [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)
+  
   * [测试](#测试)
 
 * [参考文献](#参考文献)
