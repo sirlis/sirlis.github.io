@@ -78,13 +78,13 @@ CUDA依赖显卡驱动，提前更新显卡驱动并确认显卡驱动支持的C
 
 采用命令行安装时，命令行中已经带有安装CUDA的指令 `cudatoolkit=10.1`。若命令行安装失败，可通过Anaconda界面依次安装pytorch、torchvision和cudatoolkit。
 
-若界面安装仍然失败，可尝试手动安装，请前往[手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
+若界面安装仍然失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
 
 ### cuDNN
 
 可通过Anaconda界面安装。
 
-若界面安装失败，可尝试手动安装，前往[手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
+若界面安装失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
 
 ### Numpy
 
@@ -201,7 +201,7 @@ tensor([[0.3380, 0.3845, 0.3217],
 
 检查pytorch是否能够正确调用GPU驱动和是否能够启用CUDA，输入：
 
-```
+```python
 import torch
 torch.cuda.is_available()
 ```
