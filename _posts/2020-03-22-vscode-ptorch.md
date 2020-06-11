@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "VSCode部署Python开发环境"
+title:  "部署Pytorch计算包"
 date:   2020-03-21 15:22:19
 categories: Coding
 tags: Python
@@ -12,7 +12,7 @@ tags: Python
 * [简介](#简介)
 * [下载与安装](#下载与安装)
 * [配置Python开发环境](#配置Python开发环境)
-  * [部署解释器](#部署解释器)
+  * [部署解释器](#%E9%83%A8%E7%BD%B2%E7%BC%96%E8%AF%91%E5%99%A8)
   * [安装Anaconda](#安装Anaconda)
   * [新建和备份环境](#新建和备份环境)
   * [配置依赖包](#配置依赖包)
@@ -34,11 +34,9 @@ tags: Python
 
 # 简介
 
-[VSCode](https://code.visualstudio.com/)是微软推出的一款跨平台开源编辑器，凭借强大的第三方插件支持C/C++、Python、Java等众多语言，体积小巧功能丰富，适合小型工程项目的开发调试。下面简单介绍VSCode开发环境的部署。
+PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语言处理等应用程序。2017年1月，由Facebook人工智能研究院（FAIR）基于Torch推出。它是一个基于Python的可续计算包，提供两个高级功能：1、具有强大的GPU加速的张量计算（类似NumPy）。2、包含自动求导系统的的深度神经网络。
 
-注意，VSCode仅仅是一个前端文本**编辑器**，本质上与记事本并无不同，在没有插件和编译器的情况下只能进行文件的读写，并不能进行源程序编译调试。与之相对，微软自家的Visual Studio是一个**集成开发环境（IDE）**，下载安装后可以直接进行源程序的编译调试。
-
-一个现代编译器的主要工作流程如下： [源代码](http://zh.wikipedia.org/wiki/源代码) (source code) => [预处理器](http://zh.wikipedia.org/wiki/预处理器) (preprocessor) => [编译器](http://zh.wikipedia.org/wiki/编译器) (compiler) => [汇编程序](http://zh.wikipedia.org/wiki/汇编程序) (assembler) => [目标代码](http://zh.wikipedia.org/wiki/目标代码) (object code) => [链接器](http://zh.wikipedia.org/wiki/链接器) (Linker) => [可执行文件](http://zh.wikipedia.org/wiki/執行檔) (executables)。VSCode 本身仅仅是一个源代码编辑器。不过，当配合插件和编译器后，VSCode也能够完成绝大部分的源代码编译调试工作。
+吃别人一记强力安利：[PyTorch到底好用在哪里？](https://www.zhihu.com/question/65578911)
 
 # 下载与安装
 
