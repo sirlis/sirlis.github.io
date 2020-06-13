@@ -319,7 +319,7 @@ conda update -n base -c defaults conda
 
 # 错误集合 
 
- ## 无法将conda项识别为cmdet...
+## 无法将conda项识别为cmdet...
 
 VSCode 解释 `.py` 时，终端自动运行命令 `conda activate Pytorch(环境名)` 时提示
 
@@ -340,8 +340,6 @@ D:\XXX\Anaconda3\Library\bin
 要么打开VSCode的设置（`ctrl+,`），设置Python插件中的conda的路径
 
 ![condapath](..\assets\img\postsimg\20200321\14.condapath.png)
-
-
 
 ## 提示CommandNotFoundError
 
