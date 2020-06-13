@@ -123,26 +123,32 @@ $$
 有了上面两种优化算法，一种可以使用类似于物理中的动量来累积梯度，另一种可以使得收敛速度更快同时使得波动的幅度更小。那么讲两种算法结合起来所取得的表现一定会更好。Adam（Adaptive Moment Estimation）算法是将Momentum算法和RMSProp算法结合起来使用的一种算法，我们所使用的参数基本和上面讲的一致，在训练的最开始我们需要初始化梯度的累积量和平方累积量[[4](#ref4)]。
 
 假设在训练的第 $t$ 轮训练中，我们首先可以计算得到Momentum和RMSProp的参数更新：
+
 $$
 v_{{\rm d}\omega}=\beta_1 v_{d\omega}+(1−\beta_1){\rm d}\omega \\
 v_{{\rm d}b}=\beta_1 v_{db}+(1−\beta_1){\rm d}b \\
 s_{{\rm d}\omega}=\beta s_{d\omega}+(1−\beta){\rm d}\omega^2 \\
 s_{{\rm d}\omega}=\beta s_{db}+(1−\beta){\rm d}b^2 \\
 $$
+
 参数 $\beta_1$ 所对应的就是Momentum算法中的 $\beta$ 值，一般取0.9；参数 $\beta_2$ 所对应的就是RMSProp算法中的 $\beta$ 值，一般取0.999。
 
 由于移动指数平均在迭代开始的初期会导致和开始的值有较大的差异，所以我们需要对上面求得的几个值做偏差修正。
+
 $$
 v^c_{{\rm d}\omega}=\frac{v_{{\rm d}\omega}}{1−\beta^t_1} \\
 v^c_{{\rm d}b}=\frac{v_{{\rm d} b}}{1−\beta^t_1} \\
 s^c_{{\rm d}\omega}=\frac{s_{{\rm d}\omega}}{1−\beta^t_2} \\
 s^c_{{\rm d}b}=\frac{s_{{\rm d}b}}{1−\beta^t_2} \\
 $$
+
 通过上面的公式，我们就可以求得在第 tt 轮迭代过程中，参数梯度累积量的修正值，从而接下来就可以根据Momentum和RMSProp算法的结合来对权重和偏置进行更新。
+
 $$
 \omega=\omega−\eta \frac{v^c_{d\omega}}{\sqrt{s_{d\omega}}+\epsilon} \\
 b=b−\eta \frac{v^c_{db}}{\sqrt{s_{db}}+\epsilon} \\
 $$
+
 其中 $\epsilon$ 是一个平滑项，我们一般取值为 $10^{−8}$，学习率 $\eta$ 则需要我们在训练的时候进行微调。
 
 # 参考文献
