@@ -142,7 +142,7 @@ s^c_{{\rm d}\omega}=\frac{s_{{\rm d}\omega}}{1−\beta^t_2} \\
 s^c_{{\rm d}b}=\frac{s_{{\rm d}b}}{1−\beta^t_2} \\
 $$
 
-通过上面的公式，我们就可以求得在第 tt 轮迭代过程中，参数梯度累积量的修正值，从而接下来就可以根据Momentum和RMSProp算法的结合来对权重和偏置进行更新。
+通过上面的公式，我们就可以求得在第 $t$ 轮迭代过程中，参数梯度累积量的修正值，从而接下来就可以根据Momentum和RMSProp算法的结合来对权重和偏置进行更新。
 
 $$
 \omega=\omega−\eta \frac{v^c_{d\omega}}{\sqrt{s_{d\omega}}+\epsilon} \\
