@@ -120,7 +120,7 @@ $$
 
 ## Adam
 
-有了上面两种优化算法，一种可以使用类似于物理中的动量来累积梯度，另一种可以使得收敛速度更快同时使得波动的幅度更小。那么讲两种算法结合起来所取得的表现一定会更好。Adam（Adaptive Moment Estimation）算法是将Momentum算法和RMSProp算法结合起来使用的一种算法，我们所使用的参数基本和上面讲的一致，在训练的最开始我们需要初始化梯度的累积量和平方累积量。
+有了上面两种优化算法，一种可以使用类似于物理中的动量来累积梯度，另一种可以使得收敛速度更快同时使得波动的幅度更小。那么讲两种算法结合起来所取得的表现一定会更好。Adam（Adaptive Moment Estimation）算法是将Momentum算法和RMSProp算法结合起来使用的一种算法，我们所使用的参数基本和上面讲的一致，在训练的最开始我们需要初始化梯度的累积量和平方累积量[[4](#ref4)]。
 
 假设在训练的第 $t$ 轮训练中，我们首先可以计算得到Momentum和RMSProp的参数更新：
 $$
@@ -153,3 +153,4 @@ $$
 
 <span id="ref3">[3]</span> [郭耀华](https://home.cnblogs.com/u/guoyaohua/). [深度学习——优化器算法Optimizer详解（BGD、SGD、MBGD、Momentum、NAG、Adagrad、Adadelta、RMSprop、Adam）](https://www.cnblogs.com/guoyaohua/p/8542554.html).
 
+<span id="ref4">[4]</span> [William](https://me.csdn.net/willduan1). [深度学习优化算法解析(Momentum, RMSProp, Adam)）](https://blog.csdn.net/willduan1/article/details/78070086).
