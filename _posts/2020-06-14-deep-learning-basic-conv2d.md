@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "深度学习基础（CNN组成）"
-date:   2020-06-13 16:24:19
+title:  "深度学习基础（PyTorch的CNN组成）"
+date:   2020-06-14 16:24:19
 categories: Coding
 tags: Python
 
@@ -142,7 +142,7 @@ $$
 
 下图的 `kernel_size = 2, stride = 2`，将输入图片尺寸缩减为原来的一半。
 
-![04.maxpool](E:\GitHub\sirlis.github.io\assets\img\postsimg\20200614\04.maxpool.png)
+![04.maxpool](..\assets\img\postsimg\20200614\04.maxpool.png)
 
 # nn.Linear
 
