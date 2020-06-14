@@ -21,18 +21,9 @@ tags: Python
 # 目录
 
 * [目录](#目录)
-* [基本超参数](#基本超参数)
-  * [epoch](#epoch)
-  * [batch & batch_size](#batch & batch_size)
-  * [iteration](#iteration)
-* [优化器](#优化器)
-  * [批量梯度下降（BGD）](#批量梯度下降（BGD）)
-  * [随机梯度下降（SGD）](#随机梯度下降（SGD）)
-  * [小批量梯度下降（MBGD）](#小批量梯度下降（MBGD）)
-  * [梯度下降的缺点](#梯度下降的缺点)
-  * [动量（Momentum）](#动量（Momentum）)
-  * [RMSProp](#RMSProp)
-  * [Adam](#Adam)
+* [\__name__ == '\_\_main__'](#\__name__ == \'__main__\')
+* [\__init__(self, ...)](#\__init__(self, ...))
+* [super(XXX, self).\__init__()](#super(XXX, self).\__init__())
 * [参考文献](#参考文献)
 
 # \__name__ == '__main__'
