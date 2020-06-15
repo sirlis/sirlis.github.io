@@ -64,6 +64,13 @@ H_{out} = \frac{H_{in} + 2\times padding[0] - dilation[0]\times (kernel\_size[0]
 W_{out} = \frac{W_{in} + 2\times padding[1] - dilation[1]\times (kernel\_size[1]-1)-1}{stride[1]}+1
 $$
 
+若采用默认参数，有
+
+$$
+H_{out} = H_{in} - kernel\_size[0] + 1 \\
+W_{out} = W_{in} - kernel\_size[1] + 1
+$$
+
 ### dilation
 
 **注意**，PyTorch 认为`dilation=n` 表示卷积核尺寸从 (`1x1`) 扩充为 `nxn`，其中原本的卷积核像素在左上角，其它像素填充为0。因此 `dilation=1` 等价于传统的无扩充的卷积[[2](#ref2)]。
@@ -72,7 +79,7 @@ $$
 
 ![01.dilation](..\assets\img\postsimg\20200614\01.no_padding_no_strides.gif)
 
-如果我们设置的 `dilation=2` 的话，卷积核点与输入之间距离为1的值相乘来得到输出  
+如果我们设置的 `dilation=2` 的话，卷积核点与输入之间距离为1的值相乘来得到输出
 
 ![02.dilation1](..\assets\img\postsimg\20200614\02.dilation.gif)
 
@@ -204,6 +211,10 @@ $$
 
 - $softmax(z_i - M)$ 的值域为 $[0,1]$ ，因为分母对所有指数求和时，至少有一个指数（对应输入最大值0的指数项）为1，保证了分母不为0，从而避免下溢出。
 
+```python
+softmax(input, dim=-1) # dim=0 makes sum of column values to be 1, dim=1 makes row ...
+```
+
 ## log_softmax
 
 在 `softmax` 的基础上多做一个 log 运算，**log_softmax号称能够加快运算速度，提高数据稳定性。**在数学上等价于 `log(softmax(x)) `，但做这两个单独操作速度较慢，数值上也不稳定。
@@ -326,7 +337,7 @@ $$
 
 ## NLLLoss
 
-负对数似然损失函数**（Negative Log Likelihood, NLL）** 的 输入 是一个对数概率向量和一个目标标签。它不会为我们计算对数概率，适合网络的最后一层是 `log_softmax`。
+负对数似然损失函数**（Negative Log Likelihood, NLL）** 的 输入是一个对数概率向量和一个目标标签。它不会为我们计算对数概率，适合网络的最后一层是 `log_softmax`。
 
 `NLLLoss` 的数学形式为
 $$
