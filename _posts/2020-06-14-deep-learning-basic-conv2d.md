@@ -4,7 +4,6 @@ title:  "深度学习基础（PyTorch的CNN组成）"
 date:   2020-06-14 16:24:19
 categories: Coding
 tags: Python
-
 ---
 
 <head>
@@ -81,10 +80,12 @@ $$
 - 输入矩阵边缘像素只被计算过一次，而中间像素被卷积计算多次，意味着丢失图像角落信息。
 
 为了保证输出尺寸与输入尺寸一致，即
+
 $$
 H_{out} = H_{in} \\
 W_{out} = W_{in}
 $$
+
 需要在图像周围填充一定的像素宽度，计算匹配的 `padding` 值，将上面的公式变换如下
 
 $$
@@ -118,7 +119,9 @@ $$
 二者有一些细微的差别：
 
 - **两者的调用方式不同。**`nn.Xxx` 需要先实例化并传入参数，然后以函数调用的方式调用实例化的对象并传入输入数据。`nn.functional.xxx`同时传入输入数据和weight, bias等其他参数 。
+
 - **`nn.Xxx`继承于`nn.Module`， 能够很好的与`nn.Sequential`结合使用，** 而`nn.functional.xxx`无法与`nn.Sequential`结合使用。
+
 - **`nn.Xxx`不需要你自己定义和管理weight；而`nn.functional.xxx`需要你自己定义weight，**每次调用的时候都需要手动传入weight, 不利于代码复用。
 
 两种定义方式得到CNN功能都是相同的，至于喜欢哪一种方式，是个人口味问题，但PyTorch官方推荐：
@@ -134,10 +137,15 @@ $$
 `nn.MaxPool2d` 的参数包括：
 
 - `kernel_size`：(int or tuple) ，max pooling 的窗口大小，可以为tuple，在nlp中tuple用更多（n,1）
+
 - `stride`：(int or tuple, optional) ，max pooling 的窗口移动的步长。默认值是kernel_size
+
 - `padding`：(int or tuple, optional) - 输入的每一条边补充0的层数
+
 - `dilation`：(int or tuple, optional) – 一个控制窗口中元素步幅的参数
+
 - `return_indices`：如果等于 `True`，会返回输出最大值的序号，对于上采样操作会有帮助
+
 - `ceil_mode`：如果等于 `True`，计算输出信号大小的时候，会使用向上取整，代替默认的向下取整的操作
 
 下图的 `kernel_size = 2, stride = 2`，将输入图片尺寸缩减为原来的一半。
@@ -149,7 +157,9 @@ $$
 `nn.Linear` 的参数如下：
 
 - **in_features**：输入维度；
+
 - **out_features**：输出维度；
+
 - bias：如果设为 `False `则不存在偏置，default: `True`。
 
 # 参考文献
