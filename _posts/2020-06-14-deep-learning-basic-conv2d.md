@@ -177,11 +177,12 @@ $$
 可以采用某种方法，按照a和b本来的大小来计算取a和b的概率，就可以实现a经常取到，b也会偶尔取到。此时的选取不在遵循 `max`，而是 `softmax `。
 
 `softmax` 的计算方法如下，假设输入为一维向量 $Z = [z_1,z_2,...z_i,...,z_n]\in(-\infty,+\infty)$ ，则第 $i$ 个分量 $z_i$ 的 `softmax` 输出为
+
 $$
 y_i = softmax(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
 $$
 
-![05.softmax](E:\GitHub\sirlis.github.io\assets\img\postsimg\20200614\05.softmax.png)
+![05.softmax](..\assets\img\postsimg\20200614\05.softmax.png)
 
 我们知道指数函数 $e^x$ 的值域为 $(0,+\infty)$ ，因此 `softmax` 将 $(-\infty,+\infty)$ 的值映射到 $[0, 1]$。具体来说，`softmax` 具备下面两个作用
 
