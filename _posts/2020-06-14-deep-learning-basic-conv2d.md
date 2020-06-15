@@ -26,7 +26,7 @@ tags: Python
   * [Conv2d](#Conv2d)
     * [dilation](#dilation)
     * [padding](#padding)
-    * [MaxPool2d](#MaxPool2d)
+  * [MaxPool2d](#MaxPool2d)
   * [Linear](#Linear)
 * [激活函数](#激活函数)
   * [conv2d](#conv2d)
@@ -229,44 +229,44 @@ $$
 采用交叉熵损失函数，则损失函数对 `softmax` 的倒数为
 
 $$
-\frac{\part L}{\part \omega_i}=\frac{\part L}{\part z_i}\frac{\part z_i}{\part w_i} \\
-\frac{\part L}{\part b_i}=\frac{\part L}{\part z_i}\frac{\part z_i}{\part b_i}
+\frac{\partial L}{\partial \omega_i}=\frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial w_i} \\
+\frac{\partial L}{\partial b_i}=\frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial b_i}
 $$
 
 由于全连接层
 
 $$
-\frac{\part z_i}{\part w_i} = x_i \\
-\frac{\part z_i}{\part b_i} = 1
+\frac{\partial z_i}{\partial w_i} = x_i \\
+\frac{\partial z_i}{\partial b_i} = 1
 $$
 
-则核心问题变为求解 $\frac{\part L}{\part z_i}$ 。
+则核心问题变为求解 $\frac{\partial L}{\partial z_i}$ 。
 
 $$
-\frac{\part z_i}{\part w_i} = x_i \\\frac{\part z_i}{\part b_i} = 1
+\frac{\partial z_i}{\partial w_i} = x_i \\\frac{\partial z_i}{\partial b_i} = 1
 $$
 
 由于 `softmax` 的计算公式中，任意一个 `s_i` 均包含 `z` 的所有分类，因此有
 
 $$
-\frac{\part L}{\part z_i} = \sum_k[\frac{\part L}{\part s_k}\frac{\part s_k}{\part z_i}]
+\frac{\partial L}{\partial z_i} = \sum_k[\frac{\partial L}{\partial s_k}\frac{\partial s_k}{\partial z_i}]
 $$
 
 根据损失函数的定义，有
 
 $$
-\frac{\part L}{\part s_k}=-\frac{y_k}{s_k}
+\frac{\partial L}{\partial s_k}=-\frac{y_k}{s_k}
 $$
 
-下面求解 $\frac{\part s_k}{\part z_i}$ ，需要分情况讨论
+下面求解 $\frac{\partial s_k}{\partial z_i}$ ，需要分情况讨论
 
 当 $k \neq i$ 时，有
 
 $$
-\frac{\part s_k}{\part z_i}
-= \frac{\part(\frac{e^{z_k}}{\sum_j e^{z_j}})}{\part z_i}
-= e^{z_k}\frac{\part(\frac{1}{\sum_j e^{z_j}})}{\part z_i}\\
-= e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})\frac{\part \sum_j e^{z_j}}{\part z_i}\\
+\frac{\partial s_k}{\partial z_i}
+= \frac{\partial(\frac{e^{z_k}}{\sum_j e^{z_j}})}{\partial z_i}
+= e^{z_k}\frac{\partial(\frac{1}{\sum_j e^{z_j}})}{\partial z_i}\\
+= e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})\frac{\partial \sum_j e^{z_j}}{\partial z_i}\\
 = e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})e^{z_i}\\
 = -(\frac{e^{z_k}}{\sum_j e^{z_j}})(\frac{e^{z_i}}{\sum_j e^{z_j}}) = -s_k\cdot s_i
 $$
@@ -274,9 +274,9 @@ $$
 当 $k=i$ 时，有（分式求导法则：上导下不导减下导上不导除以下的平方）
 
 $$
-\frac{\part s_k}{\part z_i}
-= \frac{\part s_i}{\part z_i}
-=\frac{\part(\frac{e^{z_i}}{\sum_j e^{z_j}})}{\part z_i}\\
+\frac{\partial s_k}{\partial z_i}
+= \frac{\partial s_i}{\partial z_i}
+=\frac{\partial(\frac{e^{z_i}}{\sum_j e^{z_j}})}{\partial z_i}\\
 =\frac{e^{z_i}\sum_j e^{z_i}-(e^{z_i})^2}{(\sum_j e^{z_i})^2}\\
 =\frac{e^{z_i}}{\sum_j e^{z_i}}\frac{\sum_j e^{z_i}-e^{z_i}}{\sum_j e^{z_i}}\\
 =\frac{e^{z_i}}{\sum_j e^{z_i}}(1-\frac{e^{z_i}}{\sum_j e^{z_i}}) = s_i(1-s_i)
@@ -285,21 +285,21 @@ $$
 最终得到
 
 $$
-\frac{\part L}{\part z_i} = -\frac{y_i}{s_i}s_i(1-s_i)+\sum_{k \neq i}(-\frac{y_k}{s_k}\cdot-s_ks_i)\\
+\frac{\partial L}{\partial z_i} = -\frac{y_i}{s_i}s_i(1-s_i)+\sum_{k \neq i}(-\frac{y_k}{s_k}\cdot-s_ks_i)\\
 = -y_i + \sum_{k=1}^K y_k
 $$
 
 对于多分类问题，样本真实标签 $y = [y_1,y_2,...,y_K]$ 是one-hot，即只有一个元素为1，其余元素为0。那么有 $\sum_{k=1}^K y_k = 1$，因此在多分类问题中
 
 $$
-\frac{\part L}{\part z_i} = s_i - y_i
+\frac{\partial L}{\partial z_i} = s_i - y_i
 $$
 
-那么有
+那么  有
 
 $$
-\frac{\part L}{\part \omega_i} = (s_i - y_i)\cdot x\\
-\frac{\part L}{\part b_i} = s_i - y_i
+\frac{\partial L}{\partial \omega_i} = (s_i - y_i)\cdot x\\
+\frac{\partial L}{\partial b_i} = s_i - y_i
 $$
 
 **在分类问题中，CrossEntropy等价于log_softmax 结合 nll_loss**
