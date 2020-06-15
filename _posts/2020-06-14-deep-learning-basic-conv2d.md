@@ -22,15 +22,15 @@ tags: Python
 # 目录
 
 * [目录](#目录)
-* [nn.Conv2d](#nn.Conv2d)
+* [Conv2d](#Conv2d)
   * [dilation](#dilation)
   * [padding](#padding)
-  * [nn.functional.conv2d](#nn.functional.conv2d)
-* [nn.MaxPool2d](#nn.MaxPool2d)
-* [nn.Linear](#nn.Linear)
+  * [functional.conv2d](#nn.functional.conv2d)
+* [MaxPool2d](#MaxPool2d)
+* [Linear](#Linear)
 * [参考文献](#参考文献)
 
-# nn.Conv2d
+# Conv2d
 
 `nn.Conv2d` 的输入为 `(batch_size, channel, height, width)`。
 
@@ -110,7 +110,7 @@ $$
 
 ![03.1_padding_no_strides](..\assets\img\postsimg\20200614\03.1_padding_no_strides.gif)
 
-## nn.functional.conv2d
+## functional.conv2d
 
 `torch.nn` 与 `torch.nn.functional` 差不多[[4](#ref4)]，不过一个包装好的类，一个是可以直接调用的函数。在实现源代码上，`torch.nn.Conv2d` 类在 `forward` 时调用了 `torch.nn.functional.conv2d`。
 
@@ -132,7 +132,7 @@ $$
 
 但关于dropout，个人强烈推荐使用`nn.Xxx`方式，因为一般情况下只有训练阶段才进行dropout，在eval阶段都不会进行dropout。使用`nn.Xxx`方式定义dropout，在调用`model.eval()`之后，model中所有的dropout layer都关闭，但以`nn.function.dropout`方式定义dropout，在调用`model.eval()`之后并不能关闭dropout。
 
-# nn.MaxPool2d
+# MaxPool2d
 
 `nn.MaxPool2d` 的参数包括：
 
@@ -152,7 +152,7 @@ $$
 
 ![04.maxpool](..\assets\img\postsimg\20200614\04.maxpool.png)
 
-# nn.Linear
+# Linear
 
 `nn.Linear` 的参数如下：
 
