@@ -32,6 +32,9 @@ tags: Python
   * [conv2d](#conv2d)
   * [softmax](#softmax)
   * [log_softmax](#log_softmax)
+* [损失函数](#损失函数)
+  * [CrossEntropyLoss](#CrossEntropyLoss)
+  * [NLLLoss](#NLLLoss)
 * [参考文献](#参考文献)
 
 # 层
@@ -177,7 +180,6 @@ $$
 可以采用某种方法，按照a和b本来的大小来计算取a和b的概率，就可以实现a经常取到，b也会偶尔取到。此时的选取不在遵循 `max`，而是 `softmax `。
 
 `softmax` 的计算方法如下，假设输入为一维向量 $Z = [z_1,z_2,...z_i,...,z_n]\in(-\infty,+\infty)$ ，则第 $i$ 个分量 $z_i$ 的 `softmax` 输出为
-
 $$
 y_i = softmax(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
 $$
@@ -212,10 +214,29 @@ $$
 
 ## CrossEntropyLoss
 
-假设某个样本对应的标签 $y = [y_1,y_2,...,y_K]\in R^K$ 为一个向量，交叉熵损失函数形式如下
+交叉熵损失函数。在说交叉熵之前，先说一下**信息量**与**熵**。
+
+**信息量**：衡量一个事件的不确定性；一个事件发生的概率越大，不确定性越小，则它所携带的信息量就越小。假设 $X$ 是一个离散型随机变量，其取值集合为 $X$，概率分布函数为 $p(x)=P(X=x),x\in X$  ，我们定义事件 $X=x_0$ 的信息量为：$I(x_0)=-log(p(x_0))$。当 $p(x_0) = 1$ 时，熵等于0，也就是说该事件的发生不会导致任何信息量的增加。
+
+**熵**：用来衡量一个系统的混乱程度，代表一个系统中信息量的总和；信息量总和越大，系统不确定性越大。
+
+对所有可能事件所带来的信息量求期望，其结果就能衡量事务的不确定度。
+
+**交叉熵：**它主要刻画的是实际输出（概率）与期望输出（概率）的距离，也就是交叉熵的值越小，两个概率分布就越接近。假设概率分布 $p$ 为期望输出，概率分布 $q$ 为实际输出， $H(p,q)$ 为交叉熵。其计算方法有两种
+$$
+H(p,q)=-\sum_i (p_i log q_i + (1-p_i)log(1-q_i))
+$$
+
+或者
 
 $$
-L = -\sum_{i=1}^K (y_i)ln s_i
+H(p,q) = -\sum_i (p_ilog q_i)
+$$
+
+假设某个样本对应的标签 $y = [y_1,y_2,...,y_K]\in R^K$ 为一个向量，PyTorch 中的交叉熵损失函数形式如下
+
+$$
+L = -\sum_{i=1}^K (y_ilog s_i)
 $$
 
 其中，$y_i$ 为真实分类值，$s_i$ 为 `softmax` 输出值，$i$ 代表神经元节点的标号。
@@ -296,28 +317,28 @@ $$
 \frac{\partial L}{\partial z_i} = s_i - y_i
 $$
 
-那么  有
+那么有
 
 $$
 \frac{\partial L}{\partial \omega_i} = (s_i - y_i)\cdot x\\
 \frac{\partial L}{\partial b_i} = s_i - y_i
 $$
 
-**在分类问题中，CrossEntropy等价于log_softmax 结合 nll_loss**
+## NLLLoss
+
+负对数似然损失函数**（Negative Log Likelihood, NLL）** 的 输入 是一个对数概率向量和一个目标标签。它不会为我们计算对数概率，适合网络的最后一层是 `log_softmax`。
+
+`NLLLoss` 的数学形式为
+$$
+L(X,label) = -X_{label}
+$$
+其中，`X` 是 `log_softmax` 的输出，`label` 是对应的标签位置，即 `NLLLoss` 的输出是取 `X` 中对应于 `label` 中为1的那个 `x` 。
+
+在分类问题中，**`CrossEntropy` 等价于 `log_softmax ` + ` nll_loss`**，也就是说如果使用 `CrossEntropy`，则前面不要加 `softmax` 层，因为 `CrossEntropy` 中内含 `softmax`。
 
 ![06.compare](..\assets\img\postsimg\20200614\06.compare.png)
 
-## NLLLoss
-
-**NLLLoss** 的 输入 是一个对数概率向量和一个目标标签. 它不会为我们计算对数概率. **适合网络的最后一层是log_softmax.** 损失函数 nn.CrossEntropyLoss() 与 NLLLoss() 相同, 唯一的不同是它为我们去做 softmax.
-
-softmax 配合 CrossEntropyLoss
-
-log_softmax 配合 nll_loss
-
-
-
-理论上对于单标签多分类问题，直接经过softmax求出概率分布，然后把这个概率分布用crossentropy做一个似然估计误差。但是softmax求出来的概率分布，每一个概率都是(0,1)的，这就会导致有些概率过小，导致下溢。 考虑到这个概率分布总归是要经过crossentropy的，而crossentropy的计算是把概率分布外面套一个-log 来似然，那么直接在计算概率分布的时候加上log,把概率从（0，1）变为（-∞，0），这样就防止中间会有下溢出。 所以log_softmax说白了就是将本来应该由crossentropy做的套log的工作提到预测概率分布来，跳过了中间的存储步骤，防止中间数值会有下溢出，使得数据更加稳定。 正是由于把log这一步从计算误差提到前面，所以用log_softmax之后，下游的计算误差的function就应该变成NLLLoss(它没有套log这一步，直接将输入取反，然后计算和label的乘积求和平均)
+理论上，对于单标签多分类问题，直接经过 `softmax` 求出概率分布，然后把这个概率分布用 `CrossEntropy` 做一个似然估计误差。但是 `softmax` 求出来的概率分布，每一个概率都是 $(0, 1)$ 的，这就会导致有些概率过小，导致下溢。 考虑到这个概率分布总归是要经过 `CrossEntropy`的，而 `CrossEntropy`的计算是把概率分布外面套一个 `-log` 来似然，那么直接在计算概率分布的时候加上 `log`，把概率从 $(0, 1)$ 变为 $(-\infty, 0)$，这样就防止中间会有下溢出。 所以 `log_softmax` 说白了就是将本来应该由 `CrossEntropy`做的 `log` 的工作提到预测概率分布来，跳过了中间的存储步骤，防止中间数值会有下溢出，使得数据更加稳定。 正是由于把log这一步从计算误差提到前面，所以用 `log_softmax` 之后，下游的损失函数就应该变成 `NLLLoss`（它没有套 `log` 这一步，直接将输入取反，然后计算和标签的乘积求和平均）。
 
 ## 定义
 
