@@ -139,11 +139,15 @@ $$
 
 - `return_indices`：如果等于 `True`，会返回输出最大值的序号，对于上采样操作会有帮助
 
-- `ceil_mode`：如果等于 `True`，计算输出信号大小的时候，会使用向上取整，代替默认的向下取整的操作
+- `ceil_mode`：如果等于 `True`，计算输出信号大小的时候，会使用向上取整，代替默认的向下取整的操作，default=`False`
 
 下图的 `kernel_size = 2, stride = 2`，将输入图片尺寸缩减为原来的一半。
 
 ![04.maxpool](..\assets\img\postsimg\20200614\04.maxpool.png)
+
+当输入无法被 `kernel_size` 整除时，根据 `ceil_mode` 来决定如何池化
+
+![07.ceilmode](..\assets\img\postsimg\20200614\07.ceilmode.png)
 
 ## Linear
 
