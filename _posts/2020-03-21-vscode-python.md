@@ -370,6 +370,19 @@ invocation to 'CALL conda.bat activate'.
 
 之后重启VSCode，`F5` 执行Python文件应该就不会提示错误了。
 
+## OMP: Error #15: Initializing xxx
+
+```python
+OMP: Error #15: Initializing libiomp5md.dll, but found libiomp5md.dll already initialized
+```
+
+允许副本存在，程序中添加
+
+```
+import os
+os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
+```
+
 # 参考文献
 
 <span id="ref1">[1]</span> [挖掘机小王子](https://www.zhihu.com/people/WaJueJiPrince). [VSCode+Anaconda打造舒适的Python环境](https://zhuanlan.zhihu.com/p/30324113).
