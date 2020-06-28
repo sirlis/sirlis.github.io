@@ -33,11 +33,8 @@ tags: Python
 `torchvision` 是 PyTorch 中专门用来处理图像的库，PyTorch 官网的安装教程也会让你安装上这个包。这个包中有四个大类。
 
 - torchvision.datasets
-
 - torchvision.models
-
 - torchvision.transforms
-
 - torchvision.utils
 
 这里我们主要介绍前三个。
