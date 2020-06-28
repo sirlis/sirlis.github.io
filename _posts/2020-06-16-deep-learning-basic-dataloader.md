@@ -25,6 +25,7 @@ tags: Python
   * [默认类](#自定义类)
   * [自定义类](#自定义类)
 * [DataLoader](#DataLoader)
+* [MNIST](#MNIST)
 * [参考文献](#参考文献)
 
 # torchvision
@@ -121,21 +122,17 @@ class CustomDataset(torch.utils.data.Dataset):# Need to inherit `data.Dataset`
 即文件名由 `.` 分隔，第一个数字为 `label` 的编号，第二个字符串为标签名称。采用 `scikit_image` 包读取图像，则自定义数据类如下
 
 ```python
+# DATA.py
 import numpy as np
 from skimage import io  # scikit-image
 from torch.utils.data import Dataset
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def open_image(image_path):
     return io.imread(image_path)  # load image by scikit-image
 
-'''
-support jpg images only.
-image file name should be: [label_no].[label_name].[image_num].jpg, 
-thus label can be extracted from file name.
-'''
-
-class SPACE(Dataset):
+class DATA(Dataset):
     def __init__(self, root, train=True, augment=False, transform=None):
         self.train = train
         self.augment = augment
@@ -149,7 +146,7 @@ class SPACE(Dataset):
                 os.path.split(x.path)[1] for x in os.scandir(root + "train\\")
                 if x.name.endswith(".jpg") or x.name.endswith(".JPG")
             ])
-            self.label = np.array([x.split('.', 1)[0] for x in filename])
+            self.label = np.array([int(x.split('.', 1)[0]) for x in filename])
         else:
             self.data = np.array([
                 x.path for x in os.scandir(root + "test\\")
@@ -159,7 +156,7 @@ class SPACE(Dataset):
                 os.path.split(x.path)[1] for x in os.scandir(root + "test\\")
                 if x.name.endswith(".jpg") or x.name.endswith(".JPG")
             ])
-            self.label = np.array([x.split('.', 1)[0] for x in filename])
+            self.label = np.array([int(x.split('.', 1)[0]) for x in filename])
 
     def __getitem__(self, index):
         label = self.label[index]
@@ -174,7 +171,7 @@ class SPACE(Dataset):
         return len(self.data)  # return image number
 ```
 
-在后续使用数据集时
+在后续使用数据集时，形式如下
 
 ```python
 for batch_index, (data, target) in dataloader:
@@ -184,9 +181,7 @@ for batch_index, (data, target) in dataloader:
 ```
 
 
-为什么直接能用 `for batch_index, (data, target) In dataloader` 这样的语句呢？
-
-其实这个语句还可以这么写：
+为什么直接能用 `for batch_index, (data, target) In dataloader` 这样的语句呢？其实这个语句还可以这么写：
 
 ```python
 for batch_index, batch in train_loader
@@ -216,8 +211,207 @@ for batch_index, batch in train_loader
 
 **pin_memory** 就是锁页内存，创建DataLoader时，设置 ``pin_memory=True``，则意味着生成的Tensor数据最开始是属于内存中的锁页内存，这样将内存的Tensor转义到GPU的显存就会更快一些。主机中的内存，有两种存在方式，一是锁页，二是不锁页，锁页内存存放的内容在任何情况下都不会与主机的虚拟内存进行交换（注：虚拟内存就是硬盘），而不锁页内存在主机内存不足时，数据会存放在虚拟内存中。而显卡中的显存全部是锁页内存！当计算机的内存充足的时候，可以设置pin_memory=True。当系统卡住，或者交换内存使用过多的时候，设置pin_memory=False。因为pin_memory与电脑硬件性能有关，pytorch开发者不能确保每一个炼丹玩家都有高端设备，因此pin_memory默认为False。
 
-```python
+# MNIST
 
+下面以手写数字数据集MNIST为例（介绍参考[此处](https://blog.csdn.net/DarrenXf/article/details/85232255)），首先获取训练集和测试集，[在此下载](http://yann.lecun.com/exdb/mnist/)。下载得到以下四个文件，即为数据集
+
+```
+train-images-idx3-ubyte.gz: training set images (9912422 bytes)
+train-labels-idx1-ubyte.gz: training set labels (28881 bytes)
+t10k-images-idx3-ubyte.gz:  test set images (1648877 bytes)
+t10k-labels-idx1-ubyte.gz:  test set labels (4542 bytes)
+```
+
+采用以下代码可以得到原始图片
+
+```python
+# extractimage.py
+import os
+from skimage import io
+import torchvision.datasets.mnist as mnist
+import numpy
+ 
+root = "./mnist/MNIST/raw/" # replace directory according to yourself
+ 
+train_set = (
+    mnist.read_image_file(os.path.join(root, 'train-images-idx3-ubyte')),
+    mnist.read_label_file(os.path.join(root, 'train-labels-idx1-ubyte'))
+)
+ 
+test_set = (
+    mnist.read_image_file(os.path.join(root,'t10k-images-idx3-ubyte')),
+    mnist.read_label_file(os.path.join(root,'t10k-labels-idx1-ubyte'))
+)
+ 
+print("train set:", train_set[0].size())
+print("test set:", test_set[0].size())
+ 
+def convert_to_img(train=True):
+    if(train):
+        f = open(root + 'train.txt', 'w')
+        data_path = root + '/train/'
+    else:
+        f = open(root + 'test.txt', 'w')
+        data_path = root + '/test/'
+
+    if (not os.path.exists(data_path)):
+        os.makedirs(data_path)
+    for i, (img, label) in enumerate(zip(test_set[0], test_set[1])):
+        img_path = data_path + str(int(label)) + '.' + str(i) + '.jpg'
+        io.imsave(img_path, img.numpy())
+        f.write(img_path + ' ' + str(label) + '\n')
+    f.close()
+ 
+convert_to_img(True)
+convert_to_img(False)
+```
+
+得到的原始图像如下
+
+![01.mnistimages](..\assets\img\postsimg\20200616\01.mnistimages.png)
+
+采用以下代码即可进行训练
+
+```python
+# MNISTNET.py
+from __future__ import print_function
+import argparse
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torchvision import datasets, transforms
+from DATA import DATA
+from skimage import io
+import numpy as np
+
+class NUMNET(nn.Module):
+    def __init__(self):
+        super(NUMNET, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5, 1)
+        self.conv2 = nn.Conv2d(20, 50, 5, 1)
+        self.fc1 = nn.Linear(4*4*50, 500)
+        self.fc2 = nn.Linear(500, 10)
+
+    def forward(self, x): # <- (1,28,28) MNIST image size
+        x = F.relu(self.conv1(x)) # -> (20, 24, 24)
+        x = F.max_pool2d(x, 2, 2) # -> (20, 12, 12)
+        x = F.relu(self.conv2(x)) # -> (50, 8, 8)
+        x = F.max_pool2d(x, 2, 2) # -> (50, 4, 4)
+        x = x.view(-1, 4*4*50) # -> (1, 50*4*4)
+        x = F.relu(self.fc1(x)) # -> (1, 500)
+        x = self.fc2(x)# -> (500, 10)
+        return F.log_softmax(x, dim=1) # dim=0 makes sum of column values to be 1, dim=1 makes row ...
+
+   
+def train(args, model, device, train_loader, optimizer, epoch):
+    model.train() # enter train mode (used for batch normlization and dropout)
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.long().to(device)
+        optimizer.zero_grad()
+        output = model(data)
+        loss = F.nll_loss(output, target) # must have log_softmax as last
+        loss.backward()
+        optimizer.step()
+        if batch_idx % args.log_interval == 0:
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                epoch, batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.item()))
+
+def test(args, model, device, test_loader):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    with torch.no_grad():
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            test_loss += F.nll_loss(output, target.long(), reduction='sum').item() # sum up batch loss
+            pred = output.argmax(dim=1, keepdim=True) # get the index of the max log-probability
+            correct += pred.eq(target.view_as(pred)).sum().item()
+
+    test_loss /= len(test_loader.dataset)
+
+    print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        test_loss, correct, len(test_loader.dataset),
+        100. * correct / len(test_loader.dataset)))
+
+def main():
+    # Training settings
+    parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+    parser.add_argument('--batch-size', type=int, default=64, metavar='N',
+                        help='input batch size for training (default: 64)')
+    parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
+                        help='input batch size for testing (default: 1000)')
+    parser.add_argument('--epochs', type=int, default=50, metavar='N',
+                        help='number of epochs to train (default: 10)')
+    parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
+                        help='learning rate (default: 0.01)')
+    parser.add_argument('--momentum', type=float, default=0.5, metavar='M',
+                        help='SGD momentum (default: 0.5)')
+    parser.add_argument('--no-cuda', action='store_true', default=False,
+                        help='disables CUDA training')
+    parser.add_argument('--seed', type=int, default=1, metavar='S',
+                        help='random seed (default: 1)')
+    parser.add_argument('--log-interval', type=int, default=10, metavar='N',
+                        help='how many batches to wait before logging training status')
+    parser.add_argument('--save-model', action='store_true', default=False,
+                        help='For Saving the current Model')
+    args = parser.parse_args()
+
+    use_cuda = not args.no_cuda and torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+    torch.manual_seed(args.seed) # set random seed to make network reproduce same results
+    if use_cuda:
+        torch.cuda.manual_seed(args.seed)
+    kwargs = {'num_workers': 2, 'pin_memory': True} if use_cuda else {}
+
+    root = ".\\mnist\MNIST\\raw\\" # directory where the above images are extracted, i.e. 'train' and 'test' folders
+    train_mean = 0.1307 # given by mnist providers
+    train_std = 0.3081 # given by mnist providers
+
+    transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((train_mean,), (train_std,))])
+    train_loader = torch.utils.data.DataLoader(
+        DATA(root, train=True, transform=transform),
+        batch_size=args.batch_size, shuffle=True, **kwargs)
+    test_loader = torch.utils.data.DataLoader(
+        DATA(root, train=False, transform=transform),
+        batch_size=args.test_batch_size, shuffle=True, **kwargs)
+
+    model = NUMNET().to(device)
+    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+
+    for epoch in range(1, args.epochs + 1):
+        train(args, model, device, train_loader, optimizer, epoch)
+        test(args, model, device, test_loader)
+
+    if (args.save_model):
+        torch.save(model.state_dict(),"mnist_cnn.pt")
+       
+if __name__ == '__main__':
+    main()
+```
+
+训练打印信息如下
+
+```
+Train Epoch: 1 [0/10000 (0%)]   Loss: 2.304347
+Train Epoch: 1 [640/10000 (6%)] Loss: 2.240660
+Train Epoch: 1 [1280/10000 (13%)]       Loss: 2.177136
+Train Epoch: 1 [1920/10000 (19%)]       Loss: 1.999795
+Train Epoch: 1 [2560/10000 (25%)]       Loss: 1.730417
+Train Epoch: 1 [3200/10000 (32%)]       Loss: 1.335797
+Train Epoch: 1 [3840/10000 (38%)]       Loss: 0.853206
+Train Epoch: 1 [4480/10000 (45%)]       Loss: 0.866024
+Train Epoch: 1 [5120/10000 (51%)]       Loss: 0.649082
+Train Epoch: 1 [5760/10000 (57%)]       Loss: 0.667902
+Train Epoch: 1 [6400/10000 (64%)]       Loss: 0.581703
+Train Epoch: 1 [7040/10000 (70%)]       Loss: 0.314934
+Train Epoch: 1 [7680/10000 (76%)]       Loss: 0.493458
+Train Epoch: 1 [8320/10000 (83%)]       Loss: 0.477450
+Train Epoch: 1 [8960/10000 (89%)]       Loss: 0.652692
+Train Epoch: 1 [9600/10000 (96%)]       Loss: 0.406439
+......
 ```
 
 # 参考文献
