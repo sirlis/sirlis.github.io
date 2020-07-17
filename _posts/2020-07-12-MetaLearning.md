@@ -22,13 +22,16 @@ tags: ML
 # 目录
 
 * [目录](#目录)
-* [MAML简介](#MAML简介)
-* [在监督分类中的应用](#在监督分类中的应用)
-* [关于二重梯度的进一步解释](#关于二重梯度的进一步解释)
-* [一阶近似简化](#一阶近似简化)
+* [MAML](#MAML)
+  * [在监督分类中的应用](#在监督分类中的应用)
+  * [关于二重梯度的进一步解释](#关于二重梯度的进一步解释)
+  * [FOMAML一阶近似简化](#FOMAML一阶近似简化)
+  * [缺点](#缺点)
+* [Reptile](#Reptile)
+* [各类算法实现](#各类算法实现)
 * [参考文献](#参考文献)
 
-# MAML简介
+# MAML
 
 > The key idea underlying our method is to train the model’s initial parameters such that the model has maximal performance on a new task after the parameters have been up-dated through one or more gradient steps computed with a small amount of data from that new task.
 
@@ -40,7 +43,7 @@ tags: ML
 
 如上图所示，作者便将目标设定为，通过梯度迭代，找到对于task敏感的参数 θ 。训练完成后的模型具有对新task的学习域分布最敏感的参数，因此可以在仅一或多次的梯度迭代中获得最符合新任务的 θ* ，达到较高的准确率。
 
-# 在监督分类中的应用
+## 在监督分类中的应用
 
 假设这样一个监督分类场景，目的是训练一个数学模型 $M_{fine-tune} $ ，对未知标签的图片做分类，则两大步骤如下：
 
@@ -91,7 +94,7 @@ MAML在监督分类中的算法伪代码如下：
 
 **总结**：MAML使用训练集优化内层循环，使用测试集优化模型，也就是外层循环。外层循环需要计算**二重梯度（gradient by gradient）**。
 
-# 关于二重梯度的进一步解释
+## 关于二重梯度的进一步解释
 
 设初始化的参数为 $\theta$ ，每个任务的模型一开始的参数都是 $\theta$。
 
@@ -163,6 +166,8 @@ $$
 \theta' = \theta-\epsilon \nabla_{\theta}\mathcal l(\theta)
 $$
 
+当 $i \neq j$ 时
+
 $$
 \frac{\partial \theta_j'}{\partial \theta_i} = 
 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j}
@@ -177,7 +182,7 @@ $$
 
 到此为止已经把梯度计算出来了，二重梯度也是MAML计算中最为耗时的部分。
 
-# 一阶近似简化
+## FOMAML一阶近似简化
 
 在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，有
 
@@ -213,7 +218,7 @@ $$
 
 与之相比，右边是模型预训练方法，它是将参数根据每次的训练任务一阶导数的方向来更新参数。
 
-# 缺点
+## 缺点
 
 MAML的缺点[[2](#ref2)]：
 
@@ -221,7 +226,29 @@ MAML的缺点[[2](#ref2)]：
 
 2. Robustness一般：不是说MAML的robustness不好，因为也是由一阶online的优化方法SGD求解出来的，会相对找到一个flatten minima location。然而这和非gradient-based meta learning方法求解出来的model的robust肯定是没法比的。
 
-# 实现
+# Reptile
+
+Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类似也是学习网络参数的初始值。算法伪代码如下
+
+![image-20200717113006074](..\assets\img\postsimg\20200713\7.jpg)
+
+其中，$\phi$ 是模型的初始参数，$\tau$ 是某个 task，$SGD(L,\phi,k)$ 表示从$\phi$ 开始对损失函数$L$进行$k$次随机梯度下降，返回更新后的参数$W$。
+
+在最后一步中，通过 $W-\phi$ 这种残差形式来更新一次初始参数。
+
+算法当然也可设计为batch模式，如下
+
+![image-20200717115435570](..\assets\img\postsimg\20200713\8.jpg)
+
+如果k=1，该算法等价于「联合训练」（joint training，通过训练来最小化在一系列训练任务上期望损失）。
+
+Reptile 要求 k>1，更新依赖于损失函数的高阶导数，k>1 时 Reptile 的行为与 k=1（联合训练）时截然不同。
+
+Reptile与FOMAML紧密相关，但是与FOMAML不同，Reptile**无需对每一个任务进行训练-测试（training-testing）划分**。
+
+相比MAML需要进行二重梯度计算，Reptile只需要进行一重梯度计算，计算速度更快。
+
+# 各类算法实现
 
 [dragen-1860 的 Pytorch 实现](https://github.com/dragen1860/MAML-Pytorch)：https://github.com/dragen1860/MAML-Pytorch
 
@@ -234,3 +261,6 @@ MAML的缺点[[2](#ref2)]：
 <span id="ref1">[1]</span>  [Rust-in](https://www.zhihu.com/people/rustinnnnn). [MAML 论文及代码阅读笔记](https://zhuanlan.zhihu.com/p/66926599).
 
 <span id="ref2">[2]</span> 人工智障. [MAML算法，model-agnostic metalearnings?](https://www.zhihu.com/question/266497742/answer/550695031)
+
+[3] [Veagau](https://www.cnblogs.com/veagau/). [【笔记】Reptile-一阶元学习算法](https://www.cnblogs.com/veagau/p/11816163.html)
+
