@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "小样本学习文章阅读（MAML）"
+title:  "元学习文章阅读（MetaLearning）"
 date:   2020-07-13 14:35:19
 categories: Reading
 tags: ML
@@ -135,7 +135,7 @@ $$
 \nabla_\theta \mathcal L( \theta ) = \nabla_\theta \sum_{i=1}^N l_i(\theta_i') = \sum_{i=1}^N \nabla_\theta l_i(\theta_i')
 $$
 
-现在的问题是如何求 $\nabla_\theta l_i(\theta_i ')$ ，略去下标 $i$，有：
+现在的问题是如何求 $\nabla_\theta l_i(\theta_i')$ ，略去下标 $i$，有：
 
 $$
 \begin{aligned}
