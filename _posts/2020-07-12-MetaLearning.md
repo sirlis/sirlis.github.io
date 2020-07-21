@@ -189,11 +189,9 @@ $$
 在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
 
 $$
-\begin{align}
-(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} &= 
+(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 
 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
-(i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} &= 1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
-\end{align}
+(i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
 $$
 
 也就是说，可**将更新后的模型参数对模型原始参数的导数近似看作常数**（0或1）。
@@ -267,38 +265,31 @@ Reptile的图例如下。
 为什么 Reptile 有效？首先以两步 SGD 为例分析参数更新过程
 
 $$
-\begin{align}
-\phi_0 &= \phi\\
-\phi_1 &= \phi_0 - \alpha L_0'(\phi_0)\\
-\phi_2 &= \phi_1 - \alpha L_1'(\phi_1) \\
-& = \phi_0 - \alpha L_0'(\phi_0) - \alpha L_1'(\phi_1)
-\end{align}
+\phi_0 = \phi\\
+\phi_1 = \phi_0 - \alpha L_0'(\phi_0)\\
+\phi_2 = \phi_0 - \alpha L_0'(\phi_0) - \alpha L_1'(\phi_1)
 $$
 
 下面定义几个**辅助变量**
 
 $$
-\begin{align}
-g_i &= L_i'(\phi_i)
+g_i = L_i'(\phi_i)
 \;\;(gradient \; obtained\; during\;SGD)\\
-\phi_{i+1} &= \phi_i-\alpha g_i
+\phi_{i+1} = \phi_i-\alpha g_i
 \;\;(sequence\;of\;parameters)\\
-\overline{g}_i &= L_i'(\phi_0)
+\overline{g}_i = L_i'(\phi_0)
 \;\;(gradient\;at\;initial\;point)\\
-\overline{H}_i &= L_i''(\phi_0)
+\overline{H}_i = L_i''(\phi_0)
 \;\;(Hessian\;at\;initial\;point)\\
-\end{align}
 $$
 
 采用**泰勒展开**对 $g_i$ 展开至二阶导加高次项的形式
 
 $$
-\begin{align}
-g_i = L_i'(\phi_i) &= L_i'(\phi_0) + L_i''(\phi_0)(\phi_i - \phi_0) + O(||\phi_i - \phi_0||^2)\\
-&= \overline{g}_i + \overline{H}_i(\phi_i - \phi_0) + O(\alpha^2)\\
-&= \overline{g}_i - \alpha\overline{H}_i\sum_0^{i-1}g_i + O(\alpha^2)\\
-&= \overline{g}_i - \alpha\overline{H}_i\sum_0^{i-1}\overline{g}_i + O(\alpha^2)\\
-\end{align}
+g_i = L_i'(\phi_i) = L_i'(\phi_0) + L_i''(\phi_0)(\phi_i - \phi_0) + O(||\phi_i - \phi_0||^2)\\
+= \overline{g}_i + \overline{H}_i(\phi_i - \phi_0) + O(\alpha^2)\\
+= \overline{g}_i - \alpha\overline{H}_i\sum_0^{i-1}g_i + O(\alpha^2)\\
+= \overline{g}_i - \alpha\overline{H}_i\sum_0^{i-1}\overline{g}_i + O(\alpha^2)\\
 $$
 
 最后一步的依据是，$g_i = \overline{g}_i + O(\alpha)$ 带入倒数第二行时，后面的 $O(\alpha)$ 与求和符号前的 $\alpha$ 相乘，即变为 $O(\alpha^2)$ 从而合并为一项。
@@ -308,42 +299,34 @@ $$
 对于二阶的MAML，初始参数 $\phi_0$ 首先在support set上梯度更新一次得到 $\phi_1$ ，然后将 $\phi_1$ 在 query set 上计算损失函数，再计算梯度更新模型的初始参数。即 query set 的 loss 要对 $\phi_0$ 求导，链式法则 loss 对  $\phi_1$ 求导乘以  $\phi_1$ 对 $\phi_0$ 求导
 
 $$
-\begin{align}
-g_{MAML} &= \frac{\partial}{\partial\phi_0}L_1(\phi_1) = \frac{\partial \phi_1}{\partial \phi_0} L_1'(\phi_1) \\
-& = (I-\alpha L_0''(\phi_0))L_1'(\phi_1)\\
-& = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0) + O(\alpha^2))\\
-& = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0)) + O(\alpha^2)\\
-& = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) - \alpha L_1''(\phi_0)L_0'(\phi_0)) + O(\alpha^2)\\
-& = L_1'(\phi_0)-\alpha L_0''(\phi_0)L_1'(\phi_0) - \alpha L_1''(\phi_0)L_0'(\phi_0) + O(\alpha^2)\\
-\end{align}
+g_{MAML} = \frac{\partial}{\partial\phi_0}L_1(\phi_1) = \frac{\partial \phi_1}{\partial \phi_0} L_1'(\phi_1) \\
+ = (I-\alpha L_0''(\phi_0))L_1'(\phi_1)\\
+ = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0) + O(\alpha^2))\\
+ = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0)) + O(\alpha^2)\\
+ = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) - \alpha L_1''(\phi_0)L_0'(\phi_0)) + O(\alpha^2)\\
+ = L_1'(\phi_0)-\alpha L_0''(\phi_0)L_1'(\phi_0) - \alpha L_1''(\phi_0)L_0'(\phi_0) + O(\alpha^2)\\
 $$
 
 对于FOMAML，其一阶简化是简化了参数 $\phi_1$ 对初始参数 $\phi_0$ 求导部分，即 $\frac{\partial \phi_i}{\partial \phi_0} = const$，参见2.3节。则只剩下 loss 对参数 $\phi_1$ 的求导。
 
 $$
-\begin{align}
-g_{FOMAML} &= L_1'(\phi_i) = L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0) + O(\alpha^2)\\
-&= L_1'(\phi_0) -\alpha L_1''(\phi_0)L_0'(\phi_0) + O(\alpha^2)
-\end{align}
+g_{FOMAML} = L_1'(\phi_i) = L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0) + O(\alpha^2)\\
+= L_1'(\phi_0) -\alpha L_1''(\phi_0)L_0'(\phi_0) + O(\alpha^2)
 $$
 
 对于Reptile，根据梯度定义和SGD过程有
 
 $$
-\begin{align}
-g_{Reptile} = (\phi_0 - \phi_2)/\alpha &= L_0'(\phi_0)+L_1'(\phi_1)\\
-&= L_0'(\phi_0)+L_1'(\phi_0)-\alpha L_0''(\phi_1)L_0'(\phi_0) + O(\alpha^2)
-\end{align}
+g_{Reptile} = (\phi_0 - \phi_2)/\alpha = L_0'(\phi_0)+L_1'(\phi_1)\\
+= L_0'(\phi_0)+L_1'(\phi_0)-\alpha L_0''(\phi_1)L_0'(\phi_0) + O(\alpha^2)
 $$
 
 接下来对上面的三个梯度进行变量替换，全部用之前定义的辅助变量来表示
 
 $$
-\begin{align}
-g_{MAML}& &= g_1 - \alpha \overline{H_0}\overline{g}_1-\alpha\overline{H_1}\overline{g}_0+O(\alpha^2)\\
-g_{FOMAML} &= g_1 &= \overline{g}_1-\alpha\overline{H}_1\overline{g}_0+O(\alpha^2)\\
-g_{Reptile} &= g_0+g_1 &= \overline{g}_0+\overline{g}_1-\alpha \overline{H}_1\overline{g}_0 + O(\alpha^2)\\
-\end{align}
+g_{MAML} = g_1 - \alpha \overline{H_0}\overline{g}_1-\alpha\overline{H_1}\overline{g}_0+O(\alpha^2)\\
+g_{FOMAML} = g_1 = \overline{g}_1-\alpha\overline{H}_1\overline{g}_0+O(\alpha^2)\\
+g_{Reptile} = g_0+g_1 = \overline{g}_0+\overline{g}_1-\alpha \overline{H}_1\overline{g}_0 + O(\alpha^2)\\
 $$
 
 再次定义两个期望参数如下。
@@ -361,12 +344,10 @@ $$
 **第二个**：AvgGradInner
 
 $$
-\begin{align}
-AvgGradInner &= \mathbb E_{\tau,0,1}[\overline{H}_0\overline{g}_1]\\
-&= \mathbb E_{\tau,0,1}[\overline{H}_1\overline{g}_0]\\
-&= \frac{1}{2}\mathbb E_{\tau,0,1}[\overline{H}_0\overline{g}_1+\overline{H}_1\overline{g}_0]\\
-&= \frac{1}{2}\mathbb E_{\tau,0,1}[\frac{\partial}{\partial \phi_0}(\overline{g}_0\overline{g}_1)]\\
-\end{align}
+AvgGradInner = \mathbb E_{\tau,0,1}[\overline{H}_0\overline{g}_1]
+= \mathbb E_{\tau,0,1}[\overline{H}_1\overline{g}_0]
+= \frac{1}{2}\mathbb E_{\tau,0,1}[\overline{H}_0\overline{g}_1+\overline{H}_1\overline{g}_0]
+= \frac{1}{2}\mathbb E_{\tau,0,1}[\frac{\partial}{\partial \phi_0}(\overline{g}_0\overline{g}_1)]
 $$
 
 (-AvgGradInner) 的方向可以增大不同minibatch间梯度的内积，从而提高泛化能力。换句话说，AvgGradInner是 $\overline{g}_0\overline{g}_1$ 的对原始参数的导数，因为梯度在参数更新时是加负号的，**所以是在最大化同一任务中不同minibatch之间梯度的内积**。对其中一个batch进行梯度更新会显著改善另一个batch的的表现，这样就增加了模型的泛化性和快速学习的能力。
@@ -374,24 +355,20 @@ $$
 下面就可以对上述三个梯度进行进一步替换
 
 $$
-\begin{align}
-\mathbb{E}[g_{MAML}] &= (1)AvgGrad - (2\alpha)AvgGradInner + O(\alpha^2)\\
-\mathbb{E}[g_{FOMAML}] &= (1)AvgGrad - (\alpha)AvgGradInner + O(\alpha^2)\\
-\mathbb{E}[g_{Reptile}] &= (2)AvgGrad - (\alpha)AvgGradInner + O(\alpha^2)\\
-\end{align}
+\mathbb{E}[g_{MAML}] = (1)AvgGrad - (2\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{FOMAML}] = (1)AvgGrad - (\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{Reptile}] = (2)AvgGrad - (\alpha)AvgGradInner + O(\alpha^2)\\
 $$
 
 扩展到 k>2 的情况有 [[3](#ref3)] 
 
 $$
-\begin{align}
-\mathbb{E}[g_{MAML}] &= (1)AvgGrad - (2(k-1)\alpha)AvgGradInner + O(\alpha^2)\\
-\mathbb{E}[g_{FOMAML}] &= (1)AvgGrad - ((k-1)\alpha)AvgGradInner + O(\alpha^2)\\
-\mathbb{E}[g_{Reptile}] &= (2)AvgGrad - (\frac{1}{2}k(k-1)\alpha)AvgGradInner + O(\alpha^2)\\
-\end{align}
+\mathbb{E}[g_{MAML}] = (1)AvgGrad - (2(k-1)\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{FOMAML}] = (1)AvgGrad - ((k-1)\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{Reptile}] = (2)AvgGrad - (\frac{1}{2}k(k-1)\alpha)AvgGradInner + O(\alpha^2)\\
 $$
 
-另一种分析有效的方法借助了流形，Reptile收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。
+另一种分析有效的方法借助了流形，Reptile 收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。
 
 ## 实验
 
