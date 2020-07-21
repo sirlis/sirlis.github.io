@@ -184,12 +184,14 @@ $$
 
 ## FOMAML一阶近似简化
 
-在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，有
+在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
 
 $$
-\frac{\partial \theta_j'}{\partial \theta_i} = 
+\begin{align}
+(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} &= 
 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
-\frac{\partial \theta_j'}{\partial \theta_i} = 1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
+(i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} &= 1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
+\end{align}
 $$
 
 那么原来的偏导可近似为：
@@ -247,6 +249,96 @@ Reptile 要求 k>1，更新依赖于损失函数的高阶导数，k>1 时 Reptil
 Reptile与FOMAML紧密相关，但是与FOMAML不同，Reptile**无需对每一个任务进行训练-测试（training-testing）划分**。
 
 相比MAML需要进行二重梯度计算，Reptile只需要进行一重梯度计算，计算速度更快。
+
+## 分析
+
+为什么 Reptile 有效？首先以两步 SGD 为例分析参数更新过程
+
+$$
+\begin{align}
+\phi_0 &= \phi\\
+\phi_1 &= \phi_0 - \alpha L_0'(\phi_0)\\
+\phi_2 &= \phi_1 - \alpha L_1'(\phi_1) \\
+& = \phi_0 - \alpha L_0'(\phi_0) - \alpha L_1'(\phi_1)
+\end{align}
+$$
+
+下面定义几个**辅助变量**
+
+$$
+\begin{align}
+g_i &= L_i'(\phi_i)
+\;\;(gradient \; obtained\; during\;SGD)\\
+\phi_{i+1} &= \phi_i-\alpha g_i
+\;\;(sequence\;of\;parameters)\\
+\overline{g}_i &= L_i'(\phi_0)
+\;\;(gradient\;at\;initial\;point)\\
+\overline{H}_i &= L_i''(\phi_0)
+\;\;(Hessian\;at\;initial\;point)\\
+\end{align}
+$$
+
+采用泰勒展开对 $g_i$ 展开至二阶导加高次项的形式
+
+$$
+\begin{align}
+g_i = L_i'(\phi_i) &= L_i'(\phi_0) + L_i''(\phi_0)(\phi_i - \phi_0) + O(||\phi_i - \phi_0||^2)\\
+&= \overline{g}_i + \overline{H}_i(\phi_i - \phi_0) + O(\alpha^2)\\
+&= \overline{g}_i - \alpha\overline{H}_i\sum_0^{i-1}g_i + O(\alpha^2)\\
+&= \overline{g}_i - \alpha\overline{H}_i\sum_0^{i-1}\overline{g}_i + O(\alpha^2)\\
+\end{align}
+$$
+
+最后一步的依据是，$g_i = \overline{g}_i + O(\alpha)$ 带入倒数第二行时，后面的 $O(\alpha)$ 与求和符号前的 $\alpha$ 相乘，即变为 $O(\alpha^2)$ 从而合并为一项。
+
+下面取k=2，即两步，分别推导 MAML、FOMAML、Reptile 的梯度。
+
+对于二阶的MAML，初始参数 $\phi_0$ 首先在support set上梯度更新一次得到 $\phi_1$ ，然后将 $\phi_1$ 在 query set 上计算损失函数，再计算梯度更新模型的初始参数。即 query set 的 loss 要对 $\phi_0$ 求导，链式法则 loss 对  $\phi_1$ 求导乘以  $\phi_1$ 对 $\phi_0$ 求导
+
+$$
+\begin{align}
+g_{MAML} &= \frac{\partial}{\partial\phi_0}L_1(\phi_1) = \frac{\partial \phi_1}{\partial \phi_0} L_1'(\phi_1) \\
+& = (I-\alpha L_0''(\phi_0))L_1'(\phi_1)\\
+& = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0) + O(\alpha^2))\\
+& = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0)) + O(\alpha^2)\\
+& = (I-\alpha L_0''(\phi_0))(L_1'(\phi_0) - \alpha L_1''(\phi_0)L_0'(\phi_0)) + O(\alpha^2)\\
+& = L_1'(\phi_0)-\alpha L_0''(\phi_0)L_1'(\phi_0) - \alpha L_1''(\phi_0)L_0'(\phi_0) + O(\alpha^2)\\
+\end{align}
+$$
+
+FOMAML进行的一阶简化，是参数 $\phi_1$ 对初始参数 $\phi_0$ 求导的部分，即 $\frac{\partial \phi_i}{\partial \phi_0} = const$，参见2.3节。则只剩下 loss 对参数 $\phi_1$ 的求导。
+
+$$
+\begin{align}
+g_{FOMAML} &= L_1'(\phi_i) = L_1'(\phi_0) + L_1''(\phi_0)(\phi_1 - \phi_0) + O(\alpha^2)\\
+&= L_1'(\phi_0) -\alpha L_1''(\phi_0)L_0'(\phi_0) + O(\alpha^2)
+\end{align}
+$$
+
+对于Reptile，根据梯度定义和SGD过程有
+$$
+\begin{align}
+g_{Reptile} = (\phi_0 - \phi_2)/\alpha &= L_0'(\phi_0)+L_1'(\phi_1)\\
+&= L_0'(\phi_0)+L_1'(\phi_0)-\alpha L_0''(\phi_1)L_0'(\phi_0) + O(\alpha^2)
+\end{align}
+$$
+接下来对上面的三个梯度进行变量替换，全部用之前定义的辅助变量来表示
+$$
+\begin{align}
+g_{MAML}& &= g_1 - \alpha \overline{H_0}\overline{g}_1-\alpha\overline{H_1}\overline{g}_0+O(\alpha^2)\\
+g_{ROMAML} &= g_1 &= \overline{g}_1-\alpha\overline{H}_1\overline{g}_0+O(\alpha^2)\\
+g_{Reptile} &= g_0+g_1 &= \overline{g}_0+\overline{g}_1-\alpha \overline{H}_1\overline{g}_0 + O(\alpha^2)\\
+\end{align}
+$$
+再次定义两个期望。
+
+第一个：AvgGrad 定义为期望loss的梯度
+$$
+AvgGrad = \mathbb E_{\tau,0}[\overline{g}_0]
+$$
+（-AvgGrad）是参数 $\phi$ 在最小化 joint training 问题中的下降方向，即为任务的期望损失。
+
+第二个：AvgGradInner 定义为
 
 # 各类算法实现
 
