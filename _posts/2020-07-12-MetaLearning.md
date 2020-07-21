@@ -288,7 +288,7 @@ g_i &= L_i'(\phi_i)
 \end{align}
 $$
 
-采用泰勒展开对 $g_i$ 展开至二阶导加高次项的形式
+采用**泰勒展开**对 $g_i$ 展开至二阶导加高次项的形式
 
 $$
 \begin{align}
@@ -339,7 +339,7 @@ $$
 $$
 \begin{align}
 g_{MAML}& &= g_1 - \alpha \overline{H_0}\overline{g}_1-\alpha\overline{H_1}\overline{g}_0+O(\alpha^2)\\
-g_{ROMAML} &= g_1 &= \overline{g}_1-\alpha\overline{H}_1\overline{g}_0+O(\alpha^2)\\
+g_{FOMAML} &= g_1 &= \overline{g}_1-\alpha\overline{H}_1\overline{g}_0+O(\alpha^2)\\
 g_{Reptile} &= g_0+g_1 &= \overline{g}_0+\overline{g}_1-\alpha \overline{H}_1\overline{g}_0 + O(\alpha^2)\\
 \end{align}
 $$
@@ -354,7 +354,7 @@ $$
 
 （-AvgGrad）是参数 $\phi$ 在最小化 joint training 问题中的下降方向。就是想在所有batch上减小loss，也就是减小整体的任务损失。
 
-为什么此处 $\overline{g}_0$ 和 $\overline{g}_1$ 的期望相等呢，因为它们都是表示的是loss对原始参数的梯度，只不过不同的batch。在minibatch中，一个batch用于进行一次梯度下降，因为batch是随机的，所以loss对原始参数的梯度与batch是无关的。
+为什么此处 $\overline{g}_0$ 和 $\overline{g}_1$ 的期望相等呢，因为它们都是表示的是loss对原始参数的梯度，只不过对应于不同的batch。在minibatch中，一个batch用于进行一次梯度下降，因为batch是随机的，所以loss对原始参数的梯度与batch是无关的（？）。
 
 第二个：AvgGradInner
 
@@ -367,9 +367,7 @@ AvgGradInner &= \mathbb E_{\tau,0,1}[\overline{H}_0\overline{g}_1]\\
 \end{align}
 $$
 
-(-AvgGradInner) 的方向可以增大不同minibatch间梯度的内积，从而提高泛化能力。换句话说，AvgGradInner是 $\overline{g}_0\overline{g}_1$ 的导数，因为梯度在参数更新时是加负号的，所以这个值应该最大化。说明在**不同batch上的梯度方向应该相近，也就是希望训练以后这个梯度下降的方向对于不同batch来说是相同**，一个batch在优化的过程中另一个batch也在优化，这样就增加了模型的泛化性和快速学习的能力。
-
-
+(-AvgGradInner) 的方向可以增大不同minibatch间梯度的内积，从而提高泛化能力。换句话说，AvgGradInner是 $\overline{g}_0\overline{g}_1$ 的对原始参数的导数，因为梯度在参数更新时是加负号的，所以这个值应该最大化。说明在**不同batch上的梯度方向应该相近，也就是希望训练以后这个梯度下降的方向对于不同batch来说是相同**，一个batch在优化的过程中另一个batch也在优化，这样就增加了模型的泛化性和快速学习的能力。
 
 # 比较
 
@@ -391,7 +389,7 @@ Reptile采用多次梯度计算更新模型的原始参数。
 
 ![10](..\assets\img\postsimg\20200713\10.jpg)
 
-这个图不具体，但是很直观的展示了这些算法的区别。这里的MAML是一阶的，沿着g2方向更新，reptile验证g1+g2更新，而我们常规的预训练模型就是沿着g1在更新。
+上面这个图不具体，但是很直观的展示了这些算法的区别。$g_i$ 表示第 $i$ 次负梯度计算。这里的MAML是一阶的，沿着 $g_2$ 方向更新，Reptile 沿着 $g_1+g_2$  的方向更新，而我们常规的预训练模型就是沿着 $g_1$ 方向更新。
 
 # 各类算法实现
 
