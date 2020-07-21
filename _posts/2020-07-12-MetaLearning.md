@@ -35,7 +35,9 @@ tags: ML
 
 # MAML
 
-> The key idea underlying our method is to train the model’s initial parameters such that the model has maximal performance on a new task after the parameters have been up-dated through one or more gradient steps computed with a small amount of data from that new task.
+2017.《Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks》
+
+> The key idea underlying our method is to **train the model’s initial parameters** such that the model has maximal performance on a new task after the parameters have been updated through one or more gradient steps computed with a small amount of data from that new task.
 
 本文的设想是**训练一组初始化参数**，通过在初始参数的基础上进行一或多步的梯度调整，来达到**仅用少量数据就能快速适应新task**的目的。为了达到这一目的，训练模型需要最大化新task的loss function的参数敏感度（*maximizing the sensitivity of the loss functions of new tasks with respect to the parameters*），当敏感度提高时，极小的参数（参数量）变化也可以对模型带来较大的改进。本文提出的算法可以适用于多个领域，包括少样本的回归、图像分类，以及增强学习，并且使用更少的参数量达到了当时（2017年）最先进的专注于少样本分类领域的网络的准确率。
 
