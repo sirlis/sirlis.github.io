@@ -199,6 +199,7 @@ $$
 也就是说，可**将更新后的模型参数对模型原始参数的导数近似看作常数**（0或1）。
 
 那么原来的偏导可近似为：
+
 $$
 \frac {\partial l(\theta')}{\partial \theta_i} = \sum_j\frac{\partial l(\theta')}{\partial \theta_j'}\frac{\partial \theta_j'}{\partial \theta_i} \approx
 \frac {\partial l(\theta')}{\partial \theta_i'}
