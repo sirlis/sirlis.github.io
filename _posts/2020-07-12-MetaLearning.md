@@ -196,8 +196,9 @@ $$
 \end{align}
 $$
 
-那么原来的偏导可近似为：
+也就是说，可**将更新后的模型参数对模型原始参数的导数近似看作常数**（0或1）。
 
+那么原来的偏导可近似为：
 $$
 \frac {\partial l(\theta')}{\partial \theta_i} = \sum_j\frac{\partial l(\theta')}{\partial \theta_j'}\frac{\partial \theta_j'}{\partial \theta_i} \approx
 \frac {\partial l(\theta')}{\partial \theta_i'}
@@ -232,7 +233,7 @@ MAML的缺点[[2](#ref2)]：
 
 # Reptile
 
-Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类似也是学习网络参数的初始值。
+Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类似，也是学习网络参数的初始值。
 
 ## 算法
 
@@ -301,7 +302,7 @@ $$
 
 最后一步的依据是，$g_i = \overline{g}_i + O(\alpha)$ 带入倒数第二行时，后面的 $O(\alpha)$ 与求和符号前的 $\alpha$ 相乘，即变为 $O(\alpha^2)$ 从而合并为一项。
 
-下面取k=2，即两步，分别推导 MAML、FOMAML、Reptile 的梯度。
+下面取 **k=2** ，即两步，分别推导 MAML、FOMAML、Reptile 的梯度。[这个参考]([https://www.cnblogs.com/veagau/p/11816163.html#42-reptile%E5%AE%9E%E7%8E%B0](https://www.cnblogs.com/veagau/p/11816163.html#42-reptile实现)) [[3](#ref3)] 考虑了k为任意情况下的通解，在k=2时的情况与本文相同。
 
 对于二阶的MAML，初始参数 $\phi_0$ 首先在support set上梯度更新一次得到 $\phi_1$ ，然后将 $\phi_1$ 在 query set 上计算损失函数，再计算梯度更新模型的初始参数。即 query set 的 loss 要对 $\phi_0$ 求导，链式法则 loss 对  $\phi_1$ 求导乘以  $\phi_1$ 对 $\phi_0$ 求导
 
@@ -316,7 +317,7 @@ g_{MAML} &= \frac{\partial}{\partial\phi_0}L_1(\phi_1) = \frac{\partial \phi_1}{
 \end{align}
 $$
 
-FOMAML进行的一阶简化，是参数 $\phi_1$ 对初始参数 $\phi_0$ 求导的部分，即 $\frac{\partial \phi_i}{\partial \phi_0} = const$，参见2.3节。则只剩下 loss 对参数 $\phi_1$ 的求导。
+对于FOMAML，其一阶简化是简化了参数 $\phi_1$ 对初始参数 $\phi_0$ 求导部分，即 $\frac{\partial \phi_i}{\partial \phi_0} = const$，参见2.3节。则只剩下 loss 对参数 $\phi_1$ 的求导。
 
 $$
 \begin{align}
@@ -346,7 +347,7 @@ $$
 
 再次定义两个期望参数如下。
 
-第一个：AvgGrad 定义为loss对初始参数的梯度的平均期望
+**第一个**：AvgGrad 定义为loss对初始参数的梯度的平均期望
 
 $$
 AvgGrad = \mathbb E_{\tau,0}[\overline{g}_0] =\mathbb E_{\tau,1}[\overline{g}_1]
@@ -356,7 +357,7 @@ $$
 
 为什么此处 $\overline{g}_0$ 和 $\overline{g}_1$ 的期望相等呢，因为它们都是表示的是loss对原始参数的梯度，只不过对应于不同的batch。在minibatch中，一个batch用于进行一次梯度下降，因为batch是随机的，所以loss对原始参数的梯度与batch是无关的（？）。
 
-第二个：AvgGradInner
+**第二个**：AvgGradInner
 
 $$
 \begin{align}
@@ -367,7 +368,68 @@ AvgGradInner &= \mathbb E_{\tau,0,1}[\overline{H}_0\overline{g}_1]\\
 \end{align}
 $$
 
-(-AvgGradInner) 的方向可以增大不同minibatch间梯度的内积，从而提高泛化能力。换句话说，AvgGradInner是 $\overline{g}_0\overline{g}_1$ 的对原始参数的导数，因为梯度在参数更新时是加负号的，所以这个值应该最大化。说明在**不同batch上的梯度方向应该相近，也就是希望训练以后这个梯度下降的方向对于不同batch来说是相同**，一个batch在优化的过程中另一个batch也在优化，这样就增加了模型的泛化性和快速学习的能力。
+(-AvgGradInner) 的方向可以增大不同minibatch间梯度的内积，从而提高泛化能力。换句话说，AvgGradInner是 $\overline{g}_0\overline{g}_1$ 的对原始参数的导数，因为梯度在参数更新时是加负号的，**所以是在最大化同一任务中不同minibatch之间梯度的内积**。对其中一个batch进行梯度更新会显著改善另一个batch的的表现，这样就增加了模型的泛化性和快速学习的能力。
+
+下面就可以对上述三个梯度进行进一步替换
+
+$$
+\begin{align}
+\mathbb{E}[g_{MAML}] &= (1)AvgGrad - (2\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{FOMAML}] &= (1)AvgGrad - (\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{Reptile}] &= (2)AvgGrad - (\alpha)AvgGradInner + O(\alpha^2)\\
+\end{align}
+$$
+
+扩展到 k>2 的情况有 [[3](#ref3)] 
+
+$$
+\begin{align}
+\mathbb{E}[g_{MAML}] &= (1)AvgGrad - (2(k-1)\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{FOMAML}] &= (1)AvgGrad - ((k-1)\alpha)AvgGradInner + O(\alpha^2)\\
+\mathbb{E}[g_{Reptile}] &= (2)AvgGrad - (\frac{1}{2}k(k-1)\alpha)AvgGradInner + O(\alpha^2)\\
+\end{align}
+$$
+
+另一种分析有效的方法借助了流形，Reptile收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。
+
+## 实验
+
+**少样本分类**
+
+![img](..\assets\img\postsimg\20200713\11.jpg)
+
+![img](..\assets\img\postsimg\20200713\12.jpg)
+
+从两个表格中的数据可以看出，MAML与Reptile在加入了转导（Transduction）后，在Mini-ImageNet上进行实验，Reptile的表现要更好一些，而Omniglot数据集上正好相反。
+
+**不同的内循环梯度组合比较**
+
+通过在内循环中使用四个不重合的Mini-Batch，产生梯度数据 g1,g2,g3,g4 ，然后将它们以不同的方式进行线性组合（等价于执行多次梯度更新）用于外部循环的更新，进而比较它们之间的性能表现，实验结果如下图：
+
+![img](..\assets\img\postsimg\20200713\13.jpg)
+
+从曲线可以看出：
+
+- 仅使用一个批次的数据产生的梯度的效果并不显著，因为相当于让模型用见到过的少量的数据去优化所有任务。
+- 进行了两步更新的Reptile（绿线）的效果要明显不如进行了两步更新的FOMAML（红线），因为Reptile在AvgGradInner上的**权重**（AvgGradInner与AvgGrad的系数的比例）要小于FOMAML。
+- 随着mini-batch数量的增多，所有算法的性能也在提升。通过同时利用多步的梯度更新，Reptile的表现要比仅使用最后一步梯度更新的FOMAML的表现好。
+
+**内循环中Mini-Batch 重合比较**
+
+Reptile和FOMAML在内循环过程中都是使用的SGD进行的优化，在这个优化过程中任何微小的变化都将导致最终模型性能的巨大变化，因此这部分的实验主要是探究两者对于内循环中的超数的敏感性，同时也验证了FOMAML在minibatch以错误的方式选取时会出现显著的性能下降情况。
+
+mini-batch的选择有两种方式：
+
+- **shared-tail（共尾）**：最后一个内循环的数据来自以前内循环批次的数据
+- **separate-tail（分尾）**：最后一个内循环的数据与以前内循环批次的数据不同
+
+![img](..\assets\img\postsimg\20200713\14.jpg)
+
+采用不同的mini-batch选取方式在FOMAML上进行实验，发现随着内循环迭代次数的增多，采用分尾方式的FOMAML模型的测试准确率要高一些，因为在这种情况下，测试的数据选取方式与训练过程中的数据选取方式更为接近。
+
+当采用不同的批次大小时，采用共尾方式选取数据的FOMAML的准确性会随着批次大小的增加而显著减小。当采用**full-batch**时，共尾FOMAML的表现会随着外循环步长的加大而变差。
+
+**共尾FOMAML的表现如此敏感的原因可能是最初的几次SGD更新让模型达到了局部最优，以后的梯度更新就会使参数在这个局部最优附近波动。**
 
 # 比较
 
@@ -405,6 +467,6 @@ Reptile采用多次梯度计算更新模型的原始参数。
 
 <span id="ref2">[2]</span> 人工智障. [MAML算法，model-agnostic metalearnings?](https://www.zhihu.com/question/266497742/answer/550695031)
 
-[3] [Veagau](https://www.cnblogs.com/veagau/). [【笔记】Reptile-一阶元学习算法](https://www.cnblogs.com/veagau/p/11816163.html)
+<span id="ref3">[3]</span> [Veagau](https://www.cnblogs.com/veagau/). [【笔记】Reptile-一阶元学习算法](https://www.cnblogs.com/veagau/p/11816163.html)
 
 [4] [pure water](https://blog.csdn.net/qq_41694504). [Reptile原理以及代码详解](https://blog.csdn.net/qq_41694504/article/details/106750606)
