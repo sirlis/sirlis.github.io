@@ -235,6 +235,8 @@ MAML的缺点[[2](#ref2)]：
 
 # Reptile
 
+2018.《On First-Order Meta-Learning Algorithms》和《Reptile: a Scalable Metalearning Algorithm》
+
 Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类似，也是学习网络参数的初始值。
 
 ## 算法
@@ -273,7 +275,7 @@ $$
 \phi_3 = \phi_2 - \alpha L_1'(\phi_1) - \alpha L_2'(\phi_2)
 $$
 
-下面定义几个**辅助变量**，其中 $i\in [1, k]$ 指代第 $i$ 个 minibatch，也即第 $i$ 次梯度下降的训练过程
+下面定义几个**辅助变量**，其中 $i\in [1, k]$ 指代第 $i$ 个 minibatch，也即第 $i$ 次梯度下降的训练过程（？）
 
 $$
 g_i = L_i'(\phi_i)
