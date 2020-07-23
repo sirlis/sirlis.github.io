@@ -24,14 +24,11 @@ tags: ML
 * [目录](#目录)
 * [Prototypical Network](#Prototypical Network)
   * [模型](#模型)
-  * [关于二重梯度的进一步解释](#关于二重梯度的进一步解释)
-  * [FOMAML一阶近似简化](#FOMAML一阶近似简化)
-  * [缺点](#缺点)
-* [Reptile](#Reptile)
   * [算法](#算法)
-  * [分析](#分析)
-  * [实验](#实验)
-* [各类算法实现](#各类算法实现)
+  * [进行混合密度估计](#进行混合密度估计)
+  * [距离度量](#距离度量)
+
+* [实现](#实现)
 * [参考文献](#参考文献)
 
 # Prototypical Network
@@ -131,12 +128,21 @@ p_\psi(z|\theta) = exp\{z^T\theta-\psi (\theta) - g_\psi(z)\} = exp\{-d_\psi(z,\
 $$
 算了算了后面看不懂了。。。
 
+## 距离度量
+
+作者进行了进一步的分析，以确定距离度量和每Episode中训练classes的数量对原型网络和匹配网络的影响。
+
+为了使这些方法更具有可比性，我们使用我们自己的匹配网络实现，它使用与我们的原型网络相同的嵌入架构。
+
+在下图中，我们比较了余弦距离与欧式距离，5-way和20-way  training episodes。在1-shot和5-shot场景中，每个Episode每个类中有15个查询点。
+
+![image-20200723205141141](..\assets\img\postsimg\20200722\3.jpg)
+
+注意到20-way比5-way获得了更高的准确率，并且推测20-way分类难度的增加有助于网络更好的泛化，因为它迫使模型在嵌入空间中做出更细粒度的决策。
+
+此外，使用欧氏距离比预先距离大大提高了性能。这种效果对于原型网络更为明显，在这种网络中，将类原型作为嵌入支持点的平均值进行计算更适合于欧氏距离，因为余弦距离不是Bregman散度。
+
 # 参考文献
 
-<span id="ref1">[1]</span>  [Rust-in](https://www.zhihu.com/people/rustinnnnn). [MAML 论文及代码阅读笔记](https://zhuanlan.zhihu.com/p/66926599).
+<span id="ref1">[1]</span>  [Smiler_](https://blog.csdn.net/Smiler_). [《Prototypical Networks for Few-shot Learning 》论文翻译](https://blog.csdn.net/Smiler_/article/details/103133876).
 
-<span id="ref2">[2]</span> 人工智障. [MAML算法，model-agnostic metalearnings?](https://www.zhihu.com/question/266497742/answer/550695031)
-
-<span id="ref3">[3]</span> [Veagau](https://www.cnblogs.com/veagau/). [【笔记】Reptile-一阶元学习算法](https://www.cnblogs.com/veagau/p/11816163.html)
-
-[4] [pure water](https://blog.csdn.net/qq_41694504). [Reptile原理以及代码详解](https://blog.csdn.net/qq_41694504/article/details/106750606)
