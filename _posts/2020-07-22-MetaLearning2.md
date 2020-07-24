@@ -51,7 +51,7 @@ $$
 c_k = \frac{1}{|S_K|} \sum_{(x_i,y_i) \in S_K} f_{\phi}(x_i)
 $$
 
-给定一个距离函数 $d: \mathbb R^M \times \mathbb R^M \rightarrow [0,+\infin)$ ，原型网络通过在 embedding space 中对距离进行 **softmax** 计算，可以得到一个针对 $x$ 的样本点的概率分布
+给定一个距离函数 $d: \mathbb R^M \times \mathbb R^M \rightarrow [0,+\infty)$ ，原型网络通过在 embedding space 中对距离进行 **softmax** 计算，可以得到一个针对 $x$ 的样本点的概率分布
 
 $$
 p_{\phi}(y=k|x)=\frac{exp(-d(f_{\phi},c_k))}{\sum_{k'}exp(-d(f_{\phi}(x),c_{k'}))}
