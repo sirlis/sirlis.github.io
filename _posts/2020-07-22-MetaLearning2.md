@@ -99,17 +99,23 @@ $$
 第二步完成后，可以得到每个类的原型向量。下面开始更新损失函数。
 
 首先将损失函数 $J$ 初始化为0，然后进入两个 for 循环，对于每一个类别 $k$ 中的每一个 query set 中的每一个样本，采用下式更新 $J$
+
 $$
 J\leftarrow J+\frac{1}{N_C N_Q}[d(f_\phi(x),c_k)+log\sum_{k'} exp(-d(f_\phi(x),c_{k'}))]
 $$
+
 为便于理解，对于第 $k$ 类的第 $i$ 个样本，不妨假损失函数更新方向为
+
 $$
-^kA_i = -d(f_\phi(x_i),c_k)-log\sum_{i=1}^{N_Q} exp(-d(f_\phi(x_i),c_{i}))
+^kA_i = d(f_\phi(x_i),c_k)+log\sum_{i=1}^{N_Q} exp(-d(f_\phi(x_i),c_{i}))
 $$
+
 则对于所有类别的所有 query set 的所有样本，最终 $J$ 的更新为以下形式
+
 $$
-J\leftarrow J-\frac{1}{N_C N_Q}({}^1A_1+{}^1A_2+...+{}^{N_C}A_{N_Q})
+J\leftarrow J+\frac{1}{N_C N_Q}({}^1A_1+{}^1A_2+...+{}^{N_C}A_{N_Q})
 $$
+
 可以看出，括号内总共有 $N_C N_Q$ 项，因此分母除以该值以求均值。
 
 ## 进行混合密度估计
@@ -123,9 +129,11 @@ $$
 已被证明，对于 Bregman 散度，聚类的均值就是到各类特征的距离的极小值。也就是说，如果采用某个 Bregman 散度距离函数，原型计算 $c_k$ 等价于 support set 中样本标签的最优聚类表示。
 
 任何正则指数分布都可以写为一个确定的正则 Bregman 散度。假设该正则指数分布为 $p_\psi(z|\theta)$ ，参数为 $\theta$ ，累积函数为 $\psi$，则有
+
 $$
 p_\psi(z|\theta) = exp\{z^T\theta-\psi (\theta) - g_\psi(z)\} = exp\{-d_\psi(z,\mu(\theta)) - g_\psi(z)\}
 $$
+
 算了算了后面看不懂了。。。
 
 ## 距离度量
