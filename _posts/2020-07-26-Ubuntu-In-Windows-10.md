@@ -160,6 +160,20 @@ C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04
 
 ## Windows访问Linux文件
 
+通过Windows Store 安装的 Linux 子系统位于
+
+```
+C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState\rootfs
+```
+
+也可以运行子系统后，输入
+
+```
+explorer.exe .
+```
+
+在资源管理器种打开相应的文件夹。
+
 ## Linux访问Windows文件
 
 在bash种输入以下命令，即为windows系统下
