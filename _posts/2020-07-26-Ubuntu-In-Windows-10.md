@@ -158,6 +158,20 @@ sudo apt-get update
 C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState\rootfs\etc\apt
 ```
 
+## Windows访问Linux文件
+
+## Linux访问Windows文件
+
+在bash种输入以下命令，即为windows系统下
+
+```
+cd /mnt
+```
+
+接着就是不断的cd进入到你所需的目录下。比如我们进入系统后 `cd` 或者 `ls` 一下就可以看到目前 Windows 系统的三个盘符（因人而异）
+
+![image-20200726135034927](..\assets\img\postsimg\20200726\5.jpg)
+
 # 参考文献
 
 <span id="ref1">[1]</span>  Microsoft. [适用于 Linux 的 Windows 子系统安装指南 (Windows 10)](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#install-your-linux-distribution-of-choice).
