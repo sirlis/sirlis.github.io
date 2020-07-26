@@ -27,7 +27,9 @@ tags: Linux
 
 # 环境配置
 
-必须先启用“适用于 Linux 的 Windows 子系统”可选功能，然后才能在 Windows 上安装 Linux 分发版。
+首先，**启用开发者模式**：菜单栏打开**设置**——点击**更新和安全**——**启用开发人员模式**（时间会有点长）
+
+其次，**更改系统功能**：必须先启用“适用于 Linux 的 Windows 子系统”可选功能，然后才能在 Windows 上安装 Linux 分发版。
 
 以管理员身份打开 PowerShell 并运行
 
@@ -76,6 +78,85 @@ C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04
   - 请检查 [WSL GitHub 主题 #4103](https://github.com/microsoft/WSL/issues/4103)，其中跟踪了此问题以提供更新的信息。
 - **无法将词语“wsl”识别为 cmdlet、函数、脚本文件或可运行程序的名称。**
   - 请确保[已安装“适用于 Linux 的 Windows 子系统”可选组件](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#enable-the-virtual-machine-platform-optional-component)。 此外，如果你使用的是 ARM64 设备，并从 PowerShell 运行此命令，则会收到此错误。 请改为从 [PowerShell Core](https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6) 或从命令提示符运行 `wsl.exe`。
+
+# 基本操作
+
+对 linux 子系统的操作可基于 [windows subsystem for linux (*wsl*)](http://www.baidu.com/link?url=jRq5GQOKupZSX7p973mR5YQ0WwqNWa6Jupvwyo8OR5fHoLw3z_xTeI5O5eoguWLL) 来进行。
+
+Windows键+R，输入 `cmd` 回车，打开命令行窗口。输入`wsl -l`,可以看到我系统里装的 linux 系统发行版本。输入`wsl --version` 可以看到版本信息和命令行参数一览。
+
+## 备份、删除和还原
+
+备份子系统非常简单，但一定要先停止子系统之后再备份
+
+```shell
+wsl --export Ubuntu-20.04 c:\XXX\Ubuntu-18.04-20200726.tar
+```
+
+待完成即可。备份成功后，子系统会被打包成命令中指定名称的tar文件。
+
+删除子系统也是一个命令即可：
+
+```shell
+wsl --unregister Ubuntu-12.04
+```
+
+还原子系统。 删除了没关系，刚才做了备份，也是一个命令还原：
+
+```shell
+wsl --import Ubuntu-20.04 c:\AAA c:\XXX\Ubuntu-20.04-20200726.tar
+```
+
+这里注意指定还原的路径。成功后，子系统又回来了，可以用`wsl -l`确认一下。
+
+## 切换数据源
+
+在 Ubuntu 下我们可以通过 `apt-get` 命令 很方便的安装 / 卸载软件，切换数据源为国内的镜像站点速度会变快。编辑数据源配置文件
+
+```bash
+vi /etc/apt/sources.list
+```
+
+继续按enter键进入真正的vi编辑页面
+
+> 科普：
+> vi编辑器一共有三种模式： 命令模式（command mode） 插入模式（Insert mode） 底行模式（last line mode） 命令模式下我们只能控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入Insert mode下，或者到 last line mode等；插入模式下可以做文字输入，按「ESC」键可回到命令行模式；底行模式下，可以将文件保存或退出vi，也可以设置编辑环境，如寻找字符串、列出行号等。
+
+当我们进入vi编辑器的时候默认是命令行模式，这时如果想编辑内容，就输入 i 命令就可以了。现在我们要把镜像源改为阿里的，所以插入如下内容：
+
+```bash
+deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+```
+
+
+接着按「ESC」退会命令行模式，输入命令：
+
+```
+: wq!
+```
+
+保存退出就好了。接着输入命令
+
+```bash
+sudo apt-get update
+```
+
+然后输入密码，回车，更新配置就可以了，飞速！
+
+如果命令行修改文件不习惯（linux下就是这样），可在windows下直接找到文件，用记事本打开后修改保存。文件路径在比如
+
+```
+C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState\rootfs\etc\apt
+```
 
 # 参考文献
 
