@@ -55,6 +55,14 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 提示 `Installation successful!` 表明系统安装完毕。
 
+通过 Windows Store 安装的 Linux 子系统，其存放路径位于
+
+```powershell
+C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState\rootfs
+```
+
+其中 `[YourUserName]` 是个人的电脑用户名，`CanonicalGroupLimited.XXX` 是相应的子系统版本。通过上述路径可以方便的进行文件管理。
+
 # 注意事项
 
 - **WslRegisterDistribution 失败并出现错误 0x8007019e**
