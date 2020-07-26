@@ -47,11 +47,13 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 ![](..\assets\img\postsimg\20200726\2.jpg)
 
-![](..\assets\img\postsimg\20200726\2.jpg)
+![](..\assets\img\postsimg\20200726\3.jpg)
 
 点击「启动」，将打开一个控制台窗口，系统会要求你等待一分钟或两分钟，以便文件解压缩并存储到电脑上。 未来的所有启动时间应不到一秒。然后，需要[为新的 Linux 分发版创建用户帐户和密码](https://docs.microsoft.com/zh-cn/windows/wsl/user-support)。（注意，linux 系统中，输入密码时默认时不显示任何内容的）
 
 ![](..\assets\img\postsimg\20200726\4.jpg)
+
+提示 `Installation successful!` 表明系统安装完毕。
 
 # 注意事项
 
