@@ -348,7 +348,7 @@ L(X,label) = -X_{label}
 $$
 其中，`X` 是 `log_softmax` 的输出，`label` 是对应的标签位置，即 `NLLLoss` 的输出是取 `X` 中对应于 `label` 中为1的那个 `x` 。
 
-在分类问题中，`CrossEntropy` **等价于** `log_softmax` + `nll_loss`，也就是说如果使用 `CrossEntropy`，则前面不要加 `softmax` 层，因为 `CrossEntropy` 中内含 `softmax`。而如果使用 ` nll_loss`，前面就必须要使用 `log_softmax` 层。
+在分类问题中，`CrossEntropy` **等价于** `log_softmax` + `nll_loss`，也就是说如果使用 `CrossEntropy`，则前面不要加 `softmax` 层，因为 `CrossEntropy` 中内含 `softmax`。而如果使用 `nll_loss`，前面就必须要使用 `log_softmax` 层。
 
 ![06.compare](..\assets\img\postsimg\20200614\06.compare.png)
 
