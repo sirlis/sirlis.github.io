@@ -229,6 +229,20 @@ array([1, 7, 4, 3, 0, 9, 2, 5, 8, 6])
 array([15,  1,  9,  4, 12])
 ```
 
+与 **random.shuffle(x)** 的区别在于，shuffle直接改变原始数组x，而permutation不改变原数组，而是赋值给新数组。
+
+如果x是int型，，则返回从0到x-1这个序列的随机顺序。
+
+# range()
+
+函数语法：range(start, stop[, step])
+
+参数说明：
+
+- `start`: 计数从 start 开始。默认是从 0 开始。例如range（5）等价于range（0， 5）;
+- `stop`: 计数到 stop 结束，但不包括 stop。例如：range（0， 5） 是[0, 1, 2, 3, 4]没有5；
+- `step`：步长，默认为1。例如：range（0， 5） 等价于 range(0, 5, 1)。
+
 # 参考文献
 
 无。
