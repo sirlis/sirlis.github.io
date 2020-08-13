@@ -24,9 +24,10 @@ tags: Python
 * [lambda](#lambda)
 * [np.random](#np.random)
   * [.seed()](#.seed())
-  * [.RandomState()](#.RandomState())
+  * [.RandomState()](#.RandomState())0
   * [.choice()](#.choice())
   * [.uniform()](#.uniform())
+  * [.permutation()](#.permutation())
 * [参考文献](#参考文献)
 
 # lambda
@@ -127,15 +128,15 @@ print(list(filter(lambda x: x % 2 == 0,range(10))))
 下面给个例子，表明每次rand之前都要设置一次seed，只要设置的seed相同，那么产生的随机数就相同。
 
 ```python
-np.random.seed(0)
-np.random.rand(4,3)
->>>array([[0.5488135 , 0.71518937, 0.60276338],
+>>> np.random.seed(0)
+>>> np.random.rand(4,3)
+array([[0.5488135 , 0.71518937, 0.60276338],
        [0.54488318, 0.4236548 , 0.64589411],
        [0.43758721, 0.891773  , 0.96366276],
        [0.38344152, 0.79172504, 0.52889492]])
-np.random.seed(0)
-np.random.rand(4,3)
->>>array([[0.5488135 , 0.71518937, 0.60276338],
+>>> np.random.seed(0)
+>>> np.random.rand(4,3)
+array([[0.5488135 , 0.71518937, 0.60276338],
        [0.54488318, 0.4236548 , 0.64589411],
        [0.43758721, 0.891773  , 0.96366276],
        [0.38344152, 0.79172504, 0.52889492]])
@@ -154,14 +155,13 @@ np.random.rand(4,3)
 下面我们来看看它的用法：
 
 ```python
-import numpy as np
-
-rng = np.random.RandomState(0)
-rng.rand(4)
->>>array([0.5488135 , 0.71518937, 0.60276338, 0.54488318])
-rng = np.random.RandomState(0)
-rng.rand(4)
->>>array([0.5488135 , 0.71518937, 0.60276338, 0.54488318])
+>>> import numpy as np
+>>> rng = np.random.RandomState(0)
+>>> rng.rand(4)
+array([0.5488135 , 0.71518937, 0.60276338, 0.54488318])
+>>> rng = np.random.RandomState(0)
+>>> rng.rand(4)
+array([0.5488135 , 0.71518937, 0.60276338, 0.54488318])
 ```
 
 看，是不是生成了一样的随机数组呢，这点和numpy.random.seed（）还是很一样的。
@@ -184,12 +184,11 @@ Out[400]: array([0.86630916, 0.25045537, 0.48303426, 0.98555979])
 `choice()` 方法返回一个列表，元组或字符串的随机项。**注意：**choice()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
 
 ```python
-import random
-
-print "choice([1, 2, 3, 5, 9]) : ", random.choice([1, 2, 3, 5, 9])
->>> choice([1, 2, 3, 5, 9]) :  2
-print "choice('A String') : ", random.choice('A String')
->>> choice('A String') :  n
+>>> import random
+>>> print "choice([1, 2, 3, 5, 9]) : ", random.choice([1, 2, 3, 5, 9])
+choice([1, 2, 3, 5, 9]) :  2
+>>> print "choice('A String') : ", random.choice('A String')
+choice('A String') :  n
 ```
 
 给定size参数后，可以生成指定size的随机数，如果需要每一次产生的随机数相同，则需要设置随机数种子，`random.seed(int)` 或者 `random.RandomState(int)`。
@@ -218,6 +217,17 @@ random.uniform(x, y)
 ```
 
 其中x和y是随机数的取值界限，且不包含本身。
+
+## .permutation()
+
+随机排列一个序列，返回一个排列的序列。
+
+```python
+>>> np.random.permutation(10)
+array([1, 7, 4, 3, 0, 9, 2, 5, 8, 6])
+>>> np.random.permutation([1, 4, 9, 12, 15])
+array([15,  1,  9,  4, 12])
+```
 
 # 参考文献
 
