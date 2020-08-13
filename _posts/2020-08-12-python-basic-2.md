@@ -26,6 +26,7 @@ tags: Python
   * [.seed()](#.seed())
   * [.RandomState()](#.RandomState())
   * [.choice()](#.choice())
+  * [.uniform()](#.uniform())
 * [参考文献](#参考文献)
 
 # lambda
@@ -197,10 +198,26 @@ print "choice('A String') : ", random.choice('A String')
 import numpy as np
 seed = 0
 rng = np.random.RandomState(seed)
-rng.choice(len(x_all), size=ntrain)
+rng.choice(50, 10)
 ```
 
+`numpy.random.choice(a, size=None, replace=True, p=None)` 
 
+- a : 如果是一维数组，就表示从这个一维数组中随机采样；如果是int型，就表示从0到a-1这个序列中随机采样。
+- size : 采样结果的数量，默认为1.可以是整数，表示要采样的数量；也可以为tuple，如(m, n, k)，则要采样的数量为m * n * k，size为(m, n, k)。
+- replace : boolean型，采样的样本是否要更换？这个地方我不太理解，测了一下发现replace指定为True时，采样的元素会有重复；当replace指定为False时，采样不会重复。
+- p : 一个一维数组，制定了a中每个元素采样的概率，若为默认的None，则a中每个元素被采样的概率相同。
+
+## .uniform()
+
+**uniform()** 方法将随机生成下一个实数（浮点数），它在 **[x, y]** 范围内。**注意：**uniform()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+```python
+import random
+random.uniform(x, y)
+```
+
+其中x和y是随机数的取值界限，且不包含本身。
 
 # 参考文献
 
