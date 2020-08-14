@@ -546,7 +546,7 @@ for iteration in range(niterations): # iterate 30000 times
         model.load_state_dict(weights_before) # restore from snapshot
         print(f"-----------------------------")
         print(f"iteration               {iteration+1}")
-        print(f"loss on plotted curve   {lossval:.3f}") # would be better to average loss over a set of examples, but this is optimized for brevity
+        print(f"loss on plotted curve   {lossval:.3f}") # optimized in one example for brevity
 ```
 
 - 用 $sin$ 函数来测试Reptile算法。
