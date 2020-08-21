@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Python基础（mat与cell）"
+title:  "Python基础（数据结构）"
 date:   2020-08-15 21:17:19
 categories: Coding
 tags: Python
@@ -21,7 +21,9 @@ tags: Python
 # 目录
 
 * [目录](#目录)
-* [lambda](#lambda)
+* [mat](#mat)
+  * [MATLAB保存mat文件](#MATLAB保存mat文件)
+  * [Python读取mat文件](#Python读取mat文件)
 * [np.random](#np.random)
   * [.seed()](#.seed())
   * [.RandomState()](#.RandomState())0
@@ -30,7 +32,9 @@ tags: Python
   * [.permutation()](#.permutation())
 * [参考文献](#参考文献)
 
-# MATLAB保存mat文件
+# mat
+
+## MATLAB保存mat文件
 
 如下例子所示
 
@@ -66,7 +70,7 @@ save('MixResults.mat','dataCell');
 
 ![image-20200814214150568](..\assets\img\postsimg\20200815\1.jpg)
 
-# Python读取mat文件
+## Python读取mat文件
 
 ```python
 import scipy.io as sio
@@ -137,9 +141,109 @@ array([[array([[array(['wty0.0'], dtype='<U6')]], dtype=object),
 >>> control = load_data['dataCell'][i][3]
 ```
 
-数据结构为
+得到的数据为 ndarray ，数据结构为
 
 ![image-20200815232302271](..\assets\img\postsimg\20200815\2.jpg)
+
+取出其中 `wty` 的数值，可以借助 `strip` 砍掉 “wty” 三个字符。注意 `strip` 后返回的是一个字符串，需要通过强制格式转换转为数字
+
+```python
+wt = wty.strip('wty') # 0.0
+wt = float(wt)
+```
+
+提取 `trajectory` 中的第一行数据，最后一行数据，以及 `wt`，合并后形成一个新的向量，借助 `np.hstack` 实现：
+
+```python
+trow = trajectory.shape[0]
+vec = np.hstack((trajectory[0,1:4],trajectory[trow-1,1:4],wt))
+# trajectory: t, rx, ry, rz, vx, ...; [1:4] is rx ry and rz
+```
+
+# list
+
+列表（list）是用来存储一组有序数据元素的数据结构，元素之间用都好分隔。列表中的数据元素应该包括在**方括号**中，而且列表是可变的数据类型，一旦创建了一个列表，你可以添加、删除或者搜索列表中的元素。在方括号中的数据可以是 `int` 型，也可以是 `str` 型。
+
+新建一个空列表
+
+```python
+A = []
+```
+
+当方括号中的数据元素全部为int类型时，这个列表就是int类型的列表。str类型和混合类型的列表类似
+
+```python
+A = [1,2,3]
+A = ["a",'b','c'] # 单引号和双引号都认
+A = [1,"b",3]
+```
+
+## 复制
+
+**列表的复制**和字符串的复制类似，也是利用 `*` 操作符
+
+```python
+A = [1,2,3]
+A*2 # A = [1,2,3,1,2,3]
+```
+
+## 合并
+
+**列表的合并**就是将两个现有的list合并在一起，主要有两种实现方式，一种是利用+操作符，它和字符串的连接一致；另外一种用的是extend()函数。
+
+直接将两个列表用+操作符连接即可达到合并的目的，列表的合并是有先后顺序的。
+
+```python
+a = [1,2]
+b = ['a','b']
+m = ["c","c"]
+c=a+b+m # c = [1,2,'a','b','c','c']
+d=b+a+m # d = ['a','b',1,2,'c','c']
+```
+
+将列表b合并到列表a中，用到的方法是a.extend(b)，将列表a合并到列表b中，用到的方法是b.extend(a)。
+
+## 插入新元素
+
+向列表中**插入新元素**。列表是可变的，也就是当新建一个列表后你还可以对这个列表进行操作，对列表进行插入数据元素的操作主要有 `append()` 和 `insert()` 两个函数可用。这两个函数都会直接改变原列表，不会直接输出结果，需要调用原列表的列表名来获取插入新元素以后的列表。
+
+函数 `append()` 是在列表末尾插入新的数据元素，如下：
+
+```python
+a = [1,2]
+a.append(3) # a = [1,2,3]
+```
+
+函数 `insert()` 是在列表指定位置插入新的数据元素，如下：
+
+```python
+a = [1,2,3]
+a.insert(3,4) # a = [1,2,3,4]，在列表第四位（从0开始算起）插入4
+a = [1,2]
+a.insert(2,4) # a = [1,2,4,3]，在列表第三位（从0开始算起）插入4
+```
+
+## 获取列表中的值
+
+获取指定位置的值利用的方法和字符串索引是一致的，主要是有普通索引和切片索引两种。
+
+- 普通索引：普通索引是活期某一特定位置的数，如下：
+
+```python
+>>> a = [1,2,3]
+>>> a[0] # 获取第一位数据
+1
+>>> a[2]
+3
+```
+
+- 切片索引：切片索引是获取某一位置区间内的数，如下：
+
+```python
+>>> a = [1,2,3,4,5]
+>>> a[1:3] # 获取第2位到第4位的数据，不包含第4位
+[2,3]
+```
 
 ## 数组中选取特定列
 
@@ -154,5 +258,7 @@ array([[array([[array(['wty0.0'], dtype='<U6')]], dtype=object),
 `print a[-1:-4:-1]` 反向索引，从最后一位开始放过来取值，注意这里的步长要为-1，因为反向。
 
 # 参考文献
+
+[1] CDA数据分析师. [Python基础知识详解(三)：数据结构篇](https://baijiahao.baidu.com/s?id=1652154442455041874&wfr=spider&for=pc)
 
 无。
