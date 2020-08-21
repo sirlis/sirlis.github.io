@@ -402,7 +402,7 @@ np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)
 | `start`    | 序列的起始值                                                 |
 | `stop`     | 序列的终止值，如果`endpoint`为`true`，该值包含于数列中       |
 | `num`      | 要生成的等步长的样本数量，默认为`50`                         |
-| `endpoint` | 该值为 `true` 时，数列中包含`stop`值，反之不包含，默认是True。 |
+| `endpoint` | 该值为 `true` 时，数列中包含`stop`值，反之不包含，默认是 `true`。 |
 | `retstep`  | 如果为 True 时，生成的数组中会显示间距，反之不显示。         |
 | `dtype`    | `ndarray` 的数据类型                                         |
 
