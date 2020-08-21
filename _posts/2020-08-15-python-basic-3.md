@@ -415,6 +415,48 @@ np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)
 [ 1.  2.  3.  4.  5.  6.  7.  8.  9. 10.]
 ```
 
+## 数组拼接
+
+两个拼接数组的方法：
+
+`np.vstack()` 在竖直方向上堆叠
+
+`np.hstack()` 在水平方向上平铺
+
+```python
+>>> import numpy as np
+>>> arr1=np.array([1,2,3])
+>>> arr2=np.array([4,5,6])
+>>> print np.vstack((arr1,arr2))
+[[1 2 3]
+ [4 5 6]]
+>>> print np.hstack((arr1,arr2,arr1))
+[1 2 3 4 5 6 1 2 3]
+>>> a1=np.array([[1,2],[3,4],[5,6]])
+>>> a2=np.array([[7,8],[9,10],[11,12]])
+>>> print np.hstack((a1,a2))
+[[ 1  2  7  8]
+ [ 3  4  9 10]
+ [ 5  6 11 12]]
+```
+
+# list和array的区别
+
+在数据类型上，二者存在区别
+
+```python
+>>> import numpy as np
+>>> a=np.array([1,2,3,4,55,6,7,77,8,9,99]) # array
+>>> b=np.array_split(a,3) # 分为三段
+>>> print (b) # list, 包含3个 array 元素
+[array([1, 2, 3, 4]), array([55,  6,  7, 77]), array([ 8,  9, 99])]
+>>> print (b[0:2]+b[1:3]) # list，包含4个 array 元素
+[array([1, 2, 3, 4]), array([55,  6,  7, 77]), array([55,  6,  7, 77]), array([ 8,  9, 99])]
+>>> c = np.hstack((brr1_folds[:2]+brr1_folds[1:3]))
+>>> print (c) # list
+[ 1  2  3  4 55  6  7 77 55  6  7 77  8  9 99]
+```
+
 # 参考文献
 
 [1] CDA数据分析师. [Python基础知识详解(三)：数据结构篇](https://baijiahao.baidu.com/s?id=1652154442455041874&wfr=spider&for=pc).
