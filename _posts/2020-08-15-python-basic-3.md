@@ -24,12 +24,12 @@ tags: Python
 * [mat](#mat)
   * [MATLAB保存mat文件](#MATLAB保存mat文件)
   * [Python读取mat文件](#Python读取mat文件)
-* [np.random](#np.random)
-  * [.seed()](#.seed())
-  * [.RandomState()](#.RandomState())0
-  * [.choice()](#.choice())
-  * [.uniform()](#.uniform())
-  * [.permutation()](#.permutation())
+* [list](#list)
+  * [复制](#复制)
+  * [合并](#合并)
+  * [插入新元素](#插入新元素)
+  * [获取列表中的值](#获取列表中的值)
+* [ndarray](#ndarray)
 * [参考文献](#参考文献)
 
 # mat
@@ -245,8 +245,6 @@ a.insert(2,4) # a = [1,2,4,3]，在列表第三位（从0开始算起）插入4
 [2,3]
 ```
 
-## 数组中选取特定列
-
 假设 `a = [1,2,3,4,5,6,7,8,9]`，对应的标号为 `[0,2,2,3,4,5,6,7,8]`；
 
 `print a[1:2:3]` 输出为2 ，从下标表为1的地方开始到小于下标为2的位置，其中3为步长；
@@ -257,8 +255,118 @@ a.insert(2,4) # a = [1,2,4,3]，在列表第三位（从0开始算起）插入4
 
 `print a[-1:-4:-1]` 反向索引，从最后一位开始放过来取值，注意这里的步长要为-1，因为反向。
 
+# ndarray
+
+Numpy是Python的一个扩充程序库，支持高阶大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。对于数据的运算，用矩阵会比python自带的字典或者列表快好多。
+
+## 概念
+
+NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列**同类型**数据的集合，以 0 下标为开始进行集合中元素的索引。
+
+ndarray 对象是用于存放同类型元素的多维数组。
+
+ndarray 中的每个元素在内存中都有相同存储大小的区域。
+
+ndarray 内部由以下内容组成：
+
+- 一个指向数据（内存或内存映射文件中的一块数据）的指针。
+- 数据类型或 dtype，描述在数组中的固定大小值的格子。
+- 一个表示数组形状（shape）的元组，表示各维度大小的元组。
+- 一个跨度元组（stride），其中的整数指的是为了前进到当前维度下一个元素需要"跨过"的字节数。
+
+创建一个 ndarray 只需调用 NumPy 的 array 函数即可：
+
+```python
+numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)
+```
+
+参数说明
+
+| 名称   | 描述                                                      |
+| :----- | :-------------------------------------------------------- |
+| object | 数组或嵌套的数列                                          |
+| dtype  | 数组元素的数据类型，可选                                  |
+| copy   | 对象是否需要复制，可选                                    |
+| order  | 创建数组的样式，C为行方向，F为列方向，A为任意方向（默认） |
+| subok  | 默认返回一个与基类类型一致的数组                          |
+| ndmin  | 指定生成数组的最小维度                                    |
+
+例子
+
+```python
+>>> import numpy as np 
+>>> a = np.array([1,2,3])  
+>>> print (a)
+[1, 2, 3]
+>>> a = np.array([[1,  2],  [3,  4]])  
+>>> print (a)
+[[1, 2] 
+ [3, 4]]
+```
+
+## 数组属性
+
+NumPy 数组的维数称为秩（rank），秩就是轴的数量，即数组的维度，一维数组的秩为 1，二维数组的秩为 2，以此类推。
+
+在 NumPy中，每一个线性的数组称为是一个轴（axis），也就是维度（dimensions）。比如说，二维数组相当于是两个一维数组，其中第一个一维数组中每个元素又是一个一维数组。所以一维数组就是 NumPy 中的轴（axis），第一个轴相当于是底层数组，第二个轴是底层数组里的数组。而轴的数量——秩，就是数组的维数。
+
+很多时候可以声明 axis。axis=0，表示沿着第 0 轴进行操作（沿着行移动），即对每一列进行操作；axis=1，表示沿着第1轴进行操作（沿着列移动），即对每一行进行操作。
+
+## 创建数组
+
+`numpy.zeros` 创建指定大小数组，数组元素以 0 来填充：
+
+```python
+>>> import numpy as np 
+>>> x = np.zeros(5) 
+>>> print (x)
+[0. 0. 0. 0. 0.]
+>>> y = np.zeros((5,), dtype = np.int) 
+>>> print (y)
+[0 0 0 0 0]
+```
+
+`numpy.ones` 创建指定形状的数组，数组元素以 1 来填充：
+
+```python
+>>> import numpy as np 
+[0. 0. 0. 0. 0.]
+>>> x = np.ones(5)
+[1. 1. 1. 1. 1.]
+>>> print (x)
+>>> y = np.ones((2,2), dtype = np.int) 
+>>> print (y)
+[[1 1]
+ [1 1]]
+```
+
+`numpy.arange` 创建数值范围并返回 ndarray 对象，函数格式如下：
+
+```python
+numpy.arange(start, stop, step, dtype)
+```
+
+生成数组示例如下：
+
+```python
+>>> import numpy as np
+>>> x = np.arange(5) # = np.arrange(0,1,5)
+>>> print (x)
+[0  1  2  3  4]
+>>> x = np.arange(5, dtype =  float)
+>>> print (x)
+[0.  1.  2.  3.  4.]
+>>> x = np.arange(10,20,2)  
+>>> print (x)
+[10  12  14  16  18]
+```
+
+
+
 # 参考文献
 
-[1] CDA数据分析师. [Python基础知识详解(三)：数据结构篇](https://baijiahao.baidu.com/s?id=1652154442455041874&wfr=spider&for=pc)
+[1] CDA数据分析师. [Python基础知识详解(三)：数据结构篇](https://baijiahao.baidu.com/s?id=1652154442455041874&wfr=spider&for=pc).
+
+[2] RUNOOB.COM. [NumPy 从数值范围创建数组](https://www.runoob.com/numpy/numpy-array-from-numerical-ranges.html).
 
 无。
