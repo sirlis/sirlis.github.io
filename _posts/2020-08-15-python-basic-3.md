@@ -400,10 +400,10 @@ np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)
 | 参数       | 描述                                                         |
 | :--------- | :----------------------------------------------------------- |
 | `start`    | 序列的起始值                                                 |
-| `stop`     | 序列的终止值，如果`endpoint`为`true`，该值包含于数列中       |
-| `num`      | 要生成的等步长的样本数量，默认为`50`                         |
-| `endpoint` | 该值为 `true` 时，数列中包含`stop`值，反之不包含，默认是 `true`。 |
-| `retstep`  | 如果为 True 时，生成的数组中会显示间距，反之不显示。         |
+| `stop`     | 序列的终止值，如果 `endpoint` 为 `true`，该值包含于数列中    |
+| `num`      | 要生成的等步长的样本数量，默认为 `50`                        |
+| `endpoint` | 该值为 `true` 时，数列中包含 `stop` 值，反之不包含，默认是 `true`。 |
+| `retstep`  | 如果为 `true` 时，生成的数组中会显示间距，反之不显示。       |
 | `dtype`    | `ndarray` 的数据类型                                         |
 
 示例：
@@ -420,5 +420,3 @@ np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)
 [1] CDA数据分析师. [Python基础知识详解(三)：数据结构篇](https://baijiahao.baidu.com/s?id=1652154442455041874&wfr=spider&for=pc).
 
 [2] RUNOOB.COM. [NumPy 从数值范围创建数组](https://www.runoob.com/numpy/numpy-array-from-numerical-ranges.html).
-
-无。
