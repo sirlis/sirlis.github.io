@@ -265,6 +265,14 @@ if __name__ == '__main__' :
     plt.show()
 ```
 
+# 清理绘图
+
+`cla()` 函数可以清除当前figure中活动的axes，其它axes保持不变。
+
+`clf()` 函数清除当前figure的所有axes，但是不关闭这个window，可以继续复用于其它的plot。
+
+`close()` 关闭 window，如果没有指定，则指当前 window。
+
 # 参考文献
 
 [1] [梦并不遥远](https://www.cnblogs.com/zyg123/). [4.3Python数据处理篇之Matplotlib系列(三)---plt.plot()](https://www.cnblogs.com/zyg123/p/10504633.html).
