@@ -21,23 +21,22 @@ tags: Python
 # 目录
 
 * [目录](#目录)
-* [mat](#mat)
-  * [MATLAB保存mat文件](#MATLAB保存mat文件)
-  * [Python读取mat文件](#Python读取mat文件)
-* [list](#list)
-  * [复制](#复制)
-  * [合并](#合并)
-  * [插入新元素](#插入新元素)
-  * [获取列表中的值](#获取列表中的值)
+* [plot](#plot)
+  * [颜色控制](#颜色控制)
+  * [线形控制](#线形控制)
+  * [点形控制](#点形控制)
+  * [另一种设置方法](#另一种设置方法)
+* [subplot](#subplot)
+  * [规则划分](#规则划分)
+  * [不规则划分](#不规则划分)
+
 * [ndarray](#ndarray)
   * [概念](#概念)
   * [数组属性](#数组属性)
   * [创建数组](#创建数组)
 * [参考文献](#参考文献)
 
-# 二维图
-
-## plot
+# plot
 
 `plot` 用以展示变量的趋势变化。`plot()` 函数的本质就是根据点连接线。根据x(数组或者列表) 和y(数组或者列表)组成点，然后连接成线。
 
@@ -107,7 +106,7 @@ plt.show()
 
 ![image-20200822160154771](..\assets\img\postsimg\20200822\2.jpg)
 
-## 点型控制
+## 点形控制
 
 | 点型 | 类型       |
 | ---- | ---------- |
@@ -201,13 +200,73 @@ subplot(numRows, numCols, plotNum)
 - 图表的整个绘图区域被分成 `numRows` 行和 `numCols` 列；
 - 然后按照从左到右，从上到下的顺序对每个子区域进行编号，左上的子区域的编号为1；
 - `plotNum` 参数指定创建的 `Axes` 对象所在的区域；
-- 如果 `numRows`, `numCols` 和 `plotNum` 这三个数都小于 `10` 的话, 可以把它们缩写为一个整数, 例如 `subplot(323)` 和 `subplot(3,2,3)` 是相同的；
+- 如果 `numRows`, `numCols` 和 `plotNum` 这三个数都小于 `10` 的话, 可以把它们缩写为一个整数, 例如 `subplot(323)` 和 `subplot(3,2,3)` 是相同的（缩写便于循环）；
 - `subplot`在 `plotNum` 指定的区域中创建一个轴对象. 如果新创建的轴和之前创建的轴重叠的话，之前的轴将被删除。
 
+## 规则划分
 
+示例
+
+```python
+import matplotlib
+import matplotlib.pyplot as plt
+
+for i,color in enumerate("rgby"):
+    plt.subplot(221+i, axisbg=color) # 221 = 2,2,1
+
+plt.show()
+```
+
+绘制结果为
+
+![image-20200822164354416](..\assets\img\postsimg\20200822\5.jpg)
+
+## 不规则划分
+
+有时候我们的划分并不是规则的, 比如如下的形式
+
+![image-20200822164514363](..\assets\img\postsimg\20200822\6.jpg)
+
+这种应该怎么划分呢?
+
+首先将整个表按照 `2*2` 划分，前两个简单, 分别是 `(2, 2, 1)` 和 `(2, 2, 2)`；
+
+但是第三个图呢, 他占用了 `(2, 2, 3)` 和 `(2, 2, 4)`；
+
+因此，需要对整个图重新划分, 按照 `2 * 1` 划分；
+
+前两个图占用了 `(2, 1, 1)` 的位置，因此第三个图占用了 `(2, 1, 2)` 的位置。
+
+![image-20200822171806554](..\assets\img\postsimg\20200822\7.jpg)
+
+代码如下
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+def f(t):
+    return np.exp(-t) * np.cos(2 * np.pi * t)
+
+if __name__ == '__main__' :
+    t1 = np.arange(0, 5, 0.1)
+    t2 = np.arange(0, 5, 0.02)
+
+    plt.figure(12)
+    plt.subplot(221)
+    plt.plot(t1, f(t1), 'bo', t2, f(t2), 'r--')
+
+    plt.subplot(222)
+    plt.plot(t2, np.cos(2 * np.pi * t2), 'r--')
+
+    plt.subplot(212)
+    plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+
+    plt.show()
+```
 
 # 参考文献
 
 [1] [梦并不遥远](https://www.cnblogs.com/zyg123/). [4.3Python数据处理篇之Matplotlib系列(三)---plt.plot()](https://www.cnblogs.com/zyg123/p/10504633.html).
 
-[2] RUNOOB.COM. [NumPy 从数值范围创建数组](https://www.runoob.com/numpy/numpy-array-from-numerical-ranges.html).
+[2] [我的明天不是梦](https://www.cnblogs.com/xiaoboge/). [python使用matplotlib:subplot绘制多个子图](https://www.cnblogs.com/xiaoboge/p/9683056.html).
