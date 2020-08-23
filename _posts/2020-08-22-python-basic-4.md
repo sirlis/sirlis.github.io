@@ -265,6 +265,32 @@ if __name__ == '__main__' :
     plt.show()
 ```
 
+## 高阶用法
+
+```python
+import matplotlib.pyplot as plt
+fig = plt.figure(1)
+ax1 = fig.add_subplot(2, 2, 1)
+ax2 = fig.add_subplot(2, 2, 2)
+ax3 = fig.add_subplot(2, 2, 3)
+ax4 = fig.add_subplot(2, 2, 4, projection='3d')
+ax1.set_title('x-axis')
+ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
+ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
+ax1.legend(loc="lower right")
+......
+plt.pause(0.01) # leave some time for plotting finished
+plt.show(block=False) # plot without blocking running
+```
+
+可以绘制两行量列的子图，其中右下角第四个图是三维图。
+
+注意不要将上述代码置于循环中，否则会出现D uplicateWarning。
+
+多次绘制在同一个figure中的效果如下：
+
+![8](..\assets\img\postsimg\20200822\8.gif)
+
 # 清理绘图
 
 `cla()` 函数可以清除当前figure中活动的axes，其它axes保持不变。
