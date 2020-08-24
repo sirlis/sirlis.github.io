@@ -29,7 +29,9 @@ tags: Python
 * [subplot](#subplot)
   * [规则划分](#规则划分)
   * [不规则划分](#不规则划分)
-
+* [二维三维混合子图](#二维三维混合子图)
+  * [多图刷新](#多图刷新)
+  
 * [ndarray](#ndarray)
   * [概念](#概念)
   * [数组属性](#数组属性)
@@ -265,7 +267,7 @@ if __name__ == '__main__' :
     plt.show()
 ```
 
-## 高阶用法
+## 二维三维混合子图
 
 ```python
 import matplotlib.pyplot as plt
@@ -274,13 +276,15 @@ ax1 = fig.add_subplot(2, 2, 1)
 ax2 = fig.add_subplot(2, 2, 2)
 ax3 = fig.add_subplot(2, 2, 3)
 ax4 = fig.add_subplot(2, 2, 4, projection='3d')
-ax1.set_title('x-axis')
-ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
-ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
-ax1.legend(loc="lower right")
-......
-plt.pause(0.01) # leave some time for plotting finished
-plt.show(block=False) # plot without blocking running
+for i in range(100):
+  ax1.set_title('x-axis')
+  ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
+  ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
+  ax1.legend(loc="lower right")
+  ......
+  fig = plt.figure(1) # re-assign to figure 1 to refresh it
+  plt.pause(0.01) # leave some time for plotting finished
+  plt.show(block=False) # plot without blocking running
 ```
 
 可以绘制两行量列的子图，其中右下角第四个图是三维图。
@@ -290,6 +294,44 @@ plt.show(block=False) # plot without blocking running
 多次绘制在同一个figure中的效果如下：
 
 ![8](..\assets\img\postsimg\20200822\8.gif)
+
+## 多图刷新
+
+注意，如果有多张图需要同时刷新，需要按照如下的设计思路书写代码
+
+```python
+import matplotlib.pyplot as plt
+fig = plt.figure(1) # 在循环外定义包含多个subplot的figure 1
+ax1 = fig.add_subplot(2, 2, 1)
+ax2 = fig.add_subplot(2, 2, 2)
+ax3 = fig.add_subplot(2, 2, 3)
+ax4 = fig.add_subplot(2, 2, 4, projection='3d')
+
+for i in range(100):
+  ......[other codes]
+  ax1.set_title('x-axis')
+  ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
+  ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
+  ax1.legend(loc="lower right")
+  ......[other codes]
+  fig = plt.figure(1) # 重新指定fig的对象为figure 1
+  plt.pause(0.01) # 必须暂停短暂的时间以供绘图完成而不出现白板
+  plt.show(block=False) # 刷新figure 1，且不阻塞
+  
+  figloss = plt.figure(2) # 指定fig的对象为figure 2
+  plt.cla()
+  plt.pause(0.01)
+  plt.plot(iterNum, avgloss, '-o')
+  plt.xlabel('iterations',fontsize=10)
+  plt.ylabel('MSE',fontsize=10)
+  plt.pause(0.01)
+  plt.show(block=False) # 刷新figure 2，且不阻塞
+        
+```
+
+- 在循环外定义包含多个subplot的figure 1，避免循环内定义报DuplicatedWarning；
+- 单张图可在循环内直接定义和绘制（如figure 2）；
+- 循环内每次重新绘制时，需通过 `fig = figure(x)` 指定相应的第x个图；
 
 # 清理绘图
 
