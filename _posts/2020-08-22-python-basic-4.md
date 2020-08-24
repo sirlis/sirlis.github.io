@@ -309,6 +309,11 @@ ax4 = fig.add_subplot(2, 2, 4, projection='3d')
 
 for i in range(100):
   ......[other codes]
+  ax1.cla() # 清空当前轴
+  ax2.cla()
+  ax3.cla()
+  ax4.cla()
+  plt.pause(0.01)
   ax1.set_title('x-axis')
   ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
   ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
@@ -319,7 +324,7 @@ for i in range(100):
   plt.show(block=False) # 刷新figure 1，且不阻塞
   
   figloss = plt.figure(2) # 指定fig的对象为figure 2
-  plt.cla()
+  plt.cla() # 清空当前轴
   plt.pause(0.01)
   plt.plot(iterNum, avgloss, '-o')
   plt.xlabel('iterations',fontsize=10)
@@ -331,7 +336,7 @@ for i in range(100):
 
 - 在循环外定义包含多个subplot的figure 1，避免循环内定义报DuplicatedWarning；
 - 单张图可在循环内直接定义和绘制（如figure 2）；
-- 循环内每次重新绘制时，需通过 `fig = figure(x)` 指定相应的第x个图；
+- 循环内每次重新绘制时，需通过 `fig = figure(x)` 指定相应的第x个图才能正确刷新。
 
 # 清理绘图
 
