@@ -21,21 +21,24 @@ tags: Python
 # 目录
 
 * [目录](#目录)
+
 * [plot](#plot)
   * [颜色控制](#颜色控制)
   * [线形控制](#线形控制)
   * [点形控制](#点形控制)
   * [另一种设置方法](#另一种设置方法)
+  
 * [subplot](#subplot)
   * [规则划分](#规则划分)
   * [不规则划分](#不规则划分)
-* [二维三维混合子图](#二维三维混合子图)
+  * [二维三维混合子图](#二维三维混合子图)
+  
   * [多图刷新](#多图刷新)
   
-* [ndarray](#ndarray)
-  * [概念](#概念)
-  * [数组属性](#数组属性)
-  * [创建数组](#创建数组)
+* [图中图](#图中图)
+  
+* [清理绘图](#清理绘图)
+  
 * [参考文献](#参考文献)
 
 # plot
@@ -337,6 +340,41 @@ for i in range(100):
 - 在循环外定义包含多个subplot的figure 1，避免循环内定义报DuplicatedWarning；
 - 单张图可在循环内直接定义和绘制（如figure 2）；
 - 循环内每次重新绘制时，需通过 `fig = figure(x)` 指定相应的第x个图才能正确刷新。
+
+# 图中图
+
+代码如下
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+fig = plt.figure(1)
+plt.plot(listiter_meta, ground_truth, '-.', label='ground truth', color="black")
+plt.plot(listiter_meta, pretrained, '--', label='pretrained', color="green")
+plt.plot(listiter_meta, meta, '-', label='meta learned (ours)', color="red")
+plt.xlim(0,100)
+plt.xlabel("iteration")
+plt.ylabel("mse")
+plt.legend(loc="upper right")
+
+left, bottom, width, height = 0.5,0.3,0.4,0.2
+ax1 = fig.add_axes([left,bottom,width,height])
+ax1.plot(listiter_meta, ground_truth, '-.', color="black")
+ax1.plot(listiter_meta, pretrained, '--', color="green")
+ax1.plot(listiter_meta, meta, '-', color="red")
+ax1.set_xlabel("iteration")
+ax1.set_ylabel("mse")
+ax1.set_title('zoom-in')
+ax1.set_ylim(0,0.2)
+
+plt.savefig('msecompare.png')
+plt.show(block=False)
+```
+
+结果如下图所示
+
+![9](..\assets\img\postsimg\20200822\9.png)
 
 # 清理绘图
 
