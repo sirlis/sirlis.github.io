@@ -286,7 +286,7 @@ for i in range(100):
 
 可以绘制两行量列的子图，其中右下角第四个图是三维图。
 
-注意不要将上述代码置于循环中，否则会出现D uplicateWarning。
+注意不要将上述代码置于循环中，否则会出现DuplicateWarning。
 
 多次绘制在同一个figure中的效果如下：
 
