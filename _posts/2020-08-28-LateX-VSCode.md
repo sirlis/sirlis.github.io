@@ -169,6 +169,21 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 }
 ```
 
+设置仅针对 LaTeX 的自动换行
+
+```json
+{
+    "latex-workshop.view.pdf.viewer": "tab",
+    "[latex]": {
+      "editor.wordWrap": "on", // <== auto wrap
+      "editor.formatOnPaste": false,
+      "editor.suggestSelection": "recentlyUsedByPrefix"
+    },
+}
+```
+
+
+
 ## 编译测试
 
 快捷键 `ctrl+alt+B` 编译 .tex文件，快捷键 `ctrl+alt+v` 或者右上角的「查看pdf」图标查看 .pdf 文件。
