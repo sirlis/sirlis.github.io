@@ -21,19 +21,14 @@ tags: Latex
 # 目录
 
 * [目录](#目录)
-* [LaTeX简介](#LaTeX简介)
-* [下载和安装MikTeX](#下载和安装MikTeX)
-* [下载和安装TeXstudio](#下载和安装TeXstudio)
-  * [下载和安装](#下载和安装)
-  * [配置](#配置)
-  * [测试](#测试)
-* [LaTeX详细指南](#LaTeX详细指南)
-  * [主文档](#主文档)
-  * [宏包安装和管理](#宏包安装和管理)
-  * [插入图片](#插入图片)
-  * [插入公式](#插入公式)
-  * [插入参考文献](#插入参考文献)
-  * [引用章节名称](#引用章节名称)
+* [前言](#前言)
+* [LaTeX配置](#LaTeX配置)
+  * [安装MikTeX](#安装MikTeX)
+  * [配置环境变量](#配置环境变量)
+* [配置VSCode的LaTeX环境](#配置VSCode的LaTeX环境)
+  * [安装LaTeX Workshop](#安装LaTeX Workshop)
+  * [配置json](#配置json)
+  * [编译测试](#编译测试)
 * [参考文献](#参考文献)
 
 # 前言
@@ -42,7 +37,7 @@ tags: Latex
 
 下面以 MikTeX 20.6 + VSCode 1.48.2 为例进行安装和部署讲解。
 
-# 环境配置
+# LaTeX配置
 
 ## 安装MikTeX
 
@@ -150,5 +145,6 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 
 # 参考文献
 
-<span id="ref1">[1]</span>  Latex Project. [The LATEX Project](https://www.latex-project.org/).
+<span id="ref1">[1]</span>  [当年老王](https://blog.csdn.net/yinqingwang). [论文写作的又一利器：VSCode + Latex Workshop + MikTex + Git](https://blog.csdn.net/yinqingwang/article/details/79684419).
 
+<span id="ref2">[2]</span>  [strange_jiong](https://blog.csdn.net/dream_allday). [Latex编译出现字体获取不到的情况](https://blog.csdn.net/dream_allday/article/details/84997874).
