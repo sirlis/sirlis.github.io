@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "LaTeX部署和配置"
-date:   2020-07-13 14:35:19
+title:  "LaTeX+VSCode环境配置"
+date:   2020-08-28 09:17:19
 categories: Coding
 tags: Latex
 ---
@@ -36,21 +36,18 @@ tags: Latex
   * [引用章节名称](#引用章节名称)
 * [参考文献](#参考文献)
 
-# LaTeX简介
-
-> LaTeX is a high-quality typesetting system; it includes features designed for the production of technical and scientific documentation. LaTeX is the de facto standard for the communication and publication of scientific documents. LaTeX is available as [free software](https://www.latex-project.org/lppl/).
+# 安装LaTeX发行版
 
 LaTeX 是一种高质量的排版系统；它包括为制作技术和科学文档而设计的功能。LaTeX 是科学文献交流和出版的事实标准。LaTeX 是免费软件。
 
 一个完整的 LaTex 写作环境包括：
 
-- TeX 发行版：
+- TeX 宏集：
   - Windows下的 MikTeX（[Home - MiKTeX.org](https://miktex.org/)）
   - Linux下的TexLive
 - 编辑器：
   - 跨平台的 TeXstudio （[Home - TexXstudio](http://texstudio.sourceforge.net/)）
   - Windows下的 WinEdit
-  - VSCode
 
 下面以 MikTeX 20.6 + TeXstudio 2.12.22 为例进行安装和部署讲解。
 
