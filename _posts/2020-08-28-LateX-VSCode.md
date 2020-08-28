@@ -77,6 +77,7 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 
 ```json
 {
+    "latex-workshop.latex.autoBuild.run": "never",
 	"latex-workshop.latex.recipes": [
       {
         "name": "pdflatex -> bibtex -> pdflatex*2",
@@ -127,6 +128,30 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
         ]
       }
     ],
+    "latex-workshop.latex.clean.fileTypes": [  //设定清理文件的类型  
+      "*.aux",  
+      "*.bbl",  
+      "*.blg",  
+      "*.idx",  
+      "*.ind",  
+      "*.lof",  
+      "*.lot",  
+      "*.out",  
+      "*.toc",  
+      "*.acn",  
+      "*.acr",  
+      "*.alg",  
+      "*.glg",  
+      "*.glo",  
+      "*.gls",  
+      "*.ist",  
+      "*.fls",  
+      "*.log",  
+      "*.fdb_latexmk",  
+      "*.nav",  
+      "*.snm",  
+      "*.synctex.gz"  
+    ],
     "latex-workshop.view.pdf.viewer": "tab",
 }
 ```
@@ -148,3 +173,5 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 <span id="ref1">[1]</span>  [当年老王](https://blog.csdn.net/yinqingwang). [论文写作的又一利器：VSCode + Latex Workshop + MikTex + Git](https://blog.csdn.net/yinqingwang/article/details/79684419).
 
 <span id="ref2">[2]</span>  [strange_jiong](https://blog.csdn.net/dream_allday). [Latex编译出现字体获取不到的情况](https://blog.csdn.net/dream_allday/article/details/84997874).
+
+<span id="ref3">[3]</span>  [开心鲨鱼](https://www.zhihu.com/people/kai-xin-sha-yu). [配置VScode编辑LaTeX及正反向搜索等设置](https://zhuanlan.zhihu.com/p/90526218?utm_source=wechat_session).
