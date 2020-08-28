@@ -77,7 +77,6 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 
 ```json
 {
-    "latex-workshop.latex.autoBuild.run": "never",
 	"latex-workshop.latex.recipes": [
       {
         "name": "pdflatex -> bibtex -> pdflatex*2",
@@ -128,6 +127,21 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
         ]
       }
     ],
+    "latex-workshop.view.pdf.viewer": "tab",
+}
+```
+
+最终效果如下（忽略前面的若干主体配置项）：
+
+![image-20200828095421375](..\assets\img\postsimg\20200828\2.jpg)
+
+**注意**，`latex-workshop.latex.tools` 字段定义了编译 LaTeX 的序列操作，默认为 `xelatex -> bibtex -> xelatex*2`，这里将其修改为 `pdflatex -> bibtex -> pdflatex*2`，对应的顺序为调用1次 `pdflatex`，1次 `bibtex`，2次 `pdflatex`，**与texstudio保持一致，确保生成的 pdf 文件字体和格式一致**。
+
+进阶配置还包括：设置禁止保存时自动build，以及设定自动清理中间文件的类型。
+
+```json
+{
+    "latex-workshop.latex.autoBuild.run": "never", //禁止保存时自动build  
     "latex-workshop.latex.clean.fileTypes": [  //设定清理文件的类型  
       "*.aux",  
       "*.bbl",  
@@ -152,15 +166,10 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
       "*.snm",  
       "*.synctex.gz"  
     ],
-    "latex-workshop.view.pdf.viewer": "tab",
 }
 ```
 
-最终效果如下（忽略前面的若干主体配置项）：
 
-![image-20200828095421375](..\assets\img\postsimg\20200828\2.jpg)
-
-**注意**，`latex-workshop.latex.tools` 字段定义了编译 LaTeX 的序列操作，默认为 `xelatex -> bibtex -> xelatex*2`，这里将其修改为 `pdflatex -> bibtex -> pdflatex*2`，对应的顺序为调用1次 `pdflatex`，1次 `bibtex`，2次 `pdflatex`，**与texstudio保持一致，确保生成的 pdf 文件字体和格式一致**。
 
 ## 编译测试
 
