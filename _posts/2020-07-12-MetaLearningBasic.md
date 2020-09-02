@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "小样本学习基础"
+title:  "元学习基础"
 date:   2020-07-12 14:35:19
 categories: Reading
 tags: ML
