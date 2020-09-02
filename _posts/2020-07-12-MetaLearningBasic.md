@@ -64,10 +64,10 @@ Meta-Learning
 
 还是以这张图为切入点，将几个概念之间点关系罗列如下：
 
-在 FSL 中有一个术语叫做 **N-way K-shot** 问题，简单的说就是我们需要分类的样本属于 N 个类中一种，但是我们每个类训练集中的样本只有 K 个，即一共只有 N$\cdot$K 个样本的类别是已知的。上图就是一个 5-way 1-shot 的问题。
+在 FSL 中有一个术语叫做 **N-way K-shot** 问题，简单的说就是我们需要分类的样本属于 N 个类中一种，但是我们每个类训练集中的样本只有 K 个，即一共只有 N$\cdot$K 个样本是已知的。上图就是一个 5-way 1-shot 的问题，一共5个类，每个类只有1张图。
 
 - N-way K-shot：样本包含 N 个类，每个类中的样本只有 K 个，一共有 N$\cdot$K 个样本
-- task (meta-task)：任务，如 N way K shot 就是一个 few-shot 任务
+- task (meta-task)：任务，一个特定的 N-way K-shot 的任务就是一个 task
 - meta-training：元训练
 - meta-testing：元测试
 - meta-training task: 元训练阶段的任务
@@ -77,7 +77,7 @@ Meta-Learning
   - training set：元测试阶段的训练集
   - test set：元测试阶段的测试集
 
-**Few-shot Learning 是 Meta Learning 在监督学习领域的应用。**在 meta-training 阶段将数据集分解为不同的 meta task，去学习类别变化的情况下模型的泛化能力，在 meta-testing 阶段，面对全新的类别，不需要变动已有的模型，通过一步或者少数几步训练，就可以完成分类。
+**Few-shot Learning 是 Meta Learning 在监督学习领域的应用**。在 meta-training 阶段将数据集分解为不同的 meta task，去学习类别变化的情况下模型的泛化能力，在 meta-testing 阶段，面对全新的类别，不需要变动已有的模型，通过一步或者少数几步训练，就可以完成分类。
 
 # 训练过程
 
