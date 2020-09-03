@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "LaTeX部署和配置"
+title:  "LaTeX+TexStudio环境配置"
 date:   2020-07-13 14:35:19
 categories: Coding
 tags: Latex
