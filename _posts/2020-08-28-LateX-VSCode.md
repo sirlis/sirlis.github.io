@@ -47,16 +47,22 @@ tags: Latex
 
 ![image-20200720222610238](..\assets\img\postsimg\20200720\1.jpg)
 
-需要注意的是，绿色版并没有单独的压缩包，而是直接对应安装版的安装程序，只不过将安装程序重命名为 `miktex-portable.exe`，然后双击安装即可。绿色版与安装版的区别在于，绿色版不会向系统盘写入配置信息，也不会注册环境变量，意味着之后如果需要安装编辑器，无法自动获取系统中已经安装的LaTeX版本，而需要手动配置。
+需要注意的是，绿色版并没有单独的压缩包，而是直接对应安装版的安装程序，只不过将安装程序重命名为 `MiKTeX-portable.exe`，然后双击安装即可。绿色版与安装版的区别在于，绿色版不会向系统盘写入配置信息，也不会注册环境变量，意味着之后如果需要安装编辑器，无法自动获取系统中已经安装的LaTeX版本，而需要手动配置。**懒人推荐安装版，省去配置环境变量等步骤**（虽然后面是以绿色版介绍的）。
 
 双击下载的 exe 文件进行安装，路径任意。
 
 ## 配置环境变量
 
-将 miktex 附带的 `xelatex.exe` 和 `pdflatex.exe` 等工具所在的路径加入系统 Path 环境变量。对于绿色版，该路径为
+将 miktex 附带的 `xelatex.exe` 和 `pdflatex.exe` 等工具所在的路径加入系统 Path 环境变量。假设安装的MiKTeX为绿色版，安装根目录为`X:\ProgramFiles\MiKTeX\`，则上述路径均位于
 
 ```
-X:\ProgramFiles\MikTexPortable\texmfs\install\miktex\bin\x64
+X:\ProgramFiles\MiKTeX\texmfs\install\miktex\bin\x64
+```
+
+相应的，安装版的路径位于
+
+```
+X:\ProgramFiles\MiKTeX\miktex\bin\x64
 ```
 
 **注意**，如果在 VSCode 打开的情况下改变了环境变量，需要重启 VSCode 使其能够获取最新的环境变量。
