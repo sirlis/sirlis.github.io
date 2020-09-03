@@ -24,7 +24,7 @@ tags: Latex
 * [前言](#前言)
 * [LaTeX配置](#LaTeX配置)
   * [安装MikTeX](#安装MikTeX)
-  * [配置环境变量](#配置环境变量)
+  * [配置环境变量（绿色版）](#配置环境变量（绿色版）)
 * [配置VSCode的LaTeX环境](#配置VSCode的LaTeX环境)
   * [安装LaTeX Workshop](#安装LaTeX Workshop)
   * [配置json](#配置json)
@@ -51,7 +51,7 @@ tags: Latex
 
 双击下载的 exe 文件进行安装，路径任意。
 
-## 配置环境变量
+## 配置环境变量（绿色版）
 
 将 miktex 附带的 `xelatex.exe` 和 `pdflatex.exe` 等工具所在的路径加入系统 Path 环境变量。假设安装的MiKTeX为绿色版，安装根目录为`X:\ProgramFiles\MiKTeX\`，则上述路径均位于
 
