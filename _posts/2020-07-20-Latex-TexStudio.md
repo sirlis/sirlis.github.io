@@ -22,7 +22,7 @@ tags: Latex
 
 * [目录](#目录)
 * [LaTeX简介](#LaTeX简介)
-* [下载和安装MikTeX](#下载和安装MikTeX)
+* [下载和安装MiKTeX](#下载和安装MiKTeX)
 * [下载和安装TeXstudio](#下载和安装TeXstudio)
   * [下载和安装](#下载和安装)
   * [配置](#配置)
@@ -45,26 +45,26 @@ LaTeX 是一种高质量的排版系统；它包括为制作技术和科学文�
 一个完整的 LaTex 写作环境包括：
 
 - TeX 发行版：
-  - Windows下的 MikTeX（[Home - MiKTeX.org](https://miktex.org/)）
+  - Windows下的 MiKTeX（[Home - MiKTeX.org](https://MiKTeX.org/)）
   - Linux下的TexLive
 - 编辑器：
   - 跨平台的 TeXstudio （[Home - TexXstudio](http://texstudio.sourceforge.net/)）
   - Windows下的 WinEdit
   - 跨平台的 VSCode（2020.08.28新增：[LaTeX+VSCode环境配置](./2020-08-28-LateX-VSCode.md)）
 
-下面以 MikTeX 20.6 + TeXstudio 2.12.22 为例进行安装和部署讲解。
+下面以 MiKTeX 20.6 + TeXstudio 2.12.22 为例进行安装和部署讲解。
 
-# 下载和安装MikTeX
+# 下载和安装MiKTeX
 
-可以将 MikTeX 看作是 LaTeX 的一种发行版（大雾），类比 C 的发行版 MSC 一样。[官网的下载页面](https://miktex.org/download)（https://miktex.org/download）包括三种下载（安装）方式，如图分别为安装程序（Installer）、绿色版（Portable Edition）以及命令行（Command-line installer）。
+可以将 MiKTeX 看作是 LaTeX 的一种发行版（大雾），类比 C 的发行版 MSC 一样。[官网的下载页面](https://MiKTeX.org/download)（https://MiKTeX.org/download）包括三种下载（安装）方式，如图分别为安装程序（Installer）、绿色版（Portable Edition）以及命令行（Command-line installer）。
 
 对于Windows开发环境，不考虑命令行方式，因此可以任意选择安装程序或者绿色版。
 
 ![image-20200720222610238](..\assets\img\postsimg\20200720\1.jpg)
 
-需要注意的是，绿色版并没有单独的压缩包，而是直接对应安装版的安装程序，只不过将安装程序重命名为 `miktex-portable.exe`，然后双击安装即可。
+需要注意的是，绿色版并没有单独的压缩包，而是直接对应安装版的安装程序，只不过将安装程序重命名为 `MiKTeX-portable.exe`，然后双击安装即可。
 
-绿色版与安装版的区别在于，绿色版不会向系统盘写入配置信息，也不会注册环境变量，意味着之后如果需要安装编辑器，无法自动获取系统中已经安装的LaTeX版本，而需要手动配置。
+绿色版与安装版的区别在于，绿色版不会向系统盘写入配置信息，也不会注册环境变量，意味着之后如果需要安装编辑器，无法自动获取系统中已经安装的LaTeX版本，而需要手动配置。**懒人推荐安装版，省去配置环境变量等步骤**（虽然后面是以绿色版介绍的）。
 
 双击下载的 exe 文件进行安装，路径任意。
 
@@ -94,10 +94,16 @@ LaTeX 是一种高质量的排版系统；它包括为制作技术和科学文�
 
 ![image-20200720224549218](..\assets\img\postsimg\20200720\5.jpg)
 
-假设安装的MikTeX为绿色版，安装根目录为`X:\ProgramFiles\MikTeX\`，则上述路径均位于
+假设安装的MiKTeX为绿色版，安装根目录为`X:\ProgramFiles\MiKTeX\`，则上述路径均位于
 
 ```
-X:\ProgramFiles\MikTeX\texmfs\install\miktex\bin\x64
+X:\ProgramFiles\MiKTeX\texmfs\install\miktex\bin\x64
+```
+
+相应的，安装版的路径位于
+
+```
+X:\ProgramFiles\MiKTeX\miktex\bin\x64
 ```
 
 分别对应为
@@ -189,47 +195,47 @@ LaTeX 写作类似编程，包括构建（类似编译）和显示（类似运�
 
 其中，「Change」按钮可以更换宏包的源。
 
-miktex 提供了一个专门的宏包管理器，位于texstudio安装路径的mpm.exe。如
+MiKTeX 提供了一个专门的宏包管理器，位于texstudio安装路径的mpm.exe。如
 
 ```
-E:\ProgramFiles\MikTexPortable\texmfs\install\miktex\bin\x64\mpm.exe
+E:\ProgramFiles\MiKTeXPortable\texmfs\install\MiKTeX\bin\x64\mpm.exe
 ```
 
-双击后可以打开 miktex consule。若采用安装版而不是绿色版的 miktex，则还可在 cmd 中输入 mpm 打开。如下
+双击后可以打开 MiKTeX consule。若采用安装版而不是绿色版的 MiKTeX，则还可在 cmd 中输入 mpm 打开。如下
 
 ![image-20200728095348193](..\assets\img\postsimg\20200720\10.jpg)
 
 右键任意包可以查看其文件的存放位置。
 
-一个包一般分为3部分，sty文件、tpm文件和tar.bz2包文件，在[官网此处](https://miktex.org/packages/preprint)（https://miktex.org/packages/preprint）可以查看某个包的详细信息，点击「Browse Files」可查看某个包的所有文件。
+一个包一般分为3部分，sty文件、tpm文件和tar.bz2包文件，在[官网此处](https://MiKTeX.org/packages/preprint)（https://MiKTeX.org/packages/preprint）可以查看某个包的详细信息，点击「Browse Files」可查看某个包的所有文件。
 
 ![image-20200728102410577](..\assets\img\postsimg\20200720\12.jpg)
 
-若使用安装版 miktex 则包位置即为显示的路径。
+若使用安装版 MiKTeX 则包位置即为显示的路径。
 
 ![40085811b17a2ef0d5772099eae7a19](..\assets\img\postsimg\20200720\11.jpg)
 
-若采用绿色版 miktex 则包文件位置分别为：
+若采用绿色版 MiKTeX 则包文件位置分别为：
 
 tpm文件：
 
 ```
-[MikTexPortableRoot]\texmfs\install\tpm\packages
+[MiKTeXPortableRoot]\texmfs\install\tpm\packages
 ```
 
 sty文件：
 
 ```
-[MikTexPortableRoot]\texmfs\install\tex\latex
+[MiKTeXPortableRoot]\texmfs\install\tex\latex
 ```
 
 tar.bz2包文件：
 
 ```
-[MikTexPortableRoot]\texmfs\install\source
+[MiKTeXPortableRoot]\texmfs\install\source
 ```
 
-如果在编译时，遇到包下载和安装失败，可尝试通过 miktex console 进行一次全局更新。
+如果在编译时，遇到包下载和安装失败，可尝试通过 MiKTeX console 进行一次全局更新。
 
 ![f09b70d9cc23257ba1252c96f5c13de](..\assets\img\postsimg\20200720\13.jpg)
 
