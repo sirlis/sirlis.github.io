@@ -72,7 +72,7 @@ Anaconda通过管理工具包、开发环境、Python版本，大大简化了你
 
 注意，如果全程采用官方网站进行下载安装，**翻墙**是必不可少的。
 
-Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anaconda.com/）选择对应平台的Anaconda3安装包下载。对于Windows 10平台，推荐下载64-Bit的Python3.7版本的安装包（614.3M）。
+Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anaconda.com/）选择对应平台的Anaconda3安装包下载。对于Windows 10平台，推荐下载64-Bit的Python3.8版本的安装包（466M）。
 
 ![Anaconda](..\assets\img\postsimg\20200321\02.anacondadownload.png)
 
