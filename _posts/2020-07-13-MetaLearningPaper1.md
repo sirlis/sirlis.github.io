@@ -61,11 +61,15 @@ MAML在监督分类中的算法伪代码如下：
 
 该算法是 meta-train 阶段，目的是得到 $M_{meta}$。下面进行详细分析：
 
-**第一个Require**，反复随机抽取 $\mathcal T$，得到一批（e.g. 1000个）task池，作为训练集 $ p(\mathcal T)$。假设一个 $\mathcal T$ 包含5类，每类20个样本，随机选5样本作为support set（$D_i$），剩余15样本为query set（$D_i'$）。
+参考示意图如下，一个 task 表示为 $\mathcal T$
+
+![](..\assets\img\postsimg\20200713\2.1.jpg)
+
+**第一个Require**，假设我们有一个很大的图像池，里面有很多很多类别的图像，每类图像有几十个。我们从中随机抽取五个类别，形成一个 task $\mathcal T$，如此反复随机抽取可以得到一批（e.g. 1000个）task 作为训练集 $p(\mathcal T)$。假设一个 $\mathcal T$ 包含5类，每类20个样本，随机选5样本作为support set，剩余15样本为query set。
 
 > 训练样本就这么多，要组合形成那么多的task，岂不是不同task之间会存在样本的重复？或者某些task的query set会成为其他task的support set？没错！就是这样！我们要记住，MAML的目的，在于fast adaptation，即通过对大量task的学习，获得足够强的泛化能力，从而面对新的、从未见过的task时，通过fine-tune就可以快速拟合。task之间，只要存在一定的差异即可。
 
-**第二个Require**，step size就是学习率，MAML是基于二重梯度（gradient by gradient），每次迭代有两次参数更新过程，所以有两个学习率可以调整。
+**第二个Require**，step size 就是学习率，MAML 是基于二重梯度（gradient by gradient），每次迭代有两次参数更新过程，所以有两个学习率可以调整。
 
 **1**：随机初始化模型参数 $\theta$；
 
