@@ -88,7 +88,10 @@ CUDA依赖显卡驱动，提前更新显卡驱动并确认显卡驱动支持的C
 
 ### Numpy
 
-NumPy（Numerical Python）是Python的一种开源的数值计算扩展。这种工具可用来存储和处理大型矩阵，比Python自身的嵌套列表（nested list structure)结构要高效的多（该结构也可以用来表示矩阵（matrix）），支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。注意！numpy若通过 conda 或 Anaconda 界面安装可能存在问题，需要用 pip 安装
+NumPy（Numerical Python）是Python的一种开源的数值计算扩展。这种工具可用来存储和处理大型矩阵，比Python自身的嵌套列表（nested list structure)结构要高效的多（该结构也可以用来表示矩阵（matrix）），支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。
+
+- 注意！numpy若通过 conda 或 Anaconda 界面安装可能存在问题，需要用 pip 安装
+- 注意！基础包一定要先安装并测试好能用，再安装其他包。比如先装numpy，再安装scipy，matplotlib等。
 
 采用命令行安装
 
