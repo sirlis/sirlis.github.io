@@ -82,7 +82,13 @@ Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anacon
 
 ![Anaconda](..\assets\img\postsimg\20200321\03.anacondainstall.png)
 
+将Anaconda安装路径的三个路径变量写入系统Path中
 
+```
+D:\XXX\Anaconda3
+D:\XXX\Anaconda3\Scripts
+D:\XXX\Anaconda3\Library\bin
+```
 
 ## 新建和备份环境
 
