@@ -50,18 +50,18 @@ tags: ML
 
 ## 算法
 
-假设这样一个监督分类场景，目的是训练一个数学模型 $M_{fine-tune} $ ，对未知标签的图片做分类，则两大步骤如下：
+假设这样一个监督分类场景，目的是训练一个数学模型 $M_{fine-tune}$ ，对未知标签的图片做分类，则两大步骤如下：
 
-1. 利用某一批数据集训练元模型 $M_{meta} $ 
-2. 在另外一批数据集上精调（fine-tune）得到最终的模型 $M_{fine-tune} $ 。
+1. 利用某一批数据集训练元模型 $M_{meta}$ 
+2. 在另外一批数据集上精调（fine-tune）得到最终的模型 $M_{fine-tune}$ 。
 
 MAML在监督分类中的算法伪代码如下：
 
 ![](..\assets\img\postsimg\20200713\6.jpg)
 
-下面进行详细分析。该算法是 meta-train 阶段，目的是得到 $M_{meta} $；
+该算法是 meta-train 阶段，目的是得到 $M_{meta}$。下面进行详细分析：
 
-**第一个Require**，反复随机抽取 $ \mathcal T$，得到一批（e.g. 1000个）task池，作为训练集 $ p(\mathcal T)$。假设一个 $ \mathcal T$ 包含5类，每类20个样本，随机选5样本作为support set（$D_i$），剩余15样本为query set（$D_i'$）。
+**第一个Require**，反复随机抽取 $\mathcal T$，得到一批（e.g. 1000个）task池，作为训练集 $ p(\mathcal T)$。假设一个 $\mathcal T$ 包含5类，每类20个样本，随机选5样本作为support set（$D_i$），剩余15样本为query set（$D_i'$）。
 
 > 训练样本就这么多，要组合形成那么多的task，岂不是不同task之间会存在样本的重复？或者某些task的query set会成为其他task的support set？没错！就是这样！我们要记住，MAML的目的，在于fast adaptation，即通过对大量task的学习，获得足够强的泛化能力，从而面对新的、从未见过的task时，通过fine-tune就可以快速拟合。task之间，只要存在一定的差异即可。
 
@@ -71,15 +71,15 @@ MAML在监督分类中的算法伪代码如下：
 
 **2**：循环，对于每个epoch，进行若干batch；
 
-**3**：随机选取若干个（比如4个） $ \mathcal T$  形成一个batch；
+**3**：随机选取若干个（比如4个） $\mathcal T$  形成一个batch；
 
-**4**：对于每个batch中的第 $i$ 个 $ \mathcal T$ ，进行**第一次**梯度更新*「inner-loop 内层循环」*。
+**4**：对于每个batch中的第 $i$ 个 $\mathcal T$ ，进行**第一次**梯度更新*「inner-loop 内层循环」*。
 
-**5**：选取 $ \mathcal T_i$ 中的 **support set**，共  $N\cdot K$个样本（5-way 5-shot=25个样本）
+**5**：选取 $\mathcal T_i$ 中的 **support set**，共  $N\cdot K$个样本（5-way 5-shot=25个样本）
 
 **6**：计算每个参数的梯度。原文写对每一个类下的 $K$ 个样本做计算。实际上参与计算的总计有 $N\cdot K$ 个样本。这里的loss计算方法，在回归问题中就是MSE；在分类问题中就是cross-entropy；
 
-**7**：进行第一次梯度更新得到 $\theta'$，可以理解为对 $ \mathcal T_i$ 复制一个原模型 $f(\theta)$ 来更新参数；
+**7**：进行第一次梯度更新得到 $\theta'$，可以理解为对 $\mathcal T_i$ 复制一个原模型 $f(\theta)$ 来更新参数；
 
 **8**：挑出训练集中的 query set 数据用于后续二次梯度更新；
 
@@ -91,7 +91,7 @@ MAML在监督分类中的算法伪代码如下：
 
 - 隐含了**二重梯度**，需要计算 $\mathcal L_{T_i}f(\theta')$ 对 $\theta$ 的导数，而 $\mathcal L_{T_i}f(\theta')$ 是 $\theta'$ 的函数， $\theta'$ 又是 $\theta$ 的函数（见步骤**7**）；
 
-- 不再分别利用每个 $ \mathcal T$ 的loss更新梯度，而是计算一个 batch 中模型 $L_{T_i}f(\theta')$ 的 loss 总和进行梯度下降；
+- 不再分别利用每个 $\mathcal T$ 的loss更新梯度，而是计算一个 batch 中模型 $L_{T_i}f(\theta')$ 的 loss 总和进行梯度下降；
 
 - 参与计算的样本是task中的 **query set**（5way*15=75个样本），目的是增强模型在task上的泛化能力，避免过拟合support set。
 
