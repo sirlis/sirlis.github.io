@@ -82,10 +82,33 @@ document.body.addEventListener('mousedown', function(e){
 });
 ```
 
-最后，测试配置是否成功，下面是 arxiv 上的一篇文章，点击看网址前面是否已经加上“cn.”前缀，点击pdf测试速度。该文章共57页，之后可以手动去掉“cn.”前缀对比速度。
- [NIPS 2016 Tutorial: Generative Adversarial Networks](https://links.jianshu.com/go?to=http%3A%2F%2Farxiv.org%2Fabs%2F1701.00160)
+最后，测试配置是否成功，下面是 arxiv 上的一篇文章，点击pdf测试下载速度。之后可以手动去掉“cn.”前缀对比速度。 [Relation Networks for Object Detection](https://arxiv.org/abs/1711.11575)
+
+![image-20200905144148277](..\assets\img\postsimg\20200905\1.jpg)
 
 另外，由于 [http://cn.arxiv.org](https://links.jianshu.com/go?to=http%3A%2F%2Fcn.arxiv.org%2F) 并不是主站点，是 arxiv 在中国区的镜像，因此更新有大约半天的延迟，对于当天提交的文章，可能更新不及时。对于当天文章可以手动删除“cn.”前缀解决。 如果出现 pdf 正在自动从源文件生成等提示，为正常现象，稍后即可获取pdf论文。
+
+# Zotero文献管理
+
+文献管理软件可以有效的帮助研究人员管理参考文献，加速论文写作过程。这里介绍开源的文献管理软件 Zotero 的基本功能。
+
+将下载到本地的 pdf 论文拖入 Zotero 软件界面即可添加该文献，等待一会儿后，软件会自动分析出论文的信息并形成一个条目。
+
+![image-20200905144646206](..\assets\img\postsimg\20200905\2.jpg)
+
+点击右侧的第二栏 “笔记” 可以查看和增删对该论文的笔记
+
+![image-20200905144801449](..\assets\img\postsimg\20200905\3.jpg)
+
+双击该条目，可以打开外部 pdf 查看器来查看论文。右键该条目，可以转到 pdf 文件的存放位置，或者导出该文献的引文目录。
+
+![image-20200905144924441](..\assets\img\postsimg\20200905\4.jpg)
+
+根据写文章所需要的参考文献格式（此处以 IEEE 为例），选择引文目录，然后选择复制到剪贴板，即可在参考文献中插入自动复制的引文条目：
+
+> [1] H. Hu, J. Gu, Z. Zhang, J. Dai, and Y. Wei, “Relation Networks for Object Detection,” *arXiv:1711.11575 [cs]*, Jun. 2018, Accessed: Sep. 05, 2020. [Online]. Available: http://arxiv.org/abs/1711.11575.
+
+![image-20200905144948669](E:\GitHub\sirlis.github.io\assets\img\postsimg\20200905\5.jpg)
 
 # 参考文献
 
