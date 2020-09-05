@@ -91,9 +91,13 @@ document.body.addEventListener('mousedown', function(e){
 
 # Zotero文献管理
 
-文献管理软件可以有效的帮助研究人员管理参考文献，加速论文写作过程。这里介绍开源的文献管理软件 Zotero 的基本功能。
+文献管理软件可以有效的帮助研究人员管理参考文献，加速论文写作过程。这里介绍开源的文献管理软件 Zotero 的基本功能。**注意**，此处假设主要以英文论文书写为例，若以中文写作为主要工作，可使用 NoteExpress 作为文献管理软件，一般各高校图书馆均提供学校特别版下载安装，NoteExpress 可方便的从中国知网下载和导入文献。
 
-将下载到本地的 pdf 论文拖入 Zotero 软件界面即可添加该文献，等待一会儿后，软件会自动分析出论文的信息并形成一个条目。
+Zotero 官网（https://www.zotero.org/）可以免费下载该软件，软件支持中文。下载安装后，打开「编辑」-「首选项」，切换到「高级」- 「文件和文件夹]选项卡，可以将参考文献索引和存放路径修改到「**自定义的数据存储位置**」：
+
+![image-20200905145730143](..\assets\img\postsimg\20200905\1.5.jpg)
+
+将下载到本地的 pdf 文献拖入 Zotero 软件界面即可添加该文献，等待一会儿后，软件会自动分析出论文的信息并形成一个条目，并将该文献的 pdf 文件拷贝至前面设置的自定义的数据存储位置，因此刚下载到本地的 pdf 文件即可删除了。
 
 ![image-20200905144646206](..\assets\img\postsimg\20200905\2.jpg)
 
@@ -101,7 +105,7 @@ document.body.addEventListener('mousedown', function(e){
 
 ![image-20200905144801449](..\assets\img\postsimg\20200905\3.jpg)
 
-双击该条目，可以打开外部 pdf 查看器来查看论文。右键该条目，可以转到 pdf 文件的存放位置，或者导出该文献的引文目录。
+双击该条目，可以打开外部 pdf 查看器来查看论文。右键该条目，可以转到 pdf 文件的存放位置（自定义的数据存储位置），或者导出该文献的引文目录。
 
 ![image-20200905144924441](..\assets\img\postsimg\20200905\4.jpg)
 
@@ -110,6 +114,18 @@ document.body.addEventListener('mousedown', function(e){
 > [1] H. Hu, J. Gu, Z. Zhang, J. Dai, and Y. Wei, “Relation Networks for Object Detection,” *arXiv:1711.11575 [cs]*, Jun. 2018, Accessed: Sep. 05, 2020. [Online]. Available: http://arxiv.org/abs/1711.11575.
 
 ![image-20200905144948669](E:\GitHub\sirlis.github.io\assets\img\postsimg\20200905\5.jpg)
+
+Zotero 另一个优点是可以建立多层级的目录树，便于分门别类的整理参考文献条目。
+
+![image-20200905150036383](..\assets\img\postsimg\20200905\6.jpg)
+
+另一个方法是针对每一篇写的文章建立一个目录，将所有引用的参考文献放入其中，这样可以统一将整个目录的所有参考文献导出参考文献列表。
+
+当注册了Zotero账户后，可以方便的将整个文献库进行云端存储和同步，当两地办公写作时，可以在一处更新参考文献库后，在另一处联网同步，即可无缝保持两地的文献库的同步。账户设置位于「首选项」-「同步」中，设置完毕后，点击软件界面右上角的小图标即可进行同步。
+
+![image-20200905150512124](..\assets\img\postsimg\20200905\7.jpg)
+
+更进一步，可以下载 zotfile 插件（https://www.worldlink.com.cn/en/osdir/zotfile.html），增强 Zotero 的文献管理功能。比如一键规范所有条目的文献 pdf 文件的标题。
 
 # 参考文献
 
