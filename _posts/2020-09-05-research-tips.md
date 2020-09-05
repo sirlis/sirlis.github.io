@@ -22,6 +22,7 @@ tags: Others
 
 * [目录](#目录)
 * [arXiv检索和下载](#arXiv检索和下载)
+* [Zotero文献管理](#Zotero文献管理)
 * [参考文献](#参考文献)
 
 # arXiv检索和下载
