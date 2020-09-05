@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "科研Tips"
+title:  "科研Tips（文献下载和管理）"
 date:   2020-09-05 14:23:19
 categories: Researching
 tags: Others
@@ -21,11 +21,21 @@ tags: Others
 # 目录
 
 * [目录](#目录)
-* [arXiv检索和下载](#arXiv检索和下载)
+* [文献下载](#文献下载)
+  * [谷歌学术下载](#谷歌学术下载)
+  * [arXiv检索和下载](#arXiv检索和下载)
 * [Zotero文献管理](#Zotero文献管理)
 * [参考文献](#参考文献)
 
-# arXiv检索和下载
+# 文献下载
+
+## 谷歌学术下载
+
+本方法一般需要翻墙。访问 https://scholar.google.com，搜索文献题目，若该文献有能够下载的来源，右侧会出现包含 `[PDF]` 的下载连接。
+
+![image-20200905151132880](..\assets\img\postsimg\20200905\0.5.jpg)
+
+## arXiv检索和下载
 
 参考：[如何快速下载 arxiv 论文](https://www.jianshu.com/p/184799230f20)
 
