@@ -35,6 +35,10 @@ tags: Others
 
 ![image-20200905151132880](..\assets\img\postsimg\20200905\0.5.jpg)
 
+谷歌学术查询的文献，还可以查询到引用信息，作为额外的信息参考。还可以导出为 bibTex 格式。
+
+![image-20200905202241257](..\assets\img\postsimg\20200905\0.6.jpg)
+
 ## arXiv检索和下载
 
 参考：[如何快速下载 arxiv 论文](https://www.jianshu.com/p/184799230f20)
