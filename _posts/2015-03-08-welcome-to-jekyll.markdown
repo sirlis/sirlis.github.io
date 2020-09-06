@@ -1,7 +1,7 @@
 ---
 title: 欢迎使用Jekyll!
 date: 2015-03-08 22:21:49 +0800
-categories: Technology
+categories: [Technology]
 tags: css
 math: true
 ---
