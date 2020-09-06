@@ -1,32 +1,10 @@
 ---
-layout: post
-title:  "深度学习基础（PyTorch的数据集）"
-date:   2020-06-16 16:24:19
+title: 深度学习基础（PyTorch的数据集）
+date: 2020-06-16 16:24:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-# 目录
-
-* [目录](#目录)
-* [Torchvision](#Torchvision)
-* [Dataset](#Dataset)
-  * [默认类](#自定义类)
-  * [自定义类](#自定义类)
-* [DataLoader](#DataLoader)
-* [MNIST](#MNIST)
-* [参考文献](#参考文献)
 
 # torchvision
 

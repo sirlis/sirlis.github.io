@@ -1,30 +1,9 @@
 ---
-layout: post
-title:  "Python基础（万恶的下划线）"
-date:   2020-06-14 10:40:19
+title: Python基础（万恶的下划线）
+date: 2020-06-14 10:40:19 +0800
 categories: Coding
-tags: Python
+tags: python
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [\__name__ == '\_\_main__'](#\__name__ == \'__main__\')
-* [\__init__(self, ...)](#\__init__(self, ...))
-* [super(XXX, self).\__init__()](#super(XXX, self).\__init__())
-* [参考文献](#参考文献)
 
 # \__name__ == '__main__'
 

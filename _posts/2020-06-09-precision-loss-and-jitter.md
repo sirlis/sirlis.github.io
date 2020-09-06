@@ -1,30 +1,10 @@
 ---
-layout: post
-title:  "精度损失和抖颤"
-date:   2020-06-09 20:23:49
+title: 精度损失和抖颤
+date: 2020-06-09 20:23:49 +0800
 categories: Coding
-tags: OpenGL
+tags: opengl
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [抖颤](#抖颤)
-* [相对于中心的渲染](#相对于中心的渲染)
-* [相对于视角的渲染](#相对于视角的渲染)
-* [参考文献](#参考文献)
 
 # 抖颤
 

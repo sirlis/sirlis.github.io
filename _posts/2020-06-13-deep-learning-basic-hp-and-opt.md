@@ -1,39 +1,10 @@
 ---
-layout: post
-title:  "深度学习基础（基本超参数和优化器）"
-date:   2020-06-13 16:24:19
+title: 深度学习基础（基本超参数和优化器）
+date: 2020-06-13 16:24:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [基本超参数](#基本超参数)
-  * [epoch](#epoch)
-  * [batch & batch_size](#batch & batch_size)
-  * [iteration](#iteration)
-* [优化器](#优化器)
-  * [批量梯度下降（BGD）](#批量梯度下降（BGD）)
-  * [随机梯度下降（SGD）](#随机梯度下降（SGD）)
-  * [小批量梯度下降（MBGD）](#小批量梯度下降（MBGD）)
-  * [梯度下降的缺点](#梯度下降的缺点)
-  * [动量（Momentum）](#动量（Momentum）)
-  * [RMSProp](#RMSProp)
-  * [Adam](#Adam)
-* [参考文献](#参考文献)
 
 # 基本超参数
 

@@ -1,40 +1,10 @@
 ---
-layout: post
-title:  "深度学习基础（PyTorch的CNN组成）"
-date:   2020-06-14 16:24:19
+title: 深度学习基础（PyTorch的CNN组成）
+date: 2020-06-14 16:24:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [层](#层)
-  * [Conv2d](#Conv2d)
-    * [dilation](#dilation)
-    * [padding](#padding)
-  * [MaxPool2d](#MaxPool2d)
-  * [Linear](#Linear)
-* [激活函数](#激活函数)
-  * [conv2d](#conv2d)
-  * [softmax](#softmax)
-  * [log_softmax](#log_softmax)
-* [损失函数](#损失函数)
-  * [CrossEntropyLoss](#CrossEntropyLoss)
-  * [NLLLoss](#NLLLoss)
-* [参考文献](#参考文献)
 
 # 层
 

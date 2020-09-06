@@ -1,27 +1,10 @@
 ---
-layout: post
-title:  "VSCode部署Pytorch机器学习框架"
-date:   2020-03-22 09:22:19
+title: VSCode部署Pytorch机器学习框架
+date: 2020-03-22 09:22:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-# 目录
-
-* [目录](#目录)
-* [简介](#简介)
-* [配置Python开发环境](#配置Python开发环境)
-* [配置PyTorch](#配置PyTorch)
-  * [部署PyTorch](#部署PyTorch)
-  * [部署其它包](#部署其它包)
-    * [CUDA](#CUDA)
-    * [cuDNN](#cuDNN)
-    * [Numpy](#Numpy)
-    * [matplotlib](#matplotlib)
-    * [pandas](#pandas)
-  * [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)
-  * [测试](#测试)
-* [参考文献](#参考文献)
 
 # 简介
 

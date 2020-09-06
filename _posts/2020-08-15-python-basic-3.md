@@ -1,39 +1,9 @@
 ---
-layout: post
-title:  "Python基础（数据结构）"
-date:   2020-08-15 21:17:19
+title: Python基础（数据结构）
+date: 2020-08-15 21:17:19 +0800
 categories: Coding
-tags: Python
+tags: python
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [mat](#mat)
-  * [MATLAB保存mat文件](#MATLAB保存mat文件)
-  * [Python读取mat文件](#Python读取mat文件)
-* [list](#list)
-  * [复制](#复制)
-  * [合并](#合并)
-  * [插入新元素](#插入新元素)
-  * [获取列表中的值](#获取列表中的值)
-* [ndarray](#ndarray)
-  * [概念](#概念)
-  * [数组属性](#数组属性)
-  * [创建数组](#创建数组)
-* [参考文献](#参考文献)
 
 # mat
 

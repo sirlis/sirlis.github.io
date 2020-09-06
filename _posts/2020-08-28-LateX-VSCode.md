@@ -1,35 +1,10 @@
 ---
-layout: post
-title:  "LaTeX+VSCode环境配置"
-date:   2020-08-28 09:17:19
+title: LaTeX+VSCode环境配置
+date: 2020-08-28 09:17:19 +0800
 categories: Coding
-tags: Latex
+tags: latex
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [前言](#前言)
-* [LaTeX配置](#LaTeX配置)
-  * [安装MikTeX](#安装MikTeX)
-  * [配置环境变量（绿色版）](#配置环境变量（绿色版）)
-* [配置VSCode的LaTeX环境](#配置VSCode的LaTeX环境)
-  * [安装LaTeX Workshop](#安装LaTeX Workshop)
-  * [配置json](#配置json)
-  * [编译测试](#编译测试)
-* [参考文献](#参考文献)
 
 # 前言
 

@@ -1,44 +1,10 @@
 ---
-layout: post
-title:  "科研Tips（文献查询、下载和管理）"
-date:   2020-09-05 14:23:19
+title: 科研Tips（文献查询、下载和管理）
+date: 2020-09-05 14:23:19 +0800
 categories: Researching
-tags: Others
+tags: paper
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [文献号查询](#文献号查询)
-  * [百度学术查询](#百度学术查询)
-  * [图书馆数据库查询](#图书馆数据库查询)
-  * [ReseachGate查询](#ReseachGate查询)
-  * [注意事项](#注意事项)
-* [文献下载](#文献下载)
-  * [doi号下载](#doi号下载)
-  * [ResearchGate下载](#ResearchGate下载)
-  * [谷歌学术下载](#谷歌学术下载)
-  * [sci-hub下载](#sci-hub下载)
-  * [arXiv下载](#arXiv下载)
-  * [中文硕博士论文下载](#中文硕博士论文下载)
-* [Zotero文献管理](#Zotero文献管理)
-  * [设置数据存储位置](#设置数据存储位置)
-  * [添加文献条目](#添加文献条目)
-  * [导出文献条目](#导出文献条目)
-  * [层级管理和同步](#层级管理和同步)
-* [参考文献](#参考文献)
 
 # 文献号查询
 

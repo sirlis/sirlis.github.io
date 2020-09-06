@@ -1,29 +1,10 @@
 ---
-layout: post
-title:  "Windows10通过应用商店安装Ubuntu"
-date:   2020-07-26 10:55:19
+title: Windows10通过应用商店安装Ubuntu"
+date: 2020-07-26 10:55:19 +0800
 categories: Coding
-tags: Linux
+tags: linux
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-# 目录
-
-* [目录](#目录)
-* [环境配置](#环境配置)
-* [下载和安装](#下载和安装)
-* [注意事项](#注意事项)
-* [参考文献](#参考文献)
 
 # 环境配置
 

@@ -1,34 +1,10 @@
 ---
-layout: post
-title:  "元学习文章阅读（Prototypical Network）"
-date:   2020-07-13 14:35:19
+title: 元学习文章阅读（Prototypical Network）"
+date: 2020-07-13 14:35:19 +0800
 categories: Reading
-tags: ML
+tags: ml
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [Prototypical Network](#Prototypical Network)
-  * [模型](#模型)
-  * [算法](#算法)
-  * [进行混合密度估计](#进行混合密度估计)
-  * [距离度量](#距离度量)
-
-* [实现](#实现)
-* [参考文献](#参考文献)
 
 # Prototypical Network
 

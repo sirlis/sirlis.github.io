@@ -1,40 +1,10 @@
 ---
-layout: post
-title:  "Python基础（绘图plot）"
-date:   2020-08-22 15:58:19
+title: Python基础（绘图plot）
+date: 2020-08-22 15:58:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-
-* [plot](#plot)
-  * [颜色控制](#颜色控制)
-  * [线形控制](#线形控制)
-  * [点形控制](#点形控制)
-  * [另一种设置方法](#另一种设置方法)
-* [subplot](#subplot)
-  * [规则划分](#规则划分)
-  * [不规则划分](#不规则划分)
-  * [二维三维混合子图](#二维三维混合子图)
-  * [多图刷新](#多图刷新)
-* [图中图](#图中图)
-* [清理绘图](#清理绘图)
-* [参考文献](#参考文献)
 
 # plot
 

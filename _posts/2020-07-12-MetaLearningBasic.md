@@ -1,30 +1,10 @@
 ---
-layout: post
-title:  "元学习基础"
-date:   2020-07-12 14:35:19
+title: 元学习基础
+date: 2020-07-12 14:35:19 +0800
 categories: Reading
-tags: ML
+tags: ml
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [小样本学习](#小样本学习)
-* [元学习](#元学习)
-* [训练过程](#训练过程)
-* [参考文献](#参考文献)
 
 # 小样本学习问题
 

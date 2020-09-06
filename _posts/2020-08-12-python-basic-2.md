@@ -1,34 +1,10 @@
 ---
-layout: post
-title:  "Python基础（lambda,np.random）"
-date:   2020-08-12 19:06:19
+title: Python基础（lambda,np.random）
+date: 2020-08-12 19:06:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [lambda](#lambda)
-* [np.random](#np.random)
-  * [.seed()](#.seed())
-  * [.RandomState()](#.RandomState())0
-  * [.choice()](#.choice())
-  * [.uniform()](#.uniform())
-  * [.permutation()](#.permutation())
-* [参考文献](#参考文献)
 
 # lambda
 

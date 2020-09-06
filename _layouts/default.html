@@ -1,27 +1,63 @@
 ---
 layout: compress
+# Default layout
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2017-2019 Cotes Chung
+# MIT Licensed
 ---
+
 <!DOCTYPE html>
-<html>
+
+{% if site.lang %}
+  {% assign lang = site.lang | split: "_" | first %}
+{% else %}
+  {% assign lang = 'en' %}
+{% endif %}
+
+{% capture prefer_mode %}
+  {% if site.theme_mode != "dual" %}
+    mode="{{ site.theme_mode }}"
+  {% endif %}
+{% endcapture %}
+
+<html lang="{{ lang }}" {{ prefer_mode }} >
+
   {% include head.html %}
-  <body>
-    {% include sidebar.html %}
 
-    <main id="main">
-      {{ content }}
+  <body data-spy="scroll" data-target="#toc">
 
-      <div class="footer">
-        <div class="container">
-          <p class="footer-entry">All content is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA</a></p>
-          <p class="footer-entry">Buit with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> and <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll theme</a> • Hosted on <a href="https://pages.github.com/" target="_blank">Github</a></p>
-        </div>
+    <div id="sidebar" class="d-flex flex-column">
+      {% include sidebar.html %}
+    </div>
+
+    {% include topbar.html %}
+
+    <div id="main-wrapper">
+      <div id="main">
+
+        {% include refactor-content.html content=content %}
+
+        {% include footer.html %}
+
       </div>
-    </main>
 
-    <button id="menu">
-      <span id="menu-icons"></span>
-    </button>
+      {% include search-results.html %}
 
-    {% include scripts.html %}
+    </div> <!-- #main-wrapper -->
+
+    <div id="mask"></div>
+
+    <a id="back-to-top" href="#" class="btn btn-lg btn-box-shadow" role="button">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    {% if jekyll.environment == 'production' %}
+      {% include google-analytics.html %}
+    {% endif %}
+
+    {% include search-loader.html %}
+
   </body>
+
 </html>

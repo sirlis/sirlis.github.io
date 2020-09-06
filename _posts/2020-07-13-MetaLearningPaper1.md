@@ -1,38 +1,10 @@
 ---
-layout: post
-title:  "元学习文章阅读（MAML,Reptile）"
-date:   2020-07-13 14:35:19
+title: 元学习文章阅读（MAML,Reptile）"
+date: 2020-07-13 14:35:19 +0800
 categories: Reading
-tags: ML
+tags: ml
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [MAML](#MAML)
-  * [算法](#算法)
-  * [关于二重梯度的进一步解释](#关于二重梯度的进一步解释)
-  * [FOMAML一阶近似简化](#FOMAML一阶近似简化)
-  * [缺点](#缺点)
-* [Reptile](#Reptile)
-  * [算法](#算法)
-  * [分析](#分析)
-  * [实验](#实验)
-* [各类算法实现](#各类算法实现)
-* [reptile的一个实现和详细分析](#reptile的一个实现和详细分析)
-* [参考文献](#参考文献)
 
 # MAML
 

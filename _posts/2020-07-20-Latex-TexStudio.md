@@ -1,40 +1,10 @@
 ---
-layout: post
 title:  "LaTeX+TexStudio环境配置"
-date:   2020-07-13 14:35:19
+date:   2020-07-13 14:35:19 +0800
 categories: Coding
-tags: Latex
+tags: latex
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [LaTeX简介](#LaTeX简介)
-* [下载和安装MiKTeX](#下载和安装MiKTeX)
-* [下载和安装TeXstudio](#下载和安装TeXstudio)
-  * [下载和安装](#下载和安装)
-  * [配置](#配置)
-  * [测试](#测试)
-* [LaTeX详细指南](#LaTeX详细指南)
-  * [主文档](#主文档)
-  * [宏包安装和管理](#宏包安装和管理)
-  * [插入图片](#插入图片)
-  * [插入公式](#插入公式)
-  * [插入参考文献](#插入参考文献)
-  * [引用章节名称](#引用章节名称)
-* [参考文献](#参考文献)
 
 # LaTeX简介
 

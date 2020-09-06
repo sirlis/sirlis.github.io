@@ -1,37 +1,10 @@
 ---
-layout: post
-title:  "VSCode部署Python开发环境"
-date:   2020-03-21 15:22:19
+title: VSCode部署Python开发环境
+date: 2020-03-21 15:22:19 +0800
 categories: Coding
-tags: Python
+tags: python
+math: true
 ---
-
-# 目录
-
-* [目录](#目录)
-* [简介](#简介)
-* [VSCode下载与安装](#VSCode下载与安装)
-* [配置Python开发环境](#配置Python开发环境)
-  * [部署解释器](#部署解释器)
-  * [安装Anaconda](#安装Anaconda)
-  * [新建和备份环境](#新建和备份环境)
-  * [配置依赖包](#配置依赖包)
-    * [更新包管理工具](#更新包管理工具)
-      * [pip](#pip)
-      * [conda](#conda)
-      * [说明](#说明)
-    * [更换镜像源](#更换镜像源)
-      * [pip镜像源](#pip镜像源)
-      * [conda镜像源](#conda镜像源)
-    * [常用命令](#常用命令)
-  * [生成配置文件](#生成配置文件)
-    * [解释配置（settings.json）](#解释配置（settings.json）)
-    * [调试配置（launch.json）](#调试配置（launch.json）)
-  * [调试运行测试](#调试运行测试)
-* [错误集合](#错误集合)
-  * [无法将conda项识别为cmdet...](#无法将conda项识别为cmdet...)
-  * [提示CommandNotFoundError](#提示CommandNotFoundError)
-* [参考文献](#参考文献)
 
 # 简介
 

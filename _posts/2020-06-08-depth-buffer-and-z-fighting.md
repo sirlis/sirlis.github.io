@@ -1,30 +1,10 @@
 ---
-layout: post
-title:  "深度缓冲和深度冲突"
-date:   2020-06-08 22:21:49
+title: 深度缓冲和深度冲突
+date: 2020-06-08 22:21:49 +0800
 categories: Coding
-tags: OpenGL
+tags: opengl
+math: true
 ---
-
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-# 目录
-
-* [目录](#目录)
-* [深度缓冲](#深度缓冲)
-* [深度冲突](#深度冲突)
-* [对数深度缓冲](#对数深度缓冲)
-* [参考文献](#参考文献)
 
 # 深度缓冲
 
