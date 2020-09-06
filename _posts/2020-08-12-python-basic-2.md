@@ -1,8 +1,8 @@
 ---
 title: Python基础（lambda,np.random）
 date: 2020-08-12 19:06:19 +0800
-categories: Coding
-tags: python
+categories: [Coding]
+tags: [python]
 math: true
 ---
 

@@ -1,8 +1,8 @@
 ---
 title:  "LaTeX+TexStudio环境配置"
 date:   2020-07-13 14:35:19 +0800
-categories: Coding
-tags: latex
+categories: [Coding]
+tags: [latex]
 math: true
 ---
 

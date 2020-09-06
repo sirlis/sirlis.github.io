@@ -1,8 +1,9 @@
 ---
 title: Python基础（数据结构）
 date: 2020-08-15 21:17:19 +0800
-categories: Coding
-tags: python
+categories: [Coding]
+tags: [python]
+math: true
 ---
 
 # mat

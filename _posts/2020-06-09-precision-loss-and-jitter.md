@@ -1,8 +1,8 @@
 ---
 title: 精度损失和抖颤
 date: 2020-06-09 20:23:49 +0800
-categories: Coding
-tags: opengl
+categories: [Coding]
+tags: [opengl]
 math: true
 ---
 
