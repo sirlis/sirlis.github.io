@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "科研Tips（文献下载和管理）"
+title:  "科研Tips（文献查询、下载和管理）"
 date:   2020-09-05 14:23:19
 categories: Researching
 tags: Others
@@ -21,10 +21,18 @@ tags: Others
 # 目录
 
 * [目录](#目录)
+* [文献号查询](#文献号查询)
+  * [百度学术查询](#百度学术查询)
+  * [图书馆数据库查询](#图书馆数据库查询)
+  * [ReseachGate查询](#ReseachGate查询)
+  * [注意事项](#注意事项)
 * [文献下载](#文献下载)
+  * [doi号下载](#doi号下载)
+  * [ResearchGate下载](#ResearchGate下载)
   * [谷歌学术下载](#谷歌学术下载)
   * [sci-hub下载](#sci-hub下载)
-  * [arXiv检索和下载](#arXiv检索和下载)
+  * [arXiv下载](#arXiv下载)
+  * [中文硕博士论文下载](#中文硕博士论文下载)
 * [Zotero文献管理](#Zotero文献管理)
   * [设置数据存储位置](#设置数据存储位置)
   * [添加文献条目](#添加文献条目)
@@ -32,7 +40,47 @@ tags: Others
   * [层级管理和同步](#层级管理和同步)
 * [参考文献](#参考文献)
 
+# 文献号查询
+
+## 百度学术查询
+
+直接百度学术搜索文章标题
+
+![image-20200906105036534](..\assets\img\postsimg\20200905\0.1.jpg)
+
+## 图书馆数据库查询
+
+如果是SCI，通过校图书馆-「数据库列表」-「Web Of Science」-「SCIE」搜索文章标题
+
+![image-20200906105134588](..\assets\img\postsimg\20200905\0.2.jpg)
+
+## ResearchGate查询
+
+ResearchGate（https://www.researchgate.net/）
+
+![image-20200906105216130](..\assets\img\postsimg\20200905\0.3.jpg)
+
+## 注意事项
+
+**注意**，有些会议文章可能搜不到 DOI 号；
+
+**注意**，有些文章可能仅上传于 arXiv，没 DOI 号；
+
+**注意**，有些专著没有 DOI 号，而是用 ISBN 号。
+
 # 文献下载
+
+## doi号下载
+
+直接在 DOI 号（如10.1016/j.asr.2017.11.035）前增加 https://doi.org/，然后通过浏览器访问，能**重定向**到论文原始出处，如果有权限（比如在校园网内且学校购买了相关数据资源），可以直接下载。
+
+![image-20200906105644520](..\assets\img\postsimg\20200905\0.4.jpg)
+
+## ResearchGate下载
+
+ResearchGate（https://www.researchgate.net/） 上不但能检索到文献的 DOI 号，有的资源还可以直接下载。
+
+![image-20200906105759436](..\assets\img\postsimg\20200905\0.55.jpg)
 
 ## 谷歌学术下载
 
@@ -52,7 +100,7 @@ tags: Others
 
 输入 DOI 号就能检索和下载 pdf 文献，虽然可能版本不是最新的，但胜在好用。DOI 号不用教怎么查了吧？某度学术，某歌学术，某 WOS，某 Gate，都可以输入文献名称去查。
 
-## arXiv检索和下载
+## arXiv下载
 
 参考：[如何快速下载 arxiv 论文](https://www.jianshu.com/p/184799230f20)
 
@@ -116,7 +164,21 @@ document.body.addEventListener('mousedown', function(e){
 
 另外，由于 [http://cn.arxiv.org](https://links.jianshu.com/go?to=http%3A%2F%2Fcn.arxiv.org%2F) 并不是主站点，是 arxiv 在中国区的镜像，因此更新有大约半天的延迟，对于当天提交的文章，可能更新不及时。对于当天文章可以手动删除“cn.”前缀解决。 如果出现 pdf 正在自动从源文件生成等提示，为正常现象，稍后即可获取pdf论文。
 
+## 中文硕博士论文下载
+
+知网中论文只能下载到caj版本（垃圾知网只坑国人），如果处于校园网内，可以去知网海外版（[www.oversea.cnki.net](http://www.oversea.cnki.net)）下载到pdf版（垃圾知网不坑洋人）。
+
+![image-20200906110132227](..\assets\img\postsimg\20200905\1.1.jpg)
+
+点击Download PDF
+
+![image-20200906110206300](..\assets\img\postsimg\20200905\1.2.jpg)
+
+从此告别CNKI阅读器，垃圾流氓软件，拜拜了您嘞。
+
 # Zotero文献管理
+
+
 
 文献管理软件可以有效的帮助研究人员管理参考文献，加速论文写作过程。这里介绍开源的文献管理软件 Zotero 的基本功能。**注意**，此处假设主要以英文论文书写为例，若以中文写作为主要工作，可使用 NoteExpress 作为文献管理软件，一般各高校图书馆均提供学校特别版下载安装，NoteExpress 可方便的从中国知网下载和导入文献。Zotero 官网（https://www.zotero.org/）可以免费下载该软件，软件支持中文。
 
@@ -144,13 +206,13 @@ document.body.addEventListener('mousedown', function(e){
 
 ![image-20200905144924441](..\assets\img\postsimg\20200905\4.jpg)
 
-根据写文章所需要的参考文献格式（此处以 IEEE 为例），选择引文目录，然后选择复制到剪贴板，即可在参考文献中插入自动复制的引文条目：
+根据写文章所需要的参考文献格式（此处以 IEEE 为例），选择引文目录，然后选择复制到剪贴板，即可在比如Word中所写论文的参考文献中，插入自动复制的引文条目：
 
 > [1] H. Hu, J. Gu, Z. Zhang, J. Dai, and Y. Wei, “Relation Networks for Object Detection,” *arXiv:1711.11575 [cs]*, Jun. 2018, Accessed: Sep. 05, 2020. [Online]. Available: http://arxiv.org/abs/1711.11575.
 
 ![image-20200905144948669](E:\GitHub\sirlis.github.io\assets\img\postsimg\20200905\5.jpg)
 
-还可以右键选择「导出条目」导出为 bib 格式的条目信息。
+还可以右键选择「导出条目」导出为 bib 格式的条目信息，即可在 latex 中的 bib 文件插入该参考文献条目以供正文引用。
 
 ![image-20200906104239391](..\assets\img\postsimg\20200905\5.5.jpg)
 
