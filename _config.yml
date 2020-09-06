@@ -18,7 +18,7 @@ description: >-                        # used by seo meta and the atom feed
   and focuses on text presentation.
 
 # Replace with the website url, e.g. 'https://username.github.io'
-url: 'protocol://domain'
+url: 'https://sirlis.github.io'
 
 author: sirlis                  # change to your full name
 
@@ -28,7 +28,7 @@ github:
   username: sirlis             # change to your github username
 
 twitter:
-  username: twitter_username            # change to your twitter username
+  username: none           # change to your twitter username
 
 social:
   name: sirlis                  # it will shows as the copyright owner in Footer
