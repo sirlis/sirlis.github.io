@@ -6,6 +6,18 @@ tags: [python]
 math: true
 ---
 
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
+
 # 基本超参数
 
 **batch**（minibatch）、**batch_size**、**epoch**、**iteration**是深度学习中常见的几个超参数[[1](#ref1)]：
