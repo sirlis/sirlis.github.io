@@ -176,7 +176,7 @@ document.body.addEventListener('mousedown', function(e){
 
 > [1] H. Hu, J. Gu, Z. Zhang, J. Dai, and Y. Wei, “Relation Networks for Object Detection,” *arXiv:1711.11575 [cs]*, Jun. 2018, Accessed: Sep. 05, 2020. [Online]. Available: http://arxiv.org/abs/1711.11575.
 
-![image-20200905144948669](E:\GitHub\sirlis.github.io\assets\img\postsimg\20200905\5.jpg)
+![image-20200905144948669](\assets\img\postsimg\20200905\5.jpg)
 
 还可以右键选择「导出条目」导出为 bib 格式的条目信息，即可在 latex 中的 bib 文件插入该参考文献条目以供正文引用。
 
