@@ -6,6 +6,18 @@ tags: [opengl]
 math: true
 ---
 
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
+
 # 深度缓冲
 
 OpenGL是一个右手坐标系。简单来说，就是正x轴在你的右手边，正y轴朝上，而正z轴是朝向后方的。想象你的屏幕处于三个轴的中心，则正z轴穿过你的屏幕朝向你。在OpenGL中采用z坐标来描述深度信息。一般地，z轴的坐标原点在屏幕上，屏幕里为负轴，向外为正轴。OpenGL中的观察者为摄像机。一般地，摄像机的初始位置在OpenGL窗口的正中心。
@@ -32,7 +44,7 @@ $$
 
 要想有正确的投影性质，需要使用一个非线性的深度方程，它是与$ 1/z$ 成正比的。它做的就是在$z$值很小的时候提供非常高的精度，而在$z$值很远的时候提供更少的精度。花时间想想这个：我们真的需要对1000单位远的深度值和只有1单位远的充满细节的物体使用相同的精度吗？线性方程并不会考虑这一点。
 
-考虑一种深度缓冲与$z$成反比的非线性方程如下：
+考虑一种深度缓冲与 $z$ 成反比的非线性方程如下：
 
 $$
 F_{depth}=\frac{1/z-1/near}{1/far-1/near}
