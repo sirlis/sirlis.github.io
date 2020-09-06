@@ -1,5 +1,5 @@
 ---
-title: Windows10通过应用商店安装Ubuntu"
+title: Windows10通过应用商店安装Ubuntu
 date: 2020-07-26 10:55:19 +0800
 categories: [Coding]
 tags: [linux]
