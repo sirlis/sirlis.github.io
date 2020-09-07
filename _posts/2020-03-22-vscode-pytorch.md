@@ -123,15 +123,15 @@ conda install pandas
 
 若要手动部署CUDA和cuDNN，必须遵循先CUDA后cuDNN的顺序。首先前往官网（https://www.nvidia.com/）下载CUDA。
 
-![安装matplotlib](\assets\img\postsimg\20200322\05.manualcuda.png)
+![下载cuda](\assets\img\postsimg\20200322\05.manualcuda.png)
 
 在打开的页面中点击 ”Download Now“ 按钮，然后再新页面中选择 “Legacy Releases” 按钮，不要按照页面的说法进行系统选择等操作。
 
-![安装matplotlib](\assets\img\postsimg\20200322\06.cuda1.png)
+![安装cuda1](\assets\img\postsimg\20200322\06.cuda1.png)
 
 然后根据自己的实际情况选择相应的CUDA版本下载安装。
 
-![安装matplotlib](\assets\img\postsimg\20200322\07.cuda2.png)
+![安装cuda2](\assets\img\postsimg\20200322\07.cuda2.png)
 
 手动安装CUDA后需要进行检查。`win+R` 输入 `cmd` 回车，打开命令提示符，输入
 
