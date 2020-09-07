@@ -336,7 +336,13 @@ invocation to 'CALL conda.bat activate'.
 
 此时会出现错误，`无法加载文件 ******.ps1，因为在此系统中禁止执行脚本。`
 
-关闭VSCode。按 `Win+X`，选择 `Windows PowerShell（管理员）` 打开，输入命令 `set-ExecutionPolicy RemoteSigned` 回车
+关闭VSCode。按 `Win+X`，选择 `Windows PowerShell（管理员）` 打开，输入命令
+
+```
+set-ExecutionPolicy RemoteSigned
+```
+
+回车
 
 ```
 执行策略更改 
