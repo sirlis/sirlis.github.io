@@ -204,7 +204,7 @@ custom_channels:
   simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 ```
 
-运行一下命令清除缓存
+运行以下命令清除缓存
 
 ```
 conda clean -i
@@ -221,8 +221,8 @@ conda clean -i
 - 显示环境下所有安装的包
 
 ```
-[pip]    pip -v list
 [conda]  conda list 
+[pip]    pip -v list
 ```
 
 ![piplist](\assets\img\postsimg\20200321\10.piplist.png)
