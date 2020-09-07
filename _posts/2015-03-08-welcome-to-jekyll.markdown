@@ -18,7 +18,7 @@ Check out the [Jekyll docs][jekyll] for more info on how to get the most out of 
 permalink: :year/:month/:day/:title/
 ```
 
-会导致使用相对路径插入图片的帖子（如`./assets/img/postsimg/20200505/1.jpg`）无法定位到图片的真正位置。因此需在`_config.yml`中修改为以下语句：
+会导致使用相对路径插入图片的帖子（如`../assets/img/postsimg/20200505/1.jpg`）无法定位到图片的真正位置。因此需在`_config.yml`中修改为以下语句：
 
 ```
 permalink: :year-:month-:day-:title/
