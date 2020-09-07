@@ -24,7 +24,7 @@ PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语�
 
 ![安装命令行](\assets\img\postsimg\20200322\01.command.png)
 
-**注意**，PyTorch包含两个版本，CPU版（CUDA=None）和GPU版，若计算机没有合适的独立显卡，则CUDA选择None。不过GPU版同样包含CPU版的所有功能，因此完全可以安装GPU版，只是不能利用GPU计算加速。
+**注意**，PyTorch包含两个版本，CPU版（CUDA=None）和GPU版，若计算机没有合适的独立显卡，则CUDA选择None。不过GPU版同样包含CPU版的所有功能，因此完全可以安装GPU版，然后不用GPU计算加速功能。
 
 **注意**，请自行确认独立显卡驱动支持的**CUDA版本**。打开控制面板，选择查看方式为“小图标”，选择“Nvidia控制面板”，然后如图所示的步骤依次打开“系统信息” => “组件”，查看 “NVCUDA.DLL” 的产品名称，并选择不超过其版本号的CUDA版本号。
 
@@ -59,6 +59,8 @@ conda install pytorch torchvision cudatoolkit=10.1
 - cuda  10.2.89（与显卡支持的cuda版本有关）
 - cudnn  7.6.5（与cuda版本有关）
 
+注意，务必不要单独通过 Anaconda 安装 pytorch，那样安装的版本是 cpu 版的。
+
 ## 部署其它包
 
 ### CUDA
@@ -67,7 +69,7 @@ CUDA（Compute Unified Device Architecture），是NVIDIA推出的运算平台�
 
 CUDA依赖显卡驱动，提前更新显卡驱动并确认显卡驱动支持的CUDA版本号。
 
-采用命令行安装时，命令行中已经带有安装CUDA的指令 `cudatoolkit=10.1`。若命令行安装失败，可通过Anaconda界面依次安装pytorch、torchvision和cudatoolkit。
+采用命令行安装时，命令行中已经带有安装CUDA的指令 `cudatoolkit=10.1`。若命令行安装失败，可通过Anaconda界面安装cudatoolkit。
 
 若界面安装仍然失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
 
