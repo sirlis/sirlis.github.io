@@ -56,7 +56,7 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 完整的GPU版本的PyTorch包含以下组件，版本号为我使用的版本号，其他人需要根据自身实际情况调整：
 
-- pytorch  1.5.0
+- pytorch  1.6.0
 - torchvision  0.6.0
 - cuda  10.2.89（后文中部署）
 - cudnn  7.6.5（后文中部署）
