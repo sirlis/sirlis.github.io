@@ -30,16 +30,16 @@ PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语�
 
 ![CUDA版本查看](\assets\img\postsimg\20200322\04.cudaversion.png)
 
+若采用conda安装（推荐），则命令行如下
+
+```
+conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
+```
+
 若采用pip安装，则命令行如下
 
 ```
 pip install torch===1.5.0 torchvision===0.6.0 -f https://download.pytorch.org/whl/torch_stable.html
-```
-
-若采用conda安装，则命令行如下
-
-```
-conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
 ```
 
 打开Anaconda Navigator，激活相应的环境，打开环境的终端，输入上述命令即可完成PyTorch的安装。【20200907补充，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
