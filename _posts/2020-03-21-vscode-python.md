@@ -103,7 +103,7 @@ python -m pip install --upgrade pip
 
 ![Anaconda](\assets\img\postsimg\20200321\07.piplatest.png)
 
-#### conda
+#### conda（推荐）
 
 还可以采用第三方的开源跨平台包管理工具**conda**进行包管理，作为pip无法进行包更新时的备份工具。
 

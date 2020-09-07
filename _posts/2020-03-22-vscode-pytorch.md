@@ -87,8 +87,8 @@ NumPy（Numerical Python）是Python的一种开源的数值计算扩展。这�
 采用命令行安装
 
 ```
-pip install numpy
 conda install numpy
+pip install numpy
 ```
 
 或者通过Anaconda界面进行安装。
