@@ -42,7 +42,7 @@ pip install torch===1.5.0 torchvision===0.6.0 -f https://download.pytorch.org/wh
 conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
 ```
 
-【20200907补充，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
+打开Anaconda Navigator，激活相应的环境，打开环境的终端，输入上述命令即可完成PyTorch的安装。【20200907补充，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
 
 若已经更换了 Anaconda 的镜像源为国内源，则可以去掉后面的 `-c pytorch`，即使用
 
@@ -52,14 +52,12 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 【20200907补充，注意清华源可能不包括torchvision，因此万全之策还是加上 `-c pytorch`】
 
-打开Anaconda Navigator，激活相应的环境，打开环境的终端，输入上述命令即可完成PyTorch的安装。
-
-完整的GPU版本的PyTorch包含以下组件，版本号为我使用的版本号，其他人需要根据自身实际情况调整：
+完整的GPU版本的PyTorch包含以下组件，版本号为我使用的版本号，其他人需要根据自身实际情况调整（尽量按照官网给出的版本匹配）：
 
 - pytorch  1.6.0
 - torchvision  0.6.0
-- cuda  10.2.89（后文中部署）
-- cudnn  7.6.5（后文中部署）
+- cuda  10.2.89（与显卡支持的cuda版本有关）
+- cudnn  7.6.5（与cuda版本有关）
 
 ## 部署其它包
 
