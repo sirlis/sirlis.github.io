@@ -78,9 +78,3 @@ $$ S = \int dQ/T $$
 # 参考文献
 
 <span id="ref1">[1]</span> 百度百科. [熵定律](https://baike.baidu.com/item/%E7%86%B5%E5%AE%9A%E5%BE%8B).
-
-<span id="ref2">[2]</span>  [strange_jiong](https://blog.csdn.net/dream_allday). [Latex编译出现字体获取不到的情况](https://blog.csdn.net/dream_allday/article/details/84997874).
-
-<span id="ref3">[3]</span>  [开心鲨鱼](https://www.zhihu.com/people/kai-xin-sha-yu). [配置VScode编辑LaTeX及正反向搜索等设置](https://zhuanlan.zhihu.com/p/90526218?utm_source=wechat_session).
-
-<span id="ref4">[4]</span> LaTeX工作室. [LaTeX技巧932：如何配置Visual Studio Code作为LaTeX编辑器新版更新](https://www.latexstudio.net/archives/12260.html).
