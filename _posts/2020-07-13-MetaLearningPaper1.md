@@ -133,14 +133,12 @@ $$
 $$
 \begin{aligned}
 \nabla_\theta l(\theta ') =
-\left[   
-    \begin{array}
-    \partial l(\theta')/\partial \theta_1\\
-	\partial l(\theta')/\partial \theta_2\\
-	\vdots\\
-	\partial l(\theta')/\partial \theta_n
-	\end{array}
-\right]
+    \begin{bmatrix}
+    \partial l(\theta')/\partial \theta_1\\ 
+    \partial l(\theta')/\partial \theta_2\\ 
+    \vdots\\ 
+    \partial l(\theta')/\partial \theta_n
+    \end{bmatrix}
 \end{aligned}
 $$
 
