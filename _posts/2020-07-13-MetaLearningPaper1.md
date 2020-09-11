@@ -87,6 +87,30 @@ MAML在监督分类中的算法伪代码如下：
 
 **总结**：MAML使用训练集优化内层循环，使用测试集优化模型，也就是外层循环。外层循环需要计算**二重梯度（gradient by gradient）**。
 
+## 关于二重梯度的解释
+
+设初始化的参数为 $\bm \theta = [\theta_1,\theta_2,...,\theta_n]^T$，一共 $n$ 个参数。
+
+MAML 的目标是：找寻一组模型初始参数 $\bm \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数 $L_\tau$ 就能达到很小。
+
+> find an initial set of parameters, $\bm \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ update.
+
+用数学语言描述，即
+
+$$
+\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau}(U^k_\tau(\bm \theta))]
+$$
+
+其中，$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。
+
+那么，$U^k_\tau(\bm \theta)$ 表示对 $\bm \theta$ 执行这种更新计算操作，即对 $\bm \theta$ 在数据 $\tau$ 进行 $k$ 次更新。假设每次更新计算的梯度为 $g_i$，算子可以写为
+
+$$
+U^k_\tau(\bm \theta)=\bm \theta+g_1+g_2+...+g_k
+$$
+
+也就是说，算子针对模型参数 $\bm \theta$ 进行 $k$ 次更新后，得到的是更新后的模型参数。
+
 ## 关于二重梯度的进一步解释
 
 设初始化的参数为 $\theta$ ，每个任务的模型一开始的参数都是 $\theta$。
