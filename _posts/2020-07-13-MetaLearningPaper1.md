@@ -162,8 +162,8 @@ $$
 当 $i \neq j$ 时
 
 $$
-\frac{\partial \theta_j'}{\partial \theta_i} = 
-- \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j}
+\frac{\partial \theta_j'}{\partial \theta_i} = -
+\epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j}
 $$
 
 当 $i = j$ 时
@@ -180,8 +180,8 @@ $$
 在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
 
 $$
-(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 
-- \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
+(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} = -
+\epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
 (i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
 $$
 
