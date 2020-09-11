@@ -89,7 +89,54 @@ MAML在监督分类中的算法伪代码如下：
 
 ## 关于二重梯度的解释
 
-设初始化的参数为 $\bm \theta = [\theta_1,\theta_2,...,\theta_n]^T$，一共 $n$ 个参数。
+设初始化的参数为
+
+$$
+\bm \theta = [\theta_1,\theta_2,...,\theta_n]^T
+$$
+
+一共 $n$ 个参数。
+
+假设任务为 $\tau$，包含 10 个样本，每个样本输入 6 个量，输出 4 个量。神经网络即为一个 6 输入 2 输出的网络。
+
+样本输入矩阵为（行是样本，列是输入维度）
+
+$$
+\bm M_{in} = \begin{bmatrix}
+ ^1x_1&  ^1x_2&  \cdots& ^1x_6\\ 
+ ^2x_1&  ^2x_2&  \cdots& ^2x_6 \\ 
+ \vdots& \vdots & \ddots & \vdots\\ 
+ ^{10}x_1& ^{10}x_2&  \cdots& ^{10}x_6
+\end{bmatrix}
+$$
+
+同理，输出矩阵为
+
+$$
+\bm M_{out} = \begin{bmatrix}
+ ^1y_1&  ^1y_2&  \cdots& ^1y_4\\ 
+ ^2y_1&  ^2y_2&  \cdots& ^2y_4 \\ 
+ \vdots& \vdots & \ddots & \vdots\\ 
+ ^{10}y_1& ^{10}y_2&  \cdots& ^{10}y_4
+\end{bmatrix}
+$$
+
+对于参数为 $\bm \theta$ 的模型，其预测输出矩阵为
+
+$$
+\bm M_{pred}(\bm \theta) = \begin{bmatrix}
+ ^1\hat{y}_1(\bm \theta)&  ^1\hat{y}_2(\bm \theta)&  \cdots& ^1\hat{y}_4(\bm \theta)\\ 
+ ^2\hat{y}_1(\bm \theta)&  ^2\hat{y}_2(\bm \theta)&  \cdots& ^2\hat{y}_4(\bm \theta) \\ 
+ \vdots& \vdots & \ddots & \vdots\\ 
+ ^{10}\hat{y}_1(\bm \theta)& ^{10}\hat{y}_2(\bm \theta)&  \cdots& ^{10}\hat{y}_4(\bm \theta)
+\end{bmatrix}
+$$
+
+然后，模型在这批样本上的损失函数 $L_\tau$ 可以采用 MSE 来衡量（**对不对？？？**）
+
+$$
+L_\tau(\bm \theta) = MSE_\tau = \frac{1}{10\cdot4} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j(\bm \theta) - {}^iy_j)^2
+$$
 
 MAML 的目标是：找寻一组模型初始参数 $\bm \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数 $L_\tau$ 就能达到很小。
 
@@ -98,18 +145,55 @@ MAML 的目标是：找寻一组模型初始参数 $\bm \theta$，使得模型�
 用数学语言描述，即
 
 $$
-\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau}(U^k_\tau(\bm \theta))]
+\begin{aligned}
+\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau}(^{k}_\tau\bm \theta)]
+= \mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau}(U^k_\tau(\bm \theta))]
+\end{aligned}
 $$
 
-其中，$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。
+其中，$^{k}_\tau \bm \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\bm \theta)=^{k}_\tau \bm \theta$。
 
-那么，$U^k_\tau(\bm \theta)$ 表示对 $\bm \theta$ 执行这种更新计算操作，即对 $\bm \theta$ 在数据 $\tau$ 进行 $k$ 次更新。假设每次更新计算的梯度为 $g_i$，算子可以写为
+假设梯度为 $g$，则
 
 $$
-U^k_\tau(\bm \theta)=\bm \theta+g_1+g_2+...+g_k
+\begin{aligned}
+\bm g &= \begin{bmatrix}
+\partial L_\tau / \partial \theta_1\\ 
+\partial L_\tau / \partial \theta_2\\ 
+\vdots\\ 
+\partial L_\tau / \partial \theta_n
+\end{bmatrix}
+= \frac{\partial L_\tau}{\partial \bm \theta}=\nabla_\theta L_\tau=\frac{1}{10\cdot4}\nabla_\theta \sum_i^{10} \sum_j^{4}(^i\hat{y}_j - {}^iy_j)^2
+\end{aligned}
 $$
 
-也就是说，算子针对模型参数 $\bm \theta$ 进行 $k$ 次更新后，得到的是更新后的模型参数。
+下面的式子展示了更新1次，更新2次，。。。，更新 $k$ 次的过程。
+
+$$
+\begin{aligned}
+1^{st}\;gradient\;step:\quad&\bm \theta \leftarrow U^1_\tau(\bm \theta)=\bm \theta - \epsilon \bm g_1\\
+2^{nd}\;gradient\;step:\quad&\bm \theta \leftarrow U^2_\tau(\bm \theta)=\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2\\
+...\\
+k^{th}\;gradient\;step:\quad&\bm \theta \leftarrow U^k_\tau(\bm \theta)=\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2-...- \epsilon \bm g_k\\
+\end{aligned}
+$$
+
+假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 试图解决如下问题
+
+$$
+\begin{aligned}
+\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau,B}(U^k_{\tau,A}(\bm \theta))]
+\end{aligned}
+$$
+
+即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数，使得 $L(\bm \theta)$ 最小。
+
+**为了使损失函数最小，需要求损失函数对模型参数的梯度，然后再在梯度负方向更新参数。**
+
+$$
+g_{MAML} = \nabla L_{\tau,B}(U_{\tau,A}^k(\bm \theta))
+$$
+
 
 ## 关于二重梯度的进一步解释
 
