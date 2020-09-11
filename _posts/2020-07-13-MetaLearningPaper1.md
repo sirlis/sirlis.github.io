@@ -132,7 +132,7 @@ $$
 \end{bmatrix}
 $$
 
-然后，模型在这批样本上的损失函数 $L_\tau$ 可以采用 MSE 来衡量（**对不对？？？**）
+然后，模型在这批样本上的损失函数 $L_\tau$ 可以采用 MSE 来衡量（**下面的式子定义对不对？？？**）
 
 $$
 L_\tau(\bm \theta) = MSE_\tau = \frac{1}{10\cdot4} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j(\bm \theta) - {}^iy_j)^2
@@ -167,33 +167,56 @@ $$
 \end{aligned}
 $$
 
-下面的式子展示了更新1次，更新2次，。。。，更新 $k$ 次的过程。
+下面展示了梯度算子更新1次，更新2次，。。。，更新 $k$ 次的过程。
 
 $$
 \begin{aligned}
-1^{st}\;gradient\;step:\quad&\bm \theta \leftarrow U^1_\tau(\bm \theta)=\bm \theta - \epsilon \bm g_1\\
-2^{nd}\;gradient\;step:\quad&\bm \theta \leftarrow U^2_\tau(\bm \theta)=\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2\\
-...\\
-k^{th}\;gradient\;step:\quad&\bm \theta \leftarrow U^k_\tau(\bm \theta)=\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2-...- \epsilon \bm g_k\\
+initialization:\quad&{}^0\bm \theta = \bm \theta\\
+1^{st}\;gradient\;step:\quad&{}^1\bm \theta \leftarrow U^1_\tau({}^0\bm \theta)={}^0\bm \theta - \epsilon \bm g_1\\
+2^{nd}\;gradient\;step:\quad&{}^2\bm \theta \leftarrow U^2_\tau({}^0\bm \theta)={}^0\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2\\
+&...\\
+k^{th}\;gradient\;step:\quad&{}^k\bm \theta \leftarrow U^k_\tau({}^0\bm \theta)={}^0\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2-...- \epsilon \bm g_k\\
 \end{aligned}
 $$
 
-假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 试图解决如下问题
+假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 试图只进行 $k=1$ 次梯度算子更新解决如下问题，因此省略 $k$ 有
 
 $$
 \begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau,B}(U^k_{\tau,A}(\bm \theta))]
+\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau,B}(U_{\tau,A}(\bm \theta))]
 \end{aligned}
 $$
 
-即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数，使得 $L(\bm \theta)$ 最小。
+即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数，使得 $L(\bm \theta)$ 最小。注意到 MAML 中，只进行 $k=1$ 次梯度算子更新，作者号称有如下四个原因：
 
-**为了使损失函数最小，需要求损失函数对模型参数的梯度，然后再在梯度负方向更新参数。**
+- Meta Learning会快很多；
+
+- 如果能让模型只经过一次梯度下降就性能优秀，当然很好；
+
+- Few-shot learning的数据有限，多次梯度下降很容易过拟合；
+
+- 刚才说的可以在实际应用中多次梯度下降。
+
+**为了使损失函数最小，需要求损失函数对模型参数的梯度，然后再在梯度负方向更新参数。** 注意到 $U^k_\tau(\bm \theta)=^{k}_\tau \bm \theta$，那么
 
 $$
-g_{MAML} = \nabla L_{\tau,B}(U_{\tau,A}^k(\bm \theta))
+\begin{aligned}
+\bm g_{MAML} &= \nabla_{\bm \theta} L_{\tau,B}(U_{\tau,A}(\bm \theta))\\
+&= \frac{\partial}{\partial \bm \theta} L_{\tau,B}(U_{\tau,A}(\bm \theta))\\
+&= L_{\tau,B}'(_{A}^1\bm \theta) U_{\tau,A}'(\bm \theta)
+\end{aligned}
 $$
 
+首先计算 $U_{\tau,A}'(\bm \theta)$，（**向量对向量求偏导，是不是向量的每个分量对另一个向量的每个分量求偏导后形成矩阵？**）
+
+（**就是Hessian 矩阵！？Hessian 等价于梯度的 Jacobian 矩阵。Ian Goodfellow所著的《Deep Learning》的P78**）
+
+$$
+\begin{aligned}
+    U_{\tau,A}'(\bm \theta) &= \frac{\partial U_{\tau,A}(\bm \theta)}{\partial \bm \theta}\\
+    &=1-\frac{\partial \bm g_1}{\partial \bm \theta}
+\end{aligned}
+$$
 
 ## 关于二重梯度的进一步解释
 
