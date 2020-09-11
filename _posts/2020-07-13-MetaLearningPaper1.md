@@ -172,10 +172,10 @@ $$
 $$
 \begin{aligned}
 initialization:\quad&{}^0\bm \theta = \bm \theta\\
-1^{st}\;gradient\;step:\quad&{}^1\bm \theta \leftarrow U^1_\tau({}^0\bm \theta)={}^0\bm \theta - \epsilon \bm g_1\\
-2^{nd}\;gradient\;step:\quad&{}^2\bm \theta \leftarrow U^2_\tau({}^0\bm \theta)={}^0\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2\\
+1^{st}\;gradient\;step:\quad&{}^1\bm \theta \leftarrow U^1_\tau(\bm \theta)=\bm \theta - \epsilon \bm g_1\\
+2^{nd}\;gradient\;step:\quad&{}^2\bm \theta \leftarrow U^2_\tau(\bm \theta)=\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2\\
 &...\\
-k^{th}\;gradient\;step:\quad&{}^k\bm \theta \leftarrow U^k_\tau({}^0\bm \theta)={}^0\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2-...- \epsilon \bm g_k\\
+k^{th}\;gradient\;step:\quad&{}^k\bm \theta \leftarrow U^k_\tau(\bm \theta)=\bm \theta- \epsilon \bm g_1- \epsilon \bm g_2-...- \epsilon \bm g_k\\
 \end{aligned}
 $$
 
@@ -207,15 +207,48 @@ $$
 \end{aligned}
 $$
 
-首先计算 $U_{\tau,A}'(\bm \theta)$，（**向量对向量求偏导，是不是向量的每个分量对另一个向量的每个分量求偏导后形成矩阵？**）
+首先计算 $U_{\tau,A}'(\bm \theta)$，前面算子更新时我们知道 $U^1_\tau(\bm \theta)=\bm \theta - \epsilon \bm g_1$
 
-（**就是Hessian 矩阵！？Hessian 等价于梯度的 Jacobian 矩阵。Ian Goodfellow所著的《Deep Learning》的P78**）
+$$
+\begin{aligned}
+    U_{\tau,A}'(\bm \theta) &= \frac{\partial U_{\tau,A}(\bm \theta)}{\partial \bm \theta}= 1-\epsilon \frac{\partial \bm g_1}{\partial \bm \theta}\\
+\end{aligned}
+$$
+
+根据前文易知
+
+$$
+\begin{aligned}
+\bm g &= \begin{bmatrix}
+\partial L_\tau / \partial \theta_1\\ 
+\partial L_\tau / \partial \theta_2\\ 
+\vdots\\ 
+\partial L_\tau / \partial \theta_n
+\end{bmatrix}
+\end{aligned}
+$$
+
+代入上式，则
+
+（**向量对向量求偏导，是不是向量的每个分量对另一个向量的每个分量求偏导后形成矩阵？就是Hessian 矩阵！？Hessian 等价于梯度的 Jacobian 矩阵。Ian Goodfellow所著的《Deep Learning》的P78**）
 
 $$
 \begin{aligned}
     U_{\tau,A}'(\bm \theta) &= \frac{\partial U_{\tau,A}(\bm \theta)}{\partial \bm \theta}\\
-    &=1-\frac{\partial \bm g_1}{\partial \bm \theta}
-\end{aligned}
+    &= 1-\epsilon \begin{bmatrix}
+    \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_n \\ 
+    \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_n \\ 
+    \vdots & \vdots & \ddots & \vdots\\
+    \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_n \\ 
+    \end{bmatrix}\\
+    &= 1-\epsilon \begin{bmatrix}
+    \partial^2 L_{\tau,A} / \partial \theta_1^2 &  \partial^2 L_{\tau,A} /\partial \theta_1 \partial \theta_2 &  \cdots & \partial^2 L_{\tau,A} /\partial \theta_1 \partial \theta_n \\ 
+    \partial^2 L_{\tau,A} /\partial \theta_2 \partial \theta_1 &  \partial^2 L_{\tau,A} / \partial \theta_2^2 &  \cdots & \partial^2 L_{\tau,A} /\partial \theta_2 \partial \theta_n \\ 
+    \vdots & \vdots & \ddots & \vdots\\
+    \partial^2 L_{\tau,A} /\partial \theta_n \partial \theta_1 &  \partial^2 L_{\tau,A} /\partial \theta_n \partial \theta_2&  \cdots & \partial^2 L_{\tau,A} / \partial \theta_n^2 \\ 
+    \end{bmatrix}\\
+    &= 1-\epsilon \bm H_{\tau,A}(\bm \theta)
+    \end{aligned}
 $$
 
 ## 关于二重梯度的进一步解释
@@ -333,8 +366,10 @@ $$
 简化后的一阶近似的MAML模型参数更新式为：
 
 $$
+\begin{aligned}
 \theta \leftarrow \theta - \alpha \nabla_{\theta'} \sum \mathcal L(\theta')\\
 \theta_i' \leftarrow \theta - \beta \nabla_\theta l_i(\theta)\\
+\end{aligned}
 $$
 
 一阶近似的MAML可以看作是如下形式的参数更新：假设每个batch只有一个task，某次采用第m个task来更新模型参数，得到$\hat\theta^m$，再求一次梯度来更新模型的原始参数$\phi$，将其从 $\phi^0$ 更新至 $\phi^1$，以此类推。
