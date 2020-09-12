@@ -153,7 +153,7 @@ $$
 
 其中，$^{k}_\tau \bm \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\bm \theta)=^{k}_\tau \bm \theta$。
 
-假设梯度为 $g$，则
+假设梯度为 $\bm g$，则
 
 $$
 \begin{aligned}
