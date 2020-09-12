@@ -6,27 +6,46 @@ tags: [paper]
 math: true
 ---
 
-# 文献号查询
+- [1. 文献号查询](#1-文献号查询)
+  - [1.1. 百度学术查询](#11-百度学术查询)
+  - [1.2. 图书馆数据库查询](#12-图书馆数据库查询)
+  - [1.3. ResearchGate查询](#13-researchgate查询)
+  - [1.4. 注意事项](#14-注意事项)
+- [2. 文献下载](#2-文献下载)
+  - [2.1. doi号下载](#21-doi号下载)
+  - [2.2. ResearchGate下载](#22-researchgate下载)
+  - [2.3. 谷歌学术下载](#23-谷歌学术下载)
+  - [2.4. sci-hub下载](#24-sci-hub下载)
+  - [2.5. arXiv下载](#25-arxiv下载)
+  - [2.6. 中文硕博士论文下载](#26-中文硕博士论文下载)
+- [3. Zotero文献管理](#3-zotero文献管理)
+  - [3.1. 设置数据存储位置](#31-设置数据存储位置)
+  - [3.2. 添加文献条目](#32-添加文献条目)
+  - [3.3. 导出文献条目](#33-导出文献条目)
+  - [3.4. 层级管理和同步](#34-层级管理和同步)
+- [4. 参考文献](#4-参考文献)
 
-## 百度学术查询
+# 1. 文献号查询
+
+## 1.1. 百度学术查询
 
 直接百度学术搜索文章标题
 
 ![image-20200906105036534](\assets\img\postsimg\20200905\0.1.jpg)
 
-## 图书馆数据库查询
+## 1.2. 图书馆数据库查询
 
 如果是SCI，通过校图书馆-「数据库列表」-「Web Of Science」-「SCIE」搜索文章标题
 
 ![image-20200906105134588](\assets\img\postsimg\20200905\0.2.jpg)
 
-## ResearchGate查询
+## 1.3. ResearchGate查询
 
 ResearchGate（https://www.researchgate.net/）
 
 ![image-20200906105216130](\assets\img\postsimg\20200905\0.3.jpg)
 
-## 注意事项
+## 1.4. 注意事项
 
 **注意**，有些会议文章可能搜不到 DOI 号；
 
@@ -34,21 +53,21 @@ ResearchGate（https://www.researchgate.net/）
 
 **注意**，有些专著没有 DOI 号，而是用 ISBN 号。
 
-# 文献下载
+# 2. 文献下载
 
-## doi号下载
+## 2.1. doi号下载
 
 直接在 DOI 号（如10.1016/j.asr.2017.11.035）前增加 https://doi.org/，然后通过浏览器访问，能**重定向**到论文原始出处，如果有权限（比如在校园网内且学校购买了相关数据资源），可以直接下载。
 
 ![image-20200906105644520](\assets\img\postsimg\20200905\0.4.jpg)
 
-## ResearchGate下载
+## 2.2. ResearchGate下载
 
 ResearchGate（https://www.researchgate.net/） 上不但能检索到文献的 DOI 号，有的资源还可以直接下载。
 
 ![image-20200906105759436](\assets\img\postsimg\20200905\0.55.jpg)
 
-## 谷歌学术下载
+## 2.3. 谷歌学术下载
 
 本方法一般需要翻墙。访问 https://scholar.google.com，搜索文献题目，若该文献有能够下载的来源，右侧会出现包含 `[PDF]` 的下载连接。
 
@@ -58,7 +77,7 @@ ResearchGate（https://www.researchgate.net/） 上不但能检索到文献的 D
 
 ![image-20200905202241257](\assets\img\postsimg\20200905\0.6.jpg)
 
-## sci-hub下载
+## 2.4. sci-hub下载
 
 俄罗斯大佬开发的神器：https://sci-hub.tw 
 
@@ -66,7 +85,7 @@ ResearchGate（https://www.researchgate.net/） 上不但能检索到文献的 D
 
 输入 DOI 号就能检索和下载 pdf 文献，虽然可能版本不是最新的，但胜在好用。DOI 号不用教怎么查了吧？某度学术，某歌学术，某 WOS，某 Gate，都可以输入文献名称去查。
 
-## arXiv下载
+## 2.5. arXiv下载
 
 参考：[如何快速下载 arxiv 论文](https://www.jianshu.com/p/184799230f20)
 
@@ -130,7 +149,7 @@ document.body.addEventListener('mousedown', function(e){
 
 另外，由于 [http://cn.arxiv.org](https://links.jianshu.com/go?to=http%3A%2F%2Fcn.arxiv.org%2F) 并不是主站点，是 arxiv 在中国区的镜像，因此更新有大约半天的延迟，对于当天提交的文章，可能更新不及时。对于当天文章可以手动删除“cn.”前缀解决。 如果出现 pdf 正在自动从源文件生成等提示，为正常现象，稍后即可获取pdf论文。
 
-## 中文硕博士论文下载
+## 2.6. 中文硕博士论文下载
 
 知网中论文只能下载到caj版本（垃圾知网只坑国人），如果处于校园网内，可以去知网海外版（[www.oversea.cnki.net](http://www.oversea.cnki.net)）下载到pdf版（垃圾知网不坑洋人）。
 
@@ -142,19 +161,19 @@ document.body.addEventListener('mousedown', function(e){
 
 从此告别CNKI阅读器，垃圾流氓软件，拜拜了您嘞。
 
-# Zotero文献管理
+# 3. Zotero文献管理
 
 
 
 文献管理软件可以有效的帮助研究人员管理参考文献，加速论文写作过程。这里介绍开源的文献管理软件 Zotero 的基本功能。**注意**，此处假设主要以英文论文书写为例，若以中文写作为主要工作，可使用 NoteExpress 作为文献管理软件，一般各高校图书馆均提供学校特别版下载安装，NoteExpress 可方便的从中国知网下载和导入文献。Zotero 官网（https://www.zotero.org/）可以免费下载该软件，软件支持中文。
 
-## 设置数据存储位置
+## 3.1. 设置数据存储位置
 
 下载安装后，打开「编辑」-「首选项」，切换到「高级」- 「文件和文件夹]选项卡，可以将参考文献索引和存放路径修改到「**自定义的数据存储位置**」：
 
 ![image-20200905145730143](\assets\img\postsimg\20200905\1.5.jpg)
 
-## 添加文献条目
+## 3.2. 添加文献条目
 
 将下载到本地的 pdf 文献拖入 Zotero 软件界面即可添加该文献，等待一会儿后，软件会自动分析出论文的信息并形成一个条目，并将该文献的 pdf 文件拷贝至前面设置的自定义的数据存储位置，因此刚下载到本地的 pdf 文件即可删除了。
 
@@ -166,7 +185,7 @@ document.body.addEventListener('mousedown', function(e){
 
 双击该条目，可以打开外部 pdf 查看器来查看论文。
 
-## 导出文献条目
+## 3.3. 导出文献条目
 
 右键该条目，可以转到 pdf 文件的存放位置（自定义的数据存储位置），或者导出该文献的引文目录。
 
@@ -182,7 +201,7 @@ document.body.addEventListener('mousedown', function(e){
 
 ![image-20200906104239391](\assets\img\postsimg\20200905\5.5.jpg)
 
-## 层级管理和同步
+## 3.4. 层级管理和同步
 
 Zotero 另一个优点是可以建立多层级的目录树，便于分门别类的整理参考文献条目。
 
@@ -196,7 +215,7 @@ Zotero 另一个优点是可以建立多层级的目录树，便于分门别类�
 
 更进一步，可以下载 zotfile 插件（https://www.worldlink.com.cn/en/osdir/zotfile.html），增强 Zotero 的文献管理功能。比如一键规范所有条目的文献 pdf 文件的标题。
 
-# 参考文献
+# 4. 参考文献
 
 <span id="ref1">[1]</span> [德谟赛斯](https://www.jianshu.com/u/06ba6c212ceb). [如何快速下载 arxiv 论文](https://www.jianshu.com/p/184799230f20).
 
