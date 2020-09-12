@@ -6,7 +6,18 @@ tags: [linux]
 math: true
 ---
 
-# 环境配置
+- [1. 环境配置](#1-环境配置)
+- [2. 下载和安装](#2-下载和安装)
+- [3. 注意事项](#3-注意事项)
+- [4. 基本操作](#4-基本操作)
+  - [4.1. 备份、删除和还原](#41-备份删除和还原)
+  - [4.2. 切换数据源](#42-切换数据源)
+  - [4.3. Windows访问Linux文件](#43-windows访问linux文件)
+  - [4.4. Linux访问Windows文件](#44-linux访问windows文件)
+  - [4.5. 解压tar文件](#45-解压tar文件)
+- [5. 参考文献](#5-参考文献)
+
+# 1. 环境配置
 
 首先，**启用开发者模式**：菜单栏打开**设置**——点击**更新和安全**——**启用开发人员模式**（时间会有点长）
 
@@ -22,7 +33,7 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 ![](\assets\img\postsimg\20200726\1.jpg)
 
-# 下载和安装
+# 2. 下载和安装
 
 打开 [Microsoft Store](https://aka.ms/wslstore)，并选择你偏好的 Linux 分发版。
 
@@ -46,7 +57,7 @@ C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04
 
 其中 `[YourUserName]` 是个人的电脑用户名，`CanonicalGroupLimited.XXX` 是相应的子系统版本。通过上述路径可以方便的进行文件管理。
 
-# 注意事项
+# 3. 注意事项
 
 - **WslRegisterDistribution 失败并出现错误 0x8007019e**
   - 未启用“适用于 Linux 的 Windows 子系统”可选组件：
@@ -60,13 +71,13 @@ C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04
 - **无法将词语“wsl”识别为 cmdlet、函数、脚本文件或可运行程序的名称。**
   - 请确保[已安装“适用于 Linux 的 Windows 子系统”可选组件](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#enable-the-virtual-machine-platform-optional-component)。 此外，如果你使用的是 ARM64 设备，并从 PowerShell 运行此命令，则会收到此错误。 请改为从 [PowerShell Core](https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6) 或从命令提示符运行 `wsl.exe`。
 
-# 基本操作
+# 4. 基本操作
 
 对 linux 子系统的操作可基于 [windows subsystem for linux (*wsl*)](http://www.baidu.com/link?url=jRq5GQOKupZSX7p973mR5YQ0WwqNWa6Jupvwyo8OR5fHoLw3z_xTeI5O5eoguWLL) 来进行。
 
 Windows键+R，输入 `cmd` 回车，打开命令行窗口。输入`wsl -l`,可以看到我系统里装的 linux 系统发行版本。输入`wsl --version` 可以看到版本信息和命令行参数一览。
 
-## 备份、删除和还原
+## 4.1. 备份、删除和还原
 
 备份子系统非常简单，但一定要先停止子系统之后再备份
 
@@ -90,7 +101,7 @@ wsl --import Ubuntu-20.04 c:\AAA c:\XXX\Ubuntu-20.04-20200726.tar
 
 这里注意指定还原的路径。成功后，子系统又回来了，可以用`wsl -l`确认一下。
 
-## 切换数据源
+## 4.2. 切换数据源
 
 在 Ubuntu 下我们可以通过 `apt-get` 命令 很方便的安装 / 卸载软件，切换数据源为国内的镜像站点速度会变快。编辑数据源配置文件
 
@@ -139,7 +150,7 @@ sudo apt-get update
 C:\Users\[YourUserName]\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState\rootfs\etc\apt
 ```
 
-## Windows访问Linux文件
+## 4.3. Windows访问Linux文件
 
 通过Windows Store 安装的 Linux 子系统位于
 
@@ -155,7 +166,7 @@ explorer.exe .
 
 在资源管理器种打开相应的文件夹。
 
-## Linux访问Windows文件
+## 4.4. Linux访问Windows文件
 
 在bash种输入以下命令，即为windows系统下
 
@@ -167,7 +178,7 @@ cd /mnt
 
 ![image-20200726135034927](\assets\img\postsimg\20200726\5.jpg)
 
-## 解压tar文件
+## 4.5. 解压tar文件
 
 在 Linux 系统种，通过 `tar` 命令解压 tar 压缩包。
 
@@ -175,7 +186,7 @@ cd /mnt
 
 
 
-# 参考文献
+# 5. 参考文献
 
 <span id="ref1">[1]</span>  Microsoft. [适用于 Linux 的 Windows 子系统安装指南 (Windows 10)](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#install-your-linux-distribution-of-choice).
 
