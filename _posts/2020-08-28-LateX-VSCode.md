@@ -6,15 +6,26 @@ tags: [latex]
 math: true
 ---
 
-# 前言
+- [1. 前言](#1-前言)
+- [2. LaTeX配置](#2-latex配置)
+  - [2.1. 安装MikTeX](#21-安装miktex)
+  - [2.2. 配置环境变量（绿色版）](#22-配置环境变量绿色版)
+- [3. 配置VSCode的LaTeX环境](#3-配置vscode的latex环境)
+  - [3.1. 安装LaTeX Workshop](#31-安装latex-workshop)
+  - [3.2. 配置json](#32-配置json)
+  - [3.3. 编译测试](#33-编译测试)
+  - [3.4. **快捷键**](#34-快捷键)
+- [4. 参考文献](#4-参考文献)
+
+# 1. 前言
 
 由于VSCode太牛逼，所有的C和Python仿真均已经迁移至该编辑器下完成，偶然发现其还可编译LaTeX，狂喜，遂研究之，步骤列于下。
 
 下面以 MikTeX 20.6 + VSCode 1.48.2 为例进行安装和部署讲解。
 
-# LaTeX配置
+# 2. LaTeX配置
 
-## 安装MikTeX
+## 2.1. 安装MikTeX
 
 参考[下载和安装MikTeX](./2020-07-20-LateX.md)。此处摘录如下：
 
@@ -26,7 +37,7 @@ math: true
 
 双击下载的 exe 文件进行安装，路径任意。
 
-## 配置环境变量（绿色版）
+## 2.2. 配置环境变量（绿色版）
 
 将 miktex 附带的 `xelatex.exe` 和 `pdflatex.exe` 等工具所在的路径加入系统 Path 环境变量。假设安装的MiKTeX为绿色版，安装根目录为`X:\ProgramFiles\MiKTeX\`，则上述路径均位于
 
@@ -42,9 +53,9 @@ X:\ProgramFiles\MiKTeX\miktex\bin\x64
 
 **注意**，如果在 VSCode 打开的情况下改变了环境变量，需要重启 VSCode 使其能够获取最新的环境变量。
 
-# 配置VSCode的LaTeX环境
+# 3. 配置VSCode的LaTeX环境
 
-## 安装LaTeX Workshop
+## 3.1. 安装LaTeX Workshop
 
 LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂上翻墙通过扩展商店搜索 latex 弹出的第一个就是。
 
@@ -52,7 +63,7 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 
 安装完成后，`ctrl+,` 打开设置面板（或通过左下角的小齿轮点击进入），搜索 `json` 然后点击 「在settings.json 中编辑」，打开 settings.json。
 
-## 配置json
+## 3.2. 配置json
 
 在 `settings.json` 中新增如下代码：
 
@@ -165,13 +176,13 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 
 
 
-## 编译测试
+## 3.3. 编译测试
 
 快捷键 `ctrl+alt+B` 编译 .tex文件，快捷键 `ctrl+alt+v` 或者右上角的「查看pdf」图标查看 .pdf 文件。
 
 ![image-20200828101128126](\assets\img\postsimg\20200828\3.jpg)
 
-## **快捷键**
+## 3.4. **快捷键**
 
 快捷键的更改根据个人习惯而定。
 
@@ -204,7 +215,7 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
 \end{document}
 ```
 
-# 参考文献
+# 4. 参考文献
 
 <span id="ref1">[1]</span>  [当年老王](https://blog.csdn.net/yinqingwang). [论文写作的又一利器：VSCode + Latex Workshop + MikTex + Git](https://blog.csdn.net/yinqingwang/article/details/79684419).
 
