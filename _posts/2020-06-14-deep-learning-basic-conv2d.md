@@ -18,9 +18,24 @@ math: true
     </script>
 </head>
 
-# 层
+- [1. 层](#1-层)
+  - [1.1. Conv2d](#11-conv2d)
+    - [1.1.1. dilation](#111-dilation)
+    - [1.1.2. padding](#112-padding)
+  - [1.2. MaxPool2d](#12-maxpool2d)
+  - [1.3. Linear](#13-linear)
+- [2. 激活函数](#2-激活函数)
+  - [2.1. conv2d](#21-conv2d)
+  - [2.2. softmax](#22-softmax)
+  - [2.3. log_softmax](#23-log_softmax)
+- [3. 损失函数](#3-损失函数)
+  - [3.1. CrossEntropyLoss](#31-crossentropyloss)
+  - [3.2. NLLLoss](#32-nllloss)
+- [4. 参考文献](#4-参考文献)
 
-## Conv2d
+# 1. 层
+
+## 1.1. Conv2d
 
 `nn.Conv2d` 的输入为 `(batch_size, channel, height, width)`。
 
@@ -52,7 +67,7 @@ H_{out} = H_{in} - kernel\_size[0] + 1 \\
 W_{out} = W_{in} - kernel\_size[1] + 1
 $$
 
-### dilation
+### 1.1.1. dilation
 
 **注意**，PyTorch 认为`dilation=n` 表示卷积核尺寸从 (`1x1`) 扩充为 `nxn`，其中原本的卷积核像素在左上角，其它像素填充为0。因此 `dilation=1` 等价于传统的无扩充的卷积[[2](#ref2)]。
 
@@ -66,7 +81,7 @@ $$
 
 这样单次计算时覆盖的面积（即感受域）由 `dilation=0` 时的 $3\times 3=9$ 变为了 `dilation=1` 时的 $5\times 5=25$。在增加了感受域的同时却没有增加计算量，保留了更多的细节信息，对图像还原的精度有明显的提升。
 
-### padding
+### 1.1.2. padding
 
 `padding` 是图像周围填充的像素尺寸。
 
@@ -107,7 +122,7 @@ $$
 
 ![03.1_padding_no_strides](\assets\img\postsimg\20200614\03.1_padding_no_strides.gif)
 
-## MaxPool2d
+## 1.2. MaxPool2d
 
 `nn.MaxPool2d` 的参数包括：
 
@@ -131,7 +146,7 @@ $$
 
 ![07.ceilmode](\assets\img\postsimg\20200614\07.ceilmode.png)
 
-## Linear
+## 1.3. Linear
 
 `nn.Linear` 的参数如下：
 
@@ -141,9 +156,9 @@ $$
 
 - bias：如果设为 `False `则不存在偏置，default: `True`。
 
-# 激活函数
+# 2. 激活函数
 
-## conv2d
+## 2.1. conv2d
 
 `torch.nn` 与 `torch.nn.functional` 差不多[[4](#ref4)]，不过一个包装好的类，一个是可以直接调用的函数。在实现源代码上，`torch.nn.Conv2d` 类在 `forward` 时调用了 `torch.nn.functional.conv2d`。
 
@@ -165,7 +180,7 @@ $$
 
 但关于dropout，个人强烈推荐使用`nn.Xxx`方式，因为一般情况下只有训练阶段才进行dropout，在eval阶段都不会进行dropout。使用`nn.Xxx`方式定义dropout，在调用`model.eval()`之后，model中所有的dropout layer都关闭，但以`nn.function.dropout`方式定义dropout，在调用`model.eval()`之后并不能关闭dropout。
 
-## softmax
+## 2.2. softmax
 
 我们知道 `max`，假如 `a > b`，则 `max(a, b) = a` ，这个结果是确定的，无论计算多少次，`max` 返回的值永远是 `a`。但有的时候我不想这样，因为这样会造成值小的那个饥饿。所以我希望分值大的那一项经常取到，分值小的那一项也偶尔可以取到。
 
@@ -200,15 +215,15 @@ $$
 softmax(input, dim=-1) # dim=0 makes sum of column values to be 1, dim=1 makes row ...
 ```
 
-## log_softmax
+## 2.3. log_softmax
 
 在 `softmax` 的基础上多做一个 log 运算，**log_softmax号称能够加快运算速度，提高数据稳定性。**在数学上等价于 `log(softmax(x)) `，但做这两个单独操作速度较慢，数值上也不稳定。
 
 `log_softmax` 的值域为 $(-\infty, 0]$。
 
-# 损失函数
+# 3. 损失函数
 
-## CrossEntropyLoss
+## 3.1. CrossEntropyLoss
 
 交叉熵损失函数。在说交叉熵之前，先说一下**信息量**与**熵**。
 
@@ -320,7 +335,7 @@ $$
 \frac{\partial L}{\partial b_i} = s_i - y_i
 $$
 
-## NLLLoss
+## 3.2. NLLLoss
 
 负对数似然损失函数**（Negative Log Likelihood, NLL）** 的 输入是一个对数概率向量和一个目标标签。它不会为我们计算对数概率，适合网络的最后一层是 `log_softmax`。
 
@@ -336,7 +351,7 @@ $$
 
 理论上，对于单标签多分类问题，直接经过 `softmax` 求出概率分布，然后把这个概率分布用 `CrossEntropy` 做一个似然估计误差。但是 `softmax` 求出来的概率分布，每一个概率都是 $(0, 1)$ 的，这就会导致有些概率过小，导致下溢。 考虑到这个概率分布总归是要经过 `CrossEntropy`的，而 `CrossEntropy`的计算是把概率分布外面套一个 `-log` 来似然，那么直接在计算概率分布的时候加上 `log`，把概率从 $(0, 1)$ 变为 $(-\infty, 0)$，这样就防止中间会有下溢出。 所以 `log_softmax` 说白了就是将本来应该由 `CrossEntropy`做的 `log` 的工作提到预测概率分布来，跳过了中间的存储步骤，防止中间数值会有下溢出，使得数据更加稳定。 正是由于把log这一步从计算误差提到前面，所以用 `log_softmax` 之后，下游的损失函数就应该变成 `NLLLoss`（它没有套 `log` 这一步，直接将输入取反，然后计算和标签的乘积求和平均）。
 
-# 参考文献
+# 4. 参考文献
 
 <span id="ref1">[1]</span>  PyTorch. [Conv2d](https://pytorch.org/docs/stable/nn.html#conv2d).
 
