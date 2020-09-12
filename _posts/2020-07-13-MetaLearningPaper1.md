@@ -21,7 +21,22 @@ math: true
     </script>
 </head>
 
-# MAML
+- [1. MAML](#1-maml)
+  - [1.1. 算法](#11-算法)
+  - [1.2. 关于二重梯度的解释](#12-关于二重梯度的解释)
+  - [1.3. 关于二重梯度的进一步解释](#13-关于二重梯度的进一步解释)
+  - [1.4. FOMAML一阶近似简化](#14-fomaml一阶近似简化)
+  - [1.5. 缺点](#15-缺点)
+- [2. Reptile](#2-reptile)
+  - [2.1. 算法](#21-算法)
+  - [2.2. 分析](#22-分析)
+  - [2.3. 实验](#23-实验)
+- [3. 比较](#3-比较)
+- [4. 各类算法实现](#4-各类算法实现)
+- [5. reptile的一个实现和详细分析](#5-reptile的一个实现和详细分析)
+- [6. 参考文献](#6-参考文献)
+
+# 1. MAML
 
 2017.《Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks》
 
@@ -35,7 +50,7 @@ math: true
 
 如上图所示，作者便将目标设定为，通过梯度迭代，找到对于task敏感的参数 $\theta$ 。训练完成后的模型具有对新task的学习域分布最敏感的参数，因此可以在仅一或多次的梯度迭代中获得最符合新任务的  $\theta^*$  ，达到较高的准确率。
 
-## 算法
+## 1.1. 算法
 
 假设这样一个监督分类场景，目的是训练一个数学模型 $M_{fine-tune}$ ，对未知标签的图片做分类，则两大步骤如下：
 
@@ -90,7 +105,7 @@ MAML在监督分类中的算法伪代码如下：
 
 **总结**：MAML使用训练集优化内层循环，使用测试集优化模型，也就是外层循环。外层循环需要计算**二重梯度（gradient by gradient）**。
 
-## 关于二重梯度的解释
+## 1.2. 关于二重梯度的解释
 
 设初始化的参数为
 
@@ -254,7 +269,7 @@ $$
     \end{aligned}
 $$
 
-## 关于二重梯度的进一步解释
+## 1.3. 关于二重梯度的进一步解释
 
 设初始化的参数为 $\theta$ ，每个任务的模型一开始的参数都是 $\theta$。
 
@@ -339,7 +354,7 @@ $$
 
 到此为止已经把梯度计算出来了，二重梯度也是MAML计算中最为耗时的部分。
 
-## FOMAML一阶近似简化
+## 1.4. FOMAML一阶近似简化
 
 在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
 
@@ -381,7 +396,7 @@ $$
 
 与之相比，右边是模型预训练方法，它是将参数根据每次的训练任务一阶导数的方向来更新参数。
 
-## 缺点
+## 1.5. 缺点
 
 MAML的缺点[[2](#ref2)]：
 
@@ -389,13 +404,13 @@ MAML的缺点[[2](#ref2)]：
 
 2. Robustness一般：不是说MAML的robustness不好，因为也是由一阶online的优化方法SGD求解出来的，会相对找到一个flatten minima location。然而这和非gradient-based meta learning方法求解出来的model的robust肯定是没法比的。
 
-# Reptile
+# 2. Reptile
 
 2018.《On First-Order Meta-Learning Algorithms》和《Reptile: a Scalable Metalearning Algorithm》
 
 Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类似，也是学习网络参数的初始值。
 
-## 算法
+## 2.1. 算法
 
 算法伪代码如下
 
@@ -421,7 +436,7 @@ Reptile的图例如下。
 
 ![](\assets\img\postsimg\20200713\9.jpg)
 
-## 分析
+## 2.2. 分析
 
 为什么 Reptile 有效？首先以两步 SGD 为例分析参数更新过程
 
@@ -534,7 +549,7 @@ $$
 
 ~~另一种分析有效的方法借助了流形，Reptile 收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。~~
 
-## 实验
+## 2.3. 实验
 
 **少样本分类**
 
@@ -573,7 +588,7 @@ mini-batch的选择有两种方式：
 
 **共尾FOMAML的表现如此敏感的原因可能是最初的几次SGD更新让模型达到了局部最优，以后的梯度更新就会使参数在这个局部最优附近波动。**
 
-# 比较
+# 3. 比较
 
 再次比较Model Pre-training、MAML 和 Reptile方法。
 
@@ -595,7 +610,7 @@ Reptile采用多次梯度计算更新模型的原始参数。
 
 上面这个图不具体，但是很直观的展示了这些算法的区别。$g_i$ 表示第 $i$ 次负梯度计算。这里的MAML是一阶的，沿着 $g_2$ 方向更新，Reptile 沿着 $g_1+g_2$  的方向更新，而我们常规的预训练模型就是沿着 $g_1$ 方向更新。
 
-# 各类算法实现
+# 4. 各类算法实现
 
 [dragen-1860 的 Pytorch 实现](https://github.com/dragen1860/MAML-Pytorch)：https://github.com/dragen1860/MAML-Pytorch
 
@@ -603,7 +618,7 @@ Reptile采用多次梯度计算更新模型的原始参数。
 
 [First-order近似实现Reptile](https://github.com/dragen1860/Reptile-Pytorch)：https://github.com/dragen1860/Reptile-Pytorch
 
-# reptile的一个实现和详细分析
+# 5. reptile的一个实现和详细分析
 
 ```python
 import numpy as np
@@ -733,7 +748,7 @@ for iteration in range(niterations): # iterate 30000 times
 
 
 
-# 参考文献
+# 6. 参考文献
 
 <span id="ref1">[1]</span>  [Rust-in](https://www.zhihu.com/people/rustinnnnn). [MAML 论文及代码阅读笔记](https://zhuanlan.zhihu.com/p/66926599).
 
