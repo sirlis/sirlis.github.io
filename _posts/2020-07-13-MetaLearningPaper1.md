@@ -14,7 +14,7 @@ math: true
             skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
             inlineMath: [['$','$']]
             },
-            Tex: {
+            TeX: {
             Macros: {bm: "\\boldsymbol"}
             }
         });
