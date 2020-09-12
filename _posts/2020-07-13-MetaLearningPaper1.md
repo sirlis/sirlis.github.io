@@ -20,9 +20,8 @@ math: true
 
 - [1. MAML](#1-maml)
   - [1.1. 算法](#11-算法)
-  - [1.2. 关于二重梯度的解释](#12-关于二重梯度的解释)
-  - [1.3. 关于二重梯度的进一步解释](#13-关于二重梯度的进一步解释)
-  - [1.4. FOMAML一阶近似简化](#14-fomaml一阶近似简化)
+  - [1.2. 二重梯度及简化](#12-二重梯度及简化)
+  - [1.3. 二重梯度及简化的另一解释（混乱向）](#13-二重梯度及简化的另一解释混乱向)
   - [1.5. 缺点](#15-缺点)
 - [2. Reptile](#2-reptile)
   - [2.1. 算法](#21-算法)
@@ -102,7 +101,7 @@ MAML在监督分类中的算法伪代码如下：
 
 **总结**：MAML使用训练集优化内层循环，使用测试集优化模型，也就是外层循环。外层循环需要计算**二重梯度（gradient by gradient）**。
 
-## 1.2. 关于二重梯度的解释
+## 1.2. 二重梯度及简化
 
 设初始化的参数为
 
@@ -153,7 +152,7 @@ $$
 L_\tau(\boldsymbol \theta) = MSE_\tau = \frac{1}{10\cdot4} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j(\boldsymbol \theta) - {}^iy_j)^2
 $$
 
-MAML 的目标是：找寻一组模型初始参数 $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数 $L_\tau$ 就能达到很小。
+MAML 的目标是：找寻一组模型初始参数 $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
 > find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ update.
 
@@ -172,13 +171,12 @@ $$
 
 $$
 \begin{aligned}
-\boldsymbol g &= \begin{bmatrix}
+\boldsymbol g = \nabla_{\boldsymbol \theta} L_\tau = \frac{\partial L_\tau}{\partial \boldsymbol \theta} = \begin{bmatrix}
 \partial L_\tau / \partial \theta_1\\ 
 \partial L_\tau / \partial \theta_2\\ 
 \vdots\\ 
 \partial L_\tau / \partial \theta_n
 \end{bmatrix}
-= \frac{\partial L_\tau}{\partial \boldsymbol \theta}=\nabla_{\boldsymbol \theta} L_\tau=\frac{1}{10\cdot4}\nabla_{\boldsymbol \theta} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j - {}^iy_j)^2
 \end{aligned}
 $$
 
@@ -226,11 +224,36 @@ $$
 
 $$
 \begin{aligned}
-    U_{\tau,A}'(\boldsymbol \theta) &= \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= 1-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}\\
+    U_{\tau,A}'(\boldsymbol \theta) &= \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}\\
 \end{aligned}
 $$
 
-根据前文易知
+下面分析第一项 $\frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}$ 的展开，注意到 $\boldsymbol \theta = [\theta_1,\theta_2,...,\theta_n]^T$ 的定义，那么该项展开即为 $\boldsymbol \theta$ 的每个分量对其自身求偏导，需要分情况讨论
+
+$$
+\begin{aligned}
+\frac{\partial \theta_i}{\partial \theta_j} = \left\{\begin{matrix}
+1 \quad i=j\\ 
+0 \quad i \neq j
+\end{matrix}\right.
+\end{aligned}
+$$
+
+那么第一项即为 $n\times n$ 单位阵（特殊的 Jacobian 矩阵）
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta} = 
+\begin{bmatrix}
+1\;0\;\cdots \; 0\\
+0\;1\;\cdots \; 0\\
+\vdots\;\vdots\;\ddots \; \vdots\\
+0\;0\;\cdots \; 1
+\end{bmatrix} = \boldsymbol I_{n \times n}
+\end{aligned}
+$$
+
+然后分析第二项的展开。根据前文易知
 
 $$
 \begin{aligned}
@@ -243,30 +266,49 @@ $$
 \end{aligned}
 $$
 
-代入上式，则
+代入有
 
-（**向量对向量求偏导，是不是向量的每个分量对另一个向量的每个分量求偏导后形成矩阵？就是Hessian 矩阵！？Hessian 等价于梯度的 Jacobian 矩阵。Ian Goodfellow所著的《Deep Learning》的P78**）
+（**向量对向量求偏导，是向量的每个分量对另一个向量的每个分量求偏导后形成矩阵，就是Hessian 矩阵！Hessian 等价于梯度的 Jacobian 矩阵。——Ian Goodfellow所著的《Deep Learning》的P78**）
 
 $$
 \begin{aligned}
     U_{\tau,A}'(\boldsymbol \theta) &= \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}\\
-    &= 1-\epsilon \begin{bmatrix}
+    &= \boldsymbol I_{n \times n} - \epsilon \begin{bmatrix}
     \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_n \\ 
     \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_n \\ 
     \vdots & \vdots & \ddots & \vdots\\
     \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_n \\ 
-    \end{bmatrix}\\
-    &= 1-\epsilon \begin{bmatrix}
+    \end{bmatrix}_{n \times n}\\
+    &= \boldsymbol I_{n \times n} - \epsilon \begin{bmatrix}
     \partial^2 L_{\tau,A} / \partial \theta_1^2 &  \partial^2 L_{\tau,A} /\partial \theta_1 \partial \theta_2 &  \cdots & \partial^2 L_{\tau,A} /\partial \theta_1 \partial \theta_n \\ 
     \partial^2 L_{\tau,A} /\partial \theta_2 \partial \theta_1 &  \partial^2 L_{\tau,A} / \partial \theta_2^2 &  \cdots & \partial^2 L_{\tau,A} /\partial \theta_2 \partial \theta_n \\ 
     \vdots & \vdots & \ddots & \vdots\\
     \partial^2 L_{\tau,A} /\partial \theta_n \partial \theta_1 &  \partial^2 L_{\tau,A} /\partial \theta_n \partial \theta_2&  \cdots & \partial^2 L_{\tau,A} / \partial \theta_n^2 \\ 
-    \end{bmatrix}\\
-    &= 1-\epsilon \boldsymbol H_{\tau,A}(\boldsymbol \theta)
+    \end{bmatrix}_{n \times n}\\
+    &= \boldsymbol I_{n \times n} - \epsilon \boldsymbol H_{\tau,A}(\boldsymbol \theta)_{n \times n}
     \end{aligned}
 $$
 
-## 1.3. 关于二重梯度的进一步解释
+MAML 的作者表示，大部分计算量都在于计算这个 Hessian 矩阵。因此，作者提出了一种简化计算二重梯度的方法，即 First-Order MAML (FOMAML)。
+
+FOMAML 假设学习率 $\epsilon \rightarrow 0^+$，则上式中的 Hessian 矩阵因为乘以 $0^+$ 被消去。那么 $U_{\tau,A}'(\boldsymbol \theta)$ 就等于单位阵了，
+
+此时 FOMAML 的梯度即为
+
+$$
+\boldsymbol g_{FOMAML} = L'_{\tau,B}(_{A}^1 \boldsymbol \theta)
+$$
+
+那么 FOMAML 的实现过程就很简单了：
+
+- 采样任务 $\tau$；
+- 计算在数据集 A 上的梯度因子 $U_{\tau,A}(\boldsymbol \theta)= _{A}^1 \boldsymbol \theta = \phi$;
+- 计算在数据集 B 上的损失函数 $L_{\tau,B}$ 对 $\phi$ 的导数：$g_{FOMAML}=L'_{\tau,B}(\phi)$；
+- 将 $g_{FOMAML}$ 插入外循环更新参数。
+
+可以看出只需要计算一重梯度即可，约节省了33%的计算量。
+
+## 1.3. 二重梯度及简化的另一解释（混乱向）
 
 设初始化的参数为 $\theta$ ，每个任务的模型一开始的参数都是 $\theta$。
 
@@ -350,8 +392,6 @@ $$
 $$
 
 到此为止已经把梯度计算出来了，二重梯度也是MAML计算中最为耗时的部分。
-
-## 1.4. FOMAML一阶近似简化
 
 在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
 
