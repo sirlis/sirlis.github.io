@@ -6,19 +6,33 @@ tags: [python]
 math: true
 ---
 
-# 简介
+- [1. 简介](#1-简介)
+- [2. 配置Python开发环境](#2-配置python开发环境)
+- [3. 配置PyTorch](#3-配置pytorch)
+  - [3.1. 部署PyTorch](#31-部署pytorch)
+  - [3.2. 部署其它包](#32-部署其它包)
+    - [3.2.1. CUDA](#321-cuda)
+    - [3.2.2. cuDNN](#322-cudnn)
+    - [3.2.3. Numpy](#323-numpy)
+    - [3.2.4. matplotlib](#324-matplotlib)
+    - [3.2.5. pandas](#325-pandas)
+  - [3.3. 手动部署CUDA和cuDNN](#33-手动部署cuda和cudnn)
+  - [3.4. 测试](#34-测试)
+- [4. 参考文献](#4-参考文献)
+
+# 1. 简介
 
 PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语言处理等应用程序。2017年1月，由Facebook人工智能研究院（FAIR）基于Torch推出。它是一个基于Python的可续计算包，提供两个高级功能：1、具有强大的GPU加速的张量计算（类似NumPy）。2、包含自动求导系统的的深度神经网络。
 
 吃别人一记强力安利：[PyTorch到底好用在哪里？](https://www.zhihu.com/question/65578911)
 
-# 配置Python开发环境
+# 2. 配置Python开发环境
 
 参考[《VSCode部署Python开发环境》](http://sirlis.github.io/2020-03-21-vscode-python/)配置。
 
-# 配置PyTorch
+# 3. 配置PyTorch
 
-## 部署PyTorch
+## 3.1. 部署PyTorch
 
 前往官网（https://pytorch.org/get-started/locally/），根据自身的开发环境，获取PyTorch安装命令行。以Windows 10系统+RTX2060显卡为例，采用pip安装，如图选择，得到安装命令行
 
@@ -61,9 +75,9 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 注意，务必不要单独通过 Anaconda 安装 pytorch，那样安装的版本是 cpu 版的。
 
-## 部署其它包
+## 3.2. 部署其它包
 
-### CUDA
+### 3.2.1. CUDA
 
 CUDA（Compute Unified Device Architecture），是NVIDIA推出的运算平台。 CUDA™是一种由NVIDIA推出的通用并行计算架构，该架构使GPU能够解决复杂的计算问题。 它包含了CUDA指令集架构（ISA）以及GPU内部的并行计算引擎。 开发人员可以使用C语言来为CUDA™架构编写程序。所编写出的程序可以在支持CUDA™的处理器上以超高性能运行。
 
@@ -73,13 +87,13 @@ CUDA依赖显卡驱动，提前更新显卡驱动并确认显卡驱动支持的C
 
 若界面安装仍然失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
 
-### cuDNN
+### 3.2.2. cuDNN
 
 可通过Anaconda界面安装。
 
 若界面安装失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
 
-### Numpy
+### 3.2.3. Numpy
 
 NumPy（Numerical Python）是Python的一种开源的数值计算扩展。这种工具可用来存储和处理大型矩阵，比Python自身的嵌套列表（nested list structure)结构要高效的多（该结构也可以用来表示矩阵（matrix）），支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。
 
@@ -95,7 +109,7 @@ pip install numpy
 
 或者通过Anaconda界面进行安装。
 
-### matplotlib
+### 3.2.4. matplotlib
 
 matplotlib包用以进行绘图，采用命令行安装
 
@@ -107,7 +121,7 @@ conda install matplotlib
 
 ![安装matplotlib](\assets\img\postsimg\20200322\02.matplotlib.png)
 
-### pandas
+### 3.2.5. pandas
 
 pandas包用于输入输出和处理csv格式数据，采用命令行安装
 
@@ -119,7 +133,7 @@ conda install pandas
 
 ![安装matplotlib](\assets\img\postsimg\20200322\03.pandas.png)
 
-## 手动部署CUDA和cuDNN
+## 3.3. 手动部署CUDA和cuDNN
 
 若自动安装CUDA和cuDNN失败，也可选择手动安装部署CUDA。
 
@@ -163,7 +177,7 @@ cd C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\demo_suite
 
 ![CUDNN安装](\assets\img\postsimg\20200322\11.cudnn.png)
 
-## 测试
+## 3.4. 测试
 
 在环境中启动终端，输入
 
@@ -207,7 +221,7 @@ torch.cuda.is_available()
 
 ![14.test3](\assets\img\postsimg\20200322\14.test3.png)
 
-# 参考文献
+# 4. 参考文献
 
 <span id="ref1">[1]</span> [Sunnyside_Bao](https://blog.csdn.net/Sunnnyside_Bao). [Anaconda＋vscode＋pytorch环境搭建](https://blog.csdn.net/Sunnnyside_Bao/article/details/93495605).
 

@@ -6,11 +6,17 @@ tags: [css]
 math: true
 ---
 
+- [1. 前言](#1-前言)
+- [2. 图片](#2-图片)
+- [3. 公式](#3-公式)
+
+# 1. 前言
+
 发布的帖子位于 `_posts` 目录。如果想新建帖子，在 `_posts` 目录中新建一个`.md`文件，文件名命名为 `YYYY-MM-DD-title` 的格式。
 
 Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
 
-## 图片
+# 2. 图片
 
 为了在`.md`中使用图片相对路径，保持本地和线上显示一致，需要修改Jekyll默认的永久链接格式。Jekyll默认的永久链接格式为：
 
@@ -26,7 +32,7 @@ permalink: :year-:month-:day-:title/
 
 修改后，`_posts`中帖子的图片无论是在本地还是在线上均能正常显示。
 
-## 公式
+# 3. 公式
 
 Jekyll虽然支持Markdown，但是不能正确显示公式，可以借用MathJax帮助渲染。
 
