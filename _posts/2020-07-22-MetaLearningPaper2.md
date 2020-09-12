@@ -18,7 +18,14 @@ math: true
     </script>
 </head>
 
-# Prototypical Network
+- [1. Prototypical Network](#1-prototypical-network)
+  - [1.1. 模型](#11-模型)
+  - [1.2. 算法](#12-算法)
+  - [1.3. 进行混合密度估计](#13-进行混合密度估计)
+  - [1.4. 距离度量](#14-距离度量)
+- [2. 参考文献](#2-参考文献)
+
+# 1. Prototypical Network
 
 2017.《Prototypical Networks for Few-shot Learning》
 
@@ -28,7 +35,7 @@ math: true
 
 ![](\assets\img\postsimg\20200722\1.jpg)
 
-## 模型
+## 1.1. 模型
 
 在 few-shot 分类任务中，假设有 $N$ 个标记的样本 $S=\{(x_1,y_1),...,(x_N,y_N)\}$ ，其中 $x_i \in \mathbb R^D$ 是 $D$ 维的样本特征向量，$y \in \{1,...,K\}$ 是相应的 label 。$S_K$ 表示第 $k$ 类样本的集合。
 
@@ -50,7 +57,7 @@ $$
 J(\phi) = -log\; p(\phi)(y=k|x)
 $$
 
-## 算法
+## 1.2. 算法
 
 ![image-20200722221410952](\assets\img\postsimg\20200722\2.jpg)
 
@@ -105,7 +112,7 @@ $$
 
 可以看出，括号内总共有 $N_C N_Q$ 项，因此分母除以该值以求均值。
 
-## 进行混合密度估计
+## 1.3. 进行混合密度估计
 
 对于特定的距离函数，如 Bregman 散度，原型网络算法相当于对具有指数族密度的支持集进行混合密度估计。原型计算可以用支持集上的硬聚类来表示，每个类有一个簇，每个支持点都被分配给相应的类簇。
 
@@ -123,7 +130,7 @@ $$
 
 算了算了后面看不懂了。。。
 
-## 距离度量
+## 1.4. 距离度量
 
 作者进行了进一步的分析，以确定距离度量和每Episode中训练classes的数量对原型网络和匹配网络的影响。
 
@@ -137,7 +144,7 @@ $$
 
 此外，使用欧氏距离比预先距离大大提高了性能。这种效果对于原型网络更为明显，在这种网络中，将类原型作为嵌入支持点的平均值进行计算更适合于欧氏距离，因为余弦距离不是Bregman散度。
 
-# 参考文献
+# 2. 参考文献
 
 <span id="ref1">[1]</span>  [Smiler_](https://blog.csdn.net/Smiler_). [《Prototypical Networks for Few-shot Learning 》论文翻译](https://blog.csdn.net/Smiler_/article/details/103133876).
 
