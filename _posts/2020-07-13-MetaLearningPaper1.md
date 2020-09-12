@@ -207,8 +207,9 @@ $$
 \end{aligned}
 $$
 
-首先计算 $U_{\tau,A}'(\boldsymbol \theta)$，前面算子更新时我们知道 $U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1$
+上式中，第一项是使用 A 数据进行一次梯度更新后的模型参数在 B 数据上的损失函数的导数，这里的导数是对更新后的模型参数求的，比较好求。
 
+首先计算 $U_{\tau,A}'(\boldsymbol \theta)$，前面算子更新时我们知道 $U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1$
 $$
 \begin{aligned}
     U_{\tau,A}'(\boldsymbol \theta) &= \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}\\
@@ -226,7 +227,7 @@ $$
 \end{aligned}
 $$
 
-那么第一项即为 $n\times n$ 单位阵（特殊的 Jacobian 矩阵）
+那么第一项即为 $n\times n$ 单位阵（可以看作一个特殊的 Jacobian 矩阵）
 
 $$
 \begin{aligned}
@@ -308,17 +309,10 @@ $$
 一旦我们可以计算 $\theta$ 的梯度，就可以直接更新 $\theta$ ：
 
 $$
-\theta' \leftarrow \theta-\eta\nabla_{\theta}\mathcal L(\theta)
+\theta' \leftarrow \theta-\epsilon\nabla_{\theta}\mathcal L(\theta)
 $$
 
-而所谓的假设即是：**每次训练只进行一次梯度下降**。这个假设听起来不可思议，但是却也有一定的道理，首先我们只是在Meta Learning的过程中只进行一次参数下降，而真正学习到了很好的 $\theta$ 之后自然可以进行多次梯度下降。只考虑一次梯度下将的原因有：
-
-- Meta Learning会**快**很多；
-- 如果能让模型**只经过一次**梯度下降就性能优秀，当然很好；
-- Few-shot learning的数据有限，多次梯度下降很容易**过拟合**；
-- 刚才说的可以在实际应用中**多次梯度下降**。
-
-如果只经历了一次梯度下降，模型最后的参数就会变成：
+MAML假设：**每次训练只进行一次梯度下降**。如果只经历了一次梯度下降，模型最后的参数就会变成：
 
 $$
 \theta' = \theta-\epsilon \nabla_{\theta}\mathcal l(\theta)
