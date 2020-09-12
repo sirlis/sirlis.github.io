@@ -6,7 +6,15 @@ tags: [python]
 math: true
 ---
 
-# torchvision
+- [1. torchvision](#1-torchvision)
+- [2. Dataset](#2-dataset)
+  - [2.1. 默认类](#21-默认类)
+  - [2.2. 自定义类](#22-自定义类)
+- [3. DataLoader](#3-dataloader)
+- [4. MNIST](#4-mnist)
+- [5. 参考文献](#5-参考文献)
+
+# 1. torchvision
 
 `torchvision` 是 PyTorch 中专门用来处理图像的库，PyTorch 官网的安装教程也会让你安装上这个包。这个包中有四个大类。
 
@@ -44,9 +52,9 @@ train_loader = torch.utils.data.DataLoader(mnist_train_data, batch_size=16, shuf
 torch.utils.data.DataLoader(coco_cap, batch_size=args.batchSize, shuffle=True, num_workers=args.nThreads)
 ```
 
-# Dataset
+# 2. Dataset
 
-## 默认类
+## 2.1. 默认类
 
 `torch.utils.data.Dataset` 是一个抽象类，是 `Pytorch` 中图像数据集中最为重要的一个类，也是 `Pytorch` 中所有数据集加载类中应该继承的父类。用户想要加载**自定义的数据必须继承这个类**，并且覆写其中的两个方法：
 
@@ -60,7 +68,7 @@ torch.utils.data.DataLoader(coco_cap, batch_size=args.batchSize, shuffle=True, n
 
 不同的读取方式参见：[python深度学习库pytorch::transforms练习:opencv,scikit-image,PIL图像处理库比较](#https://oldpan.me/archives/pytorch-transforms-opencv-scikit-image)。
 
-## 自定义类
+## 2.2. 自定义类
 
 更多的时候我们需要使用自己的数据集，数据集的形式可能为原始图片、可能为数组。下面以原始图片为例创建自己的数据集。要创建用于分类的自定义数据集，需要准备**两部分**内容：
 
@@ -165,7 +173,7 @@ for batch_index, batch in train_loader
 
 这样就好理解了，因为这个迭代器每一次循环所得的batch里面装的东西，就是我在 `__getitem__` 方法最后 return 回来的，所以想在训练或者测试的时候还得到其他信息的话，就去增加一些返回值即可，只要是能return出来的，就能在每个batch中读取到。
 
-# DataLoader
+# 3. DataLoader
 
 `torch.utils.data.DataLoader`  的核心参数包括[[1](#ref1)]：
 
@@ -186,7 +194,7 @@ for batch_index, batch in train_loader
 
 **pin_memory** 就是锁页内存，创建DataLoader时，设置 ``pin_memory=True``，则意味着生成的Tensor数据最开始是属于内存中的锁页内存，这样将内存的Tensor转义到GPU的显存就会更快一些。主机中的内存，有两种存在方式，一是锁页，二是不锁页，锁页内存存放的内容在任何情况下都不会与主机的虚拟内存进行交换（注：虚拟内存就是硬盘），而不锁页内存在主机内存不足时，数据会存放在虚拟内存中。而显卡中的显存全部是锁页内存！当计算机的内存充足的时候，可以设置pin_memory=True。当系统卡住，或者交换内存使用过多的时候，设置pin_memory=False。因为pin_memory与电脑硬件性能有关，pytorch开发者不能确保每一个炼丹玩家都有高端设备，因此pin_memory默认为False。
 
-# MNIST
+# 4. MNIST
 
 下面以手写数字数据集MNIST为例（介绍参考[此处](https://blog.csdn.net/DarrenXf/article/details/85232255)），首先获取训练集和测试集，[在此下载](http://yann.lecun.com/exdb/mnist/)。下载得到以下四个文件，即为数据集
 
@@ -389,7 +397,7 @@ Train Epoch: 1 [9600/10000 (96%)]       Loss: 0.406439
 ......
 ```
 
-# 参考文献
+# 5. 参考文献
 
 <span id="ref1">[1]</span>  [cdy艳0917](https://me.csdn.net/sinat_42239797). [Pytorch学习（三）定义自己的数据集及加载训练](https://blog.csdn.net/sinat_42239797/article/details/90641659?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase).
 
