@@ -6,7 +6,7 @@ tags: [ml]
 math: true
 ---
 
-<head>
+<!-- <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -16,7 +16,7 @@ math: true
             }
         });
     </script>
-</head>
+</head> -->
 
 - [1. MAML](#1-maml)
   - [1.1. 算法](#11-算法)
