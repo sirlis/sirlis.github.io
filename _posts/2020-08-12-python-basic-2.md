@@ -6,7 +6,17 @@ tags: [python]
 math: true
 ---
 
-# lambda
+- [1. lambda](#1-lambda)
+- [2. np.random](#2-nprandom)
+  - [2.1. .seed()](#21-seed)
+  - [2.2. .RandomState()](#22-randomstate)
+  - [2.3. .choice()](#23-choice)
+  - [2.4. .uniform()](#24-uniform)
+  - [2.5. .permutation()](#25-permutation)
+- [3. range()](#3-range)
+- [4. 参考文献](#4-参考文献)
+
+# 1. lambda
 
 除了 `def` 语句，python还提供了一种生成函数对象的表达式形式。由于它与LISP语言中的一个工具类似，所以称为lambda。
 
@@ -95,9 +105,9 @@ print(list(filter(lambda x: x % 2 == 0,range(10))))
 >>> [0, 2, 4, 6, 8]
 ```
 
-# np.random
+# 2. np.random
 
-## .seed()
+## 2.1. .seed()
 
 `numpy.random.seed()` ：设置 `seed()` 里的数字就相当于设置了一个盛有随机数的“聚宝盆”，一个数字代表一个“聚宝盆”，当我们在 `seed()` 的括号里设置相同的seed，“聚宝盆”就是一样的，那当然每次拿出的随机数就会相同（不要觉得就是从里面随机取数字，只要设置的seed相同取出地随机数就一样）。如果不设置seed，则每次会生成不同的随机数。（注：seed括号里的数值基本可以随便设置哦）。
 
@@ -122,7 +132,7 @@ array([[0.5488135 , 0.71518937, 0.60276338],
 
 但是 `numpy.random.seed()` 不是线程安全的，如果程序中有多个线程最好使用 `numpy.random.RandomState` 实例对象来创建或者使用`random.seed()` 来设置相同的随机数种子。
 
-## .RandomState()
+## 2.2. .RandomState()
 
 `numpy.random.RandomState()` 是一个伪随机数生成器。那么伪随机数是什么呢？
 
@@ -155,7 +165,7 @@ np.random.rand(4)
 Out[400]: array([0.86630916, 0.25045537, 0.48303426, 0.98555979])
 ```
 
-## .choice()
+## 2.3. .choice()
 
 `choice()` 方法返回一个列表，元组或字符串的随机项。**注意：**choice()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
 
@@ -183,7 +193,7 @@ rng.choice(50, 10)
 - replace : boolean型，采样的样本是否要更换？这个地方我不太理解，测了一下发现replace指定为True时，采样的元素会有重复；当replace指定为False时，采样不会重复。
 - p : 一个一维数组，制定了a中每个元素采样的概率，若为默认的None，则a中每个元素被采样的概率相同。
 
-## .uniform()
+## 2.4. .uniform()
 
 **uniform()** 方法将随机生成下一个实数（浮点数），它在 **[x, y]** 范围内。**注意：**uniform()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
 
@@ -194,7 +204,7 @@ random.uniform(x, y)
 
 其中x和y是随机数的取值界限，且不包含本身。
 
-## .permutation()
+## 2.5. .permutation()
 
 随机排列一个序列，返回一个排列的序列。
 
@@ -209,7 +219,7 @@ array([15,  1,  9,  4, 12])
 
 如果x是int型，，则返回从0到x-1这个序列的随机顺序。
 
-# range()
+# 3. range()
 
 函数语法：range(start, stop[, step])
 
@@ -219,6 +229,6 @@ array([15,  1,  9,  4, 12])
 - `stop`: 计数到 stop 结束，但不包括 stop。例如：range（0， 5） 是[0, 1, 2, 3, 4]没有5；
 - `step`：步长，默认为1。例如：range（0， 5） 等价于 range(0, 5, 1)。
 
-# 参考文献
+# 4. 参考文献
 
 无。
