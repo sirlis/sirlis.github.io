@@ -3,7 +3,7 @@ title: 元学习文章阅读（MAML,Reptile）
 date: 2020-07-13 14:35:19 +0800
 categories: [Reading]
 tags: [ml]
-math: false
+math: true
 ---
 
 <head>
@@ -13,6 +13,9 @@ math: false
             tex2jax: {
             skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
             inlineMath: [['$','$']]
+            },
+            Tex: {
+            Macros: {bm: "\\boldsymbol"}
             }
         });
     </script>
