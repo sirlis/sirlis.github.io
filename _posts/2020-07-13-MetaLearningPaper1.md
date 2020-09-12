@@ -154,7 +154,7 @@ $$
 \end{aligned}
 $$
 
-其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
+其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。$U^k_\tau$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
 
 假设梯度为 $\boldsymbol g$，则
 
@@ -169,7 +169,7 @@ $$
 \end{aligned}
 $$
 
-下面展示了梯度算子更新1次，更新2次，。。。，更新 $k$ 次的过程。其中模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新。
+下面展示了模型参数通过梯度算子更新1次，更新2次，。。。，更新 $k$ 次的过程。其中模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新。
 
 $$
 \begin{aligned}
@@ -200,7 +200,6 @@ $$
 - 刚才说的可以在实际应用中多次梯度下降。
 
 **为了使损失函数最小，需要求损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度，然后再在梯度负方向更新参数。** 注意到 $U^k_\tau(\boldsymbol \theta)=^{k}_\tau \boldsymbol \theta$，那么
-
 $$
 \begin{aligned}
 \boldsymbol g_{MAML} &= \nabla_{\boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))\\
