@@ -135,7 +135,7 @@ $$
 \end{bmatrix}
 $$
 
-然后，模型在这批样本上的损失函数 $L_\tau$ 可以采用 MSE 来衡量（**下面的式子定义对不对？？？**）
+然后，模型在这批样本上的损失函数 $L_\tau$ 可以采用 MSE 来衡量
 
 $$
 L_\tau(\boldsymbol \theta) = MSE_\tau = \frac{1}{10\cdot4} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j(\boldsymbol \theta) - {}^iy_j)^2
@@ -154,7 +154,7 @@ $$
 \end{aligned}
 $$
 
-其中，$^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\boldsymbol \theta)=^{k}_\tau \boldsymbol \theta$。
+其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。$U^k_\tau$ 是一个算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\boldsymbol \theta)=^{k}_\tau \boldsymbol \theta$。
 
 假设梯度为 $\boldsymbol g$，则
 
