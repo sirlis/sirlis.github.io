@@ -29,7 +29,7 @@ math: true
 
 参考[下载和安装MikTeX](./2020-07-20-LateX.md)。此处摘录如下：
 
-[官网的下载页面](https://miktex.org/download)（https://miktex.org/download）包括三种下载（安装）方式，如图分别为安装程序（Installer）、绿色版（Portable Edition）以及命令行（Command-line installer）。对于Windows开发环境，不考虑命令行方式，因此可以任意选择安装程序或者绿色版。
+[官网的下载页面](https://miktex.org/download) 包括三种下载（安装）方式，如图分别为安装程序（Installer）、绿色版（Portable Edition）以及命令行（Command-line installer）。对于Windows开发环境，不考虑命令行方式，因此可以任意选择安装程序或者绿色版。
 
 ![image-20200720222610238](\assets\img\postsimg\20200720\1.jpg)
 
