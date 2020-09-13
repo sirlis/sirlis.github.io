@@ -156,7 +156,7 @@ $$
 $$
 \begin{aligned}
 \boldsymbol g_1 & = \boldsymbol g = \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta) = \frac{\partial L_\tau(\boldsymbol \theta)}{\partial \boldsymbol \theta}\\
-{}^1\boldsymbol \theta &= \boldsymbol \theta - \epsilon \boldsymbol g_1
+^1\boldsymbol \theta &= \boldsymbol \theta - \epsilon \boldsymbol g_1
 \end{aligned}
 $$
 
