@@ -56,15 +56,19 @@ math: true
 假设输入图片的高度和宽度为 $H_{in}$ 和 $H_{in}$，则输出特征图的高度和宽度$H_{out}$ 和 $H_{out}$ 为
 
 $$
-H_{out} = \frac{H_{in} + 2\times padding[0] - dilation[0]\times (kernel\_size[0]-1)-1} {stride[0]}+1 \\
-W_{out} = \frac{W_{in} + 2\times padding[1] - dilation[1]\times (kernel\_size[1]-1)-1}{stride[1]}+1
+\begin{aligned}
+H_{out} &= \frac{H_{in} + 2\times padding[0] - dilation[0]\times (kernel\_size[0]-1)-1} {stride[0]}+1 \\
+W_{out} &= \frac{W_{in} + 2\times padding[1] - dilation[1]\times (kernel\_size[1]-1)-1}{stride[1]}+1
+\end{aligned}
 $$
 
 若采用默认参数，有
 
 $$
+\begin{aligned}
 H_{out} = H_{in} - kernel\_size[0] + 1 \\
 W_{out} = W_{in} - kernel\_size[1] + 1
+\end{aligned}
 $$
 
 ### 1.1.1. dilation
@@ -94,28 +98,34 @@ $$
 为了保证输出尺寸与输入尺寸一致，即
 
 $$
+\begin{aligned}
 H_{out} = H_{in} \\
 W_{out} = W_{in}
+\end{aligned}
 $$
 
 需要在图像周围填充一定的像素宽度，计算匹配的 `padding` 值，将上面的公式变换如下
 
 $$
+\begin{aligned}
 padding[0] = \frac{stride[0]\times (H_{out}-1) + dilation[0]\times (kernel\_size[0]-1)-H_{in}+1} {2} \\
 padding[1] = \frac{stride[1]\times (H_{out}-1) + dilation[1]\times (kernel\_size[1]-1)-H_{in}+1} {2} \\
+\end{aligned}
 $$
 
 将默认的 `stride=1`和 `dilation=1` 参数代入，可得
 
 $$
+\begin{aligned}
 padding[0] = (kernel\_size[0]-1) / 2 \\
 padding[1] = (kernel\_size[1]-1) / 2
+\end{aligned}
 $$
 
 也就是说，`padding` 的取值与 `kernel_size` 有关。如果采用长宽相等的卷积核，可简写为
 
 $$
-padding = (kernel\_size-1) / 2 \\
+padding = (kernel\_size-1) / 2
 $$
 
 对于上述例子，计算后 `padding = 1`。即原始图像为 $5\times 5$，图像周围填充1像素的宽度，尺寸变为$7\times 7$，经过卷积后特征图尺寸正好又变为 $5\times 5$。
@@ -255,28 +265,37 @@ $$
 假设网络结构为 `xx -> Linear -> softmax`，即一个全连接层的输出作为 `softmax` 的输入，有
 
 $$
-z_i = \omega_i \cdot x_i + b_i \\
-s_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
+\begin{aligned}
+z_i &= \omega_i \cdot x_i + b_i \\
+s_i &= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
+\end{aligned}
 $$
 
 采用交叉熵损失函数，则损失函数对 `softmax` 的倒数为
 
 $$
+\begin{aligned}
 \frac{\partial L}{\partial \omega_i}=\frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial w_i} \\
 \frac{\partial L}{\partial b_i}=\frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial b_i}
+\end{aligned}
 $$
 
 由于全连接层
 
 $$
-\frac{\partial z_i}{\partial w_i} = x_i \\
-\frac{\partial z_i}{\partial b_i} = 1
+\begin{aligned}
+\frac{\partial z_i}{\partial w_i} &= x_i \\
+\frac{\partial z_i}{\partial b_i} &= 1
+\end{aligned}
 $$
 
 则核心问题变为求解 $\frac{\partial L}{\partial z_i}$ 。
 
 $$
-\frac{\partial z_i}{\partial w_i} = x_i \\\frac{\partial z_i}{\partial b_i} = 1
+\begin{aligned}
+\frac{\partial z_i}{\partial w_i} &= x_i \\
+\frac{\partial z_i}{\partial b_i} &= 1
+\end{aligned}
 $$
 
 由于 `softmax` 的计算公式中，任意一个 `s_i` 均包含 `z` 的所有分类，因此有
@@ -296,30 +315,36 @@ $$
 当 $k \neq i$ 时，有
 
 $$
+\begin{aligned}
 \frac{\partial s_k}{\partial z_i}
-= \frac{\partial(\frac{e^{z_k}}{\sum_j e^{z_j}})}{\partial z_i}
-= e^{z_k}\frac{\partial(\frac{1}{\sum_j e^{z_j}})}{\partial z_i}\\
-= e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})\frac{\partial \sum_j e^{z_j}}{\partial z_i}\\
-= e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})e^{z_i}\\
-= -(\frac{e^{z_k}}{\sum_j e^{z_j}})(\frac{e^{z_i}}{\sum_j e^{z_j}}) = -s_k\cdot s_i
+&= \frac{\partial(\frac{e^{z_k}}{\sum_j e^{z_j}})}{\partial z_i}\\
+&= e^{z_k}\frac{\partial(\frac{1}{\sum_j e^{z_j}})}{\partial z_i}\\
+&= e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})\frac{\partial \sum_j e^{z_j}}{\partial z_i}\\
+&= e^{z_k}(-\frac{1}{(\sum_j e^{z_j})^2})e^{z_i}\\
+&= -(\frac{e^{z_k}}{\sum_j e^{z_j}})(\frac{e^{z_i}}{\sum_j e^{z_j}}) = -s_k\cdot s_i
+\end{aligned}
 $$
 
 当 $k=i$ 时，有（分式求导法则：上导下不导减下导上不导除以下的平方）
 
 $$
+\begin{aligned}
 \frac{\partial s_k}{\partial z_i}
-= \frac{\partial s_i}{\partial z_i}
-=\frac{\partial(\frac{e^{z_i}}{\sum_j e^{z_j}})}{\partial z_i}\\
-=\frac{e^{z_i}\sum_j e^{z_i}-(e^{z_i})^2}{(\sum_j e^{z_i})^2}\\
-=\frac{e^{z_i}}{\sum_j e^{z_i}}\frac{\sum_j e^{z_i}-e^{z_i}}{\sum_j e^{z_i}}\\
-=\frac{e^{z_i}}{\sum_j e^{z_i}}(1-\frac{e^{z_i}}{\sum_j e^{z_i}}) = s_i(1-s_i)
+&=\frac{\partial s_i}{\partial z_i}\\
+&=\frac{\partial(\frac{e^{z_i}}{\sum_j e^{z_j}})}{\partial z_i}\\
+&=\frac{e^{z_i}\sum_j e^{z_i}-(e^{z_i})^2}{(\sum_j e^{z_i})^2}\\
+&=\frac{e^{z_i}}{\sum_j e^{z_i}}\frac{\sum_j e^{z_i}-e^{z_i}}{\sum_j e^{z_i}}\\
+&=\frac{e^{z_i}}{\sum_j e^{z_i}}(1-\frac{e^{z_i}}{\sum_j e^{z_i}}) = s_i(1-s_i)
+\end{aligned}
 $$
 
 最终得到
 
 $$
-\frac{\partial L}{\partial z_i} = -\frac{y_i}{s_i}s_i(1-s_i)+\sum_{k \neq i}(-\frac{y_k}{s_k}\cdot-s_ks_i)\\
-= -y_i + \sum_{k=1}^K y_k
+\begin{aligned}
+\frac{\partial L}{\partial z_i} &= -\frac{y_i}{s_i}s_i(1-s_i)+\sum_{k \neq i}(-\frac{y_k}{s_k}\cdot-s_ks_i)\\
+&= -y_i + \sum_{k=1}^K y_k
+\end{aligned}
 $$
 
 对于多分类问题，样本真实标签 $y = [y_1,y_2,...,y_K]$ 是one-hot，即只有一个元素为1，其余元素为0。那么有 $\sum_{k=1}^K y_k = 1$，因此在多分类问题中
@@ -331,8 +356,10 @@ $$
 那么有
 
 $$
-\frac{\partial L}{\partial \omega_i} = (s_i - y_i)\cdot x\\
-\frac{\partial L}{\partial b_i} = s_i - y_i
+\begin{aligned}
+\frac{\partial L}{\partial \omega_i} &= (s_i - y_i)\cdot x\\
+\frac{\partial L}{\partial b_i} &= s_i - y_i
+\end{aligned}
 $$
 
 ## 3.2. NLLLoss

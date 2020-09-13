@@ -27,7 +27,7 @@ math: true
 
 OpenGL是一个右手坐标系。简单来说，就是正x轴在你的右手边，正y轴朝上，而正z轴是朝向后方的。想象你的屏幕处于三个轴的中心，则正z轴穿过你的屏幕朝向你。在OpenGL中采用z坐标来描述深度信息。一般地，z轴的坐标原点在屏幕上，屏幕里为负轴，向外为正轴。OpenGL中的观察者为摄像机。一般地，摄像机的初始位置在OpenGL窗口的正中心。
 
-![坐标系定义](/assets/img/postsimg/20200608/coordinate_systems_right_handed.png)
+![坐标系定义](../assets/img/postsimg/20200608/coordinate_systems_right_handed.png)
 
 <center>图 1 坐标系定义</center>
 
@@ -43,7 +43,7 @@ $$
 
 这里的$near$和$far$值是我们之前提供给投影矩阵设置可视平截头体的近平面（near plane）和远平面（far plane）。这个方程需要平截头体中的一个$z$值，并将它变换到了$[0, 1]$的范围中。可以看出，这个方程计算得到的深度值是线性的，然而，在实践中是几乎永远不会使用这样的线性深度缓冲（Linear Depth Buffer）的。
 
-![平截头体](/assets/img/postsimg/20200608/perspective_frustum.png)
+![平截头体](../assets/img/postsimg/20200608/perspective_frustum.png)
 
 <center>图 2 平截头体和远/近平面</center>
 
@@ -61,7 +61,7 @@ $$
 
 非线性深度缓冲在大多数场景中已经足够应用。然而，当两个模型间相距很近、或需要渲染大尺度场景（比如行星际场景）时，使用上述非线性深度缓冲会出现一个很严重的问题——**深度冲突（z-fighting）**。
 
-![z-fighting](/assets/img/postsimg/20200608/z-fighting.jpg)
+![z-fighting](../assets/img/postsimg/20200608/z-fighting.jpg)
 
 <center>图 3 深度冲突</center>
 

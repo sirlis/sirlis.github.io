@@ -15,7 +15,7 @@ math: true
 
 根据官方文档（http://support.typora.io/Auto-Numbering/），首先打开Typora，选择 “文件” => “偏好设置”，切换到 “外观” 选项卡，点击 “打开主题文件夹按钮”
 
-![主题文件夹](\assets\img\postsimg\20200611\01.preference.png)
+![主题文件夹](..\assets\img\postsimg\20200611\01.preference.png)
 
 然后新建一个 `.txt` 文件，重命名为 `base.user.css` 文件，填充下列代码
 
