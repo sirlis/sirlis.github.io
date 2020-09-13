@@ -156,7 +156,7 @@ $$
 $$
 \begin{aligned}
 \boldsymbol g_1 & = \boldsymbol g = \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta) = \frac{\partial L_\tau(\boldsymbol \theta)}{\partial \boldsymbol \theta}\\
-^1\boldsymbol \theta &= \boldsymbol \theta - \epsilon \boldsymbol g_1
+{}^1\boldsymbol \theta &= \boldsymbol \theta - \epsilon \boldsymbol g_1
 \end{aligned}
 $$
 
@@ -166,7 +166,7 @@ $$
 
 $$
 \begin{aligned}
-\boldsymbol g_2 &= \nabla_{{}^1\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
+\boldsymbol g_2 &= \nabla_{ {}^1\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
 {}^2\boldsymbol \theta &= {}^1\boldsymbol \theta - \epsilon \boldsymbol g_2\\
 & = \boldsymbol \theta - \epsilon \boldsymbol g_1 - \epsilon \boldsymbol g_2
 \end{aligned}
@@ -184,7 +184,7 @@ k^{th}\;gradient\;step:\quad&{}^k\boldsymbol \theta = U^k_\tau(\boldsymbol \thet
 \end{aligned}
 $$
 
-其中，模型参数 $^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
+其中，模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
 
 ## 1.3. 基于优化的元学习目标
 
