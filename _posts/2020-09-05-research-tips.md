@@ -31,19 +31,19 @@ math: true
 
 直接百度学术搜索文章标题
 
-![image-20200906105036534](\assets\img\postsimg\20200905\0.1.jpg)
+![image-20200906105036534](../assets/img/postsimg/20200905/0.1.jpg)
 
 ## 1.2. 图书馆数据库查询
 
 如果是SCI，通过校图书馆-「数据库列表」-「Web Of Science」-「SCIE」搜索文章标题
 
-![image-20200906105134588](\assets\img\postsimg\20200905\0.2.jpg)
+![image-20200906105134588](../assets/img/postsimg/20200905/0.2.jpg)
 
 ## 1.3. ResearchGate查询
 
 ResearchGate（https://www.researchgate.net/）
 
-![image-20200906105216130](\assets\img\postsimg\20200905\0.3.jpg)
+![image-20200906105216130](../assets/img/postsimg/20200905/0.3.jpg)
 
 ## 1.4. 注意事项
 
@@ -59,29 +59,29 @@ ResearchGate（https://www.researchgate.net/）
 
 直接在 DOI 号（如10.1016/j.asr.2017.11.035）前增加 https://doi.org/，然后通过浏览器访问，能**重定向**到论文原始出处，如果有权限（比如在校园网内且学校购买了相关数据资源），可以直接下载。
 
-![image-20200906105644520](\assets\img\postsimg\20200905\0.4.jpg)
+![image-20200906105644520](../assets/img/postsimg/20200905/0.4.jpg)
 
 ## 2.2. ResearchGate下载
 
 ResearchGate（https://www.researchgate.net/） 上不但能检索到文献的 DOI 号，有的资源还可以直接下载。
 
-![image-20200906105759436](\assets\img\postsimg\20200905\0.55.jpg)
+![image-20200906105759436](../assets/img/postsimg/20200905/0.55.jpg)
 
 ## 2.3. 谷歌学术下载
 
 本方法一般需要翻墙。访问 https://scholar.google.com，搜索文献题目，若该文献有能够下载的来源，右侧会出现包含 `[PDF]` 的下载连接。
 
-![image-20200905151132880](\assets\img\postsimg\20200905\0.5.jpg)
+![image-20200905151132880](../assets/img/postsimg/20200905/0.5.jpg)
 
 谷歌学术查询的文献，还可以查询到引用信息，作为额外的信息参考。还可以导出为 bibTex 格式。
 
-![image-20200905202241257](\assets\img\postsimg\20200905\0.6.jpg)
+![image-20200905202241257](../assets/img/postsimg/20200905/0.6.jpg)
 
 ## 2.4. sci-hub下载
 
 俄罗斯大佬开发的神器：https://sci-hub.tw 
 
-![image-20200905202627742](\assets\img\postsimg\20200905\1.6.jpg)
+![image-20200905202627742](../assets/img/postsimg/20200905/1.6.jpg)
 
 输入 DOI 号就能检索和下载 pdf 文献，虽然可能版本不是最新的，但胜在好用。DOI 号不用教怎么查了吧？某度学术，某歌学术，某 WOS，某 Gate，都可以输入文献名称去查。
 
@@ -145,7 +145,7 @@ document.body.addEventListener('mousedown', function(e){
 
 最后，测试配置是否成功，下面是 arxiv 上的一篇文章，点击pdf测试下载速度。之后可以手动去掉“cn.”前缀对比速度。 [Relation Networks for Object Detection](https://arxiv.org/abs/1711.11575)
 
-![image-20200905144148277](\assets\img\postsimg\20200905\1.jpg)
+![image-20200905144148277](../assets/img/postsimg/20200905/1.jpg)
 
 另外，由于 [http://cn.arxiv.org](https://links.jianshu.com/go?to=http%3A%2F%2Fcn.arxiv.org%2F) 并不是主站点，是 arxiv 在中国区的镜像，因此更新有大约半天的延迟，对于当天提交的文章，可能更新不及时。对于当天文章可以手动删除“cn.”前缀解决。 如果出现 pdf 正在自动从源文件生成等提示，为正常现象，稍后即可获取pdf论文。
 
@@ -153,11 +153,11 @@ document.body.addEventListener('mousedown', function(e){
 
 知网中论文只能下载到caj版本（垃圾知网只坑国人），如果处于校园网内，可以去知网海外版（[www.oversea.cnki.net](http://www.oversea.cnki.net)）下载到pdf版（垃圾知网不坑洋人）。
 
-![image-20200906110132227](\assets\img\postsimg\20200905\1.1.jpg)
+![image-20200906110132227](../assets/img/postsimg/20200905/1.1.jpg)
 
 点击Download PDF
 
-![image-20200906110206300](\assets\img\postsimg\20200905\1.2.jpg)
+![image-20200906110206300](../assets/img/postsimg/20200905/1.2.jpg)
 
 从此告别CNKI阅读器，垃圾流氓软件，拜拜了您嘞。
 
@@ -171,17 +171,17 @@ document.body.addEventListener('mousedown', function(e){
 
 下载安装后，打开「编辑」-「首选项」，切换到「高级」- 「文件和文件夹]选项卡，可以将参考文献索引和存放路径修改到「**自定义的数据存储位置**」：
 
-![image-20200905145730143](\assets\img\postsimg\20200905\1.5.jpg)
+![image-20200905145730143](../assets/img/postsimg/20200905/1.5.jpg)
 
 ## 3.2. 添加文献条目
 
 将下载到本地的 pdf 文献拖入 Zotero 软件界面即可添加该文献，等待一会儿后，软件会自动分析出论文的信息并形成一个条目，并将该文献的 pdf 文件拷贝至前面设置的自定义的数据存储位置，因此刚下载到本地的 pdf 文件即可删除了。
 
-![image-20200905144646206](\assets\img\postsimg\20200905\2.jpg)
+![image-20200905144646206](../assets/img/postsimg/20200905/2.jpg)
 
 点击右侧的第二栏 “笔记” 可以查看和增删对该论文的笔记
 
-![image-20200905144801449](\assets\img\postsimg\20200905\3.jpg)
+![image-20200905144801449](../assets/img/postsimg/20200905/3.jpg)
 
 双击该条目，可以打开外部 pdf 查看器来查看论文。
 
@@ -189,29 +189,29 @@ document.body.addEventListener('mousedown', function(e){
 
 右键该条目，可以转到 pdf 文件的存放位置（自定义的数据存储位置），或者导出该文献的引文目录。
 
-![image-20200905144924441](\assets\img\postsimg\20200905\4.jpg)
+![image-20200905144924441](../assets/img/postsimg/20200905/4.jpg)
 
 根据写文章所需要的参考文献格式（此处以 IEEE 为例），选择引文目录，然后选择复制到剪贴板，即可在比如Word中所写论文的参考文献中，插入自动复制的引文条目：
 
 > [1] H. Hu, J. Gu, Z. Zhang, J. Dai, and Y. Wei, “Relation Networks for Object Detection,” *arXiv:1711.11575 [cs]*, Jun. 2018, Accessed: Sep. 05, 2020. [Online]. Available: http://arxiv.org/abs/1711.11575.
 
-![image-20200905144948669](\assets\img\postsimg\20200905\5.jpg)
+![image-20200905144948669](../assets/img/postsimg/20200905/5.jpg)
 
 还可以右键选择「导出条目」导出为 bib 格式的条目信息，即可在 latex 中的 bib 文件插入该参考文献条目以供正文引用。
 
-![image-20200906104239391](\assets\img\postsimg\20200905\5.5.jpg)
+![image-20200906104239391](../assets/img/postsimg/20200905/5.5.jpg)
 
 ## 3.4. 层级管理和同步
 
 Zotero 另一个优点是可以建立多层级的目录树，便于分门别类的整理参考文献条目。
 
-![image-20200905150036383](\assets\img\postsimg\20200905\6.jpg)
+![image-20200905150036383](../assets/img/postsimg/20200905/6.jpg)
 
 另一个方法是针对每一篇写的文章建立一个目录，将所有引用的参考文献放入其中，这样可以统一将整个目录的所有参考文献导出参考文献列表。
 
 当注册了Zotero账户后，可以方便的将整个文献库进行云端存储和同步，当两地办公写作时，可以在一处更新参考文献库后，在另一处联网同步，即可无缝保持两地的文献库的同步。账户设置位于「首选项」-「同步」中，设置完毕后，点击软件界面右上角的小图标即可进行同步。
 
-![image-20200905150512124](\assets\img\postsimg\20200905\7.jpg)
+![image-20200905150512124](../assets/img/postsimg/20200905/7.jpg)
 
 更进一步，可以下载 zotfile 插件（https://www.worldlink.com.cn/en/osdir/zotfile.html），增强 Zotero 的文献管理功能。比如一键规范所有条目的文献 pdf 文件的标题。
 

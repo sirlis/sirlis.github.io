@@ -90,10 +90,12 @@ MBGD 每一次利用一小批样本，即 batch_size 个样本进行计算，这
 为了应对第一个缺点，采用动量优化器，**可以使得梯度方向不变的维度上速度变快，梯度方向有所改变的维度上的更新速度变慢，这样就可以加快收敛并减小震荡。**
 
 $$
-v_{d\omega}=\beta v_{d\omega}+(1−\beta)d\omega \\
-v_{db}=\beta v_{db}+(1−\beta)db \\
-\omega=\omega−\eta v_{d\omega} \\
-b=b−\eta v_{db} \\
+\begin{aligned}
+v_{d\omega}&=\beta v_{d\omega}+(1−\beta)d\omega \\
+v_{db}&=\beta v_{db}+(1−\beta)db \\
+\omega&=\omega−\eta v_{d\omega} \\
+b&=b−\eta v_{db} \\
+\end{aligned}
 $$
 
 其中，在上面的公式中$v_{d\omega}$和$v_{db}$分别是损失函数在前 $t−1$ 轮迭代过程中累积的梯度梯度动量，$\beta$ 是梯度累积的一个指数，这里我们一般设置值为0.9。所以Momentum优化器的主要思想就是利用了类似与移动指数加权平均的方法来对网络的参数进行平滑处理的，让梯度的摆动幅度变得更小。$d\omega$和$db$分别是损失函数反向传播时候所求得的梯度，下面两个公式是网络权重向量和偏置向量的更新公式，$\eta$ 是网络的学习率。
@@ -107,10 +109,12 @@ RMSProp算法的全称叫 Root Mean Square Prop，是Geoffrey E. Hinton在Course
 其中，假设在第 $t$ 轮迭代过程中，各个公式如下所示
 
 $$
-s_{d\omega}=\beta s_{d\omega}+(1−\beta)d\omega^2 \\
-s_{d\omega}=\beta s_{db}+(1−\beta)db^2 \\
-\omega=\omega−\eta \frac{d\omega}{\sqrt{s_{d\omega}}+\epsilon} \\
-b=b−\eta \frac{db}{\sqrt{s_{db}}+\epsilon} \\
+\begin{aligned}
+s_{d\omega}&=\beta s_{d\omega}+(1−\beta)d\omega^2 \\
+s_{d\omega}&=\beta s_{db}+(1−\beta)db^2 \\
+\omega&=\omega−\eta \frac{d\omega}{\sqrt{s_{d\omega}}+\epsilon} \\
+b&=b−\eta \frac{db}{\sqrt{s_{db}}+\epsilon} \\
+\end{aligned}
 $$
 
 这个分母相当于梯度的**均方根 （Root Mean Squared，RMS）**。RMSProp算法对梯度计算了微分平方加权平均数。这种做法有利于消除了摆动幅度大的方向，用来修正摆动幅度，使得各个维度的摆动幅度都较小。另一方面也使得网络函数收敛更快。（比如当 $d\omega$ 或者 $db$ 中有一个值比较大的时候，那么我们在更新权重或者偏置的时候除以它之前累积的梯度的平方根，这样就可以使得更新幅度变小）。为了防止分母为零，使用了一个很小的数值 $\epsilon$ 来进行平滑，一般取值为$10^{−8}$。
@@ -122,10 +126,12 @@ $$
 假设在训练的第 $t$ 轮训练中，我们首先可以计算得到Momentum和RMSProp的参数更新
 
 $$
-v_{d\omega}=\beta_1 v_{d\omega}+(1−\beta_1)d\omega \\
-v_{db}=\beta_1 v_{db}+(1−\beta_1)db \\
-s_{d\omega}=\beta s_{d\omega}+(1−\beta)d\omega^2 \\
-s_{d\omega}=\beta s_{db}+(1−\beta)db^2 \\
+\begin{aligned}
+v_{d\omega}&=\beta_1 v_{d\omega}+(1−\beta_1)d\omega \\
+v_{db}&=\beta_1 v_{db}+(1−\beta_1)db \\
+s_{d\omega}&=\beta s_{d\omega}+(1−\beta)d\omega^2 \\
+s_{d\omega}&=\beta s_{db}+(1−\beta)db^2 \\
+\end{aligned}
 $$
 
 参数 $\beta_1$ 所对应的就是Momentum算法中的 $\beta$ 值，一般取0.9；参数 $\beta_2$ 所对应的就是RMSProp算法中的 $\beta$ 值，一般取0.999。
@@ -133,17 +139,21 @@ $$
 由于移动指数平均在迭代开始的初期会导致和开始的值有较大的差异，所以我们需要对上面求得的几个值做偏差修正
 
 $$
-v^c_{d\omega}=\frac{v_{d\omega}}{1−\beta^t_1} \\
-v^c_{db}=\frac{v_{d b}}{1−\beta^t_1} \\
-s^c_{d\omega}=\frac{s_{d\omega}}{1−\beta^t_2} \\
-s^c_{db}=\frac{s_{db}}{1−\beta^t_2} \\
+\begin{aligned}
+v^c_{d\omega}&=\frac{v_{d\omega}}{1−\beta^t_1} \\
+v^c_{db}&=\frac{v_{d b}}{1−\beta^t_1} \\
+s^c_{d\omega}&=\frac{s_{d\omega}}{1−\beta^t_2} \\
+s^c_{db}&=\frac{s_{db}}{1−\beta^t_2} \\
+\end{aligned}
 $$
 
 通过上面的公式，我们就可以求得在第 $t$ 轮迭代过程中，参数梯度累积量的修正值，从而接下来就可以根据Momentum和RMSProp算法的结合来对权重和偏置进行更新
 
 $$
-\omega=\omega−\eta \frac{v^c_{d\omega}}{\sqrt{s_{d\omega}}+\epsilon} \\
-b=b−\eta \frac{v^c_{db}}{\sqrt{s_{db}}+\epsilon} \\
+\begin{aligned}
+\omega&=\omega−\eta \frac{v^c_{d\omega}}{\sqrt{s_{d\omega}}+\epsilon} \\
+b&=b−\eta \frac{v^c_{db}}{\sqrt{s_{db}}+\epsilon} \\
+\end{aligned}
 $$
 
 其中 $\epsilon$ 是一个平滑项，我们一般取值为 $10^{−8}$，学习率 $\eta$ 则需要我们在训练的时候进行微调。

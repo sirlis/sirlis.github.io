@@ -31,7 +31,7 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 或者通过控制面板进行界面配置（需要重启）
 
-![](\assets\img\postsimg\20200726\1.jpg)
+![](../assets/img/postsimg/20200726/1.jpg)
 
 # 2. 下载和安装
 
@@ -39,13 +39,13 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 选择好版本后，选择「获取」，然后点击「安装」。如果多次点击并无反应，可以等待一定时间后返回到Microsoft Store首页，再次前往该分发版的 Linux 应用页面，该应用可能已经在后台安装完毕。
 
-![](\assets\img\postsimg\20200726\2.jpg)
+![](../assets/img/postsimg/20200726/2.jpg)
 
-![](\assets\img\postsimg\20200726\3.jpg)
+![](../assets/img/postsimg/20200726/3.jpg)
 
 点击「启动」，将打开一个控制台窗口，系统会要求你等待一分钟或两分钟，以便文件解压缩并存储到电脑上。 未来的所有启动时间应不到一秒。然后，需要[为新的 Linux 分发版创建用户帐户和密码](https://docs.microsoft.com/zh-cn/windows/wsl/user-support)。（注意，linux 系统中，输入密码时默认时不显示任何内容的）
 
-![](\assets\img\postsimg\20200726\4.jpg)
+![](../assets/img/postsimg/20200726/4.jpg)
 
 提示 `Installation successful!` 表明系统安装完毕。
 
@@ -176,13 +176,13 @@ cd /mnt
 
 接着就是不断的cd进入到你所需的目录下。比如我们进入系统后 `dir` 或者 `ls` 一下就可以看到目前 Windows 系统的三个盘符（因人而异）。`cd` 就可以逐级进入文件夹。
 
-![image-20200726135034927](\assets\img\postsimg\20200726\5.jpg)
+![image-20200726135034927](../assets/img/postsimg/20200726/5.jpg)
 
 ## 4.5. 解压tar文件
 
 在 Linux 系统种，通过 `tar` 命令解压 tar 压缩包。
 
-![image-20200726141328495](\assets\img\postsimg\20200726\6.jpg)
+![image-20200726141328495](../assets/img/postsimg/20200726/6.jpg)
 
 
 

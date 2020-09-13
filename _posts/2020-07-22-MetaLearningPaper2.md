@@ -21,7 +21,7 @@ math: true
 
 原型网络在少样本分类与零样本分类任务上的示意图如下所示。
 
-![](\assets\img\postsimg\20200722\1.jpg)
+![](../assets/img/postsimg/20200722/1.jpg)
 
 ## 1.1. 模型
 
@@ -47,7 +47,7 @@ $$
 
 ## 1.2. 算法
 
-![image-20200722221410952](\assets\img\postsimg\20200722\2.jpg)
+![image-20200722221410952](../assets/img/postsimg/20200722/2.jpg)
 
 其中
 
@@ -126,7 +126,7 @@ $$
 
 在下图中，我们比较了余弦距离与欧式距离，5-way和20-way  training episodes。在1-shot和5-shot场景中，每个Episode每个类中有15个查询点。
 
-![image-20200723205141141](\assets\img\postsimg\20200722\3.jpg)
+![image-20200723205141141](../assets/img/postsimg/20200722/3.jpg)
 
 注意到20-way比5-way获得了更高的准确率，并且推测20-way分类难度的增加有助于网络更好的泛化，因为它迫使模型在嵌入空间中做出更细粒度的决策。
 

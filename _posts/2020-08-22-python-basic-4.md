@@ -38,7 +38,7 @@ plt.legend()
 plt.show()
 ```
 
-![image-20200822155756531](\assets\img\postsimg\20200822\1.jpg)
+![image-20200822155756531](../assets/img/postsimg/20200822/1.jpg)
 
 ## 1.1. 颜色控制
 
@@ -88,7 +88,7 @@ plt.show()
 
 绘制效果为
 
-![image-20200822160154771](\assets\img\postsimg\20200822\2.jpg)
+![image-20200822160154771](../assets/img/postsimg/20200822/2.jpg)
 
 ## 1.3. 点形控制
 
@@ -134,7 +134,7 @@ plt.show()
 
 绘制效果为
 
-![image-20200822160526163](\assets\img\postsimg\20200822\3.jpg)
+![image-20200822160526163](../assets/img/postsimg/20200822/3.jpg)
 
 ## 1.4. 另一种设置方法
 
@@ -170,7 +170,7 @@ plt.plot(x, y5, "-^", markerfacecolor="blue")
 plt.show()
 ```
 
-![image-20200822162131136](\assets\img\postsimg\20200822\4.jpg)
+![image-20200822162131136](../assets/img/postsimg/20200822/4.jpg)
 
 # 2. subplot
 
@@ -202,13 +202,13 @@ plt.show()
 
 绘制结果为
 
-![image-20200822164354416](\assets\img\postsimg\20200822\5.jpg)
+![image-20200822164354416](../assets/img/postsimg/20200822/5.jpg)
 
 ## 2.2. 不规则划分
 
 有时候我们的划分并不是规则的, 比如如下的形式
 
-![image-20200822164514363](\assets\img\postsimg\20200822\6.jpg)
+![image-20200822164514363](../assets/img/postsimg/20200822/6.jpg)
 
 这种应该怎么划分呢?
 
@@ -220,7 +220,7 @@ plt.show()
 
 前两个图占用了 `(2, 1, 1)` 的位置，因此第三个图占用了 `(2, 1, 2)` 的位置。
 
-![image-20200822171806554](\assets\img\postsimg\20200822\7.jpg)
+![image-20200822171806554](../assets/img/postsimg/20200822/7.jpg)
 
 代码如下
 
@@ -274,7 +274,7 @@ for i in range(100):
 
 多次绘制在同一个figure中的效果如下：
 
-![8](\assets\img\postsimg\20200822\8.gif)
+![8](../assets/img/postsimg/20200822/8.gif)
 
 ## 2.4. 多图刷新
 
@@ -352,7 +352,7 @@ plt.show(block=False)
 
 结果如下图所示
 
-![9](\assets\img\postsimg\20200822\9.png)
+![9](../assets/img/postsimg/20200822/9.png)
 
 # 4. 清理绘图
 

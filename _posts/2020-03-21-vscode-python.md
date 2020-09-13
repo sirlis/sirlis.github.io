@@ -41,7 +41,7 @@ Python是一种跨平台的计算机程序设计语言。 是一个高层次的�
 
 安装完成后，点击左侧的扩展商店，搜索chinese，下载中文简体汉化包（可能需要翻墙）。
 
-![汉化](..\assets\img\postsimg\20200318\01.chinese.png)
+![汉化](../assets/img/postsimg/20200318/01.chinese.png)
 
 安装完成后重启VSCode，即可发现所有界面均已汉化。
 
@@ -58,7 +58,7 @@ Python是一种跨平台的计算机程序设计语言。 是一个高层次的�
 
 扩展商店搜索“python”，安装微软官方出品的Python扩展。然后重启VSCode。
 
-![汉化](..\assets\img\postsimg\20200321\01.python.png)
+![汉化](../assets/img/postsimg/20200321/01.python.png)
 
 然后配置Python解释器。
 
@@ -72,13 +72,13 @@ Anaconda通过管理工具包、开发环境、Python版本，大大简化了你
 
 Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anaconda.com/）选择对应平台的Anaconda3安装包下载。对于Windows 10平台，推荐下载64-Bit的Python3.8版本的安装包（466M）。
 
-![Anaconda](..\assets\img\postsimg\20200321\02.anacondadownload.png)
+![Anaconda](../assets/img/postsimg/20200321/02.anacondadownload.png)
 
 采用默认配置安装Anaconda，安装路径可以自定义，但务必记住安装路径。安装无需联网，保险起见请关闭杀毒软件。
 
 进行到下图步骤时，均不勾选，后面我们将手动配置环境变量。
 
-![Anaconda](..\assets\img\postsimg\20200321\03.anacondainstall.png)
+![Anaconda](../assets/img/postsimg/20200321/03.anacondainstall.png)
 
 将Anaconda安装路径的三个路径变量写入系统Path中
 
@@ -92,11 +92,11 @@ D:\XXX\Anaconda3\Library\bin
 
 新建环境需要联网。在开始菜单中找到“Anaconda Navigator”，单击打开后，点击左侧的“Environments”，可以看到默认存在一个 `base(root)` 环境。点击下方的Create按钮新建一个环境。
 
-![Anaconda](..\assets\img\postsimg\20200321\04.newenvironment.png)
+![Anaconda](../assets/img/postsimg/20200321/04.newenvironment.png)
 
 弹出 `Create new environment` 界面，输入 `Name` ，勾选 `Python` 并下拉选择 `3.7` 版本。然后记住 `Location` 对应的环境路径。最后点击 `Create` 完成环境配置，新建的环境会显示在环境列表中。
 
-![Anaconda](..\assets\img\postsimg\20200321\05.configenv.png)
+![Anaconda](../assets/img/postsimg/20200321/05.configenv.png)
 
 **注意**，envs 内的每一个子文件夹都是一个独立的环境，删除、重命名子文件夹等价于删除、重命名环境。将子文件夹复制到其他机器的Anaconda的envs文件夹中，该机器的Anaconda可直接识别并应用该环境。因此可在配置好一个环境后，对该子文件夹进行备份。
 
@@ -122,11 +122,11 @@ python -m pip install --upgrade pip
 
 如果pip版本不是最新的，会更新到最新版本，如下图所示
 
-![Anaconda](..\assets\img\postsimg\20200321\06.updatepip.png)
+![Anaconda](../assets/img/postsimg/20200321/06.updatepip.png)
 
 如果pip版本已经是最新的，会如下图提示
 
-![Anaconda](..\assets\img\postsimg\20200321\07.piplatest.png)
+![Anaconda](../assets/img/postsimg/20200321/07.piplatest.png)
 
 #### 3.4.1.2. conda（推荐）
 
@@ -140,7 +140,7 @@ conda -V
 
 若返回conda的版本号，则表示环境中默认搭载了conda。
 
-![Anaconda](..\assets\img\postsimg\20200321\08.condaversion.png)
+![Anaconda](../assets/img/postsimg/20200321/08.condaversion.png)
 
 输入以下命令更新conda
 
@@ -150,7 +150,7 @@ conda update -n base conda
 
 期间提示是否更新包，输入y确认
 
-![Anaconda](..\assets\img\postsimg\20200321\13.updateconda.png)
+![Anaconda](../assets/img/postsimg/20200321/13.updateconda.png)
 
 #### 3.4.1.3. 说明
 
@@ -190,7 +190,7 @@ trusted-host = pypi.tuna.tsinghua.edu.cn
 
 点击 “Update index...” 更新索引
 
-![更新索引](..\assets\img\postsimg\20200321\09.updateindex.png)
+![更新索引](../assets/img/postsimg/20200321/09.updateindex.png)
 
 #### 3.4.2.2. conda镜像源
 
@@ -237,7 +237,7 @@ conda clean -i
 
 点击 “Update index...” 更新索引
 
-![更新索引](..\assets\img\postsimg\20200321\09.updateindex.png)
+![更新索引](../assets/img/postsimg/20200321/09.updateindex.png)
 
 
 
@@ -250,7 +250,7 @@ conda clean -i
 [pip]    pip -v list
 ```
 
-![piplist](..\assets\img\postsimg\20200321\10.piplist.png)
+![piplist](../assets/img/postsimg/20200321/10.piplist.png)
 
 - 显示所有过时包
 
@@ -258,7 +258,7 @@ conda clean -i
 pip list --outdated
 ```
 
-![piplist](..\assets\img\postsimg\20200321\11.pipoutdated.png)
+![piplist](../assets/img/postsimg/20200321/11.pipoutdated.png)
 
 - 更新特定包
 
@@ -266,7 +266,7 @@ pip list --outdated
 pip install --upgrade xxxx
 ```
 
-![piplist](..\assets\img\postsimg\20200321\12.pipupgrade.png)
+![piplist](../assets/img/postsimg/20200321/12.pipupgrade.png)
 
 - 更新pip
 
@@ -315,11 +315,11 @@ conda update -n base -c defaults conda
 
 随便新建一个 `python` 文件，如 `printtest.py` 进行测试，下图可以看出具备代码智能补全功能。
 
-![调试运行测试](..\assets\img\postsimg\20200321\15.test.png)
+![调试运行测试](../assets/img/postsimg/20200321/15.test.png)
 
 按 `F5` 运行结果如下
 
-![调试运行测试](..\assets\img\postsimg\20200321\16.run.png)
+![调试运行测试](../assets/img/postsimg/20200321/16.run.png)
 
 # 4. 错误集合 
 
@@ -343,7 +343,7 @@ D:\XXX\Anaconda3\Library\bin
 
 要么打开VSCode的设置（`ctrl+,`），设置Python插件中的conda的路径
 
-![condapath](..\assets\img\postsimg\20200321\14.condapath.png)
+![condapath](../assets/img/postsimg/20200321/14.condapath.png)
 
 ## 4.2. 提示CommandNotFoundError
 

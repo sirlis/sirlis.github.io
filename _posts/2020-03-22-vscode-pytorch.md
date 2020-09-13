@@ -36,13 +36,13 @@ PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语�
 
 前往官网（https://pytorch.org/get-started/locally/），根据自身的开发环境，获取PyTorch安装命令行。以Windows 10系统+RTX2060显卡为例，采用pip安装，如图选择，得到安装命令行
 
-![安装命令行](..\assets\img\postsimg\20200322\01.command.png)
+![安装命令行](../assets/img/postsimg/20200322/01.command.png)
 
 **注意**，PyTorch包含两个版本，CPU版（CUDA=None）和GPU版，若计算机没有合适的独立显卡，则CUDA选择None。不过GPU版同样包含CPU版的所有功能，因此完全可以安装GPU版，然后不用GPU计算加速功能。
 
 **注意**，请自行确认独立显卡驱动支持的**CUDA版本**。打开控制面板，选择查看方式为“小图标”，选择“Nvidia控制面板”，然后如图所示的步骤依次打开“系统信息” => “组件”，查看 “NVCUDA.DLL” 的产品名称，并选择不超过其版本号的CUDA版本号。
 
-![CUDA版本查看](..\assets\img\postsimg\20200322\04.cudaversion.png)
+![CUDA版本查看](../assets/img/postsimg/20200322/04.cudaversion.png)
 
 若采用conda安装（推荐），则命令行如下
 
@@ -119,7 +119,7 @@ conda install matplotlib
 
 或者通过Anaconda界面进行安装
 
-![安装matplotlib](..\assets\img\postsimg\20200322\02.matplotlib.png)
+![安装matplotlib](../assets/img/postsimg/20200322/02.matplotlib.png)
 
 ### 3.2.5. pandas
 
@@ -131,7 +131,7 @@ conda install pandas
 
 或者通过Anaconda界面进行安装
 
-![安装matplotlib](..\assets\img\postsimg\20200322\03.pandas.png)
+![安装matplotlib](../assets/img/postsimg/20200322/03.pandas.png)
 
 ## 3.3. 手动部署CUDA和cuDNN
 
@@ -141,15 +141,15 @@ conda install pandas
 
 若要手动部署CUDA和cuDNN，必须遵循先CUDA后cuDNN的顺序。首先前往官网（https://www.nvidia.com/）下载CUDA。
 
-![下载cuda](..\assets\img\postsimg\20200322\05.manualcuda.png)
+![下载cuda](../assets/img/postsimg/20200322/05.manualcuda.png)
 
 在打开的页面中点击 ”Download Now“ 按钮，然后再新页面中选择 “Legacy Releases” 按钮，不要按照页面的说法进行系统选择等操作。
 
-![安装cuda1](..\assets\img\postsimg\20200322\06.cuda1.png)
+![安装cuda1](../assets/img/postsimg/20200322/06.cuda1.png)
 
 然后根据自己的实际情况选择相应的CUDA版本下载安装。
 
-![安装cuda2](..\assets\img\postsimg\20200322\07.cuda2.png)
+![安装cuda2](../assets/img/postsimg/20200322/07.cuda2.png)
 
 手动安装CUDA后需要进行检查。`win+R` 输入 `cmd` 回车，打开命令提示符，输入
 
@@ -159,7 +159,7 @@ nvcc -V
 
 若成功返回cuda版本等信息则表示安装成功。
 
-![CUDA版本](..\assets\img\postsimg\20200322\09.cudaversion.png)
+![CUDA版本](../assets/img/postsimg/20200322/09.cudaversion.png)
 
 继续输入（其中路径自行根据CUDA安装路径调整）
 
@@ -169,13 +169,13 @@ cd C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\demo_suite
 
 然后输入 `deviceQuery.exe`，执行此程序。出现 `PASS` 即表示CUDA安装成功。
 
-![CUDA版本](..\assets\img\postsimg\20200322\10.cudapass.png)
+![CUDA版本](../assets/img/postsimg/20200322/10.cudapass.png)
 
 然后，前往[此处](https://developer.nvidia.com/cudnn)（https://developer.nvidia.com/cudnn），点击 “Download cuDNN” 按钮下载cuDNN。下载前需要书册账号并登陆。**注意**，cuDNN版本与CUDA版本间存在匹配关系，下载时一定要注意。
 
 下载解压后得到的文件直接覆盖到CUDA安装路径，如下图所示。
 
-![CUDNN安装](..\assets\img\postsimg\20200322\11.cudnn.png)
+![CUDNN安装](../assets/img/postsimg/20200322/11.cudnn.png)
 
 ## 3.4. 测试
 
@@ -187,7 +187,7 @@ python
 
 启动python环境。
 
-![12.test1](..\assets\img\postsimg\20200322\12.test1.png)
+![12.test1](../assets/img/postsimg/20200322/12.test1.png)
 
 然后一行行输入以下命令
 
@@ -208,7 +208,7 @@ tensor([[0.3380, 0.3845, 0.3217],
         [0.4675, 0.3947, 0.1426]])
 ```
 
-![13.test2](..\assets\img\postsimg\20200322\13.test2.png)
+![13.test2](../assets/img/postsimg/20200322/13.test2.png)
 
 检查pytorch是否能够正确调用GPU驱动和是否能够启用CUDA，输入：
 
@@ -219,7 +219,7 @@ torch.cuda.is_available()
 
 返回 `True` 即可。
 
-![14.test3](..\assets\img\postsimg\20200322\14.test3.png)
+![14.test3](../assets/img/postsimg/20200322/14.test3.png)
 
 # 4. 参考文献
 
