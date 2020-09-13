@@ -9,10 +9,11 @@ math: true
 - [1. MAML](#1-maml)
   - [1.1. 算法](#11-算法)
   - [1.2. 梯度下降数学分析](#12-梯度下降数学分析)
-  - [MAML数学分析](#maml数学分析)
-  - [1.3. 二重梯度的另一解释（混乱向）](#13-二重梯度的另一解释混乱向)
-  - [1.4. FOMAML图解](#14-fomaml图解)
-  - [1.5. 缺点](#15-缺点)
+  - [1.3. 基于优化的元学习目标](#13-基于优化的元学习目标)
+  - [1.4. MAML数学分析](#14-maml数学分析)
+  - [1.5. 二重梯度的另一解释（混乱向）](#15-二重梯度的另一解释混乱向)
+  - [1.6. FOMAML图解](#16-fomaml图解)
+  - [1.7. 缺点](#17-缺点)
 - [2. 各类实现](#2-各类实现)
 - [3. 参考文献](#3-参考文献)
 
@@ -184,11 +185,11 @@ $$
 
 其中，模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
 
-## MAML数学分析
+## 1.3. 基于优化的元学习目标
 
 MAML 的目标是：找寻一组模型初始参数 $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
-> find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ update.
+> We consider the optimization problem of MAML: find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ updates. --------[Reptile]
 
 用数学语言描述，即
 
@@ -199,9 +200,13 @@ $$
 \end{aligned}
 $$
 
-其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。在前面的梯度数学分析中，我们省略了下标 $\tau$，因为梯度计算和损失函数计算默认都是对同一批数据，但是在这里我加上了下标，因为后面 MAML 并不在同一批数据上计算梯度和计算损失函数。
+其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。在前面的梯度数学分析中，我们省略了下标 $\tau$，因为梯度计算和损失函数计算默认都是对同一批数据，但是在这里加上下标，是因为后面 MAML 并不在同一批数据上计算梯度和计算损失函数，需要下标做区分。
 
-假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 只进行 $k=1$ 次梯度算子更新解决如下问题，因此省略 $U$ 的上标 $k$，有
+虽然这里说的是 MAML 的目标，实际上这是基于优化的元学习问题（Optimization-based Meta-Learning）共同的目标。
+
+## 1.4. MAML数学分析
+
+假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 通过进行 $k=1$ 次梯度算子更新，将上述问题转化为如下问题。省略 $U$ 的上标 $k$，有
 
 $$
 \begin{aligned}
@@ -325,7 +330,7 @@ $$
 
 可以看出只需要计算一重梯度即可，约节省了33%的计算量。
 
-## 1.3. 二重梯度的另一解释（混乱向）
+## 1.5. 二重梯度的另一解释（混乱向）
 
 设初始化的参数为 $\theta$ ，每个任务的模型一开始的参数都是 $\theta$。
 
@@ -437,7 +442,7 @@ $$
 \end{aligned}
 $$
 
-## 1.4. FOMAML图解
+## 1.6. FOMAML图解
 
 一阶近似的MAML可以看作是如下形式的参数更新：假设每个batch只有一个task，某次采用第m个task来更新模型参数，得到$\hat\theta^m$，再求一次梯度来更新模型的原始参数$\phi$，将其从 $\phi^0$ 更新至 $\phi^1$，以此类推。
 
@@ -445,7 +450,7 @@ $$
 
 与之相比，右边是模型预训练方法，它是将参数根据每次的训练任务一阶导数的方向来更新参数。
 
-## 1.5. 缺点
+## 1.7. 缺点
 
 MAML的缺点[[2](#ref2)]：
 
