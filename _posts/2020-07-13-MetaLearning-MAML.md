@@ -160,12 +160,13 @@ $$
 
 其中，${}^1\boldsymbol \theta$ 表示经过1次梯度更新后的模型参数，后文以此类推。
 
-那么第2次梯度计算有
+第2次梯度计算建立在第1次梯度计算的基础上，有
 
 $$
 \begin{aligned}
-\boldsymbol g_2 &= \nabla_{\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
-{}^2\boldsymbol \theta &= {}^1\boldsymbol \theta - \epsilon \boldsymbol g_2=\boldsymbol \theta - \epsilon \boldsymbol g_1 - \epsilon \boldsymbol g_2
+\boldsymbol g_2 &= \nabla_{{}^1\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
+{}^2\boldsymbol \theta &= {}^1\boldsymbol \theta - \epsilon \boldsymbol g_2\\
+& = \boldsymbol \theta - \epsilon \boldsymbol g_1 - \epsilon \boldsymbol g_2
 \end{aligned}
 $$
 
@@ -174,14 +175,14 @@ $$
 $$
 \begin{aligned}
 initialization:\quad&{}^0\boldsymbol \theta = \boldsymbol \theta\\
-1^{st}\;gradient\;step:\quad&{}^1\boldsymbol \theta \leftarrow U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1\\
-2^{nd}\;gradient\;step:\quad&{}^2\boldsymbol \theta \leftarrow U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2\\
+1^{st}\;gradient\;step:\quad&{}^1\boldsymbol \theta = U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1\\
+2^{nd}\;gradient\;step:\quad&{}^2\boldsymbol \theta = U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2\\
 ...&...\\
-k^{th}\;gradient\;step:\quad&{}^k\boldsymbol \theta \leftarrow U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2-...- \epsilon \boldsymbol g_k\\
+k^{th}\;gradient\;step:\quad&{}^k\boldsymbol \theta = U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2-...- \epsilon \boldsymbol g_k\\
 \end{aligned}
 $$
 
-其中，模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)$ 为计算 $k$ 次的梯度算子。
+其中，模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
 
 ## MAML数学分析
 
@@ -198,9 +199,7 @@ $$
 \end{aligned}
 $$
 
-其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
-
-$U^k_\tau$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
+其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。在前面的梯度数学分析中，我们省略了下标 $\tau$，因为梯度计算和损失函数计算默认都是对同一批数据，但是在这里我加上了下标，因为后面 MAML 并不在同一批数据上计算梯度和计算损失函数。
 
 假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 只进行 $k=1$ 次梯度算子更新解决如下问题，因此省略 $U$ 的上标 $k$，有
 
