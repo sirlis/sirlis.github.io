@@ -201,7 +201,13 @@ $$
 
 - 刚才说的可以在实际应用中多次梯度下降。
 
-**为了使损失函数最小，需要求损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度，然后再在梯度负方向更新参数。** 注意到 $U^{k=1}_\tau(\boldsymbol \theta)={}^{1}_\tau \boldsymbol \theta$，那么
+**为了使损失函数最小，需要求损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度，然后再在梯度负方向更新参数。** 注意到
+
+$$
+U^{k=1}_\tau(\boldsymbol \theta)={}^{1}_\tau \boldsymbol \theta
+$$
+
+那么
 
 $$
 \begin{aligned}
