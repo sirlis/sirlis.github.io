@@ -8,7 +8,8 @@ math: true
 
 - [1. MAML](#1-maml)
   - [1.1. 算法](#11-算法)
-  - [1.2. 二重梯度及简化](#12-二重梯度及简化)
+  - [1.2. 梯度下降数学分析](#12-梯度下降数学分析)
+  - [MAML数学分析](#maml数学分析)
   - [1.3. 二重梯度的另一解释（混乱向）](#13-二重梯度的另一解释混乱向)
   - [1.4. FOMAML图解](#14-fomaml图解)
   - [1.5. 缺点](#15-缺点)
@@ -84,17 +85,15 @@ MAML在监督分类中的算法伪代码如下：
 
 **总结**：MAML使用训练集优化内层循环，使用测试集优化模型，也就是外层循环。外层循环需要计算**二重梯度（gradient by gradient）**。
 
-## 1.2. 二重梯度及简化
+## 1.2. 梯度下降数学分析
 
-设初始化的参数为
+定义神经网络模型的初始的参数为
 
 $$
 \boldsymbol{\theta} = [\theta_1,\theta_2,...,\theta_n]^T
 $$
 
-一共 $n$ 个参数。
-
-假设任务为 $\tau$，包含 10 个样本，每个样本输入 6 个量，输出 4 个量。神经网络即为一个 6 输入 2 输出的网络。
+假设随机选取的一批任务为 $\tau$，包含 10 个样本，每个样本输入 6 个量，输出 4 个量。神经网络即为一个 6 输入 2 输出的网络。
 
 样本输入矩阵为（行是样本，列是输入维度）
 
@@ -129,11 +128,62 @@ $$
 \end{bmatrix}
 $$
 
-然后，模型在这批样本上的损失函数 $L_\tau$ 可以采用 MSE 来衡量
+定义一个损失函数 $L_\tau$ 来衡量模型在任务 $\tau$ 上的性能（即模型预测输出与期望输出间的距离），可以采用 MSE 来表征，注意到损失函数是关于模型参数的函数
 
 $$
-L_\tau(\boldsymbol \theta) = MSE_\tau = \frac{1}{10\cdot4} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j(\boldsymbol \theta) - {}^iy_j)^2
+L_\tau(\boldsymbol \theta) = MSE_\tau = \frac{1}{10\cdot4} \cdot [\frac{1}{2} \sum_i^{10} \sum_j^{4}(^i\hat{y}_j(\boldsymbol \theta) - {}^iy_j)^2]
 $$
+
+如何使得模型的预测输出与期望输出的距离变小呢？按照梯度下降方法（GD），我们可以计算损失函数 $L_\tau(\boldsymbol \theta)$ 关于模型参数 $\boldsymbol \theta$ 的梯度，然后沿着这个梯度的负方向更新模型参数即可。
+
+假设损失函数关于模型参数的梯度为 $\boldsymbol g$，则
+
+$$
+\begin{aligned}
+\boldsymbol g = \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta) = \frac{\partial L_\tau(\boldsymbol \theta)}{\partial \boldsymbol \theta} = \begin{bmatrix}
+\partial L_\tau(\boldsymbol \theta) / \partial \theta_1\\ 
+\partial L_\tau(\boldsymbol \theta) / \partial \theta_2\\ 
+\vdots\\ 
+\partial L_\tau(\boldsymbol \theta) / \partial \theta_n
+\end{bmatrix}
+\end{aligned}
+$$
+
+我们可以计算1次梯度下降，也可以计算多次。假设 $\boldsymbol g_1$ 是在原始模型参数上进行第1次梯度计算，有
+
+$$
+\begin{aligned}
+\boldsymbol g_1 &= \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta)\\
+{}^1\boldsymbol \theta &= \boldsymbol \theta - \epsilon \boldsymbol g_1
+\end{aligned}
+$$
+
+其中，${}^1\boldsymbol \theta$ 表示经过1次梯度更新后的模型参数，后文以此类推。
+
+那么第2次梯度计算有
+
+$$
+\begin{aligned}
+\boldsymbol g_2 &= \nabla_{\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
+{}^2\boldsymbol \theta &= {}^1\boldsymbol \theta - \epsilon \boldsymbol g_2=\boldsymbol \theta - \epsilon \boldsymbol g_1 - \epsilon \boldsymbol g_2
+\end{aligned}
+$$
+
+我们将1次，2次，...，直到 $k$ 次梯度计算的过程统一列写如下：
+
+$$
+\begin{aligned}
+initialization:\quad&{}^0\boldsymbol \theta = \boldsymbol \theta\\
+1^{st}\;gradient\;step:\quad&{}^1\boldsymbol \theta \leftarrow U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1\\
+2^{nd}\;gradient\;step:\quad&{}^2\boldsymbol \theta \leftarrow U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2\\
+...&...\\
+k^{th}\;gradient\;step:\quad&{}^k\boldsymbol \theta \leftarrow U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2-...- \epsilon \boldsymbol g_k\\
+\end{aligned}
+$$
+
+其中，模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新，$U^k_\tau(\boldsymbol \theta)$ 为计算 $k$ 次的梯度算子。
+
+## MAML数学分析
 
 MAML 的目标是：找寻一组模型初始参数 $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
@@ -143,8 +193,8 @@ MAML 的目标是：找寻一组模型初始参数 $\boldsymbol \theta$，使得
 
 $$
 \begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
-= \mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
+\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
+= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
 \end{aligned}
 $$
 
@@ -152,40 +202,17 @@ $$
 
 $U^k_\tau$ 是一个梯度算子，定义为在数据 $\tau$ 进行 $k$ 次更新。这里的更新可以是SGD，也可以是Adam。那么，$U^k_\tau(\boldsymbol \theta)={}^{k}_\tau \boldsymbol \theta$。
 
-假设梯度为 $\boldsymbol g$，则
+假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 只进行 $k=1$ 次梯度算子更新解决如下问题，因此省略 $U$ 的上标 $k$，有
 
 $$
 \begin{aligned}
-\boldsymbol g = \nabla_{\boldsymbol \theta} L_\tau = \frac{\partial L_\tau}{\partial \boldsymbol \theta} = \begin{bmatrix}
-\partial L_\tau / \partial \theta_1\\ 
-\partial L_\tau / \partial \theta_2\\ 
-\vdots\\ 
-\partial L_\tau / \partial \theta_n
-\end{bmatrix}
+\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))]
 \end{aligned}
 $$
 
-下面展示了模型参数通过梯度算子更新1次，更新2次，。。。，更新 $k$ 次的过程。其中模型参数 ${}^k_\tau\boldsymbol \theta$ 表示模型参数已经在任务数据 $\tau$ 上经过 $k$ 次更新。
+即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数 $L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))$，使得其最小。
 
-$$
-\begin{aligned}
-initialization:\quad&{}^0\boldsymbol \theta = \boldsymbol \theta\\
-1^{st}\;gradient\;step:\quad&{}^1\boldsymbol \theta \leftarrow U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1\\
-2^{nd}\;gradient\;step:\quad&{}^2\boldsymbol \theta \leftarrow U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2\\
-&...\\
-k^{th}\;gradient\;step:\quad&{}^k\boldsymbol \theta \leftarrow U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2-...- \epsilon \boldsymbol g_k\\
-\end{aligned}
-$$
-
-假设任务 $\tau$ 可以分解为两个互不相交的数据子集 A（比如包含7个样本） 和 B（包含3个样本），MAML 试图只进行 $k=1$ 次梯度算子更新解决如下问题，因此省略 $k$ 有
-
-$$
-\begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{T_i}[L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))]
-\end{aligned}
-$$
-
-即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数 $L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))$，使得其最小。注意到 MAML 中，只进行 $k=1$ 次梯度算子更新，因此省略了梯度算子 $U$ 的上标 $k$。作者号称有如下四个原因：
+MAML 中只进行 $k=1$ 次梯度算子更新，作者号称有如下四个原因：
 
 - Meta Learning会快很多；
 
