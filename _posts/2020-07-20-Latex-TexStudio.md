@@ -6,18 +6,6 @@ tags: [latex]
 math: true
 ---
 
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
 - [1. LaTeX简介](#1-latex简介)
 - [2. 下载和安装MiKTeX](#2-下载和安装miktex)
 - [3. 下载和安装TeXstudio](#3-下载和安装texstudio)

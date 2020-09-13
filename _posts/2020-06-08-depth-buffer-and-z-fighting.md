@@ -6,18 +6,6 @@ tags: [opengl]
 math: true
 ---
 
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
 - [1. 深度缓冲](#1-深度缓冲)
 - [2. 深度冲突](#2-深度冲突)
 - [3. 对数深度缓冲](#3-对数深度缓冲)

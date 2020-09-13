@@ -6,18 +6,6 @@ tags: [opengl]
 math: true
 ---
 
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
 - [1. 抖颤](#1-抖颤)
 - [2. 相对于中心的渲染](#2-相对于中心的渲染)
 - [3. 相对于视角的渲染](#3-相对于视角的渲染)
