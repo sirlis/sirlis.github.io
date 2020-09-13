@@ -244,7 +244,7 @@ $$
 \end{aligned}
 $$
 
-上式中，第一项 $L'_{\tau,B}( {}_{\tau,A} {}^1\boldsymbol \theta )$ 是使用 A 数据进行一次梯度更新后的模型参数计算损失函数，然后在 B 数据上计算损失函数的导数，这里的导数是对更新后的模型参数 ${}_{\tau,A}{}^1 \boldsymbol \theta$ 求的，因此这一项比较好求。
+上式中，第一项 $L'_{\tau,B}( _{\tau,A} ^1\boldsymbol \theta )$ 是使用 A 数据进行一次梯度更新后的模型参数计算损失函数，然后在 B 数据上计算损失函数的导数，这里的导数是对更新后的模型参数 $_{\tau,A} ^1 \boldsymbol \theta$ 求的，因此这一项比较好求。
 
 下面计算第二项 $U_{\tau,A}'(\boldsymbol \theta)$。前面算子更新时我们知道
 
