@@ -187,7 +187,7 @@ $$
 
 ## 1.3. 基于优化的元学习目标
 
-MAML 的目标是：找寻一组模型初始参数 $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
+MAML 的目标是：找寻一组**模型初始参数** $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
 > We consider the optimization problem of MAML: find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ updates. --------[Reptile]
 
@@ -202,7 +202,7 @@ $$
 
 其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。在前面的梯度数学分析中，我们省略了下标 $\tau$，因为梯度计算和损失函数计算默认都是对同一批数据，但是在这里加上下标，是因为后面 MAML 并不在同一批数据上计算梯度和计算损失函数，需要下标做区分。
 
-虽然这里说的是 MAML 的目标，实际上这是基于优化的元学习问题（Optimization-based Meta-Learning）共同的目标。
+虽然这里说的是 MAML 的目标，实际上这是**基于优化的元学习问题**（Optimization-based Meta-Learning）共同的目标。
 
 ## 1.4. MAML数学分析
 
@@ -226,7 +226,9 @@ MAML 中只进行 $k=1$ 次梯度算子更新，作者号称有如下四个原�
 
 - 刚才说的可以在实际应用中多次梯度下降。
 
-**为了使损失函数最小，需要求损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度，然后再在梯度负方向更新参数。** 注意到
+**为了使损失函数最小，需要计算损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度 $\boldsymbol g_{MAML}$，然后在梯度负方向更新参数。** 
+
+注意到
 
 $$
 U^{k=1}_\tau(\boldsymbol \theta)={}^{1}_\tau \boldsymbol \theta
@@ -237,13 +239,13 @@ $$
 $$
 \begin{aligned}
 \boldsymbol g_{MAML} &= \nabla_{\boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))= \frac{\partial}{\partial \boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))\\
-&= L_{\tau,B}'(_{A}^1\boldsymbol \theta) U_{\tau,A}'(\boldsymbol \theta)\quad where \quad {}^{1}_A \boldsymbol \theta = U_{\tau,A}(\boldsymbol \theta)
+&= L_{\tau,B}'({}_{\tau,A}{}^1\boldsymbol \theta) U_{\tau,A}'(\boldsymbol \theta)\quad where \quad {}_{\tau,A}{}^1 \boldsymbol \theta = U_{\tau,A}(\boldsymbol \theta)
 \end{aligned}
 $$
 
-上式中，第一项是使用 A 数据进行一次梯度更新后的模型参数在 B 数据上的损失函数的导数，这里的导数是对更新后的模型参数求的，比较好求。
+上式中，第一项 $L_{\tau,B}'({}_{\tau,A}{}^1\boldsymbol \theta)$ 是使用 A 数据进行一次梯度更新后的模型参数计算损失函数，然后在 B 数据上计算损失函数的导数，这里的导数是对更新后的模型参数 ${}_{\tau,A}{}^1 \boldsymbol \theta$ 求的，因此这一项比较好求。
 
-首先计算 $U_{\tau,A}'(\boldsymbol \theta)$，前面算子更新时我们知道 $U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1$
+下面计算第二项 $U_{\tau,A}'(\boldsymbol \theta)$，前面算子更新时我们知道 $U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1$
 $$
 \begin{aligned}
     U_{\tau,A}'(\boldsymbol \theta) &= \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}\\
