@@ -30,7 +30,19 @@ permalink: :year/:month/:day/:title/
 permalink: :year-:month-:day-:title/
 ```
 
-修改后，`_posts`中帖子的图片无论是在本地还是在线上均能正常显示。
+或是
+
+```
+permalink: :title/
+```
+
+修改后，`_posts`中帖子的图片无论是在本地还是在线上均能正常显示。但可能出现其它意料之外的后果。
+
+相关信息：
+
+- [插入图片的路径在本地md编辑器和网页端不一致](https://github.com/cotes2020/jekyll-theme-chirpy/issues/122)
+- https://jekyllrb.com/docs/permalinks/
+- https://jekyllrb.com/docs/front-matter/
 
 # 3. 公式
 
@@ -55,10 +67,23 @@ Jekyll虽然支持Markdown，但是不能正确显示公式，可以借用MathJa
     </script>
 </head>
 ```
+2017年，mathjax号称 https://cdn.mathjax.org 停止使用，要用下面的方法。
+
+或者，在 jekyll 博客的 `_includes/head.html` 中，加上如下代码
+
+```html
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+```
 
 然后正文就可以写公式：`$ e = m c^2 $ `这样就能正确显示了。
-
-
 
 [jekyll]:      http://jekyllrb.com
 [jekyll-gh]:   https://github.com/jekyll/jekyll
