@@ -77,11 +77,11 @@ $$
 
 如果我们设置的 `padding=0, dilation=1` 的话，蓝色为输入，绿色为输出，卷积核为3*3的卷积效果如图[[3](#ref3)]：
 
-![01.dilation](\assets\img\postsimg\20200614\01.no_padding_no_strides.gif)
+![01.dilation](../assets/img/postsimg/20200614/01.no_padding_no_strides.gif)
 
 如果我们设置的 `dilation=2` 的话，卷积核点与输入之间距离为1的值相乘来得到输出
 
-![02.dilation1](\assets\img\postsimg\20200614\02.dilation.gif)
+![02.dilation1](../assets/img/postsimg/20200614/02.dilation.gif)
 
 这样单次计算时覆盖的面积（即感受域）由 `dilation=0` 时的 $3\times 3=9$ 变为了 `dilation=1` 时的 $5\times 5=25$。在增加了感受域的同时却没有增加计算量，保留了更多的细节信息，对图像还原的精度有明显的提升。
 
@@ -130,7 +130,7 @@ $$
 
 对于上述例子，计算后 `padding = 1`。即原始图像为 $5\times 5$，图像周围填充1像素的宽度，尺寸变为$7\times 7$，经过卷积后特征图尺寸正好又变为 $5\times 5$。
 
-![03.1_padding_no_strides](\assets\img\postsimg\20200614\03.1_padding_no_strides.gif)
+![03.1_padding_no_strides](../assets/img/postsimg/20200614/03.1_padding_no_strides.gif)
 
 ## 1.2. MaxPool2d
 
@@ -150,11 +150,11 @@ $$
 
 下图的 `kernel_size = 2, stride = 2`，将输入图片尺寸缩减为原来的一半。
 
-![04.maxpool](\assets\img\postsimg\20200614\04.maxpool.png)
+![04.maxpool](../assets/img/postsimg/20200614/04.maxpool.png)
 
 当输入无法被 `kernel_size` 整除时，根据 `ceil_mode` 来决定如何池化
 
-![07.ceilmode](\assets\img\postsimg\20200614\07.ceilmode.png)
+![07.ceilmode](../assets/img/postsimg/20200614/07.ceilmode.png)
 
 ## 1.3. Linear
 
@@ -201,7 +201,7 @@ $$
 y_i = softmax(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
 $$
 
-![05.softmax](\assets\img\postsimg\20200614\05.softmax.png)
+![05.softmax](../assets/img/postsimg/20200614/05.softmax.png)
 
 我们知道指数函数 $e^x$ 的值域为 $(0,+\infty)$ ，因此 `softmax` 将 $(-\infty,+\infty)$ 的值映射到 $[0, 1]$。具体来说，`softmax` 具备下面两个作用
 
@@ -374,7 +374,7 @@ $$
 
 在分类问题中，`CrossEntropy` **等价于** `log_softmax` + `nll_loss`，也就是说如果使用 `CrossEntropy`，则前面不要加 `softmax` 层，因为 `CrossEntropy` 中内含 `softmax`。而如果使用 `nll_loss`，前面就必须要使用 `log_softmax` 层。
 
-![06.compare](\assets\img\postsimg\20200614\06.compare.png)
+![06.compare](../assets/img/postsimg/20200614/06.compare.png)
 
 理论上，对于单标签多分类问题，直接经过 `softmax` 求出概率分布，然后把这个概率分布用 `CrossEntropy` 做一个似然估计误差。但是 `softmax` 求出来的概率分布，每一个概率都是 $(0, 1)$ 的，这就会导致有些概率过小，导致下溢。 考虑到这个概率分布总归是要经过 `CrossEntropy`的，而 `CrossEntropy`的计算是把概率分布外面套一个 `-log` 来似然，那么直接在计算概率分布的时候加上 `log`，把概率从 $(0, 1)$ 变为 $(-\infty, 0)$，这样就防止中间会有下溢出。 所以 `log_softmax` 说白了就是将本来应该由 `CrossEntropy`做的 `log` 的工作提到预测概率分布来，跳过了中间的存储步骤，防止中间数值会有下溢出，使得数据更加稳定。 正是由于把log这一步从计算误差提到前面，所以用 `log_softmax` 之后，下游的损失函数就应该变成 `NLLLoss`（它没有套 `log` 这一步，直接将输入取反，然后计算和标签的乘积求和平均）。
 
