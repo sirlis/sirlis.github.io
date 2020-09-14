@@ -8,8 +8,9 @@ math: true
 
 - [1. Reptile](#1-reptile)
   - [1.1. 算法](#11-算法)
-  - [1.2. 分析](#12-分析)
-  - [1.3. 实验](#13-实验)
+  - [1.2. 数学分析](#12-数学分析)
+  - [1.3. 有效性分析](#13-有效性分析)
+  - [1.4. 实验](#14-实验)
 - [2. 比较](#2-比较)
 - [3. 算法实现](#3-算法实现)
 - [4. reptile回归sin函数](#4-reptile回归sin函数)
@@ -48,7 +49,26 @@ Reptile的图例如下。
 
 ![](../assets/img/postsimg/20200713/9.jpg)
 
-## 1.2. 分析
+## 1.2. 数学分析
+
+**基于优化的元学习问题**（Optimization-based Meta-Learning）的目标：找寻一组**模型初始参数** $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
+
+> We consider the optimization problem of MAML: find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ updates. --------[Reptile]
+
+用数学语言描述，即
+
+$$
+\begin{aligned}
+\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
+= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
+\end{aligned}
+$$
+
+其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
+
+虽然这里说的是 MAML 的目标，实际上这是**基于优化的元学习问题**（Optimization-based Meta-Learning）共同的目标。因为截至 MAML 文章发表，人们还没有建立起元学习的框架概念。
+
+## 1.3. 有效性分析
 
 为什么 Reptile 有效？首先以两步 SGD 为例分析参数更新过程
 
@@ -179,7 +199,7 @@ $$
 
 ~~另一种分析有效的方法借助了流形，Reptile 收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。~~
 
-## 1.3. 实验
+## 1.4. 实验
 
 **少样本分类**
 
