@@ -51,8 +51,6 @@ Reptile的图例如下。
 
 **基于优化的元学习问题**（Optimization-based Meta-Learning）的目标：找寻一组**模型初始参数** $\boldsymbol \phi$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
-> We consider the optimization problem of MAML: find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ updates. --------[Reptile]
-
 用数学语言描述，即
 
 $$
@@ -60,19 +58,41 @@ $$
 = \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \phi))]
 $$
 
-其中，$\widetilde\phi = {}^{k}_\tau \boldsymbol \phi=U^k_\tau(\boldsymbol \phi)$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
+其中，$\widetilde{\boldsymbol\phi} = {}^{k}_\tau \boldsymbol \phi=U^k_\tau(\boldsymbol \phi)$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
 
-Reptile 算法中将 $(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha$ 等效为梯度，其中 $\alpha$ 为 SGD 中的学习率，即
-
-$$
-L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha
-$$
-
-那么问题就转变为：
+Reptile 算法中**将** $(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha$ **看作梯度**，其中 $\alpha$ 为 SGD 中的学习率，即
 
 $$
-\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[\boldsymbol \phi - U^k_\tau(\boldsymbol \phi)] / \alpha
+g_{Reptile} = \nabla_{\boldsymbol \phi}L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha
 $$
+
+注意到，SGD 随机梯度下降的核心是，**梯度是期望，期望可使用小规模的样本近似估计。**
+
+如果 $k=1$，那么有
+
+$$
+\begin{aligned}
+g_{Reptile,k=1} &= \mathbb E_\tau [\nabla_{\boldsymbol \phi} L_{\tau}(_\tau\boldsymbol \phi)]\\
+&= \mathbb E_\tau [(\boldsymbol \phi - U_\tau(\boldsymbol \phi)) / \alpha]\\
+&=\mathbb E_\tau [\boldsymbol \phi - U_\tau(\boldsymbol \phi)] / \alpha
+\end{aligned}
+$$
+
+则经过梯度更新后，模型参数变为
+
+$$
+\widetilde{\boldsymbol\phi} = \boldsymbol\phi - \epsilon \cdot g_{Reptile,k=1} 
+= (1-\epsilon/\alpha)\boldsymbol\phi - \epsilon/\alpha \cdot U_\tau(\boldsymbol \phi)
+$$
+
+又绕回来了不是么？实际上 $k=1$ 就退化成了的监督训练了。
+
+如果 $k>1$，那么有
+
+$$
+g_{Reptile,k=1} = \nabla_{\boldsymbol \phi} L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - U^k_\tau(\boldsymbol \phi)) / \alpha
+$$
+
 
 
 ## 1.3. 有效性分析
