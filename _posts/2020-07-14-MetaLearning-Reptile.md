@@ -63,7 +63,7 @@ $$
 Reptile 算法中**将** $(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha$ **看作梯度**，其中 $\alpha$ 为 SGD 中的学习率，即
 
 $$
-g_{Reptile} = \nabla_{\boldsymbol \phi}L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha
+g_{Reptile} = (\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha
 $$
 
 注意到，SGD 随机梯度下降的核心是，**梯度是期望，期望可使用小规模的样本近似估计。**
@@ -72,20 +72,41 @@ $$
 
 $$
 \begin{aligned}
-g_{Reptile,k=1} &= \mathbb E_\tau [\nabla_{\boldsymbol \phi} L_{\tau}(_\tau\boldsymbol \phi)]\\
+g_{Reptile,k=1} &= \mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha]\\
 &= \mathbb E_\tau [(\boldsymbol \phi - U_\tau(\boldsymbol \phi)) / \alpha]\\
-&=\mathbb E_\tau [\boldsymbol \phi - U_\tau(\boldsymbol \phi)] / \alpha
+&= \mathbb E_\tau [\boldsymbol \phi - U_\tau(\boldsymbol \phi)] / \alpha\\
+&= \boldsymbol \phi / \alpha - \mathbb E_\tau [U_\tau(\boldsymbol \phi)] / \alpha \quad considering \; \alpha,\phi=const \\
 \end{aligned}
 $$
 
-则经过梯度更新后，模型参数变为
+又知道，$U_\tau(\boldsymbol\phi)$ 是计算 $k=1$ 次的梯度算子（省略 $k$）
 
 $$
-\widetilde{\boldsymbol\phi} = \boldsymbol\phi - \epsilon \cdot g_{Reptile,k=1} 
-= (1-\epsilon/\alpha)\boldsymbol\phi - \epsilon/\alpha \cdot U_\tau(\boldsymbol \phi)
+U_\tau(\boldsymbol\phi) = \boldsymbol \phi - \alpha \nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)
 $$
 
-又绕回来了不是么？实际上 $k=1$ 就退化成了的监督训练了。
+则
+
+$$
+\begin{aligned}
+\mathbb E_\tau [U_\tau(\boldsymbol \phi)] &= \mathbb E_\tau[\boldsymbol \phi - \alpha \nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]\\
+&= \boldsymbol\phi - \alpha \cdot \mathbb E_\tau [\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol \phi)]
+\end{aligned}
+$$
+
+带入上式计算 $g_{Reptile,k=1}$，有
+
+$$
+g_{Reptile,k=1} = \mathbb E_\tau[\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]
+$$
+
+因此有
+
+$$
+\mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha] = \mathbb E_\tau[\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]
+$$
+
+即 $k=1$ 时，Reptile 和 在整个任务空间（$\mathcal T,\tau \sim \mathcal T$）上的联合训练 等价。
 
 如果 $k>1$，那么有
 
