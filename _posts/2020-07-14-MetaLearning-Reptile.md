@@ -112,14 +112,39 @@ $$
 g_{Reptile,k=1} = \mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha] = \mathbb E_\tau[\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]
 $$
 
-即 $k=1$ 时，Reptile 和 在整个任务空间（$\mathcal T,\tau \sim \mathcal T$）上的联合训练 等价。
+另外，根据[此处](https://math.stackexchange.com/questions/1962991/expectation-of-gradient-in-stochastic-gradient-descent-algorithm)的讨论，以及后续两处讨论，当损失函数足够光滑和有界时，期望和梯度可以交换顺序
 
-如果 $k>1$，那么有
+> The first step is probably the nastiest (although not in the discrete case I guess), but we can interchange the gradient and expectation assuming L is sufficiently smooth and bounded (which it probably is). See here(1) and here(2).
+
+(1) [When can we interchange the derivative with an expectation?](https://math.stackexchange.com/questions/217702/when-can-we-interchange-the-derivative-with-an-expectation)
+
+(2) [Expectation of gradients](https://stats.stackexchange.com/questions/227065/expectation-of-gradients)
 
 $$
-g_{Reptile,k>1} = \nabla_{\boldsymbol \phi} L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - U^k_\tau(\boldsymbol \phi)) / \alpha
+\mathbb E_{\tau\sim \mathcal T}[\nabla L_n(\phi)]=\nabla \mathbb E_{\tau\sim \mathcal T}[L_n(\phi)]
 $$
 
+那么
+
+$$
+g_{Reptile,k=1} = \mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha] = \mathbb E_\tau[\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]= \nabla_{\boldsymbol\phi} \mathbb E_\tau[L_\tau(\boldsymbol\phi)]
+$$
+
+
+即 $k=1$ 时，Reptile 和 在期望损失 $\mathbb E_\tau [L_\tau]$ 上的联合训练 等价。
+
+如果 $k>1$，那么
+
+$$
+
+$$
+
+$$
+\begin{aligned}
+\mathbb E_\tau [U^k_\tau(\boldsymbol \phi)] &= \mathbb E_\tau[\boldsymbol \phi - \alpha \nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]\\
+&= \boldsymbol\phi - \alpha \cdot \mathbb E_\tau [\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol \phi)]
+\end{aligned}
+$$
 
 
 ## 1.3. 有效性分析
