@@ -9,7 +9,7 @@ math: true
 - [1. Reptile](#1-reptile)
   - [1.1. 算法](#11-算法)
   - [1.2. 数学分析](#12-数学分析)
-  - [1.3. 有效性分析](#13-有效性分析)
+  - [1.3. 梯度的泰勒展开的领头阶](#13-梯度的泰勒展开的领头阶)
   - [1.4. 实验](#14-实验)
 - [2. 比较](#2-比较)
 - [3. 算法实现](#3-算法实现)
@@ -136,20 +136,34 @@ $$
 如果 $k>1$，那么
 
 $$
+g_{Reptile,k>1} = \boldsymbol\phi / \alpha - \mathbb E_\tau [U_{\phi}^k(\boldsymbol\phi)]/\alpha
+$$
+
+而
 
 $$
+U_{\phi}^k(\boldsymbol\phi) = \boldsymbol \phi- \alpha \boldsymbol g_1- \alpha \boldsymbol g_2-...- \alpha \boldsymbol g_k
+$$
+
+其中
 
 $$
 \begin{aligned}
-\mathbb E_\tau [U^k_\tau(\boldsymbol \phi)] &= \mathbb E_\tau[\boldsymbol \phi - \alpha \nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]\\
-&= \boldsymbol\phi - \alpha \cdot \mathbb E_\tau [\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol \phi)]
+\boldsymbol g_1 & = \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta), \quad {}^1\boldsymbol \theta = \boldsymbol \theta - \alpha \boldsymbol g_1\\
+\boldsymbol g_2 & = \nabla_{ {}^1\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
+&= \nabla_{ {}^1\boldsymbol \theta} L_\tau(\boldsymbol \theta - \alpha \boldsymbol g_1)\\
+&= \nabla_{ {}^1\boldsymbol \theta} L_\tau(\boldsymbol \theta - \alpha (\nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta)))\\
+...&...
 \end{aligned}
 $$
 
+已经分析不清楚了，因此 Reptile 的作者给出了一种方法，按照泰勒级数展开的方式去近似算法的梯度更新过程
 
-## 1.3. 有效性分析
+## 1.3. 梯度的泰勒展开的领头阶
 
-为什么 Reptile 有效？首先以两步 SGD 为例分析参数更新过程
+首先以两步 SGD 为例分析参数更新过程。
+
+简化起见，我们将损失函数对模型参数的梯度记为 $L'$，那么两步 SGD 更新后的模型参数为 $\phi_3$，有
 
 $$
 \begin{aligned}
