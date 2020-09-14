@@ -227,7 +227,11 @@ MAML 中只进行 $k=1$ 次梯度算子更新，作者号称有如下四个原�
 
 - 刚才说的可以在实际应用中多次梯度下降。
 
-**为了使损失函数最小，需要计算损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度 $\boldsymbol g_{MAML}$，然后在梯度负方向更新参数。** 
+**为了使损失函数最小，需要计算损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度 $\boldsymbol g_{MAML}$，然后在梯度负方向更新参数。** 即
+
+$$
+\boldsymbol g_{MAML} = \nabla_{\boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))
+$$
 
 注意到
 
