@@ -58,7 +58,13 @@ $$
 = \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \phi))]
 $$
 
-其中，$\widetilde{\boldsymbol\phi} = {}^{k}_\tau \boldsymbol \phi=U^k_\tau(\boldsymbol \phi)$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
+其中
+
+$$
+\widetilde{\boldsymbol\phi} = {}^{k}_\tau \boldsymbol \phi=U^k_\tau(\boldsymbol \phi)
+$$
+
+是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
 
 Reptile 算法中**将** $(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha$ **看作梯度**，其中 $\alpha$ 为 SGD 中的学习率，即
 
@@ -103,7 +109,7 @@ $$
 因此有
 
 $$
-\mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha] = \mathbb E_\tau[\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]
+g_{Reptile,k=1} = \mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha] = \mathbb E_\tau[\nabla_{\boldsymbol\phi} L_\tau(\boldsymbol\phi)]
 $$
 
 即 $k=1$ 时，Reptile 和 在整个任务空间（$\mathcal T,\tau \sim \mathcal T$）上的联合训练 等价。
@@ -111,7 +117,7 @@ $$
 如果 $k>1$，那么有
 
 $$
-g_{Reptile,k=1} = \nabla_{\boldsymbol \phi} L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - U^k_\tau(\boldsymbol \phi)) / \alpha
+g_{Reptile,k>1} = \nabla_{\boldsymbol \phi} L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - U^k_\tau(\boldsymbol \phi)) / \alpha
 $$
 
 
