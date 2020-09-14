@@ -66,7 +66,7 @@ $$
 
 其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
 
-虽然这里说的是 MAML 的目标，实际上这是**基于优化的元学习问题**（Optimization-based Meta-Learning）共同的目标。因为截至 MAML 文章发表，人们还没有建立起元学习的框架概念。
+这里说的是 MAML 的目标，是因为截至 MAML 文章发表，人们还没有建立起元学习的框架概念，后来人们将 MAML 等寻找最优模型初始参数的方法称作 **基于优化的元学习问题**（Optimization-based Meta-Learning）的方法，上述数学描述也就称为整个问题的共同目标。。
 
 ## 1.3. 有效性分析
 
