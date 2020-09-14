@@ -49,7 +49,7 @@ Reptile的图例如下。
 
 ## 1.2. 数学分析
 
-**基于优化的元学习问题**（Optimization-based Meta-Learning）的目标：找寻一组**模型初始参数** $\boldsymbol \phi$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
+**基于优化的元学习问题**（Optimization-based Meta-Learning）的目标：找寻一组**模型初始参数** $\boldsymbol \phi$，使得模型在面对随机选取的新任务 $\tau \sim \mathcal T$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
 用数学语言描述，即
 
@@ -81,7 +81,7 @@ $$
 g_{Reptile,k=1} &= \mathbb E_\tau [(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha]\\
 &= \mathbb E_\tau [(\boldsymbol \phi - U_\tau(\boldsymbol \phi)) / \alpha]\\
 &= \mathbb E_\tau [\boldsymbol \phi - U_\tau(\boldsymbol \phi)] / \alpha\\
-&= \boldsymbol \phi / \alpha - \mathbb E_\tau [U_\tau(\boldsymbol \phi)] / \alpha \quad considering \; \alpha,\phi=const \\
+&= \boldsymbol \phi / \alpha - \mathbb E_\tau [U_\tau(\boldsymbol \phi)] / \alpha \quad where \; \alpha,\phi=const \\
 \end{aligned}
 $$
 
