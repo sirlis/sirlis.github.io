@@ -196,8 +196,8 @@ MAML 的目标是：找寻一组**模型初始参数** $\boldsymbol \theta$，�
 
 $$
 \begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
-= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
+\mathop{minimize}_{\theta} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
+= \mathop{minimize}_{\theta} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
 \end{aligned}
 $$
 
@@ -211,7 +211,7 @@ $$
 
 $$
 \begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))]
+\mathop{minimize}_{\theta} \; \mathbb E_{\tau}[L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))]
 \end{aligned}
 $$
 
