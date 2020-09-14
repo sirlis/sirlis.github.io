@@ -64,9 +64,17 @@ $$
 \end{aligned}
 $$
 
-其中，${}^{k}_\tau \boldsymbol \theta$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
+其中，${}^{k}_\tau \boldsymbol \theta=U^k_\tau(\boldsymbol \theta)$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
 
-这里说的是 MAML 的目标，是因为截至 MAML 文章发表，人们还没有建立起元学习的框架概念，后来人们将 MAML 等寻找最优模型初始参数的方法称作 **基于优化的元学习问题**（Optimization-based Meta-Learning）的方法，上述数学描述也就称为整个问题的共同目标。。
+根据前面的 Reptile 算法，我们知道，Reptile 将 $\boldsymbol \theta - {}^{k}_\tau \boldsymbol \theta$ 等效为梯度，那么问题就转变为：
+
+$$
+\begin{aligned}
+\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
+= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
+\end{aligned}
+$$
+
 
 ## 1.3. 有效性分析
 
