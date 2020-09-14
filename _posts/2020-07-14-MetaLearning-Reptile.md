@@ -29,21 +29,19 @@ Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类�
 
 ![image-20200717113006074](../assets/img/postsimg/20200713/7.jpg)
 
-其中，$\phi$ 是模型的初始参数，$\tau$ 是某个 task，$SGD(L,\phi,k)$ 表示从$\phi$ 开始对损失函数$L$进行$k$次随机梯度下降，返回更新后的参数$W$。
+其中，$\phi$ 是模型的初始参数，$\tau$ 是某个 task，$U_\tau^k(\phi)$ 表示从 $\phi$ 开始对损失函数进行 $k$ 次随机梯度下降，返回更新后的参数 $\widetilde{\phi}$。
 
-在最后一步中，通过 $W-\phi$ 这种残差形式来更新一次初始参数。
+在最后一步中，通过 $\widetilde{\phi}-\phi$ 这种残差形式来更新一次初始参数。
 
-算法当然也可设计为batch模式，如下
+如果 $k=1$，该算法等价于「联合训练」（joint training，通过训练来最小化在一系列训练任务上期望损失）。
 
-![image-20200717115435570](../assets/img/postsimg/20200713/8.jpg)
+Reptile 要求 $k>1$，更新依赖于损失函数的高阶导数，此时 Reptile 的行为与 $k=1$（联合训练）时截然不同。
 
-如果k=1，该算法等价于「联合训练」（joint training，通过训练来最小化在一系列训练任务上期望损失）。
+Reptile与FOMAML紧密相关，但是与FOMAML不同
 
-Reptile 要求 k>1，更新依赖于损失函数的高阶导数，k>1 时 Reptile 的行为与 k=1（联合训练）时截然不同。
+- Reptile**无需对每一个任务进行训练-测试（training-testing）划分**。
 
-Reptile与FOMAML紧密相关，但是与FOMAML不同，Reptile**无需对每一个任务进行训练-测试（training-testing）划分**。
-
-相比MAML需要进行二重梯度计算，Reptile只需要进行一重梯度计算，计算速度更快。
+- 相比MAML需要进行二重梯度计算，Reptile只需要进行一重梯度计算，计算速度更快。
 
 Reptile的图例如下。
 
@@ -51,28 +49,29 @@ Reptile的图例如下。
 
 ## 1.2. 数学分析
 
-**基于优化的元学习问题**（Optimization-based Meta-Learning）的目标：找寻一组**模型初始参数** $\boldsymbol \theta$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
+**基于优化的元学习问题**（Optimization-based Meta-Learning）的目标：找寻一组**模型初始参数** $\boldsymbol \phi$，使得模型在面对随机选取的新任务 $\tau$ 时，经过 $k$ 次梯度更新，在 $\tau$ 上的损失函数就能达到很小。
 
 > We consider the optimization problem of MAML: find an initial set of parameters, $\boldsymbol \theta$, such that for a randomly sampled task $\tau$ with corresponding loss $L_\tau$, the learner will have low loss after $k$ updates. --------[Reptile]
 
 用数学语言描述，即
 
 $$
-\begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
-= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
-\end{aligned}
+\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \phi)]
+= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \phi))]
 $$
 
-其中，${}^{k}_\tau \boldsymbol \theta=U^k_\tau(\boldsymbol \theta)$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
+其中，$\widetilde\phi = {}^{k}_\tau \boldsymbol \phi=U^k_\tau(\boldsymbol \phi)$ 是在任务 $\tau$ 上经过 $k$ 次更新后的模型参数。
 
-根据前面的 Reptile 算法，我们知道，Reptile 将 $\boldsymbol \theta - {}^{k}_\tau \boldsymbol \theta$ 等效为梯度，那么问题就转变为：
+Reptile 算法中将 $(\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha$ 等效为梯度，其中 $\alpha$ 为 SGD 中的学习率，即
 
 $$
-\begin{aligned}
-\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(^{k}_\tau\boldsymbol \theta)]
-= \mathop{minimize}_{\phi} \; \mathbb E_{\tau}[L_{\tau}(U^k_\tau(\boldsymbol \theta))]
-\end{aligned}
+L_{\tau}(^{k}_\tau\boldsymbol \phi) = (\boldsymbol \phi - \widetilde{\boldsymbol\phi}) / \alpha
+$$
+
+那么问题就转变为：
+
+$$
+\mathop{minimize}_{\phi} \; \mathbb E_{\tau}[\boldsymbol \phi - U^k_\tau(\boldsymbol \phi)] / \alpha
 $$
 
 
