@@ -110,10 +110,10 @@ $$
 
 已被证明，对于 Bregman 散度，聚类的均值就是到各类特征的距离的极小值。也就是说，如果采用某个 Bregman 散度距离函数，原型计算 $c_k$ 等价于 support set 中样本标签的最优聚类表示。
 
-任何正则指数分布都可以写为一个确定的正则 Bregman 散度。假设该正则指数分布为 $p_\psi(z|\theta)$ ，参数为 $\theta$，累积函数为 $\psi$，则有
+任何正则指数分布都可以写为一个确定的正则 Bregman 散度。假设该正则指数分布为 $p_\psi(z\mid\theta)$ ，参数为 $\theta$，累积函数为 $\psi$，则有
 
 $$
-p_\psi(z|\theta) = exp\{z^T\theta-\psi (\theta) - g_\psi(z)\} = exp\{-d_\psi(z,\mu(\theta)) - g_\psi(z)\}
+p_\psi(z\mid\theta) = exp\{z^T\theta-\psi (\theta) - g_\psi(z)\} = exp\{-d_\psi(z,\mu(\theta)) - g_\psi(z)\}
 $$
 
 算了算了后面看不懂了。。。
