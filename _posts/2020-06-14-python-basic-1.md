@@ -5,6 +5,12 @@ categories: [Coding]
 tags: [python]
 ---
 
+本文介绍了 Python 一些基本的小知识，如 name = 'main'、init、super 等等。
+
+<!--more-->
+
+---
+
 - [1. \__name__ == '__main__'](#1-_name_--main)
 - [2. \__init__(self, ...)](#2-_init_self-)
 - [3. super(XXX, self).\__init__()](#3-superxxx-self_init_)

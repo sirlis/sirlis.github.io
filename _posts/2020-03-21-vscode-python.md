@@ -6,6 +6,12 @@ tags: [python]
 math: true
 ---
 
+本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。
+
+<!--more-->
+
+ ---
+ 
 - [1. 简介](#1-简介)
 - [2. VSCode下载与安装](#2-vscode下载与安装)
 - [3. 配置Python开发环境](#3-配置python开发环境)

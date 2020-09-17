@@ -6,6 +6,12 @@ tags: [python]
 math: true
 ---
 
+本文介绍了 Pytorch 中针对计算机视觉方面的基本数据库类Dataset，基本的手写数字数据库MNIST，以及数据库加载函数 DataLoader。
+
+<!--more-->
+
+---
+
 - [1. torchvision](#1-torchvision)
 - [2. Dataset](#2-dataset)
   - [2.1. 默认类](#21-默认类)

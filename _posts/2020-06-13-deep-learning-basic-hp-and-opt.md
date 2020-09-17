@@ -6,6 +6,12 @@ tags: [python]
 math: true
 ---
 
+本文介绍了深度学习中的基本概念，包括 batch、epoch、iteration、optimizer等，其中优化器包括 BGD、SGD、Adam等，为后深度学习提供基础。
+
+<!--more-->
+
+---
+
 - [1. 基本超参数](#1-基本超参数)
   - [1.1. epoch](#11-epoch)
   - [1.2. batch & batch_size](#12-batch--batch_size)

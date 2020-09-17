@@ -6,6 +6,12 @@ tags: [python]
 math: true
 ---
 
+本文介绍了 Pytorch 机器学习框架的下载和部署，以及 Pytorch 开发环境的配置。
+
+<!--more-->
+
+ ---
+ 
 - [1. 简介](#1-简介)
 - [2. 配置Python开发环境](#2-配置python开发环境)
 - [3. 配置PyTorch](#3-配置pytorch)

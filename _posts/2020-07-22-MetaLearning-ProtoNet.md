@@ -6,6 +6,12 @@ tags: [ml]
 math: true
 ---
 
+Prototypical Network 又称为原型网络，是2017年 NIPS 会议论文提出的一种神经网络训练方法，是一种基于度量（Metrix-based）的小样本学习方法，通过计算 support set 中的嵌入中心，然后通过衡量新样本与这些中心的距离来完成分类。
+
+<!--more-->
+
+---
+
 - [1. Prototypical Network](#1-prototypical-network)
   - [1.1. 模型](#11-模型)
   - [1.2. 算法](#12-算法)
