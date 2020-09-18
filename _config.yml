@@ -101,7 +101,7 @@ highlighter: rouge
 #       line_numbers: true
 #       start_line: 1
 
-markdown: CommonMarkGhPages
+markdown: CommonMark
 
 commonmark:
   options: ["SMART", "FOOTNOTES"]
