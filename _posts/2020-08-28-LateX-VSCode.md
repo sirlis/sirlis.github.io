@@ -21,6 +21,7 @@ VSCode作为一个小巧而又功能强大的编辑器，已经成为我进行�
   - [3.2. 配置json](#32-配置json)
   - [3.3. 编译测试](#33-编译测试)
   - [3.4. 快捷键](#34-快捷键)
+  - [3.5. 安装LTeX](#35-安装ltex)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 前言
@@ -220,6 +221,33 @@ LaTeX Workshop 几乎可以认为是 VSCode 标配的 LaTeX 编译扩展，挂�
     press ctrl+b to complie，press ctrl+alt+v to view pdf
 \end{document}
 ```
+
+## 3.5. 安装LTeX
+
+用过 LaTeX 的都知道，对比 Office 家族，LaTeX 的语言纠错功能非常不方便。因为本身没这功能，需要借助外部工具才能实现。这个缺点对于我等「外语渣」是非常要命的。当然，解决方法也不是没有。典型的，如果你用的是 TeXstudio 这个编辑器，可以通过外挂 LanguageTool （简称: LT） 这个检查工具，实现拼写和语法检查。具体怎么配置，网上有很多教程。
+
+VS Code 的插件市场其实是有提供一些插件， 让 Code 能够调用 LT 进行拼写检查。比如 「LanguageTool for Visual Studio Code」和 「LanguageTool Linter」。 但是邪门的是——他们竟然只支持纯文本 或者 Markdown 文件的拼写检查，不支持 .tex 文件! 不过幸运就降临在今天，在浏览扩展时，无意发现了「LTeX」 这个插件，下载使用后直呼内行，直接在 VS Code 插件市场搜索并安装，然后重启 VSCode 后打开任意 .tex 文档即可开始进行拼写、语法检查（不包括中文）。
+
+有些品牌，网络词汇等可能会被识别为拼写错误，可以把他们加入词典避免误判：
+
+```
+"ltex.de.dictionary": [Niubility, Zhihu], 
+//注意根据要对应语言，ltex.<LANGUAGE>.dictionary
+```
+
+有些环境内的语言可能不需要检查，比如代码块里的程序代码，可以参照如下设置过滤：
+
+```
+"ltex.environments.ignore": ["lstlisting", "verbatim], 
+```
+
+有些自定义命令也可以设置过滤避免检查
+
+```
+"ltex.commands.ignore": ["\\documentclass[]{}", "\\renewcommand*{}[]{}"]
+```
+
+其他诸如「自定义规则」，「错误提醒风格」等的可以自己参照说明设置。
 
 # 4. 参考文献
 
