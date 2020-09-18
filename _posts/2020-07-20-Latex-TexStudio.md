@@ -6,7 +6,7 @@ tags: [latex]
 math: true
 ---
 
-LaTeX 是一种高质量的排版系统，被广泛的期刊杂志所支持，在文章写作方面作为 MS Word 之外的另一种选择，让笔者仅需要关注内容本身，而无需过多的为格式、排版、兼容性或可移植性而费心，只需要选择一个 LateX 发行版、写作、编译得到 PDF 即可。
+LaTeX 是一种高质量的排版系统，被广泛的期刊杂志所支持，让笔者仅需要关注内容本身，而无需过多的为格式和排版而费心，具备高质量的表格、公式书写体验。
 
 <!--more-->
 
@@ -60,7 +60,7 @@ LaTeX 是一种高质量的排版系统；它包括为制作技术和科学文�
 
 # 2. 下载和安装MiKTeX
 
-可以将 MiKTeX 看作是 LaTeX 的一种发行版（大雾），类比 C 的发行版 MSC 一样。[官网的下载页面](https://MiKTeX.org/download)（https://MiKTeX.org/download）包括三种下载（安装）方式，如图分别为安装程序（Installer）、绿色版（Portable Edition）以及命令行（Command-line installer）。
+可以将 MiKTeX 看作是 LaTeX 的一种发行版，类比 C 的发行版 MSC 一样（大雾）。[官网的下载页面](https://MiKTeX.org/download)（https://MiKTeX.org/download）包括三种下载（安装）方式，如图分别为安装程序（Installer）、绿色版（Portable Edition）以及命令行（Command-line installer）。
 
 对于Windows开发环境，不考虑命令行方式，因此可以任意选择安装程序或者绿色版。
 
