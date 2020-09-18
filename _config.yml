@@ -102,6 +102,7 @@ highlighter: rouge
 #       start_line: 1
 
 markdown: CommonMarkGhPages
+
 commonmark:
   options: ["SMART", "FOOTNOTES"]
   extensions: ["strikethrough", "autolink", "table", "tagfilter"]
