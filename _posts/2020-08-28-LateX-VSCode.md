@@ -249,6 +249,12 @@ VS Code 的插件市场其实是有提供一些插件， 让 Code 能够调用 L
 
 其他诸如「自定义规则」，「错误提醒风格」等的可以自己参照说明设置。
 
+语法检查的效果如下
+
+![image-4](../assets/img/postsimg/20200828/4.jpg)
+
+![image-5](../assets/img/postsimg/20200828/5.jpg)
+
 # 4. 参考文献
 
 <span id="ref1">[1]</span>  [当年老王](https://blog.csdn.net/yinqingwang). [论文写作的又一利器：VSCode + Latex Workshop + MikTex + Git](https://blog.csdn.net/yinqingwang/article/details/79684419).
