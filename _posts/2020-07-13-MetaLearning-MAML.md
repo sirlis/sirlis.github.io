@@ -6,7 +6,7 @@ tags: [ml]
 math: true
 ---
 
-MAML（Model-Agnostic Meta-Learning） 是2017年 Chelsea Finn 大佬提出的一种神经网络训练方法，是一种基于度量（Metrix-based）的小样本学习方法，核心思想是在两个不同的数据集中分别计算梯度和更新参数，从而最大化模型初始参数的敏感度。
+MAML 是2017年 Chelsea Finn 大佬提出的一种基于优化（Optimized-based）的小样本学习方法，核心在两个不同的数据集中分别计算梯度和更新参数。
 
 <!--more-->
 
