@@ -1,7 +1,7 @@
 ---
 title: Python基础（绘图plot）
 date: 2020-08-22 15:58:19 +0800
-categories: [Coding]
+categories: [Tutorial, Coding]
 tags: [python]
 math: true
 ---

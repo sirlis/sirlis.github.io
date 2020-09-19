@@ -1,7 +1,7 @@
 ---
 title: 深度缓冲和深度冲突
 date: 2020-06-08 22:21:49 +0800
-categories: [Coding]
+categories: [Tutorial, Coding]
 tags: [opengl]
 math: true
 ---

@@ -1,7 +1,7 @@
 ---
 title: 电影《信条》个人解析
 date: 2020-09-10 13:31:19 +0800
-categories: [Entertainment]
+categories: [Diary]
 tags: [movie]
 ---
 

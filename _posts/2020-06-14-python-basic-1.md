@@ -1,7 +1,7 @@
 ---
 title: Python基础（万恶的下划线）
 date: 2020-06-14 10:40:19 +0800
-categories: [Coding]
+categories: [Knowledge, Coding]
 tags: [python]
 ---
 

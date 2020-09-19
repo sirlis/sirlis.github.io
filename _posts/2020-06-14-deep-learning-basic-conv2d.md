@@ -1,7 +1,7 @@
 ---
 title: 深度学习基础（PyTorch的CNN组成）
 date: 2020-06-14 16:24:19 +0800
-categories: [Coding]
+categories: [Knowledge, DeepLearning]
 tags: [python]
 math: true
 ---

@@ -1,7 +1,7 @@
 ---
 title: 元学习文章阅读（Prototypical Network）
 date: 2020-07-22 14:35:19 +0800
-categories: [Reading]
+categories: [Knowledge, MetaLearning]
 tags: [ml]
 math: true
 ---

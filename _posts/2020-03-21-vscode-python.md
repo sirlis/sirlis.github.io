@@ -1,7 +1,7 @@
 ---
 title: VSCode部署Python开发环境
 date: 2020-03-21 15:22:19 +0800
-categories: [Coding]
+categories: [Tutorial, Coding]
 tags: [python]
 math: true
 ---
