@@ -2,7 +2,7 @@
 title: Typora标题自动编号
 date: 2020-06-11 12:21:49 +0800
 categories: [Tutorial, Writing]
-tags: [css]
+tags: [markdown]
 math: true
 ---
 

@@ -2,7 +2,7 @@
 title: 元学习文章阅读（Reptile）
 date: 2020-07-14 14:35:19 +0800
 categories: [Knowledge, MetaLearning]
-tags: [ml]
+tags: [academic]
 math: true
 ---
 

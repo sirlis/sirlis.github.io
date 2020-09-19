@@ -2,7 +2,7 @@
 title: 科研Tips（文献查询、下载和管理）
 date: 2020-09-05 14:23:19 +0800
 categories: [Tutorial, Writing]
-tags: [paper]
+tags: [academic]
 math: true
 ---
 
