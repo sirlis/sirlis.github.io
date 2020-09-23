@@ -161,20 +161,20 @@ $$
 
 $$
 \begin{aligned}
-\boldsymbol g_1 & = \boldsymbol g = \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta) = \frac{\partial L_\tau(\boldsymbol \theta)}{\partial \boldsymbol \theta}\\
-{}^1\boldsymbol \theta &= \boldsymbol \theta - \epsilon \boldsymbol g_1
+\boldsymbol g_1 & =  \nabla_{\boldsymbol \theta} L_\tau(\boldsymbol \theta_0)\\
+\boldsymbol \theta_1 &= \boldsymbol \theta_0 - \alpha \boldsymbol g_1
 \end{aligned}
 $$
 
-其中，${}^1\boldsymbol \theta$ 表示经过1次梯度更新后的模型参数，后文以此类推。
+其中，$\boldsymbol \theta_1$ 表示经过1次梯度更新后的模型参数，后文以此类推。
 
 第2次梯度计算建立在第1次梯度计算的基础上，有
 
 $$
 \begin{aligned}
-\boldsymbol g_2 &= \nabla_{ {}^1\boldsymbol \theta} L_\tau({}^1\boldsymbol \theta)\\
-{}^2\boldsymbol \theta &= {}^1\boldsymbol \theta - \epsilon \boldsymbol g_2\\
-& = \boldsymbol \theta - \epsilon \boldsymbol g_1 - \epsilon \boldsymbol g_2
+\boldsymbol g_2 &= \nabla_{\boldsymbol \theta_1} L_\tau(\boldsymbol \theta_1)\\
+\boldsymbol \theta_2 &= \boldsymbol \theta_1 - \alpha \boldsymbol g_2\\
+& = \boldsymbol \theta_0 - \alpha \boldsymbol g_1 - \alpha \boldsymbol g_2
 \end{aligned}
 $$
 
@@ -182,11 +182,12 @@ $$
 
 $$
 \begin{aligned}
-initialization:\quad&{}^0\boldsymbol \theta = \boldsymbol \theta\\
-1^{st}\;gradient\;step:\quad&{}^1\boldsymbol \theta = U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1\\
-2^{nd}\;gradient\;step:\quad&{}^2\boldsymbol \theta = U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2\\
+initialization:\quad&\boldsymbol \theta_0 = \boldsymbol \theta\\
+1^{st}\;gradient\;step:\quad&\boldsymbol \theta_1 = U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \alpha \boldsymbol g_1\\
+2^{nd}\;gradient\;step:\quad&\boldsymbol \theta_2 = U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \alpha \boldsymbol g_1- \alpha \boldsymbol g_2\\
 ...&...\\
-k^{th}\;gradient\;step:\quad&{}^k\boldsymbol \theta = U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \epsilon \boldsymbol g_1- \epsilon \boldsymbol g_2-...- \epsilon \boldsymbol g_k\\
+k^{th}\;gradient\;step:\quad&\boldsymbol \theta_k = U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \alpha \boldsymbol g_1- \alpha \boldsymbol g_2-...- \alpha \boldsymbol g_k\\
+&\bm g_k = \nabla_{\boldsymbol \theta_{k-1}} L_\tau(\boldsymbol \theta_{k-1})
 \end{aligned}
 $$
 
@@ -217,11 +218,11 @@ $$
 
 $$
 \begin{aligned}
-\mathop{minimize}_{\theta} \; \mathbb E_{\tau}[L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))]
+\mathop{minimize}_{\theta} \; \mathbb E_{\tau}[L_{B}(U_{A}(\boldsymbol \theta))]
 \end{aligned}
 $$
 
-即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数 $L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))$，使得其最小。
+即 MAML 在数据集 A 上训练，在数据集 B 上计算损失函数 $L_{B}(U_{A}(\boldsymbol \theta))$，使得其最小。
 
 MAML 中只进行 $k=1$ 次梯度算子更新，作者号称有如下四个原因：
 
@@ -236,36 +237,36 @@ MAML 中只进行 $k=1$ 次梯度算子更新，作者号称有如下四个原�
 **为了使损失函数最小，需要计算损失函数对模型原始参数 $\boldsymbol \theta$ 的梯度 $\boldsymbol g_{MAML}$，然后在梯度负方向更新参数。** 即
 
 $$
-\boldsymbol g_{MAML} = \nabla_{\boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))
+\boldsymbol g_{MAML} = \nabla_{\boldsymbol \theta} L_{B}(U_{A}(\boldsymbol \theta))
 $$
 
 注意到
 
 $$
-U^{k=1}_\tau(\boldsymbol \theta)={}^{1}_\tau \boldsymbol \theta
+U^{k=1}_\tau(\boldsymbol \theta)={}\tau \boldsymbol \theta_1
 $$
 
-那么
+省略 $k$，那么
 
 $$
 \begin{aligned}
-\boldsymbol g_{MAML} &= \nabla_{\boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))= \frac{\partial}{\partial \boldsymbol \theta} L_{\tau,B}(U_{\tau,A}(\boldsymbol \theta))\\
-&= L_{\tau,B}'({}_{\tau,A}{}^1\boldsymbol \theta) U_{\tau,A}'(\boldsymbol \theta)\quad where \quad {}_{\tau,A}{}^1 \boldsymbol \theta = U_{\tau,A}(\boldsymbol \theta)
+\boldsymbol g_{MAML} &= \nabla_{\boldsymbol \theta} L_{B}(U_{A}(\boldsymbol \theta))= \frac{\partial}{\partial \boldsymbol \theta} L_{B}(U_{A}(\boldsymbol \theta))\\
+&= L_{B}'({}_{A}\boldsymbol \theta_1) U_{A}'(\boldsymbol \theta)\quad where \quad {}_{A} \boldsymbol \theta_1 = U_{A}(\boldsymbol \theta)
 \end{aligned}
 $$
 
 上式中，第一项是使用 A 数据进行一次梯度更新后的模型参数计算损失函数，然后在 B 数据上计算损失函数的导数，这里的导数是对更新后的模型参数求的，因此这一项比较好求。
 
-下面计算第二项 $U'_{\tau,A}(\boldsymbol \theta)$。前面算子更新时我们知道
+下面计算第二项 $U'_{A}(\boldsymbol \theta)$。前面算子更新时我们知道
 
 $$
-U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1
+U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \alpha \boldsymbol g_1
 $$
 
 那么有
 
 $$
-U_{\tau,A}'(\boldsymbol \theta) = \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}
+U_{A}'(\boldsymbol \theta) = \frac{\partial U_{A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\alpha \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}
 $$
 
 下面分析第一项 $\frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}$ 的展开，注意到 $\boldsymbol \theta = [\theta_1,\theta_2,...,\theta_n]^T$ 的定义，那么该项展开即为 $\boldsymbol \theta$ 的每个分量对其自身求偏导，需要分情况讨论
@@ -310,59 +311,101 @@ $$
 
 $$
 \begin{aligned}
-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta} &= \epsilon \frac{\partial L_\tau(\boldsymbol \theta)}{\partial \boldsymbol \theta} / \partial \boldsymbol \theta\\
-& = \epsilon \begin{bmatrix}
+\alpha \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta} &= \alpha \frac{\partial L_\tau(\boldsymbol \theta)}{\partial \boldsymbol \theta} / \partial \boldsymbol \theta\\
+& = \alpha \begin{bmatrix}
 \partial L_\tau(\boldsymbol \theta) / \partial \theta_1\\ 
 \partial L_\tau(\boldsymbol \theta) / \partial \theta_2\\ 
 \vdots\\ 
 \partial L_\tau(\boldsymbol \theta) / \partial \theta_n
 \end{bmatrix} / \partial \boldsymbol \theta\\
-& = \epsilon \begin{bmatrix}
-    \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_1}) / \partial \theta_n \\ 
-    \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_2}) / \partial \theta_n \\ 
+& = \alpha \begin{bmatrix}
+    \partial (\frac{\partial L_{A}}{\partial \theta_1}) / \partial \theta_1 &  \partial (\frac{\partial L_{A}}{\partial \theta_1}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{A}}{\partial \theta_1}) / \partial \theta_n \\ 
+    \partial (\frac{\partial L_{A}}{\partial \theta_2}) / \partial \theta_1 &  \partial (\frac{\partial L_{A}}{\partial \theta_2}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{A}}{\partial \theta_2}) / \partial \theta_n \\ 
     \vdots & \vdots & \ddots & \vdots\\
-    \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_1 &  \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{\tau,A}}{\partial \theta_n}) / \partial \theta_n \\ 
+    \partial (\frac{\partial L_{A}}{\partial \theta_n}) / \partial \theta_1 &  \partial (\frac{\partial L_{A}}{\partial \theta_n}) / \partial \theta_2&  \cdots & \partial (\frac{\partial L_{A}}{\partial \theta_n}) / \partial \theta_n \\ 
     \end{bmatrix}_{n \times n}\\
-&= \epsilon \begin{bmatrix}
-    \partial^2 L_{\tau,A} / \partial \theta_1^2 &  \partial^2 L_{\tau,A} /\partial \theta_1 \partial \theta_2 &  \cdots & \partial^2 L_{\tau,A} /\partial \theta_1 \partial \theta_n \\ 
-    \partial^2 L_{\tau,A} /\partial \theta_2 \partial \theta_1 &  \partial^2 L_{\tau,A} / \partial \theta_2^2 &  \cdots & \partial^2 L_{\tau,A} /\partial \theta_2 \partial \theta_n \\ 
+&= \alpha \begin{bmatrix}
+    \partial^2 L_{A} / \partial \theta_1^2 &  \partial^2 L_{A} /\partial \theta_1 \partial \theta_2 &  \cdots & \partial^2 L_{A} /\partial \theta_1 \partial \theta_n \\ 
+    \partial^2 L_{A} /\partial \theta_2 \partial \theta_1 &  \partial^2 L_{A} / \partial \theta_2^2 &  \cdots & \partial^2 L_{A} /\partial \theta_2 \partial \theta_n \\ 
     \vdots & \vdots & \ddots & \vdots\\
-    \partial^2 L_{\tau,A} /\partial \theta_n \partial \theta_1 &  \partial^2 L_{\tau,A} /\partial \theta_n \partial \theta_2&  \cdots & \partial^2 L_{\tau,A} / \partial \theta_n^2 \\ 
+    \partial^2 L_{A} /\partial \theta_n \partial \theta_1 &  \partial^2 L_{A} /\partial \theta_n \partial \theta_2&  \cdots & \partial^2 L_{A} / \partial \theta_n^2 \\ 
     \end{bmatrix}_{n \times n}\\
-&= \epsilon \boldsymbol H_{\tau,A}(\boldsymbol \theta)_{n \times n}
+&= \alpha \boldsymbol H_{A}(\boldsymbol \theta)_{n \times n}
 \end{aligned}
 $$
 
 （**向量对向量求偏导，是向量的每个分量对另一个向量的每个分量求偏导后形成矩阵，就是Hessian 矩阵！Hessian 等价于梯度的 Jacobian 矩阵。——Ian Goodfellow所著的《Deep Learning》的P78**）
 
-最终计算得到的第二项 $U_{\tau,A}'(\boldsymbol \theta)$的表达式为
+最终计算得到的第二项 $U_{A}'(\boldsymbol \theta)$的表达式为
 
 $$
 \begin{aligned}
-U_{\tau,A}'(\boldsymbol \theta) &= \frac{\partial U_{\tau,A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\epsilon \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}\\
-&= \boldsymbol I_{n \times n} - \epsilon \boldsymbol H_{\tau,A}(\boldsymbol \theta)_{n \times n}
+U_{A}'(\boldsymbol \theta) &= \frac{\partial U_{A}(\boldsymbol \theta)}{\partial \boldsymbol \theta}= \frac{\partial \boldsymbol \theta}{\partial \boldsymbol \theta}-\alpha \frac{\partial \boldsymbol g_1}{\partial \boldsymbol \theta}\\
+&= \boldsymbol I_{n \times n} - \alpha \boldsymbol H_{A}(\boldsymbol \theta)_{n \times n}
 \end{aligned}
 $$
 
-MAML 的作者表示，大部分计算量都在于计算 $H_{\tau,A}(\boldsymbol \theta)_{n \times n}$ 这个包含二重梯度的 Hessian 矩阵，导致 MAML 的计算量很大，使得 MAML 以难以训练成名。
+MAML 的作者表示，大部分计算量都在于计算 $H_{A}(\boldsymbol \theta)_{n \times n}$ 这个包含二重梯度的 Hessian 矩阵，导致 MAML 的计算量很大，使得 MAML 以难以训练成名。
+
+那么当进行 $k>1$ 次梯度算子更新时又会怎样呢？（作者：我不要面子的？）
+
+我们将1次，2次，...，直到 $k$ 次梯度计算的过程改写如下（注意到这里采用数据集 A 来更新参数 $\boldsymbol\theta$，但是在式中我们省略了左下标 A）：
+
+$$
+\begin{aligned}
+initialization:\quad&\boldsymbol \theta_0 = \boldsymbol \theta\\
+1^{st}\;gradient\;step:\quad&\boldsymbol \theta_1 = U^1_A(\boldsymbol \theta)=\boldsymbol \theta_0 - \alpha \boldsymbol g_1\\
+2^{nd}\;gradient\;step:\quad&\boldsymbol \theta_2 = U^2_A(\boldsymbol \theta)=\boldsymbol \theta_1 - \alpha \boldsymbol g_2\\
+...&...\\
+k^{th}\;gradient\;step:\quad&\boldsymbol \theta_k = U^k_A(\boldsymbol \theta)=\boldsymbol \theta_{k-1}- \alpha \boldsymbol g_k\\
+&\bm g_k = \nabla_{\boldsymbol \theta_{k-1}} L_\tau(\boldsymbol \theta_{k-1})
+\end{aligned}
+$$
+
+在外循环中，假设只使用一个task来更新参数，省略求和号，有
+
+$$
+\boldsymbol \theta \leftarrow \boldsymbol \theta - \beta \cdot \boldsymbol g_{MAML}
+$$
+
+其中
+
+$$
+\begin{aligned}
+\boldsymbol g_{MAML} &= \nabla_{\boldsymbol \theta} L_{B}(U^k_{A}(\boldsymbol \theta))\\
+&= \nabla_{\boldsymbol \theta} L_{B}(\boldsymbol \theta_k)\\
+&= \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k)\cdot(\nabla_{\boldsymbol \theta}\boldsymbol \theta_k)\\
+&= \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k)\cdot(\nabla_{\boldsymbol \theta_{k-1}}\boldsymbol \theta_k) \cdots (\nabla_{\boldsymbol \theta_{1}}\boldsymbol \theta_2)\cdot (\nabla_{\boldsymbol \theta_{0}}\boldsymbol \theta_1)\\
+&= \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k)\cdot\prod_{i=1}^k (\nabla_{\boldsymbol \theta_{i-1}}\boldsymbol \theta_i)\\
+&= \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k)\cdot\prod_{i=1}^k (\nabla_{\boldsymbol \theta_{i-1}}(\boldsymbol \theta_{i-1}- \alpha \boldsymbol g_i))\\
+&= \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k)\cdot\prod_{i=1}^k (\nabla_{\boldsymbol \theta_{i-1}}(\boldsymbol \theta_{i-1}- \alpha (\nabla_{\boldsymbol \theta_{i-1}} L_\tau(\boldsymbol \theta_{i-1})))\\
+&= \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k)\cdot\prod_{i=1}^k (\boldsymbol I - \alpha \nabla_{\boldsymbol \theta_{i-1}} (\nabla_{\boldsymbol \theta_{i-1}} L_\tau(\boldsymbol \theta_{i-1})))\\
+\end{aligned}
+$$
+
+当 $k=1$ 时我们发现，后面的连乘项就退化为前面已经推得的 Hessian 矩阵了
+
+$$
+\prod_{i=1}^{k=1} (\boldsymbol I - \alpha \nabla_{\boldsymbol \theta_{i-1}} (\nabla_{\boldsymbol \theta_{i-1}} L_\tau(\boldsymbol \theta_{i-1})))= \boldsymbol I_{n \times n} - \alpha \boldsymbol H_{A}(\boldsymbol \theta)_{n \times n}
+$$
 
 ## 1.5. FOMAML
 
 为了降低二重梯度导致的巨大计算量，作者提出了一种将二重梯度简化计算为一重梯度的方法，即 First-Order MAML (FOMAML)。
 
-FOMAML 假设学习率 $\epsilon \rightarrow 0^+$，则上式中的 Hessian 矩阵因为乘以 $0^+$ 被消去。那么整个 $U_{\tau,A}'(\boldsymbol \theta)$ 就等于单位阵了，
+FOMAML 假设学习率 $\alpha \rightarrow 0^+$，则前面与 $\alpha$ 相乘的项（$k=1$ 时是 Hessian 矩阵，$k>1$ 时时连乘项）因为乘以 $0^+$ 被消去。那么整个 $U_{A}'(\boldsymbol \theta)$ 就等于单位阵了，
 
 此时 FOMAML 的梯度即为
 
 $$
-\boldsymbol g_{FOMAML} = L'_{\tau,B}(_{A}^1 \boldsymbol \theta)
+\boldsymbol g_{FOMAML} = L'_{B}(_{A}\boldsymbol \theta_k)
 $$
 
-那么 FOMAML 的实现过程就很简单了：
+也即仅用最后一次更新的模型参数 $_{A}\boldsymbol \theta_k$ 计算梯度。那么 FOMAML 的实现过程就很简单了：
 
 - 采样任务 $\tau$；
-- 计算在数据集 A 上的梯度因子 $U_{\tau,A}(\boldsymbol \theta)= _{A}^1 \boldsymbol \theta = \phi$;
-- 计算在数据集 B 上的损失函数 $L_{\tau,B}$ 对 $\phi$ 的导数：$g_{FOMAML}=L'_{\tau,B}(\phi)$；
+- 计算在数据集 A 上的梯度因子 $U_{A}(\boldsymbol \theta)= _{A} \boldsymbol \theta_1 = \phi$;
+- 计算在数据集 B 上的损失函数 $L_{B}$ 对 $\phi$ 的（偏）导数：$g_{FOMAML}=L'_{B}(\phi)$；
 - 将 $g_{FOMAML}$ 插入外循环更新参数。
 
 可以看出只需要计算一重梯度即可，约节省了33%的计算量。
@@ -389,19 +432,19 @@ $$
 一旦我们可以计算 $\theta$ 的梯度，就可以直接更新 $\theta$ ：
 
 $$
-\theta' \leftarrow \theta-\epsilon\nabla_{\theta}\mathcal L(\theta)
+\theta' \leftarrow \theta-\alpha\nabla_{\theta}\mathcal L(\theta)
 $$
 
 MAML假设：**每次训练只进行一次梯度下降**。如果只经历了一次梯度下降，即可用等号代替左箭头：
 
 $$
-\theta' = \theta-\epsilon \nabla_{\theta}\mathcal L(\theta)
+\theta' = \theta-\alpha \nabla_{\theta}\mathcal L(\theta)
 $$
 
 对于每个不同任务，准确来说应该是：
 
 $$
-\theta_i' = \theta-\epsilon \nabla_{\theta}\mathcal l_i(\theta)
+\theta_i' = \theta-\alpha \nabla_{\theta}\mathcal l_i(\theta)
 $$
 
 下一步就是计算 $\theta$ 关于 $\mathcal L$ 的梯度。我们有：
@@ -435,32 +478,32 @@ $$
 注意到 $\theta'$ 和 $\theta$ 的关系也是显然的：
 
 $$
-\theta' = \theta-\epsilon \nabla_{\theta}\mathcal l(\theta)
+\theta' = \theta-\alpha \nabla_{\theta}\mathcal l(\theta)
 $$
 
 当 $i \neq j$ 时
 
 $$
 \frac{\partial \theta_j'}{\partial \theta_i} = -
-\epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j}
+\alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j}
 $$
 
 当 $i = j$ 时
 
 $$
 \frac{\partial \theta_j'}{\partial \theta_i} = 
-1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i}
+1 - \alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i}
 $$
 
 到此为止已经把梯度计算出来了，二重梯度也是MAML计算中最为耗时的部分。
 
-在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\epsilon \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
+在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\alpha \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
 
 $$
 \begin{aligned}
 &(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} = -
-\epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
-&(i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 1 - \epsilon\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
+\alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
+&(i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 1 - \alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
 \end{aligned}
 $$
 
