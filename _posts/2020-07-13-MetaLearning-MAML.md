@@ -256,7 +256,7 @@ $$
 
 上式中，第一项是使用 A 数据进行一次梯度更新后的模型参数计算损失函数，然后在 B 数据上计算损失函数的导数，这里的导数是对更新后的模型参数求的，因此这一项比较好求。
 
-下面计算第二项 $U_{\tau,A}'(\boldsymbol \theta)$。前面算子更新时我们知道
+下面计算第二项 $U'_{\tau,A}(\boldsymbol \theta)$。前面算子更新时我们知道
 
 $$
 U^1_\tau(\boldsymbol \theta)=\boldsymbol \theta - \epsilon \boldsymbol g_1
