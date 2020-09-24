@@ -16,7 +16,10 @@ Reptile 于2018年由 OpenAI 提出，是一种非常简单而有效的基于优
   - [1.1. 算法](#11-算法)
   - [1.2. 数学分析](#12-数学分析)
   - [1.3. 梯度的泰勒展开的领头阶](#13-梯度的泰勒展开的领头阶)
-  - [1.4. 实验](#14-实验)
+  - [1.4. 另一种推导方式](#14-另一种推导方式)
+  - [1.5. 梯度的泰勒展开的领头阶（继续）](#15-梯度的泰勒展开的领头阶继续)
+  - [1.6. 另一种不严谨的分析](#16-另一种不严谨的分析)
+  - [1.7. 实验](#17-实验)
 - [2. 比较](#2-比较)
 - [3. 算法实现](#3-算法实现)
 - [4. reptile回归sin函数](#4-reptile回归sin函数)
@@ -80,7 +83,29 @@ $$
 
 注意到，SGD 随机梯度下降的核心是，**梯度是期望，期望可使用小规模的样本近似估计。**
 
-如果 $k=1$，那么有
+对于采用 SGD 的传统监督学习，模型参数更新方式为
+
+$$
+\phi = \widetilde \phi = \phi - \beta \cdot \mathbb E[\nabla^kL_\tau] =? \phi - \beta \cdot \nabla^k\mathbb E[L_\tau]
+$$
+
+问题1：梯度和期望能否交换顺序？
+
+传统监督学习的参数更新可简写为 $SGD(\mathbb E[L_\tau],\theta,k)$。
+
+采用 SGD 的 Reptile 的模型参数更新方式为：
+
+$$
+\phi = \phi + \beta\cdot \mathbb E[\widetilde\phi-\phi]/\alpha
+$$
+
+又因为 $\widetilde \phi = SGD(L_\tau,\theta,k)$，那么相应的参数更新可简写为 $\mathbb E[ SGD(L_\tau,\theta,k)]$。
+
+问题2：$SGD(\mathbb E[L_\tau],\theta,k)$ 与 $\mathbb E[ SGD(L_\tau,\theta,k)]$ 有什么关系？
+
+下面需要按照 $k$ 的取值分情况讨论。
+
+- **如果 $k=1$**，那么有
 
 $$
 \begin{aligned}
@@ -139,7 +164,7 @@ $$
 
 即 $k=1$ 时，Reptile 和 在期望损失 $\mathbb E_\tau [L_\tau]$ 上的联合训练 等价。
 
-如果 $k>1$，那么
+- **如果 $k>1$**，那么
 
 $$
 g_{Reptile,k>1} = \boldsymbol\phi / \alpha - \mathbb E_\tau [U_{\phi}^k(\boldsymbol\phi)]/\alpha
@@ -163,11 +188,153 @@ $$
 \end{aligned}
 $$
 
-已经分析不清楚了，因此 Reptile 的作者给出了一种方法，按照泰勒级数展开的方式去近似算法的梯度更新过程
+$\mathbb E_\tau [U_{\phi}^k(\boldsymbol\phi)]$ 中包含了高阶项信息，从而与 $\nabla \mathbb E[L_\tau]$ 不再相关。此时 Reptile 收敛到的参数解与传统监督学习完全不同。
 
 ## 1.3. 梯度的泰勒展开的领头阶
 
-首先以两步 SGD 为例分析参数更新过程。
+那么，为什么Reptile就这么简单的多更新几步梯度（ k>1 ）就能很好的进行元学习呢？作者通过泰勒展开的领头阶来分析。
+
+首先定义四个**辅助变量**，假设模型初始参数为 $\phi_1$，$i\in [1, k]$ 指代第 $i$ 次梯度下降的训练过程：
+
+$$
+\begin{aligned}
+g_i &= L_i'(\phi_i)
+\;\;(gradient \; obtained\; during\;SGD)\\
+\phi_{i+1} &= \phi_i-\alpha g_i
+\;\;(sequence\;of\;parameters)\\
+\overline{g}_i &= L_i'(\phi_1)
+\;\;(gradient\;at\;initial\;point)\\
+\overline{H}_i &= L_i''(\phi_1)
+\;\;(Hessian\;at\;initial\;point)\\
+\end{aligned}
+$$
+
+然后将 $g_i$ 在原始参数 $\phi_1$ 上泰勒展开至 “二阶导+高次项” 的形式
+
+$$
+\begin{aligned}
+g_i = L_i'(\phi_i) &= L_i'(\phi_1) + L_i''(\phi_1)(\phi_i - \phi_1) + O(||\phi_i - \phi_1||^2)\\
+&= \overline{g}_i + \overline{H}_i(\phi_i - \phi_1) + O(\alpha^2)\\
+&= \overline{g}_i - \alpha\overline{H}_i\sum_{j=1}^{i-1}g_j + O(\alpha^2)\\
+&= \overline{g}_i - \alpha\overline{H}_i\sum_{j=1}^{i-1}\overline{g}_j + O(\alpha^2)\\
+\end{aligned}
+$$
+
+下面分析上式的推导过程。根据第二个辅助变量的定义，进行链式展开，高阶项的推导过程如下
+
+$$
+\begin{aligned}
+&\phi_i = \phi_1 - \alpha g_1 - \alpha g_2 - ... - \alpha g_{i-1}\\
+\Rightarrow \quad &O(||\phi_i - \phi_1||^2) = O(|| - \alpha \sum_{j=1}^{i-1} g_j||^2) = O(\alpha^2)
+\end{aligned}
+$$
+
+同理，第二个等号右边，Hessian 矩阵右乘的括号和可化为 $g_i$ 的和形式。
+
+最后一个等号右边，可以直接将 $g_i$ 替换为 $\overline g_i$ 是因为
+
+$$
+\begin{aligned}
+\alpha\overline{H}_i\sum_0^{i-1}g_i &= \alpha\overline{H}_i\sum_0^{i-1}L_i'(\phi_i) \\
+&= \alpha\overline{H}_i\sum_0^{i-1}[L_i'(\phi_1) + L_i''(\phi_1)(\phi_i - \phi_1)+O(\alpha^2)]\\
+&=\alpha\overline{H}_i\sum_0^{i-1}[\overline g_i- \alpha\overline{H}_i\sum_{j=1}^{i-1}g_j + O(\alpha^2)]\\
+&= \alpha\overline{H}_i\sum_0^{i-1}\overline g_i + O(\alpha^2)
+\end{aligned}
+$$
+
+至此，我们可以得到$g_i$ 在原始参数 $\phi_1$ 上的泰勒展开如下
+
+$$
+g_i = \overline{g}_i - \alpha\overline{H}_i\sum_{j=1}^{i-1}\overline{g}_j + O(\alpha^2)
+$$
+
+然后，我们对 $g_{MAML}$ 进行分析
+
+$$
+\begin{aligned}
+g_{MAML} &= \frac{\partial}{\partial\phi_1}L_k(\phi_k)\\
+&= L'_k(\phi_k)\frac{\partial\phi_k}{\partial\phi_1}\\
+&= L'_k(\phi_k)\frac{\partial}{\partial\phi_1}[U_{k-1}(U_{k-2}(...(U_1(\phi_1))))]\\
+&= L'_k(\phi_k)U'_1(\phi_1)U'_2(\phi_2)\cdots U'_{k-1}(\phi_{k-1})\\
+&= L'_k(\phi_k)(I-\alpha L''_1(\phi_1))\cdots(I-\alpha L''_{k-1}(\phi_{k-1}))\\
+&=L'_k(\phi_k)\left(\prod_{i=1}^{k-1}(I-\alpha L''_i(\phi_i))\right)\\
+&=g_k\left(\prod_{i=1}^{k-1}(I-\alpha L''_i(\phi_i))\right)
+\end{aligned}
+$$
+
+此处，令 $\alpha=0^+$，我们可以给出 $g_{FOMAML}$ 的表达式
+
+$$
+g_{FOMAML} = g_k
+$$
+
+根据前面已经推得的 $g_i$ 在原始参数上的泰勒展开式，带入得
+
+$$
+g_{FOMAML} = \overline{g}_k - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j + O(\alpha^2)
+$$
+
+继续推导 $g_{MAML}$，借助第四个辅助变量定义，我们对 $\alpha L''_i(\phi_i)$ 在原始参数上进行泰勒展开
+
+$$
+\begin{aligned}
+\alpha L''_i(\phi_i) &= \alpha L''_i(\phi_1) + \alpha H'_i(\phi_1 - \phi_1) + O(\alpha^2) \\
+&= \alpha \overline H_i + \alpha H'_i\sum \alpha g_{i-1} + O(\alpha^2)\\
+&= \alpha \overline H_i + O(\alpha^2)
+\end{aligned}
+$$
+
+带入 $g_{MAML}$，有
+
+$$
+g_{MAML} = g_k\left(\prod_{i=1}^{k-1}(I-\alpha \overline H_i)\right) + O(\alpha^2)
+$$
+
+又根据前面已经推得的 $g_i$ 在原始参数上的泰勒展开式，带入得
+
+$$
+\begin{aligned}
+g_{MAML} &= \left(\overline{g}_k - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j\right) \left( \prod_{i=1}^{k-1}(I-\alpha \overline H_i)\right) + O(\alpha^2)\\
+&= \left(\overline{g}_k - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j\right) [ (I-\alpha \overline H_1)\cdots(I-\alpha \overline H_{k-1}) ] + O(\alpha^2)\\
+&= \left(\overline{g}_k - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j\right) [I-\alpha \overline H_1 - \cdots - \alpha \overline H_{k-1} + O(\alpha^2)] + O(\alpha^2)\\
+&= \left(\overline{g}_k - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j\right) \left(I-\alpha \sum_{j=1}^{k-1}\overline H_j\right) + O(\alpha^2)\\
+&= \overline{g}_k - \alpha\overline{g}_k\sum_{j=1}^{k-1}\overline H_j - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j + O(\alpha^2)
+\end{aligned}
+$$
+
+而对于 Reptile 的梯度，根据定义
+
+$$
+\begin{aligned}
+g_{Reptile} &= (\phi - \widetilde \phi)/\alpha\\
+&= [\phi - (\phi - \alpha g_1 - \alpha g_2 - \cdots - \alpha g_k)]/\alpha\\
+&= g_1 + g_2 + \cdots + g_k
+\end{aligned}
+$$
+
+将 MAML、FOMAML 和 Reptile 三者的梯度同时列写如下
+
+$$
+\begin{aligned}
+  g_{MAML} &=\overline{g}_k - \alpha\overline{g}_k\sum_{j=1}^{k-1}\overline H_j - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j + O(\alpha^2)\\
+  g_{FOMAML} &= \overline{g}_k - \alpha\overline{H}_k\sum_{j=1}^{k-1}\overline{g}_j + O(\alpha^2)\\
+  g_{Reptile} &= g_1 + g_2 + \cdots + g_k
+\end{aligned}
+$$
+
+为了简化分析，令 $k=2$，有
+
+$$
+\begin{aligned}
+  g_{MAML} & &=\overline{g}_2 - \alpha\overline{g}_2\overline H_1 - \alpha\overline{H}_2\overline{g}_1 + O(\alpha^2)\\
+  g_{FOMAML} &= g_2 &=  \overline{g}_2 - \alpha\overline{H}_2\overline{g}_1 + O(\alpha^2)\\
+  g_{Reptile} &= g_1 + g_2 &=\overline{g}_1 + \overline{g}_2 - \alpha\overline{H}_2 g_1 + O(\alpha^2)
+\end{aligned}
+$$
+
+## 1.4. 另一种推导方式
+
+直接假设 $k=2$，以两步 SGD 为例分析参数更新过程。
 
 简化起见，我们将损失函数对模型参数的梯度记为 $L'$，那么两步 SGD 更新后的模型参数为 $\phi_3$，有
 
@@ -222,7 +389,7 @@ g_{MAML} &= \frac{\partial}{\partial\phi_1}L_2(\phi_2) = \frac{\partial \phi_2}{
  \end{aligned}
 $$
 
-对于FOMAML，其一阶简化是简化了参数 $\phi_2$ 对初始参数 $\phi_1$ 求导部分，即 $\frac{\partial \phi_2}{\partial \phi_1} = const$，参见2.3节。则只剩下 loss 对参数 $\phi_2$ 的求导。
+对于FOMAML，其一阶简化是简化了参数 $\phi_2$ 对初始参数 $\phi_1$ 求导部分，即 $\frac{\partial \phi_2}{\partial \phi_1} = const$，则只剩下 loss 对参数 $\phi_2$ 的求导。
 
 $$
 \begin{aligned}
@@ -245,11 +412,15 @@ $$
 
 $$
 \begin{aligned}
-g_{MAML} &= g_2 - \alpha \overline{H_2}\overline{g}_1-\alpha\overline{H_1}\overline{g}_2+O(\alpha^2)\\
-g_{FOMAML} &= g_2 = \overline{g}_2-\alpha\overline{H}_2\overline{g}_1+O(\alpha^2)\\
-g_{Reptile} &= g_1+g_2 = \overline{g}_1+\overline{g}_2-\alpha \overline{H}_2\overline{g}_1 + O(\alpha^2)\\
+g_{MAML} & &= g_2 - \alpha \overline{H_2}\overline{g}_1-\alpha\overline{H_1}\overline{g}_2+O(\alpha^2)\\
+g_{FOMAML} &= g_2 &= \overline{g}_2-\alpha\overline{H}_2\overline{g}_1+O(\alpha^2)\\
+g_{Reptile} &= g_1+g_2 &= \overline{g}_1+\overline{g}_2-\alpha \overline{H}_2\overline{g}_1 + O(\alpha^2)\\
 \end{aligned}
 $$
+
+可以得到与上一节一致的结果。
+
+## 1.5. 梯度的泰勒展开的领头阶（继续）
 
 再次定义两个期望参数如下。
 
@@ -261,15 +432,17 @@ $$
 
 （-AvgGrad）是参数 $\phi$ 在最小化 joint training 问题中的下降方向。就是想在所有batch上减小loss，也就是减小整体的任务损失。
 
-为什么此处 $\overline{g}_1$ 和 $\overline{g}_2$ 的期望相等呢，因为它们都是表示的是loss对原始参数的梯度，只不过对应于不同的batch。在minibatch中，一个batch用于进行一次梯度下降，因为batch是随机的，所以loss对原始参数的梯度与batch是无关的（？）。
+> 为什么此处 $\overline{g}_1$ 和 $\overline{g}_2$ 的期望相等呢，因为它们都是表示的是loss对原始参数的梯度，只不过对应于不同的batch。在minibatch中，一个batch用于进行一次梯度下降，因为batch是随机的，所以loss对原始参数的梯度与batch是无关的。
 
 **第二个**：AvgGradInner
 
 $$
-AvgGradInner = \mathbb E_{\tau,1,2}[\overline{H}_1\overline{g}_2]
-= \mathbb E_{\tau,1,2}[\overline{H}_2\overline{g}_1]
-= \frac{1}{2}\mathbb E_{\tau,1,2}[\overline{H}_1\overline{g}_2+\overline{H}_2\overline{g}_1]
-= \frac{1}{2}\mathbb E_{\tau,1,2}[\frac{\partial}{\partial \phi_1}(\overline{g}_1\cdot \overline{g}_2)]
+\begin{aligned}
+AvgGradInner &= \mathbb E_{\tau,1,2}[\overline{H}_1\overline{g}_2]\\
+&= \mathbb E_{\tau,1,2}[\overline{H}_2\overline{g}_1]\\
+&= \frac{1}{2}\mathbb E_{\tau,1,2}[\overline{H}_1\overline{g}_2+\overline{H}_2\overline{g}_1]\\
+&= \frac{1}{2}\mathbb E_{\tau,1,2}[\frac{\partial}{\partial \phi_1}(\overline{g}_1\cdot \overline{g}_2)]
+\end{aligned}
 $$
 
 (-AvgGradInner) 的方向可以增大不同minibatch间梯度的内积，从而提高泛化能力。换句话说，AvgGradInner是 $\overline{g}_0\overline{g}_1$ 的对原始参数的导数，因为梯度在参数更新时是加负号的，**所以是在最大化同一任务中不同minibatch之间梯度的内积**。对其中一个batch进行梯度更新会显著改善另一个batch的的表现，这样就增加了模型的泛化性和快速学习的能力。
@@ -296,9 +469,13 @@ $$
 
 可以看到三者AvgGradInner与AvgGrad之间的系数比的关系是：**MAML > FOMAML > Retile**。这个比例与步长 $\alpha$，迭代次数 $k$ 正相关。
 
-~~另一种分析有效的方法借助了流形，Reptile 收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。~~
+## 1.6. 另一种不严谨的分析
 
-## 1.4. 实验
+~~另一种分析有效的方法借助了流形，Reptile 收敛于一个解，这个解在欧式空间上与每个任务的最优解的流形接近。没看懂不管了。作者自己也号称不如泰勒展开严谨。~~
+
+>  This is a informal argument and should be taken much less seriously than the preceding Taylor series analysis
+
+## 1.7. 实验
 
 **少样本分类**
 
