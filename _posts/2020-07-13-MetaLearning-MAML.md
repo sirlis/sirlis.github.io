@@ -391,6 +391,12 @@ $$
 \end{aligned}
 $$
 
+则
+
+$$
+\boldsymbol g_{MAML} = \nabla_{\boldsymbol \theta_k} L_{B}(\boldsymbol \theta_k) \cdot (\boldsymbol I - \alpha \boldsymbol H_{A}(\boldsymbol \theta))
+$$
+
 ## 1.5. FOMAML
 
 为了降低二重梯度导致的巨大计算量，作者提出了一种将二重梯度简化计算为一重梯度的方法，即 First-Order MAML (FOMAML)。
