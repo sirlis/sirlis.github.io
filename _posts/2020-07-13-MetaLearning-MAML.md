@@ -18,9 +18,7 @@ MAML 是2017年 Chelsea Finn 大佬提出的一种基于优化（Optimized-based
   - [1.3. 基于优化的元学习目标](#13-基于优化的元学习目标)
   - [1.4. MAML数学分析](#14-maml数学分析)
   - [1.5. FOMAML](#15-fomaml)
-  - [1.6. FOMAML图解](#16-fomaml图解)
-  - [1.7. 二重梯度的另一解释](#17-二重梯度的另一解释)
-  - [1.8. 缺点](#18-缺点)
+  - [1.6. 缺点](#16-缺点)
 - [2. 各类实现](#2-各类实现)
 - [3. 参考文献](#3-参考文献)
 
@@ -414,129 +412,26 @@ $$
 - 计算在数据集 B 上的损失函数 $L_{B}$ 对 $\phi$ 的（偏）导数：$g_{FOMAML}=L'_{B}(\phi)=\nabla_{\phi} L_{B}(\phi)$；
 - 将 $g_{FOMAML}$ 插入外循环更新参数。
 
-可以看出只需要计算一重梯度即可，约节省了33%的计算量。
+简化后的 FOMAML 模型参数更新式为：
 
-## 1.6. FOMAML图解
+$$
+\begin{aligned}
+\theta_i' \leftarrow \theta - \alpha \nabla_\theta L_{Ai}(\theta)\\
+\theta \leftarrow \theta - \beta \nabla_{\theta'} \sum L_B(\theta')\\
+\end{aligned}
+$$
 
-一阶近似的MAML可以看作是如下形式的参数更新：假设每个batch只有一个task，某次采用第m个task来更新模型参数，得到$\hat\theta^m$，再求一次梯度来更新模型的原始参数$\phi$，将其从 $\phi^0$ 更新至 $\phi^1$，以此类推。
+可以看出只需要计算一重梯度即可，作者在文中号称约节省了33%的计算量。
+
+> This approximation removes the need for computing Hessian-vector products in an additional backward pass, which we found led to roughly 33% speed-up in network computation.
+
+一阶近似的MAML可以看作是如下形式的参数更新：假设每个batch只有一个task，某次采用第m个task来更新模型参数，得到$\hat\theta^m$，再求一次梯度，沿着该梯度方向更新模型的原始参数$\phi$，将其从 $\phi^0$ 更新至 $\phi^1$，以此类推。
 
 ![](../assets/img/postsimg/20200713/4.jpg)
 
 与之相比，右边是模型预训练方法，它是将参数根据每次的训练任务一阶导数的方向来更新参数。
 
-## 1.7. 二重梯度的另一解释
-
-设初始化的参数为 $\theta$ ，每个任务的模型一开始的参数都是 $\theta$。
-
-模型在 $\mathcal T_i$ 上经过训练后，参数就会变成 $\theta_i'$ ，用 $l_i(\theta_i')$ 表示模型在**每个任务 $\mathcal T_i$ 上的损失**。那么，对于这个Meta Learning而言，**整体的损失**函数应该是 $\theta$ 的函数：
-
-$$
-\mathcal L( \theta ) = \sum_{i=1}^N l_i(\theta_i')
-$$
-
-一旦我们可以计算 $\theta$ 的梯度，就可以直接更新 $\theta$ ：
-
-$$
-\theta' \leftarrow \theta-\alpha\nabla_{\theta}\mathcal L(\theta)
-$$
-
-MAML假设：**每次训练只进行一次梯度下降**。如果只经历了一次梯度下降，即可用等号代替左箭头：
-
-$$
-\theta' = \theta-\alpha \nabla_{\theta}\mathcal L(\theta)
-$$
-
-对于每个不同任务，准确来说应该是：
-
-$$
-\theta_i' = \theta-\alpha \nabla_{\theta}\mathcal l_i(\theta)
-$$
-
-下一步就是计算 $\theta$ 关于 $\mathcal L$ 的梯度。我们有：
-
-$$
-\nabla_\theta \mathcal L( \theta ) = \nabla_\theta \sum_{i=1}^N l_i(\theta_i') = \sum_{i=1}^N \nabla_\theta l_i(\theta_i')
-$$
-
-现在的问题是如何求 $\nabla_\theta l_i(\theta_i')$ ，略去下标 $i$，有：
-
-$$
-\begin{aligned}
-\nabla_\theta l(\theta ') =
-    \begin{bmatrix}
-    \partial l(\theta')/\partial \theta_1\\ 
-    \partial l(\theta')/\partial \theta_2\\ 
-    \vdots\\ 
-    \partial l(\theta')/\partial \theta_n
-    \end{bmatrix}
-\end{aligned}
-$$
-
-注意 $l$ 是的 $\theta'$ 的函数，而 $\theta'$ 又和每一个 $\theta_i$ 有关，因此有：
-
-$$
-\frac {\partial l(\theta')}{\partial \theta_i} = \sum_j\frac{\partial l(\theta')}{\partial \theta_j'}\frac{\partial \theta_j'}{\partial \theta_i}
-$$
-
-也就是说，每一个 $\theta_i$ 通过影响不同的 $\theta_j '$，从而影响到了 $l$。$l$ 和 $\theta$ 的关系是很直接的，我们可以直接求$\frac{\partial l(\theta ')}{\partial \theta_j'}$ ，现在的问题是怎么求 $\frac{\partial \theta_j'}{\partial \theta_i}$。
-
-注意到 $\theta'$ 和 $\theta$ 的关系也是显然的：
-
-$$
-\theta' = \theta-\alpha \nabla_{\theta}\mathcal l(\theta)
-$$
-
-当 $i \neq j$ 时
-
-$$
-\frac{\partial \theta_j'}{\partial \theta_i} = -
-\alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j}
-$$
-
-当 $i = j$ 时
-
-$$
-\frac{\partial \theta_j'}{\partial \theta_i} = 
-1 - \alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i}
-$$
-
-到此为止已经把梯度计算出来了，二重梯度也是MAML计算中最为耗时的部分。
-
-在MAML的论文中提到了一种简化，它通过计算一重梯度来近似二重梯度。具体而言，假设学习率 $\alpha \rightarrow 0^+$，则更新一次后的参数 $\theta'$ 对初始参数 $\theta$ 求偏导可变为
-
-$$
-\begin{aligned}
-&(i \neq j) \; \frac{\partial \theta_j'}{\partial \theta_i} = -
-\alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_j} \approx 0 \\
-&(i = j) \; \frac{\partial \theta_j'}{\partial \theta_i} = 1 - \alpha\frac{\partial l^2(\theta)}{\partial \theta_i\partial \theta_i} \approx 1
-\end{aligned}
-$$
-
-也就是说，可**将更新后的模型参数对模型原始参数的导数近似看作常数**（0或1）。
-
-那么原来的偏导可近似为：
-
-$$
-\frac {\partial l(\theta')}{\partial \theta_i} = \sum_j\frac{\partial l(\theta')}{\partial \theta_j'}\frac{\partial \theta_j'}{\partial \theta_i} \approx
-\frac {\partial l(\theta')}{\partial \theta_i'}
-$$
-
-整个梯度就可以近似为：
-
-$$
-\nabla_\theta l(\theta') \approx \nabla_{\theta'} l(\theta')
-$$
-
-简化后的一阶近似的MAML模型参数更新式为：
-
-$$
-\begin{aligned}
-\theta \leftarrow \theta - \alpha \nabla_{\theta'} \sum \mathcal L(\theta')\\
-\theta_i' \leftarrow \theta - \beta \nabla_\theta l_i(\theta)\\
-\end{aligned}
-$$
-
-## 1.8. 缺点
+## 1.6. 缺点
 
 MAML的缺点[[2](#ref2)]：
 
@@ -559,3 +454,5 @@ MAML的缺点[[2](#ref2)]：
 <span id="ref3">[3]</span> [Veagau](https://www.cnblogs.com/veagau/). [【笔记】Reptile-一阶元学习算法](https://www.cnblogs.com/veagau/p/11816163.html)
 
 [4] [pure water](https://blog.csdn.net/qq_41694504). [Reptile原理以及代码详解](https://blog.csdn.net/qq_41694504/article/details/106750606)
+
+[5] [元学习：学习如何学习【译】](https://wei-tianhao.github.io/blog/2019/09/17/meta-learning.html)
