@@ -455,4 +455,4 @@ MAML的缺点[[2](#ref2)]：
 
 [4] [pure water](https://blog.csdn.net/qq_41694504). [Reptile原理以及代码详解](https://blog.csdn.net/qq_41694504/article/details/106750606)
 
-[5] [元学习：学习如何学习【译】](https://wei-tianhao.github.io/blog/2019/09/17/meta-learning.html)
+[5] Tianhao Wei翻译自Lilian.[元学习：学习如何学习【译】](https://wei-tianhao.github.io/blog/2019/09/17/meta-learning.html)
