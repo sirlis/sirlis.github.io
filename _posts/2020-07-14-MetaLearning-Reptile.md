@@ -43,13 +43,13 @@ Reptile是OpenAI提出的一种非常简单的meta learning 算法。与MAML类�
 
 Reptile 要求 $k>1$，更新依赖于损失函数的高阶导数，此时 Reptile 的行为与 $k=1$（联合训练）时截然不同。
 
-Reptile与FOMAML紧密相关，但是与FOMAML不同
+Reptile 与 MAML 和 FOMAML 紧密相关，但是也存在不同
 
-- Reptile**无需对每一个任务进行训练-测试（training-testing）划分**。
+- Reptile **无需对每一个任务进行训练-测试（training-testing）划分**。
 
-- 相比MAML需要进行二重梯度计算，Reptile只需要进行一重梯度计算，计算速度更快。
+- 相比 MAML 需要进行二重梯度计算，Reptile 只需要进行一重梯度计算，计算速度更快。
 
-Reptile的图例如下。
+Reptile 的图例如下。
 
 ![](../assets/img/postsimg/20200713/9.jpg)
 
