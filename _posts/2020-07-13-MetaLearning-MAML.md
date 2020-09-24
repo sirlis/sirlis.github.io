@@ -401,7 +401,7 @@ $$
 
 为了降低二重梯度导致的巨大计算量，作者提出了一种将二重梯度简化计算为一重梯度的方法，即 First-Order MAML (FOMAML)。
 
-FOMAML 假设学习率 $\alpha \rightarrow 0^+$，则前面与 $\alpha$ 相乘的项（$k=1$ 时是 Hessian 矩阵，$k>1$ 时时连乘项）因为乘以 $0^+$ 被消去。那么整个 $U_{A}'(\boldsymbol \theta)$ 就等于单位阵了，
+FOMAML 假设学习率 $\alpha \rightarrow 0^+$，则前面与 $\alpha$ 相乘的项（$k=1$ 时是 Hessian 矩阵，$k>1$ 时是连乘项）因为乘以 $0^+$ 被消去。那么整个 $U_{A}'(\boldsymbol \theta)$ 就等于单位阵了，
 
 此时 FOMAML 的梯度即为
 
