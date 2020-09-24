@@ -415,7 +415,7 @@ $$
 
 - 采样任务 $\tau$；
 - 计算在数据集 A 上的梯度因子 $U^{k=1}_{A}(\boldsymbol \theta)= _{A} \boldsymbol \theta_1 = \phi$;
-- 计算在数据集 B 上的损失函数 $L_{B}$ 对 $\phi$ 的（偏）导数：$g_{FOMAML}=L'_{B}(\phi)=\nabla_{\phi} L_{B}(\phi)$；
+- 计算在数据集 B 上的损失函数 $L_{B}$ 对 $\phi$ 的（偏）导数：$g_{FOMAML}=\nabla_{\phi} L_{B}(\phi)$；
 - 将 $g_{FOMAML}$ 插入外循环更新参数。
 
 简化后的 FOMAML 模型参数更新式为：
