@@ -388,8 +388,8 @@ $$
 $$
 \begin{aligned}
 \prod_{i=1}^{k=1} (\boldsymbol I - \alpha \nabla_{\boldsymbol \theta_{i-1}} (\nabla_{\boldsymbol \theta_{i-1}} L_\tau(\boldsymbol \theta_{i-1}))) &= 
-\boldsymbol I_{n \times n} - \alpha \nabla_{\boldsymbol \theta_0} \nabla_{\boldsymbol \theta_0} L_\tau\boldsymbol (\theta_0)\\
-& = \boldsymbol I_{n \times n} - \alpha \boldsymbol H_{A}(\boldsymbol \theta)_{n \times n}\\
+\boldsymbol I - \alpha \nabla_{\boldsymbol \theta_0} \nabla_{\boldsymbol \theta_0} L_\tau\boldsymbol (\theta_0)\\
+& = \boldsymbol I - \alpha \boldsymbol H_{A}(\boldsymbol \theta)\\
 \end{aligned}
 $$
 
@@ -402,14 +402,16 @@ FOMAML 假设学习率 $\alpha \rightarrow 0^+$，则前面与 $\alpha$ 相乘�
 此时 FOMAML 的梯度即为
 
 $$
-\boldsymbol g_{FOMAML} = L'_{B}(_{A}\boldsymbol \theta_k)
+\boldsymbol g_{FOMAML} = L'_{B}({}_A\boldsymbol \theta_k)=\nabla_{\boldsymbol \theta_k} L_{B}({}_A\boldsymbol \theta_k)
 $$
 
-也即仅用最后一次更新的模型参数 $_{A}\boldsymbol \theta_k$ 计算梯度。那么 FOMAML 的实现过程就很简单了：
+也即仅用最后一次更新的模型参数 $_{A}\boldsymbol \theta_k$ 计算梯度。
+
+那么，进行 $k=1$ 次梯度算子更新的 FOMAML 的实现过程就很简单了：
 
 - 采样任务 $\tau$；
-- 计算在数据集 A 上的梯度因子 $U_{A}(\boldsymbol \theta)= _{A} \boldsymbol \theta_1 = \phi$;
-- 计算在数据集 B 上的损失函数 $L_{B}$ 对 $\phi$ 的（偏）导数：$g_{FOMAML}=L'_{B}(\phi)$；
+- 计算在数据集 A 上的梯度因子 $U^{k=1}_{A}(\boldsymbol \theta)= _{A} \boldsymbol \theta_1 = \phi$;
+- 计算在数据集 B 上的损失函数 $L_{B}$ 对 $\phi$ 的（偏）导数：$g_{FOMAML}=L'_{B}(\phi)=\nabla_{\phi} L_{B}(\phi)$；
 - 将 $g_{FOMAML}$ 插入外循环更新参数。
 
 可以看出只需要计算一重梯度即可，约节省了33%的计算量。
