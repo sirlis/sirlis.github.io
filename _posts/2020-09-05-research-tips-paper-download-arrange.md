@@ -169,8 +169,6 @@ document.body.addEventListener('mousedown', function(e){
 
 # 3. Zotero文献管理
 
-
-
 文献管理软件可以有效的帮助研究人员管理参考文献，加速论文写作过程。这里介绍开源的文献管理软件 Zotero 的基本功能。**注意**，此处假设主要以英文论文书写为例，若以中文写作为主要工作，可使用 NoteExpress 作为文献管理软件，一般各高校图书馆均提供学校特别版下载安装，NoteExpress 可方便的从中国知网下载和导入文献。Zotero 官网（https://www.zotero.org/）可以免费下载该软件，软件支持中文。
 
 ## 3.1. 设置数据存储位置
@@ -181,6 +179,8 @@ document.body.addEventListener('mousedown', function(e){
 
 ## 3.2. 添加文献条目
 
+- **英文文献**
+
 将下载到本地的 pdf 文献拖入 Zotero 软件界面即可添加该文献，等待一会儿后，软件会自动分析出论文的信息并形成一个条目，并将该文献的 pdf 文件拷贝至前面设置的自定义的数据存储位置，因此刚下载到本地的 pdf 文件即可删除了。
 
 ![image-20200905144646206](../assets/img/postsimg/20200905/2.jpg)
@@ -190,6 +190,31 @@ document.body.addEventListener('mousedown', function(e){
 ![image-20200905144801449](../assets/img/postsimg/20200905/3.jpg)
 
 双击该条目，可以打开外部 pdf 查看器来查看论文。
+
+- **中文文献**
+
+需要借助一个插件来让 Zotero 自动抓取中文文献的 metadata。插件 jasminum 下载地址 [在此](https://github.com/l0o0/jasminum/releases/tag/v0.0.6)。该插件针对知网下载的文献均可正常抓取，其它如万方下载的文献，将文献的 PDF 文件名名字命名为【文献名.pdf】或者【文献名_第一作者.pdf】也可抓取。
+
+jasminum 实现的功能有：
+
+- 拆分或合并 Zotero 中条目作者姓和名（也即增加或移除 metadata 中中文姓名之间的逗号）
+- 根据知网上下载的文献文件来抓取引用信息（就是根据文件名）
+- 添加中文PDF/CAJ时，自动拉取知网数据，**该功能默认关闭。需要到设置中开启**，注意添加的文件名需要含有中文，全英文没有效果
+- 为知网的学位论文 PDF 添加书签
+
+下载得到 `.xpi` 格式的插件文件后，打开 Zotero，点击【工具】-【插件】打开插件管理器。
+
+![image-20200905144924441](../assets/img/postsimg/20200905/3.5.jpg)
+
+然后点击左上角的齿轮-【Install Add-on From File...】，找到并选择刚刚下载的 `.xpi` 格式的插件文件，安装后根据提示重启 Zotero 完成安装。
+
+![image-20200905144924441](../assets/img/postsimg/20200905/3.6.jpg)
+
+![image-20200905144924441](../assets/img/postsimg/20200905/3.7.jpg)
+
+![image-20200905144924441](../assets/img/postsimg/20200905/3.8.jpg)
+
+然后在导入的中文文献上右击，选择【知网】图标的更新元信息即可。
 
 ## 3.3. 导出文献条目
 
@@ -219,7 +244,7 @@ Zotero 另一个优点是可以建立多层级的目录树，便于分门别类�
 
 ![image-20200905150512124](../assets/img/postsimg/20200905/7.jpg)
 
-更进一步，可以下载 zotfile 插件（https://www.worldlink.com.cn/en/osdir/zotfile.html），增强 Zotero 的文献管理功能。比如一键规范所有条目的文献 pdf 文件的标题。
+更进一步，可以 [此处](https://www.worldlink.com.cn/en/osdir/zotfile.html) 下载 zotfile 插件。zotfile 可以极大的增强 Zotero 的文献管理功能，比如一键规范所有条目的文献 pdf 文件的标题等。
 
 # 4. 参考文献
 
