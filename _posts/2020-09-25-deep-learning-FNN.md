@@ -128,10 +128,16 @@ black-box behavior              | simple interpretation and implementation
   - 第四层为模糊决策层，主要针对满足一定条件的量进行分类并将模糊量去模糊化。
   - 第五层为输出层，输出运算结果
 
-两种常见的神经模糊系统：
+两种常见的神经模糊模型：
 
 - Mamdani model: 着重研究模型的可解释性
 - Takagi-Sugeno-Kang (TSK) model：着重研究模型的精确程度
+
+三种 FNN 的部署 方式：
+
+- 真实输入，模糊权重
+- 模糊输入，真实权重
+- 模糊输入，模糊权重
 
 ## 2.2. 模糊逻辑
 
