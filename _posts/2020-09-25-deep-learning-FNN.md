@@ -12,17 +12,16 @@ math: true
 
 ---
 
-- [1. 预备知识](#1-预备知识)
+- [1. 模糊](#1-模糊)
   - [1.1. 模糊集](#11-模糊集)
   - [1.2. 模糊度](#12-模糊度)
   - [1.3. 模糊逻辑](#13-模糊逻辑)
-- [2. 概念](#2-概念)
-- [3. 特点](#3-特点)
-  - [3.1. 模糊推理](#31-模糊推理)
-  - [3.3. 模糊运算](#33-模糊运算)
-- [4. 参考文献](#4-参考文献)
+- [2. 模糊神经网络](#2-模糊神经网络)
+  - [2.1. 特点](#21-特点)
+  - [2.2. 模糊逻辑](#22-模糊逻辑)
+- [3. 参考文献](#3-参考文献)
 
-# 1. 预备知识
+# 1. 模糊
 
 ## 1.1. 模糊集
 
@@ -93,9 +92,9 @@ $$
 
 
 
-# 2. 概念
+# 2. 模糊神经网络
 
-模糊神经网络（Fuzzy Neural Network, FNN）（又称为神经模糊系统，Neural-Fuzzy System, NFS）是一个学习机，通过利用神经网络的近似技术来找寻一个模糊系统的参数（如模糊集，模糊规则）。
+模糊神经网络（Fuzzy Neural Network, FNN）（又称为神经模糊系统，Neuro-Fuzzy System, NFS）是一个学习机，通过利用神经网络的近似技术来找寻一个模糊系统的参数（如模糊集，模糊规则）。
 
 > A fuzzy neural network or neuro-fuzzy system is a learning machine that finds the parameters of a fuzzy system (i.e., fuzzy sets, fuzzy rules) by exploiting approximation techniques from neural networks.
 > [Fuzzy neural network](http://www.scholarpedia.org/article/Fuzzy_neural_network) —— Rudolf Kruse @ scholarpedia
@@ -111,7 +110,7 @@ black-box behavior              | simple interpretation and implementation
 
 从表中可以看出，如果将二者结合，可以充分发挥二者的优势，弥补二者的劣势。
 
-# 3. 特点
+## 2.1. 特点
 
 - 采用基于神经网络理论的数据驱动学习方法，对基于底层模糊系统的神经模糊系统进行训练。这种启发式算法只考虑局部信息引起基本模糊系统的局部变化。
 - 它可以表示为学习过程中任何时刻（比如学习前，学习中或学习后）的模糊规则集。因此，系统可以根据模糊规则在有无先验知识的情况下进行初始化。
@@ -129,19 +128,20 @@ black-box behavior              | simple interpretation and implementation
   - 第四层为模糊决策层，主要针对满足一定条件的量进行分类并将模糊量去模糊化。
   - 第五层为输出层，输出运算结果
 
-人们基本上可以区分三种不同类型的模糊神经网络，即合作型、并发型和混合型模糊神经网络 (Nauck et al., 1997)。
+两种常见的神经模糊系统：
 
-## 3.1. 模糊推理
+- Mamdani model: 着重研究模型的可解释性
+- Takagi-Sugeno-Kang (TSK) model：着重研究模型的精确程度
 
-## 3.3. 模糊运算
+## 2.2. 模糊逻辑
 
 
-# 4. 参考文献
+# 3. 参考文献
 
-<span id="ref1">[1]</span>  [Rust-in](https://www.zhihu.com/people/rustinnnnn). [MAML 论文及代码阅读笔记](https://zhuanlan.zhihu.com/p/66926599).
+<span id="ref1">[1]</span>  Wikipedia. [Neuro-fuzzy](https://en.wikipedia.org/wiki/Neuro-fuzzy).
 
-<span id="ref2">[2]</span> 人工智障. [MAML算法，model-agnostic metalearnings?](https://www.zhihu.com/question/266497742/answer/550695031)
+<span id="ref2">[2]</span> Rudolf Kruse. [Fuzzy neural network](http://www.scholarpedia.org/article/Fuzzy_neural_network).
 
-<span id="ref3">[3]</span> [Veagau](https://www.cnblogs.com/veagau/). [【笔记】Reptile-一阶元学习算法](https://www.cnblogs.com/veagau/p/11816163.html)
+<span id="ref3">[3]</span> Milan Mares. [Fuzzy Sets](http://www.scholarpedia.org/article/Fuzzy_systems).
 
-[4] [pure water](https://blog.csdn.net/qq_41694504). [Reptile原理以及代码详解](https://blog.csdn.net/qq_41694504/article/details/106750606)
+[4] L.A. Zadeh. [Fuzzy sets](https://www.sciencedirect.com/science/article/pii/S001999586590241X).
