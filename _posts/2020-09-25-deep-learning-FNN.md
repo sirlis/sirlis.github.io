@@ -141,6 +141,26 @@ black-box behavior              | simple interpretation and implementation
 
 ## 2.2. 模糊逻辑
 
+模糊逻辑是对布尔逻辑的推广，针对隶属度进行计算。
+
+模糊逻辑的定义形式有很多种，比较常见的被称为是 Zadeh operators，如下表所示
+
+|Boolean|Fuzzy|
+|-|-|
+|AND(x,y)|MIN(x,y)|
+|OR(x,y)|MAX(x,y)|
+|NOT(x)|1-x|
+
+另一种 AND/OR 算子基于乘法定义
+
+```
+x AND y = x*y
+NOT x = 1-x
+
+Hence,
+x OR y = NOT( AND ( NOT(x), NOT(y) ) )
+x OR y = 1-(1-x*(1-y))
+```
 
 # 3. 参考文献
 
