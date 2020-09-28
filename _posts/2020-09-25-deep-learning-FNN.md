@@ -77,8 +77,8 @@ math: true
 
 $$
 \begin{aligned}
-  D_p(A) &= \frac{2}{n^{1/p}}\left( \sum_{i=1}^n \mid A(x_i) - A_{0.5}(x_i) \mid^p \right)^{1/p}\\
-  D(A) &= \int_{-\infty}^{+\infty}\mid A(x)-A_{0.5}(x) \mid dx
+  D_p(A) &= \frac{2}{n^{1/p}}\left( \sum_{i=1}^n \vert A(x_i) - A_{0.5}(x_i) \vert^p \right)^{1/p}\\
+  D(A) &= \int_{-\infty}^{+\infty}\vert A(x)-A_{0.5}(x) \vert dx
 \end{aligned}
 $$
 
