@@ -17,6 +17,7 @@ math: true
   - [1.2. 模型](#12-模型)
 - [2. LSTM](#2-lstm)
   - [2.1. 概念](#21-概念)
+  - [2.2. 模型](#22-模型)
 - [3. 参考文献](#3-参考文献)
 
 # 1. RNN
@@ -74,7 +75,7 @@ LSTM 与 RNN 的主要输入输出区别如下图所示
 
 ![rnn-lstm](../assets/img/postsimg/20200929/3.jpg)
 
-相比 RNN，LSTM 引入了一个新的状态，称为细胞状态（cell state），表示为 $\boldsymbol c_t$。
+## 2.2. 模型
 
 LSTM 网络的循环单元结构如下图所示
 
@@ -90,20 +91,77 @@ LSTM 网络的循环单元结构如下图所示
 
 $$
 \begin{aligned}
-\boldsymbol f_t &= \sigma(\boldsymbol U_f \boldsymbol h_{t-1} + \boldsymbol W_f \boldsymbol x_t + \boldsymbol b_f)\\
-\boldsymbol i_t &= \sigma(\boldsymbol U_i \boldsymbol h_{t-1} + \boldsymbol W_i \boldsymbol x_t + \boldsymbol b_i)\\
-\boldsymbol o_t &= \sigma(\boldsymbol U_o \boldsymbol h_{t-1} + \boldsymbol W_o \boldsymbol x_t + \boldsymbol b_o)\\
+\boldsymbol f_t &= \sigma(\boldsymbol U_f \boldsymbol h_{t-1} + \boldsymbol W_f \boldsymbol x_t + \boldsymbol b_f)=\sigma([\boldsymbol U_f, \boldsymbol W_f]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol i_t &= \sigma(\boldsymbol U_i \boldsymbol h_{t-1} + \boldsymbol W_i \boldsymbol x_t + \boldsymbol b_i)=\sigma([\boldsymbol U_i, \boldsymbol W_i]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol o_t &= \sigma(\boldsymbol U_o \boldsymbol h_{t-1} + \boldsymbol W_o \boldsymbol x_t + \boldsymbol b_o)=\sigma([\boldsymbol U_o, \boldsymbol W_o]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
 \end{aligned}
 $$
 
-其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。
+其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的“门”是一种“软”门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。
+
+相比 RNN，LSTM 引入了一个新的状态，称为细胞状态（cell state），表示为 $\boldsymbol c_t$，专门进行现行的循环信息传递，同时输出（非线性地）输出信息给隐层状态 $\boldsymbol h_t\in \mathbb R^D$。计算公式如下
+
+$$
+\begin{aligned}
+\tilde \boldsymbol c_t &= tanh(\boldsymbol U_c \boldsymbol h_{t-1} + \boldsymbol W_c \boldsymbol x_t + \boldsymbol b_c)=\sigma([\boldsymbol U_c, \boldsymbol W_c]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol c_t &= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \tilde \boldsymbol c_t\\
+\boldsymbol h_t &= \boldsymbol o_t \odot tanh(\boldsymbol c_t)
+\end{aligned}
+$$
+
+其中，$\tilde \boldsymbol c_t \in \mathbb R^D$ 是通过非线性函数（$tanh$）得到的候选状态，$\boldsymbol c_{t-1}$ 是上一时刻的记忆单元，$\odot$ 是向量的元素乘积。在每个时刻，LSTM 网络的细胞状态 $\boldsymbol c_t$ 记录了截至当前时刻的历史信息。
+
+根据不同的门状态取值，可以实现不同的功能。当 $\boldsymbol f_t = 0,\boldsymbol i_t = 1$ 时，记忆单元将历史信息清空，并将候选状态向量 $\tilde \boldsymbol c_t$ 写入，但此时记忆单元 $\boldsymbol c_t$ 依然和上一时刻的历史信息相关。当$\boldsymbol f_t = 1,\boldsymbol i_t = 0$ 时，记忆单元将复制上一时刻的内容，不写入新的信息。
+
+需要注意的是，LSTM 中的 $\boldsymbol c_t$ 对应于传统 RNN 中的 $\boldsymbol h_t$，通常是上一个传过来的历史状态乘以遗忘门后加上一些新信息得到，因此更新比较缓慢。而 LSTM 中的 $\boldsymbol h_t$ 则变化剧烈的多，在不同的时刻下的取值往往区别很大。
+
+再次进行维度分析，$\boldsymbol h_t,\boldsymbol c_t,\boldsymbol i_t,\boldsymbol f_t,\boldsymbol o_t \in \mathbb R^D$ 且 $\boldsymbol b_f,\boldsymbol b_i,\boldsymbol b_o,\boldsymbol b_c \in \mathbb R^D$，$\boldsymbol x_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol U_f,\boldsymbol U_i,\boldsymbol U_o,\boldsymbol U_c \in \mathbb R^{D\times D}$。则上面所有式子可简洁描述为
+
+$$
+\begin{aligned}
+\begin{bmatrix}
+ \tilde \boldsymbol c_t\\ 
+ \boldsymbol o_t\\
+ \boldsymbol i_t\\
+ \boldsymbol f_t 
+\end{bmatrix}=
+\begin{bmatrix}
+ tanh\\ 
+ \sigma\\
+ \sigma\\
+ \sigma 
+\end{bmatrix}\left( \boldsymbol W
+\begin{bmatrix}
+ \boldsymbol h_{t-1}\\ 
+ \boldsymbol x_t
+\end{bmatrix}+\boldsymbol b
+ \right)
+\end{aligned}
+$$
+
+其中
+
+$$
+\begin{aligned}
+\boldsymbol W &=\begin{bmatrix}
+ \boldsymbol U_c & \boldsymbol W_c\\ 
+ \boldsymbol U_o & \boldsymbol W_o\\
+ \boldsymbol U_i & \boldsymbol W_i\\ 
+ \boldsymbol U_f & \boldsymbol W_f
+\end{bmatrix} \in \mathbb R^{4D\times (D+M)}\\
+\boldsymbol b &= \begin{bmatrix}
+ \boldsymbol b_c\\ 
+ \boldsymbol b_o\\
+ \boldsymbol b_i\\
+ \boldsymbol b_f 
+\end{bmatrix}\in \mathbb R^{4D}
+\end{aligned}
+$$
+
+循环神经网络中的隐状态 $\boldsymbol h$ 存储了历史信息，可以看作一种记忆（Memory）。在简单循环网络中，隐状态每个时刻都会被重写，因此可以看作一种短期记忆（Short-Term Memory）。在神经网络中，长期记忆（Long-Term Memory）可以看作网络参数，隐含了从训练数据中学到的经验，其更新周期要远远慢于短期记忆。
+
+而在 LSTM 网络中，记忆单元 $\boldsymbol c$ 可以在某个时刻捕捉到某个关键信息，并有能力将此关键信息保存一定的时间间隔。记忆单元 $\boldsymbol c$ 中保存信息的生命周期要长于短期记忆 $\boldsymbol h$，但又远远短于长期记忆，**长短期记忆是指长的“短期记忆”。因此称为长短期记忆（Long Short-Term Memory）**。
 
 # 3. 参考文献
 
 <span id="ref1">[1]</span>  邱锡鹏. 《神经网络与深度学习》.
-
-<span id="ref2">[2]</span> Rudolf Kruse. [Fuzzy neural network](http://www.scholarpedia.org/article/Fuzzy_neural_network).
-
-<span id="ref3">[3]</span> Milan Mares. [Fuzzy Sets](http://www.scholarpedia.org/article/Fuzzy_systems).
-
-[4] L.A. Zadeh. [Fuzzy sets](https://www.sciencedirect.com/science/article/pii/S001999586590241X).
