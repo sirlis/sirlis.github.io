@@ -26,7 +26,21 @@ math: true
 
 循环神经网络（Recurrent Neural Network，RNN）通过使用带自反馈的神经元，能够处理任意长度的时序数据。
 
+给定一个输入序列 $\boldsymbol x_{1:T} = (\boldsymbol x_1,...,\boldsymbol x_t,...,\boldsymbol x_T)$，通过下面的公式更新隐层活性值 $\boldsymbol h_t$：
+
+$$
+\boldsymbol h_t = f(\boldsymbol h_{t-1},\boldsymbol x_t)
+$$
+
+其中，$\boldsymbol h_0 = 0$，$f(\cdot)$ 是激活函数，如 $tanh$ 函数。
+
+网络结构如下图所示
+
 ![rnn](../assets/img/postsimg/20200929/1.jpg)
+
+从数学上讲，上述公式可以堪称一个动力系统，因此隐层活性值在很多文献中也称为隐状态（hidden state）。
+
+由于循环神经网络具有短期记忆能力，因此其计算能力十分强大，可以近似任意非线性动力系统（程序），相比较而言，前馈神经网络可以模拟任何连续函数。
 
 # 3. 参考文献
 
