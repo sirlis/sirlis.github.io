@@ -1,5 +1,5 @@
 ---
-title: 深度学习（模糊神经网络FNN基础）
+title: 深度学习基础（模糊神经网络）
 date: 2020-09-25 08:55:19 +0800
 categories: [Knowledge, DeepLearning]
 tags: [academic]
