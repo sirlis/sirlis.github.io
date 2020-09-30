@@ -80,23 +80,23 @@ $$
 对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
 
 $$
-L = \sum_{t=1}^T L_t = \sum_{t=1}^T \left[ - y_tln\hat y_t\right]
+L = \sum_{t=1}^T L_t = \sum_{t=1}^T \left[ - (y_tln\hat y_t +(1-y_t)ln(1-\hat y_t) ) \right]
 $$
 
-RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。首先计算比较简单的 $V,c$ 的梯度，令 $o_t = \boldsymbol V \boldsymbol h_t + \boldsymbol c$，有
+RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。首先计算比较简单的 $V,c$ 的梯度，令 $o_t = \boldsymbol V \boldsymbol h_t + \boldsymbol c$，有<sup>[[1](#ref1)]</sup>
 
 $$
 \begin{aligned}
 \frac{\partial L}{\partial c} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c} = \sum_{t=1}^T \frac{\partial L_t}{\partial \hat y_t} \frac{\partial \hat y_t}{\partial o_t} \frac{\partial o_t}{\partial c}\\
-&= \sum_{t=1}^T -\frac{y_t}{\hat y_t}softmax'\cdot 1\\
-&= \sum_{t=1}^T -\frac{y_t}{\hat y_t}\cdot \hat y_t(1-\hat y_t)\\
-&= -\sum_{t=1}^T y_t(1-\hat y_t)\\
+&= \sum_{t=1}^T -(\frac{y_t}{\hat y_t}-\frac{1-y_t}{1-\hat y_t})softmax'\cdot 1\\
+&= \sum_{t=1}^T -(\frac{y_t}{\hat y_t}-\frac{1-y_t}{1-\hat y_t})\cdot \hat y_t(1-\hat y_t)\\
+&= -\sum_{t=1}^T (\hat y_t-y_t)\\
 \frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c} = \sum_{t=1}^T \frac{\partial L_t}{\partial \hat y_t} \frac{\partial \hat y_t}{\partial o_t} \frac{\partial o_t}{\partial V}\\
-&= -\sum_{t=1}^T y_t(1-\hat y_t)h_t
+&= -\sum_{t=1}^T (\hat y_t-y_t)h_t
 \end{aligned}
 $$
 
-$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，以 $W$ 的梯度表达式为例
+$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
 
 $$
 \frac{\partial L}{\partial W} = \sum_{t=1}^T \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}
@@ -201,4 +201,6 @@ $$
 
 # 3. 参考文献
 
-<span id="ref1">[1]</span>  邱锡鹏. 《神经网络与深度学习》.
+<span id="ref1">[1]</span>  刘建平Pinard. [循环神经网络(RNN)模型与前向反向传播算法](https://www.cnblogs.com/pinard/p/6509630.html).
+
+<span id="ref2">[2]</span>  刘建平Pinard. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
