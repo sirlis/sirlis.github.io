@@ -73,6 +73,8 @@ $$
 
 有了RNN前向传播算法的基础，就容易推导出RNN反向传播算法的流程了。RNN 反向传播算法的思路和 DNN 是一样的，即通过梯度下降法一轮轮的迭代，得到合适的RNN模型参数 $U,W,V,b,c$。由于我们是**基于时间反向传播**，所以 RNN 的反向传播有时也叫做 BPTT(back-propagation through time)。当然这里的 BPTT 和 DNN 的 BP 也有很大的不同点，即这里所有的U,W,V,b,c在序列的各个位置是共享的，反向传播时我们更新的是相同的参数。
 
+![rnn](../assets/img/postsimg/20200929/5.jpg)
+
 为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。
 
 对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
