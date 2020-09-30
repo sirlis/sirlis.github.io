@@ -79,13 +79,16 @@ RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。清晰�
 
 $$
 \begin{aligned}
-z_t &= \boldsymbol U \boldsymbol h_{t-1} + \boldsymbol W \boldsymbol x_t + \boldsymbol b\\
+z_t &= \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b\\
 \boldsymbol h_t &= f(z_t)\\
 o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
 \hat \boldsymbol y_t &= g(o_t)
 \end{aligned}
 $$
 
+反向传播的形象的分析如下图所示。途中绿线是正向传播过程，红线是反向传播过程。可以看出，在输出端的 $V,c$ 参数仅与 $t$ 时刻的反向传播通路有关，因此分别求导数后求和即可。而输入端 $U,W,b$ 参数的梯度受到两个反向传播通路的影响，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
+
+![rnn](../assets/img/postsimg/20200929/6.jpg)
 
 为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
 
@@ -106,9 +109,7 @@ $$
 \end{aligned}
 $$
 
-$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，形象的分析如下图所示。途中绿线是正向传播过程，红线是反向传播过程。可以看出，在输出端的 $V,c$ 参数仅与 $t$ 时刻的反向传播通路有关，因此分别求导数后求和即可。而输入端 $U,W,b$ 参数的梯度受到两个反向传播通路的影响，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
-
-![rnn](../assets/img/postsimg/20200929/6.jpg)
+$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，
 
 以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
 
@@ -142,19 +143,19 @@ LSTM 网络的循环单元结构如下图所示
 
 $$
 \begin{aligned}
-\boldsymbol f_t &= \sigma(\boldsymbol U_f \boldsymbol h_{t-1} + \boldsymbol W_f \boldsymbol x_t + \boldsymbol b_f)=\sigma([\boldsymbol U_f, \boldsymbol W_f]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
-\boldsymbol i_t &= \sigma(\boldsymbol U_i \boldsymbol h_{t-1} + \boldsymbol W_i \boldsymbol x_t + \boldsymbol b_i)=\sigma([\boldsymbol U_i, \boldsymbol W_i]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
-\boldsymbol o_t &= \sigma(\boldsymbol U_o \boldsymbol h_{t-1} + \boldsymbol W_o \boldsymbol x_t + \boldsymbol b_o)=\sigma([\boldsymbol U_o, \boldsymbol W_o]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol f_t &= \sigma(\boldsymbol W_f \boldsymbol h_{t-1} + \boldsymbol U_f \boldsymbol x_t + \boldsymbol b_f)=\sigma([\boldsymbol W_f, \boldsymbol U_f]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol i_t &= \sigma(\boldsymbol W_i \boldsymbol h_{t-1} + \boldsymbol U_i \boldsymbol x_t + \boldsymbol b_i)=\sigma([\boldsymbol W_i, \boldsymbol U_i]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol o_t &= \sigma(\boldsymbol W_o \boldsymbol h_{t-1} + \boldsymbol U_o \boldsymbol x_t + \boldsymbol b_o)=\sigma([\boldsymbol W_o, \boldsymbol U_o]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
 \end{aligned}
 $$
 
-其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的“门”是一种“软”门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。
+其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的“门”是一种“软”门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。注意到，等式右边包含一个对 $\boldsymbol h_{t-1}$ 和 $\boldsymbol x_t$ **向量拼接**的操作，相应的参数也因此进行了拼接。
 
 相比 RNN，LSTM 引入了一个新的状态，称为细胞状态（cell state），表示为 $\boldsymbol c_t$，专门进行现行的循环信息传递，同时输出（非线性地）输出信息给隐层状态 $\boldsymbol h_t\in \mathbb R^D$。计算公式如下
 
 $$
 \begin{aligned}
-\tilde \boldsymbol c_t &= tanh(\boldsymbol U_c \boldsymbol h_{t-1} + \boldsymbol W_c \boldsymbol x_t + \boldsymbol b_c)=\sigma([\boldsymbol U_c, \boldsymbol W_c]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\tilde \boldsymbol c_t &= tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)=\sigma([\boldsymbol W_c, \boldsymbol U_c]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
 \boldsymbol c_t &= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \tilde \boldsymbol c_t\\
 \boldsymbol h_t &= \boldsymbol o_t \odot tanh(\boldsymbol c_t)
 \end{aligned}
@@ -195,10 +196,10 @@ $$
 $$
 \begin{aligned}
 \boldsymbol W &=\begin{bmatrix}
- \boldsymbol U_c & \boldsymbol W_c\\ 
- \boldsymbol U_o & \boldsymbol W_o\\
- \boldsymbol U_i & \boldsymbol W_i\\ 
- \boldsymbol U_f & \boldsymbol W_f
+ \boldsymbol W_c & \boldsymbol U_c\\ 
+ \boldsymbol W_o & \boldsymbol U_o\\
+ \boldsymbol W_i & \boldsymbol U_i\\ 
+ \boldsymbol W_f & \boldsymbol U_f
 \end{bmatrix} \in \mathbb R^{4D\times (D+M)}\\
 \boldsymbol b &= \begin{bmatrix}
  \boldsymbol b_c\\ 
