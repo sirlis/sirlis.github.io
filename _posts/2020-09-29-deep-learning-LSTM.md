@@ -15,6 +15,8 @@ math: true
 - [1. RNN](#1-rnn)
   - [1.1. 概念](#11-概念)
   - [1.2. 模型](#12-模型)
+  - [前向传播](#前向传播)
+  - [反向传播](#反向传播)
 - [2. LSTM](#2-lstm)
   - [2.1. 概念](#21-概念)
   - [2.2. 模型](#22-模型)
@@ -48,6 +50,8 @@ $$
 
 由于循环神经网络具有短期记忆能力，因此其计算能力十分强大，可以近似任意非线性动力系统（程序），相比较而言，前馈神经网络可以模拟任何连续函数。
 
+## 前向传播
+
 如果我们把每个时刻的状态都看作前馈神经网络的一层，循环神经网络可以看作在时间维度上权值共享的神经网络。一个简单的循环神经网络按时间展开后如下图所示
 
 ![rnn](../assets/img/postsimg/20200929/2.jpg)
@@ -57,13 +61,44 @@ $$
 $$
 \begin{aligned}
 \boldsymbol h_t &= f(\boldsymbol U \boldsymbol h_{t-1} + \boldsymbol W \boldsymbol x_t + \boldsymbol b)\\
-\boldsymbol y_t &= g(\boldsymbol V \boldsymbol h_t)
+\boldsymbol y_t &= g(\boldsymbol V \boldsymbol h_t + \boldsymbol c)
 \end{aligned}
 $$
 
 其中 $\boldsymbol U \in \mathbb R^{D\times D}$ 是状态-状态权重矩阵，$\boldsymbol W \in \mathbb R^{D\times M}$ 是状态-输入权重矩阵，$\boldsymbol b \in \mathbb R^D$ 是偏置向量，$\boldsymbol V \in \mathbb R^{N\times D}$ 是状态-输出权重矩阵，$f(\cdot)$ 是激活函数，如 $sigmoid$ 或 $tanh$ 函数，$g(\cdot)$ 也是激活函数，如 $softmax$ 或 $purlin$ 函数。
 
-注意到，第二个方程的具体形式与模型的具体使用方式有关。
+注意到，第二个方程的具体形式与模型的具体使用方式有关，比如其中的常数项 $\boldsymbol c$ 的有无，激活函数的选取等。
+
+## 反向传播
+
+有了RNN前向传播算法的基础，就容易推导出RNN反向传播算法的流程了。RNN 反向传播算法的思路和 DNN 是一样的，即通过梯度下降法一轮轮的迭代，得到合适的RNN模型参数 $U,W,V,b,c$。由于我们是**基于时间反向传播**，所以 RNN 的反向传播有时也叫做 BPTT(back-propagation through time)。当然这里的 BPTT 和 DNN 的 BP 也有很大的不同点，即这里所有的U,W,V,b,c在序列的各个位置是共享的，反向传播时我们更新的是相同的参数。
+
+为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。
+
+对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
+
+$$
+L = \sum_{t=1}^T L_t = \sum_{t=1}^T \left[ - y_tln\hat y_t\right]
+$$
+
+RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。首先计算比较简单的 $V,c$ 的梯度，令 $o_t = \boldsymbol V \boldsymbol h_t + \boldsymbol c$，有
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial c} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c} = \sum_{t=1}^T \frac{\partial L_t}{\partial \hat y_t} \frac{\partial \hat y_t}{\partial o_t} \frac{\partial o_t}{\partial c}\\
+&= \sum_{t=1}^T -\frac{y_t}{\hat y_t}softmax'\cdot 1\\
+&= \sum_{t=1}^T -\frac{y_t}{\hat y_t}\cdot \hat y_t(1-\hat y_t)\\
+&= -\sum_{t=1}^T y_t(1-\hat y_t)\\
+\frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c} = \sum_{t=1}^T \frac{\partial L_t}{\partial \hat y_t} \frac{\partial \hat y_t}{\partial o_t} \frac{\partial o_t}{\partial V}\\
+&= -\sum_{t=1}^T y_t(1-\hat y_t)h_t
+\end{aligned}
+$$
+
+$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，以 $W$ 的梯度表达式为例
+
+$$
+\frac{\partial L}{\partial W} = \sum_{t=1}^T \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}
+$$
 
 # 2. LSTM
 
