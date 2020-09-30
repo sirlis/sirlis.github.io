@@ -75,15 +75,25 @@ $$
 
 ![rnn](../assets/img/postsimg/20200929/5.jpg)
 
-为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。
+RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。清晰起见，我们将前向传播过程整理如下
 
-对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
+$$
+\begin{aligned}
+z_t &= \boldsymbol U \boldsymbol h_{t-1} + \boldsymbol W \boldsymbol x_t + \boldsymbol b\\
+\boldsymbol h_t &= f(z_t)\\
+o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
+\hat \boldsymbol y_t &= g(o_t)
+\end{aligned}
+$$
+
+
+为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
 
 $$
 L = \sum_{t=1}^T L_t = \sum_{t=1}^T \left[ - (y_tln\hat y_t +(1-y_t)ln(1-\hat y_t) ) \right]
 $$
 
-RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。首先计算比较简单的 $V,c$ 的梯度，令 $o_t = \boldsymbol V \boldsymbol h_t + \boldsymbol c$，有<sup>[[1](#ref1)]</sup>
+首先计算比较简单的 $V,c$ 的梯度，有<sup>[[1](#ref1)]</sup>
 
 $$
 \begin{aligned}
@@ -96,7 +106,11 @@ $$
 \end{aligned}
 $$
 
-$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
+$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，形象的分析如下图所示。可以看出，在输出端的 $V,c$ 参数仅与 $t$ 时刻的反向传播通路有关，因此分别求导数后求和即可。而输入端 $U,W,b$ 参数的梯度受到两个反向传播通路的影响，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
+
+![rnn](../assets/img/postsimg/20200929/6.jpg)
+
+以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
 
 $$
 \frac{\partial L}{\partial W} = \sum_{t=1}^T \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}
