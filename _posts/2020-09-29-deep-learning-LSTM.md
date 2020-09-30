@@ -96,7 +96,7 @@ $$
 L = \sum_{t=1}^T L_t = \sum_{t=1}^T \left[ - (y_tln\hat y_t +(1-y_t)ln(1-\hat y_t) ) \right]
 $$
 
-首先计算比较简单的 $V,c$ 的梯度，有<sup>[[1](#ref1)]</sup>
+首先计算比较简单的 $V,c$ 的梯度，简化起见，不再对参数进行加粗，后文的 1 应为单位阵（？应该是对角元素i=j时才为1的one-hot矩阵）。有<sup>[[1](#ref1)]</sup>
 
 $$
 \begin{aligned}
