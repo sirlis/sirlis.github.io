@@ -79,8 +79,8 @@ RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。清晰�
 
 $$
 \begin{aligned}
-z_t &= \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b\\
-\boldsymbol h_t &= f(z_t)\\
+a_t &= \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b\\
+\boldsymbol h_t &= f(a_t)\\
 o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
 \hat \boldsymbol y_t &= g(o_t)
 \end{aligned}
@@ -109,12 +109,22 @@ $$
 \end{aligned}
 $$
 
-$U,W,b$ 的梯度计算就比较复杂了，因为它们涉及到历史记忆信息 $h_t$，
+$U,W,b$ 的梯度计算就比较复杂了，误差传播源来自于两个反向传播通路的方向，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
 
-以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
+首先写出最后一个时刻（$t=T$ 时刻）的 $\boldsymbol W$ 的梯度
 
 $$
-\frac{\partial L}{\partial W} = \sum_{t=1}^T \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}
+\frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial W}
+$$
+
+再写出倒数第二个时刻（$t=T-1$ 时刻）的 $\boldsymbol W$ 的梯度
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial W} &= \frac{\partial L_T}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}
++\frac{\partial L_{T-1}}{\partial \hat y_{T-1}} \frac{\partial \hat y_{T-1}}{\partial o_{T-1}} \frac{\partial o_{T-1}}{\partial h_{T-1}} \frac{\partial h_{T-1}}{\partial W}\\
+&=\sum_{t=1}^T \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}\\
+\end{aligned}
 $$
 
 # 2. LSTM
