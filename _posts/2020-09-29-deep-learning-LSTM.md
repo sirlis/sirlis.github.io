@@ -145,7 +145,7 @@ x_n\\
 \partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n) &
 \cdots &
 \partial (A_{m1}x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n)\\
-\end{bmatrix}/\partial \boldsymbol x\quad <row>\\
+\end{bmatrix}/\partial \boldsymbol x\quad <row!>\\
 &= \begin{bmatrix}
 \partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n)/\partial \boldsymbol x &
 \cdots &
