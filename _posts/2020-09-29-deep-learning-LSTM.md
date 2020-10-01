@@ -114,7 +114,7 @@ $$
 
 $U,W,b$ 的梯度计算就比较复杂了，误差传播源来自于两个反向传播通路的方向，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
 
-在进一步求解前，首先要考虑矩阵对向量求导的布局。假定 $\boldsymbol {Vh}_t$ 的结果是**列**向量，而 $\boldsymbol h_t$ 也是**列**向量，根据布局约定（layout conventions），谁是列向量就是什么布局<sup>[[2](#ref2)]</sup>：
+在进一步求解前，首先要考虑矩阵对向量求导的布局。根据布局约定（layout conventions），谁是列向量就是什么布局<sup>[[2](#ref2)]</sup>：
 
 - 分子布局（numerator layout）： 分子为列向量且分母为行向量 
 - 分母布局（denominator layout）：分子为行向量且分母为列向量
@@ -173,10 +173,10 @@ A_{1n} &A_{2n}&\cdots&A_{mn}\\
 \end{aligned}
 $$
 
-那么我们可以先计算最后时刻 $t=T$ 的隐层梯度
+那么我们可以先计算最后时刻 $t=T$ 的隐层梯度（分母布局链式法则方向相反）
 
 $$
-\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T}\frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T}
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T} \cdot \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T}
 $$
 
 前面求 $\boldsymbol V, \boldsymbol c$ 的梯度时已经求出
@@ -185,6 +185,11 @@ $$
 \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T} = \hat \boldsymbol y_T-\boldsymbol y_T
 $$
 
+假定 $\boldsymbol {Vh}_T$ 的结果是**列**向量，而 $\boldsymbol h_T$ 也是**列**向量，根据分母布局，有
+
+$$
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T} (\hat \boldsymbol y_T-\boldsymbol y_T) = \frac{\partial \boldsymbol {Vh}_T}{\partial \boldsymbol h_T} (\hat \boldsymbol y_T-\boldsymbol y_T)= \boldsymbol V^T(\hat \boldsymbol y_T-\boldsymbol y_T)
+$$
 
 
 以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
