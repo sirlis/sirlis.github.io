@@ -235,29 +235,75 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial \boldsymbol L}{\partial \boldsymbol b} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol b}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \boldsymbol I\cdot diag(1-h_t^2)\nabla_{h_t}L
+\frac{\partial \boldsymbol L}{\partial \boldsymbol b} &= \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol b}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \boldsymbol I\cdot diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L\\
+\frac{\partial \boldsymbol L}{\partial \boldsymbol W} &= \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\cdot diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L\\
+\frac{\partial \boldsymbol L}{\partial \boldsymbol U} &= \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\cdot diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L
 \end{aligned}
 $$
 
-$$
-\begin{aligned}
-\frac{\partial \boldsymbol L}{\partial \boldsymbol W} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\cdot diag(1-h_t^2)\nabla_{h_t}L
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-\frac{\partial \boldsymbol L}{\partial \boldsymbol U} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\cdot diag(1-h_t^2)\nabla_{h_t}L
-\end{aligned}
-$$
-
-因为
+对于 $\boldsymbol W$ 和 $\boldsymbol U$，需要进一步分析 $\boldsymbol a$ 对矩阵 $\boldsymbol W, \boldsymbol U$ 的偏导。因为
 
 $$
 \boldsymbol a_t = \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b
 $$
 
+以 $\boldsymbol a$ 对 $\boldsymbol W$ 的偏导为例，采用分母布局，即求导过程中的分母 $\boldsymbol W$ 保持为正常矩阵形式，而对分子中的 $\boldsymbol W \boldsymbol h$ 按行向量展开，有
 
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol a}{\partial \boldsymbol W} &= \frac{\partial \boldsymbol W \boldsymbol h}{\partial \boldsymbol W}=\partial
+\begin{bmatrix}
+w_{11}&w_{12}&\cdots&w_{1D}\\
+w_{21}&w_{22}&\cdots&w_{2D}\\
+\vdots&\vdots&\ddots&\vdots\\
+w_{D1}&w_{D2}&\cdots&w_{DD}
+\end{bmatrix}
+\begin{bmatrix}
+h_1\\
+h_2\\
+\vdots\\
+h_D
+\end{bmatrix}/ \partial \boldsymbol W\\
+&=\begin{bmatrix}
+w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D\\
+w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D\\
+\vdots\\
+w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D\\
+\end{bmatrix}^T/ \partial \boldsymbol W \quad <row!>\\
+&=\begin{bmatrix}
+(w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D)/\partial w_{11}&(w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D)/\partial w_{12}&\cdots&(w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D)/\partial w_{1D}\\
+(w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D)/\partial w_{21}&(w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D)/\partial w_{22}&\cdots&(w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D)/\partial w_{2D}\\
+\vdots&\vdots&\ddots&\vdots\\
+(w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D)/\partial w_{D1}&(w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D)/\partial w_{D2}&\cdots&(w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D)/\partial w_{DD}
+\end{bmatrix}\\
+&=\begin{bmatrix}
+h_1&0&\cdots&0\\
+0&h_2&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&h_D
+\end{bmatrix}=diag (h^T)
+\end{aligned}
+$$
+
+对 $\boldsymbol U$ 的求导同理，最终有
+
+$$
+\frac{\partial \boldsymbol a_t}{\partial \boldsymbol W} = diag(h_{t-1}^T)
+\quad\quad\quad \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U} = diag(x_t^T)
+$$
+
+其中 $\boldsymbol h_t \in \mathbb R^D,\boldsymbol x_t \in \mathbb R^M$ 是列向量。
+
+带入上面的$\boldsymbol W,\boldsymbol U,\boldsymbol b$ 的梯度表达式，有
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol L}{\partial \boldsymbol W} &= \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t diag (h_{t-1}^T)\cdot diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L = \sum_t \cdot diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L \cdot \boldsymbol h_{t-1}^T\\
+\frac{\partial \boldsymbol L}{\partial \boldsymbol U} &= \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t diag (x^T)\cdot diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L = \sum_t diag(1-h_t^2)\nabla_{\boldsymbol h_t}\boldsymbol L \cdot \boldsymbol x^T
+\end{aligned}
+$$
+
+与参考链接 [[6](#ref6)]，[[7](#ref7)] 的结果相同。
 
 # 2. LSTM
 
@@ -360,8 +406,14 @@ $$
 
 <span id="ref1">[1]</span>  刘建平Pinard. [循环神经网络(RNN)模型与前向反向传播算法](https://www.cnblogs.com/pinard/p/6509630.html).
 
-<span id="ref3">[2]</span>  维基百科. [矩阵微积分-布局约定](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)
+<span id="ref2">[2]</span>  维基百科. [矩阵微积分-布局约定](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)
 
-<span id="ref4">[3]</span> 仙守. [数学-矩阵计算（4）两种布局](https://blog.csdn.net/shouhuxianjian/article/details/46669365)
+<span id="ref3">[3]</span> 仙守. [数学-矩阵计算（4）两种布局](https://blog.csdn.net/shouhuxianjian/article/details/46669365)
 
-<span id="ref2">[4]</span>  谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
+<span id="ref4">[4]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
+
+<span id="ref5">[5]</span> thinkando. [机器学习中的矩阵、向量求导](https://www.jianshu.com/p/2da10b181c59)
+
+<span id="ref6">[6]</span> Leo蓝色. [RNN正向及反向传播](https://www.jianshu.com/p/43b7a927ae34)
+
+<span id="ref7">[7]</span> 小米粥. [RNN的反向传播-BPTT]()
