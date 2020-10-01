@@ -119,7 +119,14 @@ $U,W,b$ 的梯度计算就比较复杂了，误差传播源来自于两个反向
 - 分子布局（numerator layout）： 分子为列向量且分母为行向量 
 - 分母布局（denominator layout）：分子为行向量且分母为列向量
 
-二者使用完全依据习惯而定，二者结果之间差一个转置。这里讨论了两种布局下的优劣（https://www.zhihu.com/question/352174717 ）。需要注意的是，分母布局下，求导的链式法则是反过来的
+二者使用完全依据习惯而定，二者结果之间差一个转置。这里讨论了两种布局下的优劣（https://www.zhihu.com/question/352174717 ）。需要注意的是，分母布局下，求导的链式法则的顺序是反向的，假设 $\boldsymbol u = \boldsymbol u(\boldsymbol x)$，那么
+
+$$
+\frac{\partial \boldsymbol f(\boldsymbol g(\boldsymbol u)}{\partial \boldsymbol x}
+= \frac{\partial \boldsymbol u}{\partial \boldsymbol x}
+\frac{\partial \boldsymbol g}{\partial \boldsymbol u}
+\frac{\partial \boldsymbol f}{\partial \boldsymbol g}
+$$
 
 <!-- ![layout](../assets/img/postsimg/20200929/2.5.jpg) -->
 
@@ -166,7 +173,17 @@ A_{1n} &A_{2n}&\cdots&A_{mn}\\
 \end{aligned}
 $$
 
-那么
+那么我们可以先计算最后时刻 $t=T$ 的隐层梯度
+
+$$
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T}\frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T}
+$$
+
+前面求 $\boldsymbol V, \boldsymbol c$ 的梯度时已经求出
+
+$$
+\frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T} = \hat \boldsymbol y_T-\boldsymbol y_T
+$$
 
 
 
