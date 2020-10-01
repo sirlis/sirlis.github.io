@@ -119,14 +119,7 @@ $U,W,b$ 的梯度计算就比较复杂了，误差传播源来自于两个反向
 - 分子布局（numerator layout）： 分子为列向量且分母为行向量 
 - 分母布局（denominator layout）：分子为行向量且分母为列向量
 
-二者使用完全依据习惯而定，二者结果之间差一个转置。这里讨论了两种布局下的优劣（https://www.zhihu.com/question/352174717 ）。需要注意的是，分母布局下，求导的链式法则的顺序是反向的，假设 $\boldsymbol u = \boldsymbol u(\boldsymbol x)$，那么
-
-$$
-\frac{\partial \boldsymbol f(\boldsymbol g(\boldsymbol u)}{\partial \boldsymbol x}
-= \frac{\partial \boldsymbol u}{\partial \boldsymbol x}
-\frac{\partial \boldsymbol g}{\partial \boldsymbol u}
-\frac{\partial \boldsymbol f}{\partial \boldsymbol g}
-$$
+二者使用完全依据习惯而定，二者结果之间差一个转置。这里讨论了两种布局下的优劣（https://www.zhihu.com/question/352174717 ）。
 
 <!-- ![layout](../assets/img/postsimg/20200929/2.5.jpg) -->
 
@@ -173,26 +166,96 @@ A_{1n} &A_{2n}&\cdots&A_{mn}\\
 \end{aligned}
 $$
 
-那么我们可以先计算最后时刻 $t=T$ 的隐层梯度（分母布局链式法则方向相反）
+需要注意的是，分母布局下，求导的链式法则的顺序是反向的，假设 $\boldsymbol u = \boldsymbol u(\boldsymbol x)$，那么
 
 $$
-\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T} \cdot \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T}
+\frac{\partial \boldsymbol f(\boldsymbol g(\boldsymbol u)}{\partial \boldsymbol x}
+= \frac{\partial \boldsymbol u}{\partial \boldsymbol x}
+\frac{\partial \boldsymbol g}{\partial \boldsymbol u}
+\frac{\partial \boldsymbol f}{\partial \boldsymbol g}
+$$
+
+我们先计算最后时刻 $t=T$ 的隐层梯度（分母布局链式法则方向相反）
+
+$$
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T} \frac{\partial \boldsymbol L}{\partial \boldsymbol o_T}
 $$
 
 前面求 $\boldsymbol V, \boldsymbol c$ 的梯度时已经求出
 
 $$
-\frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T} = \hat \boldsymbol y_T-\boldsymbol y_T
+\frac{\partial \boldsymbol L}{\partial \boldsymbol o_T} = \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T} = \hat \boldsymbol y_T-\boldsymbol y_T = \nabla_{\boldsymbol o_T}\boldsymbol L
 $$
 
 假定 $\boldsymbol {Vh}_T$ 的结果是**列**向量，而 $\boldsymbol h_T$ 也是**列**向量，根据分母布局，有
 
 $$
-\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T} (\hat \boldsymbol y_T-\boldsymbol y_T) = \frac{\partial \boldsymbol {Vh}_T}{\partial \boldsymbol h_T} (\hat \boldsymbol y_T-\boldsymbol y_T)= \boldsymbol V^T(\hat \boldsymbol y_T-\boldsymbol y_T)
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_T} = \frac{\partial \boldsymbol o_T}{\partial \boldsymbol h_T} \nabla_{\boldsymbol o_T}\boldsymbol L = \frac{\partial \boldsymbol {Vh}_T}{\partial \boldsymbol h_T} \nabla_{\boldsymbol o_T}\boldsymbol L= \boldsymbol V^T\nabla_{\boldsymbol o_T}\boldsymbol L
 $$
 
+对于 $T$ 时刻之前的任意时刻 $t$，根据迭代关系，$\boldsymbol h_t$ 与 $\boldsymbol o_t$ 和 $\boldsymbol h_{t+1}$ 均有关，即
 
-以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
+$$
+\begin{aligned}
+\boldsymbol h_{t+1} &= f(\boldsymbol a_{t+1}) =f(\boldsymbol W \boldsymbol h_t + \boldsymbol U \boldsymbol x_{t+1} + \boldsymbol b)\\
+\boldsymbol o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
+\end{aligned}
+$$
+
+那么有（分母布局链式法则方向相反）
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t}&=\frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol h_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + \frac{\partial \boldsymbol o_t}{\partial \boldsymbol h_t}\frac{\partial \boldsymbol L_t}{\partial \boldsymbol o_t}\\
+&=\frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol h_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
+\end{aligned}
+$$
+
+若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么
+
+$$
+\frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = tanh'(\boldsymbol a_{t+1}) = diag(1-tanh(a_{t+1})^2) = diag(1-h_{t+1}^2)
+$$
+
+其中 $diag$ 为对角线矩阵。那么
+
+$$
+\frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol h_t} = \frac{\partial \boldsymbol a_{t+1}}{\partial \boldsymbol h_t} \frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = W^T diag(1-h_{t+1}^2)
+$$
+
+带回隐层梯度公式有
+
+$$
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = W^T diag(1- h_{t+1}^2)\cdot\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + V^T(\hat \boldsymbol y_T-\boldsymbol y_T) = \nabla_{\boldsymbol h_t}\boldsymbol L
+$$
+
+也即隐层梯度可以采用递归的方式求解。
+
+下面即可写出 $\boldsymbol W,\boldsymbol U,\boldsymbol b$ 的梯度表达式（分母布局链式法则方向相反）
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol L}{\partial \boldsymbol b} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol b}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \boldsymbol I\cdot diag(1-h_t^2)\nabla_{h_t}L
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol L}{\partial \boldsymbol W} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol W}\cdot diag(1-h_t^2)\nabla_{h_t}L
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol L}{\partial \boldsymbol U} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\frac{\partial \boldsymbol h_t}{\partial \boldsymbol a_t}\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \sum_t \frac{\partial \boldsymbol a_t}{\partial \boldsymbol U}\cdot diag(1-h_t^2)\nabla_{h_t}L
+\end{aligned}
+$$
+
+因为
+
+$$
+\boldsymbol a_t = \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b
+$$
 
 
 
