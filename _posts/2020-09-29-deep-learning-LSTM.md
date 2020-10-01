@@ -79,10 +79,10 @@ RNN反向传播过程中，需要计算 $U,W,V,b,c$ 等参数的梯度。清晰�
 
 $$
 \begin{aligned}
-a_t &= \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b\\
-\boldsymbol h_t &= f(a_t)\\
-o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
-\hat \boldsymbol y_t &= g(o_t)
+\boldsymbol a_t &= \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b\\
+\boldsymbol h_t &= f(\boldsymbol a_t)\\
+\boldsymbol o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
+\hat \boldsymbol y_t &= g(\boldsymbol o_t)
 \end{aligned}
 $$
 
@@ -93,39 +93,86 @@ $$
 为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
 
 $$
-L = \sum_{t=1}^T L_t = \sum_{t=1}^T \left[ - (y_tln\hat y_t +(1-y_t)ln(1-\hat y_t) ) \right]
+\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - (\boldsymbol y_t ln\hat \boldsymbol y_t +(\boldsymbol 1_i-\boldsymbol y_t)ln(\boldsymbol 1_i-\hat \boldsymbol y_t) ) \right]
 $$
+其中, $\boldsymbol 1_i$ 表示第 $i$ 维为1，其余维为0的向量。
 
-首先计算比较简单的 $V,c$ 的梯度，简化起见，不再对参数进行加粗，后文的 1 应为单位阵（？应该是对角元素i=j时才为1的one-hot矩阵）。有<sup>[[1](#ref1)]</sup>
-
-$$
-\begin{aligned}
-\frac{\partial L}{\partial c} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c} = \sum_{t=1}^T \frac{\partial L_t}{\partial \hat y_t} \frac{\partial \hat y_t}{\partial o_t} \frac{\partial o_t}{\partial c}\\
-&= \sum_{t=1}^T -(\frac{y_t}{\hat y_t}-\frac{1-y_t}{1-\hat y_t})softmax'\cdot 1\\
-&= \sum_{t=1}^T -(\frac{y_t}{\hat y_t}-\frac{1-y_t}{1-\hat y_t})\cdot \hat y_t(1-\hat y_t)\\
-&= -\sum_{t=1}^T (\hat y_t-y_t)\\
-\frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c} = \sum_{t=1}^T \frac{\partial L_t}{\partial \hat y_t} \frac{\partial \hat y_t}{\partial o_t} \frac{\partial o_t}{\partial V}\\
-&= -\sum_{t=1}^T (\hat y_t-y_t)h_t
-\end{aligned}
-$$
-
-$U,W,b$ 的梯度计算就比较复杂了，误差传播源来自于两个反向传播通路的方向，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
-
-首先写出最后一个时刻（$t=T$ 时刻）的 $\boldsymbol W$ 的梯度
-
-$$
-\frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial W}
-$$
-
-再写出倒数第二个时刻（$t=T-1$ 时刻）的 $\boldsymbol W$ 的梯度
+首先计算比较简单的 $V,c$ 的梯度。在输出端的 $V,c$ 参数仅与 $t$ 时刻的反向传播通路有关，因此分别求导数后求和即可，有<sup>[[1](#ref1)]</sup>
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial W} &= \frac{\partial L_T}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}
-+\frac{\partial L_{T-1}}{\partial \hat y_{T-1}} \frac{\partial \hat y_{T-1}}{\partial o_{T-1}} \frac{\partial o_{T-1}}{\partial h_{T-1}} \frac{\partial h_{T-1}}{\partial W}\\
-&=\sum_{t=1}^T \frac{\partial L}{\partial \hat y_T} \frac{\partial \hat y_T}{\partial o_T} \frac{\partial o_T}{\partial h_T} \frac{\partial h_T}{\partial h_t} \frac{\partial h_t}{\partial W}\\
+\frac{\partial L}{\partial \boldsymbol c} &= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \boldsymbol c}
+= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
+&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t}-\frac{\boldsymbol 1_i-\boldsymbol y_t}{\boldsymbol 1_i-\hat \boldsymbol y_t})softmax'\cdot \boldsymbol I\\
+&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t}-\frac{\boldsymbol 1_i-\boldsymbol y_t}{\boldsymbol 1_i-\hat \boldsymbol y_t})\cdot \hat \boldsymbol y_t(\boldsymbol 1_i -\hat \boldsymbol y_t)\\
+&= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\\
+\frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c}
+= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
+&= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\boldsymbol h_t
 \end{aligned}
 $$
+
+$U,W,b$ 的梯度计算就比较复杂了，误差传播源来自于两个反向传播通路的方向，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
+
+在进一步求解前，首先要考虑矩阵对向量求导的布局。假定 $\boldsymbol {Vh}_t$ 的结果是**列**向量，而 $\boldsymbol h_t$ 也是**列**向量，根据布局约定（layout conventions），谁是列向量就是什么布局<sup>[[2](#ref2)]</sup>：
+
+- 分子布局（numerator layout）： 分子为列向量且分母为行向量 
+- 分母布局（denominator layout）：分子为行向量且分母为列向量
+
+二者使用完全依据习惯而定，二者结果之间差一个转置。这里讨论了两种布局下的优劣（https://www.zhihu.com/question/352174717 ）。需要注意的是，分母布局下，求导的链式法则是反过来的
+
+<!-- ![layout](../assets/img/postsimg/20200929/2.5.jpg) -->
+
+
+如果我们采用分母布局（https://www.pianshen.com/article/5516168061/ ），即分子按行向量展开，那么有
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol {Ax}}{\partial \boldsymbol x} &= \partial
+\begin{bmatrix}
+A_{11} &A_{12}&\cdots&A_{1n}\\
+A_{21} &A_{22}&\cdots&A_{2n}\\
+\vdots &\vdots&\ddots&\vdots\\
+A_{m1} &A_{n2}&\cdots&A_{mn}\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2\\
+\vdots\\
+x_n\\
+\end{bmatrix} / \partial \boldsymbol x\\
+&= \begin{bmatrix}
+\partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n) &
+\cdots &
+\partial (A_{m1}x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n)\\
+\end{bmatrix}/\partial \boldsymbol x\quad <row>\\
+&= \begin{bmatrix}
+\partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n)/\partial \boldsymbol x &
+\cdots &
+\partial (A_{m1}x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n)/\partial \boldsymbol x\\
+\end{bmatrix}\\
+&= \begin{bmatrix}
+\partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n)/\partial x_1 & \cdots & \partial (A_{m1}x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n)/\partial x_1\\
+\partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n)/\partial x_2 & \cdots & \partial (A_{m1}x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n)/\partial x_2\\
+\vdots & \cdots & \vdots\\
+\partial (A_{11}x_1 + A_{12} x_2 + \cdots + A_{1n} x_n)/\partial x_n & \cdots & \partial (A_{m1}x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n)/\partial x_n\\
+\end{bmatrix}\\
+&=\begin{bmatrix}
+A_{11} &A_{21}&\cdots&A_{m1}\\
+A_{12} &A_{22}&\cdots&A_{m2}\\
+\vdots &\vdots&\ddots&\vdots\\
+A_{1n} &A_{2n}&\cdots&A_{mn}\\
+\end{bmatrix} = \boldsymbol A^T
+\end{aligned}
+$$
+
+那么
+
+
+
+以 $W$ 的梯度表达式为例<sup>[[2](#ref2)]</sup>
+
+
 
 # 2. LSTM
 
@@ -228,4 +275,8 @@ $$
 
 <span id="ref1">[1]</span>  刘建平Pinard. [循环神经网络(RNN)模型与前向反向传播算法](https://www.cnblogs.com/pinard/p/6509630.html).
 
-<span id="ref2">[2]</span>  刘建平Pinard. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
+<span id="ref3">[2]</span>  维基百科. [矩阵微积分-布局约定](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)
+
+<span id="ref4">[3]</span> 仙守. [数学-矩阵计算（4）两种布局](https://blog.csdn.net/shouhuxianjian/article/details/46669365)
+
+<span id="ref2">[4]</span>  谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
