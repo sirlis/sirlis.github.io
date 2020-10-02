@@ -17,6 +17,7 @@ math: true
   - [1.2. 模型](#12-模型)
   - [1.3. 前向传播](#13-前向传播)
   - [1.4. 反向传播](#14-反向传播)
+  - [梯度消失](#梯度消失)
 - [2. LSTM](#2-lstm)
   - [2.1. 概念](#21-概念)
   - [2.2. 模型](#22-模型)
@@ -211,7 +212,7 @@ $$
 \end{aligned}
 $$
 
-若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么
+若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么（为何此处为 $diag$ 待查阅）
 
 $$
 \frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = tanh'(\boldsymbol a_{t+1}) = diag(1-tanh(a_{t+1})^2) = diag(1-h_{t+1}^2)
@@ -226,10 +227,16 @@ $$
 带回隐层梯度公式有
 
 $$
-\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = W^T diag(1- h_{t+1}^2)\cdot\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + V^T(\hat \boldsymbol y_T-\boldsymbol y_T) = \nabla_{\boldsymbol h_t}\boldsymbol L
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L = \nabla_{\boldsymbol h_t}\boldsymbol L
 $$
 
-也即隐层梯度可以采用递归的方式求解。
+稍作整理有
+
+$$
+\nabla_{\boldsymbol h_t}\boldsymbol L = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
+$$
+
+可以看出，隐层梯度可以采用递归的方式求解。
 
 下面即可写出 $\boldsymbol W,\boldsymbol U,\boldsymbol b$ 的梯度表达式（分母布局链式法则方向相反）
 
@@ -304,6 +311,41 @@ $$
 $$
 
 与参考链接 [[6](#ref6)]，[[7](#ref7)] 的结果相同。
+
+## 梯度消失
+
+RNN 存在时间维度上的梯度消失问题。
+
+为了具体解释梯度消失的原因，首先将前面推导出来的 $\boldsymbol L$ 对隐层 $\boldsymbol h$ 的梯度递推过程列写如下
+
+$$
+\nabla_{\boldsymbol h_t}\boldsymbol L = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
+$$
+
+注意到，$diag(1- h_{t+1}^2) = tanh(\boldsymbol h_{t+1})'$，那么上式可以改写为
+
+$$
+\nabla_{\boldsymbol h_t}\boldsymbol L = \boldsymbol W^T tanh(\boldsymbol h_{t+1})'\cdot\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
+$$
+
+那么
+
+$$
+\begin{aligned}
+\nabla_{\boldsymbol h_{t-1}}\boldsymbol L &= \boldsymbol W^T tanh(h_{t})'\cdot\nabla_{\boldsymbol h_{t}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_{t-1}}\boldsymbol L\\
+&=\boldsymbol W^T tanh(h_{t})'\cdot (\boldsymbol W^T tanh(\boldsymbol h_{t+1})'\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L) + \boldsymbol V^T\nabla_{\boldsymbol o_{t-1}}\boldsymbol L\\
+&=\boldsymbol W^T tanh(h_{t})'\cdot (\boldsymbol W^T tanh(\boldsymbol h_{t+1})'\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L) + \boldsymbol V^T\nabla_{\boldsymbol o_{t-1}}\boldsymbol L\\
+&=\boldsymbol W^T tanh(h_{t})'\cdot (\boldsymbol W^T tanh(\boldsymbol h_{t+1})'\cdots(\boldsymbol W^T tanh(\boldsymbol h_T)'\cdots) + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L) + \boldsymbol V^T\nabla_{\boldsymbol o_{t-1}}\boldsymbol L\\
+\end{aligned}
+$$
+
+可以看出，随着递推到较早时刻的隐层梯度，其中包含的 $tanh'$ 项越来越多
+
+对 $tanh$ 函数及其导数进行画图如下
+
+![tanh](../assets/img/postsimg/20200929/7.jpg)
+
+可以看出，由于 $tanh$ 函数的导数值域在 $(0,1)$ 之间，对于训练过程大部分情况下 $tanh$ 的导数是小于 1 的，因此
 
 # 2. LSTM
 
