@@ -17,7 +17,8 @@ math: true
   - [1.2. 模型](#12-模型)
   - [1.3. 前向传播](#13-前向传播)
   - [1.4. 反向传播](#14-反向传播)
-  - [梯度消失](#梯度消失)
+  - [1.5. 梯度消失](#15-梯度消失)
+  - [1.6. 梯度爆炸](#16-梯度爆炸)
 - [2. LSTM](#2-lstm)
   - [2.1. 概念](#21-概念)
   - [2.2. 模型](#22-模型)
@@ -278,10 +279,10 @@ w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D\\
 w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D\\
 \end{bmatrix}^T/ \partial \boldsymbol W \quad <row!>\\
 &=\begin{bmatrix}
-(w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D)/\partial w_{11}&(w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D)/\partial w_{12}&\cdots&(w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D)/\partial w_{1D}\\
-(w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D)/\partial w_{21}&(w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D)/\partial w_{22}&\cdots&(w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D)/\partial w_{2D}\\
+(w_{11}h_1+w_{12}h_2\cdots+w_{1D}h_D)/\partial w_{11}&(w_{21}h_1+w_{22}h_2\cdots+w_{2D}h_D)/\partial w_{12}&\cdots&(w_{D1}h_1+w_{D2}h_2\cdots+w_{DD}h_D)/\partial w_{1D}\\
+(w_{11}h_1+w_{12}h_2\cdots+w_{1D}h_D)/\partial w_{21}&(w_{21}h_1+w_{22}h_2\cdots+w_{2D}h_D)/\partial w_{22}&\cdots&(w_{D1}h_1+w_{D2}h_2\cdots+w_{DD}h_D)/\partial w_{2D}\\
 \vdots&\vdots&\ddots&\vdots\\
-(w_{11}h_1+w_{12}h_2+\cdots+w_{1D}h_D)/\partial w_{D1}&(w_{21}h_1+w_{22}h_2+\cdots+w_{2D}h_D)/\partial w_{D2}&\cdots&(w_{D1}h_1+w_{D2}h_2+\cdots+w_{DD}h_D)/\partial w_{DD}
+(w_{11}h_1+w_{12}h_2\cdots+w_{1D}h_D)/\partial w_{D1}&(w_{21}h_1+w_{22}h_2\cdots+w_{2D}h_D)/\partial w_{D2}&\cdots&(w_{D1}h_1+w_{D2}h_2\cdots+w_{DD}h_D)/\partial w_{DD}
 \end{bmatrix}\\
 &=\begin{bmatrix}
 h_1&0&\cdots&0\\
@@ -312,11 +313,11 @@ $$
 
 与参考链接 [[6](#ref6)]，[[7](#ref7)] 的结果相同。
 
-## 梯度消失
+## 1.5. 梯度消失
 
 RNN 存在时间维度上的梯度消失问题。
 
-为了具体解释梯度消失的原因，首先将前面推导出来的 $\boldsymbol L$ 对隐层 $\boldsymbol h$ 的梯度递推过程列写如下
+为了具体解释梯度消失的原因，首先将前面推导出来的 $t$ 时刻的 $\boldsymbol L$ 对隐层 $\boldsymbol h$ 的梯度递推过程列写如下
 
 $$
 \nabla_{\boldsymbol h_t}\boldsymbol L = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
@@ -328,7 +329,7 @@ $$
 \nabla_{\boldsymbol h_t}\boldsymbol L = \boldsymbol W^T tanh(\boldsymbol h_{t+1})'\cdot\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
 $$
 
-那么
+那么，对于 $t-1$ 时刻
 
 $$
 \begin{aligned}
@@ -339,13 +340,16 @@ $$
 \end{aligned}
 $$
 
-可以看出，随着递推到较早时刻的隐层梯度，其中包含的 $tanh'$ 项越来越多
-
-对 $tanh$ 函数及其导数进行画图如下
+可以看出，随着递推到较早时刻的隐层梯度，其中包含的 $tanh'$ 项越来越多。而对 $tanh$ 函数及其导数进行画图如下
 
 ![tanh](../assets/img/postsimg/20200929/7.jpg)
 
-可以看出，由于 $tanh$ 函数的导数值域在 $(0,1)$ 之间，对于训练过程大部分情况下 $tanh$ 的导数是小于 1 的，因此
+可以看出，由于 $tanh'$ 的值域在 $(0,1)$ 之间，对于训练过程大部分情况下 $tanh'$ 是小于 1 的，**因此多项 $tanh'$ 的连乘会导致最终的值趋近于0**，从而导致网络参数的梯度中关于较长时间前的隐层（历史信息）的梯度项为0，即出现时间维度上的梯度消失现象。
+
+## 1.6. 梯度爆炸
+
+另一方面，若 $\boldsymbol W^T$ 的取值较大，导致 $\boldsymbol W \boldsymbol h$ 的值大于1，那么连乘的每一项均大于1，就会导致梯度爆炸现象。
+
 
 # 2. LSTM
 
