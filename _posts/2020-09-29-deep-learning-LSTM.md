@@ -121,12 +121,12 @@ $\boldsymbol U,\boldsymbol W,\boldsymbol b$ 的梯度计算就比较复杂了，
 - 分子布局（numerator layout）： 分子为列向量且分母为行向量 
 - 分母布局（denominator layout）：分子为行向量且分母为列向量
 
-二者使用完全依据习惯而定，二者结果之间差一个转置。这里讨论了两种布局下的优劣（https://www.zhihu.com/question/352174717 ）。
+二者使用完全依据习惯而定，二者结果之间差一个转置。[这里](https://www.zhihu.com/question/352174717)讨论了两种布局下的优劣。
 
 <!-- ![layout](../assets/img/postsimg/20200929/2.5.jpg) -->
 
 
-如果我们采用分母布局（https://www.pianshen.com/article/5516168061/ ），即分子按行向量展开，那么有
+如果我们采用分母布局（[点此参考](https://www.pianshen.com/article/5516168061/)），即分母保持列向量，分子按行向量展开，那么有
 
 $$
 \begin{aligned}
