@@ -251,7 +251,7 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial \boldsymbol a}{\partial \boldsymbol W} &= \frac{\partial \boldsymbol W \boldsymbol h}{\partial \boldsymbol W}=\partial
+&\frac{\partial \boldsymbol a}{\partial \boldsymbol W} = \frac{\partial \boldsymbol W \boldsymbol h}{\partial \boldsymbol W}=\partial
 \begin{bmatrix}
 w_{11}&w_{12}&\cdots&w_{1D}\\
 w_{21}&w_{22}&\cdots&w_{2D}\\
