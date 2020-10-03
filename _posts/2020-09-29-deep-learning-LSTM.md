@@ -494,6 +494,8 @@ $$
 
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
+进一步推导，将 $\boldsymbol c_t$ 展开，
+
 # 3. 参考文献
 
 <span id="ref1">[1]</span>  刘建平Pinard. [循环神经网络(RNN)模型与前向反向传播算法](https://www.cnblogs.com/pinard/p/6509630.html).
