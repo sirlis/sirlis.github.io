@@ -230,7 +230,9 @@ $$
 \end{aligned}
 $$
 
-其中 $diag$ 为对角线矩阵。若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么
+其中 $diag$ 为对角线矩阵，因为下标不同的项偏导为 0 。
+
+若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么
 
 $$
 \frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = diag(tanh'(a_{t+1})) = diag(1-tanh(a_{t+1})^2) = diag(1-h_{t+1}^2)
@@ -245,7 +247,7 @@ $$
 带回隐层梯度公式有
 
 $$
-\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L = \nabla_{\boldsymbol h_t}\boldsymbol L
+\frac{\partial \boldsymbol L}{\partial \boldsymbol h_t} = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\frac{\partial \boldsymbol L}{\partial \boldsymbol h_{t+1}} + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
 $$
 
 稍作整理有
@@ -254,7 +256,7 @@ $$
 \nabla_{\boldsymbol h_t}\boldsymbol L = \boldsymbol W^T diag(1- h_{t+1}^2)\cdot\nabla_{\boldsymbol h_{t+1}}\boldsymbol L + \boldsymbol V^T\nabla_{\boldsymbol o_t}\boldsymbol L
 $$
 
-可以看出，隐层梯度可以采用递归的方式求解。
+可以看出，隐层梯度 $\nabla_{\boldsymbol h_t}\boldsymbol L$ 可以采用递归的方式求解。
 
 下面即可写出 $\boldsymbol W,\boldsymbol U,\boldsymbol b$ 的梯度表达式（分母布局链式法则方向相反）
 
@@ -328,7 +330,7 @@ $$
 \end{aligned}
 $$
 
-与参考链接 [[6](#ref6)]，[[7](#ref7)] 的结果相同。
+与参考链接 [[6](#ref6)]，[[7](#ref7)] 的结果相同。最后将 $\boldsymbol h_{t-1}, \boldsymbol x_t$ 提到末尾的操作应该是成立的，懒得推导了...... 0.0
 
 ## 1.5. 梯度消失
 
