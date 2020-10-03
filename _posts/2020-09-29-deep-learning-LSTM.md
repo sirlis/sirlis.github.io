@@ -23,7 +23,7 @@ math: true
   - [2.1. 概念](#21-概念)
   - [2.2. 模型](#22-模型)
   - [2.3. 前向传播](#23-前向传播)
-  - [2.4. 反向传播](#24-反向传播)
+  - [2.4. 如何解决梯度消失](#24-如何解决梯度消失)
 - [3. 参考文献](#3-参考文献)
 
 # 1. RNN
@@ -215,13 +215,28 @@ $$
 \end{aligned}
 $$
 
-若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么（为何此处为 $diag$ 待查阅）
+下面考察 $\partial \boldsymbol h_t / \partial \boldsymbol a_t$，因为 $\boldsymbol h_t, \boldsymbol a_t$ 均为列向量，若采用分母布局，将分子 $\boldsymbol h_t$ 看作行向量展开，那么
 
 $$
-\frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = tanh'(\boldsymbol a_{t+1}) = diag(1-tanh(a_{t+1})^2) = diag(1-h_{t+1}^2)
+\begin{aligned}
+\frac{\partial \boldsymbol h_t }{ \partial \boldsymbol a_t} &= \partial[h_1,h_2,\cdots,h_D]/\partial \boldsymbol a_t\quad<row!>\\
+&=\begin{bmatrix}
+\partial h_1/\partial a_1&\partial h_2/\partial a_1&\cdots&\partial h_D/\partial a_1\\
+\partial h_1/\partial a_2&\partial h_2/\partial a_2&\cdots&\partial h_D/\partial a_2\\
+\vdots&\vdots&\ddots&\vdots\\
+\partial h_1/\partial a_D&\partial h_2/\partial a_D&\cdots&\partial h_D/\partial a_D\\
+\end{bmatrix}\\
+&= diag(f'(a_{t}))
+\end{aligned}
 $$
 
-其中 $diag$ 为对角线矩阵。那么
+其中 $diag$ 为对角线矩阵。若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么
+
+$$
+\frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = diag(tanh'(a_{t+1})) = diag(1-tanh(a_{t+1})^2) = diag(1-h_{t+1}^2)
+$$
+
+那么（分母布局链式法则反向）
 
 $$
 \frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol h_t} = \frac{\partial \boldsymbol a_{t+1}}{\partial \boldsymbol h_t} \frac{\partial \boldsymbol h_{t+1}}{\partial \boldsymbol a_{t+1}} = W^T diag(1-h_{t+1}^2)
@@ -348,7 +363,9 @@ $$
 
 可以看出，由于 $tanh'$ 的值域在 $(0,1)$ 之间，对于训练过程大部分情况下 $tanh'$ 是小于 1 的，**因此多项 $tanh'$ 的连乘会导致最终的值趋近于0**，从而导致网络参数的梯度中关于较长时间前的隐层（历史信息）的梯度项为0，即出现时间维度上的梯度消失现象。
 
-梯度消失会导致我们的神经网络中前面层的网络权重无法得到更新，也就停止了学习。
+RNN 中总的梯度是不会消失的。即便梯度越传越弱，那也只是远距离的梯度消失，由于近距离的梯度不会消失，所有梯度之和便不会消失。RNN 所谓梯度消失的真正含义是，梯度被近距离梯度主导，导致模型难以学到远距离的依赖关系。梯度消失会导致我们的神经网络中前面层的网络权重无法得到更新，也就停止了学习。
+
+RNN 梯度消失的本质：由于时间维度共享了参数矩阵，导致计算隐态 $\boldsymbol h_t$ 时会循环计算矩阵乘法，所以 BPTT 算法求解梯度时出现了参数矩阵的累乘。
 
 ## 1.6. 梯度爆炸
 
@@ -455,9 +472,17 @@ $$
 
 而在 LSTM 网络中，记忆单元 $\boldsymbol c$ 可以在某个时刻捕捉到某个关键信息，并有能力将此关键信息保存一定的时间间隔。记忆单元 $\boldsymbol c$ 中保存信息的生命周期要长于短期记忆 $\boldsymbol h$，但又远远短于长期记忆，**长短期记忆是指长的“短期记忆”。因此称为长短期记忆（Long Short-Term Memory）**。
 
-## 2.4. 反向传播
+## 2.4. 如何解决梯度消失
 
-【未完待续】
+[LSTM如何来避免梯度弥散和梯度爆炸？](https://www.zhihu.com/question/34878706)
+
+LSTM 通过引入门机制，把矩阵乘法变成了 element-wise 的 [Hadamard product](https://baike.baidu.com/item/%E5%93%88%E8%BE%BE%E7%8E%9B%E7%A7%AF)（逐元素相乘）。这样做后，细胞状态 $\boldsymbol c_t$ 的更新公式变为
+
+$$
+\boldsymbol c_t = \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)
+$$
+
+这样的方式本质上类似Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
 # 3. 参考文献
 
