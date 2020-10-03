@@ -230,7 +230,7 @@ $$
 \end{aligned}
 $$
 
-其中 $diag$ 为对角线矩阵，因为下标不同的项偏导为 0 。
+其中 $diag$ 为对角线矩阵，因为下标不同的项偏导为 0 ，只有对角线元素非 0 。
 
 若 $f(\cdot)$ 为 $tanh$ 函数，有 $tanh'=1-tanh^2$，那么
 
@@ -478,26 +478,26 @@ $$
 
 [LSTM如何来避免梯度弥散和梯度爆炸？](https://www.zhihu.com/question/34878706)
 
-LSTM 通过引入门机制，把矩阵乘法变成了 element-wise 的 [Hadamard product](https://baike.baidu.com/item/%E5%93%88%E8%BE%BE%E7%8E%9B%E7%A7%AF)（逐元素相乘）。这样做后，细胞状态 $\boldsymbol c_t$ 的更新公式变为
+LSTM 通过引入门机制，把矩阵乘法变成了 element-wise 的 [Hadamard product](https://baike.baidu.com/item/%E5%93%88%E8%BE%BE%E7%8E%9B%E7%A7%AF)（哈达玛积，逐元素相乘）。这样做后，细胞状态 $\boldsymbol c_t$ （对应于 RNN 中的隐状态 $\boldsymbol h_t$）的更新公式变为
 
 $$
 \boldsymbol c_t = \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)
 $$
 
-这样的方式本质上类似Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
+这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
 # 3. 参考文献
 
 <span id="ref1">[1]</span>  刘建平Pinard. [循环神经网络(RNN)模型与前向反向传播算法](https://www.cnblogs.com/pinard/p/6509630.html).
 
-<span id="ref2">[2]</span>  维基百科. [矩阵微积分-布局约定](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)
+<span id="ref2">[2]</span>  维基百科. [矩阵微积分-布局约定](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions).
 
-<span id="ref3">[3]</span> 仙守. [数学-矩阵计算（4）两种布局](https://blog.csdn.net/shouhuxianjian/article/details/46669365)
+<span id="ref3">[3]</span> 仙守. [数学-矩阵计算（4）两种布局](https://blog.csdn.net/shouhuxianjian/article/details/46669365).
 
 <span id="ref4">[4]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
 
-<span id="ref5">[5]</span> thinkando. [机器学习中的矩阵、向量求导](https://www.jianshu.com/p/2da10b181c59)
+<span id="ref5">[5]</span> thinkando. [机器学习中的矩阵、向量求导](https://www.jianshu.com/p/2da10b181c59).
 
-<span id="ref6">[6]</span> Leo蓝色. [RNN正向及反向传播](https://www.jianshu.com/p/43b7a927ae34)
+<span id="ref6">[6]</span> Leo蓝色. [RNN正向及反向传播](https://www.jianshu.com/p/43b7a927ae34).
 
-<span id="ref7">[7]</span> 小米粥. [RNN的反向传播-BPTT]()
+<span id="ref7">[7]</span> 小米粥. [RNN的反向传播-BPTT](https://zhuanlan.zhihu.com/p/90297737).
