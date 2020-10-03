@@ -496,10 +496,12 @@ $$
 
 $$
 \begin{aligned}
-\partial \boldsymbol L/ \partial \boldsymbol c_t &= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \hat \boldsymbol c_t\\
-&=f_t\odot f_{t-1}\cdots\odot f_1\odot c_0+\sum_{\tau=0}^t f_t\odot f_{t-1}\cdots\odot f_\tau \odot i_\tau \odot\hat c_t+i_t \odot\hat c_t
+\frac{\partial \boldsymbol L}{\partial \boldsymbol c_{t-1}} &= \frac{\partial L}{\partial c_t}\frac{\partial c_t}{\partial c_{t-1}} = \frac{\partial L}{\partial c_t} \odot diag(f_t+\cdots)
 \end{aligned}
 $$
+
+公式里其余的项不重要，这里就用省略号代替了。可以看出当 $f_t=1$ 时，就算其余项很小，梯度仍然可以很好地传导到上一个时刻，此时即使层数较深也不会发生 Gradient Vanish 的问题；当 $f_t=0$ 时，即上一时刻的信号不影响到当前时刻，则此项也会为0。$f_t$ 在这里控制着梯度传导到上一时刻的衰减程度，与它 Forget Gate 的功能一致。
+
 
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
