@@ -169,3 +169,5 @@ black-box behavior              | simple interpretation and implementation
 <span id="ref3">[3]</span> Milan Mares. [Fuzzy Sets](http://www.scholarpedia.org/article/Fuzzy_systems).
 
 [4] L.A. Zadeh. [Fuzzy sets](https://www.sciencedirect.com/science/article/pii/S001999586590241X).
+
+[5] Pranav Gajjewar. [Understanding Fuzzy Neural Network using code and animation](https://medium.com/@apbetahouse45/understanding-fuzzy-neural-network-with-code-and-graphs-263d1091d773)
