@@ -71,13 +71,19 @@ math: true
 
 > Standard fuzzy set operations are union, intersection and complement
 
+模糊集的关系包括：相等、包含。
+
+- 两个模糊集相等，定义为 $A,B\sim U,\forall x \in U, A(x) = B(x)$，则称 B 和 A 相等，记为 $A = B$
+
+- 若对于 $A,B\sim U,\forall x \in U, A(x)\leq B(x)$，则称 B 包含 A，记为 $A \subseteq B$
+
 标准的模糊集运算包括：交、并、补。
 
-模糊集的交集定义为取模糊集中的最小值。若对于 $A,B\sim U,\forall x \in U, A(x)\leq B(x)$，则称 B 包含 A，记为 $A \subseteq B$
+- 模糊集的交集定义为取模糊集中的最小值。
 
-模糊集的交集定义为取模糊集中的最大值。
+- 模糊集的交集定义为取模糊集中的最大值。
 
-模糊集的交集定义为取模糊集中的反值。
+- 模糊集的交集定义为取模糊集中的反值。
 
 
 ## 1.2. 模糊度
