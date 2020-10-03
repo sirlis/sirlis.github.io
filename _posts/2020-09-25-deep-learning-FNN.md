@@ -69,21 +69,23 @@ math: true
 
 ## 模糊集运算
 
+首先建立公共假设：$A,B,C\sim U,\forall x \in U$
+
 > Standard fuzzy set operations are union, intersection and complement
 
 模糊集的关系包括：相等、包含。
 
-- 两个模糊集相等，定义为 $A,B\sim U,\forall x \in U, A(x) = B(x)$，则称 B 和 A 相等，记为 $A = B$
+- 若 $\mu_A(x) = \mu_B(x)$，则称 B 和 A 相等，记为 $A = B$；
 
-- 若对于 $A,B\sim U,\forall x \in U, A(x)\leq B(x)$，则称 B 包含 A，记为 $A \subseteq B$
+- 若 $\mu_A(x)\leq \mu_B(x)$，则称 B 包含 A，记为 $A \subseteq B$。
 
-标准的模糊集运算包括：交、并、补。
+标准的模糊集运算包括：交（取小）、并（取大）、补。
 
-- 模糊集的交集定义为取模糊集中的最小值。
+- 模糊集的交集定义为取模糊集中的最小值。$C=A\land B:\mu_C(x) = min\{\mu_A(x),\mu_B(x)\}$
 
-- 模糊集的交集定义为取模糊集中的最大值。
+- 模糊集的交集定义为取模糊集中的最大值。$C=A\lor B:\mu_C(x) = max\{\mu_A(x),\mu_B(x)\}$
 
-- 模糊集的交集定义为取模糊集中的反值。
+- 模糊集的交集定义为取模糊集中的反值。$C = A^C:\mu_C(x) = \mu_{A^C}(x) = 1-\mu_A(x)$
 
 
 ## 1.2. 模糊度
