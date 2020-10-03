@@ -492,9 +492,18 @@ $$
 \boldsymbol c_t = \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)
 $$
 
+进一步推导
+
+$$
+\begin{aligned}
+\partial \boldsymbol L/ \partial \boldsymbol c_t &= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \hat \boldsymbol c_t\\
+&=f_t\odot f_{t-1}\cdots\odot f_1\odot c_0+\sum_{\tau=0}^t f_t\odot f_{t-1}\cdots\odot f_\tau \odot i_\tau \odot\hat c_t+i_t \odot\hat c_t
+\end{aligned}
+$$
+
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
-进一步推导，将 $\boldsymbol c_t$ 展开，
+![highway](../assets/img/postsimg/20200929/8.jpg)
 
 # 3. 参考文献
 
