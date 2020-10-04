@@ -196,6 +196,10 @@ $$
 
 `num_layers` 是 LSTM 堆叠的层数。LSTM 可以按照下图的形式进行堆叠。
 
+![num_layers lstm](../assets/img/postsimg/20201004/4.jpg)
+
+
+
 # 2. 参考文献
 
 <span id="ref1">[1]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
