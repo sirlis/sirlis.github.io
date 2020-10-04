@@ -18,6 +18,7 @@ math: true
   - [1.3. 前向传播](#13-前向传播)
   - [1.4. 如何解决梯度消失](#14-如何解决梯度消失)
   - [1.5. 如何解决梯度爆炸](#15-如何解决梯度爆炸)
+- [PyTorch 实现](#pytorch-实现)
 - [2. 参考文献](#2-参考文献)
 
 # 1. LSTM
@@ -149,6 +150,51 @@ $$
 ## 1.5. 如何解决梯度爆炸
 
 关于梯度爆炸问题： $f_t$ 已经在 $[0,1]$ 范围之内了。而且梯度爆炸爆炸也是相对容易解决的问题，可以用梯度裁剪(gradient clipping)来解决：只要设定阈值，当提出梯度超过此阈值，就进行截取即可。
+
+# PyTorch 实现
+
+官方文档链接[在此](https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html)（https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html ）
+
+```python
+CLASStorch.nn.LSTM(*args, **kwargs)
+```
+
+参数列表如下
+
+- **input_size** – The number of expected features in the input *x*
+
+- **hidden_size** – The number of features in the hidden state *h*
+
+- **num_layers** – Number of recurrent layers. E.g., setting `num_layers=2` would mean stacking two LSTMs together to form a stacked LSTM, with the second LSTM taking in outputs of the first LSTM and computing the final results. Default: 1
+
+- **bias** – If False, then the layer does not use bias weights *b_ih* and *b_hh*. Default: `True`
+
+- **batch_first** – If `True`, then the input and output tensors are provided as (batch, seq, feature). Default: `False`
+
+- **dropout** – If non-zero, introduces a Dropout layer on the outputs of each LSTM layer except the last layer, with dropout probability equal to `dropout`. Default: 0
+
+- bidirectional – If `True`, becomes a bidirectional LSTM. Default: `False`
+
+我们再次将 LSTM 的前向传播列写如下便于比对
+
+$$
+\begin{aligned}
+\boldsymbol f_t &= \sigma(\boldsymbol W_f \boldsymbol h_{t-1} + \boldsymbol U_f \boldsymbol x_t + \boldsymbol b_f)\\
+\boldsymbol i_t &= \sigma(\boldsymbol W_i \boldsymbol h_{t-1} + \boldsymbol U_i \boldsymbol x_t + \boldsymbol b_i)\\
+\boldsymbol o_t &= \sigma(\boldsymbol W_o \boldsymbol h_{t-1} + \boldsymbol U_o \boldsymbol x_t + \boldsymbol b_o)\\
+\tilde \boldsymbol c_t &= tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)\\
+\boldsymbol c_t &= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \tilde \boldsymbol c_t\\
+\boldsymbol h_t &= \boldsymbol o_t \odot tanh(\boldsymbol c_t)
+\end{aligned}
+$$
+
+前面我们已经假设，$\boldsymbol h_t,\boldsymbol c_t,\boldsymbol i_t,\boldsymbol f_t,\boldsymbol o_t \in \mathbb R^D$ 且 $\boldsymbol b_f,\boldsymbol b_i,\boldsymbol b_o,\boldsymbol b_c \in \mathbb R^D$，$\boldsymbol x_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol U_f,\boldsymbol U_i,\boldsymbol U_o,\boldsymbol U_c \in \mathbb R^{D\times D}$。
+
+`input_size` 就是输入层维度 $M$，比如某个词或者某张图的 embedding dim （特征维度）。
+
+`hidden_size` 就是隐层 $h_t$ 的维度 $D$。
+
+`num_layers` 是 LSTM 堆叠的层数。LSTM 可以按照下图的形式进行堆叠。
 
 # 2. 参考文献
 
