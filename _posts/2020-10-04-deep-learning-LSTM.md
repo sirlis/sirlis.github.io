@@ -28,13 +28,13 @@ math: true
 
 LSTM 与 RNN 的主要输入输出区别如下图所示
 
-![rnn-lstm](../assets/img/postsimg/20200929/3.jpg)
+![rnn-lstm](../assets/img/postsimg/20201004/1.jpg)
 
 ## 1.2. 模型
 
 LSTM 网络的循环单元结构如下图所示
 
-![lstm](../assets/img/postsimg/20200929/4.jpg)
+![lstm](../assets/img/postsimg/20201004/2.jpg)
 
 其中，LSTM 引入三个门来控制信息的传递，分别为遗忘门 $\boldsymbol f_t$、输入门 $\boldsymbol i_t$、输出门 $\boldsymbol o_t$。三个门的作用是：
 
@@ -142,7 +142,7 @@ $$
 
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
-![highway](../assets/img/postsimg/20200929/8.jpg)
+![highway](../assets/img/postsimg/20201004/3.jpg)
 
 这里需要强调的是：LSTM不是让所有远距离的梯度值都不会消散，而是只让具有时序关键信息位置的梯度可以一直传递。另一方面，仅在 $c_t$ 通路上缓解了梯度消失问题，而在 $h_t$ 通路上梯度消失依然存在。
 
