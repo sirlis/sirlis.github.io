@@ -10,8 +10,8 @@ math: true
 
 <!--more-->
 
- ---
- 
+---
+
 - [1. 简介](#1-简介)
 - [2. 配置Python开发环境](#2-配置python开发环境)
 - [3. 配置PyTorch](#3-配置pytorch)
@@ -24,6 +24,8 @@ math: true
     - [3.2.5. pandas](#325-pandas)
   - [3.3. 手动部署CUDA和cuDNN](#33-手动部署cuda和cudnn)
   - [3.4. 测试](#34-测试)
+- [常见错误](#常见错误)
+  - [RuntimeError:An attempt has been made...](#runtimeerroran-attempt-has-been-made)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 简介
@@ -226,6 +228,36 @@ torch.cuda.is_available()
 返回 `True` 即可。
 
 ![14.test3](../assets/img/postsimg/20200322/14.test3.png)
+
+# 常见错误
+
+## RuntimeError:An attempt has been made...
+
+```
+RuntimeError:An attempt has been made to start a new process before the current process has finished its bootstrapping phase.
+ 
+        This probably means that you are not using fork to start your
+        child processes and you have forgotten to use the proper idiom
+        in the main module:
+ 
+            if __name__ == '__main__':
+                freeze_support()
+```
+出错的位置一般在如下位置
+
+```python
+for i, (inputs, labels) in enumerate(train):
+```
+
+解决办法是，在包含这个 `for` 循环的训练函数前面，包上 main 函数 `if __name__=="__main__":`。因为在 Windows 中，多线程程序要放在主函数中训练。而前面的 `train` 数据集很可能来源于另一个 `.py` 文件进行处理的结果，如
+
+```python
+if __name__ == '__main__':
+  train = torch.utils.data.DataLoader(
+      DATA(root, train=True, transform=transform),  # from DATA.py
+      batch_size=batch_size, shuffle=True, **kwargs)
+
+```
 
 # 4. 参考文献
 
