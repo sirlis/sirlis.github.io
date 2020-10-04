@@ -1,5 +1,5 @@
 ---
-title: 深度学习基础（RNN）
+title: 深度学习基础（LSTM）
 date: 2020-10-04 10:39:19 +0800
 categories: [Knowledge, DeepLearning]
 tags: [academic]
