@@ -31,7 +31,7 @@ math: true
     - [3.5.1. 解释配置（settings.json）](#351-解释配置settingsjson)
     - [3.5.2. 调试配置（launch.json）](#352-调试配置launchjson)
   - [3.6. 调试运行测试](#36-调试运行测试)
-- [4. 错误集合](#4-错误集合)
+- [4. 常见错误](#4-常见错误)
   - [4.1. 无法将conda项识别为cmdet...](#41-无法将conda项识别为cmdet)
   - [4.2. 提示CommandNotFoundError](#42-提示commandnotfounderror)
   - [4.3. OMP: Error #15: Initializing xxx](#43-omp-error-15-initializing-xxx)
@@ -275,6 +275,12 @@ pip install --upgrade xxxx
 
 ![piplist](../assets/img/postsimg/20200321/12.pipupgrade.png)
 
+或者使用
+
+```
+conda upgrade xxxx
+```
+
 - 更新pip
 
 ```
@@ -328,7 +334,7 @@ conda update -n base -c defaults conda
 
 ![调试运行测试](../assets/img/postsimg/20200321/16.run.png)
 
-# 4. 错误集合 
+# 4. 常见错误
 
 ## 4.1. 无法将conda项识别为cmdet...
 
