@@ -20,7 +20,7 @@ title: 关于我
   - 计算机科学/视觉（CS & CV）
   - 小样本学习/元学习（FSL/Meta-learning）
   - 数据驱动的三维场景演示（OpenGL/OSG）
-  - 前端开发（Electron）、各类科学
+  - 前端开发（Electron）
 
 - 使用语言：
   - C/C++
