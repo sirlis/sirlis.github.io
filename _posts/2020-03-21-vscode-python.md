@@ -35,6 +35,7 @@ math: true
   - [4.1. 无法将conda项识别为cmdet...](#41-无法将conda项识别为cmdet)
   - [4.2. 提示CommandNotFoundError](#42-提示commandnotfounderror)
   - [4.3. OMP: Error #15: Initializing xxx](#43-omp-error-15-initializing-xxx)
+  - [4.4. Refactor failed...](#44-refactor-failed)
 - [5. 参考文献](#5-参考文献)
 
 # 1. 简介
@@ -398,6 +399,14 @@ OMP: Error #15: Initializing libiomp5md.dll, but found libiomp5md.dll already in
 import os
 os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 ```
+
+## 4.4. Refactor failed...
+
+当打开一个 `.py` 文件，试图通过 `F2` 快捷键来修改变量名称时，会弹出 `Refactor failed.......` 一大串错误。这是因为如果该文件没有运行过，VSCode 默认的 Python 自动补齐和静态分析工具 Jedi 必须要求先运行一次 `.py` 文件才能进行改名。因此可以选择更加新的自动补齐和静态分析工具 Pylance （由微软开发）解决不运行文件而需要改名的操作。
+
+![condapath](../assets/img/postsimg/20200321/17.jpg)
+
+左下角齿轮打开设置，输入 jedi ，定位到 `Python: Language Server`，然后将选项改成 `Pylance` ，提示需要安装 Pylance 插件，安装后重启 VSCode 即可。
 
 # 5. 参考文献
 
