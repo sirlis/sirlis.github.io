@@ -24,6 +24,7 @@ math: true
   - [2.2. 模型](#22-模型)
   - [2.3. 前向传播](#23-前向传播)
   - [2.4. 如何解决梯度消失](#24-如何解决梯度消失)
+  - [如何解决梯度爆炸](#如何解决梯度爆炸)
 - [3. 参考文献](#3-参考文献)
 
 # 1. RNN
@@ -373,7 +374,7 @@ $$
 
 可以看出，由于 $tanh'$ 的值域在 $(0,1)$ 之间，对于训练过程大部分情况下 $tanh'$ 是小于 1 的。若 $\boldsymbol W^T$ 的取值较小导致 $WT = \boldsymbol W^T tanh'(h) <1$，**多项连乘会导致最终的值趋近于0**。因此，随着 $t$ 与 $T$ 的逐渐拉大，隐层梯度中包含的 $WT$ 项的次方越来越高，其取值越来越接近 0 。这会导致较长时间 $t$ 前的梯度项 $\nabla_{\boldsymbol h_{t-1}}\boldsymbol L$ 中的第一项十分接近 0 ，即导致较长时间 $t$ 前的 $\boldsymbol L$ 对参数的梯度项仅与那个时刻的输出有关（上式中的 $\nabla$ 项），而不再包含 $\boldsymbol L$ 的信息。
 
-也就是说，RNN 中参数的梯度被近距离梯度主导，导致模型难以学到远距离的依赖关系。梯度消失会导致我们的神经网络中前面层的网络权重无法得到更新，也就停止了学习。
+也就是说，在时间维度上较前时刻的权重无法根据最终的 loss 信息来更新。RNN 中参数的梯度被近距离梯度主导，导致模型难以学到远距离的依赖关系。
 
 注意，RNN 中总的梯度是不会消失的。即便梯度越传越弱，那也只是远距离的梯度消失，由于近距离的梯度不会消失，所有梯度之和便不会消失。
 
@@ -435,7 +436,7 @@ $$
 
 根据不同的门状态取值，可以实现不同的功能。当 $\boldsymbol f_t = 0,\boldsymbol i_t = 1$ 时，记忆单元将历史信息清空，并将候选状态向量 $\tilde \boldsymbol c_t$ 写入，但此时记忆单元 $\boldsymbol c_t$ 依然和上一时刻的历史信息相关。当$\boldsymbol f_t = 1,\boldsymbol i_t = 0$ 时，记忆单元将复制上一时刻的内容，不写入新的信息。
 
-需要注意的是，LSTM 中的 $\boldsymbol c_t$ 对应于传统 RNN 中的 $\boldsymbol h_t$，通常是上一个传过来的历史状态乘以遗忘门后加上一些新信息得到，因此更新比较缓慢。而 LSTM 中的 $\boldsymbol h_t$ 则变化剧烈的多，在不同的时刻下的取值往往区别很大。
+需要注意的是，**LSTM 中的 $\boldsymbol c_t$ 对应于传统 RNN 中的 $\boldsymbol h_t$**，通常是上一个传过来的历史状态乘以遗忘门后加上一些新信息得到，因此更新比较缓慢。而 LSTM 中的 $\boldsymbol h_t$ 则变化剧烈的多，在不同的时刻下的取值往往区别很大。
 
 再次进行维度分析，$\boldsymbol h_t,\boldsymbol c_t,\boldsymbol i_t,\boldsymbol f_t,\boldsymbol o_t \in \mathbb R^D$ 且 $\boldsymbol b_f,\boldsymbol b_i,\boldsymbol b_o,\boldsymbol b_c \in \mathbb R^D$，$\boldsymbol x_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol U_f,\boldsymbol U_i,\boldsymbol U_o,\boldsymbol U_c \in \mathbb R^{D\times D}$。则上面所有式子可简洁描述为
 
@@ -508,6 +509,12 @@ $$
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
 ![highway](../assets/img/postsimg/20200929/8.jpg)
+
+这里需要强调的是：LSTM不是让所有远距离的梯度值都不会消散，而是只让具有时序关键信息位置的梯度可以一直传递。另一方面，仅在 $c_t$ 通路上缓解了梯度消失问题，而在 $h_t$ 通路上梯度消失依然存在。
+
+## 如何解决梯度爆炸
+
+关于梯度爆炸问题： $f_t$ 已经在 $[0,1]$ 范围之内了。而且梯度爆炸爆炸也是相对容易解决的问题，可以用梯度裁剪(gradient clipping)来解决：只要设定阈值，当提出梯度超过此阈值，就进行截取即可。
 
 # 3. 参考文献
 
