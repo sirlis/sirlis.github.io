@@ -24,9 +24,9 @@ math: true
     - [3.2.5. pandas](#325-pandas)
   - [3.3. 手动部署CUDA和cuDNN](#33-手动部署cuda和cudnn)
   - [3.4. 测试](#34-测试)
-- [常见错误](#常见错误)
-  - [RuntimeError:An attempt has been made...](#runtimeerroran-attempt-has-been-made)
-- [4. 参考文献](#4-参考文献)
+- [4. 常见错误](#4-常见错误)
+  - [4.1. RuntimeError:An attempt has been made...](#41-runtimeerroran-attempt-has-been-made)
+- [5. 参考文献](#5-参考文献)
 
 # 1. 简介
 
@@ -229,9 +229,9 @@ torch.cuda.is_available()
 
 ![14.test3](../assets/img/postsimg/20200322/14.test3.png)
 
-# 常见错误
+# 4. 常见错误
 
-## RuntimeError:An attempt has been made...
+## 4.1. RuntimeError:An attempt has been made...
 
 ```
 RuntimeError:An attempt has been made to start a new process before the current process has finished its bootstrapping phase.
@@ -259,7 +259,7 @@ if __name__ == '__main__':
 
 ```
 
-# 4. 参考文献
+# 5. 参考文献
 
 <span id="ref1">[1]</span> [Sunnyside_Bao](https://blog.csdn.net/Sunnnyside_Bao). [Anaconda＋vscode＋pytorch环境搭建](https://blog.csdn.net/Sunnnyside_Bao/article/details/93495605).
 
