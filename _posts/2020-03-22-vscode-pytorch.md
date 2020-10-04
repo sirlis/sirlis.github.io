@@ -26,6 +26,7 @@ math: true
   - [3.4. 测试](#34-测试)
 - [4. 常见错误](#4-常见错误)
   - [4.1. RuntimeError:An attempt has been made...](#41-runtimeerroran-attempt-has-been-made)
+  - [requires_grad 与 requires_grad_ 混淆](#requires_grad-与-requires_grad_-混淆)
 - [5. 参考文献](#5-参考文献)
 
 # 1. 简介
@@ -257,6 +258,20 @@ if __name__ == '__main__':
       DATA(root, train=True, transform=transform),  # from DATA.py
       batch_size=batch_size, shuffle=True, **kwargs)
 
+```
+
+## requires_grad 与 requires_grad_ 混淆
+
+- 所有的 `tensor` 都有 `.requires_grad` **属性**，可以在初始化时设置这个属性
+
+```python
+x = tensor.ones(2,4,requires_grad=True)
+```
+
+- 如果想改变这个属性，就调用 `tensor.requires_grad_()` **方法**：
+
+```python
+x.requires_grad_(False)
 ```
 
 # 5. 参考文献
