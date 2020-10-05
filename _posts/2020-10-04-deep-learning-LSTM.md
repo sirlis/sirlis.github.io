@@ -18,8 +18,10 @@ math: true
   - [1.3. 前向传播](#13-前向传播)
   - [1.4. 如何解决梯度消失](#14-如何解决梯度消失)
   - [1.5. 如何解决梯度爆炸](#15-如何解决梯度爆炸)
-- [PyTorch 实现](#pytorch-实现)
-- [2. 参考文献](#2-参考文献)
+- [2. 实际案例](#2-实际案例)
+  - [2.1. PyTorch 实现](#21-pytorch-实现)
+  - [2.2. LSTM 实现 MNIST 识别](#22-lstm-实现-mnist-识别)
+- [3. 参考文献](#3-参考文献)
 
 # 1. LSTM
 
@@ -151,7 +153,9 @@ $$
 
 关于梯度爆炸问题： $f_t$ 已经在 $[0,1]$ 范围之内了。而且梯度爆炸爆炸也是相对容易解决的问题，可以用梯度裁剪(gradient clipping)来解决：只要设定阈值，当提出梯度超过此阈值，就进行截取即可。
 
-# PyTorch 实现
+# 2. 实际案例
+
+## 2.1. PyTorch 实现
 
 官方文档链接[在此](https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html)（https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html ）
 
@@ -198,9 +202,15 @@ $$
 
 ![num_layers lstm](../assets/img/postsimg/20201004/4.jpg)
 
+`batch_first` 是一个可选参数，指定是否将 `batch_size` 作为输入输出张量的第一个维度，如果是，则输入和输入的尺寸为（`batch_size， seq_length，input_size`），否则，输入和输出的默认顺序是（`seq_length，batch_size， input_size`）。
+
+## 2.2. LSTM 实现 MNIST 识别
+
+这里对于数据的理解，我们进行一下简单的介绍：对于每一张图片，我们看作一条数据，就像 nlp 中的一个句子一样。将照片的每一行看做一个向量，对应一个句子中的词向量，所以很显然，图片的行数就句子的长度。所以对这个 28*28 的照片，就是一个由 28 个向量组成的序列，且每个向量的长度都是 28。在 nlp 领域中，就是一个有 28 个单词的句子，且每个单词的词向量长度都为 28。
 
 
-# 2. 参考文献
+
+# 3. 参考文献
 
 <span id="ref1">[1]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
 
