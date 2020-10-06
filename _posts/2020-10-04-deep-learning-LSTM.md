@@ -238,20 +238,40 @@ class MNIST_LSTM(nn.Module):
         # fully connect
         self.fc = nn.Linear(hidden_dim, output_dim)
 
-    # x - [batch_size, sequence_dim, input_dim]
-    # r_out - [batch_size, sequence_dim, output_size]
-    # h_n - [layer_dim, batch, hidden_size]
-    # h_c - [layer_dim, batch, hidden_size]
     def forward(self, x):
-        out, (h_n, h_c) = self.lstm(x, None)
-        # decode hidden state of last time step
-        out = self.fc(out[:,-1,:])
+        # x -     [batch_size, sequence_dim, input_dim]
+        # r_out - [batch_size, sequence_dim, hidden_size]
+        # h_n -   [layer_dim, batch_size, hidden_size]
+        # h_c -   [layer_dim, batch_size, hidden_size]
+        r_out, (h_n, h_c) = self.lstm(x, None)
+        # out -   [batch_size, output_size]
+        out = self.fc(r_out[:,-1,:])
         return out
 ```
 
 在网络初始化时，我们引入了定义的 4 个形参 `input_size, hidden_size, num_layers, output_size`，确定网络的结构中的输入维度，隐层神经元个数，隐层层数，输出维度。
 
-然后按照上面定义的结构定义了一个 torch 提供的 LSTM 类，并且设定其 `batch_first=True`，即将数据的批数放到输入输出向量的第一个维度。
+然后，按照上面定义的结构定义一个 torch 官方提供的 `torch.nn.LSTM` 单元，并且设定其 `batch_first=True`，即将数据的批数放到输入输出向量的第一个维度。
+
+最后，定义一个全连接层，将隐层信息映射到输出维度。
+
+在定义网络前向传播时，首先给 LSTM 传入输入向量 `x` 和 初始隐层向量 `(h_n,h_c)`。此处 `x` 维度为 `[batch_size, sequence_size, input_size]`，初始隐层向量为 `None`，即表示初始时刻隐层向量均为 0 。
+
+经过前向传播，LSTM 单元的输出为 `r_out, (h_n, h_c)`。其中
+
+- `r_out` 也就是上面图中的 **output** 保存了**最后一层，每个 time step 的输出** `h`，如果是双向 LSTM，每个 time step 的输出 `h = [h正向, h逆向]` (同一个 time step 的正向和逆向的h连接起来)。
+  - 所以 `r_out` 无需层维度信息，而包含时间序列信息，其维度为 `[batch_size, sequence_size, output_size]`；
+  - 如果 `num_layers=1`，lstm 只有一层，则 `r_out` 为**每个 time step 的输出**。
+- `h_n` 保存了**每一层，最后一个time step 的输出** `h`，如果是双向LSTM，单独保存前向和后向的最后一个 time step 的输出 h。
+  - 所以 `h_n` 包含层维度信息，无需时间序列信息，其维度为 `[layer_size, batch_size, hidden_size]`；注意到 `batch_first=True` 不会影响到 `h_n`，因此第一个维度是层个数；
+  - 如果 `num_layers=1`，lstm 只有一层，则 `h_n` 为**最后一个 time step 的输出**。
+- `c_n` 与 `h_n` 一致，只是它保存的是 `c` 的值。
+
+继续经过全连接层，输入 `r_out` 输出 `out` ：
+
+- `r_out[:,-1,:]` 表示读取 `r_out` 第二维的倒数第一个元素对应的其余维度数据。由于 `r_out` 的第二维是 `sequence_size` 也就是 time step，倒数第一个元素对应的其余维度数据也就是最后一个时刻的数据 `[batch_size, hidden_size]`；
+- 当 `layer_size = 1` 时，`r_out[:,-1,:] = h_n[-1,:,:]`；
+- 经过全连接层，得到 batch 中每张图片的最终分类结果 `[batch_size, output_size]`。
 
 # 3. 参考文献
 
