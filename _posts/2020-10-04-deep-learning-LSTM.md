@@ -202,7 +202,7 @@ $$
 
 ![num_layers lstm](../assets/img/postsimg/20201004/4.jpg)
 
-`batch_first` 是一个可选参数，指定是否将 `batch_size` 作为输入输出张量的第一个维度，如果是，则输入和输入的尺寸为（`batch_size， seq_length，input_size`），否则，输入和输出的默认顺序是（`seq_length，batch_size， input_size`）。
+`batch_first` 是一个可选参数，指定是否将 `batch_size` 作为输入输出张量的第一个维度，如果是，则输入和输入的维度顺序为（`batch_size， seq_length，input_size`），否则，输入和输出的默认维度顺序是（`seq_length, batch_size, input_size`）。
 
 ## 2.2. LSTM 实现 MNIST 识别
 
@@ -221,6 +221,37 @@ num_layers = 2 # user defined
 ```
 
 其中 `hidden_size` 和 `num_layers` 均由用户自定义。
+
+然后我们开始构建 LSTM 网络。
+
+```python
+class MNIST_LSTM(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, output_dim):
+        super(MNIST_LSTM,self).__init__()
+        self.hidden_dim = hidden_dim
+        self.layer_dim = layer_dim
+        self.lstm = nn.LSTM(
+            input_size,
+            hidden_size,
+            num_layers,
+            batch_first=True)
+        # fully connect
+        self.fc = nn.Linear(hidden_dim, output_dim)
+
+    # x - [batch_size, sequence_dim, input_dim]
+    # r_out - [batch_size, sequence_dim, output_size]
+    # h_n - [layer_dim, batch, hidden_size]
+    # h_c - [layer_dim, batch, hidden_size]
+    def forward(self, x):
+        out, (h_n, h_c) = self.lstm(x, None)
+        # decode hidden state of last time step
+        out = self.fc(out[:,-1,:])
+        return out
+```
+
+在网络初始化时，我们引入了定义的 4 个形参 `input_size, hidden_size, num_layers, output_size`，确定网络的结构中的输入维度，隐层神经元个数，隐层层数，输出维度。
+
+然后按照上面定义的结构定义了一个 torch 提供的 LSTM 类，并且设定其 `batch_first=True`，即将数据的批数放到输入输出向量的第一个维度。
 
 # 3. 参考文献
 
