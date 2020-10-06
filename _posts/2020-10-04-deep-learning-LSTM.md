@@ -273,6 +273,109 @@ class MNIST_LSTM(nn.Module):
 - 当 `layer_size = 1` 时，`r_out[:,-1,:] = h_n[-1,:,:]`；
 - 经过全连接层，得到 batch 中每张图片的最终分类结果 `[batch_size, output_size]`。
 
+最后设计训练和测试环节。
+
+```python
+def main():
+
+    root = "./mnist/MNIST/raw/"
+
+    train_mean = 0.1307
+    train_std = 0.3081
+    batch_size = 64
+    test_batch_size = 50
+
+    kwargs = {'num_workers': 2, 'pin_memory': True} if use_cuda else {}
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((train_mean,), (train_std,))
+        ])
+    train_loader = torch.utils.data.DataLoader(
+        DATA(root, train=True, transform=transform),
+        batch_size=batch_size, shuffle=True, **kwargs)
+    test_loader = torch.utils.data.DataLoader(
+        DATA(root, train=False, transform=transform),
+        batch_size=test_batch_size, shuffle=True, **kwargs)
+
+    model = MNIST_LSTM(input_size, hidden_size, layer_num, output_size)
+    if use_cuda:
+        model.to(device)
+
+    lossfcn = nn.CrossEntropyLoss()
+
+    learning_rate = 0.01
+    optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+
+    loss_list = []
+    accuracy_list = []
+    iteration_list = []
+
+    EPOCHS = 20
+    iter = 0
+    for epoch in range(1,EPOCHS+1):
+        print("EPOCH: {}".format(epoch))
+
+        loss = 999.0
+        for batchidx, (images, labels) in enumerate(train_loader):
+            model.train()
+            # 一个batch 转换为RNN的输入维度
+            images = images.view(-1, sequence_size, input_size)
+            images = images.requires_grad_()
+            labels = labels.long() # cross entropy requires a long scalar
+            # 移入GPU
+            if use_cuda:
+                images, labels = images.to(device), labels.to(device)
+            # 梯度清零
+            optimizer.zero_grad()
+            # 前向传播
+            output = model(images)
+            # 计算损失
+            loss = lossfcn(output, labels)
+            # 反向传播
+            loss.backward()
+            # 更新参数
+            optimizer.step()
+            iter += 1
+
+            # 打印训练信息
+            if batchidx % 50 == 0:
+                print("batch index: {}, images: {}/{}+[{}], loss: {}".format(
+                    batchidx,
+                    batchidx*batch_size,
+                    train_loader.dataset.data.shape[0],batch_size,
+                    loss.data.cpu().numpy()))
+
+        # 模型验证
+        model.eval()
+        correct = 0.0
+        total = 0.0
+        # 迭代测试集，获取数据，预测
+        with torch.no_grad():
+            for images, labels in test_loader:
+                images = images.view(-1, sequence_size, input_size).to(device)
+                # 模型预测
+                output = model(images)
+                # 获取预测概率最大值的下标
+                _, predict = torch.max(output.data, axis=1)
+                # 统计测试集的大小
+                total += labels.size(0)
+                # 统计预测正确的数量
+                if use_cuda:
+                    predict, labels = predict.to(device), labels.to(device)
+                correct += (predict == labels).sum()
+            accuracy = correct / total * 100
+            # 保存accuracy，loss，iteration
+            loss_list.append(loss.data)
+            accuracy_list.append(accuracy)
+            iteration_list.append(iter)
+            # 打印信息
+            print("iter: {}, Loss: {}, Accu: {}%".format(iter, loss.item(), accuracy))
+            print()
+
+if __name__ == '__main__':
+    main()
+```
+
 # 3. 参考文献
 
 <span id="ref1">[1]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
