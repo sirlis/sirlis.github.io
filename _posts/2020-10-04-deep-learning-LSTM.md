@@ -142,7 +142,6 @@ $$
 
 公式里其余的项不重要，这里就用省略号代替了。可以看出当 $f_t=1$ 时，就算其余项很小，梯度仍然可以很好地传导到上一个时刻，此时即使层数较深也不会发生 Gradient Vanish 的问题；当 $f_t=0$ 时，即上一时刻的信号不影响到当前时刻，则此项也会为0。$f_t$ 在这里控制着梯度传导到上一时刻的衰减程度，与它 Forget Gate 的功能一致。
 
-
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
 ![highway](../assets/img/postsimg/20201004/3.jpg)
@@ -152,6 +151,8 @@ $$
 ## 1.5. 如何解决梯度爆炸
 
 关于梯度爆炸问题： $f_t$ 已经在 $[0,1]$ 范围之内了。而且梯度爆炸爆炸也是相对容易解决的问题，可以用梯度裁剪(gradient clipping)来解决：只要设定阈值，当提出梯度超过此阈值，就进行截取即可。
+
+另一种解读参见 [[1](#ref1)] 。
 
 # 2. 实际案例
 
@@ -426,14 +427,10 @@ transform=transforms.Compose([
 image=(image-mean)/std
 ```
 
-如果取 `mean=0.5, std=0.5` 那么 `Normalize` 把 0-1 数据变换到 (-1,1)，号称可以加快模型收敛速度。当然此处MNIST应用时 `mean=0.1307, std=0.3081` 。
+如果取 `mean=0.5, std=0.5` 那么 `Normalize` 把 0-1 数据变换到 (-1,1)，号称可以加快模型收敛速度 [[2](#ref2)]。当然此处MNIST应用时 `mean=0.1307, std=0.3081` 。
 
 # 3. 参考文献
 
 <span id="ref1">[1]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
 
-<span id="ref2">[2]</span> thinkando. [机器学习中的矩阵、向量求导](https://www.jianshu.com/p/2da10b181c59).
-
-<span id="ref3">[3]</span> Leo蓝色. [RNN正向及反向传播](https://www.jianshu.com/p/43b7a927ae34).
-
-<span id="ref4">[4]</span> 小米粥. [RNN的反向传播-BPTT](https://zhuanlan.zhihu.com/p/90297737).
+<span id="ref2">[2]</span> 小研一枚. [pytorch的transform中ToTensor接着Normalize](https://blog.csdn.net/qq_35027690/article/details/103742697).
