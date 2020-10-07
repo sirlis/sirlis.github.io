@@ -19,7 +19,7 @@ math: true
   - [1.4. 如何解决梯度消失](#14-如何解决梯度消失)
   - [1.5. 如何解决梯度爆炸](#15-如何解决梯度爆炸)
 - [2. 实际案例](#2-实际案例)
-  - [2.1. PyTorch 实现](#21-pytorch-实现)
+  - [2.1. LSTM 的 PyTorch 类](#21-lstm-的-pytorch-类)
   - [2.2. LSTM 实现 MNIST 识别](#22-lstm-实现-mnist-识别)
 - [3. 参考文献](#3-参考文献)
 
@@ -155,7 +155,7 @@ $$
 
 # 2. 实际案例
 
-## 2.1. PyTorch 实现
+## 2.1. LSTM 的 PyTorch 类
 
 官方文档链接[在此](https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html)（https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html ）
 
@@ -206,6 +206,8 @@ $$
 
 ## 2.2. LSTM 实现 MNIST 识别
 
+注意，后文中的所有代码均为片段，全部凑在一起时无法直接运行的！旨在辅助进行理解。
+
 考虑到网络每一时刻输入的是一个 vector，我们可以假设这个 vector 对应的是 **图像的一行**，有多少行就对应多少时刻，那最后一个时刻输入的是最后一行。最后输出的 $h_t$ 实际上就是该图像对应的类别。
 
 MNIST 手写数字图片大小为 28*28，那么可以将每张图片看作长为28的序列，序列中的每个元素的特征维度是28，这样就将图片变成了一个序列。
@@ -222,14 +224,12 @@ num_layers = 2 # user defined
 
 其中 `hidden_size` 和 `num_layers` 均由用户自定义。
 
-然后我们开始构建 LSTM 网络。
+然后我们开始构建 LSTM 网络的类。
 
 ```python
 class MNIST_LSTM(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, output_dim):
         super(MNIST_LSTM,self).__init__()
-        self.hidden_dim = hidden_dim
-        self.layer_dim = layer_dim
         self.lstm = nn.LSTM(
             input_size,
             hidden_size,
@@ -375,6 +375,58 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+注意，上述代码并没有采用一般教程中的使用 Pytorch 代码直接下载并使用 MNIST 数据集，而是将数据集下载好后，提取出其中所有图片，保存在 raw 文件夹中，然后构造一个DataLoader 类型的 DATA 类来实现数据加载，这样可以便于我们之后将网络迁移至自己的数据集上训练。
+
+为了便于比较，这里给出一段借助 `torchvision.datasets` 直接下载和加载 MNIST 数据集的代码
+
+```python
+# MNIST Dataset
+train_dataset = torchvision.datasets.MNIST(root='./data/',
+                                           train=True, 
+                                           transform=transforms.ToTensor(),
+                                           download=True)
+
+test_dataset = torchvision.datasets.MNIST(root='./data/',
+                                          train=False, 
+                                          transform=transforms.ToTensor())
+
+# Data Loader (Input Pipeline)
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+                                           batch_size=batch_size, 
+                                           shuffle=True)
+
+test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
+                                          batch_size=batch_size, 
+                                          shuffle=False)
+```
+
+最终也得到了用于训练和测试的 `train_loader, test_loader`。其中
+
+- `root='./data/'` 表明将下载的数据集存放于代码同级路径下的 data 文件夹；
+- `train=true` 表明下载的数据集是用于训练的数据集；
+- `transform=transforms.ToTensor()` 表明对下载的数据集进行一个数据处理操作：
+  `ToTensor(object)` Convert a `numpy.ndarray` (H x W x C) in the range [0, 255] to a `torch.FloatTensor` of shape (C x H x W) in the range [0.0, 1.0].
+- `download=True` 表明如果检测到 `root` 下没有数据集时自动下载数据所有数据，包括训练数据和测试数据，因此在 `train=True` 时设置一次即可。
+
+PyTorch 官方给出的基于 CNN 的 MNIST 手写数字识别代码[在此](https://github.com/pytorch/examples/blob/master/mnist/main.py)（https://github.com/pytorch/examples/blob/master/mnist/main.py ），以供参考。
+
+注意到上述链接的代码中，除了 `ToTensor()` 之外还用到了另一个转换，`Normalize()` 如下：
+
+```python
+transform=transforms.Compose([
+                           transforms.ToTensor(),
+                           transforms.Normalize((0.1307,), (0.3081,))
+                       ])
+```
+
+总结而言，`ToTensor()` 能够把灰度范围从 0-255 变换到 0-1 之间，而后面的 `transform.Normalize()` 则把 0-1 数据执行以下操作：
+
+```python
+image=(image-mean)/std
+```
+
+如果取 `mean=0.5, std=0.5` 那么 `Normalize` 把 0-1 数据变换到 (-1,1)，号称可以加快模型收敛速度。当然此处MNIST应用时 `mean=0.1307, std=0.3081` 。
 
 # 3. 参考文献
 
