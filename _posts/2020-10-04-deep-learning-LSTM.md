@@ -491,6 +491,8 @@ cuDNN error: CUDNN_STATUS_BAD_PARAM
     r_out, (h_n, h_c) = self.lstm(x, None)
 ```
 
+参考[此处](https://blog.csdn.net/daixiangzi/article/details/107671246)（https://blog.csdn.net/daixiangzi/article/details/107671246 ）
+
 核心问题在于，LSTM 的 `forward` 要求输入数据的类型为 `float32`，而在实际代码中我们将其输入为了`float64`或者其它类型的数据。因此需要在输入模型训练之前进行数据转换即可解决问题
 
 ```python
