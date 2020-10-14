@@ -475,10 +475,11 @@ iter: 18760, Loss: 0.034618619829416275, Accu: 97.50999450683594%
 
 ## 3.1. CUDNN_STATUS_BAD_PARAM
 
-在 LSTM 的 'forward' 过程中，下述语句
+在 LSTM 的 `forward` 过程中，下述语句
 
 ```python
-r_out, (h_n, h_c) = self.lstm(x, None)
+def forward(self, x):
+    r_out, (h_n, h_c) = self.lstm(x, None)
 ```
 
 提示 RuntimeError
@@ -490,7 +491,7 @@ cuDNN error: CUDNN_STATUS_BAD_PARAM
     r_out, (h_n, h_c) = self.lstm(x, None)
 ```
 
-核心问题在于，LSTM 的 `forward` 要求输入数据的类型为 `float32`，因此需要在输入模型训练之前进行数据转换
+核心问题在于，LSTM 的 `forward` 要求输入数据的类型为 `float32`，而在实际代码中我们将其输入为了`float64`或者其它类型的数据。因此需要在输入模型训练之前进行数据转换即可解决问题
 
 ```python
 trainX, trainY = trainX.to(torch.float32), trainY.to(torch.float32)
