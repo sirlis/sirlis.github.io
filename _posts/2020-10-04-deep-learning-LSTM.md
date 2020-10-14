@@ -429,6 +429,44 @@ image=(image-mean)/std
 
 如果取 `mean=0.5, std=0.5` 那么 `Normalize` 把 0-1 数据变换到 (-1,1)，号称可以加快模型收敛速度 [[2](#ref2)]。当然此处MNIST应用时 `mean=0.1307, std=0.3081` 。
 
+当 `seed=0` 时，即
+
+```python
+use_cuda = torch.cuda.is_available()
+device = torch.device('cuda:0' if use_cuda else 'cpu')
+seed = 0
+torch.manual_seed(seed)
+if use_cuda:
+    torch.cuda.manual_seed(seed)
+```
+
+20 次迭代后的训练结果如下
+
+```
+......
+EPOCH: 20
+batch index: 0, images: 0/60000+[64], loss: 0.14547616243362427
+batch index: 50, images: 3200/60000+[64], loss: 0.04679613187909126
+batch index: 100, images: 6400/60000+[64], loss: 0.05385994166135788
+batch index: 150, images: 9600/60000+[64], loss: 0.044658079743385315
+batch index: 200, images: 12800/60000+[64], loss: 0.08235453814268112
+batch index: 250, images: 16000/60000+[64], loss: 0.12099026888608932
+batch index: 300, images: 19200/60000+[64], loss: 0.04762731492519379
+batch index: 350, images: 22400/60000+[64], loss: 0.07588448375463486
+batch index: 400, images: 25600/60000+[64], loss: 0.03385855257511139
+batch index: 450, images: 28800/60000+[64], loss: 0.056658919900655746
+batch index: 500, images: 32000/60000+[64], loss: 0.10723046958446503
+batch index: 550, images: 35200/60000+[64], loss: 0.029729364439845085
+batch index: 600, images: 38400/60000+[64], loss: 0.21459335088729858
+batch index: 650, images: 41600/60000+[64], loss: 0.023649774491786957
+batch index: 700, images: 44800/60000+[64], loss: 0.2532099485397339
+batch index: 750, images: 48000/60000+[64], loss: 0.044361311942338943
+batch index: 800, images: 51200/60000+[64], loss: 0.08944762498140335
+batch index: 850, images: 54400/60000+[64], loss: 0.22417518496513367
+batch index: 900, images: 57600/60000+[64], loss: 0.1285378485918045
+iter: 18760, Loss: 0.034618619829416275, Accu: 97.50999450683594%
+```
+
 # 3. 参考文献
 
 <span id="ref1">[1]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
