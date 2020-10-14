@@ -21,7 +21,9 @@ math: true
 - [2. 实际案例](#2-实际案例)
   - [2.1. LSTM 的 PyTorch 类](#21-lstm-的-pytorch-类)
   - [2.2. LSTM 实现 MNIST 识别](#22-lstm-实现-mnist-识别)
-- [3. 参考文献](#3-参考文献)
+- [3. 常见错误](#3-常见错误)
+  - [3.1. CUDNN_STATUS_BAD_PARAM](#31-cudnn_status_bad_param)
+- [4. 参考文献](#4-参考文献)
 
 # 1. LSTM
 
@@ -469,7 +471,32 @@ iter: 18760, Loss: 0.034618619829416275, Accu: 97.50999450683594%
 
 注意，如果不改变 `seed` 那么重复多次训练的结果不会变。随机数种子影响神经网络初始参数的随机初始化取值。
 
-# 3. 参考文献
+# 3. 常见错误
+
+## 3.1. CUDNN_STATUS_BAD_PARAM
+
+在 LSTM 的 'forward' 过程中，下述语句
+
+```python
+r_out, (h_n, h_c) = self.lstm(x, None)
+```
+
+提示 RuntimeError
+
+```
+发生异常: RuntimeError
+cuDNN error: CUDNN_STATUS_BAD_PARAM
+  File "xxx.py", line xx, in forward
+    r_out, (h_n, h_c) = self.lstm(x, None)
+```
+
+核心问题在于，LSTM 的 `forward` 要求输入数据的类型为 `float32`，因此需要在输入模型训练之前进行数据转换
+
+```python
+trainX, trainY = trainX.to(torch.float32), trainY.to(torch.float32)
+```
+
+# 4. 参考文献
 
 <span id="ref1">[1]</span> 谓之小一. [LSTM如何解决RNN带来的梯度消失问题](https://zhuanlan.zhihu.com/p/136223550).
 
