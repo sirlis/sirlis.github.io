@@ -16,10 +16,12 @@ math: true
   - [1.1. 概念](#11-概念)
   - [1.2. 版本](#12-版本)
   - [1.3. 算法](#13-算法)
-- [行星位置计算](#行星位置计算)
-  - [基本概念](#基本概念)
-  - [DE405的结构](#de405的结构)
-- [4. 参考文献](#4-参考文献)
+- [2. 行星位置计算](#2-行星位置计算)
+  - [2.1. 基本概念](#21-基本概念)
+  - [2.2. DE405的结构](#22-de405的结构)
+  - [2.3. DE405的计算](#23-de405的计算)
+  - [2.4. 地球太阳矢量计算](#24-地球太阳矢量计算)
+- [3. 参考文献](#3-参考文献)
 
 # 1. JPL星历
 
@@ -45,9 +47,9 @@ http://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory_Development_Ephemeris
 
 > DE405 was released in 1998. It added several years' extra data from telescopic, radar, spacecraft, and VLBI observations (of the Galileo spacecraft at Jupiter, in particular). The method of modeling the asteroids' perturbations was improved, although the same number of asteroids were modeled. The ephemeris was more accurately oriented onto the ICRF. DE405 covered 1600 to 2200 to full precision.
 
-# 行星位置计算
+# 2. 行星位置计算
 
-## 基本概念
+## 2.1. 基本概念
 
 已知某一瞬时时刻（格里历日期+UTC时刻）
 转换成儒略日（儒略纪元）
@@ -59,13 +61,13 @@ http://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory_Development_Ephemeris
 - JPL查表计算
 - ICRS到ITRS或J2000的坐标变换。
 
-## DE405的结构
+## 2.2. DE405的结构
 
 根据创建时间不同 JPL 星历表有多个版本，这里采用 `DE405`，它是 1997 年创建的，包括从 1599 年到 2201 年太阳系九大行星和月球的位置。`DE405` 的文件包括头文件 `header.405` 和系数文件 `ascp****.405` ，`****` 代表系数文件的起始时间，每个系数文件包含 20 年天体位置切比雪夫插值系数，例如从 2000 年到 2020 年的系数包含在文件 `ascp2000.405` 里。
 
 `DE405` 的头文件 `header.405` 包含了 `DE405` 的数据信息、天文常数和数据索引。数据索引是一个 3 行 13 列的表，每列数据代表一个天体的位置数据在数据块内的位置，依次为水星、金星、地月系统、火星、木星、土星、天王星、海王星、冥王星、月球、太阳，第12列数据代表章动角（nutations），包含两个角度：黄经章动 $\Psi$ 和交角章动 $\epsilon$ ，第13列数据代表岁差参数，包含三个欧拉角：$\zeta, z, \theta$ 。每列的第一行指示该天体数据在数据块的起始位置，第二行表示切比雪夫多项式的阶数，第三行表示该天体的数据被划分成几个子区间。下表展示的 DE421 与 DE405 的数据结构相同，最后一列是数据的维度（ 3 表示三轴）。
 
-![image-20201018220334509](..\assets\img\postsimg\20201018\1.jpg)
+![1](..\assets\img\postsimg\20201018\1.jpg)
 
 例如水星的数据索引为3、14、4，其中：
 
@@ -77,9 +79,11 @@ http://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory_Development_Ephemeris
 
 系数文件 `ascp2000.405` 则由若干个数据块组成，每个数据块为 32 天的数据。`DE405` 的数据信息包括起始时间、结束时间、数据块的个数、每个数据块的数据个数、数据块的时间长度；天文常数包括光速、天文单位、地月质量比等；数据索引用来指示某一天体的数据在数据块内的位置。系数文件 `ascp2000.405` 由 229 个数据块组成，每个数据块代表 32 天，包含 1018 个数据。
 
+![2](..\assets\img\postsimg\20201018\2.jpg)
 
 
-## DE405的计算
+
+## 2.3. DE405的计算
 
 JPL 星历采用儒略日形式的 TDB 时刻作为插值时刻，双精度数，可用 TT 代替，精度损失可忽略。JPL 星历采用 ICRS 参考系？
 
@@ -87,7 +91,7 @@ DE405采用的坐标系是以太阳系质心为原点，J2000地球平赤道面�
 
 要得到其它坐标系下天体位置的表示，需要进行坐标的平移和旋转变化，在轨道动力学中使用的惯性坐标系一般以地球质心为原点，J2000 地球平赤道为 $xy$ 面和平春分点方向为 $x$ 方向，从 DE405 的坐标转换到地心惯性坐标系，只需要进行坐标平移。DE405的时间单位为日，$1 day = 86400 s(SI)$，距离单位为 km，速度单位为 km/day。
 
-## 地球太阳矢量计算
+## 2.4. 地球太阳矢量计算
 
 由于 JPL 星历只给出了地月系统的坐标和月球的坐标，需要通过几何方式算出地球的位置坐标。
 
@@ -102,7 +106,7 @@ $$
 那么，地球矢量 $P_e=P_{em}-x$，以地球为中心的太阳矢量 $SunVec=x+P_s-P_{em}$。其中，$P_s$ 为星历查询得到的太阳位置矢量。
 
 
-# 4. 参考文献
+# 3. 参考文献
 
 <span id="ref1">[1]</span> 高健. 《日月、行星位置计算》.
 
