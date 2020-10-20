@@ -102,7 +102,7 @@ https://www.iers.org/SharedDocs/News/EN/BulletinD.html
 
 截至本文书写时间（2020年10月20日），`BulletinD` 的最后更新时间为2019年4月3日，最新结果如下
 
-https://datacenter.iers.org/data/latestVersion/17_BULLETIN_D17.txt
+https://datacenter.iers.org/data/latestVersion/17_BULLETIN_D17.txt 
 
 查得
 
