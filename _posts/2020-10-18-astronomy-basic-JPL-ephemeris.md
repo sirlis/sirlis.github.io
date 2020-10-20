@@ -53,8 +53,8 @@ http://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory_Development_Ephemeris
 
 已知某一瞬时时刻（格里历日期+UTC时刻）
 转换成儒略日（儒略纪元）
-输入JPL-DE405，得到ICRS下的太阳、月球、各大行星的位置和速度
-然后转至ITRS或J2000下。
+输入 `JPL-DE405`，得到 ICRS （BCRS）下的太阳、月球、各大行星的位置和速度
+然后转至 ITRS 或 J2000 下。
 
 两个关键点：
 
