@@ -6,7 +6,7 @@ tags: [python]
 math: true
 ---
 
-由于科研需要，早已不复年轻的我又要从头开始学习一门新的语言——Python。由于老年痴呆愈发严重，只得将各种学习笔记记录在此。本文主要针对Python中数据类型和数据处理方式的介绍，包括mat、list、ndarray等。
+本文主要针对Python中数据类型和数据处理方式的介绍，包括mat、list、ndarray等。
 
 <!--more-->
 

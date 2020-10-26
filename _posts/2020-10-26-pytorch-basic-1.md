@@ -1,12 +1,12 @@
 ---
-title: Python基础（绘图plot）
-date: 2020-08-22 15:58:19 +0800
+title: PyTorch基础（一）
+date: 2020-10-26 15:22:19 +0800
 categories: [Tutorial, Coding]
 tags: [python]
 math: true
 ---
 
-由于科研需要，早已不复年轻的我又要从头开始学习一门新的语言——Python。由于老年痴呆愈发严重，只得将各种学习笔记记录在此。本文主要针对Python中画图部分展开，包括plot、subplot等。
+本文主要针对PyTorch新手，介绍一些基础知识。
 
 <!--more-->
 
