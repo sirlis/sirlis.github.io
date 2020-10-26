@@ -25,349 +25,116 @@ math: true
 - [4. 清理绘图](#4-清理绘图)
 - [5. 参考文献](#5-参考文献)
 
-# 1. plot
+# 1. 张量维度
 
-`plot` 用以展示变量的趋势变化。`plot()` 函数的本质就是根据点连接线。根据x(数组或者列表) 和y(数组或者列表)组成点，然后连接成线。
+## 1.1. shape 属性
 
-简单示例如下
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-x = np.linspace(0.05, 10, 1000)
-y = np.cos(x)
-
-plt.plot(x, y, ls="-", lw=2, label="plot figure")
-plt.legend()
-plt.show()
-```
-
-![image-20200822155756531](../assets/img/postsimg/20200822/1.jpg)
-
-## 1.1. 颜色控制
-
-要想使用丰富，炫酷的图标，我们可以使用更复杂的格式设置，主要颜色，线的样式，点的样式。默认的情况下，只有一条线，是蓝色实线。多条线的情况下，生成不同颜色的实线。
-
-| 字符 | 颜色        |
-| ---- | ----------- |
-| 'b'  | blue        |
-| 'g'  | green       |
-| 'r'  | red         |
-| 'c'  | cyan 青色   |
-| 'm'  | magenta平红 |
-| 'y'  | yellow      |
-| 'k'  | black       |
-| 'w'  | white       |
-
-## 1.2. 线形控制
-
-| 字符 | 类型             |
-| ---- | ---------------- |
-| '-'  | 实线             |
-| '--' | 虚线             |
-| '-.' | 虚点线           |
-| ':'  | 点线             |
-| ' '  | 空类型，不显示线 |
-
-例如
+输入
 
 ```python
-import matplotlib.pyplot as plt
-
-x = [1, 2, 3, 4]
-y1 = [1, 2, 3, 4]
-y2 = [1, 4, 9, 16]
-y3 = [1, 8, 27, 64]
-y4 = [1, 16, 81, 124]
-# 创建一个画布
-plt.figure()
-# 在figure下线
-plt.plot(x, y1, "-o") #实线
-plt.plot(x, y2, "--o") #虚线
-plt.plot(x, y3, "-.o") #虚点线
-plt.plot(x, y4, ":o") # 点线
-# 展现画布
-plt.show()
+import torch
+# dim=2,shape=[2,3],随机生成Tensor
+a = torch.FloatTensor(2, 3)
+print(a.shape)
+print(a.shape[0])
+print(a.shape[1])
 ```
 
-绘制效果为
-
-![image-20200822160154771](../assets/img/postsimg/20200822/2.jpg)
-
-## 1.3. 点形控制
-
-| 点型 | 类型       |
-| ---- | ---------- |
-| '.'  | 点         |
-| ','  | 像素点     |
-| 'o'  | 原点       |
-| '^'  | 上三角点   |
-| 'v'  | 下三角点   |
-| '<'  | 左三角点   |
-| '>'  | 右三角点   |
-| '1'  | 下三叉点   |
-| '2'  | 上三叉点   |
-| '3'  | 左三叉点   |
-| '4'  | 右三叉点   |
-| 's'  | 正方点     |
-| '+'  | 加号点     |
-| 'x'  | 乘号点     |
-| 'D'  | 实心菱形点 |
-| 'd'  | 细菱形点   |
-
-示例
+输出为
 
 ```python
-import matplotlib.pyplot as plt
-
-x = [1, 2, 3, 4]
-y1 = [1, 2, 3, 4]
-y2 = [1, 4, 9, 16]
-y3 = [1, 8, 27, 64]
-y4 = [1, 16, 81, 124]
-# 创建一个画布
-plt.figure()
-# 在figure下的线
-plt.plot(x, y1, "-.") # 点
-plt.plot(x, y2, "-,") # 像素点
-plt.plot(x, y3, "-o") # 圆点
-
-# 展现画布
-plt.show()
+torch.Size([2, 3])
+2
+3
 ```
 
-绘制效果为
-
-![image-20200822160526163](../assets/img/postsimg/20200822/3.jpg)
-
-## 1.4. 另一种设置方法
-
-color="green" 指定颜色为绿色
-
-linestyle="dashed" 指定线形为dashed类型
-
-marker="o" 指定标记类型为o点
-
-markerfacecolor="blue"指定标记的颜色为蓝色
-
-markersize=20 指定标记的大小为20
-
-比如
+## 1.2. size() 成员函数
+输入
 
 ```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-x = np.arange(10)
-y1 = x * 1.5
-y2 = x * 2.5
-y3 = x * 3.5
-y4 = x * 4.5
-y5 = x * 5.5
-
-plt.plot(x, y1, "-P")
-plt.plot(x, y2, "-|")
-plt.plot(x, y3, color="#000000")
-plt.plot(x, y4, "-o", markersize=20)
-plt.plot(x, y5, "-^", markerfacecolor="blue")
-
-plt.show()
+import torch
+# dim=2,shape=[2,3],随机生成Tensor
+a = torch.FloatTensor(2, 3)
+print(a.size())
+print(a.size(0))
+print(a.size(1))
 ```
 
-![image-20200822162131136](../assets/img/postsimg/20200822/4.jpg)
-
-# 2. subplot
-
-有些时候, 我们希望把一组图放在一起进行比较, 有没有什么好的方法呢？`matplotlib` 中提供的 `subplot` 可以很好的解决这个问题。`matplotlib` 下, 一个 `Figure` 对象可以包含多个子图(`Axes`), 可以使用 `subplot()` 快速绘制, 其调用形式如下 :
+输出为
 
 ```python
-subplot(numRows, numCols, plotNum)
+torch.Size([2, 3])
+2
+3
 ```
 
-- 图表的整个绘图区域被分成 `numRows` 行和 `numCols` 列；
-- 然后按照从左到右，从上到下的顺序对每个子区域进行编号，左上的子区域的编号为1；
-- `plotNum` 参数指定创建的 `Axes` 对象所在的区域；
-- 如果 `numRows`, `numCols` 和 `plotNum` 这三个数都小于 `10` 的话, 可以把它们缩写为一个整数, 例如 `subplot(323)` 和 `subplot(3,2,3)` 是相同的（缩写便于循环）；
-- `subplot`在 `plotNum` 指定的区域中创建一个轴对象. 如果新创建的轴和之前创建的轴重叠的话，之前的轴将被删除。
+# 2. 张量比较
 
-## 2.1. 规则划分
+## 2.1. max
 
-示例
+不指定维度时，返回一个张量，为输入数据中的最大值
 
 ```python
-import matplotlib
-import matplotlib.pyplot as plt
-
-for i,color in enumerate("rgby"):
-    plt.subplot(221+i, axisbg=color) # 221 = 2,2,1
-
-plt.show()
+>>> a = torch.randn(1, 3)
+>>> a
+    tensor([[ 0.6763,  0.7445, -2.2369]])
+>>> torch.max(a)
+    tensor(0.7445)
 ```
 
-绘制结果为
-
-![image-20200822164354416](../assets/img/postsimg/20200822/5.jpg)
-
-## 2.2. 不规则划分
-
-有时候我们的划分并不是规则的, 比如如下的形式
-
-![image-20200822164514363](../assets/img/postsimg/20200822/6.jpg)
-
-这种应该怎么划分呢?
-
-首先将整个表按照 `2*2` 划分，前两个简单, 分别是 `(2, 2, 1)` 和 `(2, 2, 2)`；
-
-但是第三个图呢, 他占用了 `(2, 2, 3)` 和 `(2, 2, 4)`；
-
-因此，需要对整个图重新划分, 按照 `2 * 1` 划分；
-
-前两个图占用了 `(2, 1, 1)` 的位置，因此第三个图占用了 `(2, 1, 2)` 的位置。
-
-![image-20200822171806554](../assets/img/postsimg/20200822/7.jpg)
-
-代码如下
+指定维度时，返回一个 tuple，包含沿着该维度的最大值和对应的序号。
 
 ```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-def f(t):
-    return np.exp(-t) * np.cos(2 * np.pi * t)
-
-if __name__ == '__main__' :
-    t1 = np.arange(0, 5, 0.1)
-    t2 = np.arange(0, 5, 0.02)
-
-    plt.figure(12)
-    plt.subplot(221)
-    plt.plot(t1, f(t1), 'bo', t2, f(t2), 'r--')
-
-    plt.subplot(222)
-    plt.plot(t2, np.cos(2 * np.pi * t2), 'r--')
-
-    plt.subplot(212)
-    plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
-
-    plt.show()
+>>> a = torch.randn(4, 4)
+>>> a
+tensor([[-1.2360, -0.2942, -0.1222,  0.8475],
+        [ 1.1949, -1.1127, -2.2379, -0.6702],
+        [ 1.5717, -0.9207,  0.1297, -1.8768],
+        [-0.6172,  1.0036, -0.6060, -0.2432]])
+>>> torch.max(a, dim=1)
+torch.return_types.max(values=tensor([0.8475, 1.1949, 1.5717, 1.0036]), indices=tensor([3, 0, 0, 1]))
 ```
+对于二维张量，`dim=0` 沿列求最大（行间比较），`dim=1` 沿行求最大（列间比较）。
 
-## 2.3. 二维三维混合子图
+对于三维张量，构成为 `(通道，行，列)`，那么`dim=0` 通道间比较，`dim=1` 沿列求最大（行间比较），`dim=2` 沿行求最大（列间比较）。
 
 ```python
-import matplotlib.pyplot as plt
-fig = plt.figure(1)
-ax1 = fig.add_subplot(2, 2, 1)
-ax2 = fig.add_subplot(2, 2, 2)
-ax3 = fig.add_subplot(2, 2, 3)
-ax4 = fig.add_subplot(2, 2, 4, projection='3d')
-for i in range(100):
-  ax1.set_title('x-axis')
-  ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
-  ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
-  ax1.legend(loc="lower right")
-  ......
-  fig = plt.figure(1) # re-assign to figure 1 to refresh it
-  plt.pause(0.01) # leave some time for plotting finished
-  plt.show(block=False) # plot without blocking running
+
+import torch
+ 
+a = torch.randn(2,3,4) #随机生成数组
+max_0=torch.max(a,dim=0) #针对第1个元素“2”，对应的是通道
+max_1=torch.max(a,dim=1) #针对第2个元素“3”，对应的是行
+max_2=torch.max(a,dim=2) #针对第2个元素“4”，对应的是列
+print("a:\n", a)
+print("************************************************")
+print("max(a)_0:", max_0)  #dim=0,通道间进行比较，所以返回每一张特征图，同一像素位置上的最大值
+print("max(a)_1:", max_1)  #dim=1，行与行之间进行比较，所以返回每一张特征图，每一列的最大值
+print("max(a)_2:", max_1)  #dim=1，列与列之间进行比较，所以返回每一张特征图，每一行的最大值
+ 
+<<
+a:
+ tensor([[[ 0.5323,  1.5229, -0.6122,  0.6054],
+         [ 1.2424, -1.6005,  0.0779,  0.9227],
+         [-0.6340, -0.5770, -0.1672,  0.3598]],
+ 
+        [[-0.3770, -0.4992,  1.8444, -1.1040],
+         [ 1.2238,  0.7283, -1.6462,  0.0325],
+         [-0.3555, -0.2599,  1.5741,  1.0683]]])
+************************************************
+max(a)_0: (tensor([[ 0.5323,  1.5229,  1.8444,  0.6054],
+        [ 1.2424,  0.7283,  0.0779,  0.9227],
+        [-0.3555, -0.2599,  1.5741,  1.0683]]), tensor([[ 0,  0,  1,  0],
+        [ 0,  1,  0,  0],
+        [ 1,  1,  1,  1]]))
+max(a)_1: (tensor([[ 1.2424,  1.5229,  0.0779,  0.9227],
+        [ 1.2238,  0.7283,  1.8444,  1.0683]]), tensor([[ 1,  0,  1,  1],
+        [ 1,  1,  0,  2]]))
+max(a)_2: (tensor([[ 1.2424,  1.5229,  0.0779,  0.9227],
+        [ 1.2238,  0.7283,  1.8444,  1.0683]]), tensor([[ 1,  0,  1,  1],
 ```
 
-可以绘制两行量列的子图，其中右下角第四个图是三维图。
-
-注意不要将上述代码置于循环中，否则会出现DuplicateWarning。
-
-多次绘制在同一个figure中的效果如下：
-
-![8](../assets/img/postsimg/20200822/8.gif)
-
-## 2.4. 多图刷新
-
-注意，如果有多张图需要同时刷新，需要按照如下的设计思路书写代码
-
-```python
-import matplotlib.pyplot as plt
-fig = plt.figure(1) # 在循环外定义包含多个subplot的figure 1
-ax1 = fig.add_subplot(2, 2, 1)
-ax2 = fig.add_subplot(2, 2, 2)
-ax3 = fig.add_subplot(2, 2, 3)
-ax4 = fig.add_subplot(2, 2, 4, projection='3d')
-
-for i in range(100):
-  ......[other codes]
-  ax1.cla() # 清空当前轴
-  ax2.cla()
-  ax3.cla()
-  ax4.cla()
-  plt.pause(0.01)
-  ax1.set_title('x-axis')
-  ax1.plot(ind, pred_x, label="prediction", color=(i,0,1))
-  ax1.plot(ind, outputs_x, label="true", color=(0,1,0))
-  ax1.legend(loc="lower right")
-  ......[other codes]
-  fig = plt.figure(1) # 重新指定fig的对象为figure 1
-  plt.pause(0.01) # 必须暂停短暂的时间以供绘图完成而不出现白板
-  plt.show(block=False) # 刷新figure 1，且不阻塞
-  
-  figloss = plt.figure(2) # 指定fig的对象为figure 2
-  plt.cla() # 清空当前轴
-  plt.pause(0.01)
-  plt.plot(iterNum, avgloss, '-o')
-  plt.xlabel('iterations',fontsize=10)
-  plt.ylabel('MSE',fontsize=10)
-  plt.pause(0.01)
-  plt.show(block=False) # 刷新figure 2，且不阻塞
-        
-```
-
-- 在循环外定义包含多个subplot的figure 1，避免循环内定义报DuplicatedWarning；
-- 单张图可在循环内直接定义和绘制（如figure 2）；
-- 循环内每次重新绘制时，需通过 `fig = figure(x)` 指定相应的第x个图才能正确刷新。
-
-# 3. 图中图
-
-代码如下
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-fig = plt.figure(1)
-plt.plot(listiter_meta, ground_truth, '-.', label='ground truth', color="black")
-plt.plot(listiter_meta, pretrained, '--', label='pretrained', color="green")
-plt.plot(listiter_meta, meta, '-', label='meta learned (ours)', color="red")
-plt.xlim(0,100)
-plt.xlabel("iteration")
-plt.ylabel("mse")
-plt.legend(loc="upper right")
-
-left, bottom, width, height = 0.5,0.3,0.4,0.2
-ax1 = fig.add_axes([left,bottom,width,height])
-ax1.plot(listiter_meta, ground_truth, '-.', color="black")
-ax1.plot(listiter_meta, pretrained, '--', color="green")
-ax1.plot(listiter_meta, meta, '-', color="red")
-ax1.set_xlabel("iteration")
-ax1.set_ylabel("mse")
-ax1.set_title('zoom-in')
-ax1.set_ylim(0,0.2)
-
-plt.savefig('msecompare.png')
-plt.show(block=False)
-```
-
-结果如下图所示
-
-![9](../assets/img/postsimg/20200822/9.png)
-
-# 4. 清理绘图
-
-`cla()` 函数可以清除当前figure中活动的axes，其它axes保持不变。
-
-`clf()` 函数清除当前figure的所有axes，但是不关闭这个window，可以继续复用于其它的plot。
-
-`close()` 关闭 window，如果没有指定，则指当前 window。
-
-# 5. 参考文献
+# 3. 参考文献
 
 [1] [梦并不遥远](https://www.cnblogs.com/zyg123/). [4.3Python数据处理篇之Matplotlib系列(三)---plt.plot()](https://www.cnblogs.com/zyg123/p/10504633.html).
 
