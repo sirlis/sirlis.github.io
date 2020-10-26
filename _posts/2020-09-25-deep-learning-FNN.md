@@ -19,8 +19,11 @@ math: true
   - [1.4. 模糊逻辑](#14-模糊逻辑)
 - [2. 模糊神经网络](#2-模糊神经网络)
   - [2.1. 特点](#21-特点)
-  - [2.2. 模糊最小最大分类网络](#22-模糊最小最大分类网络)
-- [3. 参考文献](#3-参考文献)
+- [3. ANFIS](#3-anfis)
+  - [3.1. 组成](#31-组成)
+  - [3.2. anfis.py](#32-anfispy)
+    - [3.2.1. FuzzifyVariable 类](#321-fuzzifyvariable-类)
+- [4. 参考文献](#4-参考文献)
 
 # 1. 模糊
 
@@ -193,13 +196,93 @@ black-box behavior              | simple interpretation and implementation
 - 模糊输入，真实权重
 - 模糊输入，模糊权重
 
-## 2.2. 模糊最小最大分类网络
+# 3. ANFIS
 
-Fuzzy Min Max Classifier，是一个最简单的模糊神经网络。如下图所示
+[ANFIS](https://github.com/jfpower/anfis-pytorch) is a way of presenting a fuzzy inference system (FIS) as a series of numeric layers so that it can be trained like a neural net.
 
+The canonical reference is the original paper by [Jyh-Shing Roger Jang](http://mirlab.org/jang/):
 
+- Jang, J.-S.R. (1993). "ANFIS: adaptive-network-based fuzzy inference system". IEEE Transactions on Systems, Man and Cybernetics. 23 (3): 665–685. doi:10.1109/21.256541
 
-# 3. 参考文献
+Note that it assumes a Takagi Sugeno Kang (TSK) style of defuzzification rather than the more usual Mamdani style.
+
+## 3.1. 组成
+
+The ANFIS framework is mainly in three files:
+
+- anfis.py This is where the layers of the ANFIS system are defined as Torch modules.
+
+- membership.py At the moment I only have Bell and Gaussian membership functions, but any others will go in here too.
+
+- experimental.py The experimental infrastructure to train and test the FIS, and to plot some graphs etc.
+
+There are then some runnable examples:
+
+- jang_examples.py these are four examples from Jang's paper (based partly on the details in the paper, and particle on the example folders in his source code distribution).
+
+- vignette_examples.py these are three examples from the Vignette paper. Two of these use Gaussians rather than Bell MFs.
+
+## 3.2. anfis.py
+
+定义了 ANFIS 的层。
+
+### 3.2.1. FuzzifyVariable 类
+
+```python
+class FuzzifyVariable(torch.nn.Module):
+    '''
+        Represents a single fuzzy variable, holds a list of its MFs.
+        Forward pass will then fuzzify the input (value for each MF).
+    '''
+    def __init__(self, mfdefs):
+        super(FuzzifyVariable, self).__init__()
+        if isinstance(mfdefs, list):  # No MF names supplied
+            mfnames = ['mf{}'.format(i) for i in range(len(mfdefs))]
+            mfdefs = OrderedDict(zip(mfnames, mfdefs))
+        self.mfdefs = torch.nn.ModuleDict(mfdefs)
+        self.padding = 0
+
+    @property
+    def num_mfs(self):
+        '''Return the actual number of MFs (ignoring any padding)'''
+        return len(self.mfdefs)
+
+    def members(self):
+        '''
+            Return an iterator over this variables's membership functions.
+            Yields tuples of the form (mf-name, MembFunc-object)
+        '''
+        return self.mfdefs.items()
+
+    def pad_to(self, new_size):
+        '''
+            Will pad result of forward-pass (with zeros) so it has new_size,
+            i.e. as if it had new_size MFs.
+        '''
+        self.padding = new_size - len(self.mfdefs)
+
+    def fuzzify(self, x):
+        '''
+            Yield a list of (mf-name, fuzzy values) for these input values.
+        '''
+        for mfname, mfdef in self.mfdefs.items():
+            yvals = mfdef(x)
+            yield(mfname, yvals)
+
+    def forward(self, x):
+        '''
+            Return a tensor giving the membership value for each MF.
+            x.shape: n_cases
+            y.shape: n_cases * n_mfs
+        '''
+        y_pred = torch.cat([mf(x) for mf in self.mfdefs.values()], dim=1)
+        if self.padding > 0:
+            y_pred = torch.cat([y_pred,
+                                torch.zeros(x.shape[0], self.padding)], dim=1)
+        return y_pred
+```
+
+# 4. 参考文献
 
 <span id="ref1">[1]</span>  Wikipedia. [Neuro-fuzzy](https://en.wikipedia.org/wiki/Neuro-fuzzy).
 
