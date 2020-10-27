@@ -448,6 +448,16 @@ class FuzzifyVariable(torch.nn.Module):
 - 通过 `zip()` 将 `mfnames` 和 `mfdefs` 组合成一个成员为元组（tuple）的列表；
 - 将上述列表传入 `OrderDict` 得到有序字典 `mfdefs`，并传入 `torch.nn.ModuleDict()`。
 
+```python
+mfdefs = OrderedDict([
+    ('mf0', GaussMembFunc()),
+    ('mf1', GaussMembFunc()),
+    ('mf2', GaussMembFunc())
+])
+```
+
+`torch.nn.ModuleDict()` 自动将 `mfdefs` 注册为参数（可被反向传播且可被迁移到GPU上加速计算）。注意，传入 `torch.nn.ModuleDict()` 的类必须是 `torch.nn.Module` 的子类。
+
 ```
     @property
     def num_mfs(self):
