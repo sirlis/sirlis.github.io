@@ -23,7 +23,8 @@ math: true
   - [3.1. 组成](#31-组成)
   - [3.2. membership.py](#32-membershippy)
     - [3.2.1. make_anfis()](#321-make_anfis)
-    - [3.2.2. GaussMemFunc()](#322-gaussmemfunc)
+    - [3.2.2. make_gauss_mfs()](#322-make_gauss_mfs)
+    - [3.2.3. GaussMemFunc()](#323-gaussmemfunc)
   - [3.3. anfis.py](#33-anfispy)
     - [3.3.1. FuzzifyVariable 类](#331-fuzzifyvariable-类)
 - [4. 参考文献](#4-参考文献)
@@ -256,13 +257,18 @@ def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
 
 `num+mfs` 为隶属度函数的个数。对于每个输入状态量，采用取值范围除以 `num_mfs` 来初始化 `sigma`，采用在取值范围内均匀取 `num_mfs` 个点来初始化 `mulist`。用得到的 `sigma, mulist` 来初始化高斯隶属度函数 `make_gauss_mfs()`。
 
-### 3.2.2. GaussMemFunc()
+### 3.2.2. make_gauss_mfs()
 
 ```python
 def make_gauss_mfs(sigma, mu_list):
     '''Return a list of gaussian mfs, same sigma, list of means'''
     return [GaussMembFunc(mu, sigma) for mu in mu_list]
 ```
+
+`make_gauss_mfs` 输入 `sigma, mulist` ，调用 `GaussMembFunc()`，返回一个高斯隶属度函数的 `list`。
+
+
+### 3.2.3. GaussMemFunc()
 
 ```python
 class GaussMembFunc(torch.nn.Module):
