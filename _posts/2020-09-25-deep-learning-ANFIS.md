@@ -19,14 +19,19 @@ math: true
   - [1.4. 模糊逻辑](#14-模糊逻辑)
   - [1.5. 模糊神经网络](#15-模糊神经网络)
 - [2. ANFIS](#2-anfis)
-  - [2.1. 组成](#21-组成)
-  - [2.2. membership.py](#22-membershippy)
-    - [2.2.1. make_anfis()](#221-make_anfis)
-    - [2.2.2. make_gauss_mfs()](#222-make_gauss_mfs)
-    - [2.2.3. GaussMemFunc()](#223-gaussmemfunc)
-  - [2.3. anfis.py](#23-anfispy)
-    - [2.3.1. AnfisNet()](#231-anfisnet)
-    - [2.3.2. FuzzifyVariable 类](#232-fuzzifyvariable-类)
+  - [2.1. 基础知识](#21-基础知识)
+    - [2.1.1. 模糊推理系统](#211-模糊推理系统)
+    - [2.1.2. 自适应网络](#212-自适应网络)
+    - [2.1.3. ANFIS 结构](#213-anfis-结构)
+    - [ANFIS 学习算法](#anfis-学习算法)
+  - [2.2. 程序文件组成](#22-程序文件组成)
+  - [2.3. membership.py](#23-membershippy)
+    - [2.3.1. make_anfis()](#231-make_anfis)
+    - [2.3.2. make_gauss_mfs()](#232-make_gauss_mfs)
+    - [2.3.3. GaussMemFunc()](#233-gaussmemfunc)
+  - [2.4. anfis.py](#24-anfispy)
+    - [2.4.1. AnfisNet()](#241-anfisnet)
+    - [2.4.2. FuzzifyVariable 类](#242-fuzzifyvariable-类)
 - [3. 参考文献](#3-参考文献)
 
 # 1. 基础知识
@@ -200,7 +205,42 @@ black-box behavior              | simple interpretation and implementation
 
 # 2. ANFIS
 
+## 2.1. 基础知识
+
+
+### 2.1.1. 模糊推理系统
+
+Fuzzy Inference System（FIS），由五个功能模块组成：
+
+1. 包含若干模糊if-then规则的规则库；
+2. 定义关于使用模糊if-then规则的模糊集的隶属函数的数据库；
+3. 在规则上的执行推理操作的决策单元；
+4. 将明确输入转化为与语言价值匹配的程度的模糊界面；
+5. 将推理得到的模糊结果转化为明确输出的去模糊界面。
+- 
+通常，1、2被联合称为知识库。
+
+### 2.1.2. 自适应网络
+
+自适应网络是一个由节点和连接节点的定向链路组成的多层前馈网络，其中每个节点对传入的信号以及与此节点相关的一组参数执行一个特定的功能(节点函数)。自适应网络的结构中包含有参数的方形节点和无参数的圆形节点，自适应网络的参数集是每个自适应节点的参数集的结合。他们的输出依赖于这些节点相关的参数，学习规则指定如何更改这些参数。
+
 Jyh-Shing Roger Jang 于 1993 年发表的[《ANFIS : Adaptive-Network-Based Fuzzy Inference System》](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=256541)。当时对于处理模糊不确定系统，使用传统数学工具的系统建模并不能得到令人满意的效果。考虑采用模糊if-then规则的模糊推理系统不需要精确的定量分析就可以对人的知识和推理过程进行定性建模，作者提出了一种基于自适应网络的模糊推理系统。
+
+### 2.1.3. ANFIS 结构
+
+ANFIS的模型结构由自适应网络和模糊推理系统合并而成，在功能上继承了模糊推理系统的可解释性的特点以及自适应网络的学习能力，能够根据先验知识改变系统参数，使系统的输出更贴近真实的输出。
+
+![5](../assets/img/postsimg/20200925/5.jpg)
+
+输入x，y在第一层进行模糊化，模糊化的方法：用隶属函数（menbership functions，MFs，一般为钟形函数，**钟形函数参数为前向参数**）对输入特征x，y进行模糊化操作，得到一个[0,1]的隶属度（menbership grade），通常用mu表示。
+
+在第二层，每个特征的隶属度mu相乘得到每个规则的触发强度（firing strength）。
+
+第三层将上一层得到的每条规则的触发强度做归一化，表征该规则在整个规则库中的触发比重，即在整个推理过程中使用到这条规则的程度（用概率理解）。
+
+第四层计算规则的结果，一般由输入特征的线性组合给出（假设输入有n个特征，fi=c0+c1x1+c2x2+。。。+cnxn。c0、c1…cn为**后向参数**）。
+
+第五层去模糊化得到确切的输出，最终的系统输出结果为每条规则的结果的加权平均（权重为规则的归一化触发程度，理解为计算期望）。
 
 [ANFIS](https://github.com/jfpower/anfis-pytorch) is a way of presenting a fuzzy inference system (FIS) as a series of numeric layers so that it can be trained like a neural net.
 
@@ -210,7 +250,15 @@ The canonical reference is the original paper by [Jyh-Shing Roger Jang](http://m
 
 Note that it assumes a Takagi Sugeno Kang (TSK) style of defuzzification rather than the more usual Mamdani style.
 
-## 2.1. 组成
+### ANFIS 学习算法
+
+文章W中给出的学习算法（参数更新方法）为 LSE-GD 混合学习算法。即更新参数同时在前向传递和反向传递中进行。
+
+在正向传播中，我们固定前向参数，在输入传递到第四层时，通过最小二乘估计（least square estimate，LSE）更新后向参数，在这种前向参数（隶属度函数的参数）固定的前提下，得到的后向参数（第四蹭线性组合参数）估计是最优的，这样，混合学习算法比单纯的GD算法要快很多。
+
+## 2.2. 程序文件组成
+
+ANFIS（https://github.com/jfpower/anfis-pytorch ）
 
 The ANFIS framework is mainly in three files:
 
@@ -226,11 +274,11 @@ There are then some runnable examples:
 
 - vignette_examples.py these are three examples from the Vignette paper. Two of these use Gaussians rather than Bell MFs.
 
-## 2.2. membership.py
+## 2.3. membership.py
 
 定义了隶属度函数。
 
-### 2.2.1. make_anfis()
+### 2.3.1. make_anfis()
 
 ```python
 def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
@@ -272,9 +320,9 @@ invars[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 outvars = ['y0', 'y1', 'y2']
 ```
 
-最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [AnfisNet()](#231-anfisnet) 查阅。
+最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [AnfisNet()](#241-anfisnet) 查阅。
 
-### 2.2.2. make_gauss_mfs()
+### 2.3.2. make_gauss_mfs()
 
 ```python
 def make_gauss_mfs(sigma, mu_list):
@@ -285,7 +333,7 @@ def make_gauss_mfs(sigma, mu_list):
 `make_gauss_mfs` 输入 `sigma, mulist` ，根据 `mulist` 的个数（也就是之前 `make_anfis()` 函数中传入的隶属度函数的个数 `num_mfs`），调用 `GaussMembFunc()`，返回一个成员为 `membership.GaussMembFunc` 类型的列表。
 
 
-### 2.2.3. GaussMemFunc()
+### 2.3.3. GaussMemFunc()
 
 ```python
 class GaussMembFunc(torch.nn.Module):
@@ -313,11 +361,11 @@ $$
 val = e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 $$
 
-## 2.3. anfis.py
+## 2.4. anfis.py
 
 定义了 ANFIS 的层。
 
-### 2.3.1. AnfisNet()
+### 2.4.1. AnfisNet()
 
 定义了 5 层的 ANFIS 网络类容器。
 
@@ -362,7 +410,7 @@ invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 - `varnames = ['x0', 'x1']` 为 `invardefs` 的前半部分
 - `mfdefs` 是一个列表，列表的成员为 `FuzzifyVariable` 类（anfis.FuzzifyVariable），类的形参输入为 `invardefs` 的后半部分，即隶属度函数**列表**
 
-跳转到 [`FuzzifyVariable()` 类](#232-fuzzifyvariable-类) 查阅更多。
+跳转到 [`FuzzifyVariable()` 类](#242-fuzzifyvariable-类) 查阅更多。
 
 ```python
     @property
@@ -424,7 +472,7 @@ invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
         return self.y_pred
 ```
 
-### 2.3.2. FuzzifyVariable 类
+### 2.4.2. FuzzifyVariable 类
 
 ```python
 class FuzzifyVariable(torch.nn.Module):
