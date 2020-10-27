@@ -6,7 +6,7 @@ tags: [academic]
 math: true
 ---
 
-本文介绍了 1993 年发表的自适应网络模糊推理系统（ANFIS），额外包括模糊集和模糊神经网络的基本概念的介绍。
+本文介绍了 1993 年发表的自适应网络模糊推理系统（ANFIS），Adaptive-Network-Based Fuzzy Inference System。
 
 <!--more-->
 
