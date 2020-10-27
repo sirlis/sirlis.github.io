@@ -255,7 +255,7 @@ def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
 
 输入 `x` 的列数作为输入状态量的个数，求 `x` 跨行间比较的最大值和最小值（即沿着每列求最大值和最小值） `minvals, maxvals`，即可得到输入各个状态量的取值范围 `ranges`。
 
-`num+mfs` 为隶属度函数的个数。对于每个输入状态量，采用取值范围除以 `num_mfs` 来初始化 `sigma`，采用在取值范围内均匀取 `num_mfs` 个点来初始化 `mulist`。用得到的 `sigma, mulist` 来初始化高斯隶属度函数 `make_gauss_mfs()`。
+`num_mfs` 为隶属度函数的个数。对于每个输入状态量，采用取值范围除以 `num_mfs` 来初始化 `sigma`，采用在取值范围内均匀取 `num_mfs` 个点来初始化 `mulist`。用得到的 `sigma, mulist` 来初始化高斯隶属度函数 `make_gauss_mfs()`。
 
 最终，将得到的隶属度函数，与一个字符串 `'x{}'.format(i)` 一起，组成一个元组（tuple），添加到列表 `invars` 中作为后续建立网络的输入。假设输入状态量维度（列数）为2，则 `invars` 的成员为
 
@@ -282,7 +282,7 @@ def make_gauss_mfs(sigma, mu_list):
     return [GaussMembFunc(mu, sigma) for mu in mu_list]
 ```
 
-`make_gauss_mfs` 输入 `sigma, mulist` ，调用 `GaussMembFunc()`，返回一个高斯隶属度函数的 `list`。
+`make_gauss_mfs` 输入 `sigma, mulist` ，根据 `mulist` 的个数（也就是之前 `make_anfis()` 函数中传入的隶属度函数的个数 `num_mfs`），调用 `GaussMembFunc()`，返回一个成员为 `membership.GaussMembFunc` 类型的列表。
 
 
 ### 3.2.3. GaussMemFunc()
@@ -306,6 +306,12 @@ class GaussMembFunc(torch.nn.Module):
     def pretty(self):
         return 'GaussMembFunc {} {}'.format(self.mu, self.sigma)
 ```
+
+该函数包括 `mu, sigma` 两个可反向求导的参数，同时在 `foward` 中定义了函数的前向传播表达式并返回函数值 `val`，即一个高斯函数
+
+$$
+val = e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+$$
 
 ## 3.3. anfis.py
 
