@@ -21,6 +21,8 @@ math: true
   - [2.1. 特点](#21-特点)
 - [3. ANFIS](#3-anfis)
   - [3.1. 组成](#31-组成)
+  - [membership.py](#membershippy)
+    - [make_anfis()](#make_anfis)
   - [3.2. anfis.py](#32-anfispy)
     - [3.2.1. FuzzifyVariable 类](#321-fuzzifyvariable-类)
 - [4. 参考文献](#4-参考文献)
@@ -221,6 +223,37 @@ There are then some runnable examples:
 - jang_examples.py these are four examples from Jang's paper (based partly on the details in the paper, and particle on the example folders in his source code distribution).
 
 - vignette_examples.py these are three examples from the Vignette paper. Two of these use Gaussians rather than Bell MFs.
+
+## membership.py
+
+定义了隶属度函数。
+
+### make_anfis()
+
+```python
+def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
+    '''
+        Make an ANFIS model, auto-calculating the (Gaussian) MFs.
+        I need the x-vals to calculate a range and spread for the MFs.
+        Variables get named x0, x1, x2,... and y0, y1, y2 etc.
+    '''
+    num_invars = x.shape[1]
+    minvals, _ = torch.min(x, dim=0)
+    maxvals, _ = torch.max(x, dim=0)
+    ranges = maxvals-minvals
+    invars = []
+    for i in range(num_invars):
+        sigma = ranges[i] / num_mfs
+        mulist = torch.linspace(minvals[i], maxvals[i], num_mfs).tolist()
+        invars.append(('x{}'.format(i), make_gauss_mfs(sigma, mulist)))
+    outvars = ['y{}'.format(i) for i in range(num_out)]
+    model = AnfisNet('Simple classifier', invars, outvars, hybrid=hybrid)
+    return model
+```
+
+输入 `x` 的列数作为输入状态量的个数，求 `x` 跨行间比较的最大值和最小值（即沿着每列求最大值和最小值） `minvals, maxvals`，即可得到输入各个状态量的取值范围 `ranges`。
+
+`num+mfs` 为隶属度函数的个数。对于每个输入状态量，采用取值范围除以 `num_mfs` 来初始化 `sigma`，采用在取值范围内均匀取 `num_mfs` 个点来初始化 `mulist`。用得到的 `sigma, mulist` 来初始化高斯隶属度函数 `make_gauss_mfs()`。
 
 ## 3.2. anfis.py
 
