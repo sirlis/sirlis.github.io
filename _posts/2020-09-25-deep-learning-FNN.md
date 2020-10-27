@@ -272,6 +272,8 @@ invars[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 outvars = ['y0', 'y1', 'y2']
 ```
 
+最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。
+
 ### 3.2.2. make_gauss_mfs()
 
 ```python
