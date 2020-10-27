@@ -26,7 +26,8 @@ math: true
     - [3.2.2. make_gauss_mfs()](#322-make_gauss_mfs)
     - [3.2.3. GaussMemFunc()](#323-gaussmemfunc)
   - [3.3. anfis.py](#33-anfispy)
-    - [3.3.1. FuzzifyVariable 类](#331-fuzzifyvariable-类)
+    - [3.3.1. AnfisNet()](#331-anfisnet)
+    - [3.3.2. FuzzifyVariable 类](#332-fuzzifyvariable-类)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 模糊
@@ -272,7 +273,7 @@ invars[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 outvars = ['y0', 'y1', 'y2']
 ```
 
-最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。
+最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [3.3.1. AnfisNet()](#331-anfisnet) 查阅。
 
 ### 3.2.2. make_gauss_mfs()
 
@@ -317,7 +318,114 @@ $$
 
 定义了 ANFIS 的层。
 
-### 3.3.1. FuzzifyVariable 类
+### 3.3.1. AnfisNet()
+
+定义了 5 层的 ANFIS 网络类容器。
+
+```python
+class AnfisNet(torch.nn.Module):
+    '''
+        This is a container for the 5 layers of the ANFIS net.
+        The forward pass maps inputs to outputs based on current settings,
+        and then fit_coeff will adjust the TSK coeff using LSE.
+    '''
+    def __init__(self, description, invardefs, outvarnames, hybrid=True):
+        super(AnfisNet, self).__init__()
+        self.description = description
+        self.outvarnames = outvarnames
+        self.hybrid = hybrid
+        varnames = [v for v, _ in invardefs]
+        mfdefs = [FuzzifyVariable(mfs) for _, mfs in invardefs]
+        self.num_in = len(invardefs)
+        self.num_rules = np.prod([len(mfs) for _, mfs in invardefs])
+        if self.hybrid:
+            cl = ConsequentLayer(self.num_in, self.num_rules, self.num_out)
+        else:
+            cl = PlainConsequentLayer(self.num_in, self.num_rules, self.num_out)
+        self.layer = torch.nn.ModuleDict(OrderedDict([
+            ('fuzzify', FuzzifyLayer(mfdefs, varnames)),
+            ('rules', AntecedentLayer(mfdefs)),
+            # normalisation layer is just implemented as a function.
+            ('consequent', cl),
+            # weighted-sum layer is just implemented as a function.
+            ]))
+```
+
+在函数的初始化中，首先对 `invardefs` 进行拆分，前面已知
+
+```python
+invardefs[0] = ['x0', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
+invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
+```
+
+这里将其拆分为两个部分：`varnames` 和 `mfdefs`
+
+- `varnames = ['x0', 'x1']` 为 `invardefs` 的前半部分
+- `mfdefs` 是一个列表，列表的成员为 `FuzzifyVariable` 类（anfis.FuzzifyVariable），类的形参输入为 `invardefs` 的后半部分，即隶属度函数**列表**
+
+跳转到 [`FuzzifyVariable()` 类](#332-fuzzifyvariable-类) 查阅更多。
+
+```python
+    @property
+    def num_out(self):
+        return len(self.outvarnames)
+
+    @property
+    def coeff(self):
+        return self.layer['consequent'].coeff
+
+    @coeff.setter
+    def coeff(self, new_coeff):
+        self.layer['consequent'].coeff = new_coeff
+
+    def fit_coeff(self, x, y_actual):
+        '''
+            Do a forward pass (to get weights), then fit to y_actual.
+            Does nothing for a non-hybrid ANFIS, so we have same interface.
+        '''
+        if self.hybrid:
+            self(x)
+            self.layer['consequent'].fit_coeff(x, self.weights, y_actual)
+
+    def input_variables(self):
+        '''
+            Return an iterator over this system's input variables.
+            Yields tuples of the form (var-name, FuzzifyVariable-object)
+        '''
+        return self.layer['fuzzify'].varmfs.items()
+
+    def output_variables(self):
+        '''
+            Return an list of the names of the system's output variables.
+        '''
+        return self.outvarnames
+
+    def extra_repr(self):
+        rstr = []
+        vardefs = self.layer['fuzzify'].varmfs
+        rule_ants = self.layer['rules'].extra_repr(vardefs).split('\n')
+        for i, crow in enumerate(self.layer['consequent'].coeff):
+            rstr.append('Rule {:2d}: IF {}'.format(i, rule_ants[i]))
+            rstr.append(' '*9+'THEN {}'.format(crow.tolist()))
+        return '\n'.join(rstr)
+
+    def forward(self, x):
+        '''
+            Forward pass: run x thru the five layers and return the y values.
+            I save the outputs from each layer to an instance variable,
+            as this might be useful for comprehension/debugging.
+        '''
+        self.fuzzified = self.layer['fuzzify'](x)
+        self.raw_weights = self.layer['rules'](self.fuzzified)
+        self.weights = F.normalize(self.raw_weights, p=1, dim=1)
+        self.rule_tsk = self.layer['consequent'](x)
+        # y_pred = self.layer['weighted_sum'](self.weights, self.rule_tsk)
+        y_pred = torch.bmm(self.rule_tsk, self.weights.unsqueeze(2))
+        self.y_pred = y_pred.squeeze(2)
+        return self.y_pred
+```
+
+### 3.3.2. FuzzifyVariable 类
 
 ```python
 class FuzzifyVariable(torch.nn.Module):
@@ -332,7 +440,15 @@ class FuzzifyVariable(torch.nn.Module):
             mfdefs = OrderedDict(zip(mfnames, mfdefs))
         self.mfdefs = torch.nn.ModuleDict(mfdefs)
         self.padding = 0
+```
+该类的初始化步骤如下：
 
+- 通过 `isinstance()` 判断输入的 `mfdefs` 是否是**列表**；
+- 如果是，则给 `mfdefs` 中的每个成员取名为 `mf{}.format(i)`，并形成列表 `mfnames`；
+- 通过 `zip()` 将 `mfnames` 和 `mfdefs` 组合成一个成员为元组（tuple）的列表；
+- 将上述列表传入 `OrderDict` 得到有序字典 `mfdefs`，并传入 `torch.nn.ModuleDict()`。
+
+```
     @property
     def num_mfs(self):
         '''Return the actual number of MFs (ignoring any padding)'''
