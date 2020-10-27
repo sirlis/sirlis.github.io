@@ -21,10 +21,11 @@ math: true
   - [2.1. 特点](#21-特点)
 - [3. ANFIS](#3-anfis)
   - [3.1. 组成](#31-组成)
-  - [membership.py](#membershippy)
-    - [make_anfis()](#make_anfis)
-  - [3.2. anfis.py](#32-anfispy)
-    - [3.2.1. FuzzifyVariable 类](#321-fuzzifyvariable-类)
+  - [3.2. membership.py](#32-membershippy)
+    - [3.2.1. make_anfis()](#321-make_anfis)
+    - [3.2.2. GaussMemFunc()](#322-gaussmemfunc)
+  - [3.3. anfis.py](#33-anfispy)
+    - [3.3.1. FuzzifyVariable 类](#331-fuzzifyvariable-类)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 模糊
@@ -224,11 +225,11 @@ There are then some runnable examples:
 
 - vignette_examples.py these are three examples from the Vignette paper. Two of these use Gaussians rather than Bell MFs.
 
-## membership.py
+## 3.2. membership.py
 
 定义了隶属度函数。
 
-### make_anfis()
+### 3.2.1. make_anfis()
 
 ```python
 def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
@@ -255,11 +256,39 @@ def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
 
 `num+mfs` 为隶属度函数的个数。对于每个输入状态量，采用取值范围除以 `num_mfs` 来初始化 `sigma`，采用在取值范围内均匀取 `num_mfs` 个点来初始化 `mulist`。用得到的 `sigma, mulist` 来初始化高斯隶属度函数 `make_gauss_mfs()`。
 
-## 3.2. anfis.py
+### 3.2.2. GaussMemFunc()
+
+```python
+def make_gauss_mfs(sigma, mu_list):
+    '''Return a list of gaussian mfs, same sigma, list of means'''
+    return [GaussMembFunc(mu, sigma) for mu in mu_list]
+```
+
+```python
+class GaussMembFunc(torch.nn.Module):
+    '''
+        Gaussian membership functions, defined by two parameters:
+            mu, the mean (center)
+            sigma, the standard deviation.
+    '''
+    def __init__(self, mu, sigma):
+        super(GaussMembFunc, self).__init__()
+        self.register_parameter('mu', _mk_param(mu))
+        self.register_parameter('sigma', _mk_param(sigma))
+
+    def forward(self, x):
+        val = torch.exp(-torch.pow(x - self.mu, 2) / (2 * self.sigma**2))
+        return val
+
+    def pretty(self):
+        return 'GaussMembFunc {} {}'.format(self.mu, self.sigma)
+```
+
+## 3.3. anfis.py
 
 定义了 ANFIS 的层。
 
-### 3.2.1. FuzzifyVariable 类
+### 3.3.1. FuzzifyVariable 类
 
 ```python
 class FuzzifyVariable(torch.nn.Module):
