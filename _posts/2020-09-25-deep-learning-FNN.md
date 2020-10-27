@@ -257,6 +257,14 @@ def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
 
 `num+mfs` 为隶属度函数的个数。对于每个输入状态量，采用取值范围除以 `num_mfs` 来初始化 `sigma`，采用在取值范围内均匀取 `num_mfs` 个点来初始化 `mulist`。用得到的 `sigma, mulist` 来初始化高斯隶属度函数 `make_gauss_mfs()`。
 
+最终，将得到的隶属度函数，与一个字符串 `'x{}'.format(i)` 一起，组成一个元组（tuple），添加到列表 `invars` 中。则其元素形式如下所示
+
+```python
+invars[0] = ['x0', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
+```
+
+
+
 ### 3.2.2. make_gauss_mfs()
 
 ```python
