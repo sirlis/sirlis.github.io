@@ -1,36 +1,35 @@
 ---
-title: 深度学习基础（模糊神经网络）
+title: 自适应网络模糊推理系统（ANFIS）
 date: 2020-09-25 08:55:19 +0800
 categories: [Knowledge, DeepLearning]
 tags: [academic]
 math: true
 ---
 
-本文介绍了模糊集和模糊神经网络的基本概念。
+本文介绍了 1993 年发表的自适应网络模糊推理系统（ANFIS），额外包括模糊集和模糊神经网络的基本概念的介绍。
 
 <!--more-->
 
 ---
 
-- [1. 模糊](#1-模糊)
+- [1. 基础知识](#1-基础知识)
   - [1.1. 模糊集](#11-模糊集)
   - [1.2. 模糊集运算](#12-模糊集运算)
   - [1.3. 模糊度](#13-模糊度)
   - [1.4. 模糊逻辑](#14-模糊逻辑)
-- [2. 模糊神经网络](#2-模糊神经网络)
-  - [2.1. 特点](#21-特点)
-- [3. ANFIS](#3-anfis)
-  - [3.1. 组成](#31-组成)
-  - [3.2. membership.py](#32-membershippy)
-    - [3.2.1. make_anfis()](#321-make_anfis)
-    - [3.2.2. make_gauss_mfs()](#322-make_gauss_mfs)
-    - [3.2.3. GaussMemFunc()](#323-gaussmemfunc)
-  - [3.3. anfis.py](#33-anfispy)
-    - [3.3.1. AnfisNet()](#331-anfisnet)
-    - [3.3.2. FuzzifyVariable 类](#332-fuzzifyvariable-类)
-- [4. 参考文献](#4-参考文献)
+  - [1.5. 模糊神经网络](#15-模糊神经网络)
+- [2. ANFIS](#2-anfis)
+  - [2.1. 组成](#21-组成)
+  - [2.2. membership.py](#22-membershippy)
+    - [2.2.1. make_anfis()](#221-make_anfis)
+    - [2.2.2. make_gauss_mfs()](#222-make_gauss_mfs)
+    - [2.2.3. GaussMemFunc()](#223-gaussmemfunc)
+  - [2.3. anfis.py](#23-anfispy)
+    - [2.3.1. AnfisNet()](#231-anfisnet)
+    - [2.3.2. FuzzifyVariable 类](#232-fuzzifyvariable-类)
+- [3. 参考文献](#3-参考文献)
 
-# 1. 模糊
+# 1. 基础知识
 
 ## 1.1. 模糊集
 
@@ -154,7 +153,7 @@ x OR y = NOT( AND ( NOT(x), NOT(y) ) )
 x OR y = 1-(1-x*(1-y))
 ```
 
-# 2. 模糊神经网络
+## 1.5. 模糊神经网络
 
 模糊神经网络（Fuzzy Neural Network, FNN）（又称为神经模糊系统，Neuro-Fuzzy System, NFS）是一个学习机，通过利用神经网络的近似技术来找寻一个模糊系统的参数（如模糊集，模糊规则）。
 
@@ -171,8 +170,6 @@ several learning algorithms     | not capable to learn
 black-box behavior              | simple interpretation and implementation
 
 从表中可以看出，如果将二者结合，可以充分发挥二者的优势，弥补二者的劣势。
-
-## 2.1. 特点
 
 - 采用基于神经网络理论的数据驱动学习方法，对基于底层模糊系统的神经模糊系统进行训练。这种启发式算法只考虑局部信息引起基本模糊系统的局部变化。
 - 它可以表示为学习过程中任何时刻（比如学习前，学习中或学习后）的模糊规则集。因此，系统可以根据模糊规则在有无先验知识的情况下进行初始化。
@@ -201,7 +198,9 @@ black-box behavior              | simple interpretation and implementation
 - 模糊输入，真实权重
 - 模糊输入，模糊权重
 
-# 3. ANFIS
+# 2. ANFIS
+
+Jyh-Shing Roger Jang 于 1993 年发表的[《ANFIS : Adaptive-Network-Based Fuzzy Inference System》](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=256541)。当时对于处理模糊不确定系统，使用传统数学工具的系统建模并不能得到令人满意的效果。考虑采用模糊if-then规则的模糊推理系统不需要精确的定量分析就可以对人的知识和推理过程进行定性建模，作者提出了一种基于自适应网络的模糊推理系统。
 
 [ANFIS](https://github.com/jfpower/anfis-pytorch) is a way of presenting a fuzzy inference system (FIS) as a series of numeric layers so that it can be trained like a neural net.
 
@@ -211,7 +210,7 @@ The canonical reference is the original paper by [Jyh-Shing Roger Jang](http://m
 
 Note that it assumes a Takagi Sugeno Kang (TSK) style of defuzzification rather than the more usual Mamdani style.
 
-## 3.1. 组成
+## 2.1. 组成
 
 The ANFIS framework is mainly in three files:
 
@@ -227,11 +226,11 @@ There are then some runnable examples:
 
 - vignette_examples.py these are three examples from the Vignette paper. Two of these use Gaussians rather than Bell MFs.
 
-## 3.2. membership.py
+## 2.2. membership.py
 
 定义了隶属度函数。
 
-### 3.2.1. make_anfis()
+### 2.2.1. make_anfis()
 
 ```python
 def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
@@ -273,9 +272,9 @@ invars[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 outvars = ['y0', 'y1', 'y2']
 ```
 
-最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [3.3.1. AnfisNet()](#331-anfisnet) 查阅。
+最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [AnfisNet()](#231-anfisnet) 查阅。
 
-### 3.2.2. make_gauss_mfs()
+### 2.2.2. make_gauss_mfs()
 
 ```python
 def make_gauss_mfs(sigma, mu_list):
@@ -286,7 +285,7 @@ def make_gauss_mfs(sigma, mu_list):
 `make_gauss_mfs` 输入 `sigma, mulist` ，根据 `mulist` 的个数（也就是之前 `make_anfis()` 函数中传入的隶属度函数的个数 `num_mfs`），调用 `GaussMembFunc()`，返回一个成员为 `membership.GaussMembFunc` 类型的列表。
 
 
-### 3.2.3. GaussMemFunc()
+### 2.2.3. GaussMemFunc()
 
 ```python
 class GaussMembFunc(torch.nn.Module):
@@ -314,11 +313,11 @@ $$
 val = e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 $$
 
-## 3.3. anfis.py
+## 2.3. anfis.py
 
 定义了 ANFIS 的层。
 
-### 3.3.1. AnfisNet()
+### 2.3.1. AnfisNet()
 
 定义了 5 层的 ANFIS 网络类容器。
 
@@ -363,7 +362,7 @@ invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 - `varnames = ['x0', 'x1']` 为 `invardefs` 的前半部分
 - `mfdefs` 是一个列表，列表的成员为 `FuzzifyVariable` 类（anfis.FuzzifyVariable），类的形参输入为 `invardefs` 的后半部分，即隶属度函数**列表**
 
-跳转到 [`FuzzifyVariable()` 类](#332-fuzzifyvariable-类) 查阅更多。
+跳转到 [`FuzzifyVariable()` 类](#232-fuzzifyvariable-类) 查阅更多。
 
 ```python
     @property
@@ -425,7 +424,7 @@ invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
         return self.y_pred
 ```
 
-### 3.3.2. FuzzifyVariable 类
+### 2.3.2. FuzzifyVariable 类
 
 ```python
 class FuzzifyVariable(torch.nn.Module):
@@ -499,7 +498,7 @@ mfdefs = OrderedDict([
         return y_pred
 ```
 
-# 4. 参考文献
+# 3. 参考文献
 
 <span id="ref1">[1]</span>  Wikipedia. [Neuro-fuzzy](https://en.wikipedia.org/wiki/Neuro-fuzzy).
 
