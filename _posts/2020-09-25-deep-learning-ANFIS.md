@@ -147,7 +147,7 @@ $$
 |OR(x,y)|MAX(x,y)|
 |NOT(x)|1-x|
 
-另一种 AND/OR 算子基于乘法定义
+另一种 AND/OR 算子基于**乘法**定义
 
 ```
 x AND y = x*y
