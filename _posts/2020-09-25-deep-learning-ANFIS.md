@@ -408,15 +408,49 @@ invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 这里将其拆分为两个部分：`varnames` 和 `mfdefs`
 
 - `varnames = ['x0', 'x1']` 为 `invardefs` 的前半部分
-- `mfdefs` 是一个列表，列表的成员为 `FuzzifyVariable` 类（anfis.FuzzifyVariable），类的形参输入为 `invardefs` 的后半部分，即隶属度函数**列表**
+- `mfdefs` 是一个列表，列表的成员为 `FuzzifyVariable` 类（anfis.FuzzifyVariable），类的形参输入为 `invardefs` 的后半部分，即隶属度函数**列表**，经过类初始化后得到如下形式的列表
+
+```python
+mfdefs = 
+[FuzzifyVariable(
+  (mfdefs): ModuleDict(
+    (mf0): GaussMembFunc()
+    (mf1): GaussMembFunc()
+    (mf2): GaussMembFunc()
+  )
+),
+FuzzifyVariable(
+  (mfdefs): ModuleDict(
+    (mf0): GaussMembFunc()
+    (mf1): GaussMembFunc()
+    (mf2): GaussMembFunc()
+  )
+)]
+```
 
 跳转到 [`FuzzifyVariable()` 类](#242-fuzzifyvariable-类) 查阅更多。
+
+`self.num_rules` 将所有隶属度函数个数做元素积，这里
+
+```python
+[len(mfs) for _, mfs in invardefs] = [3,3]
+np.prod[3,3] = 9
+```
+
+然后将`self.num_in`，`self.num_rules`，`self.num_out` 作为参数传给 `PlainConsequentLayer()`。 
+
+其中，`self.num_in`，`self.num_rules` 在实例化 `AnfisNet` 时确定，而 `self.num_out` 是通过下面代码根据 `self.outvarnames` 的长度得到的
 
 ```python
     @property
     def num_out(self):
         return len(self.outvarnames)
+```
+其中，`@property` 装饰器<sup>[[1](#ref1)]</sup> 把 `num_out` 的 getter 方法变成属性，但是没有定义 `num_out.setter` 方法，从而将 `num_out` 变为一个 **私有的只读属性**。该属性无法在外部进行更改，而是在实例化 `AnfisNet` 时根据 `outvarnames` 自动确定的。
 
+与之相反，`coeff` 定义时既包括 `@property` 又包括 `@coeff.setter` 方法，那么 `coeff` 就可以在外部进行赋值更改。
+
+```python
     @property
     def coeff(self):
         return self.layer['consequent'].coeff
@@ -424,7 +458,11 @@ invardefs[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
     @coeff.setter
     def coeff(self, new_coeff):
         self.layer['consequent'].coeff = new_coeff
+```
 
+这样做的好处是可以在赋值时进行一些复杂的操作，比如上述代码中的 `self.layer['consequent'].coeff = new_coeff` 操作，或者如参考文献 [[1](#ref1)] 中的取值类型和范围的限定报错提示操作。
+
+```python
     def fit_coeff(self, x, y_actual):
         '''
             Do a forward pass (to get weights), then fit to y_actual.
@@ -492,8 +530,9 @@ class FuzzifyVariable(torch.nn.Module):
 
 - 通过 `isinstance()` 判断输入的 `mfdefs` 是否是**列表**；
 - 如果是，则给 `mfdefs` 中的每个成员取名为 `mf{}.format(i)`，并形成列表 `mfnames`；
-- 通过 `zip()` 将 `mfnames` 和 `mfdefs` 组合成一个成员为元组（tuple）的列表；
-- 将上述列表传入 `OrderDict` 得到有序字典 `mfdefs`，并传入 `torch.nn.ModuleDict()`。
+- 通过 `zip()` 将 `mfnames` 和 `mfdefs` 组合成一个成员为元组的列表（a list of tuples）；
+- 将上述列表传入 `OrderDict` 得到有序字典 `mfdefs`
+- `mfdefs` 传入 `torch.nn.ModuleDict()` 得到 `self.mfdefs`。
 
 ```python
 mfdefs = OrderedDict([
@@ -501,6 +540,11 @@ mfdefs = OrderedDict([
     ('mf1', GaussMembFunc()),
     ('mf2', GaussMembFunc())
 ])
+self.mfdefs = ModuleDict(
+  (mf0): GaussMembFunc()
+  (mf1): GaussMembFunc()
+  (mf2): GaussMembFunc()
+)
 ```
 
 `torch.nn.ModuleDict()` 自动将 `mfdefs` 注册为参数（可被反向传播且可被迁移到GPU上加速计算）。注意，传入 `torch.nn.ModuleDict()` 的类必须是 `torch.nn.Module` 的子类。
@@ -548,7 +592,7 @@ mfdefs = OrderedDict([
 
 # 3. 参考文献
 
-<span id="ref1">[1]</span>  Wikipedia. [Neuro-fuzzy](https://en.wikipedia.org/wiki/Neuro-fuzzy).
+<span id="ref1">[1]</span> luyuze95 只顾风雨兼程. [python中@property装饰器的使用](https://www.cnblogs.com/luyuze95/p/11818282.html).
 
 <span id="ref2">[2]</span> Rudolf Kruse. [Fuzzy neural network](http://www.scholarpedia.org/article/Fuzzy_neural_network).
 
