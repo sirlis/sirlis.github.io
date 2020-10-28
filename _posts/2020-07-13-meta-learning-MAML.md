@@ -185,7 +185,7 @@ initialization:\quad&\boldsymbol \theta_0 = \boldsymbol \theta\\
 2^{nd}\;gradient\;step:\quad&\boldsymbol \theta_2 = U^2_\tau(\boldsymbol \theta)=\boldsymbol \theta- \alpha \boldsymbol g_1- \alpha \boldsymbol g_2\\
 ...&...\\
 k^{th}\;gradient\;step:\quad&\boldsymbol \theta_k = U^k_\tau(\boldsymbol \theta)=\boldsymbol \theta- \alpha \boldsymbol g_1- \alpha \boldsymbol g_2-...- \alpha \boldsymbol g_k\\
-&\bm g_k = \nabla_{\boldsymbol \theta_{k-1}} L_\tau(\boldsymbol \theta_{k-1})
+&\boldsymbol g_k = \nabla_{\boldsymbol \theta_{k-1}} L_\tau(\boldsymbol \theta_{k-1})
 \end{aligned}
 $$
 
@@ -356,7 +356,7 @@ initialization:\quad&\boldsymbol \theta_0 = \boldsymbol \theta\\
 2^{nd}\;gradient\;step:\quad&\boldsymbol \theta_2 = U^2_A(\boldsymbol \theta)=\boldsymbol \theta_1 - \alpha \boldsymbol g_2\\
 ...&...\\
 k^{th}\;gradient\;step:\quad&\boldsymbol \theta_k = U^k_A(\boldsymbol \theta)=\boldsymbol \theta_{k-1}- \alpha \boldsymbol g_k\\
-&\bm g_k = \nabla_{\boldsymbol \theta_{k-1}} L_\tau(\boldsymbol \theta_{k-1})
+&\boldsymbol g_k = \nabla_{\boldsymbol \theta_{k-1}} L_\tau(\boldsymbol \theta_{k-1})
 \end{aligned}
 $$
 

@@ -23,7 +23,7 @@ math: true
     - [2.1.1. 模糊推理系统](#211-模糊推理系统)
     - [2.1.2. 自适应网络](#212-自适应网络)
     - [2.1.3. ANFIS 结构](#213-anfis-结构)
-    - [ANFIS 学习算法](#anfis-学习算法)
+    - [2.1.4. ANFIS 学习算法](#214-anfis-学习算法)
   - [2.2. 程序文件组成](#22-程序文件组成)
   - [2.3. membership.py](#23-membershippy)
     - [2.3.1. make_anfis()](#231-make_anfis)
@@ -32,6 +32,8 @@ math: true
   - [2.4. anfis.py](#24-anfispy)
     - [2.4.1. AnfisNet()](#241-anfisnet)
     - [2.4.2. FuzzifyVariable 类](#242-fuzzifyvariable-类)
+    - [2.4.3. ConsequentLayer 类](#243-consequentlayer-类)
+    - [2.4.4. PlainConsequentLayer 类](#244-plainconsequentlayer-类)
 - [3. 参考文献](#3-参考文献)
 
 # 1. 基础知识
@@ -230,6 +232,13 @@ Jyh-Shing Roger Jang 于 1993 年发表的[《ANFIS : Adaptive-Network-Based Fuz
 
 ANFIS的模型结构由自适应网络和模糊推理系统合并而成，在功能上继承了模糊推理系统的可解释性的特点以及自适应网络的学习能力，能够根据先验知识改变系统参数，使系统的输出更贴近真实的输出。
 
+为简单起见，假定所考虑的模糊推理系统有2个输入x和y，单个输出z。对于一阶 Takagi-Sugeno 模糊模型，如果具有以下2条模糊规则
+
+- rule 1: if $x$ is $A_1$ and $y$ is $B_1$ then $f_1=p_1x+q_1y+r_1$
+- rule 2: if $x$ is $A_2$ and y is $B_2$ then $f_2=p_2x+q_2y+r_2$
+
+那么该一阶T-S模糊推理系统的ANFIS网络结构如图所示
+
 ![5](../assets/img/postsimg/20200925/5.jpg)
 
 输入x，y在第一层进行模糊化，模糊化的方法：用隶属函数（menbership functions，MFs，一般为钟形函数，**钟形函数参数为前向参数**）对输入特征x，y进行模糊化操作，得到一个[0,1]的隶属度（menbership grade），通常用mu表示。
@@ -238,7 +247,7 @@ ANFIS的模型结构由自适应网络和模糊推理系统合并而成，在功
 
 第三层将上一层得到的每条规则的触发强度做归一化，表征该规则在整个规则库中的触发比重，即在整个推理过程中使用到这条规则的程度（用概率理解）。
 
-第四层计算规则的结果，一般由输入特征的线性组合给出（假设输入有n个特征，fi=c0+c1x1+c2x2+。。。+cnxn。c0、c1…cn为**后向参数**）。
+第四层计算规则的结果，一般由输入特征的线性组合给出（假设输入有n个特征，$f_i=c_0+c_1x_1+c_2x_2+...+c_nx_n$。$c_0,c_1,...,c_n$为**后向参数**）。
 
 第五层去模糊化得到确切的输出，最终的系统输出结果为每条规则的结果的加权平均（权重为规则的归一化触发程度，理解为计算期望）。
 
@@ -250,7 +259,7 @@ The canonical reference is the original paper by [Jyh-Shing Roger Jang](http://m
 
 Note that it assumes a Takagi Sugeno Kang (TSK) style of defuzzification rather than the more usual Mamdani style.
 
-### ANFIS 学习算法
+### 2.1.4. ANFIS 学习算法
 
 文章W中给出的学习算法（参数更新方法）为 LSE-GD 混合学习算法。即更新参数同时在前向传递和反向传递中进行。
 
@@ -437,7 +446,7 @@ FuzzifyVariable(
 np.prod[3,3] = 9
 ```
 
-然后将`self.num_in`，`self.num_rules`，`self.num_out` 作为参数传给 `PlainConsequentLayer()`。 
+然后将`self.num_in`，`self.num_rules`，`self.num_out` 作为参数传给 [`PlainConsequentLayer()` 类](#244-plainconsequentlayer-类)。 最终，形成一个三层网络结构 `self.layer`。
 
 其中，`self.num_in`，`self.num_rules` 在实例化 `AnfisNet` 时确定，而 `self.num_out` 是通过下面代码根据 `self.outvarnames` 的长度得到的
 
@@ -589,6 +598,45 @@ self.mfdefs = ModuleDict(
                                 torch.zeros(x.shape[0], self.padding)], dim=1)
         return y_pred
 ```
+
+### 2.4.3. ConsequentLayer 类
+
+```python
+class ConsequentLayer(torch.nn.Module):
+    '''
+        A simple linear layer to represent the TSK consequents.
+        Hybrid learning, so use MSE (not BP) to adjust coefficients.
+        Hence, coeffs are no longer parameters for backprop.
+    '''
+    def __init__(self, d_in, d_rule, d_out):
+        super(ConsequentLayer, self).__init__()
+        c_shape = torch.Size([d_rule, d_out, d_in+1])
+        self._coeff = torch.zeros(c_shape, dtype=dtype, requires_grad=True)
+
+    @property
+    def coeff(self):
+        '''
+            Record the (current) coefficients for all the rules
+            coeff.shape: n_rules * n_out * (n_in+1)
+        '''
+        return self._coeff
+
+    @coeff.setter
+    def coeff(self, new_coeff):
+        '''
+            Record new coefficients for all the rules
+            coeff: for each rule, for each output variable:
+                   a coefficient for each input variable, plus a constant
+        '''
+        assert new_coeff.shape == self.coeff.shape, \
+            'Coeff shape should be {}, but is actually {}'\
+            .format(self.coeff.shape, new_coeff.shape)
+        self._coeff = new_coeff
+```
+
+### 2.4.4. PlainConsequentLayer 类
+
+继承自 ConsequentLayer 类
 
 # 3. 参考文献
 
