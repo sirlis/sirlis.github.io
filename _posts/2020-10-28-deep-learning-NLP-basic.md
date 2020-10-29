@@ -14,7 +14,8 @@ math: true
 - [1. NLP 介绍](#1-nlp-介绍)
   - [1.1. 文本表示](#11-文本表示)
   - [1.2. 训练思想](#12-训练思想)
-- [2. Encoder-Decoder 框架](#2-encoder-decoder-框架)
+- [2. Encoder-Decoder](#2-encoder-decoder)
+  - [2.1. RNN Encoder-Decoder](#21-rnn-encoder-decoder)
 - [3. Transformer](#3-transformer)
   - [3.1. 简介](#31-简介)
 - [4. 参考文献](#4-参考文献)
@@ -66,13 +67,28 @@ NLP中有各种各样的任务，比如分类（Classification），问答（QA�
 
 NLP领域也引入了这种做法，用一个通用模型，在非常大的语料库上进行预训练，然后在特定任务上进行微调，**BERT** 就是这套方案的集大成者。BERT不是第一个，但目前为止，是效果最好的方案。BERT用了一个已有的模型结构，提出了一整套的预训练方法和微调方法，我们在后文中再进行详细的描述。
 
-# 2. Encoder-Decoder 框架
+# 2. Encoder-Decoder
 
 vieo. [encoder-decoder模型](https://blog.csdn.net/weixin_41803874/article/details/89409858)
 
 Encoder-Decoder（编码-解码）是深度学习中非常常见的一个模型框架，比如无监督算法的 auto-encoding 就是用编码-解码的结构设计并训练的；比如这两年比较热的 image caption 的应用，就是 CNN-RNN 的编码-解码框架；再比如神经网络机器翻译 NMT 模型，往往就是LSTM-LSTM 的编码-解码框架。因此，准确的说，Encoder-Decoder 并不是一个具体的模型，而是一类**框架**。Encoder和Decoder部分可以是任意的文字，语音，图像，视频数据，模型可以采用CNN，RNN，BiRNN、LSTM、GRU等等。所以基于Encoder-Decoder，我们可以设计出各种各样的应用算法。
 
-Encoder-Decoder框架有一个最显著的特征就是它是一个End-to-End学习的算法；本文将以文本-文本的例子作为介绍，这样的模型往往用在机器翻译中，比如将法语翻译成英语。这样的模型也被叫做 Sequence to Sequence learning[1]。所谓编码，就是将输入序列转化成一个固定长度的向量；解码，就是将之前生成的固定向量再转化成输出序列。
+![encoder-decoder](../assets/img/postsimg/20201028/2.jpg)
+
+Encoder-Decoder框架有一个最显著的特征就是它是一个End-to-End学习的算法；本文将以文本-文本的例子作为介绍，这样的模型往往用在机器翻译中，比如将法语翻译成英语。这样的模型也被叫做 Sequence to Sequence learning（Sequence2Sequence）。所谓编码，就是将输入序列转化成一个固定长度的向量；解码，就是将之前生成的固定向量再转化成输出序列。
+
+这里复习下 Sequence2Sequence 任务到底是什么，所谓的Sequence2Sequence任务主要是泛指一些Sequence到Sequence的映射问题，Sequence在这里可以理解为一个字符串序列，当我们在给定一个字符串序列后，希望得到与之对应的另一个字符串序列（如 翻译后的、如语义上对应的）时，这个任务就可以称为Sequence2Sequence了。
+
+在现在的深度学习领域当中，通常的做法是将输入的源Sequence编码到一个中间的 context 当中，这个 context 是一个特定长度的编码（可以理解为一个向量），然后再通过这个 context 还原成一个输出的目标Sequence。 
+
+## 2.1. RNN Encoder-Decoder
+
+学术状态抽奖器. [深度学习（BOT方向） 学习笔记（2） RNN Encoder-Decoder 及 LSTM 学习](https://blog.csdn.net/mebiuw/article/details/53341404)
+
+最经典的 Encoder-Decoder 实现方式，即用RNN来实现。在RNN Encoder-Decoder 的工作当中，我们用一个 RNN 去模拟大脑的读入动作，用一个特定长度的特征向量去模拟我们的记忆，然后再用另外一个 RNN 去模拟大脑思考得到答案的动作，将三者组织起来利用就成了一个可以实现 Sequence2Sequence 工作的“模拟大脑”了。关于 RNN 的介绍这里不做展开，详见 [此处](deep-learning-RNN)。
+
+
+
 
 # 3. Transformer
 
