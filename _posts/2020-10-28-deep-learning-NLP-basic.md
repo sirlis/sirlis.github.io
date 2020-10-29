@@ -1,5 +1,5 @@
 ---
-title: NLP基础(1)（NLP，Encoder-Decoder，BERT）
+title: 深度学习基础（NLP，Encoder-Decoder，BERT）
 date: 2020-10-28 10:51:19 +0800
 categories: [Knowledge, DeepLearning]
 tags: [academic]
