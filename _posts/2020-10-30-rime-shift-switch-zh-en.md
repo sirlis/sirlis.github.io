@@ -1,5 +1,5 @@
 ---
-title: 日常tips手册
+title: 日常tips手册（Rime输入法）
 date: 2020-10-30 22:06:49 +0800
 categories: [Diary]
 tags: [efficiency]
