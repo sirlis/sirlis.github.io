@@ -205,6 +205,4 @@ Transformer来自Google团队17年的文章 《Attenion Is All You Need》（htt
 
 # 4. 参考文献
 
-[1] [梦并不遥远](https://www.cnblogs.com/zyg123/). [4.3Python数据处理篇之Matplotlib系列(三)---plt.plot()](https://www.cnblogs.com/zyg123/p/10504633.html).
-
-[2] [我的明天不是梦](https://www.cnblogs.com/xiaoboge/). [python使用matplotlib:subplot绘制多个子图](https://www.cnblogs.com/xiaoboge/p/9683056.html).
+无。
