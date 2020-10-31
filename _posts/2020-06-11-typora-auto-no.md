@@ -1,8 +1,8 @@
 ---
-title: Typora标题自动编号
+title: 日常tips手册（Typora标题自动编号）
 date: 2020-06-11 12:21:49 +0800
-categories: [Tutorial, Writing]
-tags: [markdown]
+categories: [Diary]
+tags: [markdown,efficiency]
 math: true
 ---
 
