@@ -121,10 +121,18 @@ $$
 整个编码-解码阶段的目标是将输入 $C$ 转换成目标序列 $Y$，即最大化如下的条件概率
 
 $$
-{\rm max}_\theta \frac{1}{n} \sum_{n=1}^N logp_\theta(\boldsymbol y_n\vert \boldsymbol x_n)
+{\rm max}_\theta \frac{1}{n} \sum_{n=1}^N logP_\theta(\boldsymbol y_n\vert \boldsymbol x_n)
 $$
 
 其中，$\theta$ 是模型的参数集合，每一个 $(\boldsymbol x_n,\boldsymbol y_n)$ 对都是一个训练集。
+
+
+
+「这里的损失函数大有文章！！！」有待扩充
+
+https://www.zhihu.com/question/58482430
+
+
 
 ## 2.1. RNN E-D
 
