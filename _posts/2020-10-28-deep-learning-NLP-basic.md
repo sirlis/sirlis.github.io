@@ -76,9 +76,11 @@ NLP领域也引入了这种做法，用一个通用模型，在非常大的语�
 
 # 2. Encoder-Decoder
 
+在之前贴子关于 [RNN](deep-learning-RNN.md) / [LSTM](deep-learning-LSTM.md) 的讨论中，我们均考虑的是输入输出序列**等长**的问题，然而在实际中却大量存在输入输出序列长度不等的情况，如机器翻译、语音识别、问答系统等。这时我们便需要设计一种映射可变长序列至另一个可变长序列的RNN网络结构，Encoder-Decoder框架呼之欲出。
+
 vieo. [encoder-decoder模型](https://blog.csdn.net/weixin_41803874/article/details/89409858)
 
-Encoder-Decoder（编码-解码）是深度学习中非常常见的一个模型框架，比如无监督算法的 auto-encoding 就是用编码-解码的结构设计并训练的；比如这两年比较热的 image caption 的应用，就是 CNN-RNN 的编码-解码框架；再比如神经网络机器翻译 NMT 模型，往往就是LSTM-LSTM 的编码-解码框架。因此，准确的说，Encoder-Decoder 并不是一个具体的模型，而是一类**框架**。Encoder和Decoder部分可以是任意的文字，语音，图像，视频数据，模型可以采用CNN，RNN，BiRNN、LSTM、GRU等等。所以基于Encoder-Decoder，我们可以设计出各种各样的应用算法。
+Encoder-Decoder（编码-解码）是深度学习中非常常见的一个模型框架，比如无监督算法的 auto-encoding 就是用编码-解码的结构设计并训练的；比如这两年比较热的 image caption 的应用，就是 CNN-RNN 的编码-解码框架；再比如神经网络机器翻译 NMT 模型，往往就是LSTM-LSTM 的编码-解码框架。因此，准确的说，Encoder-Decoder 并不是一个具体的模型，而是一类**框架**。Encoder 和 Decoder 部分可以是任意的文字，语音，图像，视频数据，模型可以采用 CNN，RNN，BiRNN、LSTM、GRU 等等。所以基于 Encoder-Decoder，我们可以设计出各种各样的应用算法。
 
 ![encoder-decoder](../assets/img/postsimg/20201028/2.jpg)
 
@@ -158,11 +160,11 @@ $$
 C = h_m
 $$
 
-- **第三步**，将 $C$ 作为 Decoder 的初始隐层，输入 [EOS] 生成第一个输出词向量
+- **第三步**，将 $C$ 作为 Decoder 的初始隐层，输入 [EOS]（应该为[SOS]，图中有误） 生成第一个输出词向量，rnn 的隐层也被更新。
 
-[EOS] 是一个起始符号，作为生成句子的起点，这个起始符号经过 embedding 层，输入 rnn 得到编码表示，然后将表示向量通过 softmax，得到生成的词出现的概率
+[SOS]  Start Of Sentence，是一个起始符号，作为生成句子的起点，这个起始符号经过 embedding 层，输入 rnn 得到编码表示，然后将表示向量通过 softmax，得到生成的词出现的概率，选出比如概率最高的那个词作为输出结果。
 
-- **第四步**，如此反复，将上一次输出词向量作为下一次的输入，同时输入更新的隐层，得到下一次的词向量
+- **第四步**，如此反复，将上一次输出的词作为下一次的输入，经过 embedding，softmax，得到用于下一次输入的词向量，同时更新 rnn 隐层。
 
 使用我们期望生成的句子（训练 pair 中的 $Y$）中的词按照同样的方式处理，每次处理都会产生一个词的概率向量。我们希望的是，产生的词的概率向量接近下一步实际输入的词的 one-hot 表示，所以我们会计算生成的词的概率向量构成的张量与我们期望的词，也就是整个句子构成的 one-hot 编码张量的损失（交叉熵之类的）。然后利用优化算法减小损失。
 
