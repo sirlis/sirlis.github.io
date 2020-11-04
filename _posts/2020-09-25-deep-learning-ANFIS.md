@@ -13,7 +13,7 @@ math: true
 ---
 
 - [1. 基础知识](#1-基础知识)
-  - [1.1. 模糊集](#11-模糊集)
+  - [1.1. 模糊集与隶属度](#11-模糊集与隶属度)
   - [1.2. 模糊集运算](#12-模糊集运算)
   - [1.3. 模糊度](#13-模糊度)
   - [1.4. 模糊逻辑](#14-模糊逻辑)
@@ -39,7 +39,7 @@ math: true
 
 # 1. 基础知识
 
-## 1.1. 模糊集
+## 1.1. 模糊集与隶属度
 
 > A fuzzy set is a class of objects with a continuum of grades of membership. Such a set is characterized by a membership (characteristic) function which assigns to each object a grade of membership ranging between zero and one. —— [Fuzzy sets](https://www.sciencedirect.com/science/article/pii/S001999586590241X) by L.A. Zadeh, 1965
 
@@ -82,6 +82,14 @@ math: true
 另一个模糊集的实例：
 
 ![fuzzyset4](../assets/img/postsimg/20200925/2.jpg)
+
+一个常用的隶属度函数为**高斯隶属度函数**
+
+$$
+D(A)=e^{-\frac{-(A(x)-\mu)^2}{\sigma^2}}
+$$
+
+其中 $\mu, \sigma$ 分别为高斯隶属度函数的中心和宽度。
 
 ## 1.2. 模糊集运算
 
@@ -132,12 +140,6 @@ $$
 
 其中，$p>0$ 是参数，称为 Minkowski 模糊度。特别地，当 $p=1$ 时称为 Hamming 模糊度或者 Kaufmann 模糊指标。当 $p=2$ 时称为 Euclid 模糊度。
 
-还有一个常用的模糊度函数为 Gauss 模糊度函数，定义为
-
-$$
-D(A)=e^{-\frac{-(A(x)-\mu)^2}{\sigma^2}}
-$$
-
 ## 1.4. 模糊逻辑
 
 模糊逻辑是对布尔逻辑的推广，针对隶属度进行计算。
@@ -181,6 +183,12 @@ $$
 
 ## 1.6. 模糊神经网络
 
+- 将模糊逻辑用于神经网络：将模糊集合的概念应用于神经网络的计算和学习，用模糊技术提高神经网络的学习性能；
+- 将神经网络用于模糊系统：
+  - 用神经网络的学习能力实时调整知识库，在线提取或调整模糊规则或其它参数；
+  - 用神经网络完成模糊推理过程。
+- 模糊系统和神经网络的全面结合，构造完整意义上的模糊神经网络和算法。
+
 模糊神经网络（Fuzzy Neural Network, FNN）（又称为神经模糊系统，Neuro-Fuzzy System, NFS）是一个学习机，通过利用神经网络的近似技术来找寻一个模糊系统的参数（如模糊集，模糊规则）。
 
 > A fuzzy neural network or neuro-fuzzy system is a learning machine that finds the parameters of a fuzzy system (i.e., fuzzy sets, fuzzy rules) by exploiting approximation techniques from neural networks.
@@ -215,8 +223,25 @@ black-box behavior              | simple interpretation and implementation
 
 两种常见的神经模糊模型：
 
-- Mamdani model: 着重研究模型的可解释性
-- Takagi-Sugeno-Kang (TSK) model：着重研究模型的精确程度
+- Mamdani 模型: 着重研究模型的可解释性
+- Takagi-Sugeno-Kang (TSK) 模型：着重研究模型的精确程度
+
+Mamdani 模型的模糊规则示意如下：
+
+```
+IF x1 is A1 and x2 is A2 and ... xn is An   THEN y = c1
+IF funding is adequate and staff is small   THEN risk is low
+```
+可以看出，Mamdani 模型的输出（后件）为模糊集，需要加上解模糊的环节。
+
+TSK 模型的模糊规则示意如下：
+
+```
+IF x1 is A1 and x2 is A2 and ... xn is An   THEN y = a0+a1*x1+...+an*xn
+IF funding is adequate and staff is small   THEN risk is low
+```
+
+可以看出，TSK 模型的 THEN 部分是清晰的，它的输出（后件）是一个函数，是所有输入变量的线性组合，因此具有较好的可解释性和精确性。
 
 三种 FNN 的部署 方式：
 
