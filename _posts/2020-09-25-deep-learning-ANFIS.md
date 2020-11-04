@@ -238,7 +238,7 @@ TSK 模型的模糊规则示意如下：
 
 ```
 IF x1 is A1 and x2 is A2 and ... xn is An   THEN y = a0+a1*x1+...+an*xn
-IF funding is adequate and staff is small   THEN risk is low
+IF funding is adequate and staff is small   THEN risk is 0.2
 ```
 
 可以看出，TSK 模型的 THEN 部分是清晰的，它的输出（后件）是一个函数，是所有输入变量的线性组合，因此具有较好的可解释性和精确性。
