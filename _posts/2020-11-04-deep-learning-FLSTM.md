@@ -164,7 +164,39 @@ $$
 
 作者对 LSTM 单元进行了改进，如下图所示。将隶属度集合 $M\_seq_{Traj_i}$ 作为权重矩阵，将模糊轨迹序列作为输入。经过训练，每个位置坐标的邻近网格单元的权重都能得到更新。
 
+![fuzzy-lstm cell](../assets/img/postsimg/20201104/9.jpg)
 
+上面的 LSTM 单元依然包含三个门，遗忘门，输入门，输出门。LSTM 单元的状态存储着历史信息，当新轨迹输入时，遗忘门决定移除哪些信息。可以通过下面的式子表示
+
+$$
+f_t = \sigma(M\_seq_{Traj_t}\cdot W_f\cdot [h_{t-1},N\_seq_{Traj_t}]+ b_f)
+$$
+
+其中，$\sigma$ 表示 $sigmoid$ 激活函数。$f_t$ 表示遗忘门层。$N\_seq_{Traj_t}$ 是当前邻近网格单元序列输入，$M\_seq_{Traj_t}$ 是当前邻近网格单元序列的隶属度，$h_{t -1}$ 是上一时刻的输出，$W_f$ 是遗忘门层的权重矩阵，$b_f$ 是遗忘门层的偏差。
+
+可以参考[传统的 LSTM 单元和公式](deep-learning-LSTM)便于比对。这里将公式列写如下：
+
+$$
+\boldsymbol f_t = \sigma(\boldsymbol W_f\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)
+$$
+
+下一步决定新的模糊轨迹如何存进 LSTM 单元。这要分两步进行，输入门决定什么值更新，tanh 函数产生一个新的候选向量，如下式所示
+
+$$
+\begin{aligned}
+i_t &= \sigma(M\_seq_{Traj_t}\cdot W_i\cdot [h_{t-1},N\_seq_{Traj_t}]+ b_i)\\
+\tilde{C}_t &= tanh(M\_seq_{Traj_t}\cdot W_c\cdot [h_{t-1},N\_seq_{Traj_t}]+ b_c)\\
+\end{aligned}
+$$
+
+相应的[传统的 LSTM 单元和公式](deep-learning-LSTM)为
+
+$$
+\begin{aligned}
+\boldsymbol i_t &= \sigma(\boldsymbol W_i\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\tilde \boldsymbol c_t &=\sigma(\boldsymbol W_c\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)
+\end{aligned}
+$$
 
 # 4. 参考文献
 
