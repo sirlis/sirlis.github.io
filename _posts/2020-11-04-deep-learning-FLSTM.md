@@ -19,10 +19,16 @@ math: true
     - [3.1.1. 模糊空间分割](#311-模糊空间分割)
     - [3.1.2. 模糊轨迹计算](#312-模糊轨迹计算)
   - [3.2. 模糊 LSTM](#32-模糊-lstm)
-  - [TrjPre-LSTM 建模](#trjpre-lstm-建模)
+  - [3.3. TrjPre-LSTM 建模](#33-trjpre-lstm-建模)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 引言
+
+- Mingxiao Li, Feng Lu, Hengcai Zhang & Jie Chen
+
+- **Predicting future locations of moving objects with deep fuzzy-LSTM networks**
+
+- TRANSPORTMETRICA A: TRANSPORT SCIENCE. 2020, VOL. 16, NO. 1, 119–136
 
 基于运动状态微分、基于频率模式挖掘、基于机器学习，三种运动位置预测方法。基于机器学习的方法已经称为主流。
 
@@ -214,13 +220,15 @@ h_t &= o_t\odot tanh(C_t)\\
 \end{aligned}
 $$
 
-## TrjPre-LSTM 建模
+## 3.3. TrjPre-LSTM 建模
 
 作者将整个轨迹划分为固定长度的子轨迹，然后对每条子轨迹计算隶属度。为了兼顾周期性和最近的运动模式，子轨迹们被划分成两类：一类是靠近预测点的相近轨迹，一类是其它日期相似时刻的轨迹。
 
 给定预测点 $p_t$ 和时间片段 $q$ （在文章中取为一天），靠近预测点的相近轨迹为 $seq_t^{close} = \{p_{t-m},...,p_{t-2},p_{t-1}\}$ 而周期性轨迹为 $seq_t^{period} = \{p_{t-m*q},...,p_{t-2*q},p_{t-1*q}\}$。如下图所示
 
+![sub trajectories](../assets/img/postsimg/20201104/10.jpg)
 
+上图给出了 TrjPre-LSTM 方法的架构，主要由两部分组成，分别建模近期时间的影响和周期性影响。二者共用一个神经网络结构，二者的输出通过求和融合在一起。最后的结果通过一个 softmax 层转化为固定维度的向量（这种操作在多分类问题中被大量采用）。
 
 # 4. 参考文献
 
