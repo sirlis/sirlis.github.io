@@ -20,7 +20,8 @@ math: true
     - [3.1.2. 模糊轨迹计算](#312-模糊轨迹计算)
   - [3.2. 模糊 LSTM](#32-模糊-lstm)
   - [3.3. TrjPre-LSTM 建模](#33-trjpre-lstm-建模)
-- [4. 参考文献](#4-参考文献)
+- [4. 算例研究](#4-算例研究)
+- [5. 参考文献](#5-参考文献)
 
 # 1. 引言
 
@@ -228,8 +229,37 @@ $$
 
 ![sub trajectories](../assets/img/postsimg/20201104/10.jpg)
 
-上图给出了 TrjPre-LSTM 方法的架构，主要由两部分组成，分别建模近期时间的影响和周期性影响。二者共用一个神经网络结构，二者的输出通过求和融合在一起。最后的结果通过一个 softmax 层转化为固定维度的向量（这种操作在多分类问题中被大量采用）。
+上图给出了 TrjPre-LSTM 方法的架构，主要由两部分组成，分别建模近期时间的影响和周期性影响。二者共用一个神经网络结构，二者的输出通过求和融合在一起。最后的结果通过一个 softmax 层转化为固定维度的向量（这种操作在多分类问题中被大量采用）。采用跨类交叉熵作为损失函数。
 
-# 4. 参考文献
+# 4. 算例研究
+
+使用移动电话信号数据库，10 万个用户，15 天共计 150 万条轨迹。
+
+将网格划分为 $1km \times 1 km$，精确区域半径 $r=0.45km$。在 i7-3770 @3.4GHz 和 116 GB 内存 Windows 7 的 PC 上进行实验。TrjPre-FLSTM 采用 Python 实现。
+
+给定一条轨迹 $Traj_k = p_1,p_2,...,p_n$ 和一条预测轨迹 $Traj_k'=p_1',p_2',...,p_n'$，预测精度定义如下
+
+$$
+\begin{aligned}
+H_{(p_i,p_i')}=
+\left\{\begin{matrix}
+1&\quad if \vert p_i-p_i' \vert \leq \gamma \\ 
+0&\quad else
+\end{matrix}\right.\\
+Acc = \frac{\sum_{i=1}^m H_{(p_i,p_i')}}{\vert Traj' \vert}
+\end{aligned}
+$$
+
+其中，$\vert p_i-p_i' \vert$ 是真实坐标点 $p_i$ 和预测坐标点 $p_i'$ 的欧式距离，$\gamma$ 是距离门限，$\vert Traj' \vert$ 是预测轨迹的长度。
+
+给定多条轨迹的预测结果 $Results = Acc_1, Acc_2,...,Acc_m$，预测精度的标准差定义为
+
+$$
+Stdev=\sqrt{\frac{\sum_{(i=1)}^m(Acc_i-\bar{Acc})^2}{m-1}}
+$$
+
+其中 $\bar{Acc}$ 是预测精度的平均值。由于网格边长 $1km$，我们定义 $\gamma = 1km$。
+
+# 5. 参考文献
 
 无。
