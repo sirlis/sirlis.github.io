@@ -595,6 +595,8 @@ $$
 
 ## 3.4. 交叉熵
 
+遍地胡说. [详解机器学习中的熵、条件熵、相对熵和交叉熵](https://www.cnblogs.com/kyrieng/p/8694705.html)
+
 KL 散度可以用来评估两个分布的差异程度，假设未知真实分布为 $P(x)$，已知估计分布为 $Q(x)$，根据其定义
 
 $$
@@ -623,4 +625,10 @@ $$
 
 # 4. 参考文献
 
-无。
+[1] 产品经理马忠信. [应该如何理解概率分布函数和概率密度函数？](https://www.jianshu.com/p/b570b1ba92bb)
+
+[2] 忆臻. [一文搞懂极大似然估计](https://zhuanlan.zhihu.com/p/26614750)
+
+[3] 马同学. [如何理解贝叶斯推断和beta分布？](https://www.matongxue.com/madocs/910)
+
+[4] 遍地胡说. [详解机器学习中的熵、条件熵、相对熵和交叉熵](https://www.cnblogs.com/kyrieng/p/8694705.html)
