@@ -210,18 +210,6 @@ $$
 
 ${\rm argmax} f(x)$ 是使得函数 $f(x)$ 取得其最大值的所有自变量 $x$ 的集合。
 
-由于在计算当中，多个概率的乘法最终会得到一个非常小的值，从而可能造成下溢（underflow），因此一般会对似然函数取一个对数，将连续乘法转化为加法
-
-$$
-{\rm argmax}\ ln L(\theta) = {\rm argmax}\  ln \prod P(x_i\vert \theta) = {\rm argmax}\  \sum lnP(x_i\vert \theta), i=1,2,...,n
-$$
-
-再进一步，加一个负号，问题转化为
-
-$$
-{\rm argmin}\  [-ln L(\theta)] = {\rm argmin}\  \sum [-lnP(x_i\vert \theta)], i=1,2,...,n
-$$
-
 总结起来，利用最大似然函数求解总体参数的估计值的一般步骤为：
 
 - 获取似然函数
@@ -229,6 +217,33 @@ $$
 - 将对数似然函数求（偏）导数，令其为 0，得到似然方程
 - 求解似然方程，得到的一个或多个数值，即为总体参数的最大似然估计值
 
+---
+
+由于在计算当中，多个概率的乘法最终会得到一个非常小的值，从而可能造成下溢（underflow），因此一般会对似然函数取一个对数，将连续乘法转化为加法
+
+$$
+{\rm argmax}\ log L(\theta) = {\rm argmax}\  log \prod P(x_i\vert \theta) = {\rm argmax}\  \sum_{i=1}^n logP(x_i\vert \theta), i=1,2,...,n
+$$
+
+再进一步，加一个负号，问题转化为
+
+$$
+{\rm argmin}\  [-log L(\theta)] = {\rm argmin}\  \sum_{i=1}^n [-logP(x_i\vert \theta)], i=1,2,...,n
+$$
+
+因为当重新缩放代价函数时 argmin 不会改变，我们可以除以 $n$ 得到和训练数据经验分布 $P$ 相关的期望作为准则
+
+$$
+{\rm argmin}\ \mathbb E_P [-logP(X\vert \theta)]
+$$
+
+令 $Q(X) = P(X\vert \theta)$ 上式转化为
+
+$$
+{\rm argmin}\ \mathbb E_P [-log Q(X)]
+$$
+
+后面在介绍 KL 散度和交叉熵时会发现，**任何一个负对数似然组成的损失都是定义在训练集上的经验分布和定义在模型上的概率分布之间的交叉熵。**
 
 ---
 
@@ -669,6 +684,16 @@ $$
 - 因此，我们**希望**学到的模型分布至少和训练数据的分布一致，$P(train) \simeq P(model)$
 
 根据之前的描述，最小化训练数据上的分布 $P(train)$ 与最小化模型分布 $P(model)$ 的差异等价于最小化**相对熵**，即 ${\rm minimize} [KL(P(train)||P(model))]$。此时，$P(train)$ 就是 $KL(p\vert \vert q)$ 中的 $p$，即真实分布，$P(model)$ 就是 $q$。又因为训练数据的分布 $p$ 是给定的，所以求 $KL(p\vert \vert q)$ 等价于求 $H(p,q)$。得证，交叉熵可以用来计算学习模型分布与训练分布之间的差异。
+
+实际上，由于 $P(x)$ 是已知
+
+$$
+{\rm minimize}\ H(p,q) = {\rm minimize}\ [-\int P(x){\rm log}Q(x)] = {\rm minimize}\ \mathbb E_p[-log Q(x)]
+$$
+
+**最小化 KL 散度其实就是在最小化分布之间的交叉熵。**
+
+**任何一个负对数似然组成的损失都是定义在训练集上的经验分布和定义在模型上的概率分布之间的交叉熵。**
 
 ## softmax
 
