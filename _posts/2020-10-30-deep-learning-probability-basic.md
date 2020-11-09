@@ -697,19 +697,85 @@ $$
 
 ## 3.5. softmax 函数
 
-$n$ 分类问题的 softmax 函数定义如下
+**$n$ 分类问题** 的 softmax 函数定义如下
 
 $$
-P(y_i) = \frac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}
+\hat y_i = P(z_i) = \frac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}
 $$
 
-假设某个训练样本的输出向量为 $z=[ 1, 5, 3 ]$, 那么经过 softmax 函数后的概率分别为 $\hat y=[0.015,0.866,0.117]$。
+假设某个训练样本经过神经网络后到达 softmax 层之前的输出向量为 $z=[ 1, 5, 3 ]$, 那么经过 softmax 函数后的概率分别为 $\hat y=[0.015,0.866,0.117]$。
 
 假设期望输出标签为 $y = [0,1,0]$，那么交叉熵损失函数可以定义为
 
 $$
-L(\hat y, y) = -\sum_{j=1}^3 y_j {\rm log} \hat{y}_j
+L(\hat y, y) = -\sum_{j=1}^3 y_j {\rm ln} \hat{y}_j
 $$
+
+由于在分类问题中，期望输出标签是 one-hot 型变量。不失一般性，假设第 $j$ 个分量为 1 ，则损失函数为
+
+$$
+L(\hat y, y) = - {\rm ln} \hat{y}_j\ (y_j = 1)
+$$
+
+进行梯度下降时，根据链式法则
+
+$$
+\frac{\partial L}{\partial \omega} = \frac{\partial L}{\partial \hat y_j}\frac{\partial \hat y_j}{\partial z_i}\frac{\partial z_i}{\partial \omega_k}
+$$
+
+其中
+
+$$
+\frac{\partial L}{\partial \hat y_j} = -\frac{1}{\hat y_j}
+$$
+
+而 $\frac{\partial z_i}{\partial \omega_k}$ 根据网络具体形式，一般比较好求。
+
+因此，重点在于求解中间的偏导项，需要分情况讨论
+
+$j=i$ 时，表明反向传播至同样下标的上一层节点：
+
+$$
+\begin{aligned}
+{\rm if}\quad j&=i:\\
+\frac{\partial \hat y_j}{\partial z_i}&=\frac{\partial \hat y_i}{\partial z_i}\\
+&=\frac{\partial }{\partial z_i}(\frac{e^{z_i}}{\sum_{k} e^{z_k}})\\
+&=\frac{(e^{z_i})'\cdot \sum_{k} e^{z_k}-e^{z_i}\cdot e^{z_i}}{(\sum_{k} e^{z_k})^2}\quad(分式函数求导法则)\\
+&=\frac{e^{z_i}}{\sum_{k} e^{z_k}} - \frac{e^{z_i}}{\sum_{k} e^{z_k}}\frac{e^{z_i}}{\sum_{k} e^{z_k}}\\
+&= \hat y_j(1-\hat y_j)
+\end{aligned}
+$$
+
+此时
+
+$$
+\frac{\partial L}{\partial z_j} = -\frac{1}{\hat y_j} \cdot \hat y_j(1-\hat y_j) = \hat y_j - 1
+$$
+
+可以看出形式非常简单，只要正向求一次得出结果，然后反向传梯度的时候，将结果减 1 即可。
+
+$j\neq i$ 时，表明反向传播至不同下标的上一层节点：
+
+$$
+\begin{aligned}
+{\rm if}\quad j&\neq i:\\
+\frac{\partial \hat y_j}{\partial z_i}&=\frac{\partial }{\partial z_i}(\frac{e^{z_j}}{\sum_{k} e^{z_k}})\\
+&=\frac{{\rm d}e^{z_j}/{\rm d}e^{z_i}\cdot \sum_{k} e^{z_k}-e^{z_j}\cdot e^{z_i}}{(\sum_{k} e^{z_k})^2}\\
+&=\frac{0\cdot \sum_{k} e^{z_k}-e^{z_j}\cdot e^{z_i}}{(\sum_{k} e^{z_k})^2}\\
+&=-\frac{e^{z_j}}{\sum_{k} e^{z_k}}\frac{e^{z_i}}{\sum_{k} e^{z_k}}\\
+&= -\hat y_j\hat y_i
+\end{aligned}
+$$
+
+此时
+
+$$
+\frac{\partial L}{\partial z_j} = -\frac{1}{\hat y_j} \cdot (-\hat y_j\hat y_i) = \hat y_i
+$$
+
+形式同样非常简单，只要正向求一次得出结果，然后反向传梯度的时候，将它结果保存即可。
+
+还是上面的例子，假设输出向量为 $z=[ 1, 5, 3 ]$, 那么经过 softmax 函数后的概率分别为 $\hat y=[0.015,0.866,0.117]$，交叉熵损失函数对 $z$ 的篇导数为 $\hat y'=[0.015,0.866-1,0.117] = [0.015,-0.134,0.117]$。
 
 # 4. 参考文献
 
