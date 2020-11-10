@@ -683,7 +683,7 @@ $$
 - 但是真实分布不可知，假设训练数据是从真实数据中独立同分布采样的，$P(train) \simeq P(real)$
 - 因此，我们**希望**学到的模型分布至少和训练数据的分布一致，$P(train) \simeq P(model)$
 
-根据之前的描述，最小化训练数据上的分布 $P(train)$ 与最小化模型分布 $P(model)$ 的差异等价于最小化**相对熵**，即 ${\rm minimize} [KL(P(train)||P(model))]$。此时，$P(train)$ 就是 $KL(p\vert \vert q)$ 中的 $p$，即真实分布，$P(model)$ 就是 $q$。又因为训练数据的分布 $p$ 是给定的，所以求 $KL(p\vert \vert q)$ 等价于求 $H(p,q)$。得证，交叉熵可以用来计算学习模型分布与训练分布之间的差异。
+根据之前的描述，最小化训练数据上的分布 $P(train)$ 与最小化模型分布 $P(model)$ 的差异等价于最小化**相对熵**，即 ${\rm minimize}\ [KL(P(train)\vert \vert P(model))]$。此时，$P(train)$ 就是 $KL(p\vert \vert q)$ 中的 $p$，即真实分布，$P(model)$ 就是 $q$。又因为训练数据的分布 $p$ 是给定的，所以求 $KL(p\vert \vert q)$ 等价于求 $H(p,q)$。得证，交叉熵可以用来计算学习模型分布与训练分布之间的差异。
 
 实际上，由于 $P(x)$ 是已知
 
