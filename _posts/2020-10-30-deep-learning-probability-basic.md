@@ -76,14 +76,14 @@ math: true
 
 > 对于离散型随机变量，其概率可以用概率分布列表来描述。如两个离散型随机变量 $x$ 的概率分布列表可以表述为
 > $$
-\begin{bmatrix}
-x\\ 
-P(x)
-\end{bmatrix} = \begin{bmatrix}
-x_1 & x_2\\ 
-0.99 & 0.01
-\end{bmatrix}
-$$
+> \begin{bmatrix}
+> x\\ 
+> P(x)
+> \end{bmatrix} = \begin{bmatrix}
+> x_1 & x_2\\ 
+> 0.99 & 0.01
+> \end{bmatrix}
+> $$
 > 解读为：$x$ 取值为 $x_1$ 的概率 $P(x=x_1) = 0.99$，取值为 $x_2$ 的概率 $P(x=x_2) = 0.01$。
 
 **概率分布函数**（累积概率函数）是描述随机变量取值分布规律的数学表示。概率分布函数是随机变量特性的表征，它决定了随机变量取值的分布规律，只要已知了概率分布函数，就可以算出随机变量落于某处的概率。
@@ -647,13 +647,13 @@ $$
 > 根据含隐随机变量的 Jensen 不等式：$f(\mathbb E[\xi(z)])\leq \mathbb E[f(\xi(z))]$
 > 令 $f(\cdot) = -log(\cdot)$，令 $\xi(z) = \frac{Q(x)}{P(x)}$，带入上式得
 > $$
-\begin{aligned}
-\mathbb E_x[f(\xi(x))] &\geq f(\mathbb E_x[\xi (x)])\\
-\mathbb E_x[-log(\frac{Q(x)}{P(x)})] &\geq -log(E_x[\frac{Q(x)}{P(x)}]))\\
--\int log(\frac{Q(x)}{P(x)}) P(x){\rm d}x &\geq -log(\int \frac{Q(x)}{P(x)}P(x){\rm d}x)\\
--\int log(\frac{Q(x)}{P(x)}) P(x){\rm d}x &\geq -log(\int Q(x){\rm d}x)=-log(1)=0\\
-\end{aligned}
-$$
+> \begin{aligned}
+> \mathbb E_x[f(\xi(x))] &\geq f(\mathbb E_x[\xi (x)])\\
+> \mathbb E_x[-log(\frac{Q(x)}{P(x)})] &\geq -log(E_x[\frac{Q(x)}{P(x)}]))\\
+> -\int log(\frac{Q(x)}{P(x)}) P(x){\rm d}x &\geq -log(\int \frac{Q(x)}{P(x)}P(x){\rm d}x)\\
+> -\int log(\frac{Q(x)}{P(x)}) P(x){\rm d}x &\geq -log(\int Q(x){\rm d}x)=-log(1)=0\\
+> \end{aligned}
+> $$
 
 ## 3.4. 交叉熵
 
