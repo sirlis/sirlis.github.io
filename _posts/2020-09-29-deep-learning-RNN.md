@@ -176,21 +176,18 @@ $$
 - $j=i:\quad y_{tj}(1-\hat y_{tj}) = 1-\hat y_{tj} = y_{tj} - \hat y_{tj}$
 - $j\neq i:\quad y_{tj}\hat y_{ti} = \hat y_{ti} = y_{tj} - \hat y_{tj}$
 
-可以发现，二者在形式上可以写成统一的形式 $\boldsymbol y_{t} - \hat \boldsymbol y_{t}$，那么有
+可以发现，二者在形式上可以写成统一的形式 $\boldsymbol y_{tj} - \hat \boldsymbol y_{tj}$，那么有
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol c}
-&= - \sum_{t=1}^T (y_{tj} - \hat y_{tj})
+\frac{\partial L}{\partial \boldsymbol c} = - \sum_{t=1}^T (\boldsymbol y_{tj} - \hat \boldsymbol y_{tj}) =\sum_{t=1}^T (\hat \boldsymbol y_{tj} - \boldsymbol y_{tj})
 \end{aligned}
 $$
 
-dasf 
+那么对 $\boldsymbol V$ 的偏导为
 
 $$
 \begin{aligned}
-&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t})\cdot \hat \boldsymbol y_t(\boldsymbol 1_i -\hat \boldsymbol y_t)\\
-&= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\\
 \frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c}
 = \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
 &= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\boldsymbol h_t
