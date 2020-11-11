@@ -97,16 +97,31 @@ $$
 
 ![rnn](../assets/img/postsimg/20200929/6.jpg)
 
-为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数，隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
+为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数。对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
 
-$$
+<!-- $$
 \boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - (\boldsymbol y_t ln\hat \boldsymbol y_t +(\boldsymbol 1_i-\boldsymbol y_t)ln(\boldsymbol 1_i-\hat \boldsymbol y_t) ) \right]
 $$
+
+其中, $\boldsymbol 1_i$ 表示第 $i$ 维为1，其余维为0的向量。 -->
+
+$$
+\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - \boldsymbol y_t ln\hat \boldsymbol y_t \right]
+$$
+
 其中, $\boldsymbol 1_i$ 表示第 $i$ 维为1，其余维为0的向量。
+
+注意到，对于任意时刻 $t$ 的损失函数 $\boldsymbol L_t$，在 $N$ 分类问题中其与每个维度分量均有关，因此损失函数可以进一步写为
+
+$$
+\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = -\sum_{t=1}^T\sum_{j=1}^N y_{tj}{\rm ln} \hat y_{tj}
+$$
+
+上式就是负对数似然函数的形式。
 
 首先计算比较简单的 $V,c$ 的梯度。在输出端的 $V,c$ 参数仅与 $t$ 时刻的反向传播通路有关，因此分别求导数后求和即可，有<sup>[[1](#ref1)]</sup>
 
-$$
+<!-- $$
 \begin{aligned}
 \frac{\partial L}{\partial \boldsymbol c} &= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \boldsymbol c}
 = \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
@@ -117,9 +132,29 @@ $$
 = \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
 &= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\boldsymbol h_t
 \end{aligned}
+$$ -->
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol c} &= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \boldsymbol c}
+= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
+&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t})\cdot softmax'\cdot \boldsymbol I\\
+\end{aligned}
 $$
 
-$\boldsymbol U,\boldsymbol W,\boldsymbol b$ 的梯度计算就比较复杂了，误差传播源来自于**两个反向传播通路**的方向，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
+由于 $softmax'$ 需要分情况讨论（）
+
+$$
+\begin{aligned}
+&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t})\cdot \hat \boldsymbol y_t(\boldsymbol 1_i -\hat \boldsymbol y_t)\\
+&= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\\
+\frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c}
+= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
+&= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\boldsymbol h_t
+\end{aligned}
+$$
+
+$\boldsymbol U,\boldsymbol W,\boldsymbol b$ 的梯度计算就比较复杂了，误差传播源来自于**两个反向传播通路**的方向，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。这里假设隐藏层的激活函数 $f(\cdot)$ 为 tanh 函数。
 
 在进一步求解前，首先要考虑矩阵对向量求导的布局。根据布局约定（layout conventions），谁是列向量就是什么布局<sup>[[2](#ref2)]</sup>：
 

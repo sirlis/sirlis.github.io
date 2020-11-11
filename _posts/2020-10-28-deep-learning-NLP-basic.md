@@ -126,14 +126,6 @@ $$
 
 其中，$\theta$ 是模型的参数集合，每一个 $(\boldsymbol x_n,\boldsymbol y_n)$ 对都是一个训练集。
 
-
-
-「这里的损失函数大有文章！！！」有待扩充
-
-https://www.zhihu.com/question/58482430
-
-
-
 ## 2.1. RNN E-D
 
 > 参考：
