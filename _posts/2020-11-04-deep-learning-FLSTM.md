@@ -99,7 +99,7 @@ $x_{ij}=0$ 表示位置坐标位于网格 $j$ 中心，$x_{ij}$ 的取值上界�
 
 $$
 \begin{aligned}
-M_{i,j}^{temp} = \left(\begin{matrix}
+M_{i,j}^{temp} = \left\{\begin{matrix}
 &1\quad &d \leq r\\ 
 &e^{-(x_{ij}-r)} \quad & d > r
 \end{matrix}\right.

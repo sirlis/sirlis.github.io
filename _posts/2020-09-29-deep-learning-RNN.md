@@ -109,8 +109,6 @@ $$
 \boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - \boldsymbol y_t ln\hat \boldsymbol y_t \right]
 $$
 
-其中, $\boldsymbol 1_i$ 表示第 $i$ 维为1，其余维为0的向量。
-
 注意到，对于任意时刻 $t$ 的损失函数 $\boldsymbol L_t$，在 $N$ 分类问题中其与每个维度分量均有关，因此损失函数可以进一步写为
 
 $$
@@ -142,7 +140,14 @@ $$
 \end{aligned}
 $$
 
-由于 $softmax'$ 需要分情况讨论（）
+由于 $softmax'$ 需要[分情况讨论](deep-learning-probability-basic/#35-softmax-函数)，当 $j=i$ 时 $softmax' = \hat y_j(1-\hat y_j)$；当 $j\neq i$ 时 $softmax' = \hat y_j\hat y_i$，那么有
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol c} &= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t})\cdot\begin{bmatrix}
+\end{bmatrix}
+\end{aligned}
+$$
 
 $$
 \begin{aligned}
