@@ -144,10 +144,48 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol c} &= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t})\cdot\begin{bmatrix}
-\end{bmatrix}
+\frac{\partial L}{\partial \boldsymbol c}
+&= \sum_{t=1}^T \sum_{j=1}^N -\frac{y_{tj}}{\hat y_{tj}}\cdot
+\left\{\begin{matrix}
+&\hat y_{tj}(1-\hat y_{tj})\quad &j=i\\ 
+&\hat y_{tj}\hat y_{ti} \quad & j\neq i
+\end{matrix}\right.\\
+&= - \sum_{t=1}^T \sum_{j=1}^N 
+\left\{\begin{matrix}
+&y_{tj}(1-\hat y_{tj})\quad &j=i\\ 
+&y_{tj}\hat y_{ti} \quad & j\neq i
+\end{matrix}\right.\\
 \end{aligned}
 $$
+
+由于 $\boldsymbol y_{t} = [y_{t1},y_{t2},...,y_{tj},...,y_{tN}]$ 是一个 one-hot 向量，假设第 $j$ 个分量 $y_{tj} = 1$，可以将第二个累加符号消去（因为其它分量为 0，不影响累加求和）
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol c}
+&= - \sum_{t=1}^T \left\{\begin{matrix}
+&y_{tj}(1-\hat y_{tj})\quad &j=i\\ 
+&y_{tj}\hat y_{ti} \quad & j\neq i
+\end{matrix}\right.\quad (y_{tj} = 1)
+\end{aligned}
+$$
+
+
+进一步分析
+
+- $j=i:\quad y_{tj}(1-\hat y_{tj}) = 1-\hat y_{tj} = y_{tj} - \hat y_{tj}$
+- $j\neq i:\quad y_{tj}\hat y_{ti} = \hat y_{ti} = y_{tj} - \hat y_{tj}$
+
+可以发现，二者在形式上可以写成统一的形式 $\boldsymbol y_{t} - \hat \boldsymbol y_{t}$，那么有
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol c}
+&= - \sum_{t=1}^T (y_{tj} - \hat y_{tj})
+\end{aligned}
+$$
+
+dasf 
 
 $$
 \begin{aligned}
