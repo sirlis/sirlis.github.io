@@ -773,7 +773,7 @@ $$
 \begin{aligned}
 {\rm if}\quad j&\neq i:\\
 \frac{\partial \hat y_j}{\partial z_i}&=\frac{\partial }{\partial z_i}(\frac{e^{z_j}}{\sum_{k} e^{z_k}})\\
-&=\frac{{\rm d}e^{z_j}/{\rm d}e^{z_i}\cdot \sum_{k} e^{z_k}-e^{z_j}\cdot e^{z_i}}{(\sum_{k} e^{z_k})^2}\\
+&=\frac{ {\rm d} e^{z_j}/{\rm d} e^{z_i}\cdot \sum_{k} e^{z_k}-e^{z_j}\cdot e^{z_i} }{(\sum_{k} e^{z_k})^2}\\
 &=\frac{0\cdot \sum_{k} e^{z_k}-e^{z_j}\cdot e^{z_i}}{(\sum_{k} e^{z_k})^2}\\
 &=-\frac{e^{z_j}}{\sum_{k} e^{z_k}}\frac{e^{z_i}}{\sum_{k} e^{z_k}}\\
 &= -\hat y_j\hat y_i
