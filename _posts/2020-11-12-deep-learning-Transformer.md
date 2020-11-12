@@ -1,6 +1,6 @@
 ---
 title: 深度学习基础（Transformer）
-date: 2020-10-28 10:51:19 +0800
+date: 2020-11-12 17:04:19 +0800
 categories: [Knowledge, DeepLearning]
 tags: [academic]
 math: true
