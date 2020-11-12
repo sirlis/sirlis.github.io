@@ -1,12 +1,12 @@
 ---
-title: 深度学习基础（NLP，Encoder-Decoder，BERT）
+title: 深度学习基础（Encoder-Decoder）
 date: 2020-10-28 10:51:19 +0800
 categories: [Knowledge, DeepLearning]
 tags: [academic]
 math: true
 ---
 
-本文主要介绍自然语言处理（Natural Language Process，NLP）的基础，然后介绍 Encoder-Decoder（编码-解码）框架和 BERT 框架。
+本文主要介绍自然语言处理（Natural Language Process，NLP）的基础，然后介绍 Encoder-Decoder（编码-解码）框架和 Attention 机制。
 
 <!--more-->
 
@@ -23,10 +23,8 @@ math: true
     - [2.2.1. attention score](#221-attention-score)
     - [2.2.2. attention weights](#222-attention-weights)
     - [2.2.3. attention vector](#223-attention-vector)
-    - [总结](#总结)
-- [3. Transformer](#3-transformer)
-  - [3.1. 简介](#31-简介)
-- [4. 参考文献](#4-参考文献)
+    - [2.2.4. 总结](#224-总结)
+- [3. 参考文献](#3-参考文献)
 
 # 1. NLP 介绍
 
@@ -322,7 +320,7 @@ $$
 
 在原始的 Decoder 中，语义向量 $c$ 仅作为初始时刻的解码隐层。而在注意力机制下，我们将语义向量 $C_i$ 与 Decoder 端的隐层 $s_{i-1}$ 进行向量拼接 $[C_i, s_{i-1}]$，得到**注意力向量（attention vector）**，来生成输出词的概率分布。
 
-### 总结
+### 2.2.4. 总结
 
 在 Encoder-Decoder 框架中加入 Attention 机制后的模型可总结为如下公式
 
@@ -336,15 +334,7 @@ P(y_i\vert y_1,y_2,...,y_{i-1},c) &= softmax(y_{i-1},s_{i})
 \end{aligned}
 $$
 
-# 3. Transformer
-
-\_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
-
-## 3.1. 简介
-
-Transformer来自Google团队17年的文章 《Attenion Is All You Need》（https://arxiv.org/abs/1706.03762 ），该文章的目的：减少计算量并且提高并行效率，同时不减弱最终的实验效果。
-
-# 4. 参考文献
+# 3. 参考文献
 
 DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
 
