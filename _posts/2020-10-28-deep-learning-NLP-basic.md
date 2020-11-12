@@ -235,7 +235,7 @@ Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。Decoder 得
 - input：单词的 one-hot 向量。在初始时刻为自定义的开始标志 [SOS] 或者 [GO] 等。
 - **embedding**：对 input 进行 word2vec 操作，将其转化为稠密的低维向量，得到 embedded_input；
 - **MultiLayer_LSTM**：多层 LSTM ；
-- **Dense_Layer**：全连接层，将得到的输出映射成一个维度与字典相关的向量（比如 1000 维）。因此这个过程也叫维度映射。
+- **Dense_Layer**：全连接层，将得到的 hidden_state 映射成一个维度与字典相关的向量（比如 1000 维）。因此这个过程也叫维度映射。
 - **output_logits**：经过维度映射得到的输出向量；
 - **softmax**：对输出向量进行概率层面的归一化，得到 output。在学习训练时，与期望的 one-hot 形式的 output 之间可以计算交叉熵。
   在推理测试时，根据 softmax 的结果选择概率最高的词作为预测输出和下一时刻的输入。
