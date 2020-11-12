@@ -211,7 +211,9 @@ Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大�
 
 ### 2.1.3. 结构
 
-下面分析采用多层 LSTM 构建的 Encoder-Decoder 的网络结构，首先给出 Encoder 的网络结构
+下面分析采用多层 LSTM 构建的 Encoder-Decoder 的网络结构。
+
+首先给出 **Encoder** 的网络结构
 
 ![lstm encoder](../assets/img/postsimg/20201028/5-0.png)
 
@@ -222,9 +224,21 @@ Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大�
 - **output**：输出，其实我们不关心；
 - **prev_hidden_state**：在下一时刻根据输入向量 embedded_input 更新为 hidden_state，即存储了下一时刻输入词的信息。
 
-下面给出 Decoder 的网络结构
+当输入序列到底时，一般取最后一次更新的 hidden_state 作为语义向量 $C$，传给 Decoder。
 
+下面给出 **Decoder** 的网络结构
 
+![lstm decoder](../assets/img/postsimg/20201028/6-0.png)
+
+Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。Decoder 得到的语义向量 $C$ 作为 Decoder 的 hidden_state 的初值。
+
+- input：单词的 one-hot 向量。在初始时刻为自定义的开始标志 [SOS] 或者 [GO] 等。
+- **embedding**：对 input 进行 word2vec 操作，将其转化为稠密的低维向量，得到 embedded_input；
+- **MultiLayer_LSTM**：多层 LSTM ；
+- **Dense_Layer**：全连接层，将得到的输出映射成一个维度与字典相关的向量（比如 1000 维）。因此这个过程也叫维度映射。
+- **output_logits**：经过维度映射得到的输出向量；
+- **softmax**：对输出向量进行概率层面的归一化，得到 output。在学习训练时，与期望的 one-hot 形式的 output 之间可以计算交叉熵。
+  在推理测试时，有时为了简便起见也直接用 argmax 得到取值最大的那个维度对应的词作为输出，且作为下一时刻的输入；
 
 ## 2.2. RNN E-D with attention
 
