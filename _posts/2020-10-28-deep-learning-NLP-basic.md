@@ -16,6 +16,9 @@ math: true
   - [1.2. 训练思想](#12-训练思想)
 - [2. Encoder-Decoder](#2-encoder-decoder)
   - [2.1. RNN E-D](#21-rnn-e-d)
+    - [2.1.1. 实现](#211-实现)
+    - [2.1.2. 分析](#212-分析)
+    - [2.1.3. 结构](#213-结构)
   - [2.2. RNN E-D with attention](#22-rnn-e-d-with-attention)
 - [3. Transformer](#3-transformer)
   - [3.1. 简介](#31-简介)
@@ -128,8 +131,12 @@ $$
 
 ## 2.1. RNN E-D
 
+### 2.1.1. 实现
+
 > 参考：
+> 
 > 学术状态抽奖器. [深度学习（BOT方向） 学习笔记（2） RNN Encoder-Decoder 及 LSTM 学习](https://blog.csdn.net/mebiuw/article/details/53341404)
+> 
 > 张俊林博客. [使用Encoder-Decoder模型自动生成对联的思路](https://blog.csdn.net/malefactor/article/details/51124732)
 
 最经典的 Encoder-Decoder 实现方式，即用 RNN 来实现。在RNN Encoder-Decoder 的工作当中，我们用一个 RNN 去模拟大脑的读入动作，用一个特定长度的特征向量去模拟我们的记忆，然后再用另外一个 RNN 去模拟大脑思考得到答案的动作，将三者组织起来利用就成了一个可以实现 Sequence2Sequence 工作的“模拟大脑”了。关于 RNN 的介绍这里不做展开，详见 [此处](deep-learning-RNN)。
@@ -194,7 +201,7 @@ $$
 
 这个式子是一个条件概率的连乘，相当于最大似然估计。即找到一组参数 $\theta$，使得从 $t=1$ 时刻到 $t=T$ 时刻输出的单词的概率是样本期望输出概率的最大似然？
 
----
+### 2.1.2. 分析
 
 举个栗子：我们希望Decoder能够生成这样一句话 “张三有很多儿子”。
 
@@ -202,11 +209,22 @@ $$
 
 Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大的局限性就在于编码和解码之间的唯一联系就是一个固定长度的语义向量 $C$。也就是说，编码器要将整个序列的信息压缩进一个固定长度的向量中去。但是这样做有**两个弊端**，一是语义向量无法完全表示整个序列的信息，还有就是先输入的内容携带的信息会被后输入的信息稀释掉，或者说，被覆盖了。输入序列越长，这个现象就越严重。这就使得在解码的时候一开始就没有获得输入序列足够的信息， 那么解码的准确度自然也就要打个折扣了。
 
----
+### 2.1.3. 结构
 
 下面分析采用多层 LSTM 构建的 Encoder-Decoder 的网络结构，首先给出 Encoder 的网络结构
 
-![lstm encoder](../assets/img/postsimg/20201028/5.jpg)
+![lstm encoder](../assets/img/postsimg/20201028/5-0.png)
+
+- **input**：单词的 one-hot 向量，这个向量的维度与字典容量有关，比如字典里有 1000 个常用单词，那么向量维度就是 1000；
+- **embedding**：对 input 进行 word2vec 操作，将其转化为稠密的低维向量，得到 embedded_input；
+- **MultiLayer_LSTM**：多层 LSTM ；
+- **hidden_state**：隐层状态，维度是自定义的，承载着输入词的信息。当前时刻的 hidden_state 将被存储作为历史信息；
+- **output**：输出，其实我们不关心；
+- **prev_hidden_state**：在下一时刻根据输入向量 embedded_input 更新为 hidden_state，即存储了下一时刻输入词的信息。
+
+下面给出 Decoder 的网络结构
+
+
 
 ## 2.2. RNN E-D with attention
 
@@ -215,7 +233,6 @@ Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大�
 ![rnn-ed-attention](../assets/img/postsimg/20201028/4.jpg)
 
 DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
-
 
 
 # 3. Transformer
