@@ -322,6 +322,8 @@ $$
 
 ### 2.2.4. 总结
 
+runze Zheng. [在Encoder-Decoder框架中加入Attention机制](https://zhuanlan.zhihu.com/p/36299156)
+
 在 Encoder-Decoder 框架中加入 Attention 机制后的模型可总结为如下公式
 
 $$
@@ -336,6 +338,16 @@ $$
 
 # 3. 参考文献
 
-DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
+[1] 刘斯坦. [怎么形象理解 embedding 这个概念？](https://www.zhihu.com/question/38002635)
 
-\_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
+[2] Ethan. [Embedding 的理解](https://zhuanlan.zhihu.com/p/46016518)
+
+[3] vieo. [encoder-decoder模型](https://blog.csdn.net/weixin_41803874/article/details/89409858)
+
+[4] 学术状态抽奖器. [深度学习（BOT方向） 学习笔记（2） RNN Encoder-Decoder 及 LSTM 学习](https://blog.csdn.net/mebiuw/article/details/53341404)
+
+[5] DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
+
+[6] \_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
+
+[7] runze Zheng. [在Encoder-Decoder框架中加入Attention机制](https://zhuanlan.zhihu.com/p/36299156)
