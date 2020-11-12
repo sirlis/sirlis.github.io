@@ -240,6 +240,8 @@ Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。Decoder 得
 - **softmax**：对输出向量进行概率层面的归一化，得到 output。在学习训练时，与期望的 one-hot 形式的 output 之间可以计算交叉熵。
   在推理测试时，有时为了简便起见也直接用 argmax 得到取值最大的那个维度对应的词作为输出，且作为下一时刻的输入；
 
+![gru decoder](../assets/img/postsimg/20201028/7-0.png)
+
 ## 2.2. RNN E-D with attention
 
 值得提的一点是，对于做对联这个事情来说，Encoder-Decoder 框架加上 **Attention** 应该会显著提升产生下联的质量，原因还是因为它是要求严格对仗的，所以在生成下联某个字的时候，找到对应上联相应字作为生成的重点参考信息无疑是非常重要的。比如看到上联的“三”字，Attention模型使得下联产生对应字 “一” 的时候重点参考上联的 “三” 这个字，应该知道对应的应该是一个数字型汉字。下图是加上 Attention 模型的示意图。
