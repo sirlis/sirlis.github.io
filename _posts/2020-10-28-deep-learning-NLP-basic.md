@@ -21,6 +21,7 @@ math: true
     - [2.1.3. 分析](#213-分析)
   - [2.2. RNN E-D with attention](#22-rnn-e-d-with-attention)
     - [2.2.1. 生成 attention score](#221-生成-attention-score)
+    - [attention weights](#attention-weights)
 - [3. Transformer](#3-transformer)
   - [3.1. 简介](#31-简介)
 - [4. 参考文献](#4-参考文献)
@@ -262,12 +263,44 @@ Attention 也就是注意力机制，也称为对齐模型(alignment model)，�
 
 ### 2.2.1. 生成 attention score
 
+> Sophia$. [Seq2Seq Attention输入输出维度分析-最详细](https://blog.csdn.net/sophicchen/article/details/108033655)
+> 
+> DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
+> 
+> NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE
+
 attention score 表征原始输入序列 $x_t$ 对即将生成的目标词 $y_i$ 的影响能力。我们需要一个这个 score， 根据此时每个输入词的 score 大小，就可以知道应该使用哪个词与当前的 $y_i$ 进行对齐。
 
 参考前面的对联编码-解码示意图，我们知道 $H_2$ 是第三个解码时刻的隐含状态（第一个解码时刻 $H_0 = C$）。从上帝视角来看，与 $H_2$ 最相关的部分应该是 “三” 对应的编码状态 $h_3$。因此，只要网络在第三个解码时刻时，将注意力集中于 $h_3$ 就算达成目的了。
 
-DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
 
+
+参考上图，注意力模型的数学表示如下
+
+$$
+e_{ij} = score(s_{i-1},h_j)
+$$
+
+式中 $e_{ij}$ 衡量了第 $j$ 个输入与第 $i$ 个输出的匹配程度。$s_{i-1} = H_{i-1}$ 是输出 $y_i$ 前的隐层，$h_j$ 是第 $j$ 个时刻输入的隐层。
+
+匹配程度的计算有两种方式
+
+$$
+\begin{aligned}
+e_{ij} = score(s_{i-1},h_j) = \left\{ \begin{matrix}
+s_{i-1}^T W h_j \quad &[Luong's\ multiplicative\ style]\\
+v^T tanh(\omega_1s_{t-1}+\omega_2 h_j)\quad &[Bahdanau's\ additive\ style]
+\end{matrix} \right.
+\end{aligned}
+$$
+
+### attention weights
+
+对匹配度得分进行归一化（采用 softmax）可以得到一个 $[0,1]$ 之间的值，即为 attention weights
+
+$$
+\alpha_{ij} = \frac{esp(e_{ij})}{\sum_{j=1}^N esp(e_{ij})}
+$$
 
 # 3. Transformer
 
