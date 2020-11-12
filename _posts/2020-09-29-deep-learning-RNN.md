@@ -164,8 +164,8 @@ $$
 \begin{aligned}
 \frac{\partial L}{\partial \boldsymbol c}
 &= - \sum_{t=1}^T \left\{\begin{matrix}
-&y_{tj}(1-\hat y_{tj})\quad &j=i\\ 
-&y_{tj}\hat y_{ti} \quad & j\neq i
+&[0,0,...,y_{tj}(1-\hat y_{tj}),...,0]\quad &j=i\\ 
+&[0,0,...,y_{tj}\hat y_{ti},...,0] \quad & j\neq i
 \end{matrix}\right.\quad (y_{tj} = 1)
 \end{aligned}
 $$
