@@ -204,7 +204,9 @@ Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大�
 
 ---
 
-下面分析采用多层 LSTM 构建的 Encoder-Decoder 的网络结构
+下面分析采用多层 LSTM 构建的 Encoder-Decoder 的网络结构，首先给出 Encoder 的网络结构
+
+![lstm encoder](../assets/img/postsimg/20201028/5.jpg)
 
 ## 2.2. RNN E-D with attention
 
