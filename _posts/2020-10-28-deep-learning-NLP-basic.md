@@ -19,9 +19,11 @@ math: true
     - [2.1.1. 实现](#211-实现)
     - [2.1.2. 结构](#212-结构)
     - [2.1.3. 分析](#213-分析)
-  - [2.2. RNN E-D with attention](#22-rnn-e-d-with-attention)
-    - [2.2.1. 生成 attention score](#221-生成-attention-score)
-    - [attention weights](#attention-weights)
+  - [2.2. attention model](#22-attention-model)
+    - [2.2.1. attention score](#221-attention-score)
+    - [2.2.2. attention weights](#222-attention-weights)
+    - [2.2.3. attention vector](#223-attention-vector)
+    - [总结](#总结)
 - [3. Transformer](#3-transformer)
   - [3.1. 简介](#31-简介)
 - [4. 参考文献](#4-参考文献)
@@ -113,21 +115,21 @@ Y = \{y_1,y_2,...,y_n\}
 \end{aligned}
 $$
 
- Encoder 对输入句子 $X$ 进行编码，将输入句子通过非线性变换转化为中间语义表示 $C$
+Encoder 对输入句子 $X$ 进行编码，将输入句子通过非线性变换转化为中间语义表示 $c$
 
 $$
-C = \mathcal F(x_1,x_2,...x_m)
+c = \mathcal F(x_1,x_2,...x_m)
 $$
 
-Decoder 根据句子 $X$ 的中间语义表示 $C$ 和之前已经生成的历史信息 $y_1,y_2,...,y_{i-1}$ 来生成i时刻要生成的单词 $y_i$
+Decoder 根据句子 $X$ 的中间语义表示 $c$ 和之前已经生成的历史信息 $y_1,y_2,...,y_{i-1}$ 来生成i时刻要生成的单词 $y_i$
 
 $$
-y_i = \mathcal G(C,y_1,y_2,...,y_{i-1})
+y_i = \mathcal G(c,y_1,y_2,...,y_{i-1})
 $$
 
 每个 $y_i$ 都依次这么产生，那么看起来就是整个系统根据输入句子 $X$ 生成了目标句子 $Y$。
 
-整个编码-解码阶段的目标是将输入 $C$ 转换成目标序列 $Y$，即最大化如下的条件概率
+整个编码-解码阶段的目标是将输入 $c$ 转换成目标序列 $Y$，即最大化如下的条件概率
 
 $$
 {\rm max}_\theta \frac{1}{N} \sum_{n=1}^N logP_\theta(\boldsymbol y_n\vert \boldsymbol x_n)
@@ -161,19 +163,19 @@ $$
 h_t = f(h_{t-1},x_t)
 $$
 
-- **第二步**：输入完 $X$ 获得了各个时间段的隐藏层以后，再将隐藏层的信息汇总，生成最后的语义向量 $C$
+- **第二步**：输入完 $X$ 获得了各个时间段的隐藏层以后，再将隐藏层的信息汇总，生成最后的语义向量 $c$
 
 $$
-C = q(h_1, h_2, ..., h_m)
+c = q(h_1, h_2, ..., h_m)
 $$
 
-一种简单的方法是，直接将最后的隐藏层作为语义向量 $C$，即
+一种简单的方法是，直接将最后的隐藏层作为语义向量 $c$，即
 
 $$
-C = h_m
+c = h_m
 $$
 
-- **第三步**，将 $C$ 作为 Decoder 的初始隐层，输入 [EOS]（<font color=red>应该为 [SOS] 或者 [BOS]，图中有误</font>） 生成第一个输出词向量，RNN 的隐层也被更新为 $H1$。
+- **第三步**，将 $c$ 作为 Decoder 的初始隐层，输入 [EOS]（<font color=red>应该为 [SOS] 或者 [BOS]，图中有误</font>） 生成第一个输出词向量，RNN 的隐层也被更新为 $H1$。
 
 [SOS] Start Of Sentence / [BOS] Begin of Sentence，是一个起始符号，作为生成句子的起点，这个起始符号经过 embedding 层，输入 RNN 得到编码表示，然后将表示向量通过 softmax，得到生成的词出现的概率，选出比如概率最高的那个词作为输出结果。
 
@@ -189,13 +191,13 @@ $$
 H_t = f(H_{t-1},y_{t-1})
 $$
 
-这个阶段，我们要根据给定的语义向量 $C$ 和之前已经生成的输出序列 $y_1,y_2,...,y_{t−1}$ 来预测下一个输出的单词 $y_t$，而解码输出某个词 $y_t$ 出现的概率
+这个阶段，我们要根据给定的语义向量 $c$ 和之前已经生成的输出序列 $y_1,y_2,...,y_{t−1}$ 来预测下一个输出的单词 $y_t$，而解码输出某个词 $y_t$ 的概率
 
 $$
-P(y_t)=p(y_t \vert \{y_1, y_2, ..., y_{t-1}\},C) = softmax(y_{t-1},H_{t-1})
+P(y_t)=p(y_t \vert \{y_1, y_2, ..., y_{t-1}\},c) = g(y_{t-1},H_{t})
 $$
 
-从 **整个历史角度** 来看，$t$ 时刻输出的单词 $y_t$ 是 $1$ 到 $t-1$ 时刻的输出 $y_1,...,y_{t-1}$ 和语义向量 $C$ 一起作为条件的基础上得到的。从 **前一时刻角度** 来看，$y_t$ 是前一时刻 $t-1$ 的输出 $y_{t-1}$ 和隐层向量 $H_{t-1}$ 一起作为条件的基础上得到的（此时 $y_1,...,y_{t-2}$ 被编码进了 $H_{t-1}$）。
+从 **整个历史角度** 来看，$t$ 时刻输出的单词 $y_t$ 是 $1$ 到 $t-1$ 时刻的输出 $y_1,...,y_{t-1}$ 和语义向量 $c$ 一起作为条件的基础上得到的。从 **前一时刻角度** 来看，$y_t$ 是前一时刻 $t-1$ 的输出 $y_{t-1}$ 和隐层向量 $H_t$ 一起作为条件的基础上得到的（此时 $y_1,...,y_{t-2}$ 被编码进了 $H_{t-1}$， $H_{t-1}$ 和 $y_{t-1}$ 一起得到 $H_t$）。
 
 - **第五步**，理论上 Decoder 可以无限的进行下去，但是一般只需要某一段输出，因此在输出一个结束标号后，进行截断。
 
@@ -222,19 +224,21 @@ $$
 - **output**：输出，其实我们不关心；
 - **prev_hidden_state**：在下一时刻根据输入向量 embedded_input 更新为 hidden_state，即存储了下一时刻输入词的信息。
 
-当输入序列到底时，一般取最后一次更新的 hidden_state 作为语义向量 $C$，传给 Decoder。
+当输入序列到底时，一般取最后一次更新的 hidden_state 作为语义向量 $c$，传给 Decoder。
 
 下面给出 **Decoder** 的网络结构
 
 ![lstm decoder](../assets/img/postsimg/20201028/6-0.png)
 
-Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。**Encoder 得到的语义向量 $C$ 作为 Decoder 的 hidden_state 的初值。**
+Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。**Encoder 得到的语义向量 $c$ 作为 Decoder 的 hidden_state 的初值。**
 
 - input：单词的 one-hot 向量。在初始时刻为自定义的开始标志 [SOS] 或者 [GO] 等。
 - **embedding**：对 input 进行 word2vec 操作，将其转化为稠密的低维向量，得到 embedded_input；
 - **MultiLayer_LSTM**：多层 LSTM ；
+- **hidden_state**：实际上hidden_state 应该位于 LSTM 与 Dense_Layer 之间；
 - **Dense_Layer**：全连接层，将得到的 hidden_state 映射成一个维度与字典相关的向量（比如 1000 维）。因此这个过程也叫维度映射。
-- **output_logits**：经过维度映射得到的输出向量；
+  生成的 hidden_state 已经包含了待生成的词的信息了，但是要生成具体的词，我们还需要知道目标语言中每个词的条件概率 $p(y_i|s_i)$，如果 $s_i$ 的维度就是目标语言的词典大小，那么使用 `softmax` 就可以算出每个词的概率，但是 $s_i$ 的维度也属于模型的一个参数，通常是不会等于目标语言词典的大小的。因此再增加一个全连接层，将 $s_i$ 映射为维度等于词典大小 $N$ 的向量 $v_i$（output_logits），每个维度代表一个词，使用 `softmax` 计算出每个词的概率。
+- **output_logits**：经过维度映射得到的输出向量 $v_i$；
 - **softmax**：对输出向量进行概率层面的归一化，得到 output。在学习训练时，与期望的 one-hot 形式的 output 之间可以计算交叉熵。
   在推理测试时，根据 softmax 的结果选择概率最高的词作为预测输出和下一时刻的输入。
   有时为了简便起见也直接用 argmax 得到取值最大的那个维度对应的词作为输出，且作为下一时刻的输入，如下图。
@@ -247,11 +251,11 @@ Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。**Encoder �
 
 当 decoder 接收 EOS 作为起始词后，经过 embedding，RNN，softmax 后生成了一个概率向量，这个概率向量表达了词表中每个词作为生成词的概率。因为decoder没有经过训练，所以概率最大词很可能不是“张”，而是其他词，我们希望的状况就是这个概率向量就是“张”的 one-hot 表示，那么实际生成的概率向量和实际的概率向量之间就存在损失（误差）。同样的，我们下一步会把 “张” 输入到 decoder 中，希望经过一系列处理后 decoder 能够生成“三”的 one-hot，而实际生成的概率向量也是存在偏差，就这样我们把整个句子输入到 decoder 中，就可以得到整个句子的偏差，我们下面就通过优化来减小这个偏差。
 
-Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大的局限性就在于编码和解码之间的唯一联系就是一个固定长度的语义向量 $C$。也就是说，编码器要将整个序列的信息压缩进一个固定长度的向量中去。但是这样做有**两个弊端**，一是语义向量只是对整个序列的概括，无法完全表示整个序列的信息；二是先输入的内容携带的信息会被后输入的信息稀释掉，或者说，被覆盖了。输入序列越长，这个现象就越严重。这就使得在解码的时候一开始就没有获得输入序列足够的信息， 那么解码的准确度自然也就要打个折扣了。
+Encoder-Decoder 模型虽然非常经典，但是局限性也非常大。最大的局限性就在于编码和解码之间的唯一联系就是一个固定长度的语义向量 $c$。也就是说，编码器要将整个序列的信息压缩进一个固定长度的向量中去。但是这样做有**两个弊端**，一是语义向量只是对整个序列的概括，无法完全表示整个序列的信息；二是先输入的内容携带的信息会被后输入的信息稀释掉，或者说，被覆盖了。输入序列越长，这个现象就越严重。这就使得在解码的时候一开始就没有获得输入序列足够的信息， 那么解码的准确度自然也就要打个折扣了。
 
-## 2.2. RNN E-D with attention
+## 2.2. attention model
 
-Attention 也就是注意力机制，也称为对齐模型(alignment model)，是为了解决固定长度的语义向量存在的弊端的。如果
+Attention Model 即**注意力机制**，也称为对齐模型(alignment model)，是为了解决固定长度的语义向量存在的弊端的。Attention-based 框架与传统的 Encoder-Decoder 框架的差异在于，语义向量 $c$ 并非固定不变的，而是随着 Decoder 端不同时刻的输出而改变。
 
 在翻译任务中，准备生成每个新的词的翻译时，这个机制可以将注意力集中在输入的某个或某几个词上，重点关注这几个词，可以想象成是将他们与待生成的翻译进行对齐，使得翻译更精准。
 
@@ -261,45 +265,75 @@ Attention 也就是注意力机制，也称为对齐模型(alignment model)，�
 
 增加 attention 机制后，Decoder 过程可以拆分成如下几个部分
 
-### 2.2.1. 生成 attention score
+### 2.2.1. attention score
 
 > Sophia$. [Seq2Seq Attention输入输出维度分析-最详细](https://blog.csdn.net/sophicchen/article/details/108033655)
 > 
 > DownUp. [深度学习方法（九）：自然语言处理中的Attention Model注意力模型](https://www.cnblogs.com/yihaha/p/7265297.html)
 > 
-> NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE
+> Bahdanau et al.. NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE
 
-attention score 表征原始输入序列 $x_t$ 对即将生成的目标词 $y_i$ 的影响能力。我们需要一个这个 score， 根据此时每个输入词的 score 大小，就可以知道应该使用哪个词与当前的 $y_i$ 进行对齐。
+attention score 表征原始输入序列 $x_t$ 对即将生成的目标词 $y_i$ 的影响能力。根据此时每个输入词的 score 大小，就可以知道应该使用哪个词与当前的 $y_i$ 进行对齐。
 
-参考前面的对联编码-解码示意图，我们知道 $H_2$ 是第三个解码时刻的隐含状态（第一个解码时刻 $H_0 = C$）。从上帝视角来看，与 $H_2$ 最相关的部分应该是 “三” 对应的编码状态 $h_3$。因此，只要网络在第三个解码时刻时，将注意力集中于 $h_3$ 就算达成目的了。
+参考前面的对联编码-解码示意图，我们知道 $H_2$ 是第三个解码时刻的隐含状态（第一个解码时刻 $H_0 = c$）。从上帝视角来看，与 $H_2$ 最相关的部分应该是 “三” 对应的编码状态 $h_3$。因此，只要网络在第三个解码时刻时，将注意力集中于 $h_3$ 就算达成目的了。
 
+更加一般的注意力模型示意图如下图所示。已知输入序列 $X_1, X_2,...,X_T$，在第 $t$ 时刻输出 $y_t$ 时，我们希望相应的语义变量 $c$ 不再是固定的，而是与当前时刻输出挂钩，即 $C_t$。当前时刻的 $C_t$ 一般是输入序列隐层状态的加权和，其中权重为 attention weights，记作 $\alpha_{tj}$。
 
+![attention score](../assets/img/postsimg/20201028/9.jpg)
 
-参考上图，注意力模型的数学表示如下
+注意力权重与输入输出的匹配程度有关，这个**匹配度就是注意力得分（attention score）**。匹配度的数学表示如下
 
 $$
 e_{ij} = score(s_{i-1},h_j)
 $$
 
-式中 $e_{ij}$ 衡量了第 $j$ 个输入与第 $i$ 个输出的匹配程度。$s_{i-1} = H_{i-1}$ 是输出 $y_i$ 前的隐层，$h_j$ 是第 $j$ 个时刻输入的隐层。
+式中 $e_{ij}$ 衡量了第 $j$ 个输入与第 $i$ 个输出的匹配度。$s_{i-1} = H_{i-1}$ 是输出 $y_i$ 前的隐层，$h_j$ 是第 $j$ 个时刻输入的隐层，也就是说，匹配度基于输入输出的隐层来计算。
 
-匹配程度的计算有两种方式
+匹配度的计算有两种方式
 
 $$
 \begin{aligned}
 e_{ij} = score(s_{i-1},h_j) = \left\{ \begin{matrix}
 s_{i-1}^T W h_j \quad &[Luong's\ multiplicative\ style]\\
-v^T tanh(\omega_1s_{t-1}+\omega_2 h_j)\quad &[Bahdanau's\ additive\ style]
+v^T tanh(U s_{t-1}+V h_j)\quad &[Bahdanau's\ additive\ style]
 \end{matrix} \right.
 \end{aligned}
 $$
 
-### attention weights
+在论文 [Bahdanau et al., 2015] 中， 匹配度被称为校准模型（alignment model）。其中 $W, v, U, V$ 是权重矩阵，可以与整个模型共同训练。不同论文中的 $e_{ij}$ 计算方法不同。
 
-对匹配度得分进行归一化（采用 softmax）可以得到一个 $[0,1]$ 之间的值，即为 attention weights
+### 2.2.2. attention weights
+
+对匹配度得分进行归一化（采用 softmax）可以得到一个 $[0,1]$ 之间的值，即为**注意力权重（attention weights ）**
 
 $$
-\alpha_{ij} = \frac{esp(e_{ij})}{\sum_{j=1}^N esp(e_{ij})}
+\alpha_{ij} = \frac{esp(e_{ij})}{\sum_{j=1}^T esp(e_{ij})}
+$$
+
+### 2.2.3. attention vector
+
+那么对于每一时刻的输出 $y_i$，对应的语义向量 $C_i$ 可以表示为
+
+$$
+C_i = \sum_{j=1}^T \alpha_{ij}h_j
+$$
+
+注意，虽然 $s_i$ 仅仅只与 $h_j$ 最为相关，但同样也受其它编码状态的影响（例如到句型复杂的时候）。但是，若是换了应用场景，只进行对应权重乘以对应隐含状态，不进行累加也是可以的。
+
+在原始的 Decoder 中，语义向量 $c$ 仅作为初始时刻的解码隐层。而在注意力机制下，我们将语义向量 $C_i$ 与 Decoder 端的隐层 $s_{i-1}$ 进行向量拼接 $[C_i, s_{i-1}]$，得到**注意力向量（attention vector）**，来生成输出词的概率分布。
+
+### 总结
+
+在 Encoder-Decoder 框架中加入 Attention 机制后的模型可总结为如下公式
+
+$$
+\begin{aligned}
+e_{ij} &= score(s_{i-1},h_j)\\
+\alpha_{ij} &= \frac{esp(e_{ij})}{\sum_{j=1}^T esp(e_{ij})}\\
+C_i &= \sum_{j=1}^T \alpha_{ij}h_j\\
+s_i &= f(s_{i-1},y_{i-1},C_i)\\
+P(y_i\vert y_1,y_2,...,y_{i-1},c) &= softmax(y_{i-1},s_{i})
+\end{aligned}
 $$
 
 # 3. Transformer
