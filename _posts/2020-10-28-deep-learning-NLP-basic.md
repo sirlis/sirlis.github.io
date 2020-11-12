@@ -222,7 +222,7 @@ $$
 
 ![lstm decoder](../assets/img/postsimg/20201028/6-0.png)
 
-Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。Decoder 得到的语义向量 $C$ 作为 Decoder 的 hidden_state 的初值。
+Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。**Encoder 得到的语义向量 $C$ 作为 Decoder 的 hidden_state 的初值。**
 
 - input：单词的 one-hot 向量。在初始时刻为自定义的开始标志 [SOS] 或者 [GO] 等。
 - **embedding**：对 input 进行 word2vec 操作，将其转化为稠密的低维向量，得到 embedded_input；
