@@ -32,6 +32,10 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 和大多数 seq2seq 模型一样，transformer 的结构也是由 encoder 和 decoder 组成。Transformer 的 encoder 由 6 个编码器叠加组成，decoder 也由 6 个解码器组成，在结构上都是相同的，但它们不共享权重。
 
+从顶层看，Transformer 就是一个 Encoder-Decoder 框架的一种实现。
+
+
+
 ## 2.1. Encoder
 
 Encoder 由 6 个相同的 layer 组成，layer 指的就是上图左侧的单元，最左边有个 “Nx”，这里是 $x=6$ 个。每个 layer 由两个 sub-layer 组成，分别是 multi-head self-attention mechanism 和 fully connected feed-forward network。其中每个 sub-layer 都加了 residual connection 和 normalization 。
@@ -41,16 +45,13 @@ Encoder 由 6 个相同的 layer 组成，layer 指的就是上图左侧的单�
 - 再经过 position-wise Feed Forward
 - 每个子层之间有残差连接
 
+![attention](../assets/img/postsimg/20201112/2.jpg)
+
 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）
 下面的 sub-layer 输入是 embedding 向量
 在 sub-layer 内部，输入向量经过 self-attention，再经过 feed-forward 层
 该 sub-layer 的输出向量 $r$ 是它正上方 sub-layer 的输入
 向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。
-
-作者：不会停的蜗牛
-链接：https://www.jianshu.com/p/e7d8caa13b21
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ### 2.1.1. positional encoding
 
