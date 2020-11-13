@@ -18,7 +18,7 @@ math: true
 
 # 3. Transformer
 
-\_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
+自 Attention 机制提出后，加入attention的Seq2seq模型在各个任务上都有了提升，所以现在的 seq2seq 模型指的都是结合 RNN 和 attention 的模型。之后 google 又提出了解决 Seq2Seq 问题的 Transformer 模型，用全 attention 的结构代替了 lstm，在翻译任务上取得了更好的成绩。
 
 ## 3.1. 简介
 
@@ -27,4 +27,6 @@ Transformer 来自 Google 团队 2017 年的文章 《Attenion Is All You Need�
 
 # 3. 参考文献
 
+rumor. [【NLP】Transformer模型原理详解](https://zhuanlan.zhihu.com/p/44121378)
 
+\_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
