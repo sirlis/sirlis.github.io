@@ -30,15 +30,19 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 ![attention](../assets/img/postsimg/20201112/1.jpg)
 
-和大多数 seq2seq 模型一样，transformer 的结构也是由 encoder 和 decoder 组成。Transformer 的 encoder 由 6 个编码器叠加组成，decoder 也由 6 个解码器组成，在结构上都是相同的，但它们不共享权重。
+和大多数 seq2seq 模型一样，transformer 的结构也是由 encoder 和 decoder 组成。Transformer 的 encoder 由 6 个编码器叠加组成，decoder 也由 6 个解码器组成，在结构上都是相同的，但它们不共享权重。图中左边的部分就是 Encoder，由 6 个相同的 layer 组成，layer 指的就是上图左侧的单元，最左边有个 “Nx”，这里是 $x=6$ 个。类似的，途中右边的部分就是 Decoder，同样由 6 个相同的 layer 组成。
 
-从顶层看，Transformer 就是一个 Encoder-Decoder 框架的一种实现。
+从**顶层**看，Transformer 就是一个 Encoder-Decoder 框架的一种实现。
 
+![attention](../assets/img/postsimg/20201112/1.1.jpg)
 
+在编码端和解码端，分别堆叠了 6 个编码器 / 解码器。6 这个数字并没由什么特别理由，也可以换成其它数字。
 
 ## 2.1. Encoder
 
-Encoder 由 6 个相同的 layer 组成，layer 指的就是上图左侧的单元，最左边有个 “Nx”，这里是 $x=6$ 个。每个 layer 由两个 sub-layer 组成，分别是 multi-head self-attention mechanism 和 fully connected feed-forward network。其中每个 sub-layer 都加了 residual connection 和 normalization 。
+下面将目光聚焦到 Encoder，它由两个 sub-layer 组成，分别是 multi-head self-attention mechanism 和 fully connected feed-forward network。
+
+
 
 - Input 经过 embedding 后，要做 positional encodings
 - 然后是 Multi-head attention
@@ -62,6 +66,8 @@ encoder 为每个输入 embedding 添加了一个向量，这些向量符合一�
 例如，input embedding 的维度为4，那么实际的positional encodings如下所示：
 
 # 3. 参考文献
+
+[1] Jay Alammar. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 
 [1] 不会停的蜗牛. [图解什么是 Transformer](https://www.jianshu.com/p/e7d8caa13b21)
 
