@@ -42,20 +42,20 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 下面将目光聚焦到 Encoder，它由两个 sub-layer 组成，分别是 multi-head self-attention mechanism 和 fully connected feed-forward network。
 
+![attention](../assets/img/postsimg/20201112/1.2.jpg)
 
-
-- Input 经过 embedding 后，要做 positional encodings
+- Input 经过 embedding 后，要做 positional encoding
 - 然后是 Multi-head attention
 - 再经过 position-wise Feed Forward
 - 每个子层之间有残差连接
 
 ![attention](../assets/img/postsimg/20201112/2.jpg)
 
-首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）
-下面的 sub-layer 输入是 embedding 向量
-在 sub-layer 内部，输入向量经过 self-attention，再经过 feed-forward 层
-该 sub-layer 的输出向量 $r$ 是它正上方 sub-layer 的输入
-向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。
+- 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）
+- 下面的 sub-layer 输入是 embedding 向量
+- 在 sub-layer 内部，输入向量经过 self-attention，再经过 feed-forward 层
+- 该 sub-layer 的输出向量 $r$ 是它正上方 sub-layer 的输入
+- 向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。
 
 ### 2.1.1. positional encoding
 
