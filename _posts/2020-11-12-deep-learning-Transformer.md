@@ -65,7 +65,7 @@ Encoder 的数据流通过程如下
 
 ### 2.1.1. input
 
-首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 512 维的向量，用下图中的 4 个框并排在一起表示。
+首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 $d_{model}=512$ 维的向量，用下图中的 4 个框并排在一起表示。
 
 ![input](../assets/img/postsimg/20201112/3.jpg)
 
@@ -73,11 +73,26 @@ Encoder 的数据流通过程如下
 
 ### 2.1.2. positional encoding
 
-Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个位置向量，这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者序列中不同单词之间的距离。
+在数据预处理的部分，由于 Transformer 抛弃了卷积（convolution）和循环（recurrence），为了使得模型具备利用句子序列顺序的能力，必须要在词向量中插入一些相对或绝对位置信息。
+
+Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度（$d_{model}=512$）与词向量一致的位置向量 $PE$，这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
+
+作者提出两种 Positional Encoding 的方法，将 encoding 后的数据与 embedding 数据求和，加入了相对位置信息。
+
+- 用不同频率的 $sine$ 和 $cosine$ 函数直接计算
+- 学习出一份 positional embedding（[参考 Convolutional Sequence to Sequence Learning](https://arxiv.org/abs/1705.03122)）
+
+经过实验发现两者的结果一样，所以最后选择了第一种方法。
+
+$$
+PE_{(pos,2i)} = sin(pos / 1000^{2i/d_{model}})
+$$
 
 假设 input embedding 的维度为 4 （四个格子），那么实际的 positional encodings 如下所示
 
 ![position encoding](../assets/img/postsimg/20201112/4.jpg)
+
+
 
 # 3. 参考文献
 
