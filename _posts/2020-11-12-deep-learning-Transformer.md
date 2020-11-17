@@ -40,7 +40,10 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 ## 2.1. Encoder
 
-下面将目光聚焦到 Encoder，它由两个 sub-layer 组成，分别是 multi-head self-attention mechanism 和 fully connected feed-forward network。
+下面将目光聚焦到 Encoder，它由两个 sub-layer 组成，分别是
+
+- multi-head self-attention mechanism
+- fully connected feed-forward network
 
 ![attention](../assets/img/postsimg/20201112/1.2.jpg)
 
