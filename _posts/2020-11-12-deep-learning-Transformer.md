@@ -14,7 +14,8 @@ math: true
 - [1. 简介](#1-简介)
 - [2. 总体结构](#2-总体结构)
   - [2.1. Encoder](#21-encoder)
-    - [2.1.1. positional encoding](#211-positional-encoding)
+    - [2.1.1. input](#211-input)
+    - [2.1.2. positional encoding](#212-positional-encoding)
 - [3. 参考文献](#3-参考文献)
 
 
@@ -62,17 +63,21 @@ Encoder 的数据流通过程如下
 - 该 sub-layer 的输出向量 $r$ 是它正上方 sub-layer 的输入
 - 向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。 -->
 
-### 2.1.1. positional encoding
+### 2.1.1. input
 
-首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）。在 NLP 任务中，假设每个单词都转化为 512 维度的向量，用下图中的多个框并排在一起表示。
+首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 512 维的向量，用下图中的 4 个框并排在一起表示。
+
+![input](../assets/img/postsimg/20201112/3.jpg)
+
+对于其它 Encoder 而言，同样是输入 512 维的向量，只不过第一个 Encoder 输入的是词嵌入向量，而其它 Encoder 输入其下方 Encoder 的输出向量。包含各个词向量的**列表长度**是一个超参数，一般设为训练数据集中最长句子的长度。
+
+### 2.1.2. positional encoding
+
+Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个位置向量，这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者序列中不同单词之间的距离。
+
+假设 input embedding 的维度为 4 （四个格子），那么实际的 positional encodings 如下所示
 
 
-
-Positional Encoding 是一种考虑输入序列中单词顺序的方法。
-
-encoder 为每个输入 embedding 添加了一个向量，这些向量符合一种特定模式，可以确定每个单词的位置，或者序列中不同单词之间的距离。
-
-例如，input embedding 的维度为4，那么实际的positional encodings如下所示：
 
 # 3. 参考文献
 
