@@ -36,16 +36,18 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 ![attention](../assets/img/postsimg/20201112/1.1.jpg)
 
-在编码端和解码端，分别堆叠了 6 个编码器 / 解码器。6 这个数字并没由什么特别理由，也可以换成其它数字。
+在编码端和解码端，分别堆叠了 6 个编码器 / 解码器。6 这个数字并没由什么特别理由，也可以换成其它数字。编码器和解码器的内部结构大同小异，都包含一个 Self-Attention 模块和一个 Feed Forward 模块，不同的是解码器部分中间还增加了一个 Encoder-Decoder Attention 模块。
 
 ## 2.1. Encoder
 
 下面将目光聚焦到 Encoder，它由两个 sub-layer 组成，分别是
 
-- multi-head self-attention mechanism
-- fully connected feed-forward network
+- multi-head **self-attention** mechanism
+- fully connected **feed-forward** network
 
 ![attention](../assets/img/postsimg/20201112/1.2.jpg)
+
+Encoder 的数据流通过程如下
 
 - Input 经过 embedding 后，要做 positional encoding
 - 然后是 Multi-head attention
@@ -54,13 +56,17 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 ![attention](../assets/img/postsimg/20201112/2.jpg)
 
-- 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）
+<!-- - 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）
 - 下面的 sub-layer 输入是 embedding 向量
 - 在 sub-layer 内部，输入向量经过 self-attention，再经过 feed-forward 层
 - 该 sub-layer 的输出向量 $r$ 是它正上方 sub-layer 的输入
-- 向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。
+- 向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。 -->
 
 ### 2.1.1. positional encoding
+
+首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）。在 NLP 任务中，假设每个单词都转化为 512 维度的向量，用下图中的多个框并排在一起表示。
+
+
 
 Positional Encoding 是一种考虑输入序列中单词顺序的方法。
 
