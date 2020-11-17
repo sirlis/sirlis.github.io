@@ -77,7 +77,7 @@ Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encode
 
 假设 input embedding 的维度为 4 （四个格子），那么实际的 positional encodings 如下所示
 
-
+![position encoding](../assets/img/postsimg/20201112/4.jpg)
 
 # 3. 参考文献
 
