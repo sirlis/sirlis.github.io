@@ -79,13 +79,27 @@ Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encode
 
 作者提出两种 Positional Encoding 的方法，将 encoding 后的数据与 embedding 数据求和，加入了相对位置信息。
 
-- 用不同频率的 $sine$ 和 $cosine$ 函数直接计算
-- 学习出一份 positional embedding（[参考 Convolutional Sequence to Sequence Learning](https://arxiv.org/abs/1705.03122)）
+- 固定方法：用不同频率的 $sine$ 和 $cosine$ 函数直接计算
+- 学习方法：学习出一份 positional embedding（[参考 Convolutional Sequence to Sequence Learning](https://arxiv.org/abs/1705.03122)）
 
 经过实验发现两者的结果一样，所以最后选择了第一种方法。
 
 $$
-PE_{(pos,2i)} = sin(pos / 1000^{2i/d_{model}})
+\begin{aligned}
+PE_{(pos,2i)} &= sin(pos / 10000^{2i/d_{model}})\\
+PE_{(pos,2i+1)} &= cos(pos / 10000^{2i/d_{model}})
+\end{aligned}
+$$
+
+其中， $pos$ 是词在句子中的位置；$i$ 是位置向量的维度。每个位置向量的分量对应一个正弦或余弦函数。
+
+下面详细分析一下这个位置向量的形式。从维度的角度来看，$i=0$ 时第一个维度由波长为 $2\pi$ 的正余弦函数构成。依次往后，第 $i$ 个维度对应的正余弦函数的波长逐渐变长（$10000^{2i/d_{model}}$）。最终波长从 $2\pi$ 到 $10000\cdot 2\pi$。作者选择正余弦函数的原因，是因为作者认为正余弦函数能够让模型轻松学习相对位置的参与，因为对于任何固定的偏移量 $k$，$PE_{pos+k}$ 可以表示为 $PE_{pos}$ 的线性函数
+
+$$
+\begin{aligned}
+sin(PE_{pos+k}) &= sin(PE_{pos})cos(PE_k)+cos(PE_{pos})sin(PE_k)\\
+cos(PE_{pos+k}) &= cos(PE_{pos})cos(PE_k)-sin(PE_{pos})sin(PE_k)\\
+\end{aligned}
 $$
 
 假设 input embedding 的维度为 4 （四个格子），那么实际的 positional encodings 如下所示
