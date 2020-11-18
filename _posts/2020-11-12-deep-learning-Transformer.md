@@ -100,9 +100,9 @@ $$
 
 将 positional embedding 可视化后的图如下所示
 
+![pe](../assets/img/postsimg/20201112/5.jpg)
 
-
-假设 input embedding 的维度为 4 （四个格子），那么实际的 positional encodings 如下所示
+最后，将 $PE+wordvec$ 作为输入。如下图所示，假设 $wordvec$ 的维度为四个格子，那么实际的 positional encoding 如下所示
 
 ![position encoding](../assets/img/postsimg/20201112/4.jpg)
 
