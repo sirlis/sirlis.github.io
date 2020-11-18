@@ -16,6 +16,7 @@ math: true
   - [2.1. Encoder](#21-encoder)
     - [2.1.1. input](#211-input)
     - [2.1.2. positional encoding](#212-positional-encoding)
+  - [self-attention](#self-attention)
 - [3. 参考文献](#3-参考文献)
 
 
@@ -102,10 +103,13 @@ $$
 
 ![pe](../assets/img/postsimg/20201112/5.jpg)
 
-最后，将 $PE+wordvec$ 作为输入。如下图所示，假设 $wordvec$ 的维度为四个格子，那么实际的 positional encoding 如下所示
+最后，将 $PE+wordvec$ 作为输入。如下图所示，假设 $wordvec$ 的维度为四个格子，那么实际的 positional encoding 过程如下所示
 
-![position encoding](../assets/img/postsimg/20201112/4.jpg)
+![position encoding](../assets/img/postsimg/20201112/6.jpg)
 
+## self-attention
+
+注意力函数可以描述为将一个 query（Q） 和一个 key（K）-value（V） 集合映射为一个输出，输出是 value 的加权和，权值是通过 query 与相应的 key 的相容性函数来计算的。
 
 # 3. 参考文献
 
