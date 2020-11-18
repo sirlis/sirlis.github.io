@@ -57,12 +57,6 @@ Encoder 的数据流通过程如下
 
 ![attention](../assets/img/postsimg/20201112/2.jpg)
 
-<!-- - 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$）
-- 下面的 sub-layer 输入是 embedding 向量
-- 在 sub-layer 内部，输入向量经过 self-attention，再经过 feed-forward 层
-- 该 sub-layer 的输出向量 $r$ 是它正上方 sub-layer 的输入
-- 向量 $r$ 的大小是一个超参数，通常设置为训练集中最长句子的长度。 -->
-
 ### 2.1.1. input
 
 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 $d_{model}=512$ 维的向量，用下图中的 4 个框并排在一起表示。
@@ -102,11 +96,13 @@ cos(PE_{pos+k}) &= cos(PE_{pos})cos(PE_k)-sin(PE_{pos})sin(PE_k)\\
 \end{aligned}
 $$
 
+这种方法相比学习而言还有一个好处，如果是学习到的 positional embedding，（个人认为，没看论文）会像词向量一样受限于词典大小。也就是只能学习到“位置2对应的向量是 (1,1,1,2) ” 这样的表示。而用三角公式明显不受序列长度的限制，也就是可以应对比训练时所用到序列的更长的序列。
+
+
 假设 input embedding 的维度为 4 （四个格子），那么实际的 positional encodings 如下所示
 
 ![position encoding](../assets/img/postsimg/20201112/4.jpg)
 
-这种方法相比学习而言还有一个好处，如果是学习到的 positional embedding，（个人认为，没看论文）会像词向量一样受限于词典大小。也就是只能学习到“位置2对应的向量是 (1,1,1,2) ” 这样的表示。而用三角公式明显不受序列长度的限制，也就是可以应对比训练时所用到序列的更长的序列。
 
 # 3. 参考文献
 
