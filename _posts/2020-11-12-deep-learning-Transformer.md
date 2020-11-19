@@ -122,9 +122,14 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 首先用向量来描述如何实现 self-attention。
 
-**第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（Q）, Key vector（K）, Value vector（V）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
+- **第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（Q）, Key vector（K）, Value vector（V）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
 
 ![QKVvector](../assets/img/postsimg/20201112/8.jpg) 
+
+为什么要产生这三个向量呢？因为它们是计算和考虑注意力的一种有用的抽象。继续往下阅读，看到注意力如何计算时，就会发现这些向量的作用。
+
+- **第二步**，
+
 
 
 
