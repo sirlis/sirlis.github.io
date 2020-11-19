@@ -13,11 +13,12 @@ math: true
 ---
 - [1. 简介](#1-简介)
 - [2. 总体结构](#2-总体结构)
-  - [2.1. Encoder](#21-encoder)
-    - [2.1.1. input](#211-input)
-    - [2.1.2. positional encoding](#212-positional-encoding)
-  - [self-attention](#self-attention)
-- [3. 参考文献](#3-参考文献)
+- [3. Encoder](#3-encoder)
+  - [3.1. input](#31-input)
+  - [3.2. positional encoding](#32-positional-encoding)
+  - [3.3. multi-head attention](#33-multi-head-attention)
+    - [self-attention](#self-attention)
+- [4. 参考文献](#4-参考文献)
 
 
 # 1. 简介
@@ -40,7 +41,7 @@ Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need
 
 在编码端和解码端，分别堆叠了 6 个编码器 / 解码器。6 这个数字并没由什么特别理由，也可以换成其它数字。编码器和解码器的内部结构大同小异，都包含一个 Self-Attention 模块和一个 Feed Forward 模块，不同的是解码器部分中间还增加了一个 Encoder-Decoder Attention 模块。
 
-## 2.1. Encoder
+# 3. Encoder
 
 下面将目光聚焦到 Encoder，它由两个 sub-layer 组成，分别是
 
@@ -58,7 +59,7 @@ Encoder 的数据流通过程如下
 
 ![attention](../assets/img/postsimg/20201112/2.jpg)
 
-### 2.1.1. input
+## 3.1. input
 
 首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 $d_{model}=512$ 维的向量，用下图中的 4 个框并排在一起表示。
 
@@ -66,11 +67,11 @@ Encoder 的数据流通过程如下
 
 对于其它 Encoder 而言，同样是输入 512 维的向量，只不过第一个 Encoder 输入的是词嵌入向量，而其它 Encoder 输入其下方 Encoder 的输出向量。包含各个词向量的**列表长度**是一个超参数，一般设为训练数据集中最长句子的长度。
 
-### 2.1.2. positional encoding
+## 3.2. positional encoding
 
 在数据预处理的部分，由于 Transformer 抛弃了卷积（convolution）和循环（recurrence），为了使得模型具备利用句子序列顺序的能力，必须要在词向量中插入一些相对或绝对位置信息。
 
-Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度（$d_{model}=512$）与词向量一致的位置向量 $PE$，这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
+Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度（$d_{model}=512$）与词向量一致的位置向量 $PE$，取值范围介于 -1 和 1 之间。这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
 
 作者提出两种 Positional Encoding 的方法，将 encoding 后的数据与 embedding 数据求和，加入了相对位置信息。
 
@@ -97,9 +98,9 @@ cos(PE_{pos+k}) &= cos(PE_{pos})cos(PE_k)-sin(PE_{pos})sin(PE_k)\\
 \end{aligned}
 $$
 
-这种方法相比学习而言还有一个好处，如果是学习到的 positional embedding，（个人认为，没看论文）会像词向量一样受限于词典大小。也就是只能学习到“位置2对应的向量是 (1,1,1,2) ” 这样的表示。而用三角公式明显不受序列长度的限制，也就是可以应对比训练时所用到序列的更长的序列。
+这种方法相比学习而言还有一个好处，如果是学习到的 positional embedding，（个人认为，没看论文）会像词向量一样受限于词典大小。也就是只能学习到 “位置2对应的向量是 (1,1,1,2) ” 这样的表示。而用三角公式明显不受序列长度的限制，也就是可以应对比训练时所用到序列的更长的序列。当然这并不是位置编码的唯一方法，只是这个方法能够扩展到看不见的序列长度处，例如当我们要翻译一个句子，这个句子的长度比我们训练集中的任何一个句子都长时。
 
-将 positional embedding 可视化后的图如下所示
+将上述 positional embedding 可视化后的图如下所示（图中假设 $d_{model}=64$，$l_{sequence}=10$）
 
 ![pe](../assets/img/postsimg/20201112/5.jpg)
 
@@ -107,11 +108,19 @@ $$
 
 ![position encoding](../assets/img/postsimg/20201112/6.jpg)
 
-## self-attention
+## 3.3. multi-head attention
+
+### self-attention
+
+例如我们要翻译：”The animal didn't cross the street because **it** was too tired” 这句话。这句话中的 “it” 是指什么？它指的是 street 还是 animal？这对人类来说是一个简单的问题，但对算法来说并不简单。而 Self-Attention 让算法知道这里的 it 指的是 animal 。
+
+当模型在处理每个单词时，self-attention 可以帮助模型查看 input 序列中的其他位置，寻找相关的线索，来达到更好的编码效果。它的作用就是将对其他相关单词的“understanding”融入我们当前正在处理的单词中。
+
+RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正在处理的当前单词/向量相结合，而 self-attention 是 Transformer 将其他相关单词的 “理解” 融入我们当前正在处理的单词所使用的方法。下图展示了在第五个 Encoder 中（最顶层的 Encoder） 将大部分注意力放在了 “animal” 且将其表达融入了对 "it" 的编码。
 
 注意力函数可以描述为将一个 query（Q） 和一个 key（K）-value（V） 集合映射为一个输出，输出是 value 的加权和，权值是通过 query 与相应的 key 的相容性函数来计算的。
 
-# 3. 参考文献
+# 4. 参考文献
 
 [1] Jay Alammar. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 
