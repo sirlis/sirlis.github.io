@@ -142,7 +142,7 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 - **第六步**，对所有加权后的 Value vectors 求和，得到 self-attention 层对当前位置（图例对第一个词）的输出。
 
-
+![weightedscoresum](../assets/img/postsimg/20201112/11.jpg)  
 
 注意力函数可以描述为将一个 query（Q） 和一个 key（K）-value（V） 集合映射为一个输出，输出是 value 的加权和，权值是通过 query 与相应的 key 的相容性函数来计算的。
 
