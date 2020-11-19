@@ -124,6 +124,10 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 **第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（Q）, Key vector（K）, Value vector（V）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
 
+![QKVvector](../assets/img/postsimg/20201112/8.jpg) 
+
+
+
 注意力函数可以描述为将一个 query（Q） 和一个 key（K）-value（V） 集合映射为一个输出，输出是 value 的加权和，权值是通过 query 与相应的 key 的相容性函数来计算的。
 
 # 4. 参考文献
