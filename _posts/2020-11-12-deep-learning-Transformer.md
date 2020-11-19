@@ -118,6 +118,12 @@ $$
 
 RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正在处理的当前单词/向量相结合，而 self-attention 是 Transformer 将其他相关单词的 “理解” 融入我们当前正在处理的单词所使用的方法。下图展示了在第五个 Encoder 中（最顶层的 Encoder） 将大部分注意力放在了 “animal” 且将其表达融入了对 "it" 的编码。
 
+![self-attention](../assets/img/postsimg/20201112/7.jpg)
+
+首先用向量来描述如何实现 self-attention。
+
+**第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（Q）, Key vector（K）, Value vector（V）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
+
 注意力函数可以描述为将一个 query（Q） 和一个 key（K）-value（V） 集合映射为一个输出，输出是 value 的加权和，权值是通过 query 与相应的 key 的相容性函数来计算的。
 
 # 4. 参考文献
