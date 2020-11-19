@@ -17,7 +17,7 @@ math: true
   - [3.1. input](#31-input)
   - [3.2. positional encoding](#32-positional-encoding)
   - [3.3. multi-head attention](#33-multi-head-attention)
-    - [self-attention](#self-attention)
+    - [3.3.1. self-attention](#331-self-attention)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -110,7 +110,7 @@ $$
 
 ## 3.3. multi-head attention
 
-### self-attention
+### 3.3.1. self-attention
 
 例如我们要翻译：”The animal didn't cross the street because **it** was too tired” 这句话。这句话中的 “it” 是指什么？它指的是 street 还是 animal？这对人类来说是一个简单的问题，但对算法来说并不简单。而 Self-Attention 让算法知道这里的 it 指的是 animal 。
 
