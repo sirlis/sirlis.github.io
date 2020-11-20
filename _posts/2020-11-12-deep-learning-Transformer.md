@@ -147,11 +147,28 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![weightedscoresum](../assets/img/postsimg/20201112/11.jpg)  
 
-最终生成的向量就是发送到前馈神经网络的向量。在实际的实现中，此计算以**矩阵**形式进行，以加快处理速度。作者将整个句子的所有词序列打包成一个矩阵 $Q$，keys 和 values 类似打包成矩阵 $K, V$。与上面的向量形式类似，矩阵形式的 attention 计算结果输出为
+从**数学公式**的角度来看，对于某个具体位置的词，首先比较其 $Q$ 和每个位置 $i$ 的词的 $K$ 的相似度，相似度函数设为 $f$ 那么有
 
 $$
-Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+f(Q,K_i),\ i=1,2,...
 $$
+
+具体的相似度函数包括以下四种
+
+- 点乘：$f(Q,K_i) = QK_i^T / \sqrt{d_k}$
+- 权重：$f(Q,K_i) = QWK_i^T / \sqrt{d_k}$
+
+然后通过 $softmax$ 来计算权重
+
+$$
+\omega_i = \frac{e^{f(Q,K_i)}}{\sum_{i=1}^m e^{f(Q,K_i)}},\ i=1,2,...
+$$
+
+最终生成的向量就是发送到前馈神经网络的向量。在实际的实现中，此计算以**矩阵**形式进行，以加快处理速度。作者将整个句子的所有词序列打包成一个矩阵 $Q$，keys 和 values 类似打包成矩阵 $K, V$。与上面的向量形式类似，矩阵形式的 attention 计算结果输出为
+ 
+$$
+Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+$$ 
 
 除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。
 
