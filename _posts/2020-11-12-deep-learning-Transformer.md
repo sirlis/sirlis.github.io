@@ -18,6 +18,7 @@ math: true
   - [3.2. positional encoding](#32-positional-encoding)
   - [3.3. multi-head attention](#33-multi-head-attention)
     - [3.3.1. self-attention](#331-self-attention)
+    - [3.3.2. scaled dot-product attention](#332-scaled-dot-product-attention)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -112,7 +113,7 @@ $$
 
 ### 3.3.1. self-attention
 
-例如我们要翻译：”The animal didn't cross the street because **it** was too tired” 这句话。这句话中的 “it” 是指什么？它指的是 street 还是 animal？这对人类来说是一个简单的问题，但对算法来说并不简单。而 Self-Attention 让算法知道这里的 it 指的是 animal 。
+例如我们要翻译：”The animal didn't cross the street because **it** was too tired” 这句话。这句话中的 “it” 是指什么？它指的是 street 还是 animal？这对人类来说是一个简单的问题，但对算法来说并不简单。而 self-attention 让算法知道这里的 it 指的是 animal 。
 
 当模型在处理每个单词时，self-attention 可以帮助模型查看 input 序列中的其他位置，寻找相关的线索，来达到更好的编码效果。它的作用就是将对其他相关单词的“understanding”融入我们当前正在处理的单词中。
 
@@ -120,7 +121,9 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![self-attention](../assets/img/postsimg/20201112/7.jpg)
 
-首先用向量来描述如何实现 self-attention。
+### 3.3.2. scaled dot-product attention
+
+首先用向量来描述如何实现 self-attention。这里采用 scaled dot-product attention 来计算 self-attention。
 
 - **第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（$Q$）, Key vector（$K$）, Value vector（$V$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
 
@@ -132,7 +135,7 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![score](../assets/img/postsimg/20201112/9.jpg) 
 
-- **第三步**，将分数除以 8 （Key vector 长度 64 的平方根，可以使得梯度计算更稳定，当然也可以用其它数字，但是默认用平方根）。
+- **第三步**，将分数除以 8 （Key vector 长度 64 的平方根，可以使得梯度计算更稳定，当然也可以用其它数字，但是默认用平方根）。注意，标准的 dot-product attention 没有这一步，作者加了这一步后因此称为 **scaled** scaled dot-product attention 。
 
 - **第四步**，将算得的分数传入 softmax，将其归一化为和为 1 的正数。归一化后的分数代表句子中的每一个词对当前某个位置的表达量。很明显，当前位置所在的词的归一化分数肯定最高，但有时候注意与当前词相关的另一个词是有用的。
 
@@ -144,9 +147,13 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![weightedscoresum](../assets/img/postsimg/20201112/11.jpg)  
 
-最终生成的向量就是发送到前馈神经网络的向量。在实际的实现中，此计算以**矩阵**形式进行，以加快处理速度。
+最终生成的向量就是发送到前馈神经网络的向量。在实际的实现中，此计算以**矩阵**形式进行，以加快处理速度。作者将整个句子的所有词序列打包成一个矩阵 $Q$，keys 和 values 类似打包成矩阵 $K, V$。与上面的向量形式类似，矩阵形式的 attention 计算结果输出为
 
+$$
+Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+$$
 
+除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。
 
 # 4. 参考文献
 
