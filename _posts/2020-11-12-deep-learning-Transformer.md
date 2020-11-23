@@ -177,7 +177,7 @@ $$
 
 ### 3.3.3. multi-head attention
 
-
+除了使用参数为 $d_{model}$ 维的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能
 
 # 4. 参考文献
 
