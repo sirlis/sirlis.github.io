@@ -19,6 +19,7 @@ math: true
   - [3.3. multi-head attention](#33-multi-head-attention)
     - [3.3.1. self-attention](#331-self-attention)
     - [3.3.2. scaled dot-product attention](#332-scaled-dot-product-attention)
+    - [3.3.3. multi-head attention](#333-multi-head-attention)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -168,9 +169,15 @@ $$
  
 $$
 Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
-$$ 
+$$
 
-除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。
+![matrixselfattention](../assets/img/postsimg/20201112/12.jpg) 
+
+除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。该方式用一个单隐层的前馈神经网络来计算适应度函数，与 scaled dot-product attention 相比具有相近的计算复杂度，但更慢且稳定性更差（因为 dot-product 可以部署为高度优化的矩阵乘法代码）。
+
+### 3.3.3. multi-head attention
+
+
 
 # 4. 参考文献
 
