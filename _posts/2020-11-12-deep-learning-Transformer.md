@@ -183,9 +183,14 @@ $$
 
 经过 multi-headed ， 我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
 
-![multihead](../assets/img/postsimg/20201112/13.jpg) 
+![multihead](../assets/img/postsimg/20201112/13.jpg)
 
-简单来说，就是随机初始化定义 $h=8$ 组权重矩阵，每个单词会做 8 次上面的 self-attention 的计算，这样每个单词会得到 8 个不同的加权求和 z。
+简单来说，就是随机初始化定义 $h=8$ 组权重矩阵，每个单词会做 8 次上面的 self-attention 的计算，这样每个单词会得到 8 个不同的加权求和 $z_i,\ i=0,1,...,7$ 。
+
+![multihead2](../assets/img/postsimg/20201112/14.jpg)
+
+为了和后续前馈层对接（它需要一个矩阵，每个行向量代表一个词，而不是八个矩阵），作者将得到的 8 个矩阵进行堆叠，然后乘以一个附加权重矩阵，从而将其压缩到一个 $Z$ 矩阵。
+
 
 
 # 4. 参考文献
