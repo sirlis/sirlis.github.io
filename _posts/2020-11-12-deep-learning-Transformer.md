@@ -203,13 +203,13 @@ $$
 然后通过 $softmax$ 来计算权重
 
 $$
-\omega_i = \frac{e^{f(Q,K_i)}}{\sum_{i=1}^m e^{f(Q,K_i)}},\ i=1,2,...
+\omega_i = softmax(f(Q,K_i)) = \frac{e^{f(Q,K_i)}}{\sum_{i=1}^m e^{f(Q,K_i)}},\ i=1,2,...
 $$
 
 最终生成的向量就是发送到前馈神经网络的向量。在实际的实现中，此计算以**矩阵**形式进行，以加快处理速度。作者将整个句子的所有词序列打包成一个矩阵 $Q$，keys 和 values 类似打包成矩阵 $K, V$。与上面的向量形式类似，矩阵形式的 attention 计算结果输出为
  
 $$
-Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+Attention(Q,K,V) = \omega_iV
 $$
 
 ![matrixselfattention](../assets/img/postsimg/20201112/12.jpg)
@@ -220,9 +220,15 @@ $$
 
 ![matrixselfattention](../assets/img/postsimg/20201112/27.jpg)
 
+然后按行求 softmax，每行和为 1
 
+![matrixselfattention](../assets/img/postsimg/20201112/28.jpg)
 
-**最终得到的 $Z$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和编码，包含了每个单词对其的重要性（注意力）。**
+得到 softmax 矩阵之后可以和 $V$ 相乘，得到最终的输出 $Z$
+
+![matrixselfattention](../assets/img/postsimg/20201112/29.jpg)
+
+上图中 softmax 矩阵的第 1 行表示单词 1 与其他所有单词的 attention 系数，最终单词 1 的输出 $Z_1$ 等于所有单词 $i$ 的值 $V_i$ 根据 attention 系数的比例加在一起得到。**最终得到的 $Z$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和编码，包含了每个单词对其的重要性（注意力）。**
 
 整个 self-attention 的计算流程图如下图所示
 
