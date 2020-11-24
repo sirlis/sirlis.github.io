@@ -238,7 +238,7 @@ $$
 
 self-attention 是单头的，单头注意力能够将注意力集中在特定的一组单词上。如果我们想拥有多个集合，每个集合对不同的单词集合给予不同的关注呢？
 
-除了使用参数为 $d_{model}$ 维的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能。它使得模型可以关注不同位置。
+除了使用参数为 $d_{model}$ 行 $d_{q}=d_{k}=d_{v}=64$ 列的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能。它使得模型可以关注不同位置。
 
 虽然在上面的例子中，$Z$ 包含了**一点点**其他位置的编码，但当前位置的单词还是占主要作用。当我们想知道 “The animal didn’t cross the street because it was too tired” 中 it 的含义时，这时就需要关注到其他位置。这个机制为注意层提供了多个 “表示子空间”。
 
@@ -269,18 +269,19 @@ self-attention 是单头的，单头注意力能够将注意力集中在特定�
 
 ## 3.4. 残差连接
 
-实际上，对于 encoder 中的两个模块（self-attention 和 feed-forward），均包含一个残差连接。残差通过一个 Add-Normalize 层与正常输出进行计算。
+实际上，对于 encoder 中的两个模块（self-attention 和 feed-forward），均包含一个残差连接。残差通过一个 Add-Normalize 层与正常输出进行计算。将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
 
 ![residual1](../assets/img/postsimg/20201112/18.jpg)
-
-将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
-
 
 > BN并不适用于RNN等动态网络和batchsize较小的时候效果不好。Layer Normalization（LN）[1]的提出有效的解决BN的这两个问题。LN和BN不同点是归一化的维度是互相垂直的，如图1所示。在图1中 [公式] 表示样本轴， [公式] 表示通道轴， [公式] 是每个通道的特征数量。BN如右侧所示，它是取不同样本的同一个通道的特征做归一化；LN则是如左侧所示，它取的是同一个样本的不同通道做归一化。
 
 残差连接在 decoder 中同样存在。假设一个 2 层堆叠的 transformer，如下图所示
 
 ![residual3](../assets/img/postsimg/20201112/25.jpg)
+
+---
+
+
 
 # 4. Decoder
 
