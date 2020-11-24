@@ -20,6 +20,7 @@ math: true
     - [3.3.1. self-attention](#331-self-attention)
     - [3.3.2. scaled dot-product attention](#332-scaled-dot-product-attention)
     - [3.3.3. multi-head attention](#333-multi-head-attention)
+  - [3.4. 残差连接](#34-残差连接)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -200,6 +201,12 @@ $$
 ![multihead4](../assets/img/postsimg/20201112/16.jpg)
 
 将所有 8 个 attention heads 的结果放到一张图中展示，如下
+
+![multihead5](../assets/img/postsimg/20201112/17.jpg)
+
+## 3.4. 残差连接
+
+实际上，对于 encoder 中的两个模块（self-attention 和 feed-forward），均包含一个残差连接。残差通过一个 Add-Normalize 层与正常输出进行计算。
 
 
 
