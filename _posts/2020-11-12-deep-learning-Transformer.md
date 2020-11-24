@@ -74,6 +74,10 @@ Encoder 的数据流通过程如下
 
 在数据预处理的部分，由于 Transformer 抛弃了卷积（convolution）和循环（recurrence），为了使得模型具备利用句子序列顺序的能力，必须要在词向量中插入一些相对或绝对位置信息。
 
+在RNN（LSTM，GRU）中，时间步长的概念按顺序编码，因为输入/输出流一次一个。 对于Transformer，作者将时间编码为正弦波，作为附加的额外输入。 这样的信号被添加到输入和输出以表示时间的流逝。下面的连接详细阐述了 positional encoding 的数学原理。
+
+> Amirhossein Kazemnejad. [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
+
 Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度（$d_{model}=512$）与词向量一致的位置向量 $PE$，取值范围介于 -1 和 1 之间。这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
 
 作者提出两种 Positional Encoding 的方法，将 encoding 后的数据与 embedding 数据求和，加入了相对位置信息。
@@ -125,6 +129,8 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 上图上方的八个不同颜色的方块表示不同的 attention head，后文会讲解。这里以第二个（橙色）attention head 为例展示了其注意力的分布。
 
+> 这是一种双向注意（也是唯一一种双向注意力机制，这就是为什么它是BERT中使用的唯一注意力类型），其中每个单词都彼此关联。 它确实捕获了一个句子中的双上下文信息，甚至bi-LSTM也无法捕获（因为bi-LSTM将Forward AR和Backward AR的结果结合在一起，而不是在其核心生成双上下文信息。 这也是从本质上有些人认为ELMo嵌入不是真正的双向的原因）
+
 ### 3.3.2. scaled dot-product attention
 
 首先用向量来描述如何实现 self-attention。这里采用 scaled dot-product attention 来计算 self-attention。
@@ -134,6 +140,8 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 ![QKVvector](../assets/img/postsimg/20201112/8.jpg) 
 
 为什么要产生这三个向量呢？因为它们是计算和考虑注意力的一种有用的抽象。继续往下阅读，看到注意力如何计算时，就会发现这些向量的作用。
+
+> 查询，键和值的概念来自检索系统。例如，当您键入查询以在YouTube上搜索某些视频时，搜索引擎将针对数据库中与候选视频相关的一组键（视频标题，说明等）映射您的查询，然后向您显示最匹配的视频（值）。
 
 - **第二步**，计算一个得分。如果要计算第一个词的 “Thinking” 的 self-attention，我们需要在输入句子的每个单词上对这个单词打分。这个分数决定了当我们在某个位置编码一个单词时，对输入句子其他部分的关注程度（也即句子其它部分对该词的影响）。采用**点乘 $Q$ 和 $K$** 的方式产生对应单词的分数，因此分数是个标量。比如如果我们考虑 “Thinking” 对第一个位置（自身）的 self-attention，那么就计算 $q_1\cdot k_1$，考虑第二个词对 “Thinking” 的 self-attention 则计算 $q_1\cdot k_2$。
 
@@ -212,6 +220,9 @@ $$
 
 将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
 
+![residual2](../assets/img/postsimg/20201112/19.jpg)
+
+
 # 4. 参考文献
 
 [1] Jay Alammar. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
@@ -221,3 +232,5 @@ $$
 [2] rumor. [【NLP】Transformer模型原理详解](https://zhuanlan.zhihu.com/p/44121378)
 
 [3] \_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
+
+[4] Amirhossein Kazemnejad. [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
