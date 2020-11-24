@@ -212,9 +212,13 @@ $$
 Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
 $$
 
-![matrixselfattention](../assets/img/postsimg/20201112/12.jpg) 
+![matrixselfattention](../assets/img/postsimg/20201112/12.jpg)
 
 ---
+
+其中
+
+![matrixselfattention](../assets/img/postsimg/20201112/27.jpg)
 
 
 
