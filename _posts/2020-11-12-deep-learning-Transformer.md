@@ -213,6 +213,10 @@ $$
 
 **最终得到的 $Z$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和，包含了每个单词对其的重要性（注意力）。**
 
+整个 self-attention 的计算流程图如下图所示
+
+
+
 除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。该方式用一个单隐层的前馈神经网络来计算适应度函数，与 scaled dot-product attention 相比具有相近的计算复杂度，但更慢且稳定性更差（因为 dot-product 可以部署为高度优化的矩阵乘法代码）。
 
 ### 3.3.3. multi-head attention
