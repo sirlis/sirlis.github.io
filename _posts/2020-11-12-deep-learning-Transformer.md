@@ -80,7 +80,7 @@ Encoder 的数据流通过程如下
 
 Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度（$d_{model}=512$）与词向量一致的位置向量 $PE$，取值范围介于 -1 和 1 之间。这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
 
-作者提出两种 Positional Encoding 的方法，将 encoding 后的数据与 embedding 数据求和，加入了相对位置信息。
+作者提出两种 Positional Encoding 的方法
 
 - 固定方法：用不同频率的 $sine$ 和 $cosine$ 函数直接计算
 - 学习方法：学习出一份 positional embedding
@@ -96,15 +96,22 @@ $$
 
 其中， $pos$ 是词在句子中的位置；$i$ 是位置向量的维度。每个位置向量的分量对应一个正弦或余弦函数。
 
+> Amirhossein Kazemnejad. [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
+> 
 > 为什么会想到用正弦/余弦函数来刻画位置/顺序？假设你想用二进制表示一个数字，会如下图所示
 > ![binarynumberrepresent](../assets/img/postsimg/20201112/20.jpg)
 > 可以发现不同位之间的变化率。最低有效位（LSB）在每个数字上交替，第二低位在每两个数字上旋转，依此类推。
-> 但是使用二进制值来编码浮点数很浪费空间，因此我们可以使用它们的连续浮动对象-正弦函数。实际上，它们等效于交替位的操作。
-> 最终可以得到如下图所示的位置编码
 > 
+> 但是使用二进制值来编码浮点数很浪费空间，因此我们可以使用它们的连续浮动对象-正弦函数。实际上，它们等效于交替位的操作。
+> 
+> 最终可以得到如下图所示的位置编码
+> ![sinrepresent](../assets/img/postsimg/20201112/21.jpg)
+> 
+> 为啥要同时用 $sin$ 和 $cos$ ？Amirhossein 个人认为，仅通过同时使用正弦和余弦，才可以将 $sin(x + k)$ 和 $cos(x + k)$ 表示为$sin(x)$ 和 $cos(x)$ 的线性变换。似乎不能对单个正弦或余弦执行相同的操作。
 
+下面详细分析一下位置向量的数学形式。从维度的角度来看，$i=0$ 时第一个维度由波长为 $2\pi$ 的正余弦函数构成。依次往后，第 $i$ 个维度对应的正余弦函数的波长逐渐变长（$10000^{2i/d_{model}}$）。最终波长从 $2\pi$ 到 $10000\cdot 2\pi$。
 
-下面详细分析一下这个位置向量的形式。从维度的角度来看，$i=0$ 时第一个维度由波长为 $2\pi$ 的正余弦函数构成。依次往后，第 $i$ 个维度对应的正余弦函数的波长逐渐变长（$10000^{2i/d_{model}}$）。最终波长从 $2\pi$ 到 $10000\cdot 2\pi$。作者选择正余弦函数的原因，是因为作者认为正余弦函数能够让模型轻松学习相对位置的参与，因为对于任何固定的偏移量 $k$，位置向量 $PE_{pos+k}$ 可以表示为 $PE_{pos}$ 的线性函数
+作者选择正余弦函数的原因，是因为作者认为正余弦函数能够让模型轻松学习相对位置的参与，因为对于任何固定的偏移量 $k$，位置向量 $PE_{pos+k}$ 可以表示为 $PE_{pos}$ 的线性函数
 
 $$
 \begin{aligned}
@@ -113,15 +120,21 @@ cos(PE_{pos+k}) &= cos(PE_{pos})cos(PE_k)-sin(PE_{pos})sin(PE_k)\\
 \end{aligned}
 $$
 
-这种方法相比学习而言还有一个好处，如果是学习到的 positional embedding，（个人认为，没看论文）会像词向量一样受限于词典大小。也就是只能学习到 “位置2对应的向量是 (1,1,1,2) ” 这样的表示。而用三角公式明显不受序列长度的限制，也就是可以应对比训练时所用到序列的更长的序列。当然这并不是位置编码的唯一方法，只是这个方法能够扩展到看不见的序列长度处，例如当我们要翻译一个句子，这个句子的长度比我们训练集中的任何一个句子都长时。
+这种方法相比学习而言还有一个好处，如果采用学习到的 positional embedding（个人认为，没看论文）会像词向量一样受限于词典大小。也就是只能学习到 “位置2对应的向量是 (1,1,1,2) ” 这样的表示。而用正余弦函数明显不受序列长度的限制，也就是可以应对比训练时所用到序列的更长的序列。
+
+当然，正余弦并不是位置编码的唯一方法，只是这个方法能够扩展到看不见的序列长度处，例如当我们要翻译一个句子，这个句子的长度比我们训练集中的任何一个句子都长时。
 
 将上述 positional embedding 可视化后的图如下所示（图中假设 $d_{model}=64$，$l_{sequence}=10$）
 
 ![pe](../assets/img/postsimg/20201112/5.jpg)
 
-最后，将 $PE+wordvec$ 作为输入。如下图所示，假设 $wordvec$ 的维度为四个格子，那么实际的 positional encoding 过程如下所示
+最后将 encoding 后的数据与 embedding 数据**求和**，加入相对位置信息。数学上，将 $PE+wordvec$ 作为输入。如下图所示，假设 $wordvec$ 的维度为四个格子，那么实际的 positional encoding 过程如下所示
 
 ![position encoding](../assets/img/postsimg/20201112/6.jpg)
+
+> Amirhossein Kazemnejad. [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
+> 
+> 为什么用求和，而不是用拼接？即使是 Amirhossein 也没找出背后的理论一句，根据他的推断，因为求和比拼接节约模型参数，因此问题也转化为 “求和有什么弊端么？” Amirhossein 表示没啥弊端。
 
 ## 3.3. multi-head attention
 
@@ -208,7 +221,7 @@ $$
 
 ![multihead2](../assets/img/postsimg/20201112/14.jpg)
 
-为了和后续前馈层对接（它需要一个矩阵，每个行向量代表一个词，而不是八个矩阵），作者将得到的 8 个矩阵进行堆叠，然后乘以一个**附加权重矩阵** $W^O$，从而将其压缩到一个 $Z$ 矩阵。
+为了和后续前馈层对接（它需要一个矩阵，每个行向量代表一个词，而不是八个矩阵），作者将得到的 8 个矩阵进行拼接，然后乘以一个**附加权重矩阵** $W^O$，从而将其压缩到一个 $Z$ 矩阵。
 
 ![multihead3](../assets/img/postsimg/20201112/15.jpg)
 
