@@ -21,7 +21,8 @@ math: true
     - [3.3.2. scaled dot-product attention](#332-scaled-dot-product-attention)
     - [3.3.3. multi-head attention](#333-multi-head-attention)
   - [3.4. 残差连接](#34-残差连接)
-- [4. 参考文献](#4-参考文献)
+- [4. Decoder](#4-decoder)
+- [5. 参考文献](#5-参考文献)
 
 
 # 1. 简介
@@ -267,9 +268,11 @@ self-attention 是单头的，单头注意力能够将注意力集中在特定�
 
 残差连接在 decoder 中同样存在。假设一个 2 层堆叠的 transformer，如下图所示
 
+# 4. Decoder
 
+decoder 相比 encoder 多了一个 masked multi-head attention，最后还要经过一个 linear 和 softmax 输出概率。
 
-# 4. 参考文献
+# 5. 参考文献
 
 [1] Jay Alammar. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 
