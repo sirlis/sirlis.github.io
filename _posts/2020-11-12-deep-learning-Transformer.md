@@ -168,17 +168,23 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![score](../assets/img/postsimg/20201112/9.jpg) 
 
+> 每当需要查找两个向量（查询 $Q$ 和键 $K$ ）之间的相似性时，我们只需获取它们的点积即可。为了找到第一个单词的相似性输出，我们只考虑第一个单词的表示形式 $Q_i$，并将其与输入中每个单词的表示形式 $K_j$ 取点积。这样，我们就可以知道输入中每个单词相对于第一个单词的关系。
+
 - **第三步**，将分数除以 8 （Key vector 长度 64 的平方根，可以使得梯度计算更稳定，当然也可以用其它数字，但是默认用平方根）。注意，标准的 dot-product attention 没有这一步，作者加了这一步后因此称为 **scaled** dot-product attention 。
 
 - **第四步**，将算得的分数传入 softmax，将其归一化为和为 1 的正数。归一化后的分数代表句子中的每一个词对当前某个位置的表达量。很明显，当前位置所在的词的归一化分数肯定最高，但有时候注意与当前词相关的另一个词是有用的。
 
-![scoresoftmax](../assets/img/postsimg/20201112/10.jpg)  
+![scoresoftmax](../assets/img/postsimg/20201112/10.jpg) 
 
+> 得到相似性后，采用 softmax 归一化，得到每个单词相对第一个单词的（重要性/注意力）权重。
+> 
 - **第五步**，将 value vector （$V$）与前面计算得到的归一化分数相乘（为求和做准备）。这里的直觉是，保持我们想要关注的单词的值不变，同时淹没不相关的单词（例如，通过将它们乘以像 0.001 这样的小数字）。
 
 - **第六步**，对所有加权后的 value vectors （$V$）求和，得到当前位置（图例对第一个词）的 self-attention 输出。
 
-![weightedscoresum](../assets/img/postsimg/20201112/11.jpg)  
+![weightedscoresum](../assets/img/postsimg/20201112/11.jpg) 
+
+> 将权重（softmax）与相应的表示 $V$ 相乘，然后将它们加起来。因此，我们对第一个单词的最终表示 $Z_i$ 将是所有输入单词的 $V$ 的加权总和，每个输入单词均通过相对于第一个单词的相似性（重要性）加权。
 
 从**数学公式**的角度来看，对于某个具体位置的词，首先比较其 $Q$ 和每个位置 $i$ 的词的 $K$ 的相似度，相似度函数设为 $f$ 那么有
 
@@ -205,15 +211,19 @@ $$
 
 ![matrixselfattention](../assets/img/postsimg/20201112/12.jpg) 
 
+**最终得到的 $Z$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和，包含了每个单词对其的重要性（注意力）。**
+
 除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。该方式用一个单隐层的前馈神经网络来计算适应度函数，与 scaled dot-product attention 相比具有相近的计算复杂度，但更慢且稳定性更差（因为 dot-product 可以部署为高度优化的矩阵乘法代码）。
 
 ### 3.3.3. multi-head attention
 
+self-attention 是单头的，单头注意力能够将注意力集中在特定的一组单词上。如果我们想拥有多个集合，每个集合对不同的单词集合给予不同的关注呢？
+
 除了使用参数为 $d_{model}$ 维的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能。它使得模型可以关注不同位置。
 
-虽然在上面的例子中，z1 包含了一点其他位置的编码，但当前位置的单词还是占主要作用， 当我们想知道 “The animal didn’t cross the street because it was too tired” 中 it 的含义时，这时就需要关注到其他位置。这个机制为注意层提供了多个 “表示子空间”。
+虽然在上面的例子中，$Z$ 包含了**一点点**其他位置的编码，但当前位置的单词还是占主要作用。当我们想知道 “The animal didn’t cross the street because it was too tired” 中 it 的含义时，这时就需要关注到其他位置。这个机制为注意层提供了多个 “表示子空间”。
 
-经过 multi-headed ， 我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组（$W_i^Q,W_i^K,W_i^V$）。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
+经过 multi-headed ，我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组（$W_i^Q,W_i^K,W_i^V$）。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
 
 ![multihead](../assets/img/postsimg/20201112/13.jpg)
 
