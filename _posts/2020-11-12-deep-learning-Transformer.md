@@ -208,7 +208,9 @@ $$
 
 实际上，对于 encoder 中的两个模块（self-attention 和 feed-forward），均包含一个残差连接。残差通过一个 Add-Normalize 层与正常输出进行计算。
 
+![residual1](../assets/img/postsimg/20201112/18.jpg)
 
+将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
 
 # 4. 参考文献
 
