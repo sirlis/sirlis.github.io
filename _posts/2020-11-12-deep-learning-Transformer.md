@@ -177,7 +177,15 @@ $$
 
 ### 3.3.3. multi-head attention
 
-除了使用参数为 $d_{model}$ 维的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能
+除了使用参数为 $d_{model}$ 维的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能。它使得模型可以关注不同位置。
+
+虽然在上面的例子中，z1 包含了一点其他位置的编码，但当前位置的单词还是占主要作用， 当我们想知道 “The animal didn’t cross the street because it was too tired” 中 it 的含义时，这时就需要关注到其他位置。这个机制为注意层提供了多个 “表示子空间”。
+
+- 经过 multi-headed ， 我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
+
+- 简单来说，就是随机初始化定义 $h=8$ 组权重矩阵，每个单词会做 8 次上面的 self-attention 的计算，这样每个单词会得到 8 个不同的加权求和 z，相当于将输入映射到 8 个不同的表示子空间中。
+
+
 
 # 4. 参考文献
 
