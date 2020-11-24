@@ -122,6 +122,8 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![self-attention](../assets/img/postsimg/20201112/7.jpg)
 
+上图上方的八个不同颜色的方块表示不同的 attention head，后文会讲解。这里以第二个（橙色）attention head 为例展示了其注意力的分布。
+
 ### 3.3.2. scaled dot-product attention
 
 首先用向量来描述如何实现 self-attention。这里采用 scaled dot-product attention 来计算 self-attention。
@@ -196,6 +198,9 @@ $$
 最终的完整流程如下图所示
 
 ![multihead4](../assets/img/postsimg/20201112/16.jpg)
+
+将所有 8 个 attention heads 的结果放到一张图中展示，如下
+
 
 
 # 4. 参考文献
