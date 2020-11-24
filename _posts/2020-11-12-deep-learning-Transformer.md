@@ -209,7 +209,7 @@ $$
 最终生成的向量就是发送到前馈神经网络的向量。在实际的实现中，此计算以**矩阵**形式进行，以加快处理速度。作者将整个句子的所有词序列打包成一个矩阵 $Q$，keys 和 values 类似打包成矩阵 $K, V$。与上面的向量形式类似，矩阵形式的 attention 计算结果输出为
  
 $$
-Attention(Q,K,V) = \omega_iV
+Attention(Q,K,V) = \omega_iV,\ i=1,2,...
 $$
 
 ![matrixselfattention](../assets/img/postsimg/20201112/12.jpg)
