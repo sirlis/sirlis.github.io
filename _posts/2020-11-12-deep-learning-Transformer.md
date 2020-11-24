@@ -276,7 +276,7 @@ decoder 相比 encoder 多了一个 masked multi-head attention，最后还要�
 
 ## 4.1. encoder-decoder attention
 
-
+输入序列经过 encoder 得到输出 $Z$，将最上面的 encoder 的输出 $Z$ 变换成一组 attention 向量 $K_{encdec}$ 和 $V_{encdec}$，这些向量会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。
 
 # 5. 参考文献
 
