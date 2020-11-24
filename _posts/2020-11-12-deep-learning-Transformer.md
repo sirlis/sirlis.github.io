@@ -126,7 +126,7 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 首先用向量来描述如何实现 self-attention。这里采用 scaled dot-product attention 来计算 self-attention。
 
-- **第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（$Q$）, Key vector（$K$）, Value vector（$V$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
+- **第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（$Q$）, Key vector（$K$）, Value vector（$V$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这三个矩阵（$W^Q,W^K,W^V$）是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
 
 ![QKVvector](../assets/img/postsimg/20201112/8.jpg) 
 
@@ -181,7 +181,7 @@ $$
 
 虽然在上面的例子中，z1 包含了一点其他位置的编码，但当前位置的单词还是占主要作用， 当我们想知道 “The animal didn’t cross the street because it was too tired” 中 it 的含义时，这时就需要关注到其他位置。这个机制为注意层提供了多个 “表示子空间”。
 
-经过 multi-headed ， 我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
+经过 multi-headed ， 我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组（$W_i^Q,W_i^K,W_i^V$）。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
 
 ![multihead](../assets/img/postsimg/20201112/13.jpg)
 
@@ -189,7 +189,7 @@ $$
 
 ![multihead2](../assets/img/postsimg/20201112/14.jpg)
 
-为了和后续前馈层对接（它需要一个矩阵，每个行向量代表一个词，而不是八个矩阵），作者将得到的 8 个矩阵进行堆叠，然后乘以一个附加权重矩阵，从而将其压缩到一个 $Z$ 矩阵。
+为了和后续前馈层对接（它需要一个矩阵，每个行向量代表一个词，而不是八个矩阵），作者将得到的 8 个矩阵进行堆叠，然后乘以一个附加权重矩阵 $W^O$，从而将其压缩到一个 $Z$ 矩阵。
 
 
 
