@@ -215,6 +215,7 @@ $$
 
 整个 self-attention 的计算流程图如下图所示
 
+![selfattention](../assets/img/postsimg/20201112/22.jpg) 
 
 
 除了 scaled dot-product attention 外，作者还提到一种计算 self-attention 的方式，即 additive attention。该方式用一个单隐层的前馈神经网络来计算适应度函数，与 scaled dot-product attention 相比具有相近的计算复杂度，但更慢且稳定性更差（因为 dot-product 可以部署为高度优化的矩阵乘法代码）。
