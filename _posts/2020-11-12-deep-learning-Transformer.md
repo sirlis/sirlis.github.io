@@ -22,6 +22,7 @@ math: true
     - [3.3.3. multi-head attention](#333-multi-head-attention)
   - [3.4. 残差连接](#34-残差连接)
 - [4. Decoder](#4-decoder)
+  - [4.1. encoder-decoder attention](#41-encoder-decoder-attention)
 - [5. 参考文献](#5-参考文献)
 
 
@@ -262,15 +263,20 @@ self-attention 是单头的，单头注意力能够将注意力集中在特定�
 
 将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
 
-![residual2](../assets/img/postsimg/20201112/19.jpg)
 
 > BN并不适用于RNN等动态网络和batchsize较小的时候效果不好。Layer Normalization（LN）[1]的提出有效的解决BN的这两个问题。LN和BN不同点是归一化的维度是互相垂直的，如图1所示。在图1中 [公式] 表示样本轴， [公式] 表示通道轴， [公式] 是每个通道的特征数量。BN如右侧所示，它是取不同样本的同一个通道的特征做归一化；LN则是如左侧所示，它取的是同一个样本的不同通道做归一化。
 
 残差连接在 decoder 中同样存在。假设一个 2 层堆叠的 transformer，如下图所示
 
+![residual3](../assets/img/postsimg/20201112/25.jpg)
+
 # 4. Decoder
 
 decoder 相比 encoder 多了一个 masked multi-head attention，最后还要经过一个 linear 和 softmax 输出概率。
+
+## 4.1. encoder-decoder attention
+
+
 
 # 5. 参考文献
 
