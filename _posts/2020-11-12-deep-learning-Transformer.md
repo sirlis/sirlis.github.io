@@ -159,7 +159,7 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 首先用向量来描述如何实现 self-attention。这里采用 scaled dot-product attention 来计算 self-attention。
 
-- **第一步**，根据每一个输入的 word embedding （$X \in \mathbb R^{d_{model}}$） 生成三个向量：Query vector（$Q\in \mathbb R^{d_k}$）, Key vector（$K\in \mathbb R^{d_k}$）, Value vector（$V\in \mathbb R^{d_v}$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这**三个权重矩阵**（$W^Q \in \mathbb R^{d_{model}\times d_k},W^K \in \mathbb R^{d_{model}\times d_k},W^V \in \mathbb R^{d_{model}\times d_v}$）是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
+- **第一步**，根据每一个输入的 word embedding （$X \in \mathbb R^{d_{model}}$） 生成三个向量：Query vector（$Q\in \mathbb R^{d_k}$）, Key vector（$K\in \mathbb R^{d_k}$）, Value vector（$V\in \mathbb R^{d_v}$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这**三个权重矩阵**（$W^Q \in \mathbb R^{d_{model}\times d_k},W^K \in \mathbb R^{d_{model}\times d_k},W^V \in \mathbb R^{d_{model}\times d_v}$）是需要在训练过程中进行训练的。注意新生成的三个向量的维度（$d_k=64$）小于 word embedding 的维度（$d_{model}=512$）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得后面计算 multi-head attention 时在绝大多数情况下更稳定。
 
 ![QKVvector](../assets/img/postsimg/20201112/8.jpg) 
 
@@ -171,7 +171,7 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 ![score](../assets/img/postsimg/20201112/9.jpg) 
 
-> 每当需要查找两个向量（查询 $Q$ 和键 $K$ ）之间的相似性时，我们只需获取它们的点积即可。为了找到第一个单词的相似性输出，我们只考虑第一个单词的表示形式 $Q_i$，并将其与输入中每个单词的表示形式 $K_j$ 取点积。这样，我们就可以知道输入中每个单词相对于第一个单词的关系。
+> 每当需要查找两个向量（查询 $Q$ 和键 $K$）之间的相似性时，我们只需获取它们的点积即可。为了找到第一个单词的相似性输出，我们只考虑第一个单词的表示形式 $Q_i$，并将其与输入中每个单词的表示形式 $K_j$ 取点积。这样，我们就可以知道输入中每个单词相对于第一个单词的关系。
 
 - **第三步**，将分数除以 8 （Key vector 长度 64 的平方根，可以使得梯度计算更稳定，当然也可以用其它数字，但是默认用平方根）。注意，标准的 dot-product attention 没有这一步，作者加了这一步后因此称为 **scaled** dot-product attention 。
 
@@ -280,9 +280,13 @@ $$
 
 ## 3.4. 残差连接
 
-实际上，对于 encoder 中的两个模块（self-attention 和 feed-forward），均包含一个残差连接。残差通过一个 Add-Normalize 层与正常输出进行计算。将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
+实际上，对于 encoder 中的两个模块（self-attention 和 feed-forward），均包含一个残差连接。残差通过一个 Add-Normalize 层与正常输出进行计算。
 
-![residual1](../assets/img/postsimg/20201112/18.jpg)![residual3](../assets/img/postsimg/20201112/25.jpg)
+![residual1](../assets/img/postsimg/20201112/18.jpg)
+
+将 self-attention 模块后面的 add-norm 层展开来看，如下图所示
+
+![residual3](../assets/img/postsimg/20201112/25.jpg)
 
 > BN并不适用于RNN等动态网络和batchsize较小的时候效果不好。Layer Normalization（LN）[1]的提出有效的解决BN的这两个问题。LN和BN不同点是归一化的维度是互相垂直的，如图1所示。在图1中 [公式] 表示样本轴， [公式] 表示通道轴， [公式] 是每个通道的特征数量。BN如右侧所示，它是取不同样本的同一个通道的特征做归一化；LN则是如左侧所示，它取的是同一个样本的不同通道做归一化。
 
