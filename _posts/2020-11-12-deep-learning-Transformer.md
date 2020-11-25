@@ -159,7 +159,7 @@ RNN 可以通过隐层状态将其已处理的先前单词/向量的表示与正
 
 首先用向量来描述如何实现 self-attention。这里采用 scaled dot-product attention 来计算 self-attention。
 
-- **第一步**，根据每一个输入的 word embedding 生成三个向量：Query vector（$Q$）, Key vector（$K$）, Value vector（$V$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这**三个权重矩阵**（$W^Q,W^K,W^V$）是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
+- **第一步**，根据每一个输入的 word embedding （$X \in \mathbb R^{d_{model}}$） 生成三个向量：Query vector（$Q\in \mathbb R^{d_k}$）, Key vector（$K\in \mathbb R^{d_k}$）, Value vector（$V\in \mathbb R^{d_v}$）。这三个向量是由 word embedding 分别乘以三个矩阵得到的。这**三个权重矩阵**（$W^Q \in \mathbb R^{d_{model}\times d_k},W^K \in \mathbb R^{d_{model}\times d_k},W^V \in \mathbb R^{d_{model}\times d_v}$）是需要在训练过程中进行训练的。注意新生成的三个向量的维度（64）小于 word embedding 的维度（512）。然而，它们的维度**不必**一定要更小，在这里是作者做出的一种架构选择，使得 multi-head attention 在绝大多数情况下的计算更稳定。
 
 ![QKVvector](../assets/img/postsimg/20201112/8.jpg) 
 
@@ -226,7 +226,7 @@ $$
 
 ![matrixselfattention](../assets/img/postsimg/20201112/29.jpg)
 
-上图中 softmax 矩阵的第 1 行表示单词 1 与其他所有单词的 attention 系数，最终单词 1 的输出 $Z_1$ 等于所有单词 $i$ 的值 $V_i$ 根据 attention 系数的比例加在一起得到。**最终得到的 $Z$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和编码，包含了每个单词对其的重要性（注意力）。**
+上图中 softmax 矩阵的第 1 行表示单词 1 与其他所有单词的 attention 系数，最终单词 1 的输出 $Z_1$ 等于所有单词 $i$ 的值 $V_i$ 根据 attention 系数的比例加在一起得到。**最终得到的 $Z \in \mathbb R^{l_{seq}\times d_v}$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和编码，包含了每个单词对其的重要性（注意力）。**
 
 整个 self-attention 的计算流程图如下图所示
 
@@ -238,11 +238,20 @@ $$
 
 self-attention 是单头的，单头注意力能够将注意力集中在特定的一组单词上。如果我们想拥有多个集合，每个集合对不同的单词集合给予不同的关注呢？
 
-除了使用参数为 $d_{model}$ 行 $d_{q}=d_{k}=d_{v}=64$ 列的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能。它使得模型可以关注不同位置。
-
 虽然在上面的例子中，$Z$ 包含了**一点点**其他位置的编码，但当前位置的单词还是占主要作用。当我们想知道 “The animal didn’t cross the street because it was too tired” 中 it 的含义时，这时就需要关注到其他位置。这个机制为注意层提供了多个 “表示子空间”。
 
-经过 multi-headed ，我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组（$W_i^Q,W_i^K,W_i^V$）。论文中用了8个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
+除了使用参数为 $d_{model}$ 行 $d_{k}=d_{v}=d_{model}/h=64$ 列的 $Q,K,V$ 向量外，作者还增加了一个 multi-headed 机制，可以提升注意力层的性能。它使得模型可以关注不同位置。其中 $h=8$ 为多头的头数。经过 multi-headed ，我们会得到和 heads 数目一样多的 Query / Key / Value 权重矩阵组（$W_i^Q,W_i^K,W_i^V$）。论文中用了 8 个，那么每个encoder/decoder 我们都会得到 8 个集合。这些集合都是随机初始化的，经过训练之后，每个集合会将 input embeddings 投影到不同的表示子空间中。
+
+$$
+\begin{aligned}
+MultiHead(Q,K,V) = Concat(head_1,...,head_h)W^O\\
+where\ head_i = Attention(QW^Q_i,KW^K_i,VW^V_i)
+\end{aligned}
+$$
+
+其中，$W^Q_i,W^K_i \in \mathbb R^{d_{model}\times d_k}$，$W^V_i \in \mathbb R^{d_{model}\times d_v}$，$W^O\in \mathbb R^{hd_v\times d_{model}}$。
+
+作者使用 $h=8$ 可以降低每个头的权重矩阵维度，这样在类似于单头注意力计算代价（$d_{model}=512$）的前提下得以使用多头注意力。
 
 ![multihead](../assets/img/postsimg/20201112/13.jpg)
 
@@ -253,6 +262,8 @@ self-attention 是单头的，单头注意力能够将注意力集中在特定�
 为了和后续前馈层对接（它需要一个矩阵，每个行向量代表一个词，而不是八个矩阵），作者将得到的 8 个矩阵进行拼接，然后乘以一个**附加权重矩阵** $W^O$，从而将其压缩到一个 $Z$ 矩阵。
 
 ![multihead3](../assets/img/postsimg/20201112/15.jpg)
+
+**可以看到，正如上文所说，multi-head attention 通过最终的向量拼接将输出 $Z$ 重新恢复到了与输入 $X$ 相同的维度，$X,Z \in \mathbb R^{l_{seq}\times d_{model}}$。**
 
 最终的完整流程如下图所示
 
@@ -298,8 +309,9 @@ Encoder-Decoder Attention 层的工作方式与 multiheaded self-attention 类�
 
 ## 4.2. masked multi-head attention
 
-解码器中的 self attention 层与编码器中的略有不同。在解码器中，在 self attention 的 softmax 步骤之前，需要将未来的位置设置为 -inf 来屏蔽这些位置，这样做是为了 self attention 层只能关注输出序列中靠前的一些位置，相当于解码时不让其知道当前词之后的词。这样，-inf 经过 softmax 之后就会被置为 0，从而保证仅当前词及前面的词向量的概率和为 1。
+解码器中的 self attention 层与编码器中的略有不同。在解码器中，在 self attention 的 softmax 步骤之前，需要将未来的位置设置为 -inf 来屏蔽这些位置，这样做是为了 self attention 层只能关注输出序列中靠前的一些位置，相当于解码时不让其知道当前词之后的词。这样，-inf 经过 softmax 之后就会被置为 0，从而保证仅当前词及前面的词向量的概率和为 1。**注意下图中 【Mask(opt.)】环节。**
 
+![selfattention](../assets/img/postsimg/20201112/22.jpg) 
 
 # 5. 参考文献
 
