@@ -310,7 +310,7 @@ decoder 相比 encoder 采用的是 **masked** multi-head attention，多了一�
 
 ## 4.1. encoder-decoder attention
 
-输入序列经过 encoder 得到输出 $Z$。同时注意到，最上层的 encoder 的输出还包括一组 attention 权重矩阵 $K_{encdec}$ 和 $V_{encdec}$，这些矩阵会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。**<font color=red>$K,V$ 矩阵有 8 组，怎么得到的？</font>**
+输入序列经过 encoder 得到输出 $Z$。同时注意到，**最上层**的 encoder 的输出还包括 8 组 attention 权重矩阵 $K_{encdec}$ 和 $V_{encdec}$，这些矩阵会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。**注意 $K,V$ 矩阵有 8 组，它们直接全部用于 encoder-decoder attention 中，因为其也是一个 multi-headed。**
 
 ![edattention](../assets/img/postsimg/20201112/26.0.gif)
 
