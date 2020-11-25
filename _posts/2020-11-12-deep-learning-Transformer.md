@@ -6,7 +6,7 @@ tags: [academic]
 math: true
 ---
 
-本文主要介绍 seq2seq learning 中的 Transformer 模型，由谷歌提出。
+本文主要介绍 seq2seq learning 中的 Transformer 模型，由谷歌提出。建议前序阅读 Encoder-Decoder。
 
 <!--more-->
 
@@ -309,7 +309,7 @@ decoder 相比 encoder 多了一个 masked multi-head attention，最后还要�
 
 ## 4.1. encoder-decoder attention
 
-输入序列经过 encoder 得到输出 $Z$。同时注意到，最上层的 encoder 的输出还包括一组 attention 权重矩阵 $K_{encdec}$ 和 $V_{encdec}$，这些矩阵会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。**<font color=red>$K,V$ 矩阵怎么得到的？</font>**
+输入序列经过 encoder 得到输出 $Z$。同时注意到，最上层的 encoder 的输出还包括一组 attention 权重矩阵 $K_{encdec}$ 和 $V_{encdec}$，这些矩阵会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。**<font color=red>$K,V$ 矩阵有 8 组，怎么得到的？</font>**
 
 ![edattention](../assets/img/postsimg/20201112/26.0.gif)
 
