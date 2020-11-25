@@ -140,9 +140,7 @@ $$
 ### 2.1.1. 实现
 
 > 参考：
-> 
 > 学术状态抽奖器. [深度学习（BOT方向） 学习笔记（2） RNN Encoder-Decoder 及 LSTM 学习](https://blog.csdn.net/mebiuw/article/details/53341404)
-> 
 > 张俊林博客. [使用Encoder-Decoder模型自动生成对联的思路](https://blog.csdn.net/malefactor/article/details/51124732)
 
 最经典的 Encoder-Decoder 实现方式，即用 RNN 来实现。在RNN Encoder-Decoder 的工作当中，我们用一个 RNN 去模拟大脑的读入动作，用一个特定长度的特征向量去模拟我们的记忆，然后再用另外一个 RNN 去模拟大脑思考得到答案的动作，将三者组织起来利用就成了一个可以实现 Sequence2Sequence 工作的“模拟大脑”了。关于 RNN 的介绍这里不做展开，详见 [此处](deep-learning-RNN)。
