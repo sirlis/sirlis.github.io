@@ -305,7 +305,7 @@ $$
 
 # 4. Decoder
 
-decoder 相比 encoder 多了一个 masked multi-head attention，最后还要经过一个 linear 和 softmax 输出概率。
+decoder 相比 encoder 采用的是 **masked** multi-head attention，多了一个 encoder-decoder attention，最后还要经过一个 linear 和 softmax 输出概率。
 
 ## 4.1. encoder-decoder attention
 
