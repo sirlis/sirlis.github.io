@@ -24,6 +24,7 @@ math: true
 - [4. Decoder](#4-decoder)
   - [4.1. encoder-decoder attention](#41-encoder-decoder-attention)
   - [4.2. masked multi-head attention](#42-masked-multi-head-attention)
+  - [output](#output)
 - [5. 参考文献](#5-参考文献)
 
 
@@ -64,6 +65,8 @@ Encoder 的数据流通过程如下
 - 每个子层之间有残差连接
 
 ![attention](../assets/img/postsimg/20201112/2.jpg)
+
+在这里，我们开始看到 Transformer 的一个关键性质，即每个位置的单词在 encoder 中都有自己的路径，self-attention 层中的这些路径之间存在依赖关系，然而在 feed-forward 层不具有那些依赖关系，这样各种路径在流过 feed-forward 层时可以并行执行。
 
 ## 3.1. input
 
@@ -320,7 +323,13 @@ Encoder-Decoder Attention 层的工作方式与 multiheaded self-attention 类�
 
 解码器中的 self attention 层与编码器中的略有不同。在解码器中，在 self attention 的 softmax 步骤之前，需要将未来的位置设置为 -inf 来屏蔽这些位置，这样做是为了 self attention 层只能关注输出序列中靠前的一些位置，相当于解码时不让其知道当前词之后的词。这样，-inf 经过 softmax 之后就会被置为 0，从而保证仅当前词及前面的词向量的概率和为 1。**注意下图中 【Mask(opt.)】环节。**
 
-![selfattention](../assets/img/postsimg/20201112/22.jpg) 
+![selfattention](../assets/img/postsimg/20201112/22.jpg)
+
+## output
+
+解码器最后输出的是一个向量，如何把它变成一个单词，这就要靠它后面的线性层和 softmax 层。线性层就是一个很简单的全连接神经网络，将解码器输出的向量映射成一个更长的向量。例如我们有 10,000 个无重复的单词，那么最后输出的向量就有一万维，每个位置上的值代表了相应单词的分数。softmax 层将这个分数转换为了概率，我们选择概率最大的所对应的单词，就是当前时间步的输出。
+
+
 
 # 5. 参考文献
 
