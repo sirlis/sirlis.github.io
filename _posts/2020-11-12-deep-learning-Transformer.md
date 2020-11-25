@@ -24,7 +24,7 @@ math: true
 - [4. Decoder](#4-decoder)
   - [4.1. encoder-decoder attention](#41-encoder-decoder-attention)
   - [4.2. masked multi-head attention](#42-masked-multi-head-attention)
-  - [output](#output)
+  - [4.3. output](#43-output)
 - [5. 参考文献](#5-参考文献)
 
 
@@ -66,7 +66,7 @@ Encoder 的数据流通过程如下
 
 ![attention](../assets/img/postsimg/20201112/2.jpg)
 
-在这里，我们开始看到 Transformer 的一个关键性质，即每个位置的单词在 encoder 中都有自己的路径，self-attention 层中的这些路径之间存在依赖关系，然而在 feed-forward 层不具有那些依赖关系，这样各种路径在流过 feed-forward 层时可以并行执行。
+在这里，我们开始看到 Transformer 的一个关键性质，即每个位置的单词在 encoder 中都有自己的路径，self-attention 层中的这些路径之间存在依赖关系，然而在 feed-forward 层不具有那些依赖关系，这样各种路径在流过 feed-forward 层时可以并行执行。并且，这里每个单词对应的前馈神经网络（feed-forward）都是一样的。
 
 ## 3.1. input
 
@@ -233,7 +233,7 @@ $$
 
 - RNN 或者 LSTM 的隐变量只包含句子前半部分的历史信息，且时间片 $t$ 的计算依赖 $t-1$ 时刻的计算结果，这样限制了模型的并行能力；
 - LSTM 只能缓解而无法彻底解决长期依赖；
-- 即使是 BiLSTM 。
+- BiLSTM 在捕捉上下文信息时，只是简单的将前向的LSTM和后向的LSTM进行拼接，没有很好的融合上下文的信息；（即使是BiLSTM 双向模型，也只是在 loss 处做一个简单的相加，也就是说它是按顺序做推理的，没办法考虑另一个方向的数据）
 
 整个 self-attention 的计算流程图如下图所示
 
@@ -325,11 +325,11 @@ Encoder-Decoder Attention 层的工作方式与 multiheaded self-attention 类�
 
 ![selfattention](../assets/img/postsimg/20201112/22.jpg)
 
-## output
+## 4.3. output
 
 解码器最后输出的是一个向量，如何把它变成一个单词，这就要靠它后面的线性层和 softmax 层。线性层就是一个很简单的全连接神经网络，将解码器输出的向量映射成一个更长的向量。例如我们有 10,000 个无重复的单词，那么最后输出的向量就有一万维，每个位置上的值代表了相应单词的分数。softmax 层将这个分数转换为了概率，我们选择概率最大的所对应的单词，就是当前时间步的输出。
 
-
+![output](../assets/img/postsimg/20201112/31.jpg)
 
 # 5. 参考文献
 
