@@ -297,6 +297,7 @@ $$
 
 > 大师兄. [模型优化之Layer Normalization](https://zhuanlan.zhihu.com/p/54530247)
 > Batch Normalization (BN) 并不适用于RNN等动态网络和batchsize较小的时候效果不好。Layer Normalization（LN）的提出有效的解决BN的这两个问题。LN和BN不同点是归一化的维度是互相垂直的，如图1所示。在图1中 $N$ 表示样本轴，$C$ 表示通道轴，$F$ 是每个通道的特征数量。BN 如右侧所示，它是取不同样本的同一个通道的特征做归一化；LN 则是如左侧所示，它取的是同一个样本的不同通道做归一化。
+> 
 > ![ln](../assets/img/postsimg/20201112/30.jpg)
 
 残差连接在 decoder 中同样存在。假设一个 2 层堆叠的 transformer，如下图所示
