@@ -309,11 +309,11 @@ decoder 相比 encoder 多了一个 masked multi-head attention，最后还要�
 
 ## 4.1. encoder-decoder attention
 
-输入序列经过 encoder 得到输出 $Z$，将最上面的 encoder 的输出 $Z$ 变换成一组 attention 向量 $K_{encdec}$ 和 $V_{encdec}$，这些向量会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。重复这个过程，直到 decoder 完成了输出，每个时间步的输出都在下一个时间步时喂入给最底部的 decoder，同样，在这些 decoder 的输入中也加入了位置编码，来表示每个字的位置。
+输入序列经过 encoder 得到输出 $Z$。同时注意到，最上层的 encoder 的输出还包括一组 attention 权重矩阵 $K_{encdec}$ 和 $V_{encdec}$，这些矩阵会用于每个 decoder 的 encoder-decoder attention 层，帮助解码器聚焦在输入序列中合适的位置。
 
 ![edattention](../assets/img/postsimg/20201112/26.0.gif)
 
----
+重复这个过程，直到 decoder 完成了输出，每个时间步的输出都在下一个时间步时喂入给最底部的 decoder，同样，在这些 decoder 的输入中也加入了位置编码，来表示每个字的位置。
 
 ![edattention](../assets/img/postsimg/20201112/26.gif)
 
