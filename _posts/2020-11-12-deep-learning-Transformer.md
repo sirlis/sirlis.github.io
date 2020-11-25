@@ -31,7 +31,7 @@ math: true
 
 Transformer 来自 Google 团队 2017 年的文章 **《Attenion Is All You Need》**（https://arxiv.org/abs/1706.03762 ），该文章的目的：减少计算量并且提高并行效率，同时不减弱最终的实验效果。Transformer 在机器翻译任务上的表现超过了 RNN、CNN，只用 encoder-decoder 和 attention 机制就能达到很好的效果，最大的优点是可以高效地并行化。
 
-自 attention 机制提出后，加入 attention 的 seq2seq 模型在各个任务上都有了提升，所以现在的 seq2seq 模型指的都是结合 RNN 和 attention 的模型。之后 google 又提出了解决 seq2seq 问题的 Transformer 模型，用全 attention 的结构代替了 lstm，在翻译任务上取得了更好的成绩。
+自 attention 机制提出后，加入 attention 的 seq2seq 模型在各个任务上都有了提升，所以现在的 seq2seq 模型指的都是结合 RNN 和 attention 的模型。之后 google 又提出了解决 seq2seq 问题的 Transformer 模型，用全 attention 的结构代替了 LSTM，在翻译任务上取得了更好的成绩。
 
 # 2. 总体结构
 
@@ -67,7 +67,7 @@ Encoder 的数据流通过程如下
 
 ## 3.1. input
 
-首先使用嵌入算法将输入的 word（$x$） 转换为 vector（$z$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 $d_{model}=512$ 维的向量，用下图中的 4 个框并排在一起表示。
+首先使用嵌入算法将输入的 word（$x$） 转换为 embedding vector（$\hat x$），这个转换仅在最下方第一个 Encoder 之前发生。在 NLP 任务中，假设每个单词都转化为 $d_{model}=512$ 维的向量，用下图中的 4 个框并排在一起表示。
 
 ![input](../assets/img/postsimg/20201112/3.jpg)
 
@@ -77,11 +77,11 @@ Encoder 的数据流通过程如下
 
 在数据预处理的部分，由于 Transformer 抛弃了卷积（convolution）和循环（recurrence），为了使得模型具备利用句子序列顺序的能力，必须要在词向量中插入一些相对或绝对位置信息。
 
-在RNN（LSTM，GRU）中，时间步长的概念按顺序编码，因为输入/输出流一次一个。 对于Transformer，作者将时间编码为正弦波，作为附加的额外输入。 这样的信号被添加到输入和输出以表示时间的流逝。下面的连接详细阐述了 positional encoding 的数学原理。
+在RNN（LSTM，GRU）中，时间步长的概念按顺序编码，因为输入/输出流一次一个。 对于 Transformer，作者将时间编码为正弦波，作为附加的额外输入。 这样的信号被添加到输入和输出以表示时间的流逝。下面的连接详细阐述了 positional encoding 的数学原理。
 
 > Amirhossein Kazemnejad. [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
 
-Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度（$d_{model}=512$）与词向量一致的位置向量 $PE$，取值范围介于 -1 和 1 之间。这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
+Positional Encoding 是一种考虑输入序列中单词顺序的方法。Encoder 为每个输入词向量添加了一个维度与词向量一致（$d_{model}=512$）的位置向量 $PE$，取值范围介于 -1 和 1 之间。这些位置向量符合一种特定模式，可以用来确定每个单词的位置，或者用来提供信息以衡量序列中不同单词之间的距离。
 
 作者提出两种 Positional Encoding 的方法
 
@@ -226,7 +226,11 @@ $$
 
 ![matrixselfattention](../assets/img/postsimg/20201112/29.jpg)
 
-上图中 softmax 矩阵的第 1 行表示单词 1 与其他所有单词的 attention 系数，最终单词 1 的输出 $Z_1$ 等于所有单词 $i$ 的值 $V_i$ 根据 attention 系数的比例加在一起得到。**最终得到的 $Z \in \mathbb R^{l_{seq}\times d_v}$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和编码，包含了每个单词对其的重要性（注意力）。**
+上图中 softmax 矩阵的第 1 行表示单词 1 与其他所有单词的 attention 系数，最终单词 1 的输出 $Z_1$ 等于所有单词 $i$ 的值 $V_i$ 根据 attention 系数的比例加在一起得到。**最终得到的 $Z \in \mathbb R^{l_{seq}\times d_v}$ 是该句子中所有单词对当前该单词的值 $V$ 的加权和编码，包含了每个单词对其的重要性（注意力）**。将其与 RNN 或 LSTM 进行比较：
+
+- RNN 或者 LSTM 的隐变量只包含句子前半部分的历史信息，且时间片 $t$ 的计算依赖 $t-1$ 时刻的计算结果，这样限制了模型的并行能力；
+- LSTM 只能缓解而无法彻底解决长期依赖；
+- 即使是 BiLSTM 。
 
 整个 self-attention 的计算流程图如下图所示
 
