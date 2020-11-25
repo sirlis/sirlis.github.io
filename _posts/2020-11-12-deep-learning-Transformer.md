@@ -322,7 +322,21 @@ Encoder-Decoder Attention 层的工作方式与 multiheaded self-attention 类�
 
 ## 4.2. masked multi-head attention
 
-解码器中的 self attention 层与编码器中的略有不同。在解码器中，在 self attention 的 softmax 步骤之前，需要将未来的位置设置为 -inf 来屏蔽这些位置，这样做是为了 self attention 层只能关注输出序列中靠前的一些位置，相当于解码时不让其知道当前词之后的词。这样，-inf 经过 softmax 之后就会被置为 0，从而保证仅当前词及前面的词向量的概率和为 1。**注意下图中 【Mask(opt.)】环节。**
+mask attention 是 decoder 的 self-attention 层使用的，也是 decoder 和 encoder 的 self-attention 层唯一不同的地方。作者为了保护 decoder 的 auto-regressive 属性，需要通过 mask 的方式来阻止 decoder 中左向的信息流。
+
+我们知道 auto-regressive 的基本思想是下一个观测值约等于前 m 个观测值的某种线性加权和。所以后 n 个值（这里对应上面提到的左向信息流）是没有意义的，所以作者通过 mask 的方式，将后 n 个值，也就是 decoder 中self-attention 层的 scaled dot-product 阶段的当前处理词的后面位置的词的 scaled dot-product 结果都设置成负无穷。
+
+```
+encoder: You are a great man!
+decoder:
+         你 □ □ □ □  
+         你是 □ □ □
+         你是个 □ □
+         你是个牛 □
+         你是个牛人
+```
+
+具体而言，在解码器中 self attention 的 softmax 步骤之前，需要将未来的位置设置为 -inf 来屏蔽这些位置，这样做是为了 self attention 层只能关注输出序列中靠前的一些位置，相当于解码时不让其知道当前词之后的词。这样，-inf 经过 softmax 之后就会被置为 0，从而保证仅当前词及前面的词向量的概率和为 1。**注意下图中 【Mask(opt.)】环节。**
 
 ![selfattention](../assets/img/postsimg/20201112/22.jpg)
 
