@@ -53,7 +53,7 @@ BERT（**B**idirectional **E**ncoder **R**epresentations from **T**ransformers�
 
 ## word2vec
 
-
+word2vec 模型其实就是简单化的神经网络。
 
 ## ELMo
 
