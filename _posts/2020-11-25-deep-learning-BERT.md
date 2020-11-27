@@ -83,6 +83,10 @@ Tri-gram : {I, love, deep}, {love, deep, learning}
 
 在N-gram 的基础上，Bengio 在 2003 年提出 NNLM 即 Neural Network based Language Model。它是一个很简单的模型，由四层组成，输入层、嵌入层、隐层和输出层。模型接收的输入是长度为 $n$ 的词序列，输出是下一个词的类别。
 
+Bengio等人采用了一个简单的前向反馈神经网络 $f(w_{t−n+1},...,w_t)$ 来拟合一个词序列的条件概率 $p(\omega_t\vert \omega_{t-N+1},...,\omega_{t-1})$。整个模型的网络结构为一个三层神经网络，第一层映射层，第二层隐层，第三层输出层。
+
+
+
 首先，输入是单词序列的 index 序列，例如单词 `I` 在字典（大小为 $\vert V\vert$）中的 index 是 10，单词 `am` 的 index 是 23， `Bengio` 的 index 是 65，则句子 `I am Bengio` 的 index 序列就是 10, 23, 65。嵌入层（Embedding）是一个大小为 $\vert V\vert \times K$ 的矩阵，从中取出第 10、23、65 行向量拼成 $3\times K$ 的矩阵就是 Embedding 层的输出了。隐层接受拼接后的 Embedding 层输出作为输入，以 tanh 为激活函数，最后送入带 softmax 的输出层，输出概率。
 
 NNLM最大的缺点就是参数多，训练慢。另外，NNLM要求输入是定长 $n$，定长输入这一点本身就很不灵活，同时不能利用完整的历史信息。
