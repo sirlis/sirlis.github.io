@@ -6,7 +6,7 @@ tags: [academic]
 math: true
 ---
 
-本文介绍了 LSTM （长短时记忆网络）的基本概念，以及正/反向传播的推导过程，然后分析了 LSTM 如何克服 RNN 的梯度消失问题，最后介绍了 PyTorch 的 LSTM 模块的实现。
+本文介绍了 将 Fuzzy 和 LSTM 结合用于二维平面行动轨迹预测的方法，由 Mingxiao Li 于 2020 年提出，提高预测精度，有效学习周期性时空规律。
 
 <!--more-->
 
@@ -25,11 +25,11 @@ math: true
 
 # 1. 引言
 
-- Mingxiao Li, Feng Lu, Hengcai Zhang & Jie Chen
-
-- **Predicting future locations of moving objects with deep fuzzy-LSTM networks**
-
-- TRANSPORTMETRICA A: TRANSPORT SCIENCE. 2020, VOL. 16, NO. 1, 119–136
+> Mingxiao Li, Feng Lu, Hengcai Zhang & Jie Chen
+> 
+> **Predicting future locations of moving objects with deep fuzzy-LSTM networks**
+> 
+> TRANSPORTMETRICA A: TRANSPORT SCIENCE. 2020, VOL. 16, NO. 1, 119–136
 
 基于运动状态微分、基于频率模式挖掘、基于机器学习，三种运动位置预测方法。基于机器学习的方法已经称为主流。
 
