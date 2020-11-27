@@ -205,7 +205,35 @@ $$
 
 **Negative Sampling** 算法改造的是模型的似然函数，与改造模型输出概率的 Hierarchical Softmax 算法不同。其思想来源于一种叫做噪声对比估计（Noise-Contrastive Estimation）的算法。
 
-以Skip-gram模型为例，其原始的似然函数对应着一个多项分布。在用最大似然法求解这个似然函数时，我们得到一个cross-entropy的损失函数：
+以Skip-gram模型为例，其原始的似然函数对应着一个多项分布。在用最大似然法求解这个似然函数时，我们得到一个 cross-entropy 的损失函数：
+
+$$
+J(\theta) = -\frac{1}{T}\sum_{t=1}^T\sum_{-c\leq j\leq c,j\neq 0} log p(\omega_{t+j}\vert \omega_t)
+$$
+
+$p(\omega_{t+j}\vert \omega_t)$ 是整个字典归一化了的概率。
+
+在 NCE 算法中，我们构造了这样一个问题：对于一组训练样本，我们想知道，目标词的预测，是来自于 context 的驱动，还是一个事先假定的背景噪声的驱动？显然，我们可以用一个逻辑回归的函数来回答这个问题
+
+$$
+p(D=1\vert w,context)=\frac{p(w\vert context)}{p(w\vert context)+kp_n(w)}=σ(logp(w\vert context)−logkp_n(w))
+$$
+
+这个式子给出了一个目标词 $w$ 来自于 context 驱动的概率。其中，$k$ 是一个先验参数，表明噪声的采样频率。$p(w\vert context)$ 是一个非归一化的概率分布，可以看作是 $softmax$ 归一化函数中的分子部分。$p_n(w)$ 则是背景噪声的词分布，通常采用词的 unigram 分布。而 $\sigma(\cdot)$ 是我们熟悉的 $sigmoid$ 函数。
+
+在Mikolov论文中的负采样算法，是NCE的简化版本。简单来说，其正负采样过程具有以下两个步骤：
+
+- 首先确定正样本，通过计算中心词与上下文中词的其余弦相似度，再用一个sigmoid函数来判断
+  $$
+  p(D=1\vert w_o,w_i)=\sigma(U_o\cdot V_i)
+  $$
+- 采样词典中不在中心词上下文中的词的词作为负样本，采样频率由该词在语料库中出现的频率有关，作者给出了一个经验公式
+  $$
+  p(w_i) = \frac{f(w_i)^{3/4}}{\sum_{j=0}^nf(w_j)^{3/4}}
+  $$
+  其中，$f(w_i)$ 是该词在语料库中出现的频率，一共采样 $k$ 个词。
+
+经过这样的采样后，得到一个新数据集。其中，label 标记了数据的来源（正例被标记为 1，负例被标记为 0）。在这个新的数据集上，我们仅需要从采样结果中计算归一化概率分布，从而大大简化计算过程。
 
 ---
 
