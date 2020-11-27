@@ -80,12 +80,17 @@ Tri-gram : {I, love, deep}, {love, deep, learning}
 ### 2.1.2. NNLM
 
 > 2003. A neural probabilistic language model
+> 西多士NLP. [词向量(one-hot/SVD/NNLM/Word2Vec/GloVe)](https://www.cnblogs.com/sandwichnlp/p/11596848.html)
 
 在N-gram 的基础上，Bengio 在 2003 年提出 NNLM 即 Neural Network based Language Model。它是一个很简单的模型，由四层组成，输入层、嵌入层、隐层和输出层。模型接收的输入是长度为 $n$ 的词序列，输出是下一个词的类别。
 
 Bengio等人采用了一个简单的前向反馈神经网络 $f(w_{t−n+1},...,w_t)$ 来拟合一个词序列的条件概率 $p(\omega_t\vert \omega_{t-N+1},...,\omega_{t-1})$。整个模型的网络结构为一个三层神经网络，第一层映射层，第二层隐层，第三层输出层。
 
+![nnlm](../assets/img/postsimg/20201125/1.jpg)
 
+用端到端的思想来看，我们输入一个词的one-hot向量表征，希望得到相应的相应词的条件概率，则神经网络模型要做的就是拟合一个由one-hot向量映射为相应概率模型的函数。我们将上图的网络结构拆成两部分来理解：
+
+- 首先是一个线性的映射层。它将输入的 $N−1$ 个 one-hot 词向量，通过一个共享的 $D\times V$ 的矩阵 $C$，映射为 $N−1$ 个分布式的词向量（distributed vector）。其中，$V$ 是词典的大小，$D$ 是 Embedding 向量的维度（一个先验参数）。$C$ 矩阵里存储了要学习的word vector，为什么这是我们需要的词向量呢？试想一下，当我们把 $n$ 个 one-hot 表征的词向量词典输入到神经网络中，单层的神经网络进行的运算无非就是 $Y=WTX$，这个操作等效于查表操作，one-hot 向量将 $n$ 个词向量从 Embedding 层中原封不动地提取出来，如下图所示。
 
 首先，输入是单词序列的 index 序列，例如单词 `I` 在字典（大小为 $\vert V\vert$）中的 index 是 10，单词 `am` 的 index 是 23， `Bengio` 的 index 是 65，则句子 `I am Bengio` 的 index 序列就是 10, 23, 65。嵌入层（Embedding）是一个大小为 $\vert V\vert \times K$ 的矩阵，从中取出第 10、23、65 行向量拼成 $3\times K$ 的矩阵就是 Embedding 层的输出了。隐层接受拼接后的 Embedding 层输出作为输入，以 tanh 为激活函数，最后送入带 softmax 的输出层，输出概率。
 
