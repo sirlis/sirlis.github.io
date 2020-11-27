@@ -14,6 +14,8 @@ math: true
 - [1. 简介](#1-简介)
 - [2. 预备知识](#2-预备知识)
   - [2.1. 语言模型](#21-语言模型)
+    - [2.1.1. N-gram](#211-n-gram)
+    - [2.1.2. NNLM](#212-nnlm)
   - [2.2. 词向量模型](#22-词向量模型)
     - [2.2.1. word2vec](#221-word2vec)
     - [2.2.2. ELMo](#222-elmo)
@@ -37,13 +39,65 @@ BERT（**B**idirectional **E**ncoder **R**epresentations from **T**ransformers�
 
 ## 2.1. 语言模型
 
+语言模型是一个基于概率的判别模型，它的输入是一句话（单词的顺序序列），输出是这句话的概率，即这些单词的联合概率（joint probability）。
+
+首先回顾一下自然语言处理中的一个基本问题：**如何计算一段文本序列在某种语言下出现的概率**？之所为称其为一个基本问题，是因为它在很多 NLP 任务中都扮演着重要的角色。例如，在机器翻译的问题中，如果我们知道了目标语言中每句话的概率，就可以从候选集合中挑选出最合理的句子做为翻译结果返回。
+
+统计语言模型给出了这一类问题的一个基本解决框架。对于一段文本序列
+
+$$
+S=\omega_1,\omega_2,...,\omega_T
+$$
+
+它的概率可以表示为
+
+$$
+P(S) = P(\omega_1,\omega_2,...,\omega_T) = \prod_{t=1}^Tp(\omega_t\vert \omega_1,\omega_2,...,\omega_{t-1})
+$$
+
+也即假设，每一个单词 $w_i$ 都要依赖于从第一个单词 $w_1$ 到它之前一个单词 $w_{t-1}$ 的影响。问题变成了如何预测连乘中这些给定 previous words 下的条件概率。
+
+上述概率衡量方法有两个缺陷
+
+- 参数空间巨大，$p(\omega_t\vert \omega_1,\omega_2,...,\omega_{t-1})$ 的参数有 $O(n)$ 个；
+- 数据稀疏严重，词同时出现的情况可能没有（条件概率为 0），组合阶数高时尤其明显。
+
+### 2.1.1. N-gram
+
+为了解决第一个问题，我们引入马尔科夫假设（Markov Assumption）：一个词的出现仅与它之前的若干个词有关。这就产生了 N-gram 模型
+
+$$
+p(\omega_t\vert \omega_1,\omega_2,...,\omega_{t-1}) = p(\omega_t\vert \omega_{t-N+1},...,\omega_{t-1})
+$$
+
+一般取 $N=2$ 或者 $N=3$，分别对应 Bi-gram 和 Tri-gram 模型，前者认为每个词只与前面一个词有关，后者认为与前两个词有关。比如一个句子，`I love deep learning` 分别分解为：
+
+```
+Bi-gram : {I, love}, {love, deep}, {love, deep}, {deep, learning}
+Tri-gram : {I, love, deep}, {love, deep, learning}
+```
+
+### 2.1.2. NNLM
+
+> 2003. A neural probabilistic language model
+
+在N-gram 的基础上，Bengio 在 2003 年提出 NNLM 即 Neural Network based Language Model。它是一个很简单的模型，由四层组成，输入层、嵌入层、隐层和输出层。模型接收的输入是长度为 $n$ 的词序列，输出是下一个词的类别。
+
+首先，输入是单词序列的 index 序列，例如单词 `I` 在字典（大小为 $\vert V\vert$）中的 index 是 10，单词 `am` 的 index 是 23， `Bengio` 的 index 是 65，则句子 `I am Bengio` 的 index 序列就是 10, 23, 65。嵌入层（Embedding）是一个大小为 $\vert V\vert \times K$ 的矩阵，从中取出第 10、23、65 行向量拼成 $3\times K$ 的矩阵就是 Embedding 层的输出了。隐层接受拼接后的 Embedding 层输出作为输入，以 tanh 为激活函数，最后送入带 softmax 的输出层，输出概率。
+
+NNLM最大的缺点就是参数多，训练慢。另外，NNLM要求输入是定长 $n$，定长输入这一点本身就很不灵活，同时不能利用完整的历史信息。
+
+针对 NNLM 存在的问题，Mikolov 在 2010 年提出了 RNNLM，其结构实际上是用 RNN 代替 NNLM 里的隐层，这样做的好处包括减少模型参数、提高训练速度、接受任意长度输入、利用完整的历史信息。同时，RNN的引入意味着可以使用 RNN 的其他变体，像 LSTM、BiLSTM、GRU 等等，从而在时间序列建模上进行更多更丰富的优化。
+
+## 2.2. 词向量模型
+
+词向量模型要做的事情是：学习一个从高维稀疏离散向量到低维稠密连续向量的映射。该映射的特点是，近义词向量的欧氏距离比较小，词向量之间的加减法有实际物理意义。
+
 两种语言模型
 
 - 如果是用一个词语作为输入，来预测它周围的上下文，那这个模型叫做『Skip-gram 模型』
 
 - 而如果是拿一个词语的上下文作为输入，来预测这个词语本身，则是 『CBOW 模型』
-
-## 2.2. 词向量模型
 
 这里主要横向比较一下 word2vec，ELMo，BERT 这三个模型，着眼在模型亮点与差别处。
 
