@@ -57,7 +57,7 @@ $$
 P(S) = P(\omega_1,\omega_2,...,\omega_T) = \prod_{t=1}^Tp(\omega_t\vert \omega_1,\omega_2,...,\omega_{t-1})
 $$
 
-也即假设，每一个单词 $w_i$ 都要依赖于从第一个单词 $w_1$ 到它之前一个单词 $w_{t-1}$ 的影响。问题变成了如何预测连乘中这些给定 previous words 下的条件概率。
+也即假设，每一个单词 $w_i$ 都要依赖于从第一个单词 $w_1$ 到它之前一个单词 $\omega_{t-1}$ 的影响。问题变成了如何预测连乘中这些给定 previous words 下的条件概率。
 
 上述概率衡量方法有两个缺陷
 
@@ -92,7 +92,7 @@ NNLM模型的基本思想可以概括如下：
 - 假定一个连续平滑的概率模型，输入一段词向量的序列，可以输出这段序列的联合概率；
 - 同时学习词向量的权重和 Ngram 概率模型里的参数。
 
-Bengio等人采用了一个简单的前向反馈神经网络 $f(w_{t−n+1},...,w_t)$ 来拟合一个词序列的条件概率 $p(\omega_t\vert \omega_{t-N+1},...,\omega_{t-1})$。整个模型的网络结构为一个三层神经网络，第一层映射层，第二层隐层，第三层输出层。
+Bengio等人采用了一个简单的前向反馈神经网络 $f(\omega_{t−n+1},...,w_t)$ 来拟合一个词序列的条件概率 $p(\omega_t\vert \omega_{t-N+1},...,\omega_{t-1})$。整个模型的网络结构为一个三层神经网络，第一层映射层，第二层隐层，第三层输出层。
 
 ![nnlm](../assets/img/postsimg/20201125/1.jpg)
 
@@ -216,22 +216,22 @@ $p(\omega_{t+j}\vert \omega_t)$ 是整个字典归一化了的概率。
 在 NCE 算法中，我们构造了这样一个问题：对于一组训练样本，我们想知道，目标词的预测，是来自于 context 的驱动，还是一个事先假定的背景噪声的驱动？显然，我们可以用一个逻辑回归的函数来回答这个问题
 
 $$
-p(D=1\vert w,context)=\frac{p(w\vert context)}{p(w\vert context)+kp_n(w)}=σ(logp(w\vert context)−logkp_n(w))
+p(D=1\vert \omega,context)=\frac{p(\omega\vert context)}{p(\omega\vert context)+kp_n(\omega)}=σ(logp(\omega\vert context)−logkp_n(\omega))
 $$
 
-这个式子给出了一个目标词 $w$ 来自于 context 驱动的概率。其中，$k$ 是一个先验参数，表明噪声的采样频率。$p(w\vert context)$ 是一个非归一化的概率分布，可以看作是 $softmax$ 归一化函数中的分子部分。$p_n(w)$ 则是背景噪声的词分布，通常采用词的 unigram 分布。而 $\sigma(\cdot)$ 是我们熟悉的 $sigmoid$ 函数。
+这个式子给出了一个目标词 $\omega$ 来自于 context 驱动的概率。其中，$k$ 是一个先验参数，表明噪声的采样频率。$p(\omega\vert context)$ 是一个非归一化的概率分布，可以看作是 $softmax$ 归一化函数中的分子部分。$p_n(\omega)$ 则是背景噪声的词分布，通常采用词的 unigram 分布。而 $\sigma(\cdot)$ 是我们熟悉的 $sigmoid$ 函数。
 
-在Mikolov论文中的负采样算法，是NCE的简化版本。简单来说，其正负采样过程具有以下两个步骤：
+在 Mikolov 论文中的负采样算法，是 NCE 的简化版本。简单来说，其正负采样过程具有以下两个步骤：
 
-- 首先确定正样本，通过计算中心词与上下文中词的其余弦相似度，再用一个sigmoid函数来判断
+- 首先确定正样本，通过计算中心词与上下文中词的其余弦相似度，再用一个 $sigmoid$ 函数来判断
   $$
-  p(D=1\vert w_o,w_i)=\sigma(U_o\cdot V_i)
+  p(D=1\vert \omega_o,\omega_i)=\sigma(U_o\cdot V_i)
   $$
 - 采样词典中不在中心词上下文中的词的词作为负样本，采样频率由该词在语料库中出现的频率有关，作者给出了一个经验公式
   $$
-  p(w_i) = \frac{f(w_i)^{3/4}}{\sum_{j=0}^nf(w_j)^{3/4}}
+  p(\omega_i) = \frac{f(\omega_i)^{3/4}}{\sum_{j=0}^nf(\omega_j)^{3/4}}
   $$
-  其中，$f(w_i)$ 是该词在语料库中出现的频率，一共采样 $k$ 个词。
+  其中，$f(\omega_i)$ 是该词在语料库中出现的频率，一共采样 $k$ 个词。
 
 经过这样的采样后，得到一个新数据集。其中，label 标记了数据的来源（正例被标记为 1，负例被标记为 0）。在这个新的数据集上，我们仅需要从采样结果中计算归一化概率分布，从而大大简化计算过程。
 
