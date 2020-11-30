@@ -78,7 +78,7 @@ $$
 在本文的框架中，泛化的含义是
 
 - 在不同问题之间传递知识的能力
-- 这是学习不同问题中某些cmmon结构的方式
+- 学习不同问题中某些通用结构的方式
 - 该能力适用于更一般的优化问题
 
 ## 1.2. 相关工作
@@ -91,7 +91,9 @@ $$
 
 假设最终的 optimizee 的参数为 $\theta^*(f,\phi)$，即其与 optimizer 参数 $\phi$ 和位置的目标函数 $f$ 有关。
 
-提出以下问题：什么是最好的 optimizer？再次回顾我们最终的目标
+提出以下问题：什么样的 optimizer 算是 “好” 的optimizer呢？当然是让 optimizee 的 loss 值越最小的 optimizer 最好。所以optimizer 的 loss 值应该是基于 optimizee 的 loss 值的。
+
+再次回顾我们最终的目标
 
 $$
 \theta^*=argmin_{\theta\in \Theta}f(\theta)
@@ -151,18 +153,10 @@ $$
 
 > One challenge in applying RNNs in our setting is that we want to be able to optimize at least tens of thousands of parameters. Optimizing at this scale with a fully connected RNN is not feasible as it would require a huge hidden state and an enormous number of parameters. To avoid this difficulty we will use an optimizer m which operates coordinatewise on the parameters of the objective function, similar to other common update rules like RMSprop and ADAM. **This coordinatewise network architecture allows us to use a very small network that only looks at a single coordinate to define the optimizer and share optimizer parameters across different parameters of the optimizee**.
 
-采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们采用了类似 RMSprop 和 ADAM 的方式，设计一个优化器 $m$，对目标函数的参数进行按维度操作。具体而言，每次只对 optimizee 的**一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 lstm 就可以完成工作了。
+采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们采用了类似 RMSprop 和 ADAM 的方式，设计一个优化器 $m$，对目标函数的参数进行按维度操作。具体而言，每次只对 optimizee 的 **一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 lstm 就可以完成工作了。
 
 ![smalllstm](../assets/img/postsimg/20201130/2.jpg)
 
 # 3. 参考文献
 
-[1] 大师兄. [BERT详解](https://zhuanlan.zhihu.com/p/48612853)
-
-[1] 不会停的蜗牛. [图解什么是 Transformer](https://www.jianshu.com/p/e7d8caa13b21)
-
-[2] rumor. [【NLP】Transformer模型原理详解](https://zhuanlan.zhihu.com/p/44121378)
-
-[3] \_zhang_bei\_. [自然语言处理中的Transformer和BERT](https://blog.csdn.net/Zhangbei_/article/details/85036948)
-
-[4] Amirhossein Kazemnejad. [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
+无。
