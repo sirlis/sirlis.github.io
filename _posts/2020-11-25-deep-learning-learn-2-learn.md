@@ -65,7 +65,7 @@ $$
 
 ## 1.2. 相关工作
 
-略
+略。
 
 # 2. 采用 RNN 实现学会学习
 
@@ -113,7 +113,7 @@ $$
 
 可以用 GD 来最小化 $\mathcal L(\phi)$，梯度估计 $\partial \mathcal L(\phi)/\partial\phi$ 可以通过采样随机的 $f$ 然后对计算图进行反向传播来求解。我们允许梯度沿着实线反传，但是丢弃了沿着虚线的路径。这种考虑相当于假设 $\partial \nabla_t/\partial \phi = 0$，这样可以避免计算 $f$ 的二阶导。
 
-
+![lstmlearn](../assets/img/postsimg/20201130/1.jpg)
 
 # 3. 参考文献
 
