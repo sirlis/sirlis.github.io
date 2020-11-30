@@ -67,6 +67,20 @@ $$
 
 深度学习的成功之处就在于，我们可以依赖深度网络的泛化能力，通过学习感兴趣的子结构去适应新样本。本文旨在利用这种泛化能力，还将其从简单的监督学习提升到更广泛的优化设置。
 
+> This is in contrast to the ordinary approach of characterizing properties of interesting problems analytically and using these analytical insights to design learning algorithms by hand.
+> 
+> The meaning of generalization in this framework is
+> 
+> - the ability to transfer knowledge between different problems
+> - the way that learning some cmmon structures in different problems
+> - the capability applied to more general optimization problem.
+
+在本文的框架中，泛化的含义是
+
+- 在不同问题之间传递知识的能力
+- 这是学习不同问题中某些cmmon结构的方式
+- 该能力适用于更一般的优化问题
+
 ## 1.2. 相关工作
 
 略。
@@ -139,6 +153,7 @@ $$
 
 采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们采用了类似 RMSprop 和 ADAM 的方式，设计一个优化器 $m$，对目标函数的参数进行按维度操作。具体而言，每次只对 optimizee 的**一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 lstm 就可以完成工作了。
 
+![smalllstm](../assets/img/postsimg/20201130/2.jpg)
 
 # 3. 参考文献
 
