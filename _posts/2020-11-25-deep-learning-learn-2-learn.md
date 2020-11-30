@@ -89,6 +89,8 @@ $$
 
 ## 2.1. 问题框架
 
+![structure](../assets/img/postsimg/20201130/0.jpg)
+
 假设最终的 optimizee 的参数为 $\theta^*(f,\phi)$，即其与 optimizer 参数 $\phi$ 和位置的目标函数 $f$ 有关。
 
 提出以下问题：什么样的 optimizer 算是 “好” 的optimizer呢？当然是让 optimizee 的 loss 值越最小的 optimizer 最好。所以optimizer 的 loss 值应该是基于 optimizee 的 loss 值的。
