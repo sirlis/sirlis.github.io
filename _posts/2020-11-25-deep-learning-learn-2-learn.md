@@ -155,7 +155,11 @@ $$
 
 > One challenge in applying RNNs in our setting is that we want to be able to optimize at least tens of thousands of parameters. Optimizing at this scale with a fully connected RNN is not feasible as it would require a huge hidden state and an enormous number of parameters. To avoid this difficulty we will use an optimizer m which operates coordinatewise on the parameters of the objective function, similar to other common update rules like RMSprop and ADAM. **This coordinatewise network architecture allows us to use a very small network that only looks at a single coordinate to define the optimizer and share optimizer parameters across different parameters of the optimizee**.
 
-采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们采用了类似 RMSprop 和 ADAM 的方式，设计一个优化器 $m$，对目标函数的参数进行按维度操作。具体而言，每次只对 optimizee 的 **一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 lstm 就可以完成工作了。
+采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们只设计一个优化器 $m$ 对目标函数的每个参数分量进行操作。具体而言，每次只对 optimizee 的 **一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 optimizer（lstm）就可以完成工作了。
+
+对于每个参数分量 $\theta_i$ 而言，optimizer（lstm）的参数 $\phi$ 是共享的，但是隐层状态 $h_i$ 是不同的。
+
+换句话说，这样设计的 lstm 变相实现了优化与维度（顺序）无关。这与传统的 RMSprop 和 ADAM 的优化方式类似，它们也是对参数的每个维度使用同样的优化方式。
 
 ![smalllstm](../assets/img/postsimg/20201130/2.jpg)
 
