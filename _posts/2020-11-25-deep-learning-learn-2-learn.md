@@ -17,12 +17,16 @@ math: true
 - [2. 采用 RNN 实现学会学习](#2-采用-rnn-实现学会学习)
   - [2.1. 问题框架](#21-问题框架)
   - [2.2. coordinatewise LSTM 优化器](#22-coordinatewise-lstm-优化器)
-- [3. 参考文献](#3-参考文献)
+- [3. 实验](#3-实验)
+  - [3.1. 10 维函数](#31-10-维函数)
+- [4. 参考文献](#4-参考文献)
 
 
 # 1. 简介
 
 > Marcin Andrychowicz1, Misha Denil1, Sergio Gómez Colmenarejo, Nando de Freitas, et al. **Learning to learn by gradient descent by gradient descent**[J]. NIPS 2016.
+
+> Learning to learn is a very exciting topic for a host of reasons, not least of which is the fact that we know that the type of backpropagation currently done in neural networks is implausible as an mechanism that the brain is actually likely to use: there is no Adam optimizer nor automatic differentiation in the brain! Something else has to be doing the optimization of our brain’s neural network, and most likely that something else is itself a neural network!
 
 目前深度学习的情况只是输入输出过程是神经网络，但调控神经网络的是人工设计！或者说这个学习机制是人工给定的。
 
@@ -114,7 +118,7 @@ $$
 - 那么对应的最终的损失为 $f(\theta^*(f,\phi))$
 - 因此 optimizer 的损失就是上述最终损失的期望 $\mathbb E_f[f(\theta^*(f,\phi))]$
 
-注意，最终最优的参数 $\theta^*$ 我们还并不知道，它是通过一个优化过程得到的。
+上式即为优化最终的 optimizee 的损失（optimizing for the best final result with our optimizee.）。注意，最终最优的参数 $\theta^*$ 我们还并不知道，它是通过一个优化过程得到的。因此虽然这样设计合理，但是给训练造成了很大麻烦（This seems reasonable, but it makes it much harder to train）。
 
 假设经过 $T$ 次优化步骤，那么更加方便的做法是将 optimizer 的损失定义为整个优化过程的损失的加权和
 
@@ -134,7 +138,7 @@ $$
 
 $\omega \in \mathbb R_{\geq0}$ 是各个优化时刻的任意权重，$\nabla_t = \nabla_\theta f(\theta_t)$。
 
-当 $t=T$ 且 $\omega_t = 1$ 时
+当 $t=T$ 且只有该时刻的 $\omega_t = 1$ 时
 
 $$
 \mathcal L(\phi) = \mathbb E_f[f(\theta^*(f,\phi))] = \mathbb E_f\left[ \sum_{t=1}^T\omega_tf(\theta_t) \right]
@@ -157,12 +161,25 @@ $$
 
 采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们只设计一个优化器 $m$ 对目标函数的每个参数分量进行操作。具体而言，每次只对 optimizee 的 **一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 optimizer（lstm）就可以完成工作了。
 
-对于每个参数分量 $\theta_i$ 而言，optimizer（lstm）的参数 $\phi$ 是共享的，但是隐层状态 $h_i$ 是不同的。
+对于每个参数分量 $\theta_i$ 而言，optimizer（lstm）的参数 $\phi$ 是共享的，但是隐层状态 $h_i$ 是不共享的。由于每个维度上的 optimizer（lstm）输入的 $h_i$ 和 $\nabla f(\theta_i)$ 是不同的，所以即使它们的 $\phi$ 相同，但是它们的输出却是不一样的。
 
-换句话说，这样设计的 lstm 变相实现了优化与维度（顺序）无关。这与传统的 RMSprop 和 ADAM 的优化方式类似，它们也是对参数的每个维度使用同样的优化方式。
+换句话说，这样设计的 lstm 变相实现了优化与维度（顺序）无关。这与传统的 RMSprop 和 ADAM 的优化方式类似，它们也是为每个维度的参数施行同样的梯度更新规则。
 
 ![smalllstm](../assets/img/postsimg/20201130/2.jpg)
 
-# 3. 参考文献
+> The “coordinatewise” section is phrased in a way that is a bit confusing to me, but I think it is actually quite simple: what it means is simply this: **every single “coordinate” has its own state** (though **the optimizer itself is shared**), and information is not shared across coordinates.
+> I wasn’t 100% sure about is what a “coordinate” is supposed to be. My guess, however, is that it is simply a weight or a bias, which I think is confirmed by my experiments. In other words, if we have a network with 100 weights and biases, there will be 100 hidden states involved in optimizing it, which means that effectively there will be 100 instances of our optimizer network running in parallel as we optimize.
 
-无。
+# 3. 实验
+
+## 3.1. 10 维函数
+
+These are pretty simple: our optimizer is supposed to find a 10-element vector called θ that, when multiplied by a 10x10 matrix called W, is as close as possible to a 10-element vector called y. Both y and W are generated randomly. The error is simply the squared error.
+
+> Each function was optimized for 100 steps and the trained optimizers were unrolled for 20 steps.
+
+I assume this means that each epoch is made up of trying to optimize a new random function for 100 steps, but we are doing an update of the optimizer every 20 steps. The number of epochs is thus unspecified, but according to the graphs it seems to be 100 too.
+
+# 4. 参考文献
+
+[1] Adrien Lucas Ecoffet. [Paper repro: “Learning to Learn by Gradient Descent by Gradient Descent”](https://becominghuman.ai/paper-repro-learning-to-learn-by-gradient-descent-by-gradient-descent-6e504cc1c0de)
