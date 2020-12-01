@@ -191,13 +191,25 @@ $$
 \left\{
   \begin{matrix}
   \left( \frac{log(\vert\nabla\vert)}{p},sgn(\nabla) \right) &\quad if \vert\nabla\vert\geq e^{-p}\\
-  (-1,e^{p\nabla}) &\quad otherwise\\
+  (-1,e^{p}\nabla) &\quad otherwise\\
   \end{matrix}
 \right.
 \end{aligned}
 $$
 
-其中 $p>0$ 为任意一个参数（作者取 $p=10$），用来避免当梯度很小时的返回值很大。
+> $p>0$ is a parameter controlling how small gradients are disregarded
+
+其中 $p>0$ 为任意一个参数（作者取 $p=10$），用来裁剪梯度。上式中取绝对值就丢失了符号信息，因此需要额外加一项输入记录符号信息。
+
+> Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
+> With this formula, if the first parameter is greater than -1, it is a log of gradient, otherwise it is a flag indicating that the neural net should look at the second parameter. Likewise, if the second parameter is -1 or 1, it is the sign of the gradient, but if it is between -1 and 1 it is a scaled version of the gradient itself, exactly what we want!
+
+如果第一个参数的取值大于 -1，那么它就代表梯度的 log ，第二个参数则是它的符号。如果第一个参数的取值等于 -1，那么它将作为一个标记告诉神经网络应该去寻找第二个参数，此时第二个参数就是对梯度的缩放。
+
+变换后画图如下（图中 $p=1$）
+
+![preprocessing](../assets/img/postsimg/20201130/4.jpg)
+
 
 # 3. 实验
 
