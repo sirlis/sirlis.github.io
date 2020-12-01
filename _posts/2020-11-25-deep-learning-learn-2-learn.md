@@ -146,14 +146,14 @@ $$
 
 对上面的过程进行详细解读：
 
-- **Meta-optimizer 优化器**：目标函数整个优化周期的 loss 都要很小（加权和），而且这个目标函数是独立同分布采样的（这里意味着任意初始化一个优化问题模型的参数，我们都希望这个优化器能够找到一个优化问题的稳定的解）
+- **Meta-optimizer 优化器**：目标函数整个优化周期的 loss 都要很小（加权和）
 - **传统优化器**：对于当前的目标函数，只要这一步的 loss 比上一步的 loss 值要小就行
 
 可以用 GD 来最小化 $\mathcal L(\phi)$，梯度估计 $\partial \mathcal L(\phi)/\partial\phi$ 可以通过采样随机的 $f$ 然后对计算图进行反向传播来求解。我们允许梯度沿着实线反传，但是丢弃了沿着虚线的路径。这种考虑相当于假设 $\partial \nabla_t/\partial \phi = 0$，这样可以避免计算 $f$ 的二阶导。
 
 ![lstmlearn](../assets/img/postsimg/20201130/1.jpg)
 
-> 【**个人理解**】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径，这需要求 $\partial \nabla_t/\partial \theta \cdot \partial \theta / \partial \phi$，其中 $\theta$ 对 $\phi$ 包含三部分，一部分是 lstm 内直接相关的 $\partial \theta / \partial \phi$，另一部分是通过隐层回传的 $\partial \theta / \partial h_t$。第三一部分是随着 $\nabla_tf$ 往前回传的（$\partial \nabla_t/\partial \phi = \partial \nabla_t / \partial \theta \cdot \partial \theta / \partial \phi$），这一部分中包含 $f$ 的二阶导（$\partial \nabla_t / \partial \theta$），为了计算简便，作者假设该项等于 0，也即忽略了下图中虚线（红线）的部分。
+> 【**个人理解**】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径，这需要求 $\partial \nabla_t/\partial \theta \cdot \partial \theta / \partial \phi$，其中 $\theta$ 对 $\phi$ 包含三部分，一部分是 lstm 内直接相关的 $\partial \theta / \partial \phi$，另一部分是通过隐层回传的 $\partial \theta / \partial h_t$。第三一部分是随着 $\nabla_tf$ 往前回传的（$\partial \nabla_t/\partial \phi = \partial \nabla_t / \partial \theta \cdot \partial \theta / \partial \phi$），这一部分中包含 $f$ 的二阶导（$\partial \nabla_t / \partial \theta$），为了计算简便，作者假设该项等于 0，也即忽略了下图中梯度回传的虚线（红线）路径。
 >
 > ![lstmlearn](../assets/img/postsimg/20201130/3.jpg)
 
@@ -188,7 +188,7 @@ $$
 f(\theta)=\vert\vert W\theta-y \vert\vert_2^2
 $$
 
-其中 $W,y\in \mathbb R^{10} \sim i.i.d\ Gaussian\ distribution$。目的是随机产生一个 $f$，通过训练找到最优的 $\theta$ 使得 $f$ 最小。
+其中 $W,y\in \mathbb R^{10} \sim i.i.d\ Gaussian\ distribution$。目的是随机产生一个 $f$，通过训练找到最优的 $\theta$ 使得 $f$ 最小。而且这个目标函数是独立同分布采样的，意味着任意初始化一个优化问题模型的参数，我们都希望这个优化器能够找到一个优化问题的稳定的解。
 
 
 > Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
