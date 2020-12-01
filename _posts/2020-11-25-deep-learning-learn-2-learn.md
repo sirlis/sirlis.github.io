@@ -241,7 +241,6 @@ $$
 
 ![quadratic fcn](../assets/img/postsimg/20201130/5.jpg)
 
-
 ## 3.2. MNIST
 
 > In this experiment we test whether trainable optimizers can learn to optimize a small neural network on MNIST. We train the optimizer to optimize a base network and explore a series of modifications to the network architecture and training procedure at test time.
@@ -250,7 +249,9 @@ $$
 
 采用前面设计的预处理，后处理给 lstm 的输出乘以 0.1。结果如下
 
+![quadratic fcn](../assets/img/postsimg/20201130/6.jpg)
 
+下面研究对不同架构的泛化。
 
 # 4. 参考文献
 
