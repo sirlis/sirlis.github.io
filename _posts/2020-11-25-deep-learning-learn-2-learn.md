@@ -113,14 +113,14 @@ $$
 
 这里详细解读一下，对于某个具体的任务
 
-- 目标函数 $f$ 可以定义为比如 $f(\theta)=\vert\vert W\theta-y \vert\vert_2^2$，其中 $W,y\in \mathbb R^{10} \sim i.i.d\ Gaussian\ distribution$，训练时从该分布中采样 $f$，测试时也从该分布采样新的 $f$
-- 最终优化后的 optimizee 的参数为 $\theta^*(f,\phi)$
-- 那么对应的最终的损失为 $f(\theta^*(f,\phi))$
-- 因此 optimizer 的损失就是上述最终损失的期望 $\mathbb E_f[f(\theta^*(f,\phi))]$
+- 目标函数 $f$ （个人理解就是 loss）
+- 最终优化后的 optimizee 的参数为 $\theta^*$。写成 $\theta^*(f,\phi)$，与 $f$ 有关因为不同的 $f$ 会导致不同的最优参数；与 $\phi$ 有关因为最优的参数是依赖 optimizer 给出的，而 optimizer 的参数为 $\phi$
+- 最终的损失为 $f(\theta^*)$
+- 因此 optimizer 的损失就是上述最终损失的期望 $\mathbb E_f[f(\theta^*)]$，为啥求期望？
 
 上式即为优化最终的 optimizee 的损失（optimizing for the best final result with our optimizee.）。注意，最终最优的参数 $\theta^*$ 我们还并不知道，它是通过一个优化过程得到的。因此虽然这样设计合理，但是给训练造成了很大麻烦（This seems reasonable, but it makes it much harder to train）。
 
-假设经过 $T$ 次优化步骤，那么更加方便的做法是将 optimizer 的损失定义为整个优化过程的损失的加权和
+假设经过 $T$ 次优化步骤，更加方便的做法是将 optimizer 的损失定义为整个优化过程的损失的加权和
 
 $$
 \mathcal L(\phi) = \mathbb E_f\left[ \sum_{t=1}^T\omega_tf(\theta_t) \right]
@@ -136,7 +136,7 @@ $$
 [ g_t,h_{t+1} ] = {\rm lstm}(\nabla_t,h_t,\phi)
 $$
 
-$\omega \in \mathbb R_{\geq0}$ 是各个优化时刻的任意权重，$\nabla_t = \nabla_\theta f(\theta_t)$。
+$\omega_t \in \mathbb R_{\geq0}$ 是各个优化时刻的任意权重，$\nabla_t = \nabla_\theta f(\theta_t)$。
 
 当 $t=T$ 且只有该时刻的 $\omega_t = 1$ 时
 
@@ -164,7 +164,9 @@ $$
 
 > One challenge in applying RNNs in our setting is that we want to be able to optimize at least tens of thousands of parameters. Optimizing at this scale with a fully connected RNN is not feasible as it would require a huge hidden state and an enormous number of parameters. To avoid this difficulty we will use an optimizer m which operates coordinatewise on the parameters of the objective function, similar to other common update rules like RMSprop and ADAM. **This coordinatewise network architecture allows us to use a very small network that only looks at a single coordinate to define the optimizer and share optimizer parameters across different parameters of the optimizee**.
 
-采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层（与输入向量 $\theta$ 同维度，假设为 $n$）和巨量的参数（$W_f, W_i, W_o\in \mathbb R^{n\times n}$），这是不现实的。为了克服这一点，我们只设计一个优化器 $m$ 对目标函数的每个参数分量进行操作。具体而言，每次只对 optimizee 的 **一个参数** $\theta_i$ 进行优化，这样只需要维持一个很小的 optimizer（lstm）就可以完成工作了。
+采用 RNN（LSTM） 的一大挑战就是，我们想要优化成千上万的参数。采用全连接 RNN 需要巨大的隐层 $h_t$（假设输入向量 $\theta$ 维度为 $M$，则 $h_t \in \mathbb R^M$）和巨量的参数（假设隐层维度为 $D$，则参数 $W_f, W_i, W_o, W_c\in \mathbb R^{D\times (D+M)}$），这是不现实的。
+
+为了克服这一点，我们只设计一个优化器 $m$ 对目标函数的每个参数分量进行操作。具体而言，每次只对 optimizee 的 **一个参数分量** $\theta_i$ 进行优化，这样只需要维持一个很小的 optimizer（lstm）就可以完成工作了。
 
 对于每个参数分量 $\theta_i$ 而言，optimizer（lstm）的参数 $\phi$ 是共享的，但是隐层状态 $h_i$ 是不共享的。由于每个维度上的 optimizer（lstm）输入的 $h_i$ 和 $\nabla f(\theta_i)$ 是不同的，所以即使它们的 $\phi$ 相同，但是它们的输出却是不一样的。
 
@@ -172,6 +174,7 @@ $$
 
 ![smalllstm](../assets/img/postsimg/20201130/2.jpg)
 
+> Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
 > The “coordinatewise” section is phrased in a way that is a bit confusing to me, but I think it is actually quite simple: what it means is simply this: **every single “coordinate” has its own state** (though **the optimizer itself is shared**), and information is not shared across coordinates.
 > I wasn’t 100% sure about is what a “coordinate” is supposed to be. My guess, however, is that it is simply a weight or a bias, which I think is confirmed by my experiments. In other words, if we have a network with 100 weights and biases, there will be 100 hidden states involved in optimizing it, which means that effectively there will be 100 instances of our optimizer network running in parallel as we optimize.
 
@@ -179,18 +182,27 @@ $$
 
 ## 3.1. 10 维函数
 
+设计如下的目标函数
+
 $$
 f(\theta)=\vert\vert W\theta-y \vert\vert_2^2
 $$
 
-其中 $W,y\in \mathbb R^{10} \sim i.i.d\ Gaussian\ distribution$
+其中 $W,y\in \mathbb R^{10} \sim i.i.d\ Gaussian\ distribution$。目的是随机产生一个 $f$，通过训练找到最优的 $\theta$ 使得 $f$ 最小。
 
-These are pretty simple: our optimizer is supposed to find a 10-element vector called $\theta$ that, when multiplied by a $10\times 10$ matrix called $W$, is as close as possible to a 10-element vector called $y$. Both $y$ and $W$ are generated randomly. The error is simply the **squared error**.
 
+> Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
+> These are pretty simple: our optimizer is supposed to find a 10-element vector called $\theta$ that, when multiplied by a $10\times 10$ matrix called $W$, is as close as possible to a 10-element vector called $y$. Both $y$ and $W$ are generated randomly. The error is simply the **squared error**.
+
+从高斯分布中随机采样，得到一条曲线，然后**训练100次** optimizee，期间 **每 20 次** 收集一批 loss 用来训练 optimizer（lstm），然后更新一次 optimizee 的参数更新方式。
+
+> 原文：
 > Each function was optimized for 100 steps and the trained optimizers were unrolled for 20 steps.
+> Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
+> I assume this means that **each epoch is made up of trying to optimize a new random function for 100 steps**, but we are doing an update of the optimizer every 20 steps. The number of epochs is thus unspecified, but according to the graphs it seems to be 100 too.
 
-I assume this means that **each epoch is made up of trying to optimize a new random function for 100 steps**, but we are doing an update of the optimizer every 20 steps. The number of epochs is thus unspecified, but according to the graphs it seems to be 100 too.
+在本算例中没有采用任何预处理和后处理。
 
 # 4. 参考文献
 
-[1] Adrien Lucas Ecoffet. [Paper repro: “Learning to Learn by Gradient Descent by Gradient Descent”](https://becominghuman.ai/paper-repro-learning-to-learn-by-gradient-descent-by-gradient-descent-6e504cc1c0de)
+<span id="ref1">[1]</span> Adrien Lucas Ecoffet. [Paper repro: “Learning to Learn by Gradient Descent by Gradient Descent”](https://becominghuman.ai/paper-repro-learning-to-learn-by-gradient-descent-by-gradient-descent-6e504cc1c0de)
