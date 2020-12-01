@@ -153,10 +153,9 @@ $$
 
 ![lstmlearn](../assets/img/postsimg/20201130/1.jpg)
 
-【个人理解】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径，这需要求 $\partial \nabla_t/\partial \theta \cdot \partial \theta / \partial \phi$，其中 $\theta$ 对 $\phi$ 包含三部分，一部分是 lstm 内直接相关的 $\partial \theta / \partial \phi$，另一部分是通过隐层回传的 $\partial \theta / \partial h_t$。第三一部分是随着 $\nabla_tf$ 往前回传的（$\partial \nabla_t/\partial \phi = \partial \nabla_t / \partial \theta \cdot \partial \theta / \partial \phi$），这一部分中包含 $f$ 的二阶导（\partial \nabla_t / \partial \theta）。
-【个人理解】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径，这需要求 $\partial \nabla_t/\partial \theta \cdot \partial \theta / \partial \phi$，其中 $\theta$ 对 $\phi$ 包含三部分，一部分是 lstm 内直接相关的 $\partial \theta / \partial \phi$，另一部分是通过隐层回传的 $\partial \theta / \partial h_t$。第三一部分是随着 $\nabla_tf$ 往前回传的（$\partial \nabla_t/\partial \phi = \partial \nabla_t / \partial \theta \cdot \partial \theta / \partial \phi$），这一部分中包含 $f$ 的二阶导（$$），为了计算简便，作者假设该项等于 0，也即忽略了下图中虚线（红线）的部分。
-
-![lstmlearn](../assets/img/postsimg/20201130/3.jpg)
+> 【**个人理解**】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径，这需要求 $\partial \nabla_t/\partial \theta \cdot \partial \theta / \partial \phi$，其中 $\theta$ 对 $\phi$ 包含三部分，一部分是 lstm 内直接相关的 $\partial \theta / \partial \phi$，另一部分是通过隐层回传的 $\partial \theta / \partial h_t$。第三一部分是随着 $\nabla_tf$ 往前回传的（$\partial \nabla_t/\partial \phi = \partial \nabla_t / \partial \theta \cdot \partial \theta / \partial \phi$），这一部分中包含 $f$ 的二阶导（$\partial \nabla_t / \partial \theta$），为了计算简便，作者假设该项等于 0，也即忽略了下图中虚线（红线）的部分。
+>
+> ![lstmlearn](../assets/img/postsimg/20201130/3.jpg)
 
 
 从上面 LSTM 优化器的设计来看，我们几乎没有加入任何先验的人为经验在里面，只是用了长短期记忆神经网络的架构，优化器本身的参数 $\phi$ 即 LSTM 的参数，这个优化器的参数代表了我们的更新策略，后面我们会学习这个参数，即学习用什么样的更新策略。
