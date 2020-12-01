@@ -281,6 +281,9 @@ optimizee 采用包含卷积层和全连接层在内的网络，三层卷积层+
 
 > The left-most plot displays the results of using the optimizer to fit a classifier on a held-out test set. The additional two plots on the right display the performance of the trained optimizer on modified datasets which only contain a subset of the labels, i.e. the CIFAR-2 dataset only contains data corresponding to 2 of the 10 labels. Additionally we include an optimizer LSTM-sub which was only trained on the held-out labels.
 
+> http://www.cs.toronto.edu/~kriz/cifar.html 163 MB python version
+> The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
+
 ## 3.4. Neural Art
 
 略。
