@@ -17,6 +17,7 @@ math: true
 - [2. 采用 RNN 实现学会学习](#2-采用-rnn-实现学会学习)
   - [2.1. 问题框架](#21-问题框架)
   - [2.2. coordinatewise LSTM 优化器](#22-coordinatewise-lstm-优化器)
+  - [2.3. 预处理与后处理](#23-预处理与后处理)
 - [3. 实验](#3-实验)
   - [3.1. 10 维函数](#31-10-维函数)
 - [4. 参考文献](#4-参考文献)
@@ -177,6 +178,26 @@ $$
 > Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
 > The “coordinatewise” section is phrased in a way that is a bit confusing to me, but I think it is actually quite simple: what it means is simply this: **every single “coordinate” has its own state** (though **the optimizer itself is shared**), and information is not shared across coordinates.
 > I wasn’t 100% sure about is what a “coordinate” is supposed to be. My guess, however, is that it is simply a weight or a bias, which I think is confirmed by my experiments. In other words, if we have a network with 100 weights and biases, there will be 100 hidden states involved in optimizing it, which means that effectively there will be 100 instances of our optimizer network running in parallel as we optimize.
+
+## 2.3. 预处理与后处理
+
+由于 optimizer（lstm） 的输入是梯度，梯度的幅值变化换位很大，而神经网络一般只对小范围的输入输出鲁棒，因此在实践中需要对 lstm 的输入输出进行处理。
+
+直觉上，可以采用 log 来缩放输入。作者采用如下的方式
+
+$$
+\begin{aligned}
+\nabla^k \rightarrow
+\left\{
+  \begin{matrix}
+  \left( \frac{log(\vert\nabla\vert)}{p},sgn(\nabla) \right) &\quad if \vert\nabla\vert\geq e^{-p}\\
+  (-1,e^{p\nabla}) &\quad otherwise\\
+  \end{matrix}
+\right.
+\end{aligned}
+$$
+
+其中 $p>0$ 为任意一个参数（作者取 $p=10$），用来避免当梯度很小时的返回值很大。
 
 # 3. 实验
 
