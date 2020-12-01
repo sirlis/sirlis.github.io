@@ -20,6 +20,7 @@ math: true
   - [2.3. 预处理与后处理](#23-预处理与后处理)
 - [3. 实验](#3-实验)
   - [3.1. 10 维函数](#31-10-维函数)
+  - [3.2. MNIST](#32-mnist)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -235,6 +236,10 @@ $$
 > I assume this means that **each epoch is made up of trying to optimize a new random function for 100 steps**, but we are doing an update of the optimizer every 20 steps. The number of epochs is thus unspecified, but according to the graphs it seems to be 100 too.
 
 在本算例中没有采用任何预处理和后处理。
+
+## 3.2. MNIST
+
+
 
 # 4. 参考文献
 
