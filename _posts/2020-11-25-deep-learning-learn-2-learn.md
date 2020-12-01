@@ -264,9 +264,9 @@ $$
 
 ![mnist2](../assets/img/postsimg/20201130/7.jpg)
 
-还对不同的架构的最终 loss 结果进行了比较
+还对不同的架构的最终 loss 结果进行了比较。左图两虚线交叉表示基准（optimizer 在 1 层 20 神经元的架构下训练），其它点表示其它改变过后的架构。
 
-
+![mnist3](../assets/img/postsimg/20201130/8.jpg)
 
 ## CIFAR（CNN）
 
