@@ -237,7 +237,18 @@ $$
 
 在本算例中没有采用任何预处理和后处理。
 
+结果如下
+
+![quadratic fcn](../assets/img/postsimg/20201130/5.jpg)
+
+
 ## 3.2. MNIST
+
+> In this experiment we test whether trainable optimizers can learn to optimize a small neural network on MNIST. We train the optimizer to optimize a base network and explore a series of modifications to the network architecture and training procedure at test time.
+
+训练一个神经网络完成 MNIST 图片分类。目标函数 $f(\theta)$ 是交叉熵，optimizee 是一个单隐层 20 个神经元的 MLP，激活函数是 sigmoid。随机选取 128 个图片作为一个 minibatch 来计算 $\partial f(\theta)/ \partial \theta$。每次任务的唯一不同在于初始参数 $\theta_0$ 和随机选择的 minibatch。每个任务跑 100 步，每 20 步训练一次 optimizer。
+
+采用前面设计的预处理，后处理给 lstm 的输出乘以 0.1。结果如下
 
 
 
