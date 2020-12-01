@@ -20,7 +20,8 @@ math: true
   - [2.3. 预处理与后处理](#23-预处理与后处理)
 - [3. 实验](#3-实验)
   - [3.1. 10 维函数](#31-10-维函数)
-  - [3.2. MNIST](#32-mnist)
+  - [3.2. MNIST（MLP）](#32-mnistmlp)
+  - [CIFAR（CNN）](#cifarcnn)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -241,7 +242,7 @@ $$
 
 ![quadratic fcn](../assets/img/postsimg/20201130/5.jpg)
 
-## 3.2. MNIST
+## 3.2. MNIST（MLP）
 
 > In this experiment we test whether trainable optimizers can learn to optimize a small neural network on MNIST. We train the optimizer to optimize a base network and explore a series of modifications to the network architecture and training procedure at test time.
 
@@ -249,7 +250,7 @@ $$
 
 采用前面设计的预处理，后处理给 lstm 的输出乘以 0.1。结果如下
 
-![quadratic fcn](../assets/img/postsimg/20201130/6.jpg)
+![mnist](../assets/img/postsimg/20201130/6.jpg)
 
 下面研究对不同架构的泛化。
 
@@ -261,7 +262,13 @@ $$
 
 结果如下
 
+![mnist2](../assets/img/postsimg/20201130/7.jpg)
 
+还对不同的架构的最终 loss 结果进行了比较
+
+
+
+## CIFAR（CNN）
 
 # 4. 参考文献
 
