@@ -253,6 +253,16 @@ $$
 
 下面研究对不同架构的泛化。
 
+分别将训练好的 optimizer 用于
+
+- 40 个隐层神经元的 optimizee
+- 2 层/每层 20 个神经元的 optimizee
+- 采用 ReLu 激活函数的 optimizee
+
+结果如下
+
+
+
 # 4. 参考文献
 
 <span id="ref1">[1]</span> Adrien Lucas Ecoffet. [Paper repro: “Learning to Learn by Gradient Descent by Gradient Descent”](https://becominghuman.ai/paper-repro-learning-to-learn-by-gradient-descent-by-gradient-descent-6e504cc1c0de)
