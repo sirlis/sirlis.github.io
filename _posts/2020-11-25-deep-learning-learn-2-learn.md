@@ -153,6 +153,10 @@ $$
 
 ![lstmlearn](../assets/img/postsimg/20201130/1.jpg)
 
+【个人理解】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径
+
+
+
 从上面 LSTM 优化器的设计来看，我们几乎没有加入任何先验的人为经验在里面，只是用了长短期记忆神经网络的架构，优化器本身的参数 $\phi$ 即 LSTM 的参数，这个优化器的参数代表了我们的更新策略，后面我们会学习这个参数，即学习用什么样的更新策略。
 
 ## 2.2. coordinatewise LSTM 优化器
@@ -174,11 +178,17 @@ $$
 
 ## 3.1. 10 维函数
 
-These are pretty simple: our optimizer is supposed to find a 10-element vector called θ that, when multiplied by a 10x10 matrix called W, is as close as possible to a 10-element vector called y. Both y and W are generated randomly. The error is simply the squared error.
+$$
+f(\theta)=\vert\vert W\theta-y \vert\vert_2^2
+$$
+
+其中 $W,y\in \mathbb R^{10} \sim i.i.d\ Gaussian\ distribution$
+
+These are pretty simple: our optimizer is supposed to find a 10-element vector called $\theta$ that, when multiplied by a $10\times 10$ matrix called $W$, is as close as possible to a 10-element vector called $y$. Both $y$ and $W$ are generated randomly. The error is simply the **squared error**.
 
 > Each function was optimized for 100 steps and the trained optimizers were unrolled for 20 steps.
 
-I assume this means that each epoch is made up of trying to optimize a new random function for 100 steps, but we are doing an update of the optimizer every 20 steps. The number of epochs is thus unspecified, but according to the graphs it seems to be 100 too.
+I assume this means that **each epoch is made up of trying to optimize a new random function for 100 steps**, but we are doing an update of the optimizer every 20 steps. The number of epochs is thus unspecified, but according to the graphs it seems to be 100 too.
 
 # 4. 参考文献
 
