@@ -21,7 +21,8 @@ math: true
 - [3. 实验](#3-实验)
   - [3.1. 10 维函数](#31-10-维函数)
   - [3.2. MNIST（MLP）](#32-mnistmlp)
-  - [CIFAR（CNN）](#cifarcnn)
+  - [3.3. CIFAR（CNN）](#33-cifarcnn)
+  - [3.4. Neural Art](#34-neural-art)
 - [4. 参考文献](#4-参考文献)
 
 
@@ -268,7 +269,7 @@ $$
 
 ![mnist3](../assets/img/postsimg/20201130/8.jpg)
 
-## CIFAR（CNN）
+## 3.3. CIFAR（CNN）
 
 optimizee 采用包含卷积层和全连接层在内的网络，三层卷积层+池化层，最后跟一个 32 神经元的全连接层。激活函数都为 ReLu，采用了 batch normalization。
 
@@ -279,6 +280,10 @@ optimizee 采用包含卷积层和全连接层在内的网络，三层卷积层+
 ![cifar](../assets/img/postsimg/20201130/9.jpg)
 
 > The left-most plot displays the results of using the optimizer to fit a classifier on a held-out test set. The additional two plots on the right display the performance of the trained optimizer on modified datasets which only contain a subset of the labels, i.e. the CIFAR-2 dataset only contains data corresponding to 2 of the 10 labels. Additionally we include an optimizer LSTM-sub which was only trained on the held-out labels.
+
+## 3.4. Neural Art
+
+略。
 
 # 4. 参考文献
 
