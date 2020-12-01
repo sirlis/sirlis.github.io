@@ -274,8 +274,9 @@ optimizee 采用包含卷积层和全连接层在内的网络，三层卷积层+
 
 仍然采用前面说的 coordinatewise lstm，但是这个实验中，考虑到卷积和全连接的差异性（同时也尝试过只用一个 lstm 作为 optimizer 但效果不好），作者因此分别针对卷积层和全连接层设计了两个 optimizer，它们之间不共享 $\phi$。
 
-结果如下（原文说的很乱，没法解读结果）
+结果如下（原文说的很乱，没法解读结果，好就完事了）
 
+![cifar](../assets/img/postsimg/20201130/9.jpg)
 
 > The left-most plot displays the results of using the optimizer to fit a classifier on a held-out test set. The additional two plots on the right display the performance of the trained optimizer on modified datasets which only contain a subset of the labels, i.e. the CIFAR-2 dataset only contains data corresponding to 2 of the 10 labels. Additionally we include an optimizer LSTM-sub which was only trained on the held-out labels.
 
