@@ -1,7 +1,7 @@
 ---
 title: 深度学习文章阅读（Fuzzy-LSTM）
 date: 2020-11-04 15:51:19 +0800
-categories: [Knowledge, DeepLearning]
+categories: [Knowledge, DeepLearning, Fuzzy]
 tags: [academic]
 math: true
 ---
