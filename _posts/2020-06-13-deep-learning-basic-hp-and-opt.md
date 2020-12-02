@@ -1,7 +1,7 @@
 ---
 title: 深度学习基础（基本超参数和优化器）
 date: 2020-06-13 16:24:19 +0800
-categories: [Knowledge, DeepLearning]
+categories: [Academic, DeepLearning]
 tags: [python]
 math: true
 ---

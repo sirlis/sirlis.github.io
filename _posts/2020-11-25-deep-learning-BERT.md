@@ -1,8 +1,8 @@
 ---
 title: 深度学习文章阅读（BERT）
 date: 2020-11-25 16:07:19 +0800
-categories: [Knowledge, DeepLearning]
-tags: [academic]
+categories: [Academic, Paper]
+tags: [deeplearning]
 math: true
 ---
 

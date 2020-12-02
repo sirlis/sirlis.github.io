@@ -1,8 +1,8 @@
 ---
 title: 元学习文章阅读（MAML）
 date: 2020-07-13 14:35:19 +0800
-categories: [Knowledge, MetaLearning]
-tags: [academic]
+categories: [Academic, MetaLearning]
+tags: [deeplearning, metalearning]
 math: true
 ---
 

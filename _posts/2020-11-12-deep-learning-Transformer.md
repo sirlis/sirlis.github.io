@@ -1,8 +1,8 @@
 ---
 title: 深度学习文章阅读（Transformer）
 date: 2020-11-12 17:04:19 +0800
-categories: [Knowledge, DeepLearning]
-tags: [academic]
+categories: [Academic, Paper]
+tags: [deeplearning]
 math: true
 ---
 

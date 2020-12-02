@@ -1,8 +1,8 @@
 ---
 title: 元学习基础
 date: 2020-07-12 14:35:19 +0800
-categories: [Knowledge, MetaLearning]
-tags: [academic]
+categories: [Academic, MetaLearning]
+tags: [deeplearning, metalearning]
 math: true
 ---
 

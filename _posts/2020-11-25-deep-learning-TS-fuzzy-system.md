@@ -1,8 +1,8 @@
 ---
 title: 深度学习文章阅读（TS模糊系统）
-date: 2020-11-30 16:46:19 +0800
-categories: [Knowledge, Fuzzy]
-tags: [academic]
+date: 2020-12-02 16:39:19 +0800
+categories: [Academic, Paper]
+tags: [fuzzy]
 math: true
 ---
 

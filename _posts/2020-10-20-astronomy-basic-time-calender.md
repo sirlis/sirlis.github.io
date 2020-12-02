@@ -1,8 +1,8 @@
 ---
 title: 天文学基础（时间和历法）
 date: 2020-10-20 21:00:19 +0800
-categories: [Knowledge, Astronomy]
-tags: [academic]
+categories: [Academic, Knowledge]
+tags: [astronomy]
 math: true
 ---
 

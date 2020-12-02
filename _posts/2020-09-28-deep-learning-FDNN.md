@@ -1,8 +1,8 @@
 ---
 title: 深度学习文章阅读（FDNN）
 date: 2020-09-28 09:43:19 +0800
-categories: [Knowledge, DeepLearning]
-tags: [academic]
+categories: [Academic, Paper]
+tags: [fuzzy, deeplearning]
 math: true
 ---
 

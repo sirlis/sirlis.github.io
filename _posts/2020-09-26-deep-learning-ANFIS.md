@@ -1,8 +1,8 @@
 ---
 title: 自适应网络模糊推理系统（ANFIS）
 date: 2020-09-26 08:55:19 +0800
-categories: [Knowledge, Fuzzy]
-tags: [academic]
+categories: [Academic, Paper]
+tags: [fuzzy, deeplearning]
 math: true
 ---
 

@@ -2,7 +2,7 @@
 title: 科研Tips（颜色码表）
 date: 2020-11-09 10:01:19 +0800
 categories: [Tutorial, Writing]
-tags: [academic]
+tags: [other]
 math: true
 ---
 

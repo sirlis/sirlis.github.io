@@ -2,7 +2,7 @@
 title: 科研Tips（数学符号）
 date: 2020-11-09 10:01:19 +0800
 categories: [Tutorial, Writing]
-tags: [academic]
+tags: [other]
 math: true
 ---
 
