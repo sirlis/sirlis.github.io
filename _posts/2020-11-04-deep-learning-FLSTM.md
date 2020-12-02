@@ -2,7 +2,7 @@
 title: 深度学习文章阅读（Fuzzy-LSTM）
 date: 2020-11-04 15:51:19 +0800
 categories: [Academic, Paper]
-tags: [fuzzy, lstm, deeplearning]
+tags: [fuzzy, deeplearning]
 math: true
 ---
 

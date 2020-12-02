@@ -1,8 +1,8 @@
 ---
 title: 深度学习基础（PyTorch的数据集）
 date: 2020-06-16 16:24:19 +0800
-categories: [Academic, DeepLearning]
-tags: [python, pytorch]
+categories: [Academic, Knowledge]
+tags: [deeplearning, python, pytorch]
 math: true
 ---
 

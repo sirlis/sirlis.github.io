@@ -1,7 +1,7 @@
 ---
 title: 深度学习基础（Fuzzy，FNN）
 date: 2020-09-25 08:55:19 +0800
-categories: [Academic, DeepLearning]
+categories: [Academic, Knowledge]
 tags: [fuzzy, deeplearning]
 math: true
 ---

@@ -2,7 +2,7 @@
 title: VSCode部署Pytorch机器学习框架
 date: 2020-03-22 09:22:19 +0800
 categories: [Tutorial, Coding]
-tags: [python]
+tags: [python, pytorch]
 math: true
 ---
 
