@@ -290,4 +290,6 @@ optimizee 采用包含卷积层和全连接层在内的网络，三层卷积层+
 
 # 4. 参考文献
 
-<span id="ref1">[1]</span> Adrien Lucas Ecoffet. [Paper repro: “Learning to Learn by Gradient Descent by Gradient Descent”](https://becominghuman.ai/paper-repro-learning-to-learn-by-gradient-descent-by-gradient-descent-6e504cc1c0de)
+<span id="ref1">[1]</span> Adrien Lucas Ecoffet. [Paper repro: “Learning to Learn by Gradient Descent by Gradient Descent”](https://becominghuman.ai/paper-repro-learning-to-learn-by-gradient-descent-by-gradient-descent-6e504cc1c0de) [包含其实现代码]
+
+[2] Sen Yang. [Learning to learn by gradient descent by gradient descent-PyTorch实践](https://senyang-ml.github.io/2018/12/17/learning_to_learn/) [包含其实现代码]
