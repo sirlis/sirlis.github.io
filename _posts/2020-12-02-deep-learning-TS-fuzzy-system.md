@@ -14,7 +14,7 @@ math: true
 - [1. TS 模糊系统](#1-ts-模糊系统)
   - [1.1. 推理过程](#11-推理过程)
   - [1.2. 特性](#12-特性)
-- [2. TS 模糊系统的一般形式](#2-ts-模糊系统的一般形式)
+- [2. TS 模糊控制](#2-ts-模糊控制)
 - [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
 - [4. 参考文献](#4-参考文献)
 
@@ -106,9 +106,21 @@ $$
 - 不能保证参数的最优性
 - 模糊规则数目无法最佳确定，即无法预知模型的复杂程度
 
-# 2. TS 模糊系统的一般形式
+# 2. TS 模糊控制
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
+
+在线性矩阵不等式（linear matrix inequality, LMI）设计框架下，基于 TS 模糊模型的非线性控制得以广泛应用。一般分为三个阶段：
+
+- 第一阶段：对非线性被控对象的模糊建模
+  - 利用输入输出数据进行模糊模型辨识
+  - 或 基于分区非线性思想的模糊系统构建（模糊 IF-THEN 规则）
+- 第二阶段：模糊控制规则推导，它反映了模糊模型的规则结构，它通过所谓的并行分布式补偿（PDC）实现
+- 第三阶段：模糊控制器设计，即确定反馈增益。
+
+> This paper presents a systematic procedure of fuzzy control system design that consists of fuzzy model construction, rule reduction, and robust compensation for nonlinear systems. 
+ 
+本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
 
 # 3. 广义 TS 模糊系统
 
