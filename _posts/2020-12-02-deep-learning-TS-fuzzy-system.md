@@ -54,10 +54,37 @@ R_2:&\quad if\quad x_2\ is\ big_2\ & \quad then \quad y=3x_2
 \end{aligned}
 $$
 
-涉及到的前提（Premise）为
+前提（Premise）中涉及到的隶属度函数定义为
 
 ![premise](../assets/img/postsimg/20201202/1.jpg)
 
+假设输入 $x_1=12, x_2=5$，那么三个前提下的结论（Consequence）为
+
+$$
+\begin{aligned}
+y_1 &= x_1+x_2 = 17\\
+y_2 &= 2x_1 = 24\\
+y_3 &= 3x_2 = 15
+\end{aligned}
+$$
+
+相应的三个真值（True Value）为
+
+$$
+\begin{aligned}
+t_1 &= small_1(x_1)\land small_2(x_2) = 0.25\land 0.375 = 0.25\\
+t_2 &= big_1(x_1) = 0.2\\
+t_3 &= big_2(x_2) = 0.375
+\end{aligned}
+$$
+
+那么最终 $y$ 的取值为
+
+$$
+y = \frac{t_1y_1+t_2y_2+t_3y_3}{t_1+t_2+t_3} \approx 17.8
+$$
+
+用一张表格可以列写如下
 
 # 4. 参考文献
 
