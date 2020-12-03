@@ -14,8 +14,9 @@ math: true
 - [1. TS 模糊系统](#1-ts-模糊系统)
   - [1.1. 推理过程](#11-推理过程)
   - [1.2. 特性](#12-特性)
-- [2. 广义 TS 模糊系统](#2-广义-ts-模糊系统)
-- [3. 参考文献](#3-参考文献)
+- [2. TS 模糊系统的一般形式](#2-ts-模糊系统的一般形式)
+- [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
+- [4. 参考文献](#4-参考文献)
 
 
 # 1. TS 模糊系统
@@ -105,8 +106,12 @@ $$
 - 不能保证参数的最优性
 - 模糊规则数目无法最佳确定，即无法预知模型的复杂程度
 
-# 2. 广义 TS 模糊系统
+# 2. TS 模糊系统的一般形式
 
-# 3. 参考文献
+> T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
+
+# 3. 广义 TS 模糊系统
+
+# 4. 参考文献
 
 无。
