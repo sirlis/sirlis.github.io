@@ -56,6 +56,8 @@ $$
 
 涉及到的前提（Premise）为
 
+![premise](../assets/img/postsimg/20201202/1.jpg)
+
 
 # 4. 参考文献
 
