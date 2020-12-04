@@ -18,11 +18,11 @@ math: true
 - [2. TS 模糊控制](#2-ts-模糊控制)
 - [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
 - [4. 应用](#4-应用)
-  - [4.2. Fuzzy Control](#42-fuzzy-control)
-  - [4.3. Fuzzy Neural Network](#43-fuzzy-neural-network)
-    - [网络结构](#网络结构)
-    - [网络参数辨识](#网络参数辨识)
-  - [4.1. Trajectory Prediction](#41-trajectory-prediction)
+  - [4.1. Fuzzy Control](#41-fuzzy-control)
+  - [4.2. Fuzzy Neural Network](#42-fuzzy-neural-network)
+    - [4.2.1. 网络结构](#421-网络结构)
+    - [4.2.2. 网络参数辨识](#422-网络参数辨识)
+  - [4.3. Trajectory Prediction](#43-trajectory-prediction)
 - [5. 参考文献](#5-参考文献)
 
 
@@ -199,14 +199,14 @@ $$
 
 # 4. 应用
 
-## 4.2. Fuzzy Control
+## 4.1. Fuzzy Control
 > Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
 
-## 4.3. Fuzzy Neural Network
+## 4.2. Fuzzy Neural Network
 
 > 2017 . Developing deep fuzzy network with Takagi Sugeno fuzzy inference system. IEEE Transactions on Fuzzy System
 
-### 网络结构
+### 4.2.1. 网络结构
 
 提出了一种新型的三层 **TS Deep Fuzzy Network (TSDFN)** 网络架构。
 
@@ -240,11 +240,11 @@ $D$ 是输入个数，$x_d$ 是第 $d$ 个输入分量（$d=1,...,D$）。$R$ �
 
 > a TSFN in TSDFN extracts a complex pattern in input data and corresponding FRB parameters represent the nternal structure of the pattern in the form of fuzzy rules.
 
-### 网络参数辨识
+### 4.2.2. 网络参数辨识
 
 采用标准的误差反向传播来针对特定数据进行网络参数辨识。
 
-考虑一个一般的 TSFN $S_h$，假设输入向量为 $\boldsymbol x=[x_1,x_2,...,x_d,...,x_D]$，$\boldsymbol \theta^h$ 表示输入隶属度函数的参数矩阵，$\boldsymbol p^h$ 表示结论部分系数矩阵，那么
+考虑一个一般的隐层 TSFN $S_h$，假设输入向量为 $\boldsymbol x=[x_1,x_2,...,x_d,...,x_D]$，$\boldsymbol \theta^h$ 表示输入隶属度函数的参数矩阵，那么
 
 $$
 \begin{aligned}
@@ -258,9 +258,27 @@ $$
 \end{aligned}
 $$
 
-其中 $F$ 是隶属度函数的个数（个人解读：隶属度函数最大个数 $F$ $\leq$ 输入向量维度 $D$，也即可以不是每个输入向量分量都参与模糊规则构建）。隶属度函数采用 **高斯** 函数，参数为均值和方差。
+其中 $F$ 是隶属度函数的个数（个人解读：隶属度函数最大个数 $F$ $\leq$ 输入向量维度 $D$，也即可以不是每个输入向量分量都参与模糊规则构建）。隶属度函数采用 **高斯** 函数，参数为均值和方差。为了进行反向传播，必须要计算梯度，因此隶属度函数必须是连续（可导？）的。
 
-## 4.1. Trajectory Prediction
+$\boldsymbol p^h$ 表示结论部分的系数矩阵，那么
+
+$$
+\begin{aligned}
+\boldsymbol p^h = \begin{bmatrix}
+p^h_{1,0} & \cdots & p^h_{1,f} & \cdots & p^h_{1,D}\\
+\vdots & \ddots & \vdots & \ddots & \vdots\\ 
+p^h_{r,0} & \cdots & p^h_{r,f} & \cdots & p^h_{r,D}\\
+\vdots & \ddots & \vdots & \ddots & \vdots\\ 
+p^h_{R,0} & \cdots & p^h_{R,f} & \cdots & p^h_{R,D}
+\end{bmatrix}
+\end{aligned}
+$$
+
+其中 $R$ 为规则个数。
+
+对于输出层的 TSFN，其参数与隐层的 TSFN 类似，只不过将上标换为 $O$，即 $\boldsymbol \theta^O, \boldsymbol p^O$。
+
+## 4.3. Trajectory Prediction
 > Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
 
 # 5. 参考文献
