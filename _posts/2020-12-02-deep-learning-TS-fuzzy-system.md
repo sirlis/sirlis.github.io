@@ -20,6 +20,8 @@ math: true
 - [4. 应用](#4-应用)
   - [4.2. Fuzzy Control](#42-fuzzy-control)
   - [4.3. Fuzzy Neural Network](#43-fuzzy-neural-network)
+    - [网络结构](#网络结构)
+    - [网络参数辨识](#网络参数辨识)
   - [4.1. Trajectory Prediction](#41-trajectory-prediction)
 - [5. 参考文献](#5-参考文献)
 
@@ -204,20 +206,59 @@ $$
 
 > 2017 . Developing deep fuzzy network with Takagi Sugeno fuzzy inference system. IEEE Transactions on Fuzzy System
 
+### 网络结构
+
 提出了一种新型的三层 **TS Deep Fuzzy Network (TSDFN)** 网络架构。
 
 TSDFN 的网络架构如下图所示
 
+![tsdfn](../assets/img/postsimg/20201202/3.jpg)
 
+图中，隐层（hidden layer）中的每一个神经元都是一个 TSFIS ，输出层只有一个神经元，也是一个 TSFIS 。当然也可以扩展为多输出，不同的输出间相互独立。
 
 > FIS：fuzzy inference system，模糊推理系统，是一个完整的输入-输出模糊系统，比如上面介绍的 TS 模糊系统，就被称为 TSFIS
 
+一个 TSFIS 神经元的模糊规则基（Fuzzy Rul Base，FRB）包含多条模糊规则，每条规则都包括前提部分和结论部分。一阶 TSFIS 的结论是输入的线形方程。FRB 的规则形式如下
 
+$$
+\begin{aligned}
+R_i^h:&\quad {\rm IF}\quad x_1\ is\ G_{1,i}\ {\rm AND}\ ...\ {\rm AND}\ x_D\ is\ G_{D,i}\quad\\
+&\quad {\rm THEN}\quad y\ is\ y_i=p_{i,0}+p_{i,1x_1+...+p_{i,D}}x_D
+\end{aligned}
+$$
+
+$D$ 是输入个数，$x_d$ 是第 $d$ 个输入分量（$d=1,...,D$）。$R$ 是规则总个数$G_{d,i}$ 是前提中相应的输入模糊隶属度函数（$i=1,...,R$）。前提中采用 "AND" 作为模糊连接符。
+
+一个 TSFIS 的参数即为输入前提模糊隶属度函数的参数和结论系数，二者的组合可表示特定输入的模糊结构。可采用多种模糊隶属度函数。采用不同的模糊连接符可以定义不同的模糊规则基。
 
 整个网络包括如下参数：
 
 - 模糊规则的前提（premise）中的输入隶属度的参数；
 - 每一层的每一个 TS 模糊神经元的结论部分的输入系数；
+
+一个 TS 模糊神经元（TSFN）建模出了一种输入的复杂函数，输入的隶属度函数代表了模糊区域，建模出了输入数据的不确定性。模糊区域可以表示语义标签。TSDFN 中的 TSFN 提取输入数据中的复杂模式，相应的FRB参数以模糊规则的形式表示模式的内部结构。
+
+> a TSFN in TSDFN extracts a complex pattern in input data and corresponding FRB parameters represent the nternal structure of the pattern in the form of fuzzy rules.
+
+### 网络参数辨识
+
+采用标准的误差反向传播来针对特定数据进行网络参数辨识。
+
+考虑一个一般的 TSFN $S_h$，假设输入向量为 $\boldsymbol x=[x_1,x_2,...,x_d,...,x_D]$，$\boldsymbol \theta^h$ 表示输入隶属度函数的参数矩阵，$\boldsymbol p^h$ 表示结论部分系数矩阵，那么
+
+$$
+\begin{aligned}
+\boldsymbol \theta^h = \begin{bmatrix}
+\theta^h_{1,1} & \cdots & \theta^h_{1,f} & \cdots & \theta^h_{1,F}\\
+\vdots & \ddots & \vdots & \ddots & \vdots\\ 
+\theta^h_{d,1} & \cdots & \theta^h_{d,f} & \cdots & \theta^h_{d,F}\\
+\vdots & \ddots & \vdots & \ddots & \vdots\\ 
+\theta^h_{D,1} & \cdots & \theta^h_{D,f} & \cdots & \theta^h_{D,F}
+\end{bmatrix}
+\end{aligned}
+$$
+
+其中 $F$ 是隶属度函数的个数（个人解读：隶属度函数最大个数 $F$ $\leq$ 输入向量维度 $D$，也即可以不是每个输入向量分量都参与模糊规则构建）。隶属度函数采用 **高斯** 函数，参数为均值和方差。
 
 ## 4.1. Trajectory Prediction
 > Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
