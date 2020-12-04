@@ -18,9 +18,9 @@ math: true
 - [2. TS 模糊控制](#2-ts-模糊控制)
 - [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
 - [4. 应用](#4-应用)
-  - [4.1. Trajectory Prediction](#41-trajectory-prediction)
   - [4.2. Fuzzy Control](#42-fuzzy-control)
   - [4.3. Fuzzy Neural Network](#43-fuzzy-neural-network)
+  - [4.1. Trajectory Prediction](#41-trajectory-prediction)
 - [5. 参考文献](#5-参考文献)
 
 
@@ -197,15 +197,30 @@ $$
 
 # 4. 应用
 
-## 4.1. Trajectory Prediction
-> Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
-
 ## 4.2. Fuzzy Control
 > Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
 
 ## 4.3. Fuzzy Neural Network
 
-> Developing deep fuzzy network with Takagi Sugeno fuzzy inference system
+> 2017 . Developing deep fuzzy network with Takagi Sugeno fuzzy inference system. IEEE Transactions on Fuzzy System
+
+提出了一种新型的三层 **TS Deep Fuzzy Network (TSDFN)** 网络架构。
+
+TSDFN 的网络架构如下图所示
+
+
+
+> FIS：fuzzy inference system，模糊推理系统，是一个完整的输入-输出模糊系统，比如上面介绍的 TS 模糊系统，就被称为 TSFIS
+
+
+
+整个网络包括如下参数：
+
+- 模糊规则的前提（premise）中的输入隶属度的参数；
+- 每一层的每一个 TS 模糊神经元的结论部分的输入系数；
+
+## 4.1. Trajectory Prediction
+> Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
 
 # 5. 参考文献
 
