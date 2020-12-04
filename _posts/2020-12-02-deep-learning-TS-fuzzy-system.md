@@ -14,6 +14,7 @@ math: true
 - [1. TS 模糊系统](#1-ts-模糊系统)
   - [1.1. 推理过程](#11-推理过程)
   - [1.2. 特性](#12-特性)
+  - [1.3. 辨识算法](#13-辨识算法)
 - [2. TS 模糊控制](#2-ts-模糊控制)
 - [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
 - [4. 参考文献](#4-参考文献)
@@ -106,6 +107,48 @@ $$
 - 不能保证参数的最优性
 - 模糊规则数目无法最佳确定，即无法预知模型的复杂程度
 
+## 1.3. 辨识算法
+
+需要确定以下三个部分
+
+- $x_i, ..., x_k$，前提变量；
+- $A_1,...,A_k$，隶属度函数的参数，简记为隶属度参数；
+- $p_0, p_1,...,p_k$，结论中的参数。
+
+注意，前提中的变量不需要全部出现。前两个部分的确定和变量如何划分到模糊子空间有关，最后一个部分与模糊子空间中如何描述输入输出关系有关。论文作者提出依次逐层考虑如何确定。
+
+假设一个一般的系统表示如下
+
+$$
+\begin{aligned}
+R_1:&\quad if\quad x_1\ is\ A_1^1,\ ...,\ x_k\ is\ A_k^1\\
+&\quad then\quad y=p_0^1 + p_1^1\cdot x_1+...+p^1_k\cdot x_k\\
+&\quad \vdots\\
+R_n:&\quad if\quad x_1\ is\ A_1^n,\ ...,\ x_k\ is\ A_k^n\\
+&\quad then\quad y=p_0^n + p_1^n\cdot x_1+...+p^n_k\cdot x_k\\
+\end{aligned}
+$$
+
+那么输出为
+
+$$
+y = \frac{\sum_{i=1}^n (A_1^i(x_1)\land...\land A_k^i(x_k))\cdot(p_0^i+p_1^ix_1+...+p_k^ix_k)}{\sum_{i=1}^n (A_1^i(x_1)\land...\land A_k^i(x_k))}
+$$
+
+假设
+
+$$
+\beta_i = \frac{A_1^i(x_1)\land...\land A_k^i(x_k)}{\sum_{i=1}^n (A_1^i(x_1)\land...\land A_k^i(x_k))}
+$$
+
+那么
+
+$$
+y = \sum_{i=1}^n\beta_i(p_0^i+p_1^ix_1+...+p_k^ix_k)
+$$
+
+当给定一组输入输出数据 $x_{1j},...,x_{kj}\rightarrow y_j\ (j=1,...,m)$ 时，可以通过 least squares method 来确定参数 $p_0^i, p_1^i,...,p_k^i$。
+
 # 2. TS 模糊控制
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -123,6 +166,30 @@ $$
 本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
 
 # 3. 广义 TS 模糊系统
+
+将 TS 模糊系统进行规范化描述如下。
+
+给定 $m$ 个输入向量 $x_1,...,x_m$，$n$ 条模糊规则为 $R_1,...,R_n$，第 $i$ 条模糊规则的模糊子集分别为 $A^i_1,...,A^i_m$（相应的隶属度函数为 $A^i_j(x_j)$），各个模糊规则的真值为 $G_1, ..., G_n$，各个模糊规则对应的结论为 $y_1,...,y_n$，最终输出为 $y$，那么采用加权平均法的 TS 模糊系统为
+
+$$
+\begin{aligned}
+y &= \frac{\sum_{i=1}^n G_iy_i}{\sum_{i=1}^n G_i}\\
+G_i &= \prod_{j=1}^m A^i_j(x_j)
+\end{aligned}
+$$
+
+其中 $\prod$ 为模糊化算子，通常采取**取小** "$\land$" 或者 **代数积** "$\cdot$" 计算。
+
+若隶属度函数采用高斯隶属度函数形式，则可得到具有 $m$ 输入单输出、模糊规则数为 $n$ 的广义 TS 模糊系统
+
+$$
+\begin{aligned}
+y &= \frac{\sum_{i=1}^n G_iy_i}{\sum_{i=1}^n G_i}\\
+G_i &= \prod_{j=1}^m A^i_j(x_j) = \prod_{j=1}^m exp{(-\left\vert\frac{x_j - b_j^i}{a_j^i}\right\vert)}
+\end{aligned}
+$$
+
+广义 TS 模糊系统可以以任意精度逼近被控对象，而模型的参数可以通过参数辨识方法获得。
 
 # 4. 参考文献
 
