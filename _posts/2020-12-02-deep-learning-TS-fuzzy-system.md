@@ -17,7 +17,11 @@ math: true
   - [1.3. 辨识算法](#13-辨识算法)
 - [2. TS 模糊控制](#2-ts-模糊控制)
 - [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
-- [4. 参考文献](#4-参考文献)
+- [4. 应用](#4-应用)
+  - [4.1. Trajectory Prediction](#41-trajectory-prediction)
+  - [4.2. Fuzzy Control](#42-fuzzy-control)
+  - [4.3. Fuzzy Neural Network](#43-fuzzy-neural-network)
+- [5. 参考文献](#5-参考文献)
 
 
 # 1. TS 模糊系统
@@ -191,6 +195,18 @@ $$
 
 广义 TS 模糊系统可以以任意精度逼近被控对象，而模型的参数可以通过参数辨识方法获得。
 
-# 4. 参考文献
+# 4. 应用
+
+## 4.1. Trajectory Prediction
+> Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
+
+## 4.2. Fuzzy Control
+> Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
+
+## 4.3. Fuzzy Neural Network
+
+> Developing deep fuzzy network with Takagi Sugeno fuzzy inference system
+
+# 5. 参考文献
 
 无。
