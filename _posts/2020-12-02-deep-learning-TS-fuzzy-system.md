@@ -24,6 +24,7 @@ math: true
   - [> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.](#-q-denotes-the-total-number-of-rules-in-which-the-corresponding-mf-appears-in-premise-part)
   - [实验](#实验)
     - [准备工作](#准备工作)
+    - [算例 1](#算例-1)
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
@@ -459,6 +460,8 @@ TSDFN 网络架构的确定包含下面几步：
 采用 MSE 衡量性能。最终如图所示（图中 impression 可能写错了，应该是 imprecision）
 
 ![experimentframework](../assets/img/postsimg/20201202/4.jpg)
+
+### 算例 1
 
 # 4. TS 模糊控制
 
