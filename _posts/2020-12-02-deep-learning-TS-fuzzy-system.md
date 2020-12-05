@@ -490,6 +490,8 @@ $$
 
 TSDFN 在验证集上的测试结果如下表所示。
 
+![table3](../assets/img/postsimg/20201202/7.jpg) 
+
 # 4. TS 模糊控制
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
