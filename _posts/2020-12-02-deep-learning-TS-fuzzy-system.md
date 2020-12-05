@@ -22,6 +22,8 @@ math: true
     - [3.2.1. 前向传播](#321-前向传播)
     - [3.2.2. 反向传播](#322-反向传播)
   - [> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.](#-q-denotes-the-total-number-of-rules-in-which-the-corresponding-mf-appears-in-premise-part)
+  - [实验](#实验)
+    - [准备工作](#准备工作)
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
@@ -381,6 +383,7 @@ $$
 \frac{\partial \mu^o_{q,h}}{\partial \theta^o_{h,f}}
 )
 $$
+
 > $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
 ---
 
@@ -423,6 +426,20 @@ $$
 原文到此处就不再推导，这里也不进行展开了。
 
 计算出全部梯度后，采用梯度下降更新参数。
+
+## 实验
+
+### 准备工作
+
+采用高斯隶属度函数，简便起见，隐层的每个模糊神经元的每条规则中，均采用相同个数的隶属度函数。
+
+为了从前提参数值评估规则权重，采用 **代数乘积**（而不是取小） 作为 t-norm 运算符，因为它易于求微分。
+
+设计三种工况
+
+- 不加任何处理的原始训练数据集；
+- 增加小幅度的不精确的训练数据集。实际上，在进行测量时，总是存在测量值正确性的公差。实际值在测量值的指定公差范围内。为了在数据集中添加不精确度，数据集值的某一随机部分在某些带前缀（prefixed？）的公差带之间变化；
+- 
 
 # 4. TS 模糊控制
 
