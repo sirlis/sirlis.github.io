@@ -456,7 +456,7 @@ TSDFN 网络架构的确定包含下面几步：
 
 > This ANN is trained with existing sophisticated approaches.
 
-采用 MSE 衡量性能。最终如图所示
+采用 MSE 衡量性能。最终如图所示（图中 impression 可能写错了，应该是 imprecision）
 
 
 
