@@ -27,7 +27,6 @@ math: true
     - [3.4.3. 算例 2](#343-算例-2)
     - [3.4.4. 分析](#344-分析)
 - [4. TS 模糊控制](#4-ts-模糊控制)
-- [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
 - [7. 参考文献](#7-参考文献)
 
@@ -522,12 +521,13 @@ TSDFN 在验证集上的测试结果如下表所示。
  
 本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
 
+---
 
-# 5. Fuzzy Control
 > Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
 
 
 # 6. Trajectory Prediction
+
 > Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
 
 # 7. 参考文献
