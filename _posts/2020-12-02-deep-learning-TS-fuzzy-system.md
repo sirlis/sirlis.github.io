@@ -21,7 +21,6 @@ math: true
   - [3.2. 网络参数辨识](#32-网络参数辨识)
     - [3.2.1. 前向传播](#321-前向传播)
     - [3.2.2. 反向传播](#322-反向传播)
-  - [3.3. > $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.](#33--q-denotes-the-total-number-of-rules-in-which-the-corresponding-mf-appears-in-premise-part)
   - [3.4. 实验](#34-实验)
     - [3.4.1. 准备工作](#341-准备工作)
     - [3.4.2. 算例 1](#342-算例-1)
@@ -387,7 +386,8 @@ $$
 )
 $$
 
-3.3. > $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
+> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
+
 ---
 
 下面求 loss 对**隐层参数**的梯度。
