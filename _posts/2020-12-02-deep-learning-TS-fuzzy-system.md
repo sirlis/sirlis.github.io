@@ -29,6 +29,7 @@ math: true
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
   - [归纳偏置](#归纳偏置)
+  - [预测架构](#预测架构)
 - [7. 参考文献](#7-参考文献)
 
 
@@ -545,6 +546,24 @@ inductive biases，归纳偏置。
 - **运动的相对性**（Motion is relative）：两个目标之间的运动是相对的，在预测未来轨迹时应该使用他们之间的相对位置和速度（相对观测，relative observations），对未来的预测也需要是相对于当前位置的偏差（相对预测，relative predictions）；
 - **意图**（Intent）：有生命对象有自己的意图，运动会从惯性中改变，需要在预测模型中进行考虑；
 - **交互**（Interactions）：有生命对象和无生命对象可能偏离它们与其的运动，比如受到其它附近对象的影响。这种影响需要清晰的建模。
+
+## 预测架构
+
+图 1(a) 为预测架构，输入 $t$ 时刻的所有对象的位置 $p^t_{i=1:N}$。使用 $t\leq T_{obs}$ 时刻的位置作为观测，对 $t\geq T_{obs}$ 时刻的位置进行预测。我们对每个对象的下一时刻位置 $\hat p^{t+1}_i$ 进行预测，预测量是相对于当前时刻 $p_i^t$ 的位置偏差（relative prediction）。
+
+- **公式 1**：将位置偏差拆分为一阶常速度估计 $\tilde v_i^t$ （惯性）和速度修正项 $\Delta v_i^t$ （意图和对象间的交互）。
+- **公式 2**：一阶常速度估计由当前时刻位置和前一时刻位置直接差分得到。
+- **公式 3**：采用 LSTM 来捕捉每个对象的意图，其隐藏状态 $h_i^t$ 能够保存之前的轨迹信息。LSTM 的权重参数所有对象均共享。为了计算速度修正项 $\Delta v_i^t$，首先用 LSTM 根据每个对象的当前位置初步更新一个临时隐藏状态 $\tilde h_i^t$。
+- **公式 4**：然后将对象当前位置和临时隐层状态 $h_i^t,$ 同时送入一个 「交互模块」 来推理对象间的交互、合计他们的效果，然后更新每个对象的隐藏状态，同时计算对象的速度修正项。和所有对象的当前位置向量进一步被用于将来的对象间的交互，汇总其效果并更新每个对象的隐藏状态，
+
+$$
+\begin{aligned}
+\hat p^{t+1}_i &= p_i^t + \tilde v_i^t + \Delta v_i^t,&\quad \forall i\in 1:N\\
+(Inertia): \tilde v_i^t &= p_i^t - p_i^{t-1},&\quad \forall i\in 1:N\\
+(Intents): \tilde h_i^t &= LSTM(p_i^t, h_i^{t-1}),&\quad \forall i\in 1:N\\
+(Interactions): h_i^t,\Delta v_i^t&= InteractionModule(p_i^t, \tilde h_i^t)
+\end{aligned}
+$$
 
 # 7. 参考文献
 
