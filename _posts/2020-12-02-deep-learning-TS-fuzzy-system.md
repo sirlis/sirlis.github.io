@@ -21,6 +21,7 @@ math: true
   - [3.2. 网络参数辨识](#32-网络参数辨识)
     - [3.2.1. 前向传播](#321-前向传播)
     - [3.2.2. 反向传播](#322-反向传播)
+  - [> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.](#-q-denotes-the-total-number-of-rules-in-which-the-corresponding-mf-appears-in-premise-part)
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
@@ -226,11 +227,11 @@ $D$ 是输入个数，$x_d$ 是第 $d$ 个输入分量（$d=1,\cdots,D$）。$R$
 
 ### 3.2.1. 前向传播
 
-下面考虑一个一般的隐层 TSFN（$S_h$），假设输入向量为 $\boldsymbol x=[x_1,x_2,\cdots,x_d,\cdots,x_D]$。
+下面考虑 **一个一般的隐层 TSFN**（$S_h$），假设输入向量为 $\boldsymbol x=[x_1,x_2,\cdots,x_d,\cdots,x_D]$。
 
-> $θ^h_{d,f}$ denotes parameter of $f^th$ input MF of input $d$ in premise part of a rule in FRB of $S_h$
+> $θ^h_{d,f}$ denotes parameter of $f^th$ input MF of input $d$ in premise part of **a rule** in FRB of $S_h$
 
-$\boldsymbol \theta^h$ 表示**某个**规则的输入隶属度函数的参数矩阵，那么
+$\boldsymbol \theta^h$ 表示**某个**规则中的输入隶属度函数的参数矩阵，那么
 
 $$
 \begin{aligned}
@@ -244,7 +245,7 @@ $$
 \end{aligned}
 $$
 
-其中 $F$ 是隶属度函数的参数个数（**个人解读**）。如果隶属度函数采用 **高斯** 函数，那么参数为均值和方差（参数的个数为 2 ）。为了进行反向传播，必须要计算梯度，因此隶属度函数必须是连续（可导？）的。
+其中 $F$ 是隶属度函数的参数个数（**个人理解**）。如果隶属度函数采用 **高斯** 函数，那么参数为均值和方差（参数的个数为 2 ）。为了进行反向传播，必须要计算梯度，因此隶属度函数必须是连续的。（类似关于激活函数是否要求处处可导的问题，涉及次梯度，不做展开）
 
 $\boldsymbol p^h$ 表示结论部分的系数矩阵，那么
 
@@ -262,7 +263,7 @@ $$
 
 其中 $R$ 为规则个数。
 
-对于输出层的 TSFN，其参数与隐层的 TSFN 类似，只不过将上标换为 $O$，即 $\boldsymbol \theta^O, \boldsymbol p^O$。
+对于输出层的 TSFN，其参数与隐层的 TSFN 类似，只不过将上标换为 $O$，即 $\boldsymbol \theta^o, \boldsymbol p^o$。
 
 给定输入，隶属度函数的输出表示为
 
@@ -278,9 +279,9 @@ $$
 \end{aligned}
 $$
 
-其中 $\mu^h_{r,d}=\mu_{G^h_{rd}(x_d)}$ 是第 $h$ 个TS模糊神经元中第 $r$ 个规则下第 $d$ 个输入的隶属度。
+其中 $\mu^h_{r,d}=\mu_{G^h_{r,d}(x_d)}$ 是第 $h$ 个TS模糊神经元中第 $r$ 个规则下第 $d$ 个输入的隶属度。
 
-规则的权重计算如下（原文 t-norm ？）
+第 $r$ 个规则的权重计算如下（原文 t-norm ？）
 
 <!-- $$
 \begin{aligned}
@@ -293,7 +294,7 @@ $$
 \omega_r^h = \land_{d=1}^D\mu_{r,d}^h
 $$
 
-规则输出
+第 $r$ 个规则的输出（原文用 $v^h_r$）
 
 <!-- $$
 \begin{aligned}
@@ -316,17 +317,20 @@ $$
 a^h = \frac{\sum_{r=1}^R\omega^h_ry_r^h}{\sum_{r=1}^R\omega^h_r}
 $$
 
-该输出作为输出层的 STFN 的输入，经过上述类似的步骤可以得到一个输出，作为整个 TSDFN 的输出，如下
+$a^h$ 作为输出层的 STFN 的（$H$ 维）输入。
+
+在输出层，经过上述类似的步骤，可以得到一个输出 $y^o$（原文用 $y^O$），作为整个 TSDFN 的输出，如下
 
 $$
 \begin{aligned}
-\omega_r^O &= \land_{h=1}^H\mu_{r,h}^O\\
-y_r^O &= p^O_{r,0}+p^O_{r,1}a^1 + \cdots + p^O_{r,h}a^h+\cdots+p^O_{r,H}a^H\\
-y^O &= \frac{\sum_{r=1}^R\omega^O_ry_r^O}{\sum_{r=1}^R\omega^O_r}
+\mu^o_{r,h} &=\mu_{G^o_{r,h}(a^h)}\\
+\omega_r^o &= \land_{h=1}^H\mu_{r,h}^o\\
+y_r^o &= p^o_{r,0}+p^o_{r,1}a^1 + \cdots + p^o_{r,h}a^h+\cdots+p^o_{r,H}a^H\\
+y^o &= \frac{\sum_{r=1}^R\omega^o_ry_r^o}{\sum_{r=1}^R\omega^o_r}
 \end{aligned}
 $$
 
-误差 $e = y^O-y_d$ 可用于 MSE 损失函数（原文 $\frac{1}{2n}$ 可能有误）
+误差 $e = y^o-y_d$ 可用于 MSE 损失函数（原文 $\frac{1}{2n}$ 可能 **有误**）
 
 $$
 J = \frac{1}{2}\sum_{n=1}^N(e^{(n)})^2
@@ -336,43 +340,89 @@ $$
 
 ### 3.2.2. 反向传播
 
+首先求 loss 对**输出层参数**的梯度。
+
 loss 对输出的梯度
 
 $$
-\frac{\partial J}{\partial y^O} = \sum_{n=1}^Ne^{(n)}
+\frac{\partial J}{\partial y^o} = \sum_{n=1}^Ne^{(n)}
 $$
 
-loss 对输出系数 $p^O_{r,h}$ 的梯度
+loss 对输出系数 $p^o_{r,h}$ 的梯度
 
 $$
 \begin{aligned}
-\frac{\partial J}{\partial p_{r,h}^O} &=\frac{\partial J}{\partial y^O}\frac{\partial y^O}{\partial y^O_r}\frac{\partial y^O_r}{\partial p^O_{r,h}} \\
-&=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^O_r}{\sum_{r=1}^R\omega^O_r}\cdot a^h
+\frac{\partial J}{\partial p_{r,h}^o} &=\frac{\partial J}{\partial y^o}\frac{\partial y^o}{\partial y^o_r}\frac{\partial y^o_r}{\partial p^o_{r,h}} \\
+&=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^o_r}{\sum_{r=1}^R\omega^o_r}\cdot a^h
 \end{aligned}
 $$
 
 其中 $a^0=1$ 。
 
-loss 对输出层隶属度函数参数 $\theta^O_{h,f}$ 的梯度
+loss 对输出层隶属度函数参数 $\theta^o_{h,f}$ 的梯度
 
 $$
-\frac{\partial J}{\partial \theta^O_{h,f}} =
-\frac{\partial J}{\partial y^O}
+\frac{\partial J}{\partial \theta^o_{h,f}} =
+\frac{\partial J}{\partial y^o}
 \sum_{r=1}^R
-\frac{\partial y^O}{\partial \omega^O_r}
-\frac{\partial \omega^O_r}{\partial \mu^O_r}
-\frac{\partial \mu^O_r}{\partial \theta^O_f}
+\frac{\partial y^o}{\partial \omega^o_r}
+\frac{\partial \omega^o_r}{\partial \mu^o_r}
+\frac{\partial \mu^o_r}{\partial \theta^o_f}
 $$
 
-loss 对隐层系数 $p^h_{r,d}$ 的梯度
+但是需要注意一点，不是每个隶属度函数都参与每条规则的计算（也即不是每个输入都参与规则计算）。假设有 $Q\leq R$ 个规则中包含待求解的隶属度函数的参数，则上式变为
 
 $$
-\begin{aligned}
-\frac{\partial J}{\partial p_{r,d}^h} &= \frac{\partial J}{\partial y^O}\frac{\partial y^O}{\partial y^O_r}\frac{\partial y^O_r}{\partial a^h} \frac{\partial a^h}{\partial y^h_r} \frac{\partial y^h_r}{\partial p^h_{r,d}}\\
-&=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^O_r}{\sum_{r=1}^R\omega^O_r}\cdot p^O_{r,h}\cdot \frac{\omega^h_r}{\sum_{r=1}^R\omega^h_r} \cdot x_d
-\end{aligned}
+\frac{\partial J}{\partial \theta^o_{h,f}} =
+\frac{\partial J}{\partial y^o}
+\sum_{q=1}^Q(
+\frac{\partial y^o}{\partial \omega^o_q}
+\frac{\partial \omega^o_q}{\partial \mu^o_{q,h}}
+\frac{\partial \mu^o_{q,h}}{\partial \theta^o_{h,f}}
+)
+$$
+> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
+---
+
+下面求 loss 对**隐层参数**的梯度。
+
+首先求 loss 对隐层输出的梯度。注意到从 $y^o$ 到 $a^h$ 实际上是有两个部分的，因此下式包含两项
+
+$$
+\frac{\partial J}{\partial a^h} = 
+\frac{\partial J}{\partial y^o}
+\sum_{r=1}^R(
+\frac{\partial y^o}{\partial y^o_h}
+\frac{\partial y^o_h}{\partial a^h}+
+\frac{\partial y^o}{\partial \omega^o_r}
+\frac{\partial \omega^o_r}{\partial a^h}
+)
 $$
 
+然后求 loss 对隐层系数 $p^h_{r,d}$ 和隐层隶属度函数参数 $\theta^h_{r,f}$ 的梯度
+
+$$
+\frac{\partial J}{\partial p_{r,d}^h} =
+\frac{\partial J}{\partial a^h} \cdot
+\frac{\partial a^h}{\partial y^h_r}
+\frac{\partial y^h_r}{\partial p^h_{r,d}}
+$$
+
+$$
+\frac{\partial J}{\partial \theta^h_{d,f}} =
+\frac{\partial J}{\partial a^h}
+\sum_{q=1}^Q(
+\frac{\partial a^h}{\partial \omega^h_q}
+\frac{\partial \omega^h_q}{\partial \mu^h_{q,d}}
+\frac{\partial \mu^h_{q,d}}{\partial \theta^h_{d,f}}
+)
+$$
+
+实际上，隐层和输出层的 $Q$ 应该用不同的符号表示，为了简略此处不加区分（**个人理解**）。
+
+原文到此处就不再推导，这里也不进行展开了。
+
+计算出全部梯度后，采用梯度下降更新参数。
 
 # 4. TS 模糊控制
 
