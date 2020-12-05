@@ -376,6 +376,8 @@ $$
 
 但是需要注意一点，不是每个隶属度函数都参与每条规则的计算（也即不是每个输入都参与规则计算）。假设有 $Q\leq R$ 个规则中包含待求解的隶属度函数的参数，则上式变为
 
+> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
+
 $$
 \frac{\partial J}{\partial \theta^o_{h,f}} =
 \frac{\partial J}{\partial y^o}
@@ -386,7 +388,6 @@ $$
 )
 $$
 
-> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
 
 ---
 
