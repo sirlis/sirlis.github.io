@@ -25,6 +25,7 @@ math: true
   - [3.4. 实验](#34-实验)
     - [3.4.1. 准备工作](#341-准备工作)
     - [3.4.2. 算例 1](#342-算例-1)
+    - [算例 2](#算例-2)
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
@@ -471,11 +472,23 @@ $$
 
 文中没说数据集咋来的，个人理解就是对上述系统进行离散赋值求解，然后得到一堆输入输出样本集（$f_i\leftarrow (x_i,y_i),i=1,2,\cdots,M$）
 
-下表列举了在验证集上的测试结果，加粗的数字表示不同网络架构下的最佳的性能（对应最佳的隶属度函数个数）。
+下表列举了 TSDFN 在验证集上的测试结果，加粗的数字表示不同网络架构下的最小 MSE，对应最佳的网络结构（对应最佳的隶属度函数个数）。
 
 ![table1](../assets/img/postsimg/20201202/5.jpg)
 
+确定不同工况下的最佳网络结构（隶属度函数个数）后，分别在三个工况下与 ANN 进行比较，结果如下。
 
+![table2](../assets/img/postsimg/20201202/6.jpg)
+
+可以看出 TSDFN 均全面超越 ANN。
+
+### 算例 2
+
+小车倒车问题（Truck Backer Upper problem），是一个将卡车以合适的方向后退到对接位置的问题。来自以下参考文献，总共包含 14 个表（总共 239 个读数），每个表均包含位置 $x$ 和方向 $\phi$ 的值以及相应的输出 —— 转向角 $\theta$。用于生成数据集的模型（待识别的非线性复杂系统）在文献中也有说明。
+
+> Wang, Li-Xin, and Jerry M. Mendel, **Generating fuzzy rules from numerical data, with applications**, Signal and Image Processing Institute, University of Southern California, Department of Electrical EngineeringSystems, 1991.
+
+TSDFN 在验证集上的测试结果如下表所示。
 
 # 4. TS 模糊控制
 
