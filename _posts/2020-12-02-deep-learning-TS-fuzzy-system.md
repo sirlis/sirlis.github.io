@@ -25,7 +25,8 @@ math: true
   - [3.4. 实验](#34-实验)
     - [3.4.1. 准备工作](#341-准备工作)
     - [3.4.2. 算例 1](#342-算例-1)
-    - [算例 2](#算例-2)
+    - [3.4.3. 算例 2](#343-算例-2)
+    - [3.4.4. 分析](#344-分析)
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
@@ -482,7 +483,7 @@ $$
 
 可以看出 TSDFN 均全面超越 ANN。
 
-### 算例 2
+### 3.4.3. 算例 2
 
 小车倒车问题（Truck Backer Upper problem），是一个将卡车以合适的方向后退到对接位置的问题。来自以下参考文献，总共包含 14 个表（总共 239 个读数），每个表均包含位置 $x$ 和方向 $\phi$ 的值以及相应的输出 —— 转向角 $\theta$。用于生成数据集的模型（待识别的非线性复杂系统）在文献中也有说明。
 
@@ -497,6 +498,13 @@ TSDFN 在验证集上的测试结果如下表所示。
 ![table4](../assets/img/postsimg/20201202/8.jpg)
 
 可以看出 TSDFN 均全面超越 ANN。
+
+### 3.4.4. 分析
+
+两个算例的结果表明，对于相同数量的隐层神经元个数，在隶属函数数量方面，性能存在一些不规律。对实验的分析表明，误差在这些算例中不下降了，因为梯度在到达最小前卡住了。适当的调整学习率和增加迭代次数可以解决这个问题。但是总的来说 TSDFN 牛逼！
+
+> In both case studies, the results show that there is a slight irregularity in the performance with respect to the number of membership functions for the same number of hidden nodes. The analysis of experiments have shown that this happens because the training error doesn’t decrease in such cases and the gradient gets stuck before reaching minimum. Proper tunning of learning rate and increased number of iterations solve this problem
+
 # 4. TS 模糊控制
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
