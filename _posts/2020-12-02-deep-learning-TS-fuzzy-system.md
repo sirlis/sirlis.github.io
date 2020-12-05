@@ -21,10 +21,10 @@ math: true
   - [3.2. 网络参数辨识](#32-网络参数辨识)
     - [3.2.1. 前向传播](#321-前向传播)
     - [3.2.2. 反向传播](#322-反向传播)
-  - [> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.](#-q-denotes-the-total-number-of-rules-in-which-the-corresponding-mf-appears-in-premise-part)
-  - [实验](#实验)
-    - [准备工作](#准备工作)
-    - [算例 1](#算例-1)
+  - [3.3. > $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.](#33--q-denotes-the-total-number-of-rules-in-which-the-corresponding-mf-appears-in-premise-part)
+  - [3.4. 实验](#34-实验)
+    - [3.4.1. 准备工作](#341-准备工作)
+    - [3.4.2. 算例 1](#342-算例-1)
 - [4. TS 模糊控制](#4-ts-模糊控制)
 - [5. Fuzzy Control](#5-fuzzy-control)
 - [6. Trajectory Prediction](#6-trajectory-prediction)
@@ -385,7 +385,7 @@ $$
 )
 $$
 
-> $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
+3.3. > $Q$ denotes the total number of rules in which the corresponding MF appears in premise part.
 ---
 
 下面求 loss 对**隐层参数**的梯度。
@@ -428,20 +428,20 @@ $$
 
 计算出全部梯度后，采用梯度下降更新参数。
 
-## 实验
+## 3.4. 实验
 
-### 准备工作
+### 3.4.1. 准备工作
 
 采用高斯隶属度函数，简便起见，隐层的每个模糊神经元的每条规则中，均采用相同个数的隶属度函数。
 
 为了从前提参数值评估规则权重，采用 **代数乘积**（而不是取小） 作为 t-norm 运算符，因为它易于求微分。
 
-设计三种工况
+设计三种工况：
 
 - 不加任何处理的原始训练数据集；
 - 增加小幅度的不精确的训练数据集。实际上，在进行测量时，总是存在测量值正确性的公差。实际值在测量值的指定公差范围内。为了在数据集中添加不精确度，数据集值的某一随机部分在某些带前缀（prefixed？）的公差带之间变化；
 - 更进一步，添加模糊性使得数据集含糊不清。通常而言，模糊性是指对值的不清楚的理解或不正确和错误的度量。在模糊情况下，多个观测者（或传感器）对某个单个值没有达成共识。如果认为某数值属于模糊集，则更改其参数会导致模糊性（vagueness）增加到数据集中，因为更改模糊集的参数会由于模糊性而引入不确定性（uncertainty），并且模糊集的性质也会变得模糊（vague）。本文考虑使用高斯模糊集将模糊性添加到数据中。
-  >  If data values are considered to belong to fuzzy set then varying its parameters leads to add vagueness into dataset since varying the parameter of fuzzy set introduces uncertainty due to vagueness and the nature of fuzzy set becomes vague.
+  > If data values are considered to belong to fuzzy set then varying its parameters leads to add vagueness into dataset since varying the parameter of fuzzy set introduces uncertainty due to vagueness and the nature of fuzzy set becomes vague.
 
 后续每个实验中，针对上述每个情况，将数据集划分为 70% 的训练集，15% 的验证集和 15% 的测试集。
 
@@ -451,7 +451,7 @@ TSDFN 网络架构的确定包含下面几步：
 - TSDFN 的网络结构：不同的隶属度函数个数；
 - 对每个网络结构在训练集上训练，在验证集上测试；
 - 根据最好的测试性能确定隶属度函数个数（即确定网络结构）；
-- 将已经确定隶属度函数个数的不同架构的网络在测试集上测试。（就能最终确定采用啥架构的 TSDFN 了）
+- 将已经确定隶属度函数个数的不同架构的网络在测试集上测试。（然后就能最终确定采用啥架构的 TSDFN 了？）
 
 在上述每个工况下，设计一个 3 层普通神经网络与 TSDFN 进行对比。神经网络激活函数采用 sigmoid 函数，隐层个数与 TSDFN 一致，训练方式采用现有的复杂方式（啥？）。
 
@@ -461,7 +461,9 @@ TSDFN 网络架构的确定包含下面几步：
 
 ![experimentframework](../assets/img/postsimg/20201202/4.jpg)
 
-### 算例 1
+### 3.4.2. 算例 1
+
+
 
 # 4. TS 模糊控制
 
