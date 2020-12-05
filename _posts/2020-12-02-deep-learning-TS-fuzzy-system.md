@@ -15,15 +15,16 @@ math: true
   - [1.1. 推理过程](#11-推理过程)
   - [1.2. 特性](#12-特性)
   - [1.3. 辨识算法](#13-辨识算法)
-- [2. TS 模糊控制](#2-ts-模糊控制)
-- [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
-- [4. 应用](#4-应用)
-  - [4.1. Fuzzy Control](#41-fuzzy-control)
-  - [4.2. Fuzzy Neural Network](#42-fuzzy-neural-network)
-    - [4.2.1. 网络结构](#421-网络结构)
-    - [4.2.2. 网络参数辨识](#422-网络参数辨识)
-  - [4.3. Trajectory Prediction](#43-trajectory-prediction)
-- [5. 参考文献](#5-参考文献)
+- [2. 广义 TS 模糊系统](#2-广义-ts-模糊系统)
+- [3. TS 深度模糊网络](#3-ts-深度模糊网络)
+  - [3.1. 网络结构](#31-网络结构)
+  - [3.2. 网络参数辨识](#32-网络参数辨识)
+    - [3.2.1. 前向传播](#321-前向传播)
+    - [3.2.2. 反向传播](#322-反向传播)
+- [4. TS 模糊控制](#4-ts-模糊控制)
+- [5. Fuzzy Control](#5-fuzzy-control)
+- [6. Trajectory Prediction](#6-trajectory-prediction)
+- [7. 参考文献](#7-参考文献)
 
 
 # 1. TS 模糊系统
@@ -155,23 +156,7 @@ $$
 
 当给定一组输入输出数据 $x_{1j},\cdots,x_{kj}\rightarrow y_j\ (j=1,\cdots,m)$ 时，可以通过 least squares method 来确定参数 $p_0^i, p_1^i,\cdots,p_k^i$。
 
-# 2. TS 模糊控制
-
-> T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
-
-在线性矩阵不等式（linear matrix inequality, LMI）设计框架下，基于 TS 模糊模型的非线性控制得以广泛应用。一般分为三个阶段：
-
-- 第一阶段：对非线性被控对象的模糊建模
-  - 利用输入输出数据进行模糊模型辨识
-  - 或 基于分区非线性思想的模糊系统构建（模糊 IF-THEN 规则）
-- 第二阶段：模糊控制规则推导，它反映了模糊模型的规则结构，它通过所谓的并行分布式补偿（PDC）实现
-- 第三阶段：模糊控制器设计，即确定反馈增益。
-
-> This paper presents a systematic procedure of fuzzy control system design that consists of fuzzy model construction, rule reduction, and robust compensation for nonlinear systems. 
- 
-本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
-
-# 3. 广义 TS 模糊系统
+# 2. 广义 TS 模糊系统
 
 将 TS 模糊系统进行规范化描述如下。
 
@@ -197,16 +182,11 @@ $$
 
 广义 TS 模糊系统可以以任意精度逼近被控对象，而模型的参数可以通过参数辨识方法获得。
 
-# 4. 应用
-
-## 4.1. Fuzzy Control
-> Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
-
-## 4.2. Fuzzy Neural Network
+# 3. TS 深度模糊网络
 
 > 2017 . Developing deep fuzzy network with Takagi Sugeno fuzzy inference system. IEEE Transactions on Fuzzy System
 
-### 4.2.1. 网络结构
+## 3.1. 网络结构
 
 提出了一种新型的三层 **TS Deep Fuzzy Network (TSDFN)** 网络架构。
 
@@ -240,9 +220,13 @@ $D$ 是输入个数，$x_d$ 是第 $d$ 个输入分量（$d=1,\cdots,D$）。$R$
 
 > a TSFN in TSDFN extracts a complex pattern in input data and corresponding FRB parameters represent the nternal structure of the pattern in the form of fuzzy rules.
 
-### 4.2.2. 网络参数辨识
+## 3.2. 网络参数辨识
 
-采用标准的误差反向传播来针对特定数据进行网络参数辨识。下面考虑一个一般的隐层 TSFN（$S_h$），假设输入向量为 $\boldsymbol x=[x_1,x_2,\cdots,x_d,\cdots,x_D]$。
+采用标准的误差反向传播来针对特定数据进行网络参数辨识。
+
+### 3.2.1. 前向传播
+
+下面考虑一个一般的隐层 TSFN（$S_h$），假设输入向量为 $\boldsymbol x=[x_1,x_2,\cdots,x_d,\cdots,x_D]$。
 
 > $θ^h_{d,f}$ denotes parameter of $f^th$ input MF of input $d$ in premise part of a rule in FRB of $S_h$
 
@@ -298,16 +282,20 @@ $$
 
 规则的权重计算如下（原文 t-norm ？）
 
-$$
+<!-- $$
 \begin{aligned}
 \omega_r^h &= \land_{d=1}^D\mu_{r,d}^h\\
 \boldsymbol \omega^h &= [\omega_1^h \cdots\omega_r^h \cdots\omega_R^h]^T
 \end{aligned}
+$$ -->
+
+$$
+\omega_r^h = \land_{d=1}^D\mu_{r,d}^h
 $$
 
 规则输出
 
-$$
+<!-- $$
 \begin{aligned}
 y_r^h &= p^h_{r,0}+p^h_{r,1}x_1 + \cdots + p^h_{r,d}x_d+\cdots+p^h_{r,D}x_D\\
 \boldsymbol y^h &= \boldsymbol p^h\times
@@ -316,6 +304,10 @@ y_r^h &= p^h_{r,0}+p^h_{r,1}x_1 + \cdots + p^h_{r,d}x_d+\cdots+p^h_{r,D}x_D\\
 \boldsymbol x
 \end{bmatrix}
 \end{aligned}
+$$ -->
+
+$$
+y_r^h = p^h_{r,0}+p^h_{r,1}x_1 + \cdots + p^h_{r,d}x_d+\cdots+p^h_{r,D}x_D
 $$
 
 最终 $S_h$ 的输出为
@@ -328,6 +320,7 @@ $$
 
 $$
 \begin{aligned}
+\omega_r^O &= \land_{h=1}^H\mu_{r,h}^O\\
 y_r^O &= p^O_{r,0}+p^O_{r,1}a^1 + \cdots + p^O_{r,h}a^h+\cdots+p^O_{r,H}a^H\\
 y^O &= \frac{\sum_{r=1}^R\omega^O_ry_r^O}{\sum_{r=1}^R\omega^O_r}
 \end{aligned}
@@ -341,35 +334,70 @@ $$
 
 其中 $N$ 是数据样本（输入输出对）总个数，$e^n$ 是第 $n$ 个样本对应的误差。
 
-下面进行梯度计算，loss 对输出的梯度
+### 3.2.2. 反向传播
+
+loss 对输出的梯度
 
 $$
-\frac{\partial J}{\partial y} = \sum_{n=1}^Ne^{(n)}
+\frac{\partial J}{\partial y^O} = \sum_{n=1}^Ne^{(n)}
 $$
 
 loss 对输出系数 $p^O_{r,h}$ 的梯度
 
 $$
 \begin{aligned}
-\frac{\partial J}{\partial p_{r,h}^O} &=\frac{\partial J}{\partial y}\frac{\partial y}{\partial y^O_r}\frac{\partial y^O_r}{\partial p^O_{r,h}} \\
+\frac{\partial J}{\partial p_{r,h}^O} &=\frac{\partial J}{\partial y^O}\frac{\partial y^O}{\partial y^O_r}\frac{\partial y^O_r}{\partial p^O_{r,h}} \\
 &=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^O_r}{\sum_{r=1}^R\omega^O_r}\cdot a^h
 \end{aligned}
 $$
 
 其中 $a^0=1$ 。
 
+loss 对输出层隶属度函数参数 $\theta^O_{h,f}$ 的梯度
+
+$$
+\frac{\partial J}{\partial \theta^O_{h,f}} =
+\frac{\partial J}{\partial y^O}
+\sum_{r=1}^R
+\frac{\partial y^O}{\partial \omega^O_r}
+\frac{\partial \omega^O_r}{\partial \mu^O_r}
+\frac{\partial \mu^O_r}{\partial \theta^O_f}
+$$
+
 loss 对隐层系数 $p^h_{r,d}$ 的梯度
 
 $$
 \begin{aligned}
-\frac{\partial J}{\partial p_{r,d}^h} &= \frac{\partial J}{\partial y}\frac{\partial y}{\partial y^O_r}\frac{\partial y^O_r}{\partial a^h} \frac{\partial a^h}{\partial y^h_r} \frac{\partial y^h_r}{\partial p^h_{r,d}}\\
+\frac{\partial J}{\partial p_{r,d}^h} &= \frac{\partial J}{\partial y^O}\frac{\partial y^O}{\partial y^O_r}\frac{\partial y^O_r}{\partial a^h} \frac{\partial a^h}{\partial y^h_r} \frac{\partial y^h_r}{\partial p^h_{r,d}}\\
 &=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^O_r}{\sum_{r=1}^R\omega^O_r}\cdot p^O_{r,h}\cdot \frac{\omega^h_r}{\sum_{r=1}^R\omega^h_r} \cdot x_d
 \end{aligned}
 $$
 
-## 4.3. Trajectory Prediction
+
+# 4. TS 模糊控制
+
+> T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
+
+在线性矩阵不等式（linear matrix inequality, LMI）设计框架下，基于 TS 模糊模型的非线性控制得以广泛应用。一般分为三个阶段：
+
+- 第一阶段：对非线性被控对象的模糊建模
+  - 利用输入输出数据进行模糊模型辨识
+  - 或 基于分区非线性思想的模糊系统构建（模糊 IF-THEN 规则）
+- 第二阶段：模糊控制规则推导，它反映了模糊模型的规则结构，它通过所谓的并行分布式补偿（PDC）实现
+- 第三阶段：模糊控制器设计，即确定反馈增益。
+
+> This paper presents a systematic procedure of fuzzy control system design that consists of fuzzy model construction, rule reduction, and robust compensation for nonlinear systems. 
+ 
+本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
+
+
+# 5. Fuzzy Control
+> Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
+
+
+# 6. Trajectory Prediction
 > Multi-agent Trajectory Prediction with Fuzzy Query Attention. NIPS 2020.
 
-# 5. 参考文献
+# 7. 参考文献
 
 无。
