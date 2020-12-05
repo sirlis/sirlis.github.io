@@ -328,7 +328,7 @@ $$
 
 $$
 \begin{aligned}
-y_r^O &= p^O_{r,0}+p^O_{r,1}a^h_1 + \cdots + p^O_{r,d}a^h_d+\cdots+p^O_{r,D}a^h_D\\
+y_r^O &= p^O_{r,0}+p^O_{r,1}a^1 + \cdots + p^O_{r,h}a^h+\cdots+p^O_{r,H}a^H\\
 y^O &= \frac{\sum_{r=1}^R\omega^O_ry_r^O}{\sum_{r=1}^R\omega^O_r}
 \end{aligned}
 $$
@@ -347,12 +347,23 @@ $$
 \frac{\partial J}{\partial y} = \sum_{n=1}^Ne^{(n)}
 $$
 
-loss 对输出系数 $p^O_{r,d}$ 的梯度（原文 **误写** 为 $p^O_{r,h}$？）
+loss 对输出系数 $p^O_{r,h}$ 的梯度
 
 $$
 \begin{aligned}
-\frac{\partial J}{\partial p_{r,d}^O} &= \frac{\partial J}{\partial y}\frac{\partial y}{\partial y^O_r}\frac{\partial y^O_r}{\partial p^O_{r,d}}\\
+\frac{\partial J}{\partial p_{r,h}^O} &=\frac{\partial J}{\partial y}\frac{\partial y}{\partial y^O_r}\frac{\partial y^O_r}{\partial p^O_{r,h}} \\
 &=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^O_r}{\sum_{r=1}^R\omega^O_r}\cdot a^h
+\end{aligned}
+$$
+
+其中 $a^0=1$ 。
+
+loss 对隐层系数 $p^h_{r,d}$ 的梯度
+
+$$
+\begin{aligned}
+\frac{\partial J}{\partial p_{r,d}^h} &= \frac{\partial J}{\partial y}\frac{\partial y}{\partial y^O_r}\frac{\partial y^O_r}{\partial a^h} \frac{\partial a^h}{\partial y^h_r} \frac{\partial y^h_r}{\partial p^h_{r,d}}\\
+&=\sum_{n=1}^Ne^{(n)}\cdot \frac{\omega^O_r}{\sum_{r=1}^R\omega^O_r}\cdot p^O_{r,h}\cdot \frac{\omega^h_r}{\sum_{r=1}^R\omega^h_r} \cdot x_d
 \end{aligned}
 $$
 
