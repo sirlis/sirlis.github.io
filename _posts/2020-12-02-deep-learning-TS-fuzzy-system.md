@@ -591,7 +591,11 @@ $$
 
 ## 模糊查询注意力模块
 
+![fqa](../assets/img/postsimg/20201202/11.jpg) 
 
+FQA 模块将有向边图看作 发送-接收 对象对（sender-receiver pairs of agents）。从高层来看，该模块建模了所有发送对象对一个特定接收对象的汇聚影响。
+
+建立 key-query-value self attention 网络（Vaswani et al）。
 
 # 6. 参考文献
 
