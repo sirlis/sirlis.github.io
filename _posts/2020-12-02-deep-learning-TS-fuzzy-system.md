@@ -26,12 +26,12 @@ math: true
     - [3.3.2. 算例 1](#332-算例-1)
     - [3.3.3. 算例 2](#333-算例-2)
     - [3.3.4. 分析](#334-分析)
-- [4. TS 模糊控制](#4-ts-模糊控制)
-- [5. Trajectory Prediction](#5-trajectory-prediction)
-  - [5.1. 归纳偏置](#51-归纳偏置)
-  - [5.2. 预测架构](#52-预测架构)
-  - [5.3. 交互模块](#53-交互模块)
-  - [5.4. 模糊查询注意力模块](#54-模糊查询注意力模块)
+- [4. Trajectory Prediction](#4-trajectory-prediction)
+  - [4.1. 归纳偏置](#41-归纳偏置)
+  - [4.2. 预测架构](#42-预测架构)
+  - [4.3. 交互模块](#43-交互模块)
+  - [4.4. 模糊查询注意力模块](#44-模糊查询注意力模块)
+- [5. TS 模糊控制](#5-ts-模糊控制)
 - [6. 参考文献](#6-参考文献)
 
 
@@ -509,34 +509,13 @@ TSDFN 在验证集上的测试结果如下表所示。
 
 > In both case studies, the results show that there is a slight irregularity in the performance with respect to the number of membership functions for the same number of hidden nodes. The analysis of experiments have shown that this happens because the training error doesn’t decrease in such cases and the gradient gets stuck before reaching minimum. Proper tunning of learning rate and increased number of iterations solve this problem
 
-# 4. TS 模糊控制
-
-> T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
-
-在线性矩阵不等式（linear matrix inequality, LMI）设计框架下，基于 TS 模糊模型的非线性控制得以广泛应用。一般分为三个阶段：
-
-- 第一阶段：对非线性被控对象的模糊建模
-  - 利用输入输出数据进行模糊模型辨识
-  - 或 基于分区非线性思想的模糊系统构建（模糊 IF-THEN 规则）
-- 第二阶段：模糊控制规则推导，它反映了模糊模型的规则结构，它通过所谓的并行分布式补偿（PDC）实现
-- 第三阶段：模糊控制器设计，即确定反馈增益。
-
-> This paper presents a systematic procedure of fuzzy control system design that consists of fuzzy model construction, rule reduction, and robust compensation for nonlinear systems. 
- 
-本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
-
----
-
-> Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
-
-
-# 5. Trajectory Prediction
+# 4. Trajectory Prediction
 
 > NIPS 2020. **Multi-agent Trajectory Prediction with Fuzzy Query Attention**.
 
 做多目标轨迹预测。
 
-## 5.1. 归纳偏置
+## 4.1. 归纳偏置
 
 inductive biases，归纳偏置。
 
@@ -549,7 +528,7 @@ inductive biases，归纳偏置。
 - **意图**（Intent）：有生命对象有自己的意图，运动会偏离惯性，需要在预测模型中进行考虑；
 - **交互**（Interactions）：有生命对象和无生命对象可能偏离它们预期的运动，比如受到其它附近对象的影响。这种影响需要清晰的建模。
 
-## 5.2. 预测架构
+## 4.2. 预测架构
 
 下图 (a) 为预测架构，输入 $t$ 时刻的所有对象的位置 $p^t_{i=1:N}$。使用 $t\leq T_{obs}$ 时刻的位置作为观测，对 $t\geq T_{obs}$ 时刻的位置进行预测。我们对每个对象的下一时刻位置 $\hat p^{t+1}_i$ 进行预测，预测量是相对于当前时刻 $p_i^t$ 的位置偏差（relative prediction）。
 
@@ -571,7 +550,7 @@ $$
 
 由于所有的计算都在当前时刻 $t$ 下，因此后文可以略去该上标。
 
-## 5.3. 交互模块
+## 4.3. 交互模块
 
 下图 (b) 作为交互模块。
 
@@ -590,7 +569,7 @@ h_i&= FC_2(ReLU(FC_1(p_i, h_i, a_i))),&\quad \forall i\in 1:N\\
 \end{aligned}
 $$
 
-## 5.4. 模糊查询注意力模块
+## 4.4. 模糊查询注意力模块
 
 ![fqa](../assets/img/postsimg/20201202/11.jpg) 
 
@@ -643,6 +622,28 @@ V_{proc,r} &= maxpool_{s:(s-r)\in\varepsilon}V_{proc,sr}\\
 a_r&=FC_{12}(V_{proc,r}),\quad \forall r\in 1:N
 \end{aligned}
 $$
+
+# 5. TS 模糊控制
+
+> T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
+
+在线性矩阵不等式（linear matrix inequality, LMI）设计框架下，基于 TS 模糊模型的非线性控制得以广泛应用。一般分为三个阶段：
+
+- 第一阶段：对非线性被控对象的模糊建模
+  - 利用输入输出数据进行模糊模型辨识
+  - 或 基于分区非线性思想的模糊系统构建（模糊 IF-THEN 规则）
+- 第二阶段：模糊控制规则推导，它反映了模糊模型的规则结构，它通过所谓的并行分布式补偿（PDC）实现
+- 第三阶段：模糊控制器设计，即确定反馈增益。
+
+> This paper presents a systematic procedure of fuzzy control system design that consists of fuzzy model construction, rule reduction, and robust compensation for nonlinear systems. 
+ 
+本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
+
+---
+
+> Robust ${L_1}$ Observer-Based Non-PDC Controller Design for Persistent Bounded Disturbed TS Fuzzy Systems
+
+
 
 # 6. 参考文献
 
