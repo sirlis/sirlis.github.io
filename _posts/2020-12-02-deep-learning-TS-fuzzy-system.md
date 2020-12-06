@@ -31,7 +31,7 @@ math: true
   - [5.1. 归纳偏置](#51-归纳偏置)
   - [5.2. 预测架构](#52-预测架构)
   - [5.3. 交互模块](#53-交互模块)
-  - [模糊查询注意力模块](#模糊查询注意力模块)
+  - [5.4. 模糊查询注意力模块](#54-模糊查询注意力模块)
 - [6. 参考文献](#6-参考文献)
 
 
@@ -590,7 +590,7 @@ h_i&= FC_2(ReLU(FC_1(p_i, h_i, a_i))),&\quad \forall i\in 1:N\\
 \end{aligned}
 $$
 
-## 模糊查询注意力模块
+## 5.4. 模糊查询注意力模块
 
 ![fqa](../assets/img/postsimg/20201202/11.jpg) 
 
@@ -601,7 +601,7 @@ FQA 模块将有向边图看作 发送-接收 对象对（sender-receiver pairs 
 - **产生独立特征**：复制 $p,\hat h$ 到每一条边，一条边两个对象，一个 sender 一个 receiver，那么就复制出 $p_s, p_r, h_s, h_r$。
 - **产生相对特征**：$p_{sr} = p_s-p_r$ （相对位移），$h_{sr} = h_s-h_r$ （相对状态），$\hat p_{sr} = p_{sr}/\vert\vert p_{sr} \vert\vert$（单位化）,$\hat h_{sr} = h_{sr}/\vert\vert h_{sr} \vert\vert$（单位化）。这些特征用来捕捉相对观测归纳偏差。
 - 对于每一条边，将上述所有**特征拼接** $f_{sr} = \{ p_s, p_r, p_sr, \hat p_{sr}, h_s, h_r, h_sr, \hat h_{sr} \}$，然后分别经过一个 **单层全连接层**，产生 $n$ 个 keys $K_{sr}\in \mathbb R^{n\times d}$ 和  $n$ 个 queries $Q_{sr}\in \mathbb R^{n\times d}$。$n$ 代表 $s-r$ 对的个数（个人理解也就是边的个数，也就是 $f_{sr} 的个数$），$d$ 应该是用户定义的维度。
-- 将 $K_{sr}\in \mathbb R^{n\times d}$ 和 $Q_{sr}\in \mathbb R^{n\times d}$ 通过一个**点乘的变体**（个人理解：元素积然后按行求和），产生模糊决策 $D_{sr}\in \mathbb R^n$。
+- 将 $K_{sr}\in \mathbb R^{n\times d}$ 和 $Q_{sr}\in \mathbb R^{n\times d}$ 通过一个**点乘的变体**（元素积然后按行求和），产生模糊决策 $D_{sr}\in \mathbb R^n$。
 - 
 $$
 \begin{aligned}
@@ -612,6 +612,37 @@ D_{sr}&= \sigma(K_{sr}\star Q_{sr}+B)=\left( \sum_{dim=1} K_{sr}\odot Q_{sr}+B\r
 $$
 
 注：作者说的模糊决策不是模糊逻辑，而是浮点数取值的决策，相对于离散取值的布尔决策。「大意了！」
+
+其中 $B$ 是一个待优化的偏差参数矩阵，$\sigma$ 是 sigmoid 激活函数，$\perp$ 是分离运算符（detach operator）。[不允许梯度回传，但作用没看懂]
+
+> The detach operator acts as identity for the forward-pass but prevents any gradients from propagating back through its operand. This allows us to learn feature representations only using responses while the keys and queries make useful decisions from the learnt features
+
+最终得到的模糊决策 $D_{sr} \in [0,1]^n$ 可以解释为一组 $n$个 连续取值的决策，反应了 sender 对象和 receiver 对象之间的交互。这个决策可以用来影响（select）receiver 对象对 sender 对象当前状态的应答。
+
+- **确定性应答（公式 1，2）**：相对特征并行的通过两个 2 层全连接层（第一层包含 ReLU 激活函数）产生 yes-no 应答 $V_{y,sr},V_{n,sr}\in \mathbb R^{n\times d_v}$，与 $D_{sr}=1\ or\ D_{sr}=0$ 对应。虽然可以使用全部特征 $f_{sr}$，但实验表明只用一部分特征（$p_{sr},h_s$）的表现就很好了，还能节约参数。
+- **模糊应答（公式 3）**：将上述确定性应答模糊化，根据模糊决策 $D_{sr}$ 和其补集 $\overline D_{sr}= 1 - D_{sr}$ 通过 fuzzy if-else 产生最终的模糊应答。
+
+$$
+\begin{aligned}
+V_{y,sr}&=FC_8(ReLU(FC_7(p_{sr},h_s))),&\quad \forall (s,r)\in 1:N,s\neq r\\
+V_{n,sr}&=FC_{10}(ReLU(FC_9(p_{sr},h_s))),&\quad \forall (s,r)\in 1:N,s\neq r\\
+V_{sr}&=D_{sr}V_{y,sr}+\overline D_{sr}V_{n,sr}&\quad \forall (s,r)\in 1:N,s\neq r\\
+\end{aligned}
+$$
+
+最后得到 $n$ 个对象对的应答 $V_{sr}\in \mathbb R^{n\times d_v}$。
+
+- **公式 1**：将应答拼接 $\in \mathbb R^{nd_v}$，然后过一个全连接层，提高向量维度增加信息量，以弥补后续最大池化带来的信息丢失。
+- **公式 2**：对上述步骤的输出进行最大池化，将所有对 receiver 对象的交互的影响累积。
+- **公式 3**：最后再通过一个全连接层降维（与之前升维对应）。
+
+$$
+\begin{aligned}
+V_{proc,sr} &= FC_{11}(concat(V_{sr}))\\
+V_{proc,r} &= maxpool_{s:(s-r)\in\varepsilon}V_{proc,sr}\\
+a_r&=FC_{12}(V_{proc,r}),\quad \forall r\in 1:N
+\end{aligned}
+$$
 
 # 6. 参考文献
 
