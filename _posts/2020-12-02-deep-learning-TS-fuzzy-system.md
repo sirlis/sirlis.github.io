@@ -259,7 +259,32 @@ $$
 P=(X^TX)^{-1}X^TY
 $$
 
-如果能够提供足够数量的无噪声样本数据，最小二乘法可以精确估计出原始问题的真实参数。**如果数据有噪声**，则采用 stable-state 卡尔曼滤波来估计上式中的 $P$。stable-state 卡尔曼滤波可以计算出线性代数方程中的参数，使得均方差最小。
+如果能够提供足够数量的无噪声样本数据，最小二乘法可以精确估计出原始问题的真实参数。
+
+**如果数据有噪声**，则采用稳态卡尔曼滤波（原文 stable-state，现在一般用 steady-state）来估计 $P$。稳态卡尔曼滤波可以计算出线性代数方程中的参数，使得均方差最小。
+
+假设 $X$ 矩阵的第 $i$ 行为 $x_i$，$Y$ 的第 $i$ 个元素为 $y_i$，那么 $P$ 可以通过下面的式子递归估计（**涉及卡尔曼滤波的知识，还没看**）
+
+$$
+\begin{aligned}
+P_{i+1} &= P_i + S_{i+1}\cdot x_{i+1}\cdot(y_{i+1}-x_{i+1}\cdot P_i)\\
+S_{i+1} &= S_i-\frac{S_i\cdot x_i+x_{i+1}\cdot P_i}{1+x_{i+1}\cdot S\cdot x_{i+1}^T},\quad i=0,1,\cdots,m-1\\
+P &= P_m
+\end{aligned}
+$$
+
+初值为
+
+$$
+\begin{aligned}
+P_0 &= 0\\
+S_0 &= \alpha\cdot I\quad(\alpha=big\ number)
+\end{aligned}
+$$
+
+最后给出一个例子。假设系统为
+
+
 
 # 2. 广义 TS 模糊系统
 
