@@ -58,13 +58,13 @@ $$
 对于离散系统模型，令 $R_i$ 表示模糊系统的第 $i$ 条规则，其一阶 TS 模糊系统典型的模糊蕴含条件（Implication）句为
 
 $$
-R_i:\quad if\quad f(x_1\ is\ A_1,\ \cdots,\ x_k\ is\ A_k)\quad then\quad y = g(x_1, \cdots, x_k)
+R_i:\quad IF\quad f(x_1\ is\ A_1,\ \cdots,\ x_k\ is\ A_k)\quad THEN\quad y = g(x_1, \cdots, x_k)
 $$
 
 在实际应用中，$f$ 为 $and$ 连接符，$g$ 为线性函数，即
 
 $$
-R:\quad if\quad x_1\ is\ A_1\ and\ \cdots\ and\ x_k\ is\ A_k\quad then\quad y = p_0+p_1x_1+\cdots+p_kx_k)
+R:\quad IF\quad x_1\ is\ A_1\ and\ \cdots\ and\ x_k\ is\ A_k\quad THEN\quad y = p_0+p_1x_1+\cdots+p_kx_k)
 $$
 
 ## 1.1. 推理过程
@@ -73,9 +73,9 @@ $$
 
 $$
 \begin{aligned}
-R_1:&\quad if\quad x_1\ is\ small_1\ and\ x_2\ is\ small_2 & \quad then \quad y=x_1+x_2\\
-R_2:&\quad if\quad x_1\ is\ big_1\ & \quad then \quad y=2x_1\\
-R_2:&\quad if\quad x_2\ is\ big_2\ & \quad then \quad y=3x_2
+R_1:&\quad IF\quad x_1\ is\ small_1\ and\ x_2\ is\ small_2 & \quad THEN \quad y=x_1+x_2\\
+R_2:&\quad IF\quad x_1\ is\ big_1\ & \quad THEN \quad y=2x_1\\
+R_2:&\quad IF\quad x_2\ is\ big_2\ & \quad THEN \quad y=3x_2
 \end{aligned}
 $$
 
@@ -144,11 +144,11 @@ $$
 
 $$
 \begin{aligned}
-R_1:&\quad if\quad x_1\ is\ A_1^1,\ \cdots,\ x_k\ is\ A_k^1\\
-&\quad then\quad y=p_0^1 + p_1^1\cdot x_1+\cdots+p^1_k\cdot x_k\\
+R_1:&\quad IF\quad x_1\ is\ A_1^1,\ \cdots,\ x_k\ is\ A_k^1\\
+&\quad THEN\quad y=p_0^1 + p_1^1\cdot x_1+\cdots+p^1_k\cdot x_k\\
 &\quad \vdots\\
-R_n:&\quad if\quad x_1\ is\ A_1^n,\ \cdots,\ x_k\ is\ A_k^n\\
-&\quad then\quad y=p_0^n + p_1^n\cdot x_1+\cdots+p^n_k\cdot x_k\\
+R_n:&\quad IF\quad x_1\ is\ A_1^n,\ \cdots,\ x_k\ is\ A_k^n\\
+&\quad THEN\quad y=p_0^n + p_1^n\cdot x_1+\cdots+p^n_k\cdot x_k\\
 \end{aligned}
 $$
 
@@ -306,8 +306,8 @@ $$
 
 $$
 \begin{aligned}
-if\ x\ is\ small\ then\ y=a_1x+b_1\\
-if\ x\ is\ big\ then\ y=a_2x+b_2\\
+IF\ x\ is\ small\ THEN\ y=a_1x+b_1\\
+IF\ x\ is\ big\ THEN\ y=a_2x+b_2\\
 \end{aligned}
 $$
 
@@ -347,7 +347,13 @@ $$
 
 首先假设一个包含 $k$ 个输入和 1 个输出的模糊系统。
 
-- 步骤 1：只划分 $x_1$ 为 `big` 和 `small`，其它变量不划分，意味着只有 $x_1$ 出现在前提中，其它变量不出现。
+- 步骤 1：只划分 $x_1$ 为 `big` 和 `small`，其它变量不划分，意味着只有 $x_1$ 出现在前提中，其它变量不出现。那么模型规则如下
+  $$
+  \begin{aligned}
+    IF\ x_1\ is\ big_1\ THEN\ \cdots\\
+    IF\ x_1\ is\ small_1\ THEN\ \cdots\\
+  \end{aligned}
+  $$
 
 # 2. 广义 TS 模糊系统
 
@@ -632,7 +638,7 @@ $$
 - 不加任何处理的原始训练数据集；
 - 增加小幅度的不精确的训练数据集。实际上，在进行测量时，总是存在测量值正确性的公差。实际值在测量值的指定公差范围内。为了在数据集中添加不精确度，数据集值的某一随机部分在某些带前缀（prefixed？）的公差带之间变化；
 - 更进一步，添加模糊性使得数据集含糊不清。通常而言，模糊性是指对值的不清楚的理解或不正确和错误的度量。在模糊情况下，多个观测者（或传感器）对某个单个值没有达成共识。如果认为某数值属于模糊集，则更改其参数会导致模糊性（vagueness）增加到数据集中，因为更改模糊集的参数会由于模糊性而引入不确定性（uncertainty），并且模糊集的性质也会变得模糊（vague）。本文考虑使用高斯模糊集将模糊性添加到数据中。
-  > If data values are considered to belong to fuzzy set then varying its parameters leads to add vagueness into dataset since varying the parameter of fuzzy set introduces uncertainty due to vagueness and the nature of fuzzy set becomes vague.
+  > If data values are considered to belong to fuzzy set THEN varying its parameters leads to add vagueness into dataset since varying the parameter of fuzzy set introduces uncertainty due to vagueness and the nature of fuzzy set becomes vague.
 
 后续每个实验中，针对上述每个情况，将数据集划分为 70% 的训练集，15% 的验证集和 15% 的测试集。
 
@@ -782,12 +788,12 @@ $$
 其中 $B$ 是一个待优化的偏差参数矩阵，$\sigma$ 是 sigmoid 激活函数，$\perp$ 是分离运算符（detach operator）。[不允许梯度从 $Q,K$ 回传，只能从 $V$ 回传]
 
 > The detach operator acts as identity for the forward-pass but prevents any gradients from propagating back through its operand. This allows us to learn feature representations only using responses while the keys and queries make useful decisions from the learnt features.
-> we learn the sender-receiver features by backpropagating only through the responses ($V_sr$) while features are detached to generate the keys and queries. This additionally allows us to inject human knowledge into the model via handcrafted non-learnable decisions, if such decisions are available 
+> we learn the sender-receiver features by backpropagating only through the responses ($V_sr$) while features are detached to generate the keys and queries. This additionally allows us to inject human knowledge into the model via handcrafted non-learnable decisions, IF such decisions are available 
 
 最终得到的模糊决策 $D_{sr} \in [0,1]^n$ 可以解释为一组 $n$个 连续取值的决策，反应了 sender 对象和 receiver 对象之间的交互。这个决策可以用来影响（select）receiver 对象对 sender 对象当前状态的应答。
 
 - **确定性应答（公式 1，2）**：相对特征并行的通过两个 2 层全连接层（第一层包含 ReLU 激活函数）产生 yes-no 应答 $V_{y,sr},V_{n,sr}\in \mathbb R^{n\times d_v}$，与 $D_{sr}=1\ or\ D_{sr}=0$ 对应。虽然可以使用全部特征 $f_{sr}$，但实验表明只用一部分特征（$p_{sr},h_s$）的表现就很好了，还能节约参数。
-- **模糊应答（公式 3）**：将上述确定性应答模糊化，根据模糊决策 $D_{sr}$ 和其补集 $\overline D_{sr}= 1 - D_{sr}$ 通过 fuzzy if-else 产生最终的模糊应答。
+- **模糊应答（公式 3）**：将上述确定性应答模糊化，根据模糊决策 $D_{sr}$ 和其补集 $\overline D_{sr}= 1 - D_{sr}$ 通过 fuzzy IF-else 产生最终的模糊应答。
 
 $$
 \begin{aligned}
