@@ -15,6 +15,7 @@ math: true
   - [1.1. 推理过程](#11-推理过程)
   - [1.2. 特性](#12-特性)
   - [1.3. 辨识算法](#13-辨识算法)
+    - [1.3.1. 结论系数 $p$ 辨识](#131-结论系数-p-辨识)
 - [2. 广义 TS 模糊系统](#2-广义-ts-模糊系统)
 - [3. TS 深度模糊网络](#3-ts-深度模糊网络)
   - [3.1. 网络结构](#31-网络结构)
@@ -31,9 +32,9 @@ math: true
   - [4.2. 预测架构](#42-预测架构)
   - [4.3. 交互模块](#43-交互模块)
   - [4.4. 模糊查询注意力模块](#44-模糊查询注意力模块)
-  - [分析](#分析)
-  - [训练](#训练)
-  - [实验](#实验)
+  - [4.5. 分析](#45-分析)
+  - [4.6. 训练](#46-训练)
+  - [4.7. 实验](#47-实验)
 - [5. TS 模糊控制](#5-ts-模糊控制)
 - [6. 参考文献](#6-参考文献)
 
@@ -135,7 +136,9 @@ $$
 
 注意，前提中的变量不需要全部出现。前两个部分的确定和变量如何划分到模糊子空间有关，最后一个部分与模糊子空间中如何描述输入输出关系有关。论文作者提出依次逐层考虑如何确定。
 
-假设一个一般的系统表示如下
+### 1.3.1. 结论系数 $p$ 辨识
+
+假设一个一般的系统（$n$ 条规则）表示如下
 
 $$
 \begin{aligned}
@@ -165,7 +168,98 @@ $$
 y = \sum_{i=1}^n\beta_i(p_0^i+p_1^ix_1+\cdots+p_k^ix_k)
 $$
 
-当给定一组输入输出数据 $x_{1j},\cdots,x_{kj}\rightarrow y_j\ (j=1,\cdots,m)$ 时，可以通过 least squares method 来确定参数 $p_0^i, p_1^i,\cdots,p_k^i$。
+当给定一组输入输出数据 $x_{1j},\cdots,x_{kj}\rightarrow y_j\ (j=1,\cdots,m)$ 时，可以通过最小二乘法来确定参数 $p_0^i, p_1^i,\cdots,p_k^i$。
+
+> 最小二乘法：在实验中获得了自变量与因变量的若干组对应数据，在使偏差平方和取最小值时，找出一个已知类型的函数（即确定关系式中的参数）的方法。
+
+经过 TS 模糊系统的推理后得到输出的估计为
+
+$$
+\begin{aligned}
+\hat y_1 &= \sum_{i=1}^n\beta_{i1}(p_0^i+p_1^ix_{11}+\cdots+p_k^ix_{k1})\\
+\hat y_2 &= \sum_{i=1}^n\beta_{i2}(p_0^i+p_1^ix_{12}+\cdots+p_k^ix_{k2})\\
+&\cdots\\
+\hat y_m &= \sum_{i=1}^n\beta_{im}(p_0^i+p_1^ix_{1m}+\cdots+p_k^ix_{km})\\
+\end{aligned}
+$$
+
+对于其中第 $j$ 个式子，展开如下
+
+$$
+\begin{aligned}
+\hat y_j &= \sum_{i=1}^n\beta_{ij}(p_0^i+p_1^ix_{1j}+\cdots+p_k^ix_{kj})\\
+&= (\beta_{1j}p_0^1+\cdots+\beta_{nj}p_0^n)+(\beta_{1j}p_1^1+\cdots+\beta_{nj}p_1^n)x_{11}+\cdots\\
+&= [\beta_{1j},\cdots,\beta_{nj}][p_0^1,\cdots,p_0^n]^T+[\beta_{1j}x_{11},\cdots,\beta_{nj}x_{11}][p_1^1,\cdots,p_1^n]^T+\cdots\\
+&=\begin{bmatrix}
+  \beta_{1j}\cdots\beta_{nj},\quad \beta_{1j}x_{11}\cdots\beta_{nj}x_{11},\quad \cdots
+\end{bmatrix}
+\begin{bmatrix}
+  p_0^1\\
+  \vdots\\
+  p_0^n\\
+  \\
+  p_1^1\\
+  \vdots\\
+  p_1^n\\
+  \\
+  \vdots
+\end{bmatrix}
+\end{aligned}
+$$
+
+其中
+
+$$
+\beta_{ij} = \frac{A_{i1}(x_{1j})\land\cdots\land  A_{ik}(x_{kj})}{\sum_j A_{i1}(x_{1j})\land\cdots\land A_{ik}(x_{kj})}
+$$
+
+将上式的 $j$ 在 $[1,m]$ 上展开，可写成矩阵形式。假设 $X\in \mathbb R^{m\times n(k+1)}$，$Y,\hat Y\in \mathbb R^{m}$，$P\in \mathbb R^{n(k+1)}$，则
+
+$$
+\begin{aligned}
+X &= \begin{bmatrix}
+\beta_{11}\cdots\beta_{n1},\ \beta_{11}x_{11}\cdots\beta_{n1}x_{11},\ \cdots,\ beta_{11}x_{k1}\cdots\beta_{n1}x_{k1}\\
+\cdots\\
+\beta_{1m}\cdots\beta_{nm},\ \beta_{11}x_{1m}\cdots\beta_{nm}x_{1m},\ \cdots,\ \beta_{1m}x_{km}\cdots\beta_{nm}x_{km}
+\end{bmatrix}\\
+Y &= [y_1,\cdots,y_m]^T\\
+\hat Y &= [\hat y_1,\cdots,\hat y_m]^T\\
+P&=[p_0^1\cdots p_0^n,\cdots p_1^1\cdots p_1^n,\cdots,p_k^1\cdots p_k^n]^T
+\end{aligned}
+$$
+
+$m$ 表示样本个数（$X,Y$ 的行数），$n$ 表示规则个数，$n(k+1)$ 表示待估计的特征参数 $P$ 的个数。
+
+用矩阵形式表达的推理过程变为
+
+$$
+\hat Y = XP
+$$
+
+损失函数定义为
+
+$$
+J(P) = \frac{1}{2}(\hat Y-Y)^T(\hat Y-Y)= \frac{1}{2}(XP-Y)^T(XP-Y)
+$$
+
+根据最小二乘法原理，将损失函数对待估计参数求导取 0，结果为（组内大神推导表示无误）
+
+> Eureka机器学习读书笔记. [最小二乘法（least sqaure method）](https://zhuanlan.zhihu.com/p/38128785/)
+
+$$
+\begin{aligned}
+&\frac{\partial}{\partial P}J(P)= X^T(XP-Y)=0\\
+&\Rightarrow X^TXP=X^TY\Rightarrow P=(X^TX)^{-1}X^TY
+\end{aligned}
+$$
+
+即得到最小二乘法的标准解析解
+
+$$
+P=(X^TX)^{-1}X^TY
+$$
+
+如果能够提供足够数量的无噪声样本数据，最小二乘法可以精确估计出原始问题的真实参数。**如果数据有噪声**，则采用 stable-state 卡尔曼滤波来估计上式中的 $P$。 table-state 卡尔曼滤波可以计算出线性代数方程中的参数，使得均方差最小。
 
 # 2. 广义 TS 模糊系统
 
@@ -629,7 +723,7 @@ a_r&=FC_{12}(V_{proc,r}),\quad \forall r\in 1:N
 \end{aligned}
 $$
 
-## 分析
+## 4.5. 分析
 
 上述架构受到 multi-head self-attention 的启发，但是经过了大量改造。
 
@@ -643,7 +737,7 @@ FQA 能学到：
 - 靠近（Proximity）：假设 $K,Q$ 是 $p_{sr}$ 且对应的 $B$ 是 $-d_{th}^2$ 那么决策 $D = \sigma(p_{sr}^Tp_{sr}-d_{th}^2)$ 逼近 0 表示两个对象 $s$ 和 $r$ 间的距离小于 $d_{th}$。注意到上述决策依赖 $B$ 的存在，即 $B$ 赋予模型更灵活的能力；
 - 接近（Approach）：由于部分隐藏状态内部能够学习如何对对象的速度进行建模，FQA 可能可以学习到一种 $K_{sr} = v_{sr},Q_{sr} = \hat p_{sr},B=0$ 形式，这种形式逼近 0 表示两个对象相互直接接近对方。虽然我们并没有直接要求 FQA 学习这些可解释的决策，但是实验表明 FQA 学习到的模糊决策能够高度预测对象间的交互（section 4.3）。
 
-## 训练
+## 4.6. 训练
 
 用 MSE，评估下一时刻所有对象的预测位置与真实位置的偏差，用 Adam，batch size = 32， 初始学习率 0.001，每 5 epoch 乘以 0.8 下降。所有待比较的模型都训练至少 50 epoch，然后当连续 10 epoch 的验证 MSE 不下降时激活 early stopping，最多进行 100 epochs 训练。
 
@@ -655,7 +749,7 @@ FQA 能学到：
 - ......； 
 - 观察 $T_{obs}$ 个步长，预测 $T-(T-T_{obs})=T_{obs}$ 个步长； 
 
-## 实验
+## 4.7. 实验
 
 采用以下几个前人研究的数据集（包含不同种类的交互特征）。如果数据集没有划分，那么我们按照 $70:15:15$ 来划分训练集、验证集和测试集。
 
