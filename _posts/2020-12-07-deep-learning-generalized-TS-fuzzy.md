@@ -86,7 +86,7 @@ $$
 
 $$
 \begin{aligned}
-  a_{ij1} &\equiv max_{\boldsymbol z(t)} f_{ij}(\boldsymbol z(t))\\
+  a_{ij1} &\equiv \mathop{max}\limits_{\boldsymbol z(t)} f_{ij}(\boldsymbol z(t))\\
 \end{aligned}
 $$
 
