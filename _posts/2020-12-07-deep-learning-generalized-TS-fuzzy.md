@@ -82,7 +82,7 @@ $$
 - $z_1(t),\cdots,z_n(t)$ 是已知的变量，可能为状态量的函数、外部变量，和/或时间
 - $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 是关于 $\boldsymbol z(t)$ 矩阵
 
-定义如下的新变量
+定义如下的新变量（表示系数的最大最小值）
 
 $$
 \begin{aligned}
@@ -93,9 +93,40 @@ $$
 \end{aligned}
 $$
 
-借助上述新定义的变量，可以将 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 转换为模糊表达：
+借助上述新定义的变量，可以将 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 转化为用其最大最小值表达的形式（transforming into fuzzy model representation）：
 
+$$
+\begin{aligned}
+  f_{ij}(\boldsymbol z(t)) &= h_{ij1}(\boldsymbol z(t))a_{ij1} + h_{ij2}(\boldsymbol z(t))a_{ij2}\\
+  g_{ik}(\boldsymbol z(t)) &= v_{ik1}(\boldsymbol z(t))b_{ik1} + v_{ik2}(\boldsymbol z(t))b_{ik2}
+\end{aligned}
+$$
 
+上式的权重参数满足
+
+$$
+\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t)) = 1\quad \sum_{l=1}^2 v_{ikl}(\boldsymbol z(t)) = 1
+$$
+
+那么隶属度函数可以定义如下
+
+$$
+\begin{aligned}
+h_{ij1}(\boldsymbol z(t)) &= \frac{f_{ij}(\boldsymbol z(t))-a_{ij2}}{a_{ij1}-a_{ij2}}\\
+h_{ij2}(\boldsymbol z(t)) &= \frac{a_{ij1} - f_{ij}(\boldsymbol z(t))}{a_{ij1}-a_{ij2}}\\
+v_{ik1}(\boldsymbol z(t)) &= \frac{g_{ik}(\boldsymbol z(t))-b_{ij2}}{b_{ij1}-b_{ij2}}\\
+v_{ik2}(\boldsymbol z(t)) &= \frac{b_{ik1} - g_{ik}(\boldsymbol z(t))}{b_{ik1}-b_{ik2}}\\
+\end{aligned}
+$$
+
+最终可以将原始非线性系统表示为：
+
+$$
+\begin{aligned}
+\dot \boldsymbol x_i(t) &= \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)\\
+
+\end{aligned}
+$$
 
 # 4. 参考文献
 
