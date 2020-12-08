@@ -6,34 +6,31 @@ tags: [fuzzy]
 math: true
 ---
 
-本文介绍了 TS 型模糊系统，由 Takagi 和 Sugeno 两位学者在 1985 年提出，主要思想是将非线性系统用许多线段相近的表示出来，即将复杂的非线性问题转化为在不同小线段上的问题。
+本文介绍了 TS 深度模糊网络（TS Deep Fuzzy Network, TSDFN），于 2017 年提出，基于 TS 模糊系统组成三层网络，并推导了反向传播的梯度。
 
 <!--more-->
 
 ---
-- [1. TS 深度模糊网络](#1-ts-深度模糊网络)
-  - [1.1. 网络结构](#11-网络结构)
-  - [1.2. 网络参数辨识](#12-网络参数辨识)
-    - [1.2.1. 前向传播](#121-前向传播)
-    - [1.2.2. 反向传播](#122-反向传播)
-  - [1.3. 实验](#13-实验)
-    - [1.3.1. 准备工作](#131-准备工作)
-    - [1.3.2. 算例 1](#132-算例-1)
-    - [1.3.3. 算例 2](#133-算例-2)
-    - [1.3.4. 分析](#134-分析)
-- [2. 参考文献](#2-参考文献)
+- [1. 网络结构](#1-网络结构)
+- [2. 网络参数辨识](#2-网络参数辨识)
+  - [2.1. 前向传播](#21-前向传播)
+  - [2.2. 反向传播](#22-反向传播)
+- [3. 实验](#3-实验)
+  - [3.1. 准备工作](#31-准备工作)
+  - [3.2. 算例 1](#32-算例-1)
+  - [3.3. 算例 2](#33-算例-2)
+  - [3.4. 分析](#34-分析)
+- [4. 参考文献](#4-参考文献)
 
-# 1. TS 深度模糊网络
+> Shreedharkumar Rajurkar, Nishchal Kumar Verma. **Developing deep fuzzy network with Takagi Sugeno fuzzy inference system**[J]. IEEE Transactions on Fuzzy System. 2017.
 
-> 2017 . Developing deep fuzzy network with Takagi Sugeno fuzzy inference system. IEEE Transactions on Fuzzy System
-
-## 1.1. 网络结构
+# 1. 网络结构
 
 提出了一种新型的三层 **TS Deep Fuzzy Network (TSDFN)** 网络架构。
 
 TSDFN 的网络架构如下图所示
 
-![tsdfn](../assets/img/postsimg/20201206/3.jpg)
+![tsdfn](../assets/img/postsimg/20201206/1.jpg)
 
 图中，隐层（hidden layer）中的每一个神经元都是一个 TSFIS ，输出层只有一个神经元，也是一个 TSFIS 。当然也可以扩展为多输出，不同的输出间相互独立。
 
@@ -61,11 +58,11 @@ $D$ 是输入个数，$x_d$ 是第 $d$ 个输入分量（$d=1,\cdots,D$）。$R$
 
 > a TSFN in TSDFN extracts a complex pattern in input data and corresponding FRB parameters represent the nternal structure of the pattern in the form of fuzzy rules.
 
-## 1.2. 网络参数辨识
+# 2. 网络参数辨识
 
 采用标准的误差反向传播来针对特定数据进行网络参数辨识。
 
-### 1.2.1. 前向传播
+## 2.1. 前向传播
 
 下面考虑 **一个一般的隐层 TSFN**（$S_h$），假设输入向量为 $\boldsymbol x=[x_1,x_2,\cdots,x_d,\cdots,x_D]$。
 
@@ -178,7 +175,7 @@ $$
 
 其中 $N$ 是数据样本（输入输出对）总个数，$e^n$ 是第 $n$ 个样本对应的误差。
 
-### 1.2.2. 反向传播
+## 2.2. 反向传播
 
 首先求 loss 对**输出层参数**的梯度。
 
@@ -267,9 +264,9 @@ $$
 
 计算出全部梯度后，采用梯度下降更新参数。
 
-## 1.3. 实验
+# 3. 实验
 
-### 1.3.1. 准备工作
+## 3.1. 准备工作
 
 采用高斯隶属度函数，简便起见，隐层的每个模糊神经元的每条规则中，均采用相同个数的隶属度函数。
 
@@ -298,9 +295,9 @@ TSDFN 网络架构的确定包含下面几步：
 
 采用 MSE 衡量性能。最终如图所示（图中 impression 可能写错了，应该是 imprecision）
 
-![experimentframework](../assets/img/postsimg/20201206/4.jpg)
+![experimentframework](../assets/img/postsimg/20201206/2.jpg)
 
-### 1.3.2. 算例 1
+## 3.2. 算例 1
 
 辨识一个非线性系统
 
@@ -312,15 +309,15 @@ $$
 
 下表列举了 TSDFN 在验证集上的测试结果，加粗的数字表示不同网络架构下的最小 MSE，对应最佳的网络结构（对应最佳的隶属度函数个数）。
 
-![table1](../assets/img/postsimg/20201206/5.jpg)
+![table1](../assets/img/postsimg/20201206/3.jpg)
 
 确定不同工况下的最佳网络结构（隶属度函数个数）后，分别在三个工况下与 ANN 进行比较，结果如下。
 
-![table2](../assets/img/postsimg/20201206/6.jpg)
+![table2](../assets/img/postsimg/20201206/4.jpg)
 
 可以看出 TSDFN 均全面超越 ANN。
 
-### 1.3.3. 算例 2
+## 3.3. 算例 2
 
 小车倒车问题（Truck Backer Upper problem），是一个将卡车以合适的方向后退到对接位置的问题。来自以下参考文献，总共包含 14 个表（总共 239 个读数），每个表均包含位置 $x$ 和方向 $\phi$ 的值以及相应的输出 —— 转向角 $\theta$。用于生成数据集的模型（待识别的非线性复杂系统）在文献中也有说明。
 
@@ -328,20 +325,20 @@ $$
 
 TSDFN 在验证集上的测试结果如下表所示。
 
-![table3](../assets/img/postsimg/20201206/7.jpg) 
+![table3](../assets/img/postsimg/20201206/5.jpg) 
 
 同样分别在三个工况下与 ANN 进行比较，结果如下。
 
-![table4](../assets/img/postsimg/20201206/8.jpg)
+![table4](../assets/img/postsimg/20201206/6.jpg)
 
 可以看出 TSDFN 均全面超越 ANN。
 
-### 1.3.4. 分析
+## 3.4. 分析
 
 两个算例的结果表明，对于相同数量的隐层神经元个数，在隶属函数数量方面，性能存在一些不规律。对实验的分析表明，误差在这些算例中不下降了，因为梯度在到达最小前卡住了。适当的调整学习率和增加迭代次数可以解决这个问题。但是总的来说 TSDFN 牛逼！
 
 > In both case studies, the results show that there is a slight irregularity in the performance with respect to the number of membership functions for the same number of hidden nodes. The analysis of experiments have shown that this happens because the training error doesn’t decrease in such cases and the gradient gets stuck before reaching minimum. Proper tunning of learning rate and increased number of iterations solve this problem
 
-# 2. 参考文献
+# 4. 参考文献
 
 无。
