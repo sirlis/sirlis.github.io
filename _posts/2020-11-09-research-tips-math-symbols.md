@@ -152,7 +152,7 @@ math: true
 
 命令 | 符号 ||命令| 符号||命令| 符号
 -|-|-|-|-|-|-|-
-`\cdots` | $\cdots$ ||`\vdots`| $\vdots$||`\ddtos`| $\ddots$
+`\cdots` | $\cdots$ ||`\vdots`| $\vdots$||`\ddots`| $\ddots$
 `\hbar`| $\hbar$ ||`\ell`| $\ell$||`\Re`| $\Re$
 `\aleph`| $\aleph$ ||`\forall`| $\forall$||`\partial`| $\partial$
 `\nabla`| $\nabla$ ||`\infty`| $\infty$||`\empty`| $\empty$
