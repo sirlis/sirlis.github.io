@@ -70,7 +70,25 @@ $h_i(\boldsymbol z(t))$ 是每条规则的归一化权重，$M_{ji}(z_j(t)$ 是�
 
 # 3. 扩展 TS 模糊系统
 
+考虑某一状态量的分量 $x_i$，非线性系统表示如下：
 
+$$
+\dot \boldsymbol x_i(t) = \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)
+$$
+
+类似地：
+
+- $x_1(t)\cdots x_n(t)$ 是状态量，$u_1(t)\cdots u_m(t)$ 是输入量
+- $z_1(t),\cdots,z_n(t)$ 是已知的变量，可能为状态量的函数、外部变量，和/或时间
+- $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 是关于 $\boldsymbol z(t)$ 矩阵
+
+定义如下的新变量
+
+$$
+\begin{aligned}
+  a_{ij1} &\equiv max_{\boldsymbol z(t)} f_{ij}(\boldsymbol z(t))\\
+\end{aligned}
+$$
 
 # 4. 参考文献
 
