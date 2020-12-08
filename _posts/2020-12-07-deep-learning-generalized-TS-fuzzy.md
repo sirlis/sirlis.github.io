@@ -86,9 +86,16 @@ $$
 
 $$
 \begin{aligned}
-  a_{ij1} &\equiv \mathop{max}\limits_{\boldsymbol z(t)} f_{ij}(\boldsymbol z(t))\\
+  a_{ij1} &\equiv \mathop{\rm max}\limits_{\boldsymbol z(t)} f_{ij}(\boldsymbol z(t))\\
+  a_{ij2} &\equiv \mathop{\rm min}\limits_{\boldsymbol z(t)} f_{ij}(\boldsymbol z(t))\\
+  b_{ik1} &\equiv \mathop{\rm max}\limits_{\boldsymbol z(t)} g_{ik}(\boldsymbol z(t))\\
+  b_{ik2} &\equiv \mathop{\rm min}\limits_{\boldsymbol z(t)} g_{ik}(\boldsymbol z(t))\\
 \end{aligned}
 $$
+
+借助上述新定义的变量，可以将 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 转换为模糊表达：
+
+
 
 # 4. 参考文献
 
