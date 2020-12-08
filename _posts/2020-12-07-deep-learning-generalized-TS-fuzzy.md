@@ -50,7 +50,7 @@ $$
 - $M_{ji}$ 是第 $j$ 个输入分量的模糊集
 - $\boldsymbol x\in \mathbb R^n$ 是状态量，$\boldsymbol u\in \mathbb R^m$ 是输入量
 - $\boldsymbol A_i\in \mathbb R^{n\times n}, \boldsymbol B_i\in \mathbb R^{n\times m}$ 是系数矩阵
-- $z_1(t),\cdots,z_p(t)$ 是已知的前提变量，可能为测量量的函数、外部干扰，和/或时间，用 $\boldsymbol z(t)$ 来表示所有
+- $z_1(t),\cdots,z_p(t)$ 是已知的前提变量，可能为可测量的状态量的函数、外部干扰，和/或时间，用 $\boldsymbol z(t)$ 来表示所有
 
 给定一对 $[\boldsymbol x(t),\boldsymbol u(t),\boldsymbol z(t)]$，采用重心法（加权平均法）可以得到模糊系统的最终输出：
 
