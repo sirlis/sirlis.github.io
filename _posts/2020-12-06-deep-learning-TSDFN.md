@@ -33,7 +33,7 @@ math: true
 
 TSDFN 的网络架构如下图所示
 
-![tsdfn](../assets/img/postsimg/20201202/3.jpg)
+![tsdfn](../assets/img/postsimg/20201206/3.jpg)
 
 图中，隐层（hidden layer）中的每一个神经元都是一个 TSFIS ，输出层只有一个神经元，也是一个 TSFIS 。当然也可以扩展为多输出，不同的输出间相互独立。
 
@@ -298,7 +298,7 @@ TSDFN 网络架构的确定包含下面几步：
 
 采用 MSE 衡量性能。最终如图所示（图中 impression 可能写错了，应该是 imprecision）
 
-![experimentframework](../assets/img/postsimg/20201202/4.jpg)
+![experimentframework](../assets/img/postsimg/20201206/4.jpg)
 
 ### 1.3.2. 算例 1
 
@@ -312,11 +312,11 @@ $$
 
 下表列举了 TSDFN 在验证集上的测试结果，加粗的数字表示不同网络架构下的最小 MSE，对应最佳的网络结构（对应最佳的隶属度函数个数）。
 
-![table1](../assets/img/postsimg/20201202/5.jpg)
+![table1](../assets/img/postsimg/20201206/5.jpg)
 
 确定不同工况下的最佳网络结构（隶属度函数个数）后，分别在三个工况下与 ANN 进行比较，结果如下。
 
-![table2](../assets/img/postsimg/20201202/6.jpg)
+![table2](../assets/img/postsimg/20201206/6.jpg)
 
 可以看出 TSDFN 均全面超越 ANN。
 
@@ -328,11 +328,11 @@ $$
 
 TSDFN 在验证集上的测试结果如下表所示。
 
-![table3](../assets/img/postsimg/20201202/7.jpg) 
+![table3](../assets/img/postsimg/20201206/7.jpg) 
 
 同样分别在三个工况下与 ANN 进行比较，结果如下。
 
-![table4](../assets/img/postsimg/20201202/8.jpg)
+![table4](../assets/img/postsimg/20201206/8.jpg)
 
 可以看出 TSDFN 均全面超越 ANN。
 
