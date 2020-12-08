@@ -30,9 +30,12 @@ math: true
 `\overline{A}` | $\overline{A}$ 
 `\underline{A}` | $\underline{A}$ 
 `\overbrace{A-B}^{hat}` | $\overbrace{A-B}^{hat}$ 
-`\underbrace{A-B}_{hat}` | $\underbrace{A-B}_{hat}$
+`\underbrace{A-B}_{foot}` | $\underbrace{A-B}_{foot}$
+`\sum_{i=1}` | $ \sum_{i=1} $
 `\sum\limits_{i=1}` | $ \sum\limits_{i=1} $
-`\mathop{a}\limits_{i=1}` | $ \mathop{a}\limits_{i=1} $
+`\mathop{max}_z` | $ \mathop{max}_z$
+`\mathop{max}\limits_z` | $ \mathop{max}\limits_z$
+`\mathop{\rm max}\limits_z` | $\mathop{\rm max}\limits_z$
 
 # 2. 空格
 
