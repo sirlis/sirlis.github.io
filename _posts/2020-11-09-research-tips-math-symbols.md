@@ -17,6 +17,7 @@ math: true
 - [6. 大尺寸运算符](#6-大尺寸运算符)
 - [7. 箭头](#7-箭头)
 - [8. 其它符号](#8-其它符号)
+- [9. 矩阵](#9-矩阵)
 ---
 
 # 1. 帽子和鞋子
@@ -159,3 +160,19 @@ math: true
 `\bot`| $\bot$ ||`\top`| $\top$||`\varnothing`| $\varnothing$
 `\flat`| $\flat$ ||`\natural`| $\natural$||`\sharp`| $\sharp$
 `\prime`| $\prime$ ||`\exists`| $\exists$||`\angle`| $\angle$
+
+# 9. 矩阵
+
+无需 `\begin{aligned}` 的一种写法：
+
+```latex
+a=\begin{bmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{bmatrix}
+```
+
+$a=\begin{bmatrix}
+1&2\\
+3&4\\
+\end{bmatrix}$
