@@ -124,7 +124,7 @@ $$
 $$
 \begin{aligned}
 \dot \boldsymbol x_i(t) &= \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)\\
-
+&=\sum_{i=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(xt))a_{ijl}x_j(t)
 \end{aligned}
 $$
 
