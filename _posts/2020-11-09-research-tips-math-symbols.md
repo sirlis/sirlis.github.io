@@ -9,7 +9,7 @@ math: true
 本文列举了常用数学符号以供平时查询，包括希腊字母、二元关系符、二元运算符。
 
 <!--more-->
-- [1. 帽子](#1-帽子)
+- [1. 帽子和鞋子](#1-帽子和鞋子)
 - [2. 空格](#2-空格)
 - [3. 希腊字母](#3-希腊字母)
 - [4. 二元关系符](#4-二元关系符)
@@ -19,7 +19,7 @@ math: true
 - [8. 其它符号](#8-其它符号)
 ---
 
-# 1. 帽子
+# 1. 帽子和鞋子
 
 命令 | 效果 
 -|-
@@ -30,7 +30,9 @@ math: true
 `\overline{A}` | $\overline{A}$ 
 `\underline{A}` | $\underline{A}$ 
 `\overbrace{A-B}^{hat}` | $\overbrace{A-B}^{hat}$ 
-`\underbrace{A-B}_{hat}` | $\underbrace{A-B}_{hat}$ 
+`\underbrace{A-B}_{hat}` | $\underbrace{A-B}_{hat}$
+`\sum\limits_{i=1}` | $ \sum\limits_{i=1} $
+`\mathop{a}\limits_{i=1}` | $ \mathop{a}\limits_{i=1} $
 
 # 2. 空格
 
