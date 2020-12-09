@@ -73,7 +73,7 @@ $h_i(\boldsymbol z(t))$ 是每条规则的归一化权重，$M_{ji}(z_j(t)$ 是�
 考虑某一状态量的分量 $x_i$，非线性系统表示如下：
 
 $$
-\dot \boldsymbol x_i(t) = \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)
+\dot x_i(t) = \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)
 $$
 
 类似地：
@@ -123,9 +123,17 @@ $$
 
 $$
 \begin{aligned}
-\dot \boldsymbol x_i(t) &= \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)\\
-&=\sum_{i=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(xt))a_{ijl}x_j(t)
+\dot x_i(t) &= \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)\\
+&=\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl}x_j(t) + \sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}u_k(t)
 \end{aligned}
+$$
+
+$i$ 是输入向量的维度，$j$ 是规则维度，$l$ 是取大取小值的维度。
+
+将上述式子转为矩阵形式，如下
+
+$$
+
 $$
 
 # 4. 参考文献
