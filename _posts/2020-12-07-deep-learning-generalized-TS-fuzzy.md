@@ -14,6 +14,7 @@ math: true
 - [1. 引言](#1-引言)
 - [2. 传统 TS 模糊系统](#2-传统-ts-模糊系统)
 - [3. 扩展 TS 模糊系统](#3-扩展-ts-模糊系统)
+  - [规则约减](#规则约减)
 - [4. 参考文献](#4-参考文献)
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -169,6 +170,12 @@ $$
 个人理解：上述两个矩阵就是为了前面的矩阵求和式而人工构造的，可以与后面的 $\boldsymbol x(t), \boldsymbol u(t)$ 做矩阵乘法，取到对应的元素乘积。也就是说，上述两个矩阵分别有 $n,m$ 个，且每个都是上面这种只有一个元素不为 0 的稀疏形式。
 
 作者表明，$a_{ijl}, b_{ikl}$ 再规则约减中非常重要，上面矩阵和的式子在规则约减中十分方便。
+
+## 规则约减
+
+规则约减与使用LMI进行控制器设计的计算工作量密切相关。
+
+基本思路：将非线性项 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$
 
 # 4. 参考文献
 
