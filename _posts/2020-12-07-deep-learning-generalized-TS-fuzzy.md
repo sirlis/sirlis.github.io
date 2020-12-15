@@ -33,6 +33,15 @@ math: true
  
 本文提出了一种模糊控制系统设计的系统程序，该程序由模糊模型构建，规则约简和非线性系统的鲁棒补偿组成。
 
+注意，在本篇文章之前，还有两篇关键文章作为前续研究基础：
+
+- H. O. Wang, K. Tanaka, and M. Griffin, “**Parallel distributed compensation of nonlinear systems by Takagi-Sugeno fuzzy model**,” in Proceedings of 1995 IEEE International Conference on Fuzzy Systems. The International Joint Conference of the Fourth IEEE International Conference on Fuzzy Systems and The Second International Fuzzy Engineering Symposium, Yokohama, Japan, **1995**, vol. 2, pp. 531–538, doi: 10.1109/FUZZY.1995.409737.
+  应该是首次将TS模糊系统用于非线性系统的近似，也分析了 Lyapunov 稳定性，研究了并行分布式补偿（PDC），给出了状态反馈控制律下的稳定性判别准则。
+- D. Localmodel, “**Stability Analysis of Fuzzy Control Systems**,” IEEE TRANSACTIONS ON SYSTEMS, MAN, AND CYBERNETICS-PART B: CYBERNETICS, vol. 26, no. 1, p. 4, **1996**.
+  貌似放宽了稳定性的条件（还没细看）。
+
+
+
 # 2. 传统 TS 模糊系统
 
 形式如下
@@ -139,7 +148,7 @@ $$
 \end{aligned}
 $$
 
-$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。（虽然我没看懂为啥有第一个求和符号，难道等号左边从分量变成矩阵形式需要求和？）
+$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。<font color=red>（虽然我没看懂为啥有第一个求和符号，难道等号左边从分量变成矩阵形式需要求和？）</font>
 
 将上述式子转为矩阵形式，如下
 
