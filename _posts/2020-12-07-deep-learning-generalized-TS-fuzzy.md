@@ -14,7 +14,7 @@ math: true
 - [1. 引言](#1-引言)
 - [2. 传统 TS 模糊系统](#2-传统-ts-模糊系统)
 - [3. 扩展 TS 模糊系统](#3-扩展-ts-模糊系统)
-  - [规则约减](#规则约减)
+  - [3.1. 规则约减](#31-规则约减)
 - [4. 参考文献](#4-参考文献)
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -69,21 +69,29 @@ $$
 
 $h_i(\boldsymbol z(t))$ 是每条规则的归一化权重，$M_{ji}(z_j(t)$ 是第 $i$ 条规则中第 $j$ 个分量的模糊集 $M_{ji}$ 的隶属度值。
 
+参考：单点模糊产生器、乘积推理机和中心平均解模糊器。
+
+> Wang H., Tanaka K. and Griifn M., Parallel distributed conpensation of nonlinear systems by Takagi and Sugeno’s fuzzy model, 1995, in Porc. 4 th IEEE Int. Conf. Fuzzy syst., Yokohama, Japan, pp: 531-538.
+
+定理：当模糊规则条数适当时，模糊系统可以以任意的精度逼近实际的任意线性或非线性系统。（万能逼近器？）
+
+> MamdaniE.H.and Assilian 5., Applications of fuzzy algorithms for control of simple dynamic Plant, IEEE Proc. Part-D, 1974, vol. 121, no. 8, pp: 1585-1588
+
 # 3. 扩展 TS 模糊系统
 
-考虑某一状态量的分量 $x_i$，非线性系统表示如下：
+考虑某一类**非线性**系统表示如下：
 
 $$
 \dot x_i(t) = \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)
 $$
 
-类似地：
+其中：
 
 - $x_1(t)\cdots x_n(t)$ 是状态量，$u_1(t)\cdots u_m(t)$ 是输入量
-- $z_1(t),\cdots,z_n(t)$ 是已知的变量，可能为状态量的函数、外部变量，和/或时间
+- $z_1(t),\cdots,z_n(t)$ 是已知的变量，**可能为状态量的函数**、外部变量，和/或时间
 - $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 是关于 $\boldsymbol z(t)$ 矩阵
 
-注意，上式中的 $j$ 是遍历所有状态量，$j=1,2,\cdots,n$，$k$ 是遍历所有输入量，$k=1,2,\cdots,m$。如果将上式想象成一个描述系统运动的动力学方程组，那么这是一个标准的状态方程。该方程刻画了每个状态量的一阶导与所有状态量和控制（输入）量的线性组合关系。
+注意，上式中的 $j$ 是遍历所有状态量，$j=1,2,\cdots,n$，$k$ 是遍历所有输入量，$k=1,2,\cdots,m$。上式可以看作描述系统的**非线性**状态方程。该方程刻画了每个状态量的一阶导与所有状态量和控制（输入）量的线性组合关系。非线性可以体现在：**$z_i(t)$ 可为 $x_i(t)$ 的非线性函数**。假设 $z_i(t) = x_i(t)^2$ ，$f_{ij}(\boldsymbol z(t))=2\boldsymbol z(t) = 2\boldsymbol x(t)^2$，则原始状态方程是关于 $\boldsymbol x(t)$ 的非线性方程组。
 
 定义如下的新变量（表示系数 $f_{ij},g_{ik}$ 的最大最小值）
 
@@ -122,7 +130,7 @@ v_{ik2}(\boldsymbol z(t)) &= \frac{b_{ik1} - g_{ik}(\boldsymbol z(t))}{b_{ik1}-b
 \end{aligned}
 $$
 
-最终可以将原始非线性系统表示为：
+最终可以将原始TS模糊系统表示为：
 
 $$
 \begin{aligned}
@@ -131,7 +139,7 @@ $$
 \end{aligned}
 $$
 
-$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧~？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。
+$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。（虽然我没看懂为啥有第一个求和符号，难道等号左边从分量变成矩阵形式需要求和？）
 
 将上述式子转为矩阵形式，如下
 
@@ -171,11 +179,13 @@ $$
 
 作者表明，$a_{ijl}, b_{ikl}$ 再规则约减中非常重要，上面矩阵和的式子在规则约减中十分方便。
 
-## 规则约减
+## 3.1. 规则约减
 
 规则约减与使用LMI进行控制器设计的计算工作量密切相关。
 
-基本思路：将非线性项 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$
+基本思路：将非线性项 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 替换为常数项 $a_{i_0j_0},b_{i_0k_0}$，其中 $a_{i_0j_0}=(a_{ij1}+a_{ij2})/2,\ b_{i_0k_0} = (b_{ik1}+b_{ik2})/2$。
+
+对于任意的
 
 # 4. 参考文献
 
