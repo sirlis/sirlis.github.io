@@ -163,16 +163,99 @@ math: true
 
 # 9. 矩阵
 
-无需 `\begin{aligned}` 的一种写法：
+无需 `\begin{aligned}` 的写法：
 
 ```latex
+a=\begin{matrix}
+1 & 2 \\
+3 & 4 \\
+\end{matrix}
 a=\begin{bmatrix}
 1 & 2 \\
 3 & 4 \\
 \end{bmatrix}
+a=\begin{pmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{pmatrix}
+a=\begin{Bmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{Bmatrix}
+a=\begin{vmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{vmatrix}
+a=\begin{Vmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{Vmatrix}
 ```
 
-$a=\begin{bmatrix}
-1&2\\
-3&4\\
-\end{bmatrix}$
+$$
+a=\begin{matrix}
+1 & 2 \\
+3 & 4 \\
+\end{matrix},\ 
+a=\begin{bmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{bmatrix},\ 
+a=\begin{pmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{pmatrix},\ 
+a=\begin{Bmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{Bmatrix},\ 
+a=\begin{vmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{vmatrix},\ 
+a=\begin{Vmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{Vmatrix}
+$$
+
+方程组对齐的写法（`{l}-left,{c}-center,{r}-right`）：
+
+```latex
+\left\{
+\begin{array}{l}
+\dot x_1(t) = x_2(t)\\
+\dot x_2(t) = x_1(t){\rm cos}x_2(t)-x_3(t)\\
+\dot x_3(t) = x_1(t)x_3(t) + (1+\varepsilon {\rm sin}x_3(t))u(t)
+\end{array}
+\right.
+```
+$$
+\left\{
+\begin{array}{l}
+\dot x_1(t) = x_2(t)\\
+\dot x_2(t) = x_1(t){\rm cos}x_2(t)-x_3(t)\\
+\dot x_3(t) = x_1(t)x_3(t) + (1+\varepsilon {\rm sin}x_3(t))u(t)
+\end{array}
+\right.
+$$
+
+方程组对齐的矩阵写法（居中对齐）：
+
+```latex
+\left\{
+\begin{matrix}
+\dot x_1(t) = x_2(t)\\
+\dot x_2(t) = x_1(t){\rm cos}x_2(t)-x_3(t)\\
+\dot x_3(t) = x_1(t)x_3(t) + (1+\varepsilon {\rm sin}x_3(t))u(t)
+\end{matrix}
+\right.
+```
+$$
+\left\{
+\begin{matrix}
+\dot x_1(t) = x_2(t)\\
+\dot x_2(t) = x_1(t){\rm cos}x_2(t)-x_3(t)\\
+\dot x_3(t) = x_1(t)x_3(t) + (1+\varepsilon {\rm sin}x_3(t))u(t)
+\end{matrix}
+\right.$$
