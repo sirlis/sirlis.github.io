@@ -209,6 +209,81 @@ $$
 \end{aligned}
 $$
 
+状态量的取值范围为
+
+$$
+\begin{aligned}
+  \underline d_1\leq x_1(t)\leq \overline d_1\\
+  \underline d_2\leq x_2(t)\leq \overline d_2\\
+  \underline d_3\leq x_3(t)\leq \overline d_3\\
+\end{aligned}
+$$
+
+其中
+
+$$
+\begin{aligned}
+\underline d_1 &= -0.5\\
+\overline d_1 &= 0.5\\
+\underline d_2 &= -\pi/2\\
+\overline d_2 &= \pi/2\\
+\underline d_3 &= -\pi\\
+\overline d_3 &= \pi\\
+\varepsilon &= 0.5\\
+\end{aligned}
+$$
+
+根据前面的约定，重新整理状态方程如下
+
+$$
+\begin{aligned}
+\left\{
+\begin{array}{l}
+\dot x_1(t) &= 0\cdot x_1(t)& + 1\cdot x_2(t)& + 0\cdot x_3(t)& + 0\cdot u(t)&\\
+\dot x_2(t) &= {\rm cos}x_2(t)\cdot x_1(t)& + 0\cdot x_2(t)& +(-1) \cdot x_3(t)& + 0\cdot u(t)&\\
+\dot x_3(t) &= 0\cdot x_1(t)& +0\cdot x_2(t)& + x_1(t)\cdot x_3(t)& + (1+\varepsilon {\rm sin}x_3(t))u(t)&
+\end{array}
+\right.
+\end{aligned}
+$$
+
+有
+
+$$
+\begin{aligned}
+f_{11}(z(t)) &= 0,\ &f_{12}(z(t)) = 1,\ &f_{13}(z(t)) = 0,\ &g_{11}(z(t)) = 0\\
+f_{21}(z(t)) &= {\rm cos}x_2(t),\ &f_{22}(z(t)) = 0,\ &f_{23}(z(t)) = -1,\ &g_{11}(z(t)) = 0\\
+f_{31}(z(t)) &= 0,\ &f_{32}(z(t)) = 0,\ &f_{33}(z(t)) = x_1(t),\ &g_{11}(z(t)) = (1+\varepsilon {\rm sin}x_3(t))\\
+\end{aligned}
+$$
+
+计算系数的最大最小值，有（加 * 号的是原文中列出的，虽然我也不晓得原文为啥不列全）
+
+$$
+\begin{aligned}
+a_{111} &= 0,\ &a_{112} = 0\\
+*a_{121} &= 1,\ &a_{122} = 1\\
+a_{131} &= 0,\ &a_{132} = 0\\
+b_{111} &= 0,\ &b_{112} = 0\\
+\\
+*a_{211} &= 1,\ &a_{212} = 0\\
+a_{221} &= 0,\ &a_{222} = 0\\
+*a_{231} &= -1,\ &a_{232} = -1\\
+b_{211} &= 0,\ &b_{212} = 0\\
+\\
+a_{311} &= 0,\ &a_{312} = 0\\
+a_{321} &= 0,\ &a_{322} = 0\\
+*a_{331} &= 5,\ &a_{332} = -5\\
+*b_{311} &= 1.5,\ &b_{312} = 0.5\\
+\end{aligned}
+$$
+
+计算隶属度函数
+
+$$
+h_{121}(z(t)) = 
+$$
+
 ## 3.3. 规则约减
 
 规则约减与使用LMI进行控制器设计的计算工作量密切相关。
