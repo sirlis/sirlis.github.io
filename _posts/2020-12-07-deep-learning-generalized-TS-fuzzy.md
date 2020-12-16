@@ -105,7 +105,7 @@ $$
 - $z_1(t),\cdots,z_n(t)$ 是已知的变量，**可能为状态量的函数**、外部变量，和/或时间
 - $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 是关于 $\boldsymbol z(t)$ 矩阵
 
-注意，上式中的 $j$ 是遍历所有状态量，$j=1,2,\cdots,n$，$k$ 是遍历所有输入量，$k=1,2,\cdots,m$。上式可以看作描述系统的**非线性**状态方程。该方程刻画了每个状态量的一阶导与所有状态量和控制（输入）量的线性组合关系。非线性可以体现在：**$z_i(t)$ 可为 $x_i(t)$ 的非线性函数**。假设 $z_i(t) = x_i(t)^2$ ，$f_{ij}(\boldsymbol z(t))=2\boldsymbol z(t) = 2\boldsymbol x(t)^2$，则原始状态方程是关于 $\boldsymbol x(t)$ 的非线性方程组。
+注意，上式中的 $j$ 是遍历所有状态量，$j=1,2,\cdots,n$，$k$ 是遍历所有输入量，$k=1,2,\cdots,m$。上式可以看作描述系统的**非线性**状态方程。该方程刻画了每个状态量的一阶导与所有状态量和控制（输入）量的线性组合关系。非线性可以体现在：**$z_i(t)$ 可为 $x_i(t)$ 的非线性函数**。假设 $z_i(t) = sin(x_i(t))$ ，$f_{ij}(\boldsymbol z(t))=\boldsymbol z(t) = sin(\boldsymbol x(t))$，则原始状态方程是关于 $\boldsymbol x(t)$ 的非线性方程组。
 
 定义如下的新变量（表示系数 $f_{ij},g_{ik}$ 的最大最小值）
 
@@ -257,7 +257,7 @@ f_{31}(z(t)) &= 0,\ &f_{32}(z(t)) = 0,\ &f_{33}(z(t)) = x_1(t),\ &g_{11}(z(t)) =
 \end{aligned}
 $$
 
-计算系数的最大最小值，有（加 * 号的是原文中列出的，虽然我也不晓得原文为啥不列全）
+计算系数的最大最小值，有（加 * 号的是原文中列出的，略去了 0 项）
 
 $$
 \begin{aligned}
@@ -278,10 +278,43 @@ a_{321} &= 0,\ &a_{322} = 0\\
 \end{aligned}
 $$
 
-计算隶属度函数
+隶属度函数指定为（加 * 号的是原文中列出的，略去了 0 项）
 
 $$
-h_{121}(z(t)) = 
+\begin{aligned}
+h_{111}(z(t)) &= 0.5,\ &h_{112}(z(t)) = 0.5\\
+*h_{121}(z(t)) &= 0.5,\ &h_{122}(z(t)) = 0.5\\
+h_{131}(z(t)) &= 0.5,\ &h_{132}(z(t)) = 0.5\\
+v_{111}(z(t)) &= 0.5,\ &v_{112}(z(t)) = 0.5\\
+\\
+*h_{211}(z(t)) &= {\rm cos}x_2(t),\ &h_{212}(z(t)) = 1-{\rm cos}x_2(t)\\
+h_{221}(z(t)) &= 0.5,\ &h_{222}(z(t)) = 0.5\\
+*h_{231}(z(t)) &= 0.5,\ &h_{232}(z(t)) = 0.5\\
+v_{211}(z(t)) &= 0.5,\ &h_{212}(z(t)) = 0.5\\
+\\
+h_{311}(z(t)) &= 0.5,\ &h_{312}(z(t)) = 0.5\\
+h_{321}(z(t)) &= 0.5,\ &h_{322}(z(t)) = 0.5\\
+*h_{331}(z(t)) &= \frac{x_1(t)+5}{10},\ &h_{332}(z(t)) = \frac{5-x_1(t)}{10}\\
+*v_{311}(z(t)) &= \frac{{\rm sin}x_3(t)+1}{2},\ &v_{312}(z(t)) = \frac{1-{\rm sin}x_3(t)}{2}\\
+\end{aligned}
+$$
+
+根据一般形式
+
+$$
+\dot \boldsymbol x(t) =\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)
+$$
+
+则原系统对应的模糊模型可以写为（所有 0 项乘积为 0，因此可以不用考虑）
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t) = &h_{121}a_{121}\boldsymbol U_{12} \boldsymbol x(t)+h_{122}a_{122}\boldsymbol U_{12} \boldsymbol x(t)+\\
+& h_{211}a_{211}\boldsymbol U^A_{21} \boldsymbol x(t)+h_{212}a_{212}\boldsymbol U^A_{21} \boldsymbol x(t)+\\
+& h_{231}a_{231}\boldsymbol U^A_{23} \boldsymbol x(t)+h_{232}a_{232}\boldsymbol U^A_{23} \boldsymbol x(t)+\\
+& h_{331}a_{331}\boldsymbol U^A_{33} \boldsymbol x(t)+h_{332}a_{332}\boldsymbol U^A_{33} \boldsymbol x(t)+\\
+& v_{311}b_{311}\boldsymbol U^B_{31} \boldsymbol u(t)+v_{312}b_{312}\boldsymbol U^B_{31} \boldsymbol u(t)
+\end{aligned}
 $$
 
 ## 3.3. 规则约减
