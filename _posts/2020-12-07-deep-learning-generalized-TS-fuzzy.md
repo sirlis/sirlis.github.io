@@ -14,7 +14,10 @@ math: true
 - [1. 引言](#1-引言)
 - [2. 传统 TS 模糊系统](#2-传统-ts-模糊系统)
 - [3. 扩展 TS 模糊系统](#3-扩展-ts-模糊系统)
-  - [3.1. 规则约减](#31-规则约减)
+  - [3.1. 建模](#31-建模)
+  - [3.2. 建模举例](#32-建模举例)
+  - [3.3. 规则约减](#33-规则约减)
+  - [3.4. 举例](#34-举例)
 - [4. 参考文献](#4-参考文献)
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -88,6 +91,8 @@ $h_i(\boldsymbol z(t))$ 是每条规则的归一化权重，$M_{ji}(z_j(t)$ 是�
 
 # 3. 扩展 TS 模糊系统
 
+## 3.1. 建模
+
 考虑某一类**非线性**系统表示如下：
 
 $$
@@ -148,7 +153,7 @@ $$
 \end{aligned}
 $$
 
-$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。<font color=red>（虽然我没看懂为啥有第一个求和符号，难道等号左边从分量变成矩阵形式需要求和？）</font>
+$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。<font color=red>（没看懂可以参考后面的建模举例）</font>
 
 将上述式子转为矩阵形式，如下
 
@@ -188,13 +193,33 @@ $$
 
 作者表明，$a_{ijl}, b_{ikl}$ 再规则约减中非常重要，上面矩阵和的式子在规则约减中十分方便。
 
-## 3.1. 规则约减
+## 3.2. 建模举例
+
+考虑如下非线性系统
+
+$$
+\begin{aligned}
+\left\{
+\begin{array}{l}
+\dot x_1(t) = x_2(t)\\
+\dot x_2(t) = x_1(t){\rm cos}x_2(t)-x_3(t)\\
+\dot x_3(t) = x_1(t)x_3(t) + (1+\varepsilon {\rm sin}x_3(t))u(t)
+\end{array}
+\right.
+\end{aligned}
+$$
+
+## 3.3. 规则约减
 
 规则约减与使用LMI进行控制器设计的计算工作量密切相关。
 
 基本思路：将非线性项 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 替换为常数项 $a_{i_0j_0},b_{i_0k_0}$，其中 $a_{i_0j_0}=(a_{ij1}+a_{ij2})/2,\ b_{i_0k_0} = (b_{ik1}+b_{ik2})/2$。
 
 对于任意的
+
+## 3.4. 举例
+
+
 
 # 4. 参考文献
 
