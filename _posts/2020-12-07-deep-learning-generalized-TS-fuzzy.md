@@ -448,19 +448,51 @@ $$
 
 $$
 \begin{aligned}
-  \boldsymbol A_1 &= \boldsymbol A_b + a_{211}\boldsymbol U_{21}^A + a_{331}\boldsymbol U_{33}^A =
+  \boldsymbol A_1 &= \boldsymbol A_5 = \boldsymbol A_b + a_{211}\boldsymbol U_{21}^A + a_{331}\boldsymbol U_{33}^A =
   \begin{bmatrix}
   0&1&0\\
   \boldsymbol 1&0&-1\\
   0&0&\boldsymbol 5
   \end{bmatrix}\\
-  \boldsymbol A_2 &= \boldsymbol A_b + a_{212}\boldsymbol U_{21}^A + a_{331}\boldsymbol U_{33}^A =
+  \boldsymbol A_2 &= \boldsymbol A_6  = \boldsymbol A_b + a_{212}\boldsymbol U_{21}^A + a_{331}\boldsymbol U_{33}^A =
   \begin{bmatrix}
   0&1&0\\
   \boldsymbol 0&0&-1\\
   0&0&\boldsymbol 5
   \end{bmatrix}\\
-\end{aligned}
+  \boldsymbol A_3 &= \boldsymbol A_7 = \boldsymbol A_b + a_{211}\boldsymbol U_{21}^A + a_{332}\boldsymbol U_{33}^A =
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 1&0&-1\\
+  0&0&-\boldsymbol 5
+  \end{bmatrix}\\
+  \boldsymbol A_4 &= \boldsymbol A_8 = \boldsymbol A_b + a_{212}\boldsymbol U_{21}^A + a_{332}\boldsymbol U_{33}^A =
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0&0&-1\\
+  0&0&-\boldsymbol 5
+  \end{bmatrix}\\
+  \boldsymbol B_1 &= \boldsymbol B_2 = \boldsymbol B_3 = \boldsymbol B_4 = b_{311}U_{31}^B =
+  \begin{bmatrix}
+  0\\
+  0\\
+  1.5
+  \end{bmatrix}\\
+  \boldsymbol B_5 &= \boldsymbol B_6 = \boldsymbol B_7 = \boldsymbol B_8 = b_{312}U_{31}^B =
+  \begin{bmatrix}
+  0\\
+  0\\
+  0.5
+  \end{bmatrix}\\
+  \end{aligned}
+$$
+
+至此终于推得文中 「**易得**」 的系数，汗！
+
+按照整理后的系数和矩阵重新写系统状态方程，有
+
+$$
+\dot \boldsymbol x(t) = \sum_{i=1}^8 h_i(\boldsymbol z(t))[\boldsymbol A_i\boldsymbol x(t) + \boldsymbol B_i\boldsymbol u(t)]
 $$
 
 ---
