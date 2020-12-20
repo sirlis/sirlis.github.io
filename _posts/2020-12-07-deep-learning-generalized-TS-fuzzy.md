@@ -13,7 +13,7 @@ math: true
 ---
 - [1. 引言](#1-引言)
 - [2. 传统 TS 模糊系统](#2-传统-ts-模糊系统)
-- [3. 扩展 TS 模糊系统](#3-扩展-ts-模糊系统)
+- [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
   - [3.1. 建模](#31-建模)
   - [3.2. 建模举例](#32-建模举例)
   - [3.3. 规则约减](#33-规则约减)
@@ -39,9 +39,9 @@ math: true
 注意，在本篇文章之前，还有两篇关键文章作为前续研究基础：
 
 - H. O. Wang, K. Tanaka, and M. Griffin, “**Parallel distributed compensation of nonlinear systems by Takagi-Sugeno fuzzy model**,” in Proceedings of 1995 IEEE International Conference on Fuzzy Systems. The International Joint Conference of the Fourth IEEE International Conference on Fuzzy Systems and The Second International Fuzzy Engineering Symposium, Yokohama, Japan, **1995**, vol. 2, pp. 531–538, doi: 10.1109/FUZZY.1995.409737.
-  应该是首次将TS模糊系统用于非线性系统的近似，也分析了 Lyapunov 稳定性，研究了并行分布式补偿（PDC），给出了状态反馈控制律下的稳定性判别准则。
+  **首次将TS模糊系统用于非线性系统的近似**，给出了模糊系统 Lyapunov 稳定性的充分条件，研究了并行分布式补偿（PDC），给出了状态反馈控制律下的稳定性判别准则。
 - D. Localmodel, “**Stability Analysis of Fuzzy Control Systems**,” IEEE TRANSACTIONS ON SYSTEMS, MAN, AND CYBERNETICS-PART B: CYBERNETICS, vol. 26, no. 1, p. 4, **1996**.
-  貌似放宽了稳定性的条件（还没细看）。
+  提出了模糊状态反馈控制器，貌似放宽了稳定性的条件（还没细看）。
 
 
 
@@ -89,7 +89,9 @@ $h_i(\boldsymbol z(t))$ 是每条规则的归一化权重，$M_{ji}(z_j(t)$ 是�
 
 > MamdaniE.H.and Assilian 5., Applications of fuzzy algorithms for control of simple dynamic Plant, IEEE Proc. Part-D, 1974, vol. 121, no. 8, pp: 1585-1588
 
-# 3. 扩展 TS 模糊系统
+# 3. 广义 TS 模糊系统
+
+**个人前言**：传统的 TS 模糊系统是有规则个数的概念的，但是下文作者提出的广义 TS 模糊系统不再强调规则的概念，而是直接对状态方程进行模糊近似。
 
 ## 3.1. 建模
 
@@ -153,7 +155,7 @@ $$
 \end{aligned}
 $$
 
-$i$ 是输入向量的维度，$j$ **也是**输入向量的维度（没想到吧？表示每个输入向量的一阶导与所有输入向量的关系），$l$ 是取大取小值的维度。<font color=red>（没看懂可以参考后面的建模举例）</font>
+$i$ 是输入向量的维度（表示状态方程的每个状态量），$j$ **也是**输入向量的维度（表示每个状态量的一阶导与所有状态量的关系），$l$ 是取大取小值的维度。<font color=red>（没看懂可以参考后面的建模举例）</font>
 
 将上述式子转为矩阵形式，如下
 
@@ -290,7 +292,7 @@ v_{111}(z(t)) &= 0.5,\ &v_{112}(z(t)) = 0.5\\
 *h_{211}(z(t)) &= {\rm cos}x_2(t),\ &h_{212}(z(t)) = 1-{\rm cos}x_2(t)\\
 h_{221}(z(t)) &= 0.5,\ &h_{222}(z(t)) = 0.5\\
 *h_{231}(z(t)) &= 0.5,\ &h_{232}(z(t)) = 0.5\\
-v_{211}(z(t)) &= 0.5,\ &h_{212}(z(t)) = 0.5\\
+v_{211}(z(t)) &= 0.5,\ &v_{212}(z(t)) = 0.5\\
 \\
 h_{311}(z(t)) &= 0.5,\ &h_{312}(z(t)) = 0.5\\
 h_{321}(z(t)) &= 0.5,\ &h_{322}(z(t)) = 0.5\\
@@ -305,15 +307,60 @@ $$
 \dot \boldsymbol x(t) =\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)
 $$
 
-则原系统对应的模糊模型可以写为（所有 0 项乘积为 0，因此可以不用考虑）
+则原系统对应的模糊模型可以写为（所有 0 项乘积忽略）
 
 $$
 \begin{aligned}
-\dot \boldsymbol x(t) = &h_{121}a_{121}\boldsymbol U_{12} \boldsymbol x(t)+h_{122}a_{122}\boldsymbol U_{12} \boldsymbol x(t)+\\
+\dot \boldsymbol x(t) = &h_{121}a_{121}\boldsymbol U_{12}^A \boldsymbol x(t)+h_{122}a_{122}\boldsymbol U_{12}^A \boldsymbol x(t)+\\
 & h_{211}a_{211}\boldsymbol U^A_{21} \boldsymbol x(t)+h_{212}a_{212}\boldsymbol U^A_{21} \boldsymbol x(t)+\\
 & h_{231}a_{231}\boldsymbol U^A_{23} \boldsymbol x(t)+h_{232}a_{232}\boldsymbol U^A_{23} \boldsymbol x(t)+\\
 & h_{331}a_{331}\boldsymbol U^A_{33} \boldsymbol x(t)+h_{332}a_{332}\boldsymbol U^A_{33} \boldsymbol x(t)+\\
 & v_{311}b_{311}\boldsymbol U^B_{31} \boldsymbol u(t)+v_{312}b_{312}\boldsymbol U^B_{31} \boldsymbol u(t)
+\end{aligned}
+$$
+
+进行矩阵化，$h, a$ 的前两个下标以及 $U$ 的下标为行列号，$h, a$ 的第三个下标为最大最小值的加权和作为元素值
+
+$$
+\begin{aligned}
+\boldsymbol A_1 &= h_{121}a_{121}\boldsymbol U_{12}^A\\
+\boldsymbol A_2 &= h_{122}a_{122}\boldsymbol U_{12}^A\\
+\boldsymbol A_3 &= h_{211}a_{211}\boldsymbol U_{21}^A\\
+\boldsymbol A_4 &= h_{212}a_{212}\boldsymbol U_{21}^A\\
+\boldsymbol A_5 &= h_{231}a_{231}\boldsymbol U_{23}^A\\
+\boldsymbol A_6 &= h_{232}a_{232}\boldsymbol U_{23}^A\\
+\boldsymbol A_7 &= h_{331}a_{331}\boldsymbol U_{33}^A\\
+\boldsymbol A_8 &= h_{332}a_{332}\boldsymbol U_{33}^A\\
+\boldsymbol B_1 &= v_{311}a_{311}\boldsymbol U_{31}^B\\
+\boldsymbol B_2 &= v_{312}a_{312}\boldsymbol U_{31}^B\\
+\end{aligned}
+$$
+
+令
+
+$$
+\begin{aligned}
+\boldsymbol A &= \boldsymbol A_1+\boldsymbol A_2+\cdots+\boldsymbol A_8\\
+\boldsymbol B &= \boldsymbol B_1+\boldsymbol B_2
+\end{aligned}
+$$
+
+有
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t) &= \boldsymbol A\boldsymbol x(t) + \boldsymbol B\boldsymbol u(t)\\
+\dot \boldsymbol x(t) &= \boldsymbol A\boldsymbol x(t) + \boldsymbol B\boldsymbol u(t)\\
+\boldsymbol A &= \begin{bmatrix}
+  0&h_{121}a_{121}\boldsymbol+h_{122}a_{122}&0\\
+  h_{211}a_{211}\boldsymbol+h_{212}a_{212}&0&h_{231}a_{231}\boldsymbol+h_{232}a_{232}\\
+  0&0&h_{331}a_{331}\boldsymbol+h_{332}a_{332}
+\end{bmatrix}\\
+\boldsymbol B &= \begin{bmatrix}
+  0\\
+  0\\
+  v_{311}b_{311}\boldsymbol+v_{312}b_{312}
+\end{bmatrix}
 \end{aligned}
 $$
 
