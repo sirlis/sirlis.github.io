@@ -259,7 +259,7 @@ f_{31}(z(t)) &= 0,\ &f_{32}(z(t)) = 0,\ &f_{33}(z(t)) = x_1(t),\ &g_{11}(z(t)) =
 \end{aligned}
 $$
 
-计算系数的最大最小值，有（加 * 号的是原文中列出的，略去了 0 项）
+计算系数的最大最小值，有（加 * 号的是原文中列出的，略去了  $a=b=0$ 项）
 
 $$
 \begin{aligned}
@@ -280,7 +280,7 @@ a_{321} &= 0,\ &a_{322} = 0\\
 \end{aligned}
 $$
 
-隶属度函数指定为（加 * 号的是原文中列出的，略去了 0 项）
+隶属度函数指定为（加 * 号的是原文中列出的，略去了 $a=b=0$ 对应项）
 
 $$
 \begin{aligned}
@@ -319,7 +319,7 @@ $$
 \end{aligned}
 $$
 
-进行矩阵化，$h, a$ 的前两个下标以及 $U$ 的下标为行列号，$h, a$ 的第三个下标为最大最小值的加权和作为元素值
+进行矩阵化，$h, a$ 的前两个下标以及 $U$ 的下标为行列号，$h, a$ 的第三个下标为最大最小值的加权和作为元素值，列写出子矩阵
 
 $$
 \begin{aligned}
@@ -350,6 +350,135 @@ $$
 $$
 \begin{aligned}
 \dot \boldsymbol x(t) &= \boldsymbol A\boldsymbol x(t) + \boldsymbol B\boldsymbol u(t)\\
+\end{aligned}
+$$
+
+**但是这并不是广义模糊 TS 系统的形式**，下面进行转换。
+
+注意到（存在两组最大最小值相等的情况）
+
+$$
+a_{121}=a_{122}=1,\ a_{231}=a_{232}=-1
+$$
+
+则
+
+$$
+\begin{aligned}
+\boldsymbol A_1 &= \boldsymbol A_2 = 0.5\boldsymbol U_{12}^A\\
+\boldsymbol A_5 &= \boldsymbol A_6 = -0.5\boldsymbol U_{23}^A\\
+\boldsymbol A_{b1} &= \boldsymbol A_1 + \boldsymbol A_2 = \begin{bmatrix}
+  0&1&0\\
+  0&0&0\\
+  0&0&0
+\end{bmatrix}\\
+\boldsymbol A_{b2} &= \boldsymbol A_5 + \boldsymbol A_6 = \begin{bmatrix}
+  0&0&0\\
+  0&0&-1\\
+  0&0&0
+\end{bmatrix}\\
+\boldsymbol A_{b} &= \boldsymbol A_{b1} + \boldsymbol A_{b2} = \begin{bmatrix}
+  0&1&0\\
+  0&0&-1\\
+  0&0&0
+\end{bmatrix}
+\end{aligned}
+$$
+
+分析其它子矩阵。将子矩阵进行变换，如下
+
+$$
+\begin{aligned}
+\boldsymbol A_3 &= h_{211}a_{211}\boldsymbol U_{21}^A = h_{211}(v_{311}+v_{312})(h_{331}+h_{332})a_{211}\boldsymbol U_{21}^A\\
+\boldsymbol A_4 &= h_{212}a_{211}\boldsymbol U_{21}^A = h_{212}(v_{311}+v_{312})(h_{331}+h_{332})a_{212}\boldsymbol U_{21}^A\\
+\boldsymbol A_7 &= h_{331}a_{331}\boldsymbol U_{33}^A = h_{331}(v_{311}+v_{312})(h_{211}+h_{212}) a_{331}\boldsymbol U_{33}^A\\
+\boldsymbol A_8 &= h_{332}a_{332}\boldsymbol U_{33}^A = h_{332}(v_{311}+v_{312})(h_{211}+h_{212})a_{332}\boldsymbol U_{33}^A\\
+\boldsymbol B_1 &= v_{311}b_{311}\boldsymbol U_{31}^B= v_{311}(h_{211}+h_{212})(h_{331}+h_{332})b_{311}\boldsymbol U_{31}^B\\
+\boldsymbol B_2 &= v_{312}b_{312}\boldsymbol U_{31}^B= v_{312}(h_{211}+h_{212})(h_{331}+h_{332})b_{312}\boldsymbol U_{31}^B\\
+\end{aligned}
+$$
+
+类似的，将前面的两个矩阵的系数进行配合
+
+$$
+\begin{aligned}
+  \boldsymbol A_{b} &= (h_{211}+h_{212})(v_{311}+v_{312})(h_{331}+h_{332})\boldsymbol A_{b}\\
+\end{aligned}
+$$
+
+将系数展开后得到 **八** 组系数
+
+$$
+\begin{aligned}
+h_1 &= h_{211}h_{331}v_{311}\\
+h_2 &= h_{212}h_{331}v_{311}\\
+h_3 &= h_{211}h_{332}v_{311}\\
+h_4 &= h_{212}h_{332}v_{311}\\
+h_5 &= h_{211}h_{331}v_{312}\\
+h_6 &= h_{212}h_{331}v_{312}\\
+h_7 &= h_{211}h_{332}v_{312}\\
+h_8 &= h_{212}h_{332}v_{312}\\
+\end{aligned}
+$$
+
+则
+
+$$
+\begin{aligned}
+  \boldsymbol A_{b} &= (h_1+h_2+h_3+h_4+h_5+h_6+h_7+h_8)\boldsymbol A_{b}\\
+  \boldsymbol A_3 &=(h_1+h_3+h_5+h_7)a_{211}\boldsymbol U_{21}^A\\
+  \boldsymbol A_4 &=(h_2+h_4+h_6+h_8)a_{212}\boldsymbol U_{21}^A\\
+  \boldsymbol A_7 &=(h_1+h_2+h_5+h_6)a_{331}\boldsymbol U_{33}^A\\
+  \boldsymbol A_8 &=(h_3+h_4+h_7+h_8)a_{332}\boldsymbol U_{33}^A\\
+  \boldsymbol B_1 &= (h_1+h_2+h_3+h_4)\boldsymbol b_{311}U_{31}^B\\
+  \boldsymbol B_2 &= (h_5+h_6+h_7+h_8)\boldsymbol b_{312}U_{31}^B\\
+\end{aligned}
+$$
+
+按照系数 $h$ 重新整理矩阵，有
+
+$$
+\begin{aligned}
+\boldsymbol A = &h_1\boldsymbol A_1+h_2\boldsymbol A_2+\cdots+h_8\boldsymbol A_8 +\\
+&h_1\boldsymbol B_1 + h_2\boldsymbol B_2 + \cdots + h_8\boldsymbol B_8
+\end{aligned}
+$$
+
+其中
+
+$$
+\begin{aligned}
+  \boldsymbol A_1 &= \boldsymbol A_b + a_{211}\boldsymbol U_{21}^A + a_{331}\boldsymbol U_{33}^A =
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 1&0&-1\\
+  0&0&\boldsymbol 5
+  \end{bmatrix}\\
+  \boldsymbol A_2 &= \boldsymbol A_b + a_{212}\boldsymbol U_{21}^A + a_{331}\boldsymbol U_{33}^A =
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0&0&-1\\
+  0&0&\boldsymbol 5
+  \end{bmatrix}\\
+\end{aligned}
+$$
+
+---
+
+
+令
+
+$$
+\begin{aligned}
+\boldsymbol A &= \boldsymbol A_1+\boldsymbol A_2+\cdots+\boldsymbol A_8\\
+\boldsymbol B &= \boldsymbol B_1+\boldsymbol B_2
+\end{aligned}
+$$
+
+有
+
+$$
+\begin{aligned}
 \dot \boldsymbol x(t) &= \boldsymbol A\boldsymbol x(t) + \boldsymbol B\boldsymbol u(t)\\
 \boldsymbol A &= \begin{bmatrix}
   0&h_{121}a_{121}\boldsymbol+h_{122}a_{122}&0\\
