@@ -151,7 +151,7 @@ $$
 $$
 \begin{aligned}
 \dot x_i(t) &= \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)\\
-&=\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl}x_j(t) + \sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}u_k(t)
+&=\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl}x_j(t) + \sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}u_k(t)
 \end{aligned}
 $$
 
@@ -161,8 +161,8 @@ $i$ 是输入向量的维度（表示状态方程的每个状态量），$j$ **�
 
 $$
 \begin{aligned}
-\dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
-&=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t)) \boldsymbol A_{ijl} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))\boldsymbol B_{ikl}\boldsymbol u(t)
+\dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+&=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t)) \boldsymbol A_{ijl} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))\boldsymbol B_{ikl}\boldsymbol u(t)
 \end{aligned}
 $$
 
@@ -304,7 +304,7 @@ $$
 根据一般形式
 
 $$
-\dot \boldsymbol x(t) =\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)
+\dot \boldsymbol x(t) =\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)
 $$
 
 则原系统对应的模糊模型可以写为（所有 0 项乘积忽略）
@@ -505,7 +505,7 @@ $$
 
 系统中有 4 项非零 $h$ 和 1 项非零 $v$。4 项非零 $h$ 中有两项系数为常数，对应的最大最小值相同。因此，系统一共有 $2+1=3$ 项非常数项系数。这三个系数进行排列组合乘法，就得到了 $C_2^1C_2^1C_2^1=8$ 个权重系数 $h$，也就对应 **8** 条模糊规则。
 
-如果系统的所有系数项都不为常数，是否意味着一共有 $\underbrace{C_2^1\cdots C_2^1}_{12}=4096$ 条规则！？
+如果系统的所有系数项都不为常数，是否意味着一共有 $\underbrace{C_2^1\cdots C_2^1}_{12}=4096$ 条规则！？作者在后面分析了一般系统状态方程和广义 TS 模型之间的等价性（也即主要确定规则的个数）。
 
 ## 3.3. 规则约减
 
@@ -513,7 +513,58 @@ $$
 
 基本思路：将非线性项 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 替换为常数项 $a_{i_0j_0},b_{i_0k_0}$，其中 $a_{i_0j_0}=(a_{ij1}+a_{ij2})/2,\ b_{i_0k_0} = (b_{ik1}+b_{ik2})/2$。
 
-对于任意的
+对于任意的 $i_0,j_0$，对 $f_{i_0j_0}(\boldsymbol z(t))$ 约减后的模型为
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t) = &\mathop{\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2}\limits_{(i,j)\neq (i_0,j_0)} h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)\\
+&+a_{i_0j_0}\boldsymbol U^A_{i_0j_0} \boldsymbol x(t)\\
+&+\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)
+\end{aligned}
+$$
+
+类似地，对于任意的 $i_0,k_0$，对 $g_{i_0j_0}(\boldsymbol z(t))$ 约减后的模型为
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t) = &\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)\\
+&+\mathop{\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2}\limits_{(i,k)\neq (i_0,k_0)} v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+&+b_{i_0k_0}\boldsymbol U^B_{i_0k_0} \boldsymbol u(t)
+\end{aligned}
+$$
+
+下面分析了一般系统状态方程和广义 TS 模型之间的**等价性**（也即主要确定规则的个数），首先给出结论
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)+\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+  &=\sum_{p=1}^{2^{n(n+m)}} h_p(\boldsymbol z(t))[\boldsymbol A_p\boldsymbol x(t) + \boldsymbol B_p\boldsymbol u(t)]                                     
+\end{aligned}
+$$
+
+下面进行一步步推导分析（原文中又是一个 where 易得，我人傻了）。
+
+原模型状态方程展开后形如
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) =
+  &(h_{111}a_{111}+h_{112}a_{112}) \boldsymbol U^A_{11} \boldsymbol x(t)\\
+  &+(h_{121}a_{121}+h_{122}a_{122}) \boldsymbol U^A_{12} \boldsymbol x(t)\\
+  &+\cdots\\
+  &+(h_{1n1}a_{1n1}+h_{1n2}a_{1n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\\
+  &<1,j,l>\\
+  &+(h_{211}a_{211}+h_{212}a_{212}) \boldsymbol U^A_{11} \boldsymbol x(t)\\
+  &+(h_{221}a_{221}+h_{222}a_{222}) \boldsymbol U^A_{12} \boldsymbol x(t)\\
+  &+\cdots\\
+  &+(h_{2n1}a_{2n1}+h_{2n2}a_{2n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\\
+  &<2,j,l>\\
+  &+\cdots\\
+  &<i,j,l>\\
+  &+\cdots\\
+  &<n,j,l>\\
+\end{aligned}
+$$
 
 ## 3.4. 举例
 
