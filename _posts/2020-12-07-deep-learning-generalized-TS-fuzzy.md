@@ -544,7 +544,7 @@ $$
 
 下面进行一步步推导分析（原文中又是一个 where 易得，我人傻了）。
 
-原模型状态方程展开后形如
+<!-- 原模型状态方程展开后形如
 
 $$
 \begin{aligned}
@@ -558,23 +558,52 @@ $$
   &+(h_{221}a_{221}+h_{222}a_{222}) \boldsymbol U^A_{22} \boldsymbol x(t)\\
   &+\cdots\\
   &+(h_{2n1}a_{2n1}+h_{2n2}a_{2n2}) \boldsymbol U^A_{2n} \boldsymbol x(t)\quad <2,j,l>\\
-  &+\cdots\\
-  &<i,j,l>\\
-  &+\cdots\\
-  &<n,j,l>\\
+  &+\cdots+<i,j,l>+\cdots<n,j,l>\\
+  &+<1,k,l>+\cdots+<m,k,l>
 \end{aligned}
-$$
+$$ -->
 
-利用系数和为 1 的性质，对每一项系数做乘法展开
+以系数 $h_{ijl}$ 为例，利用系数和为 1 的性质，对其做乘法展开
 
 $$
 \begin{aligned}
-  h_{111}a_{111} = &h_{111}\overbrace{(h_{121}+h_{122})\cdots (h_{1n1}+h_{1n2})}^{n-1}&<1>\\
+  h_{ijl} = &h_{ijl}\\
+  &\cdot\overbrace{(h_{111}+h_{112})\cdots (h_{1n1}+h_{1n2})}^{n}&<1>\\
   &\cdot\overbrace{(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})}^{n}&<2>\\
-  &\cdots\\
+  &\cdots&\cdots\\
   &\cdot\overbrace{(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})}^{n}&<n>\\
-  &\cdot a_{111}\\
+  &\cdot\overbrace{(v_{111}+v_{n12})\cdots (v_{1m1}+v_{nm2})}^{m}&<1>\\
+  &\cdots&\cdots\\
+  &\cdot\overbrace{(v_{n11}+v_{n12})\cdots (v_{nm1}+v_{nm2})}^{n}&<n>\\
+  = &\sum_{p=1}^{2^{n(n+m)}} h_{ijl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
 \end{aligned}
+$$
+
+上式中一共有 $n\cdot n+n\cdot m$ 个括号，从每个括号中任意取一项（$l=1\ or\ 2$）组成连乘。前 $n$ 行的每一行有 $2^n$ 种取法，一共有 $2n\cdot n$ 种取法。后 $n$ 行的每一行有 $2^m$ 种取法，一共有 $2n\cdot m$ 种取法。一共有 $2^{n(n+m)}$ 种取法。所有取法是求和的关系，对应上式的第一个求和符号，后面三个连乘表示具体取出后的每一项（其中 $l$ 与选择有关，不确定）。
+
+简而言之，所有系数都等于它们自身乘以所有可能的权重然后求和（因为所有可能权重的和为 **1**），即
+
+$$
+\begin{aligned}
+  h_{ijl} &=\sum_{p=1}^{2^{n(n+m)}} h_{ijl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}\\
+  v_{ikl} &=\sum_{p=1}^{2^{n(n+m)}} v_{ikl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ikl}v_{ikl}
+\end{aligned}
+$$
+
+那么
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}a_{ijl}\boldsymbol U_{ij}^A + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+  &= \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl} + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ijl}\\
+  &=\sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl} \left[ \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl} + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ijl}\right] \\
+\end{aligned}
+$$
+
+同理
+
+$$
+v_{ikl}b_{ikl} =\sum_{p=1}^{2^{n(n+m)}} v_{ikl}b_{ikl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ikl}v_{ikl}
 $$
 
 ## 3.4. 举例
