@@ -552,17 +552,28 @@ $$
   &(h_{111}a_{111}+h_{112}a_{112}) \boldsymbol U^A_{11} \boldsymbol x(t)\\
   &+(h_{121}a_{121}+h_{122}a_{122}) \boldsymbol U^A_{12} \boldsymbol x(t)\\
   &+\cdots\\
-  &+(h_{1n1}a_{1n1}+h_{1n2}a_{1n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\\
-  &<1,j,l>\\
-  &+(h_{211}a_{211}+h_{212}a_{212}) \boldsymbol U^A_{11} \boldsymbol x(t)\\
-  &+(h_{221}a_{221}+h_{222}a_{222}) \boldsymbol U^A_{12} \boldsymbol x(t)\\
+  &+(h_{1n1}a_{1n1}+h_{1n2}a_{1n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\quad <1,j,l>\\
+  &\\
+  &+(h_{211}a_{211}+h_{212}a_{212}) \boldsymbol U^A_{21} \boldsymbol x(t)\\
+  &+(h_{221}a_{221}+h_{222}a_{222}) \boldsymbol U^A_{22} \boldsymbol x(t)\\
   &+\cdots\\
-  &+(h_{2n1}a_{2n1}+h_{2n2}a_{2n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\\
-  &<2,j,l>\\
+  &+(h_{2n1}a_{2n1}+h_{2n2}a_{2n2}) \boldsymbol U^A_{2n} \boldsymbol x(t)\quad <2,j,l>\\
   &+\cdots\\
   &<i,j,l>\\
   &+\cdots\\
   &<n,j,l>\\
+\end{aligned}
+$$
+
+利用系数和为 1 的性质，对每一项系数做乘法展开
+
+$$
+\begin{aligned}
+  h_{111}a_{111} = &h_{111}\overbrace{(h_{121}+h_{122})\cdots (h_{1n1}+h_{1n2})}^{n-1}&<1>\\
+  &\cdot\overbrace{(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})}^{n}&<2>\\
+  &\cdots\\
+  &\cdot\overbrace{(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})}^{n}&<n>\\
+  &\cdot a_{111}\\
 \end{aligned}
 $$
 
