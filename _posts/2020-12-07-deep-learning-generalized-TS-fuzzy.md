@@ -225,8 +225,8 @@ $$
 
 $$
 \begin{aligned}
-\underline d_1 &= -0.5\\
-\overline d_1 &= 0.5\\
+\underline d_1 &= -5\\
+\overline d_1 &= 5\\
 \underline d_2 &= -\pi/2\\
 \overline d_2 &= \pi/2\\
 \underline d_3 &= -\pi\\
@@ -495,39 +495,21 @@ $$
 \dot \boldsymbol x(t) = \sum_{i=1}^8 h_i(\boldsymbol z(t))[\boldsymbol A_i\boldsymbol x(t) + \boldsymbol B_i\boldsymbol u(t)]
 $$
 
+>Note that this fuzzy model has nonlinear terms in $A(2,1),A(3,3)$, and $B(3,1)$, where denotes the (2, 1) element of $A$ matrix.
+
+原文说模糊系统的 $\boldsymbol A$ 的 $(2,1),(3,3)$ 元素和矩阵 $\boldsymbol B$ 的 $(3,1)$ 元素是非线性项。**个人**觉得，单纯从系数矩阵而言 $\boldsymbol A(3,3)$ 并不是非线性项，但是对于整个系统而言的确是非线性的。
+
 ---
 
+进一步分析。上面的例子中，状态量维度为 3 即状态方程个数为 3，控制量维度为 1。那么一共有 $方程个数3\times 状态量个数3=9$ 个系数项 $f$， $方程个数3\times 控制量维度1=3$ 个系数项 $v$。
 
-令
+系统中有 4 项非零 $h$ 和 1 项非零 $v$。4 项非零 $h$ 中有两项系数为常数，对应的最大最小值相同。因此，系统一共有 $2+1=3$ 项非常数项系数。这三个系数进行排列组合乘法，就得到了 $C_2^1C_2^1C_2^1=8$ 个权重系数 $h$，也就对应 **8** 条模糊规则。
 
-$$
-\begin{aligned}
-\boldsymbol A &= \boldsymbol A_1+\boldsymbol A_2+\cdots+\boldsymbol A_8\\
-\boldsymbol B &= \boldsymbol B_1+\boldsymbol B_2
-\end{aligned}
-$$
-
-有
-
-$$
-\begin{aligned}
-\dot \boldsymbol x(t) &= \boldsymbol A\boldsymbol x(t) + \boldsymbol B\boldsymbol u(t)\\
-\boldsymbol A &= \begin{bmatrix}
-  0&h_{121}a_{121}\boldsymbol+h_{122}a_{122}&0\\
-  h_{211}a_{211}\boldsymbol+h_{212}a_{212}&0&h_{231}a_{231}\boldsymbol+h_{232}a_{232}\\
-  0&0&h_{331}a_{331}\boldsymbol+h_{332}a_{332}
-\end{bmatrix}\\
-\boldsymbol B &= \begin{bmatrix}
-  0\\
-  0\\
-  v_{311}b_{311}\boldsymbol+v_{312}b_{312}
-\end{bmatrix}
-\end{aligned}
-$$
+如果系统的所有系数项都不为常数，是否意味着一共有 $\underbrace{C_2^1\cdots C_2^1}_{12}=4096$ 条规则！？
 
 ## 3.3. 规则约减
 
-规则约减与使用LMI进行控制器设计的计算工作量密切相关。
+规则约减与使用 LMI 进行控制器设计的计算工作量密切相关。
 
 基本思路：将非线性项 $f_{ij}(\boldsymbol z(t)), g_{ik}(\boldsymbol z(t))$ 替换为常数项 $a_{i_0j_0},b_{i_0k_0}$，其中 $a_{i_0j_0}=(a_{ij1}+a_{ij2})/2,\ b_{i_0k_0} = (b_{ik1}+b_{ik2})/2$。
 
