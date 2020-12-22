@@ -537,7 +537,7 @@ $$
 
 $$
 \begin{aligned}
-  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)+\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)+\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
   &=\sum_{p=1}^{2^{n(n+m)}} h_p(\boldsymbol z(t))[\boldsymbol A_p\boldsymbol x(t) + \boldsymbol B_p\boldsymbol u(t)]                                     
 \end{aligned}
 $$
@@ -563,32 +563,42 @@ $$
 \end{aligned}
 $$ -->
 
-以系数 $h_{ijl}$ 为例，利用系数和为 1 的性质，对其做乘法展开
+利用各项系数和为 1 的性质，进行乘法展开
 
 $$
 \begin{aligned}
-  h_{ijl} = &h_{ijl}\\
-  &\cdot\overbrace{(h_{111}+h_{112})\cdots (h_{1n1}+h_{1n2})}^{n}&<1>\\
-  &\cdot\overbrace{(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})}^{n}&<2>\\
-  &\cdots&\cdots\\
-  &\cdot\overbrace{(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})}^{n}&<n>\\
+  1 = &\overbrace{(h_{111}+h_{112})\cdots (h_{1n1}+h_{1n2})}^{n}&<1>\\
+  &\cdot(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})&<2>\\
+  &\cdot\quad \cdots&\cdots\\
+  &\cdot(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})&<n>\\
   &\cdot\overbrace{(v_{111}+v_{n12})\cdots (v_{1m1}+v_{nm2})}^{m}&<1>\\
-  &\cdots&\cdots\\
-  &\cdot\overbrace{(v_{n11}+v_{n12})\cdots (v_{nm1}+v_{nm2})}^{n}&<n>\\
-  = &\sum_{p=1}^{2^{n(n+m)}} h_{ijl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
+  &\cdot\quad \cdots&\cdots\\
+  &\cdot(v_{n11}+v_{n12})\cdots (v_{nm1}+v_{nm2})&<n>\\
 \end{aligned}
 $$
 
-上式中一共有 $n\cdot n+n\cdot m$ 个括号，从每个括号中任意取一项（$l=1\ or\ 2$）组成连乘。前 $n$ 行的每一行有 $2^n$ 种取法，一共有 $2n\cdot n$ 种取法。后 $n$ 行的每一行有 $2^m$ 种取法，一共有 $2n\cdot m$ 种取法。一共有 $2^{n(n+m)}$ 种取法。所有取法是求和的关系，对应上式的第一个求和符号，后面三个连乘表示具体取出后的每一项（其中 $l$ 与选择有关，不确定）。
+上式中一共有 $n\cdot n+n\cdot m$ 个括号，从每个括号中任意取一个元素（$l=1\ or\ 2$）组成连乘项。第一行展开后共有 $2^n$ 项，则前 $n$ 行一共有 $2^{n\cdot n}$ 项。类似地，后 $n$ 行中，第一行展开后共有 $2^m$ 项，则后 $n$ 行一共有 $2^{m\cdot n}$ 项。那么，整个式子一共有 $2^{n\cdot n}2^{m\cdot n}=2^{n(n+m)}$ 项。每一项都是所有 $i,j,k$ 对不同 $l$ 的排列组合，即一共有 $2^{n(n+m)}$ 种排列组合。
 
-简而言之，所有系数都等于它们自身乘以所有可能的权重然后求和（因为所有可能权重的和为 **1**），即
+假设所有对 $l$ 的选取均为 $l=1$（上式选取所有括号左边的元素组成一项），则该项为
 
 $$
 \begin{aligned}
-  h_{ijl} &=\sum_{p=1}^{2^{n(n+m)}} h_{ijl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}\\
-  v_{ikl} &=\sum_{p=1}^{2^{n(n+m)}} v_{ikl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ikl}v_{ikl}
+  t_{l=\underbrace{1\cdots1}_{n\cdot n}\underbrace{1\cdots1}_{m\cdot n}} = &(h_{111}\cdots h_{1n1})\cdots(h_{n11}\cdots h_{nn1})\\
+  &\cdot(v_{111}\cdots v_{1n1})\cdots(v_{1m1}\cdots v_{nm1})\\
+  = &\prod_{i=1}^n (h_{i11}\cdots h_{in1}) \cdot (v_{i11} \cdots v_{im1})\\
+  = &\prod_{i=1}^n \prod_{j=1}^n h_{ij1}\cdot (v_{i11}\cdots v_{im1})\\
+  = &\prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ij1}v_{ik1}
 \end{aligned}
 $$
+
+对所有连乘项进行一般化，并进行求和，得到原始乘法展开的简单写法
+
+$$
+1 = \sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
+$$
+
+
+其中 $l$ 与选择有关。
 
 那么
 
