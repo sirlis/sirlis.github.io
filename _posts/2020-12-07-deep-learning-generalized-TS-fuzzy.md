@@ -610,11 +610,7 @@ $$
 \end{aligned}
 $$
 
-同理
-
-$$
-v_{ikl}b_{ikl} =\sum_{p=1}^{2^{n(n+m)}} v_{ikl}b_{ikl} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ikl}v_{ikl}
-$$
+然后我就推不出来了！
 
 ## 3.4. 举例
 
