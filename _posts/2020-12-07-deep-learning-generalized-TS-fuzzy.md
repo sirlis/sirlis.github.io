@@ -15,9 +15,13 @@ math: true
 - [2. 传统 TS 模糊系统](#2-传统-ts-模糊系统)
 - [3. 广义 TS 模糊系统](#3-广义-ts-模糊系统)
   - [3.1. 建模](#31-建模)
-  - [3.2. 建模举例](#32-建模举例)
-  - [3.3. 规则约减](#33-规则约减)
-  - [3.4. 举例](#34-举例)
+    - [3.1.1. 系统建模](#311-系统建模)
+    - [3.1.2. 模糊化表示](#312-模糊化表示)
+    - [3.1.3. 举例](#313-举例)
+  - [3.2. 规则约减](#32-规则约减)
+    - [3.2.1. 约减方式](#321-约减方式)
+    - [3.2.2. 模型不确定性](#322-模型不确定性)
+  - [3.3. 举例](#33-举例)
 - [4. 参考文献](#4-参考文献)
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -94,6 +98,8 @@ $h_i(\boldsymbol z(t))$ 是每条规则的归一化权重，$M_{ji}(z_j(t)$ 是�
 **个人前言**：传统的 TS 模糊系统是有规则个数的概念的，但是下文作者提出的广义 TS 模糊系统不再强调规则的概念，而是直接对状态方程进行模糊近似。
 
 ## 3.1. 建模
+
+### 3.1.1. 系统建模
 
 考虑某一类**非线性**系统表示如下：
 
@@ -176,7 +182,7 @@ $$
 
 $i$ 是输入向量的维度（表示状态方程的每个状态量），$j$ **也是**输入向量的维度（表示每个状态量的一阶导与所有状态量的关系），$l$ 是取大取小值的维度。
 
-将上述式子转为矩阵形式，如下
+将上述式子转为**矩阵形式**，如下
 
 $$
 \begin{aligned}
@@ -260,14 +266,102 @@ b_{nnl}\begin{bmatrix}
 \right]\\
 &=\sum_{l=1}^2
 \left[
-\boldsymbol h_l*\boldsymbol A\cdot \boldsymbol x(t) + \boldsymbol v_l*\boldsymbol B\cdot \boldsymbol u(t)
+\boldsymbol h_l*\boldsymbol A_l\cdot \boldsymbol x(t) + \boldsymbol v_l*\boldsymbol B_l\cdot \boldsymbol u(t)
 \right]
 \end{aligned}
 $$
 
 作者表明，$a_{ijl}, b_{ikl}$ 再规则约减中非常重要，上面矩阵和的式子在规则约减中十分方便。
 
-## 3.2. 建模举例
+### 3.1.2. 模糊化表示
+
+下面分析一般系统状态方程和广义 TS 模型之间的**等价性**，也即分析一般的系统状态方程怎么转化为广义 TS 模糊模型的形式。
+
+首先给出结论
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)+\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+  &=\sum_{p=1}^{2^{n(n+m)}} \hat h_p(\boldsymbol z(t))[\hat \boldsymbol A_p\boldsymbol x(t) + \hat \boldsymbol B_p\boldsymbol u(t)]                                     
+\end{aligned}
+$$
+
+下面进行一步步推导分析（原文中又是一个 where 易得，我人傻了）。
+
+<!-- 原模型状态方程展开后形如
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) =
+  &(h_{111}a_{111}+h_{112}a_{112}) \boldsymbol U^A_{11} \boldsymbol x(t)\\
+  &+(h_{121}a_{121}+h_{122}a_{122}) \boldsymbol U^A_{12} \boldsymbol x(t)\\
+  &+\cdots\\
+  &+(h_{1n1}a_{1n1}+h_{1n2}a_{1n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\quad <1,j,l>\\
+  &\\
+  &+(h_{211}a_{211}+h_{212}a_{212}) \boldsymbol U^A_{21} \boldsymbol x(t)\\
+  &+(h_{221}a_{221}+h_{222}a_{222}) \boldsymbol U^A_{22} \boldsymbol x(t)\\
+  &+\cdots\\
+  &+(h_{2n1}a_{2n1}+h_{2n2}a_{2n2}) \boldsymbol U^A_{2n} \boldsymbol x(t)\quad <2,j,l>\\
+  &+\cdots+<i,j,l>+\cdots<n,j,l>\\
+  &+<1,k,l>+\cdots+<m,k,l>
+\end{aligned}
+$$ -->
+
+利用各项系数和为 1 的性质，进行连乘展开
+
+$$
+\begin{aligned}
+  1 = &\overbrace{(h_{111}+h_{112})\cdots (h_{1n1}+h_{1n2})}^{n}&<1>\\
+  &\cdot(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})&<2>\\
+  &\cdot\quad \cdots&\cdots\\
+  &\cdot(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})&<n>\\
+  &\cdot\overbrace{(v_{111}+v_{n12})\cdots (v_{1m1}+v_{1m2})}^{m}&<1>\\
+  &\cdot\quad \cdots&\cdots\\
+  &\cdot(v_{n11}+v_{n12})\cdots (v_{nm1}+v_{nm2})&<n>\\
+\end{aligned}
+$$
+
+上式中一共有 $n\cdot n+n\cdot m$ 个括号，每个括号的和均为 1。下面从每个括号中任意取一个元素（$l=1\ or\ 2$）组成连乘项
+
+- 前 $n$ 行中，第一行展开后共有 $2^n$ 项，则前 $n$ 行一共有 $2^{n\cdot n}$ 项；
+- 后 $n$ 行中，第一行展开后共有 $2^m$ 项，则后 $n$ 行一共有 $2^{m\cdot n}$ 项。
+
+那么，整个式子一共有 $C_{2^{n\cdot n}}^1C_{2^{m\cdot n}}^1=2^{n(n+m)}$ 项。每一项都是所有 $i,j,k$ 对不同 $l$ 的排列组合，即一共有 $2^{n(n+m)}$ 种排列组合。
+
+假设选取所有括号里的 $l=1$（取所有括号里左边的元素），设该连乘项为第 $p=1$ 项， 则该项为
+
+$$
+\begin{aligned}
+  t_{p=1} = &(h_{111}\cdots h_{1n1})\cdots(h_{n11}\cdots h_{nn1})\\
+  &\cdot(v_{111}\cdots v_{1n1})\cdots(v_{1m1}\cdots v_{nm1})\\
+  = &\prod_{i=1}^n (h_{i11}\cdots h_{in1}) \cdot (v_{i11} \cdots v_{im1})\\
+  = &\prod_{i=1}^n \prod_{j=1}^n h_{ij1}\cdot (v_{i11}\cdots v_{im1})\\
+  = &\prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ij1}v_{ik1}
+\end{aligned}
+$$
+
+对所有的 $p$ 个连乘项求和，得到原始等式的最终表达形式
+
+$$
+1 =\sum_{p=1}^{2^{n(n+m)}} t_p = \sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
+$$
+
+
+**其中 $l$ 与具体每项有关**。
+
+那么
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}a_{ijl}\boldsymbol U_{ij}^A\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+  &= \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl}\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ikl}\boldsymbol u(t)\\
+  &=\sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl} \left[ \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl}\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ikl}\boldsymbol u(t)\right] \\
+\end{aligned}
+$$
+
+**然后我就推不出来了**！
+
+### 3.1.3. 举例
 
 考虑如下非线性系统
 
@@ -571,7 +665,9 @@ $$
 
 原文说模糊系统的 $\boldsymbol A$ 的 $(2,1),(3,3)$ 元素和矩阵 $\boldsymbol B$ 的 $(3,1)$ 元素是非线性项。**个人**觉得，单纯从系数矩阵而言 $\boldsymbol A(3,3)$ 并不是非线性项，但是对于整个系统而言的确是非线性的。
 
-## 3.3. 规则约减
+## 3.2. 规则约减
+
+### 3.2.1. 约减方式
 
 规则约减与使用 LMI 进行控制器设计的计算工作量密切相关。
 
@@ -597,91 +693,125 @@ $$
 \end{aligned}
 $$
 
-下面分析了一般系统状态方程和广义 TS 模型之间的**等价性**，首先给出结论
+个人理解，假设针对第 $(i,j)=(1,1)$ 个 $f_{ij}$ 进行规则约减，有
 
 $$
 \begin{aligned}
-  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)+\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
-  &=\sum_{p=1}^{2^{n(n+m)}} h_p(\boldsymbol z(t))[\boldsymbol A_p\boldsymbol x(t) + \boldsymbol B_p\boldsymbol u(t)]                                     
+\dot \boldsymbol x(t) &=\sum_{l=1}^2
+\left[
+\begin{bmatrix}
+  h_{11l}a_{11l}&\cdots&h_{1nl}a_{1nl}\\
+  \vdots&\ddots&\vdots\\
+  h_{n1l}a_{n1l}&\cdots&h_{nnl}a_{nnl}\\
+\end{bmatrix}
+\begin{bmatrix}
+  x_1(t)\\
+  \vdots\\
+  x_n(t)
+\end{bmatrix}+
+\begin{bmatrix}
+  v_{11l}b_{11l}&\cdots&v_{1ml}b_{1ml}\\
+  \vdots&\ddots&\vdots\\
+  v_{n1l}b_{n1l}&\cdots&v_{nml}b_{nml}\\
+\end{bmatrix}
+\begin{bmatrix}
+  u_1(t)\\
+  \vdots\\
+  u_m(t)
+\end{bmatrix}
+\right]\\
+&=\begin{bmatrix}
+  h_{111}a_{111}+h_{112}a_{112}&\cdots&h_{1n1}a_{1n1}+h_{1n2}a_{1n2}\\
+  \vdots&\ddots&\vdots\\
+  h_{n11}a_{n11}+h_{n12}a_{n12}&\cdots&h_{nn1}a_{nn1}+h_{nn2}a_{nn2}\\
+\end{bmatrix}
+\begin{bmatrix}
+  x_1(t)\\
+  \vdots\\
+  x_n(t)
+\end{bmatrix}+\cdots\\
+&=\begin{bmatrix}
+  (a_{111}+a_{112})/2&\cdots&h_{1n1}a_{1n1}+h_{1n2}a_{1n2}\\
+  \vdots&\ddots&\vdots\\
+  h_{n11}a_{n11}+h_{n12}a_{n12}&\cdots&h_{nn1}a_{nn1}+h_{nn2}a_{nn2}\\
+\end{bmatrix}
+\begin{bmatrix}
+  x_1(t)\\
+  \vdots\\
+  x_n(t)
+\end{bmatrix}+\cdots
 \end{aligned}
 $$
 
-下面进行一步步推导分析（原文中又是一个 where 易得，我人傻了）。
-
-<!-- 原模型状态方程展开后形如
+同理，对第 $(i,k)=(1,1)$ 个 $g_{ik}$ 进行规则约减，有
 
 $$
 \begin{aligned}
-  \dot \boldsymbol x(t) =
-  &(h_{111}a_{111}+h_{112}a_{112}) \boldsymbol U^A_{11} \boldsymbol x(t)\\
-  &+(h_{121}a_{121}+h_{122}a_{122}) \boldsymbol U^A_{12} \boldsymbol x(t)\\
-  &+\cdots\\
-  &+(h_{1n1}a_{1n1}+h_{1n2}a_{1n2}) \boldsymbol U^A_{1n} \boldsymbol x(t)\quad <1,j,l>\\
-  &\\
-  &+(h_{211}a_{211}+h_{212}a_{212}) \boldsymbol U^A_{21} \boldsymbol x(t)\\
-  &+(h_{221}a_{221}+h_{222}a_{222}) \boldsymbol U^A_{22} \boldsymbol x(t)\\
-  &+\cdots\\
-  &+(h_{2n1}a_{2n1}+h_{2n2}a_{2n2}) \boldsymbol U^A_{2n} \boldsymbol x(t)\quad <2,j,l>\\
-  &+\cdots+<i,j,l>+\cdots<n,j,l>\\
-  &+<1,k,l>+\cdots+<m,k,l>
+\dot \boldsymbol x(t) &=\cdots + \begin{bmatrix}
+  (b_{111}+b_{112})/2&\cdots&v_{1m1}b_{1m1}+v_{1m2}v_{1m2}\\
+  \vdots&\ddots&\vdots\\
+  v_{n11}b_{n11}+v_{n12}b_{n12}&\cdots&v_{nm1}b_{nm1}+v_{nm2}b_{nm2}\\
+\end{bmatrix}
+\begin{bmatrix}
+  u_1(t)\\
+  \vdots\\
+  u_m(t)
+\end{bmatrix}
 \end{aligned}
-$$ -->
+$$
 
-利用各项系数和为 1 的性质，进行连乘展开
+### 3.2.2. 模型不确定性
+
+进行规则约减后，存在约减偏差，作者将其转化为模型不确定性。假设针对上述两种约减情况的模型不确定性为 $\delta^A_{i_0j_0}(t),\delta^B_{i_0k_0}(t)$，已知
+
+$$
+a_{i_0j_0}=\frac{a_{ij1}+a_{ij2}}{2},\ b_{i_0k_0}=\frac{b_{ik1}+b_{ik2}}{2}
+$$
+
+那么原模型可写为
 
 $$
 \begin{aligned}
-  1 = &\overbrace{(h_{111}+h_{112})\cdots (h_{1n1}+h_{1n2})}^{n}&<1>\\
-  &\cdot(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})&<2>\\
-  &\cdot\quad \cdots&\cdots\\
-  &\cdot(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})&<n>\\
-  &\cdot\overbrace{(v_{111}+v_{n12})\cdots (v_{1m1}+v_{1m2})}^{m}&<1>\\
-  &\cdot\quad \cdots&\cdots\\
-  &\cdot(v_{n11}+v_{n12})\cdots (v_{nm1}+v_{nm2})&<n>\\
+\dot \boldsymbol x(t) = &\mathop{\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2}\limits_{(i,j)\neq (i_0,j_0)} h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t)\\
+&+(a_{i_0j_0} + \delta^A_{i_0j_0}(t))\boldsymbol U^A_{i_0j_0} \boldsymbol x(t)\\
+&+\mathop{\sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2}\limits_{(i,k)\neq (i_0,k_0)} v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+&+(b_{i_0k_0}+\delta^B_{i_0k_0}(t))\boldsymbol U^B_{i_0k_0} \boldsymbol u(t)
 \end{aligned}
 $$
 
-上式中一共有 $n\cdot n+n\cdot m$ 个括号，每个括号的和均为 1。下面从每个括号中任意取一个元素（$l=1\ or\ 2$）组成连乘项
+这种约减导致的偏差，最大不会超过对应非线性项取值范围的一半（比如该项实际取值为最小值，结果我们用其平均值作为替代，此时偏差正好为取值范围的一半）。即
 
-- 前 $n$ 行中，第一行展开后共有 $2^n$ 项，则前 $n$ 行一共有 $2^{n\cdot n}$ 项；
-- 后 $n$ 行中，第一行展开后共有 $2^m$ 项，则后 $n$ 行一共有 $2^{m\cdot n}$ 项。
+$$
+\vert\vert \delta^A_{i_0j_0}(t) \vert\vert \leq \frac{a_{ij1}-a_{ij2}}{2},\ \vert\vert \delta^B_{i_0k_0}(t) \vert\vert\leq \frac{b_{ik1}-b_{ik2}}{2}
+$$
 
-那么，整个式子一共有 $C_{2^{n\cdot n}}^1C_{2^{m\cdot n}}^1=2^{n(n+m)}$ 项。每一项都是所有 $i,j,k$ 对不同 $l$ 的排列组合，即一共有 $2^{n(n+m)}$ 种排列组合。
-
-假设选取所有括号里的 $l=1$（取所有括号里左边的元素），设该连乘项为第 $p=1$ 项， 则该项为
+对模糊化后的系统方程进行重新表达，令
 
 $$
 \begin{aligned}
-  t_{p=1} = &(h_{111}\cdots h_{1n1})\cdots(h_{n11}\cdots h_{nn1})\\
-  &\cdot(v_{111}\cdots v_{1n1})\cdots(v_{1m1}\cdots v_{nm1})\\
-  = &\prod_{i=1}^n (h_{i11}\cdots h_{in1}) \cdot (v_{i11} \cdots v_{im1})\\
-  = &\prod_{i=1}^n \prod_{j=1}^n h_{ij1}\cdot (v_{i11}\cdots v_{im1})\\
-  = &\prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ij1}v_{ik1}
+r&=2^{n(n+m)}
 \end{aligned}
 $$
 
-对所有的 $p$ 个连乘项求和，得到原始等式的最终表达形式
+<!-- h_i(\boldsymbol z(t)) &= \hat h_p(\boldsymbol z(t))\\
+\boldsymbol A_i&=\hat \boldsymbol A_p\\
+\boldsymbol B_i&=\hat \boldsymbol B_p\\ -->
 
-$$
-1 =\sum_{p=1}^{2^{n(n+m)}} t_p = \sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
-$$
-
-
-**其中 $l$ 与具体每项有关**。
-
-那么
+则系统可以写为
 
 $$
 \begin{aligned}
-  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}a_{ijl}\boldsymbol U_{ij}^A\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
-  &= \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl}\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ikl}\boldsymbol u(t)\\
-  &=\sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl} \left[ \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl}\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ikl}\boldsymbol u(t)\right] \\
+\dot \boldsymbol x(t)
+&=\sum_{p=1}^{2^{n(n+m)}} \hat h_p(\boldsymbol z(t))[\hat \boldsymbol A_p\boldsymbol x(t) + \hat \boldsymbol B_p\boldsymbol u(t)]\\
+&= \sum_{p=1}^{\frac{1}{4}r}h_p(\boldsymbol z(t))[\boldsymbol A_p\boldsymbol x(t)+\boldsymbol B_p\boldsymbol u(t)]
++\delta^A_{i_0j_0}(t) \boldsymbol U_{i_0j_0}\boldsymbol x(t)
++\delta^B_{i_0k_0}(t) \boldsymbol U_{i_0k_0}\boldsymbol u(t)
 \end{aligned}
 $$
 
-然后我就推不出来了！
+其中，$\frac{1}{4}r$ 是因为系统中有两项（$f_{ij},g_{ik}$）被约减了。每少一项，需要遍历的参数减半，因此总规则个数需要除以 $2\cdot 2=4$。
 
-## 3.4. 举例
+## 3.3. 举例
 
 
 
