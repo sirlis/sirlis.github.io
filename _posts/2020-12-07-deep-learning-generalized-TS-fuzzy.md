@@ -151,18 +151,64 @@ $$
 $$
 \begin{aligned}
 \dot x_i(t) &= \sum_{j=1}^n f_{ij}(\boldsymbol z(t))x_j(t) + \sum_{k=1}^m g_{ik}(\boldsymbol z(t))u_k(t)\\
-&=\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl}x_j(t) + \sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}u_k(t)
+&=\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl}x_j(t) + \sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}u_k(t)\\
+&=\sum_{l=1}^2
+\left[
+\begin{bmatrix}
+  h_{i1l}a_{i1l}&\cdots&h_{inl}a_{inl}
+\end{bmatrix}
+\begin{bmatrix}
+  x_1(t)\\
+  \vdots\\
+  x_n(t)
+\end{bmatrix}+
+\begin{bmatrix}
+  v_{i1l}b_{i1l}&\cdots&v_{iml}b_{iml}
+\end{bmatrix}
+\begin{bmatrix}
+  u_1(t)\\
+  \vdots\\
+  u_m(t)
+\end{bmatrix}
+\right]
 \end{aligned}
 $$
 
-$i$ 是输入向量的维度（表示状态方程的每个状态量），$j$ **也是**输入向量的维度（表示每个状态量的一阶导与所有状态量的关系），$l$ 是取大取小值的维度。<font color=red>（没看懂可以参考后面的建模举例）</font>
+$i$ 是输入向量的维度（表示状态方程的每个状态量），$j$ **也是**输入向量的维度（表示每个状态量的一阶导与所有状态量的关系），$l$ 是取大取小值的维度。
 
 将上述式子转为矩阵形式，如下
 
 $$
 \begin{aligned}
 \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
-&=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t)) \boldsymbol A_{ijl} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))\boldsymbol B_{ikl}\boldsymbol u(t)
+&=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t)) \boldsymbol A_{ijl} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))\boldsymbol B_{ikl}\boldsymbol u(t)\\
+&=\sum_{l=1}^2
+\left[
+\begin{bmatrix}
+  h_{111}a_{111}&\cdots&h_{1n1}a_{1n1}\\
+  \vdots&\ddots&\vdots\\
+  h_{n11}a_{n11}&\cdots&h_{nn1}a_{nn1}\\
+\end{bmatrix}
+\begin{bmatrix}
+  x_1(t)\\
+  \vdots\\
+  x_n(t)
+\end{bmatrix}+
+\begin{bmatrix}
+  v_{111}b_{111}&\cdots&v_{1m1}b_{1m1}\\
+  \vdots&\ddots&\vdots\\
+  v_{n11}b_{n11}&\cdots&v_{nm1}b_{nm1}\\
+\end{bmatrix}
+\begin{bmatrix}
+  u_1(t)\\
+  \vdots\\
+  u_m(t)
+\end{bmatrix}
+\right]\\
+&=\sum_{l=1}^2
+\left[
+\boldsymbol h_l*\boldsymbol A\cdot \boldsymbol x(t) + \boldsymbol v_l*\boldsymbol B\cdot \boldsymbol u(t)
+\right]
 \end{aligned}
 $$
 
@@ -563,7 +609,7 @@ $$
 \end{aligned}
 $$ -->
 
-利用各项系数和为 1 的性质，进行乘法展开
+利用各项系数和为 1 的性质，进行连乘展开
 
 $$
 \begin{aligned}
@@ -571,19 +617,24 @@ $$
   &\cdot(h_{211}+h_{212})\cdots (h_{2n1}+h_{2n2})&<2>\\
   &\cdot\quad \cdots&\cdots\\
   &\cdot(h_{n11}+h_{n12})\cdots (h_{nn1}+h_{nn2})&<n>\\
-  &\cdot\overbrace{(v_{111}+v_{n12})\cdots (v_{1m1}+v_{nm2})}^{m}&<1>\\
+  &\cdot\overbrace{(v_{111}+v_{n12})\cdots (v_{1m1}+v_{1m2})}^{m}&<1>\\
   &\cdot\quad \cdots&\cdots\\
   &\cdot(v_{n11}+v_{n12})\cdots (v_{nm1}+v_{nm2})&<n>\\
 \end{aligned}
 $$
 
-上式中一共有 $n\cdot n+n\cdot m$ 个括号，从每个括号中任意取一个元素（$l=1\ or\ 2$）组成连乘项。第一行展开后共有 $2^n$ 项，则前 $n$ 行一共有 $2^{n\cdot n}$ 项。类似地，后 $n$ 行中，第一行展开后共有 $2^m$ 项，则后 $n$ 行一共有 $2^{m\cdot n}$ 项。那么，整个式子一共有 $2^{n\cdot n}2^{m\cdot n}=2^{n(n+m)}$ 项。每一项都是所有 $i,j,k$ 对不同 $l$ 的排列组合，即一共有 $2^{n(n+m)}$ 种排列组合。
+上式中一共有 $n\cdot n+n\cdot m$ 个括号，每个括号的和均为 1。下面从每个括号中任意取一个元素（$l=1\ or\ 2$）组成连乘项
 
-假设所有对 $l$ 的选取均为 $l=1$（上式选取所有括号左边的元素组成一项），则该项为
+- 前 $n$ 行中，第一行展开后共有 $2^n$ 项，则前 $n$ 行一共有 $2^{n\cdot n}$ 项；
+- 后 $n$ 行中，第一行展开后共有 $2^m$ 项，则后 $n$ 行一共有 $2^{m\cdot n}$ 项。
+
+那么，整个式子一共有 $C_{2^{n\cdot n}}^1C_{2^{m\cdot n}}^1=2^{n(n+m)}$ 项。每一项都是所有 $i,j,k$ 对不同 $l$ 的排列组合，即一共有 $2^{n(n+m)}$ 种排列组合。
+
+假设选取所有括号里的 $l=1$（取所有括号里左边的元素），设该连乘项为第 $p=1$ 项， 则该项为
 
 $$
 \begin{aligned}
-  t_{l=\underbrace{1\cdots1}_{n\cdot n}\underbrace{1\cdots1}_{m\cdot n}} = &(h_{111}\cdots h_{1n1})\cdots(h_{n11}\cdots h_{nn1})\\
+  t_{p=1} = &(h_{111}\cdots h_{1n1})\cdots(h_{n11}\cdots h_{nn1})\\
   &\cdot(v_{111}\cdots v_{1n1})\cdots(v_{1m1}\cdots v_{nm1})\\
   = &\prod_{i=1}^n (h_{i11}\cdots h_{in1}) \cdot (v_{i11} \cdots v_{im1})\\
   = &\prod_{i=1}^n \prod_{j=1}^n h_{ij1}\cdot (v_{i11}\cdots v_{im1})\\
@@ -591,14 +642,14 @@ $$
 \end{aligned}
 $$
 
-对所有连乘项进行一般化，并进行求和，得到原始乘法展开的简单写法
+对所有的 $p$ 个连乘项求和，得到原始等式的最终表达形式
 
 $$
-1 = \sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
+1 =\sum_{p=1}^{2^{n(n+m)}} t_p = \sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl}
 $$
 
 
-其中 $l$ 与选择有关。
+**其中 $l$ 与具体每项有关**。
 
 那么
 
