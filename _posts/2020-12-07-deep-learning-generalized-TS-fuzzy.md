@@ -182,12 +182,65 @@ $$
 \begin{aligned}
 \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t))a_{ijl} \boldsymbol U^A_{ij} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
 &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}(\boldsymbol z(t)) \boldsymbol A_{ijl} \boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ikl}(\boldsymbol z(t))\boldsymbol B_{ikl}\boldsymbol u(t)\\
+\end{aligned}
+$$
+
+其中
+
+$$
+\begin{aligned}
+&\quad \quad \quad \quad \quad \quad \quad \quad j\\
+\boldsymbol A_{ijl} &= i\begin{bmatrix}
+  0&\cdots&0&0&0&\cdots&0\\
+  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+  0&\cdots&0&0&0&\cdots&0\\
+  0&\cdots&0&a_{ijl}&0&\cdots&0\\
+  0&\cdots&0&0&0&\cdots&0\\
+  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+  0&\cdots&0&0&0&\cdots&0\\
+\end{bmatrix}\\
+&\quad \quad \quad \quad \quad \quad \quad \quad k\\
+\boldsymbol B_{ikl} &= i\begin{bmatrix}
+  0&\cdots&0&0&0&\cdots&0\\
+  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+  0&\cdots&0&0&0&\cdots&0\\
+  0&\cdots&0&b_{ikl}&0&\cdots&0\\
+  0&\cdots&0&0&0&\cdots&0\\
+  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+  0&\cdots&0&0&0&\cdots&0\\
+\end{bmatrix}
+\end{aligned}
+$$
+
+个人理解：上述两个矩阵就是为了前面的矩阵求和式而人工构造的，可以与后面的 $\boldsymbol x(t), \boldsymbol u(t)$ 做矩阵乘法，取到对应的元素乘积。也就是说，上述两个矩阵分别有 $n^2,m^2$ 个，且每个都是上面这种只有一个元素不为 0 的稀疏形式。即
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t) &=\sum_{l=1}^2
+\left[
+a_{11l}\begin{bmatrix}
+  h_{11l}&\boldsymbol 0\\
+  \boldsymbol 0&\boldsymbol 0\\
+\end{bmatrix}\boldsymbol x(t)+\cdots+
+a_{nnl}\begin{bmatrix}
+  \boldsymbol 0&\boldsymbol 0\\
+  \boldsymbol 0&h_{nnl}\\
+\end{bmatrix}\boldsymbol x(t)+
+b_{11l}\begin{bmatrix}
+  h_{11l}&\boldsymbol 0\\
+  \boldsymbol 0&\boldsymbol 0\\
+\end{bmatrix}\boldsymbol u(t)+\cdots+
+b_{nnl}\begin{bmatrix}
+  \boldsymbol 0&\boldsymbol 0\\
+  \boldsymbol 0&v_{nml}\\
+\end{bmatrix}\boldsymbol u(t)
+\right]\\
 &=\sum_{l=1}^2
 \left[
 \begin{bmatrix}
-  h_{111}a_{111}&\cdots&h_{1n1}a_{1n1}\\
+  h_{11l}a_{11l}&\cdots&h_{1nl}a_{1nl}\\
   \vdots&\ddots&\vdots\\
-  h_{n11}a_{n11}&\cdots&h_{nn1}a_{nn1}\\
+  h_{n1l}a_{n1l}&\cdots&h_{nnl}a_{nnl}\\
 \end{bmatrix}
 \begin{bmatrix}
   x_1(t)\\
@@ -195,9 +248,9 @@ $$
   x_n(t)
 \end{bmatrix}+
 \begin{bmatrix}
-  v_{111}b_{111}&\cdots&v_{1m1}b_{1m1}\\
+  v_{11l}b_{11l}&\cdots&v_{1ml}b_{1ml}\\
   \vdots&\ddots&\vdots\\
-  v_{n11}b_{n11}&\cdots&v_{nm1}b_{nm1}\\
+  v_{n1l}b_{n1l}&\cdots&v_{nml}b_{nml}\\
 \end{bmatrix}
 \begin{bmatrix}
   u_1(t)\\
@@ -211,33 +264,6 @@ $$
 \right]
 \end{aligned}
 $$
-
-其中
-
-$$
-\begin{aligned}
-\boldsymbol A_{ijl} &= \begin{bmatrix}
-  0&\cdots&0&0&0&\cdots&0\\
-  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
-  0&\cdots&0&0&0&\cdots&0\\
-  0&\cdots&0&a_{ijl}&0&\cdots&0\\
-  0&\cdots&0&0&0&\cdots&0\\
-  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
-  0&\cdots&0&0&0&\cdots&0\\
-\end{bmatrix}\\
-\boldsymbol B_{ikl} &= \begin{bmatrix}
-  0&\cdots&0&0&0&\cdots&0\\
-  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
-  0&\cdots&0&0&0&\cdots&0\\
-  0&\cdots&0&b_{ijl}&0&\cdots&0\\
-  0&\cdots&0&0&0&\cdots&0\\
-  \vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
-  0&\cdots&0&0&0&\cdots&0\\
-\end{bmatrix}
-\end{aligned}
-$$
-
-个人理解：上述两个矩阵就是为了前面的矩阵求和式而人工构造的，可以与后面的 $\boldsymbol x(t), \boldsymbol u(t)$ 做矩阵乘法，取到对应的元素乘积。也就是说，上述两个矩阵分别有 $n,m$ 个，且每个都是上面这种只有一个元素不为 0 的稀疏形式。
 
 作者表明，$a_{ijl}, b_{ikl}$ 再规则约减中非常重要，上面矩阵和的式子在规则约减中十分方便。
 
@@ -545,14 +571,6 @@ $$
 
 原文说模糊系统的 $\boldsymbol A$ 的 $(2,1),(3,3)$ 元素和矩阵 $\boldsymbol B$ 的 $(3,1)$ 元素是非线性项。**个人**觉得，单纯从系数矩阵而言 $\boldsymbol A(3,3)$ 并不是非线性项，但是对于整个系统而言的确是非线性的。
 
----
-
-进一步分析。上面的例子中，状态量维度为 3 即状态方程个数为 3，控制量维度为 1。那么一共有 $方程个数3\times 状态量个数3=9$ 个系数项 $f$， $方程个数3\times 控制量维度1=3$ 个系数项 $v$。
-
-系统中有 4 项非零 $h$ 和 1 项非零 $v$。4 项非零 $h$ 中有两项系数为常数，对应的最大最小值相同。因此，系统一共有 $2+1=3$ 项非常数项系数。这三个系数进行排列组合乘法，就得到了 $C_2^1C_2^1C_2^1=8$ 个权重系数 $h$，也就对应 **8** 条模糊规则。
-
-如果系统的所有系数项都不为常数，是否意味着一共有 $\underbrace{C_2^1\cdots C_2^1}_{12}=4096$ 条规则！？作者在后面分析了一般系统状态方程和广义 TS 模型之间的等价性（也即主要确定规则的个数）。
-
 ## 3.3. 规则约减
 
 规则约减与使用 LMI 进行控制器设计的计算工作量密切相关。
@@ -579,7 +597,7 @@ $$
 \end{aligned}
 $$
 
-下面分析了一般系统状态方程和广义 TS 模型之间的**等价性**（也即主要确定规则的个数），首先给出结论
+下面分析了一般系统状态方程和广义 TS 模型之间的**等价性**，首先给出结论
 
 $$
 \begin{aligned}
