@@ -604,9 +604,9 @@ $$
 
 $$
 \begin{aligned}
-  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}a_{ijl}\boldsymbol U_{ij}^A + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
-  &= \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl} + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ijl}\\
-  &=\sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl} \left[ \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl} + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ijl}\right] \\
+  \dot \boldsymbol x(t) &=\sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2 h_{ijl}a_{ijl}\boldsymbol U_{ij}^A\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2 v_{ijl}(\boldsymbol z(t))b_{ikl}\boldsymbol U^B_{ik}\boldsymbol u(t)\\
+  &= \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl}\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ikl}\boldsymbol u(t)\\
+  &=\sum_{p=1}^{2^{n(n+m)}} \prod_{i=1}^n\prod_{j=1}^n\prod_{k=1}^m h_{ijl}v_{ikl} \left[ \sum_{i=1}^n\sum_{j=1}^n\sum_{l=1}^2h_{ijl}\boldsymbol A_{ijl}\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m\sum_{l=1}^2v_{ikl}\boldsymbol B_{ikl}\boldsymbol u(t)\right] \\
 \end{aligned}
 $$
 
