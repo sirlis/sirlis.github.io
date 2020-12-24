@@ -807,7 +807,7 @@ $$
 +\delta^A_{i_0j_0}(t) \boldsymbol U_{i_0j_0}\boldsymbol x(t)
 +\delta^B_{i_0k_0}(t) \boldsymbol U_{i_0k_0}\boldsymbol u(t)]\\
 &=\sum_{p=1}^{\frac{1}{4}r}h_p(\boldsymbol z(t))[
-  (\boldsymbol A_p + \boldsymbol D_{ap}\Delta_{ap}\boldsymbol E_{ap})\boldsymbol x(t)+(\boldsymbol B_p+ \boldsymbol D_{bp}\Delta_{bp}\boldsymbol E_{bp})\boldsymbol u(t)]
+  (\boldsymbol A_p + \boldsymbol D_{ap}\Delta_{ap}(t)\boldsymbol E_{ap})\boldsymbol x(t)+(\boldsymbol B_p+ \boldsymbol D_{bp}\Delta_{bp}(t)\boldsymbol E_{bp})\boldsymbol u(t)]
 \end{aligned}
 $$
 
@@ -825,7 +825,7 @@ $$
 \end{aligned}
 $$
 
-对于任意（**所有**） $i,j,k$ 进行规则约减，那么很显然，规则最终从 $2^{n(n+m)}$ 个变成 1 个。
+对于任意（**所有**） $i,j,k$ 进行规则约减，那么很显然，**<font color=red>规则最终从 $2^{n(n+m)}$ 个变成 1 个</font>**。
 
 引入模型不确定性 $\delta^A_{ij}(t),\delta^B_{ik}(t)$，有
 
@@ -845,7 +845,7 @@ $$
 写成矩阵的形式
 
 $$
-\dot \boldsymbol x(t)=(\boldsymbol A_1+\boldsymbol D_{a1}\Delta_{a1}\boldsymbol E_{a1})\boldsymbol x(t)+(\boldsymbol B_1+ \boldsymbol D_{b1}\Delta_{b1}\boldsymbol E_{b1})\boldsymbol u(t)
+\dot \boldsymbol x(t)=(\boldsymbol A_1+\boldsymbol D_{a1}\boldsymbol \Delta_{a1}(t)\boldsymbol E_{a1})\boldsymbol x(t)+(\boldsymbol B_1+ \boldsymbol D_{b1}\boldsymbol \Delta_{b1}(t)\boldsymbol E_{b1})\boldsymbol u(t)
 $$
 
 其中
@@ -855,17 +855,107 @@ $$
   \boldsymbol A_1 &= \begin{bmatrix}
     a_{11}&a_{12}&\cdots&a_{1n}\\
     a_{21}&a_{22}&\cdots&a_{2n}\\
-    \vdots&\vdots&\cdots&\vdots\\
+    \vdots&\vdots&\ddots&\vdots\\
     a_{n1}&a_{n2}&\cdots&a_{nn}\\
-  \end{bmatrix}\in \mathbb R^{n\times n}\\
-  \boldsymbol B_1 &= \begin{bmatrix}
+  \end{bmatrix}\in \mathbb R^{n\times n},\ 
+  \boldsymbol B_1 = \begin{bmatrix}
     b_{11}&b_{12}&\cdots&a_{1m}\\
     b_{21}&b_{22}&\cdots&a_{2m}\\
-    \vdots&\vdots&\cdots&\vdots\\
+    \vdots&\vdots&\ddots&\vdots\\
     b_{n1}&b_{n2}&\cdots&a_{nm}\\
-  \end{bmatrix}\in \mathbb R^{n\times m}
+  \end{bmatrix}\in \mathbb R^{n\times m}\\
+  \boldsymbol \Delta_{a1}(t) &= diag(\delta_{11}^A(t)\cdots\delta_{1n}^A(t)\cdots\delta_{nn}^A(t)) = \begin{bmatrix}
+    \delta_{11}^A(t)&&\boldsymbol 0\\
+    &\ddots&\\
+    \boldsymbol 0&&\delta_{nn}^A(t)
+  \end{bmatrix}\in R^{n^2\times n^2}\\
+  \boldsymbol \Delta_{b1}(t) &= diag(\delta_{11}^B(t)\cdots\delta_{1m}^B(t)\cdots\delta_{nm}^B(t)) = \begin{bmatrix}
+  \delta_{11}^B(t)&&\boldsymbol 0\\
+  &\ddots&\\
+  \boldsymbol 0&&\delta_{nm}^B(t)
+  \end{bmatrix}\in R^{nm\times nm}\\
+  \boldsymbol D_{a1} &= \begin{bmatrix}
+    \overbrace{1 1\cdots 1}^n&&\boldsymbol 0\\
+    \vdots&\ddots&\vdots\\
+    \boldsymbol 0&&\overbrace{1 1\cdots 1}^n
+  \end{bmatrix}\in \mathbb R^{n\times n^2},\ 
+  \boldsymbol D_{b1} = \begin{bmatrix}
+  \overbrace{1 1\cdots 1}^m&&\boldsymbol 0\\
+  \vdots&\ddots&\vdots\\
+  \boldsymbol 0&&\overbrace{1 1\cdots 1}^m
+  \end{bmatrix}\in \mathbb R^{n\times nm}\\
+  \boldsymbol E_{a1} &= \begin{bmatrix}
+    \boldsymbol I_n\\
+    \vdots\\
+    \boldsymbol I_n\\
+  \end{bmatrix} =\begin{bmatrix}
+    1&&\boldsymbol 0\\
+    &\ddots&\\
+    \boldsymbol 0&&1\\
+    1&&\boldsymbol 0\\
+    &\ddots&\\
+    \boldsymbol 0&&1\\
+    &\vdots&\\
+    \boldsymbol 0&&1\\
+  \end{bmatrix}\in \mathbb R^{n^2\times n},\ 
+  \boldsymbol E_{b1} = \begin{bmatrix}
+    \boldsymbol I_m\\
+    \vdots\\
+    \boldsymbol I_m\\
+  \end{bmatrix} \in \mathbb R^{nm\times m},
 \end{aligned}
 $$
+
+偏差矩阵 $\boldsymbol D_{a1}\boldsymbol \Delta_{a1}(t)\boldsymbol E_{a1}$ 和系数矩阵 $\boldsymbol A_1$ 的形式一致，虽然我并不明白为什么非要这么写成这么复杂的矩阵形式
+
+$$
+\begin{aligned}
+\boldsymbol D_{a1}\boldsymbol \Delta_{a1}(t)\boldsymbol E_{a1} &=
+\begin{bmatrix}
+  \overbrace{1 1\cdots 1}^n&&\boldsymbol 0\\
+  \vdots&\ddots&\vdots\\
+  \boldsymbol 0&&\overbrace{1 1\cdots 1}^n
+\end{bmatrix}_{n\times n^2}
+\begin{bmatrix}
+  \delta_{11}^A(t)&&\boldsymbol 0\\
+  &\ddots&\\
+  \boldsymbol 0&&\delta_{nn}^A(t)
+\end{bmatrix}_{n^2\times n^2}
+\begin{bmatrix}
+  1&&\boldsymbol 0\\
+  &\ddots&\\
+  \boldsymbol 0&&1\\
+  1&&\boldsymbol 0\\
+  &\ddots&\\
+  \boldsymbol 0&&1\\
+  &\vdots&\\
+  \boldsymbol 0&&1\\
+\end{bmatrix}_{n^2\times n}\\
+&=\begin{bmatrix}
+  \overbrace{\delta_{11}^A(t)\ \delta_{12}^A(t)\ \cdots \delta_{1n}^A(t)}^n&&\boldsymbol 0\\
+  \vdots&\ddots&\vdots\\
+  \boldsymbol 0&&\overbrace{\delta_{n1}^A(t)\ \delta_{n2}^A(t)\ \cdots \delta_{nn}^A(t)}^n
+\end{bmatrix}_{n\times n^2}
+\begin{bmatrix}
+  1&&\boldsymbol 0\\
+  &\ddots&\\
+  \boldsymbol 0&&1\\
+  1&&\boldsymbol 0\\
+  &\ddots&\\
+  \boldsymbol 0&&1\\
+  &\vdots&\\
+  \boldsymbol 0&&1\\
+\end{bmatrix}_{n^2\times n}\\
+&=\begin{bmatrix}
+  \delta_{11}^A(t)&\delta_{12}^A(t)&\cdots&\delta_{1n}^A(t)\\
+  \delta_{21}^A(t)&\delta_{22}^A(t)&\cdots&\delta_{2n}^A(t)\\
+  \vdots&\vdots&\ddots&\vdots\\
+  \delta_{n1}^A(t)&\delta_{n2}^A(t)&\cdots&\delta_{nn}^A(t)\\
+\end{bmatrix}
+\end{aligned}
+$$
+
+偏差矩阵 $\boldsymbol D_{b1}\boldsymbol \Delta_{b1}(t)\boldsymbol E_{b1}$ 和系数矩阵 $\boldsymbol B_1$ 类似，这里不再赘述。
 
 ## 3.3. 举例
 
