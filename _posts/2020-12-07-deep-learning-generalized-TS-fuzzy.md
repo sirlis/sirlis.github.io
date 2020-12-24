@@ -803,13 +803,69 @@ $$
 \begin{aligned}
 \dot \boldsymbol x(t)
 &=\sum_{p=1}^{2^{n(n+m)}} \hat h_p(\boldsymbol z(t))[\hat \boldsymbol A_p\boldsymbol x(t) + \hat \boldsymbol B_p\boldsymbol u(t)]\\
-&= \sum_{p=1}^{\frac{1}{4}r}h_p(\boldsymbol z(t))[\boldsymbol A_p\boldsymbol x(t)+\boldsymbol B_p\boldsymbol u(t)]
+&= \sum_{p=1}^{\frac{1}{4}r}h_p(\boldsymbol z(t))[\boldsymbol A_p\boldsymbol x(t)+\boldsymbol B_p\boldsymbol u(t)
 +\delta^A_{i_0j_0}(t) \boldsymbol U_{i_0j_0}\boldsymbol x(t)
-+\delta^B_{i_0k_0}(t) \boldsymbol U_{i_0k_0}\boldsymbol u(t)
++\delta^B_{i_0k_0}(t) \boldsymbol U_{i_0k_0}\boldsymbol u(t)]\\
+&=\sum_{p=1}^{\frac{1}{4}r}h_p(\boldsymbol z(t))[
+  (\boldsymbol A_p + \boldsymbol D_{ap}\Delta_{ap}\boldsymbol E_{ap})\boldsymbol x(t)+(\boldsymbol B_p+ \boldsymbol D_{bp}\Delta_{bp}\boldsymbol E_{bp})\boldsymbol u(t)]
 \end{aligned}
 $$
 
-其中，$\frac{1}{4}r$ 是因为系统中有两项（$f_{ij},g_{ik}$）被约减了。每少一项，需要遍历的参数减半，因此总规则个数需要除以 $2\cdot 2=4$。
+其中，$\frac{1}{4}r$ 是因为系统中有两项（$f_{ij},g_{ik}$）被约减了。每少一项，需要遍历的参数减半（参考前面系数和的连乘的分析），因此总规则个数需要除以 $2\cdot 2=4$。$\boldsymbol A_p,\boldsymbol B_p$ 为去除 $(i_0,j_0)$ 元素后的系数矩阵。矩阵 $\boldsymbol D_{ap},\boldsymbol E_{ap},\boldsymbol D_{bp},\boldsymbol E_{bp}$ 为
+
+$$
+\begin{aligned}
+\boldsymbol D_{ap} &= \boldsymbol D_{bp} = i_0\begin{bmatrix}
+  0\\\vdots\\0\\1\\0\\ \vdots\\ 0
+\end{bmatrix}\\
+&\quad \quad \quad \quad \ \ \ j_0\\
+\boldsymbol E_{ap} &= [0\ \cdots\ 0\ 1\ 0\ \cdots\ 0]\\
+&\quad \quad \quad \quad \ \ \ k_0\\
+\boldsymbol E_{bp} &= [0\ \cdots\ 0\ 1\ 0\ \cdots\ 0]\\
+\end{aligned}
+$$
+
+对于任意（**所有**） $i,j,k$ 进行规则约减，那么很显然，规则最终从 $2^{n(n+m)}$ 个变成 1 个。
+
+引入模型不确定性 $\delta^A_{ij}(t),\delta^B_{ik}(t)$，有
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t)
+&=\sum_{i=1}^n\sum_{j=1}^n (a_{ij}+\delta^A_{ij}(t))\boldsymbol U_{ij}^A\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m (b_{ik}+\delta^B_{ik}(t))\boldsymbol U_{ik}^B\boldsymbol u(t)\\
+\end{aligned}
+$$
+
+其中
+
+$$
+\vert\vert \delta^A_{ij}(t) \vert\vert \leq \frac{a_{ij1}-a_{ij2}}{2},\ \vert\vert \delta^B_{ik}(t) \vert\vert\leq \frac{b_{ik1}-b_{ik2}}{2}
+$$
+
+写成矩阵的形式
+
+$$
+\dot \boldsymbol x(t)=(\boldsymbol A_1+\boldsymbol D_{a1}\Delta_{a1}\boldsymbol E_{a1})\boldsymbol x(t)+(\boldsymbol B_1+ \boldsymbol D_{b1}\Delta_{b1}\boldsymbol E_{b1})\boldsymbol u(t)
+$$
+
+其中
+
+$$
+\begin{aligned}
+  \boldsymbol A_1 &= \begin{bmatrix}
+    a_{11}&a_{12}&\cdots&a_{1n}\\
+    a_{21}&a_{22}&\cdots&a_{2n}\\
+    \vdots&\vdots&\cdots&\vdots\\
+    a_{n1}&a_{n2}&\cdots&a_{nn}\\
+  \end{bmatrix}\in \mathbb R^{n\times n}\\
+  \boldsymbol B_1 &= \begin{bmatrix}
+    b_{11}&b_{12}&\cdots&a_{1m}\\
+    b_{21}&b_{22}&\cdots&a_{2m}\\
+    \vdots&\vdots&\cdots&\vdots\\
+    b_{n1}&b_{n2}&\cdots&a_{nm}\\
+  \end{bmatrix}\in \mathbb R^{n\times m}
+\end{aligned}
+$$
 
 ## 3.3. 举例
 
