@@ -21,7 +21,7 @@ math: true
   - [3.2. 规则约减](#32-规则约减)
     - [3.2.1. 约减方式](#321-约减方式)
     - [3.2.2. 模型不确定性](#322-模型不确定性)
-  - [3.3. 举例](#33-举例)
+    - [3.2.3. 举例](#323-举例)
 - [4. 参考文献](#4-参考文献)
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -957,8 +957,64 @@ $$
 
 偏差矩阵 $\boldsymbol D_{b1}\boldsymbol \Delta_{b1}(t)\boldsymbol E_{b1}$ 和系数矩阵 $\boldsymbol B_1$ 类似，这里不再赘述。
 
-## 3.3. 举例
+### 3.2.3. 举例
 
+对前面已经完成建模的系统（[3.1.3. 举例](#313-举例)）进行规则约减。系统状态方程为
+
+$$
+\dot \boldsymbol x(t) = \sum_{i=1}^8 h_i(\boldsymbol z(t))[\boldsymbol A_i\boldsymbol x(t) + \boldsymbol B_i\boldsymbol u(t)]
+$$
+
+其中
+
+$$
+\begin{aligned}
+  h_1 &= h_{211}h_{331}v_{311}={\rm cos}x_2(t)\cdot\frac{x_1(t)+5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_2 &= h_{212}h_{331}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)+5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_3 &= h_{211}h_{332}v_{311}={\rm cos}x_2(t)\cdot\frac{x_1(t)-5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_4 &= h_{212}h_{332}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)-5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_5 &= h_{211}h_{331}v_{312}={\rm cos}x_2(t)\cdot\frac{x_1(t)+5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_6 &= h_{212}h_{331}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)+5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_7 &= h_{211}h_{332}v_{312}={\rm cos}x_2(t)\cdot\frac{x_1(t)-5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_8 &= h_{212}h_{332}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)-5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  \boldsymbol A_1 &= \boldsymbol A_5 = 
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 1&0&-1\\
+  0&0&\boldsymbol 5
+  \end{bmatrix},\ 
+  \boldsymbol A_2 = \boldsymbol A_6  = 
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0&0&-1\\
+  0&0&\boldsymbol 5
+  \end{bmatrix}\\
+  \boldsymbol A_3 &= \boldsymbol A_7 = 
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 1&0&-1\\
+  0&0&-\boldsymbol 5
+  \end{bmatrix},\ 
+  \boldsymbol A_4 = \boldsymbol A_8 = 
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0&0&-1\\
+  0&0&-\boldsymbol 5
+  \end{bmatrix}\\
+  \boldsymbol B_1 &= \boldsymbol B_2 = \boldsymbol B_3 = \boldsymbol B_4 =
+  \begin{bmatrix}
+  0\\
+  0\\
+  1.5
+  \end{bmatrix},\ 
+  \boldsymbol B_5 = \boldsymbol B_6 = \boldsymbol B_7 = \boldsymbol B_8 = 
+  \begin{bmatrix}
+  0\\
+  0\\
+  0.5
+  \end{bmatrix}\\
+  \end{aligned}
+$$
 
 
 # 4. 参考文献
