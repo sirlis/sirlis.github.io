@@ -22,6 +22,9 @@ math: true
     - [3.2.1. 约减方式](#321-约减方式)
     - [3.2.2. 模型不确定性](#322-模型不确定性)
     - [3.2.3. 举例](#323-举例)
+  - [3.3. 模糊控制器](#33-模糊控制器)
+    - [3.3.1. 设计](#331-设计)
+    - [3.3.2. 举例](#332-举例)
 - [4. 参考文献](#4-参考文献)
 
 > T. Taniguchi; K. Tanaka; H. Ohtake; H.O. Wang. **Model construction, rule reduction, and robust compensation for generalized form of Takagi-Sugeno fuzzy systems**. IEEE Transactions on Fuzzy Systems ( Volume: 9, Issue: 4, Aug 2001).
@@ -762,7 +765,11 @@ $$
 
 ### 3.2.2. 模型不确定性
 
-进行规则约减后，存在约减偏差，作者将其转化为模型不确定性。假设针对上述两种约减情况的模型不确定性为 $\delta^A_{i_0j_0}(t),\delta^B_{i_0k_0}(t)$，已知
+对原始模型进行规则约减后，会存在约减偏差，作者将其转化为模型不确定性。
+
+- **任一约减**
+
+对于**某一** $i_0,j_0,k_0$ 项进行规则约减，假设模型不确定性为 $\delta^A_{i_0j_0}(t),\delta^B_{i_0k_0}(t)$，已知
 
 $$
 a_{i_0j_0}=\frac{a_{ij1}+a_{ij2}}{2},\ b_{i_0k_0}=\frac{b_{ik1}+b_{ik2}}{2}
@@ -825,7 +832,40 @@ $$
 \end{aligned}
 $$
 
-对于任意（**所有**） $i,j,k$ 进行规则约减，那么很显然，**<font color=red>规则最终从 $2^{n(n+m)}$ 个变成 1 个</font>**。
+- **一般约减**
+
+对于**任意** $i,j,k$ 项进行规则约减，引入模型不确定性 $\boldsymbol \Delta^A_{ij}(t),\boldsymbol \Delta^B_{ik}(t)$，有
+
+$$
+\begin{aligned}
+\dot \boldsymbol x(t)
+&=\sum_{i=1}^n\sum_{j=1}^n (a_{ij}+\delta^A_{ij}(t))\boldsymbol U_{ij}^A\boldsymbol x(t) + \sum_{i=1}^n\sum_{k=1}^m (b_{ik}+\delta^B_{ik}(t))\boldsymbol U_{ik}^B\boldsymbol u(t)\\
+\end{aligned}
+$$
+
+其中
+
+$$
+\vert\vert \delta^A_{ij}(t) \vert\vert \leq \frac{a_{ij1}-a_{ij2}}{2},\ \vert\vert \delta^B_{ik}(t) \vert\vert\leq \frac{b_{ik1}-b_{ik2}}{2}
+$$
+
+写成矩阵的形式
+
+$$
+\dot \boldsymbol x(t)=\sum_{i=1}^{\frac{1}{4}r} (\boldsymbol A_i+\boldsymbol D_{ai}\boldsymbol \Delta_{ai}(t)\boldsymbol E_{ai})\boldsymbol x(t)+(\boldsymbol B_i+ \boldsymbol D_{bi}\boldsymbol \Delta_{bi}(t)\boldsymbol E_{bi})\boldsymbol u(t)
+$$
+
+其中
+
+$$
+\vert\vert \delta^A_{ij}(t) \vert\vert \leq \frac{1}{\rho_{ai}},\ \vert\vert \delta^B_{ik}(t) \vert\vert\leq \frac{1}{\rho_{bi}}
+$$
+
+$\frac{1}{\rho_{ai}},\frac{1}{\rho_{bi}}$ 根据前面不确定性不等式的上界决定（原文可能误写作 $\rho_{ai},\rho_{bi}$）。
+
+- **全部约减**
+
+对于**所有** $i,j,k$ 项进行规则约减，那么很显然，**<font color=red>规则最终从 $2^{n(n+m)}$ 个变成 1 个</font>**。
 
 引入模型不确定性 $\delta^A_{ij}(t),\delta^B_{ik}(t)$，有
 
@@ -969,14 +1009,14 @@ $$
 
 $$
 \begin{aligned}
-  h_1 &= h_{211}h_{331}v_{311}={\rm cos}x_2(t)\cdot\frac{x_1(t)+5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
-  h_2 &= h_{212}h_{331}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)+5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
-  h_3 &= h_{211}h_{332}v_{311}={\rm cos}x_2(t)\cdot\frac{x_1(t)-5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
-  h_4 &= h_{212}h_{332}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)-5}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
-  h_5 &= h_{211}h_{331}v_{312}={\rm cos}x_2(t)\cdot\frac{x_1(t)+5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
-  h_6 &= h_{212}h_{331}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)+5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
-  h_7 &= h_{211}h_{332}v_{312}={\rm cos}x_2(t)\cdot\frac{x_1(t)-5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
-  h_8 &= h_{212}h_{332}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{x_1(t)-5}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_1 &= h_{211}h_{331}v_{311}={\rm cos}x_2(t)\cdot\frac{5+x_1(t)}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_2 &= h_{212}h_{331}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{5+x_1(t)}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_3 &= h_{211}h_{332}v_{311}={\rm cos}x_2(t)\cdot\frac{5-x_1(t)}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_4 &= h_{212}h_{332}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{5-x_1(t)}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_5 &= h_{211}h_{331}v_{312}={\rm cos}x_2(t)\cdot\frac{5+x_1(t)}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_6 &= h_{212}h_{331}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{5+x_1(t)}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_7 &= h_{211}h_{332}v_{312}={\rm cos}x_2(t)\cdot\frac{5-x_1(t)}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_8 &= h_{212}h_{332}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{5-x_1(t)}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
   \boldsymbol A_1 &= \boldsymbol A_5 = 
   \begin{bmatrix}
   0&1&0\\
@@ -1012,10 +1052,187 @@ $$
   0\\
   0\\
   0.5
-  \end{bmatrix}\\
+  \end{bmatrix}
   \end{aligned}
 $$
 
+- **约减形式一**
+
+如果针对 $A(2,1)$ 进行规则约减，即 $A(2,1)=\sum_ih_iA_i(2,1)\equiv\frac{1+0}{2}=0.5$。此时相当于 $h_{211},h_{212}$ 失去作用，$A_1,A_2$ 合并为新的 $A_1^\prime$（原文中仍以 $A_1$ 表示），其它矩阵类似。隶属度函数 $h_1,h_2$ 合并为 $h_1^\prime$（原文中以 $m_1$ 表示），其它隶属度函数类似。
+
+则规则数和矩阵数目减半，系统变为
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &= \sum_{i=1}^4 h_i^\prime(\boldsymbol z(t))[\boldsymbol A_i^\prime\boldsymbol x(t) + \boldsymbol B_i^\prime\boldsymbol u(t)]\\
+  h_1^\prime &= h_{331}v_{311}=\frac{5+x_1(t)}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_2^\prime &= h_{332}v_{311}=\frac{5-x_1(t)}{10}\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_3^\prime &= h_{331}v_{312}=\frac{5+x_1(t)}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_4^\prime &= h_{332}v_{312}=\frac{5-x_1(t)}{10}\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  \boldsymbol A_1^\prime &= 
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0.5&0&-1\\
+  0&0&5
+  \end{bmatrix},\ 
+  \boldsymbol A_2^\prime = 
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0.5&0&-1\\
+  0&0&-5
+  \end{bmatrix}\\
+  \boldsymbol A_3^\prime &=
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0.5&0&-1\\
+  0&0&5
+  \end{bmatrix},\ 
+  \boldsymbol A_4^\prime =
+  \begin{bmatrix}
+  0&1&0\\
+  \boldsymbol 0.5&0&-1\\
+  0&0&-5
+  \end{bmatrix}\\
+  \boldsymbol B_1^\prime &= \boldsymbol B_2^\prime =
+  \begin{bmatrix}
+  0\\
+  0\\
+  1.5
+  \end{bmatrix},\ 
+  \boldsymbol B_3^\prime = \boldsymbol B_4^\prime =
+  \begin{bmatrix}
+  0\\
+  0\\
+  0.5
+  \end{bmatrix}
+  \end{aligned}
+$$
+
+相应的模型不确定性为
+
+$$
+\vert\vert\boldsymbol \Delta_{ai}(t) \vert\vert \leq 0.5,\ i=1,2,3,4
+$$
+
+- **约减形式二**
+
+针对 $A(3,3)$ 进行约减，即 $A(3,3)=\sum_ih_iA_i(3,3)\equiv\frac{5+(-5)}{2}=0$，系统变为
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &= \sum_{i=1}^4 h_i^\prime(\boldsymbol z(t))[\boldsymbol A_i^\prime\boldsymbol x(t) + \boldsymbol B_i^\prime\boldsymbol u(t)]\\
+  h_1^\prime &= h_{211}v_{311}={\rm cos}x_2(t)\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_2^\prime &= h_{212}v_{311}=(1-{\rm cos}x_2(t))\cdot\frac{1+{\rm sin}x_3(t)}{2}\\
+  h_3^\prime &= h_{211}v_{312}={\rm cos}x_2(t)\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  h_4^\prime &= h_{212}v_{312}=(1-{\rm cos}x_2(t))\cdot\frac{1-{\rm sin}x_3(t)}{2}\\
+  \boldsymbol A_1^\prime &= 
+  \begin{bmatrix}
+  0&1&0\\
+  1&0&-1\\
+  0&0&\boldsymbol 0
+  \end{bmatrix},\ 
+  \boldsymbol A_2^\prime = 
+  \begin{bmatrix}
+  0&1&0\\
+  0&0&-1\\
+  0&0&\boldsymbol 0
+  \end{bmatrix}\\
+  \boldsymbol A_3^\prime &=
+  \begin{bmatrix}
+  0&1&0\\
+  1&0&-1\\
+  0&0&\boldsymbol 0
+  \end{bmatrix},\ 
+  \boldsymbol A_4^\prime =
+  \begin{bmatrix}
+  0&1&0\\
+  0&0&-1\\
+  0&0&\boldsymbol 0
+  \end{bmatrix}\\
+  \boldsymbol B_1^\prime &= \boldsymbol B_2^\prime =
+  \begin{bmatrix}
+  0\\
+  0\\
+  1.5
+  \end{bmatrix},\ 
+  \boldsymbol B_3^\prime = \boldsymbol B_4^\prime =
+  \begin{bmatrix}
+  0\\
+  0\\
+  0.5
+  \end{bmatrix}
+  \end{aligned}
+$$
+
+相应的模型不确定性为
+
+$$
+\vert\vert\boldsymbol \Delta_{ai}(t) \vert\vert \leq 5,\ i=1,2,3,4
+$$
+
+- **约减形式三**
+
+针对 $B(3,1)$ 进行约减，即 $B(3,1)=\sum_ih_iB_i(3,1)\equiv\frac{1.5+0.5}{2}=1$，系统变为
+
+$$
+\begin{aligned}
+  \dot \boldsymbol x(t) &= \sum_{i=1}^4 h_i^\prime(\boldsymbol z(t))[\boldsymbol A_i^\prime\boldsymbol x(t) + \boldsymbol B_i^\prime\boldsymbol u(t)]\\
+  h_1^\prime &= h_{211}h_{331}={\rm cos}x_2(t)\cdot\frac{5+x_1(t)}{10}\\
+  h_2^\prime &= h_{212}h_{331}=(1-{\rm cos}x_2(t))\cdot\frac{5+x_1(t)}{10}\\
+  h_3^\prime &= h_{211}h_{332}={\rm cos}x_2(t)\cdot\frac{5-x_1(t)}{10}\\
+  h_4^\prime &= h_{212}h_{332}=(1-{\rm cos}x_2(t))\cdot\frac{5-x_1(t)}{10}\\
+  \boldsymbol A_1^\prime &= 
+  \begin{bmatrix}
+  0&1&0\\
+  1&0&-1\\
+  0&0&5
+  \end{bmatrix},\ 
+  \boldsymbol A_2^\prime = 
+  \begin{bmatrix}
+  0&1&0\\
+  0&0&-1\\
+  0&0&5
+  \end{bmatrix}\\
+  \boldsymbol A_3^\prime &=
+  \begin{bmatrix}
+  0&1&0\\
+  1&0&-1\\
+  0&0&-5
+  \end{bmatrix},\ 
+  \boldsymbol A_4^\prime =
+  \begin{bmatrix}
+  0&1&0\\
+  0&0&-1\\
+  0&0&-5
+  \end{bmatrix}\\
+  \boldsymbol B_1^\prime &= \boldsymbol B_2^\prime =
+  \begin{bmatrix}
+  0\\
+  0\\
+  \boldsymbol 1
+  \end{bmatrix},\ 
+  \boldsymbol B_3^\prime = \boldsymbol B_4^\prime =
+  \begin{bmatrix}
+  0\\
+  0\\
+  \boldsymbol 1
+  \end{bmatrix}
+  \end{aligned}
+$$
+
+相应的模型不确定性为
+
+$$
+\vert\vert\boldsymbol \Delta_{bi}(t) \vert\vert \leq 0.5,\ i=1,2,3,4
+$$
+
+## 3.3. 模糊控制器
+
+### 3.3.1. 设计
+
+### 3.3.2. 举例
+
+未完待续！
 
 # 4. 参考文献
 
