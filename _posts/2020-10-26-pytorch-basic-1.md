@@ -6,7 +6,7 @@ tags: [python]
 math: true
 ---
 
-本文主要针对PyTorch新手，介绍一些基础知识。
+本文主要记录自己学习 PyTorch 过程中涉及的一些基础知识。
 
 <!--more-->
 
