@@ -1,5 +1,5 @@
 ---
-title: PyTorch基础（一）
+title: PyTorch基础（张量）
 date: 2020-10-26 15:22:19 +0800
 categories: [Tutorial, Coding]
 tags: [python]
