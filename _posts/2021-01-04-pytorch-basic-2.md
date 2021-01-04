@@ -1,5 +1,5 @@
 ---
-title: PyTorch基础（二）
+title: PyTorch基础（随机数种子）
 date: 2020-10-26 15:22:19 +0800
 categories: [Tutorial, Coding]
 tags: [python]
