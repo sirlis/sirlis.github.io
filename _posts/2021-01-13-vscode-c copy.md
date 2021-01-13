@@ -64,6 +64,8 @@ math: true
 
 最后点击下载安装包，下载完毕后安装即可。
 
+![downloadr](../assets/img/postsimg/20210113/5.jpg)
+
 
 
 # 4. 参考文献
