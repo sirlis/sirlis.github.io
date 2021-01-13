@@ -56,7 +56,13 @@ math: true
 
 然后根据自己的平台选择安装包（比如 Windows）
 
-首次安装，请选择 base
+![downloadr](../assets/img/postsimg/20210113/3.jpg)
+
+首次安装，请选择 **base**
+
+![downloadr](../assets/img/postsimg/20210113/4.jpg)
+
+最后点击下载安装包，下载完毕后安装即可。
 
 
 
