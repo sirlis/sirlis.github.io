@@ -98,9 +98,9 @@ install.packages("languageserver")
 
 安装完毕后，点击齿轮按钮，进入扩展设置。
 
-对于 R 插件，勾选
+对于 R 插件，勾选 `R: Always Use Active Terminal`，设置 `R › Rpath: Windows` 为安装 R 的 `R.exe` 所在的路径（比如 `C:\Program Files\R\R-4.0.3\bin\R.exe`）。
 
-
+对于 R LSP Client 扩展，设置 `R › Rpath: Windows` 为安装 R 的 `R.exe` 所在的路径。
 
 # 4. 参考文献
 
