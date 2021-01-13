@@ -50,6 +50,8 @@ math: true
 
 ![downloadr](../assets/img/postsimg/20210113/1.jpg)
 
+![downloadr](../assets/img/postsimg/20210113/1.jpg)
+
 # 4. 参考文献
 
 <span id="ref1">[1]</span> Micsosoft. [Configure VS Code for Microsoft C++](https://code.visualstudio.com/docs/cpp/config-msvc).
