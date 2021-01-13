@@ -48,7 +48,7 @@ math: true
 
 前往[官网](https://www.r-project.org/)（https://www.r-project.org/） 下载R语言的安装包。
 
-![downloadr](../assets/img/postsimg/20200318/02.ccppextension.png)
+![downloadr](../assets/img/postsimg/20210113/1.jpg)
 
 # 4. 参考文献
 
