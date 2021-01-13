@@ -92,7 +92,15 @@ install.packages("languageserver")
 
 ## 3.3. 安装扩展
 
-可能需要翻墙。在 VSCode 的扩展列表中搜索并安装 R 和 R LSP Client 两个插件。
+可能需要翻墙。在 VSCode 的扩展列表中搜索并安装 R 和 R LSP Client 两个扩展。
+
+![downloadr](../assets/img/postsimg/20210113/8.jpg)
+
+安装完毕后，点击齿轮按钮，进入扩展设置。
+
+对于 R 插件，勾选
+
+
 
 # 4. 参考文献
 
