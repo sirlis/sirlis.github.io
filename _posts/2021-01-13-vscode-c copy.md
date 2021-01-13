@@ -75,7 +75,19 @@ LanguageServer 是 R 语言端配合 VSCode 进行可视化的 Language Server P
 
 前往 R 安装的路径，进入 `bin` 文件夹（比如 `C:\Program Files\R\R-4.0.3\bin`），双击 `R.exe` 启动 R 环境。
 
+![downloadr](../assets/img/postsimg/20210113/6.jpg)
 
+输入
+
+```c
+install.packages("languageserver")
+```
+
+提示选择一个镜像（忽略 R 官方那蹩脚的中文），选择中国镜像后（比如在北京就选择 `China,Beijing`）开始疯狂下载依赖包。
+
+![downloadr](../assets/img/postsimg/20210113/7.jpg)
+
+等待下载完毕即可。
 
 # 4. 参考文献
 
