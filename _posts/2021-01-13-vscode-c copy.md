@@ -50,7 +50,15 @@ math: true
 
 ![downloadr](../assets/img/postsimg/20210113/1.jpg)
 
-![downloadr](../assets/img/postsimg/20210113/1.jpg)
+然后选择任意一个中国镜像（比如第一个清华镜像）
+
+![downloadr](../assets/img/postsimg/20210113/2.jpg)
+
+然后根据自己的平台选择安装包（比如 Windows）
+
+首次安装，请选择 base
+
+
 
 # 4. 参考文献
 
