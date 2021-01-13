@@ -16,7 +16,8 @@ math: true
 - [2. 下载与安装](#2-下载与安装)
 - [3. 配置 R 开发环境](#3-配置-r-开发环境)
   - [3.1. 安装 R 语言](#31-安装-r-语言)
-  - [安装 LanguageServer](#安装-languageserver)
+  - [3.2. 安装 LanguageServer](#32-安装-languageserver)
+  - [3.3. 安装扩展](#33-安装扩展)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 简介
@@ -67,7 +68,7 @@ math: true
 
 ![downloadr](../assets/img/postsimg/20210113/5.jpg)
 
-## 安装 LanguageServer
+## 3.2. 安装 LanguageServer
 
 LanguageServer 是 R 语言端配合 VSCode 进行可视化的 Language Server Protocol 插件。
 
@@ -88,6 +89,10 @@ install.packages("languageserver")
 ![downloadr](../assets/img/postsimg/20210113/7.jpg)
 
 等待下载完毕即可。
+
+## 3.3. 安装扩展
+
+可能需要翻墙。在 VSCode 的扩展列表中搜索并安装 R 和 R LSP Client 两个插件。
 
 # 4. 参考文献
 
