@@ -18,6 +18,7 @@ math: true
   - [3.1. 安装 R 语言](#31-安装-r-语言)
   - [3.2. 安装 LanguageServer](#32-安装-languageserver)
   - [3.3. 安装扩展](#33-安装扩展)
+  - [测试 R 环境](#测试-r-环境)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 简介
@@ -102,6 +103,19 @@ install.packages("languageserver")
 
 对于 R LSP Client 扩展，设置 `R › Rpath: Windows` 为安装 R 的 `R.exe` 所在的路径。
 
+## 测试 R 环境
+
+打开一个 R 文件，随便写个
+
+```r
+1/3
+```
+
+右上角出现一个新图标按钮，如下图所示，点击即可运行 R 文件。
+
+![run](../assets/img/postsimg/20210113/9.jpg)
+
+
 # 4. 参考文献
 
-<span id="ref1">[1]</span> Micsosoft. [Configure VS Code for Microsoft C++](https://code.visualstudio.com/docs/cpp/config-msvc).
+无。
