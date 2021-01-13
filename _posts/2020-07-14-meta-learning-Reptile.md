@@ -412,7 +412,7 @@ $$
 
 $$
 \begin{aligned}
-g_{MAML} & &= g_2 - \alpha \overline{H_2}\overline{g}_1-\alpha\overline{H_1}\overline{g}_2+O(\alpha^2)\\
+g_{MAML} & &= \overline{g}_2 - \alpha \overline{H_2}\overline{g}_1-\alpha\overline{H_1}\overline{g}_2+O(\alpha^2)\\
 g_{FOMAML} &= g_2 &= \overline{g}_2-\alpha\overline{H}_2\overline{g}_1+O(\alpha^2)\\
 g_{Reptile} &= g_1+g_2 &= \overline{g}_1+\overline{g}_2-\alpha \overline{H}_2\overline{g}_1 + O(\alpha^2)\\
 \end{aligned}

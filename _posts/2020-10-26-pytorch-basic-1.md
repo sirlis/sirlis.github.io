@@ -1,12 +1,12 @@
 ---
-title: PyTorch基础（一）
+title: PyTorch基础（张量）
 date: 2020-10-26 15:22:19 +0800
 categories: [Tutorial, Coding]
 tags: [python]
 math: true
 ---
 
-本文主要针对PyTorch新手，介绍一些基础知识。
+本文主要记录自己学习 PyTorch 过程中涉及的一些基础知识。
 
 <!--more-->
 
