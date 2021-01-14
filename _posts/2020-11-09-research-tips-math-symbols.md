@@ -52,7 +52,6 @@ math: true
 
 # 3. 希腊字母
 
-
 大写命令 | 大写 | 小写命令 | 小写
 -|-|-|-
 `\Alpha` | $\Alpha$ | `\alpha` | $\alpha$
@@ -63,6 +62,11 @@ math: true
 `\Zeta` | $\Zeta$ | `\zeta` | $\zeta$
 `\Eta` | $\Eta$ | `\eta` | $\eta$
 `\Theta` | $\Theta$ | `\theta` | $\theta$
+`\Iota` | $\Iota$ | `\iota` | $\iota$
+`\Kappa` | $\Kappa$ | `\kappa` | $\kappa$
+`\Lambda` | $\Lambda$ | `\lambda` | $\lambda$
+`\Mu` | $\Mu$ | `\mu` | $\mu$
+`\Xi` | $\Xi$ | `\xi` | $\xi$
 `\Rho` | $\Rho$ | `\rho,\varrho` | $\rho,\varrho$
 `\Sigma` | $\Sigma$ | `\sigma` | $\sigma$
 `\Tau` | $\Tau$ | `\tau` | $\tau$
