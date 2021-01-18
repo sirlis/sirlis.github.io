@@ -1,12 +1,12 @@
 ---
-title: VSCode部署R开发环境
-date: 2021-01-13 22:22:49 +0800
-categories: [Tutorial, Coding]
-tags: [r]
+title: 深度学习基础（高斯过程）
+date: 2021-01-18 16:21:49 +0800
+categories: [Academic, Knowledge]
+tags: [deeplearning]
 math: true
 ---
 
-本文介绍了基于 VSCode 的 R 开发环境的搭建方法。
+本文介绍了高斯过程，包括高斯函数、多元高斯分布、高斯过程。
 
 <!--more-->
 
