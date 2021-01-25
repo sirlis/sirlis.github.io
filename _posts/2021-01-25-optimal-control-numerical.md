@@ -186,6 +186,21 @@ $$
 
 如果进一步要求方法具备 $p$ 阶精度，则需要补充相应的条件。比如一个 $s$ 阶 $p$ 级 Runge-Kutta 法需要满足 $s\geq p$ 且 $s\geq p+1(p\geq 5)$。
 
+$s=1$ 阶龙格库塔法就是显式欧拉法。
+
+$s=4$ 阶龙格库塔法如下
+
+$$
+\begin{aligned}
+x_{n+1} &=x_n + \frac{1}{6}h(k_1+2k_2+2k_3+k_4),\\
+t_{n=1} &= t_n + h,\\
+k_1 &= f(x_n,t_n),\\
+k_2 &= f(x_n+h\frac{k_1}{2},t_n + \frac{h}{2}),\\
+k_3 &= f(x_n+h\frac{k_2}{2},t_n + \frac{h}{2}),\\
+k_4 &= f(x_n+hk_3,t_n + h).\\
+\end{aligned}
+$$
+
 # 3. 参考文献
 
 无。
