@@ -18,6 +18,7 @@ math: true
     - [2.1.1. 线性多步法](#211-线性多步法)
     - [2.1.2. 多段法（Runge-Kutta 法）](#212-多段法runge-kutta-法)
 - [3. ODE-BPV的数值解法](#3-ode-bpv的数值解法)
+  - [3.1. 配点法](#31-配点法)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 泰勒公式
@@ -204,7 +205,45 @@ $$
 
 # 3. ODE-BPV的数值解法
 
-[微分方程的边值问题（ODE-BPV）](https://en.wikipedia.org/wiki/Boundary_value_problem)
+[微分方程的边值问题（ODE-BPV）](https://en.wikipedia.org/wiki/Boundary_value_problem) 类似初值问题。边值问题的条件是在区域的边界上，而初值问题的条件都是在独立变量及其导数在某一特定值时的数值（一般是定义域的下限，所以称为初值问题）。
+
+例如独立变量是时间，定义域为 $[0,1]$，边值问题的条件会是 $x(t)$ 在 $t=0$ 及 $t=1$ 时的数值，而初值问题的条件会是 $t=0$ 时的 $x(t)$ 及 $x^\prime(t)$ 之值。
+
+解决边值问题一般采用：
+
+- [打靶法](https://en.wikipedia.org/wiki/Shooting_method)
+- [差分](https://en.wikipedia.org/wiki/Finite_difference)
+- [伽辽金法](https://en.wikipedia.org/wiki/Galerkin_method)
+- [配点法](https://en.wikipedia.org/wiki/Collocation_method)
+
+## 3.1. 配点法
+
+配点法选择的有限维候选解空间（通常是展开到一定阶数的多项式）和域中的多个点（称为配点），并选择在配点处满足给定方程的解 。
+
+假设希望求微分方程
+
+$$
+\left\{
+\begin{array}{l}
+  \dot{x}=f(x(t),t)\\
+  x(t_0)=x_0
+\end{array}
+\right.
+$$
+
+在区间 $[t_0,t_0+c_kh]$ 的解，其中 $0<c_1<\cdots<c_k\leq1$。
+
+对应的（多项式）配点法通过 $n$ 阶多项式 $p$ 来近似解 $x$，且满足初始条件 $p(t_{0})=x_{0}$ 和微分方程 $\dot p(t_{k})=f(p(t_{k}),t_{k})$。
+
+所有配点 $t_k=t_0+c_kh,\ k=1,\cdots,n$ 提供了 $n+1$ 个条件，正好对应 $n$ 阶多项式中的 $n+1$ 个待定参数。
+
+所有这些配点法本质上都是隐式龙格库塔法，但不是所有龙格库塔法都是配点法。
+
+举例：梯形法（两个配点 $c_1=0, c_2 = 1$）
+
+
+
+[**高斯-勒让德配点法**（Gauss–Legendre methods）](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_method)
 
 # 4. 参考文献
 
