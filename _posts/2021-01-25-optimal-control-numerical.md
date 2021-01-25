@@ -163,7 +163,28 @@ $$
 
 ### 2.1.2. 多段法
 
-又称为 multiple-stage method，
+又称为 multiple-stage method，是在 $[t_n,t_{n+1}]$ 区间内划分若干临时段，然后进行迭代求解的一种常微分方程数值解法。其中最长用的是 **Runge-Kutta** 方法。
+
+定义步长为 $h$，将区间划分为 $s$ 个子区间，则 $s$ 阶显式Runge-Kutta 法为
+
+$$
+\begin{aligned}
+x_{n+1} &= x_n + h\sum_{i=1}^sb_ik_i\\
+k_1&= f(x_n,t_n)\\
+k_2&= f(x_n+h(a_{21}k_1),t_n+c_2h)\\
+k_3&= f(x_n+h(a_{31}k_1+a_{32}k_2),t_n+c_3h)\\
+\vdots\\
+k_s&= f(x_n+h(a_{s1}k_1+a_{s2}k_2+\cdots+a_{s,s-1}k_{s-1}),t_n+c_sh)\\
+\end{aligned}
+$$
+
+根据泰勒展开，Runge-Kutta 当且仅当满足如下条件时才具备自洽性
+
+$$
+\sum_{i=1}^s b_i=1
+$$
+
+如果进一步要求方法具备 $p$ 阶精度，则需要补充相应的条件。比如一个 $s$ 阶 $p$ 级 Runge-Kutta 法需要满足 $s\geq p$ 且 $s\geq p+1(p\geq 5)$。
 
 # 3. 参考文献
 
