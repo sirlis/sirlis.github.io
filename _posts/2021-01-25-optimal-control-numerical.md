@@ -74,7 +74,7 @@ $$
 
 # 2. ODE-IPV的数值解法
 
-微分方程的初值问题如下（ODE-IVP）
+[微分方程的初值问题（ODE-IVP）](https://en.wikipedia.org/wiki/Initial_value_problem)如下
 
 $$
 \left\{
@@ -204,7 +204,7 @@ $$
 
 # 3. ODE-BPV的数值解法
 
-微分方程的边值问题（ODE-BPV）
+[微分方程的边值问题（ODE-BPV）](https://en.wikipedia.org/wiki/Boundary_value_problem)
 
 # 4. 参考文献
 
