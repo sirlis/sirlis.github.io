@@ -111,19 +111,53 @@ Time-Marching，时间推进法，微分方程在每个时刻的解根据前面�
 最简单的多步法就是单步法，即 $j=1$，最长用的单步法为**欧拉法**（Euler Method），具备如下的形式。
 
 $$
-\bm{x}_{n+1} = x_n + h_n[\theta f_n + (1-\theta)f_{n+1}]
+x_{n+1} = x_n + h_n[b f_n + (1-b)f_{n+1}]
 $$
 
-其中 $f_n=f[x(t_n),t_n]$，$\theta\in[0,1]$，$h_n$ 是步长。
+其中 $f_n=f[x(t_n),t_n]$，$b\in[0,1]$，$h_n$ 是步长。
 
-当 $\theta=1$ 时，为对应前向欧拉法；$\theta=0$ 时，为对应后向欧拉法；$\theta=1/2$ 时，为对应改进的欧拉法。欧拉法也可以从一阶泰勒多项式变化得到。
+当 $b=1$ 时，为对应前向欧拉法；$b=0$ 时，为对应后向欧拉法；$b=1/2$ 时，为对应改进的欧拉法。欧拉法也可以从一阶泰勒多项式变化得到。
 
 当 $j>1$ 时，就是更加复杂的线性多步法。形如
 
 $$
 \begin{aligned}
-x_{n+j} + a_{j-1}x_{n+j-1} + \cdots + a_0x_n =\\
-h(b_jf(x_{n+j},t_{n+j})+b_{j-1}f(x_{n+j-1},t_{n+j-1})+\cdots+b_0f(x_n,t_n))
+&a_0x_n + \cdots + a_{j-1}x_{n+j-1} + a_jx_{n+j} =\\
+&h(b_0f(x_n,t_n) + \cdots + b_{j-1}f(x_{n+j-1},t_{n+j-1})+b_jf(x_{n+j},t_{n+j}))
+\end{aligned}
+$$
+
+其中 $a_j=1$。系数 $a_0,\cdots,a_{j-1}$ 和 $b_0,\cdots,b_j$ 的选取决定了多步法的具体形式，一般在逼近程度和计算简便性上进行权衡。更加普遍的情况下，其中绝大部分的系数都置为0。
+
+如果 $b_j=0$ 则称为显式法，因为可以直接根据等式计算 $x_{n+j}$。如果$b_j\neq 0$ 则称为隐式法，因为 $x_{n+j}$ 依赖于 $f(x_{n+j},t_{n+j})$，需要通过迭代的方法来求解，比如采用牛顿迭代法。
+
+有时候，采用显式多步法来 『预测』 $x_{n+j}$，然后用隐式来 『矫正』它，这种方式称为 预测-矫正法（predictor–corrector method）。
+
+下面列举三种常用的线性多步法家族。
+
+**Adams-Bashforth methods**，一种显式法，其中 $a_{j-1}=-1$ 而 $a_{j-2}=\cdots=a_0=0$，然后设计 $b_j$ 来使得方法具备 $j$ 阶精度（同时也使得算法具备唯一性）。
+
+$j=1,2,3$ 步 Adams-Bashforth 方法如下：
+
+$$
+\begin{aligned}
+  x_{n+1} &= x_n + hf(x_n, t_n)\quad (前向欧拉法)\\
+  x_{n+2} &= x_{n+1} + h[\frac{3}{2}f(x_{n+1}, t_{n+1})-\frac{1}{2}f(x_{n}, t_{n})]\\
+  x_{n+3} &= x_{n+2} + h[\frac{23}{12}f(x_{n+2}, t_{n+2})-\frac{16}{12}f(x_{n+1}, t_{n+1})+\frac{5}{12}f(x_{n}, t_{n})]\\
+\end{aligned}
+$$
+
+如何确定参数 $b+j$ 的方法略，可参考维基百科。
+
+**Adams-Moulton methods**，一种隐式法，与 Adams-Bashforth 方法很类似，只是设计 $b_j$ 使得精度阶数尽可能高（$j$ 阶 Adams-Moulton 法具备 $j+1$ 阶精度，而$j$ 阶 Adams-Bashforth 法只具备 $j$ 阶精度）。
+
+$j=1,2$ 步 Adams-Moulton 方法如下：
+
+$$
+\begin{aligned}
+  x_{n+1} &= x_n + hf(x_{n+1}, t_{n+1})\quad (后向欧拉法)\\
+  x_{n+1} &= x_n + \frac{1}{2}h[f(x_{n+1}, t_{n+1})+f(x_n, t_n)]\quad (梯形法则)\\
+  x_{n+2} &= x_{n+1} + h[\frac{5}{12}f(x_{n+2}, t_{n+2})+\frac{3}{2}f(x_{n+1}, t_{n+1})-\frac{1}{12}f(x_{n}, t_{n})]\\
 \end{aligned}
 $$
 
