@@ -1,5 +1,5 @@
 ---
-title: 深度学习基础（高斯过程）
+title: 最优控制基础（微分方程的解法）
 date: 2021-01-25 09:07:49 +0800
 categories: [Academic, Knowledge]
 tags: [optimalcontrol]
