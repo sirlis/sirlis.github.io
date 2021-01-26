@@ -329,6 +329,7 @@ $$
   T_4(x) &= 8x^4 - 8x^2+1\\
 \end{aligned}
 $$
+![](../assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif)
 [第一类切比雪夫多项式的根](https://en.wikipedia.org/wiki/Chebyshev_nodes)又被称为切比雪夫节点，在 $[0,1]$ 区间内为
 $$
 x_k=cos(\frac{2k-1}{2n}\pi),\ k=1,\cdots,n
