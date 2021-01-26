@@ -311,7 +311,7 @@ $$
 
 具体而言，在正交配置方法中，配置点是某个正交多项式的根，一般为 [切比雪夫（Chebyshev）多项式](https://en.wikipedia.org/wiki/Chebyshev_polynomials) 或者 Legendre 多项式。
 
-> 第一类切比雪夫多项式 $T_n$ 由以下递推关系确定：
+> **第一类切比雪夫多项式** $T_n$ 由以下递推关系确定：
 $$
 \begin{aligned}
   T_0(x) &= 1\\
@@ -330,10 +330,12 @@ $$
 \end{aligned}
 $$
 ![](../assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif)
-[第一类切比雪夫多项式的根](https://en.wikipedia.org/wiki/Chebyshev_nodes)又被称为切比雪夫节点，在 $[0,1]$ 区间内为
+**第一类切比雪夫多项式的根**又被称为[切比雪夫节点](https://en.wikipedia.org/wiki/Chebyshev_nodes)，在 $[0,1]$ 区间内为
 $$
 x_k=cos(\frac{2k-1}{2n}\pi),\ k=1,\cdots,n
 $$
+形象的看，切比雪夫节点等价于 $n$ 等分单位半球的点的 $x$ 坐标（下图中 $n=10$）。
+![](../assets/img/postsimg/20210125/02.Chebyshev-nodes-by-projection.svg)
 对于任意区间 $[a,b]$，切比雪夫节点为
 $$
 x_k=\frac{1}{2}(a+b) + \frac{1}{2}(b-a)cos(\frac{2k-1}{2n}\pi),\ k=1,\cdots,n
