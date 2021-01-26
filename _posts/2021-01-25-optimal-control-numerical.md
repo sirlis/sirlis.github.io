@@ -342,7 +342,8 @@ x_k=\frac{1}{2}(a+b) + \frac{1}{2}(b-a)cos(\frac{2k-1}{2n}\pi),\ k=1,\cdots,n
 $$
 切比雪夫节点广泛用于多项式插值，因为他们具备一个很好的性质，即具有最小的龙格现象（插值边缘剧烈抖动发散）。
 ![](./../assets/img/postsimg/20210125/03.jpg)
-该方法特别适合求解非线性问题，
+
+
 
 
 **举例**：[**高斯-勒让德配点法**（Gauss–Legendre methods）](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_method)
