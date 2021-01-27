@@ -178,6 +178,7 @@ $$
 ## 2.3. 切比雪夫节点
 
 **第一类切比雪夫多项式** $T_n$ 由以下递推关系确定：
+
 $$
 \begin{aligned}
   T_0(x) &= 1\\
@@ -185,7 +186,9 @@ $$
   T_{n+1}(x) &= 2xT_n(x) - T_{n-1}(x),\ n=1,2,\cdots\\
 \end{aligned}
 $$
+
 前 4 阶第一类切比雪夫多项式为
+
 $$
 \begin{aligned}
   T_0(x) &= 1\\
@@ -195,18 +198,28 @@ $$
   T_4(x) &= 8x^4 - 8x^2+1\\
 \end{aligned}
 $$
+
 ![](../assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif)
+
 **第一类切比雪夫多项式的根**又被称为[切比雪夫节点](https://en.wikipedia.org/wiki/Chebyshev_nodes)，在 $[0,1]$ 区间内为
+
 $$
 x_k=cos(\frac{2k-1}{2n}\pi),\ k=1,\cdots,n
 $$
+
+> 多项式的根为使得多项式取值为 0 的值，即多项式曲线与横坐标轴的交点。
+
 形象的看，切比雪夫节点等价于 $n$ 等分单位半球的点的 $x$ 坐标（下图中 $n=10$）。
+
 ![](../assets/img/postsimg/20210125/02.Chebyshev-nodes-by-projection.svg)
+
 对于任意区间 $[a,b]$，切比雪夫节点为
+
 $$
 x_k=\frac{1}{2}(a+b) + \frac{1}{2}(b-a)cos(\frac{2k-1}{2n}\pi),\ k=1,\cdots,n
 $$
-切比雪夫节点广泛用于多项式插值，因为他们具备一个很好的性质，即具有最小的龙格现象（插值边缘剧烈抖动发散）。
+
+切比雪夫节点广泛用于多项式插值，因为他们具备一个很好的性质，即具有最小的龙格现象。
 
 ![](./../assets/img/postsimg/20210125/03.jpg)
 
