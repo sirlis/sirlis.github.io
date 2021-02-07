@@ -281,8 +281,8 @@ $$
 
 $$
 \begin{aligned}
-x_{t+1} &= x_t + h\cdot f(x_t,u_t,t)\\
-x_{t+1} &= x_t + \frac{1}{2}h\cdot [f(x_t,u_t,t)+f(x_{t+1},u_{t+1},t+1)]\\
+\overline x_{t+1} &= x_t + h\cdot f(x_t,t)\\
+x_{t+1} &= x_t + \frac{1}{2}h\cdot [f(x_t,t)+f(\overline x_{t+1},t+1)]\\
 \end{aligned}
 $$
 
