@@ -265,6 +265,8 @@ Time-Marching，时间推进法，微分方程在每个时刻的解根据前面�
 
 又称为 [linear multiple-step method](https://en.wikipedia.org/wiki/Linear_multistep_method)，即 $t_{n+1}$ 时刻微分方程的解由 $t_{n-j},\cdots,t_n$ 时刻的解求得，$j$ 为步长。
 
+- 欧拉法
+
 最简单的多步法就是单步法，即 $j=1$，最长用的单步法为**欧拉法**（Euler Method），具备如下的形式。
 
 $$
@@ -274,6 +276,17 @@ $$
 其中 $f_n=f[x(t_n),t_n]$，$b\in[0,1]$，$h_n$ 是步长。
 
 当 $b=1$ 时，为对应前向欧拉法；$b=0$ 时，为对应后向欧拉法；$b=1/2$ 时，为对应改进的欧拉法。欧拉法也可以从一阶泰勒多项式变化得到。
+
+改进的欧拉法可以采用 预测-校正 模型来实施。
+
+$$
+\begin{aligned}
+x_{t+1} &= x_t + h\cdot f(x_t,u_t,t)\\
+x_{t+1} &= x_t + \frac{1}{2}h\cdot [f(x_t,u_t,t)+f(x_{t+1},u_{t+1},t+1)]\\
+\end{aligned}
+$$
+
+- 多步法
 
 当 $j>1$ 时，就是更加复杂的线性多步法。形如
 
