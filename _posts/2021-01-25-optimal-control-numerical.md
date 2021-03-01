@@ -401,8 +401,8 @@ $$
 
 $$
 \begin{aligned}
-x_{n+1} &= x_n + hb_1k\\
-k &= f(x_n,t_n)
+x_{n+1} &= x_n + hb_1k_1\\
+k_1 &= f(x_n,t_n)
 \end{aligned}
 $$
 
@@ -418,11 +418,17 @@ $$
 
 $$
 \begin{aligned}
-x_{n+1} &= x_n + h\sum_{i=1}^2b_ik_i\\
+x_{n+1} &= x_n + h(b_1k_1+b_2k_2)\\
 k_1&= f(x_n,t_n)\\
 k_2&= f(x_n+h(a_{21}k_1),t_n+c_2h)
 \end{aligned}
 $$
+
+相当于在区间 $[t_n,t_n+1]$ 取两个点 $t_n,t_{n}+c_2h$，计算该两个点的斜率值 $k_1,k_2$，然后做加权平均
+
+与泰勒展开对比，相应项系数保持一致，有
+
+-----
 
 根据泰勒展开，Runge-Kutta 当且仅当满足如下条件时才具备自洽性
 
