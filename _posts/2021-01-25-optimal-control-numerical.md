@@ -374,7 +374,7 @@ $$
 
 又称为 multiple-stage method，是在 $[t_n,t_{n+1}]$ 区间内划分若干临时段，然后进行迭代求解的一种常微分方程数值解法。其中最常用的是 **龙格库塔**（**Runge-Kutta**） 法。
 
-定义步长为 $h$，将区间划分为 $s$ 个子区间，则 $s$ 阶显式Runge-Kutta 法为
+定义步长为 $h$，将区间划分为 $s$ 个子区间，则 $s$ 阶显式 Runge-Kutta 公式为
 
 $$
 \begin{aligned}
@@ -387,26 +387,28 @@ k_s&= f(x_n+h(a_{s1}k_1+a_{s2}k_2+\cdots+a_{s,s-1}k_{s-1}),t_n+c_sh)\\
 \end{aligned}
 $$
 
-龙格库塔法的基本思路是用 $f(x,t)$ 在几个不同点的数值加权平均代替 $f(x_{n+1},t_{n+1})$ 的值，而使截断误差的阶数尽可能高。也就是说，取不同点的预估斜率加权平均作为平均斜率，从而提高方法的阶数。这样龙格库塔法保留了泰勒展开法所具有的高阶局部截断误差，同时避免了计算函数 $f(x,t)$ 的高阶导数。
+龙格库塔法的基本思路是，用 $f(x,t)$ 在几个不同点的数值加权平均代替 $f(x_{n+1},t_{n+1})$ 的值，而使截断误差的阶数尽可能高。也就是说，取不同点的斜率加权平均作为平均斜率，从而提高方法的阶数。这样可以保留泰勒展开法所具有的高阶局部截断误差，同时避免了计算函数 $f(x,t)$ 的高阶导数。
 
-龙格库塔法包含的系数为 $b_i, a_{ij},c_i$
+龙格库塔法包含的系数为 $b_i, a_{ij},c_i$，需要与泰勒展开公式各项系数做对比来确定这些系数。
 
-泰勒展开为
+- **一阶龙格库塔法**：$s=1$ 时
+
+泰勒展开到一阶导为
 
 $$
-x_{n+1} = x_n + hf(x_n,t_n) + \frac{h^2}{2}\dot f(x_n,t_n)+\frac{h^3}{6}\ddot f(x_n,t_n)+\cdots
+x_{n+1} = x_n + hf(x_n,t_n)+\cdots
 $$
 
-- $s=1$ 时
 
 $$
 \begin{aligned}
 x_{n+1} &= x_n + hb_1k_1\\
-k_1 &= f(x_n,t_n)
+k_1 &= f(x_n,t_n)\\
+\Rightarrow x_{n+1} &= x_n + hb_1f(x_n,t_n)
 \end{aligned}
 $$
 
-与泰勒展开对比，相应项系数保持一致，有
+下面确定系数 $b_1$。与泰勒展开对比，相应项系数保持一致，有
 
 $$
 b_1=1
@@ -414,52 +416,101 @@ $$
 
 可以看出，1 阶龙格库塔法就是显式欧拉法。
 
-- $s=2$ 时
+- **二阶龙格库塔法**：$s=2$ 时
+
+泰勒展开到二阶导为
+
+$$
+\begin{aligned}
+x_{n+1} &= x_n + hf(x_n,t_n) + \frac{h^2}{2}\dot f(x_n,t_n)+\cdots\\
+&=x_n + hf(x_n,t_n) + \frac{h^2}{2}\left[\frac{\partial f(x_n,t_n)}{\partial x}f(x_n,t_n)+\frac{\partial f(x_n,t_n)}{\partial t}\right] + \cdots
+\end{aligned}
+$$
+
+注意，上式隐含了条件 $\frac{\partial x}{\partial t}=\dot x = f(x_n,t_n)$
+
+二阶龙格库塔法为
 
 $$
 \begin{aligned}
 x_{n+1} &= x_n + h(b_1k_1+b_2k_2)\\
 k_1&= f(x_n,t_n)\\
-k_2&= f(x_n+h(a_{21}k_1),t_n+c_2h)
+k_2&= f(x_n+h(a_{21}k_1),t_n+c_2h)\\
+\Rightarrow x_{n+1} &= x_n + hb_1f(x_n,t_n)+hb_2f(x_n+h(a_{21}k_1),t_n+c_2h)
 \end{aligned}
 $$
 
-相当于在区间 $[t_n,t_n+1]$ 取两个点 $t_n,t_{n}+c_2h$，计算该两个点的斜率值 $k_1,k_2$，然后做加权平均
+相当于在区间 $[t_n,t_n+1]$ 取两个点 $t_n,t_{n}+c_2h$，计算该两个点的斜率值 $k_1,k_2$，然后做加权平均。
 
-与泰勒展开对比，相应项系数保持一致，有
-
------
-
-根据泰勒展开，Runge-Kutta 当且仅当满足如下条件时才具备自洽性
-
-$$
-\sum_{i=1}^s b_i=1
-$$
-
-如果进一步要求方法具备 $p$ 阶精度，则需要补充相应的条件。比如一个 $s$ 阶 $p$ 级 Runge-Kutta 法需要满足 $s\geq p$ 且 $s\geq p+1(p\geq 5)$。一种常用的确定系数的条件为
-
-$$
-\sum_{j=1}^{i-1}a_{ij} = c_i,\ i=1,2,\cdots,s
-$$
-
-但是这个条件单独而言即非自洽性的必要条件也非充分条件。
-
-$s=1$ 阶龙格库塔法就是显式欧拉法。
-
-$s=4$ 阶龙格库塔法如下
+为了与上述泰勒展开式进行系数对比，需要对斜率 $k_2$ 在 $(x_n,t_n)$ 处做泰勒展开，遵循二元函数的泰勒展开公式，形式如下
 
 $$
 \begin{aligned}
-x_{n+1} &=x_n + \frac{1}{6}h(k_1+2k_2+2k_3+k_4),\\
-t_{n=1} &= t_n + h,\\
-k_1 &= f(x_n,t_n),\\
-k_2 &= f(x_n+h\frac{k_1}{2},t_n + \frac{h}{2}),\\
-k_3 &= f(x_n+h\frac{k_2}{2},t_n + \frac{h}{2}),\\
-k_4 &= f(x_n+hk_3,t_n + h).\\
+  f(x_0+h,y_0+k) = f(x_0,t_0) + (h\frac{\partial}{\partial x}+k\frac{\partial}{\partial y})f(x_0,y_0)+\cdots
 \end{aligned}
 $$
 
-Runge-Kutta 公式的思路，就是利用区间内一些特殊点的一阶导数值的线性组合来替代某点处的 $n$ 阶导数值，这样就可以仅通过一系列一阶导数值来得到某点幂级数展开的预测效果。这和泰勒公式正好是反过来的，泰勒公式是用某点的 $n$ 阶幂级数展开来近似得到小领域内的函数值。
+展开后有
+
+$$
+\begin{aligned}
+  k_2 &= f(x_n+h(a_{21}k_1),t_n+c_2h)\\
+  &=f(x_n,t_n) + ha_{21}k_1\frac{\partial f(x_n,t_n)}{\partial x} + c_2h\frac{\partial f(x_n,t_n)}{\partial t}\\
+  &=f(x_n,t_n) + ha_{21}\frac{\partial f(x_n,t_n)}{\partial x}f(x_n,t_n) + c_2h\frac{\partial f(x_n,t_n)}{\partial t}\\
+\end{aligned}
+$$
+
+带回到二阶龙格库塔的展开式中，有
+
+$$
+\begin{aligned}
+  x_{n+1} &= x_n + hb_1f(x_n,t_n)+hb_2f(x_n+h(a_{21}k_1),t_n+c_2h)\\
+  &= x_n + hb_1f(x_n,t_n)+hb_2 \left[ f(x_n,t_n) + ha_{21}\frac{\partial f(x_n,t_n)}{\partial x}f(x_n,t_n) + c_2h\frac{\partial f(x_n,t_n)}{\partial t} [\right]\\
+  &=x_n + h(b_1+b_2)f(x_n,t_n) + \frac{h^2}{2}\left[ 2b_2a_{21}\frac{\partial f(x_n,t_n)}{\partial x}f(x_n,t_n) + 2b_2c_2\frac{\partial f(x_n,t_n)}{\partial t} \right]
+\end{aligned}
+$$
+
+与泰勒展开式进行系数对比，有
+
+$$
+b_1+b_2=1,\quad 2b_2a_{21}=1,\quad 2b_2c_2 = 1
+$$
+
+四个未知数，三个方程，因此存在无穷多个系数组合。所有满足的系数统称为二阶龙格库塔格式。
+
+注意到， $b_1=b_2=0.5,\;a_{21}=c_2=1$，对应的二阶龙格库塔公式为
+
+$$
+\begin{aligned}
+x_{n+1} &= x_n + \frac{h}{2}(k_1+k_2)\\
+k_1&= f(x_n,t_n)\\
+k_2&= f(x_n+hk_1,t_n+h)\\
+\end{aligned}
+$$
+
+这就是改进的 Euler 法。
+
+- **三阶龙格库塔法**：略。
+
+可参考 百度文库. [龙格库塔法推导](https://wenku.baidu.com/view/98d914413868011ca300a6c30c2259010302f30a.html)
+
+- **四阶龙格库塔法**：$s=4$ 时
+
+阶龙格库塔法如下
+
+$$
+\begin{aligned}
+x_{n+1} &=x_n + \frac{1}{6}h(k_1+2k_2+2k_3+k_4)\\
+k_1 &= f(x_n,t_n)\\
+k_2 &= f(x_n+h\frac{k_1}{2},t_n + \frac{h}{2})\\
+k_3 &= f(x_n+h\frac{k_2}{2},t_n + \frac{h}{2})\\
+k_4 &= f(x_n+hk_3,t_n + h)\\
+\end{aligned}
+$$
+
+证明过程略。
+
+总结：Runge-Kutta 公式的思路，就是利用区间内一些特殊点的一阶导数值的线性组合来替代某点处的 $n$ 阶导数值，这样就可以仅通过一系列一阶导数值来得到某点幂级数展开的预测效果。这和泰勒公式正好是反过来的，泰勒公式是用某点的 $n$ 阶幂级数展开来近似得到小领域内的函数值。
 
 # 4. ODE-BPV的数值解法
 
@@ -734,3 +785,5 @@ $$
 [1] 马同学. [如何直观地理解拉格朗日插值法？](https://www.zhihu.com/question/58333118)
 
 [2] 素_履. [轨迹优化与直接配点法](https://blog.csdn.net/qq_35007540/article/details/105672547)
+
+[3] 百度文库. [龙格库塔法推导](https://wenku.baidu.com/view/98d914413868011ca300a6c30c2259010302f30a.html)
