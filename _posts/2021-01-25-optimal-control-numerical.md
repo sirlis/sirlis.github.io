@@ -287,7 +287,7 @@ Time-Marching，时间推进法，微分方程在每个时刻的解根据前面�
 
 又称为 [linear multiple-step method](https://en.wikipedia.org/wiki/Linear_multistep_method)，即 $t_{n+1}$ 时刻微分方程的解由 $t_{n-j},\cdots,t_n$ 时刻的解求得，$j$ 为步长。
 
-- 欧拉法
+- **单步法（欧拉法）**
 
 最简单的多步法就是单步法，即 $j=1$，最长用的单步法为**欧拉法**（Euler Method），具备如下的形式。
 
@@ -312,7 +312,7 @@ x_{t+1} &= x_t + \frac{1}{2}h\cdot [f(x_t,t)+f(\overline x_{t+1},t+1)]\\
 \end{aligned}
 $$
 
-- 多步法
+- **多步法**
 
 当 $j>1$ 时，就是更加复杂的线性多步法。形如
 
@@ -343,7 +343,20 @@ $$
 \end{aligned}
 $$
 
-如何确定参数 $b+j$ 的方法略，可参考维基百科。
+$j=2$ 质为泰勒展开保留至二阶，并用差分代替二阶微分项。
+
+$$
+\begin{aligned}
+x_{n+1} &= x_n + hf(x_n,t_n) + \frac{h^2}{2}f(x_n,t_n)+\cdots\\
+x_{n+2} &= x_n + hf(x_{n+1},t_{n+1}) + \frac{h^2}{2}\dot f(x_{n+1},t_{n+1})\\
+&= x_n + hf(x_{n+1},t_{n+1}) + \frac{h^2}{2}[\frac{f(x_{n+1},t_{n+1})-f(x_{n},t_{n})}{h}]\\
+&= x_n + h[\frac{3}{2}f(x_{n+1}, t_{n+1})-\frac{1}{2}f(x_{n}, t_{n})]
+\end{aligned}
+$$
+
+另一种如何确定参数 $b_j$ 的方法略，可参考[维基百科](https://en.wikipedia.org/wiki/Linear_multistep_method)。
+
+注意到，多步法需要多个历史数据 $x_n,x_{n+1}$ 来计算下一步 $x_{n+2}$，而常微分方程的初值问题一般只给出初始时刻的初值，因此不能直接从该值启动。常用方法是用 Euler 法或者 Runge-Kutta 法来启动，计算出前几个值。
 
 **Adams-Moulton methods**，一种隐式法，与 Adams-Bashforth 方法很类似，只是设计 $b_j$ 使得精度阶数尽可能高（$j$ 阶 Adams-Moulton 法具备 $j+1$ 阶精度，而$j$ 阶 Adams-Bashforth 法只具备 $j$ 阶精度）。
 
@@ -359,7 +372,7 @@ $$
 
 ### 3.1.2. 多段法（Runge-Kutta 法）
 
-又称为 multiple-stage method，是在 $[t_n,t_{n+1}]$ 区间内划分若干临时段，然后进行迭代求解的一种常微分方程数值解法。其中最长用的是 **龙格库塔**（**Runge-Kutta**） 法。
+又称为 multiple-stage method，是在 $[t_n,t_{n+1}]$ 区间内划分若干临时段，然后进行迭代求解的一种常微分方程数值解法。其中最常用的是 **龙格库塔**（**Runge-Kutta**） 法。
 
 定义步长为 $h$，将区间划分为 $s$ 个子区间，则 $s$ 阶显式Runge-Kutta 法为
 
@@ -403,7 +416,7 @@ k_4 &= f(x_n+hk_3,t_n + h).\\
 \end{aligned}
 $$
 
-Runge-Kutta 公式的思路就是利用区间内一些特殊点的一阶导数值的线性组合来替代某点处的n阶导数值,这样就可以仅通过一系列一阶导数值来得到某点幂级数展开的预测效果。这和泰勒公式正好是反过来的,泰勒公式是用某点的n阶幂级数展开来近似得到小领域内的函数值。
+Runge-Kutta 公式的思路，就是利用区间内一些特殊点的一阶导数值的线性组合来替代某点处的 $n$ 阶导数值，这样就可以仅通过一系列一阶导数值来得到某点幂级数展开的预测效果。这和泰勒公式正好是反过来的，泰勒公式是用某点的 $n$ 阶幂级数展开来近似得到小领域内的函数值。
 
 # 4. ODE-BPV的数值解法
 
