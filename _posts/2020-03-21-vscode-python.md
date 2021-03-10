@@ -250,9 +250,16 @@ conda clean -i
 
 ### 3.4.3. 常用命令
 
+- 安装包（**注意！必须要断开所有VPN等科学上网代理再进行安装！**）
+
+```python
+pip install xxx
+conda install xxx
+```
+
 - 显示环境下所有安装的包
 
-```
+```python
 [conda]  conda list 
 [pip]    pip -v list
 ```
@@ -261,7 +268,7 @@ conda clean -i
 
 - 显示所有过时包
 
-```
+```python
 pip list --outdated
 ```
 
@@ -269,7 +276,7 @@ pip list --outdated
 
 - 更新特定包
 
-```
+```python
 pip install --upgrade xxxx
 ```
 
@@ -277,19 +284,19 @@ pip install --upgrade xxxx
 
 或者使用
 
-```
+```python
 conda upgrade xxxx
 ```
 
 - 更新pip
 
-```
+```python
 python -m pip install --upgrade pip
 ```
 
 - 更新conda
 
-```
+```python
 conda update -n base -c defaults conda
 ```
 
