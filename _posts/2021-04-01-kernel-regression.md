@@ -67,11 +67,11 @@ math: true
 
 ## 1.4. 近邻回归
 
-1NN 回归：找寻与输入 $X$ 最接近的 $X_i$ 对应的 $Y_i$ 作为预测输出。缺点时对大块区域没有数据或数据不足时敏感，拟合的不好。
+1NN 回归：找寻与输入 $x_q$ 最接近的 $x_i$ 对应的 $y_i$ 作为预测输出。缺点时对大块区域没有数据或数据不足时敏感，拟合的不好。
 
-kNN 回归：找寻 $k$ 个最近邻的点 $X_1,X_2,\cdots,X_k$，然后对他们对应的 $Y_1,Y_2,\cdots,Y_k$ 求平均。
+kNN 回归：找寻 $k$ 个最近邻的点 $x_1,x_2,\cdots,x_k$，然后对他们对应的 $y_1,y_2,\cdots,y_k$ 求平均。
 
-加权 kNN 回归：找寻 $k$ 个最近邻的点 $X_1,X_2,\cdots,X_k$，然后对他们对应的 $Y_1,Y_2,\cdots,Y_k$ 求加权平均。权重取法为，离得更近的点具备更大的权重，反之更小。简单的算法为计算距离的倒数，即
+加权 kNN 回归：找寻 $k$ 个最近邻的点 $X_1,X_2,\cdots,X_k$，然后对他们对应的 $y_1,y_2,\cdots,y_k$ 求加权平均。权重取法为，离得更近的点具备更大的权重，反之更小。简单的算法为计算距离的倒数，即
 
 $$
 \begin{aligned}
@@ -79,6 +79,16 @@ y_{q} &= \frac{c_{1}y_{1}+\cdots+c_{k}y_{k}}{\sum_{j=1}^k c_{qj}}\\
 c_{qj} &= \frac{1}{distance(x_j,x_q)}
 \end{aligned}
 $$
+
+距离计算一般采用欧式距离、马氏距离、曼哈顿距离等。
+
+对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的欧式距离为
+
+$$
+distance(x_i,x_q)=\left( \sum_{k=1}^n \vert x_i^k - x_q^k \vert^2 \right)^{\frac{1}{2}}
+$$
+
+影响近邻回归性能的因素为 k 值和距离计算规则。
 
 ## 1.5. 核回归
 
@@ -101,7 +111,7 @@ $$
 核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点。
 
 $$
-y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(distance(x_i,x_q))y_i}{\sum_{i=1}^Nc_{qi}}
+y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(distance(x_i,x_q))y_i}{\sum_{i=1}^Nkernel_{\lambda}(distance(x_i,x_q))}
 $$
 
 要确定两个东西：
@@ -110,6 +120,9 @@ $$
 - $\lambda$
 
 其中，核的选择比 $\lambda$ 的选择更重要。$\lambda$ 的选择根据验证集验证时的验证损失来确定。
+
+![](../assets/img/postsimg/20210401/02.jpg)
+
 
 # 2. 参考文献
 
