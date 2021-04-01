@@ -82,7 +82,7 @@ $$
 
 ## 1.5. 核回归
 
-继续细化权重，提出核权重的概念。
+继续细化权重，提出**核权重**的概念。
 
 $$
 c_{qj} = kernel_\lambda(\vert x_j-x_q \vert)
@@ -98,7 +98,18 @@ $$
 
 ![](../assets/img/postsimg/20210401/01.jpg)
 
-NW估计，PC估计，GM估计
+核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点。
+
+$$
+y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(distance(x_i,x_q))y_i}{\sum_{i=1}^Nc_{qi}}
+$$
+
+要确定两个东西：
+
+- 核
+- $\lambda$
+
+其中，核的选择比 $\lambda$ 的选择更重要。$\lambda$ 的选择根据验证集验证时的验证损失来确定。
 
 # 2. 参考文献
 
