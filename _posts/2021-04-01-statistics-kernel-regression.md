@@ -110,8 +110,16 @@ $$
   对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的**余弦相似度**为
 
   $$
-  sim_c(\boldsymbol x_i,\boldsymbol x_q) = cos(\boldsymbol \theta)=\frac{\boldsymbol x_i\cdot \boldsymbol x_q}{\boldsymbol x_i\boldsymbol x_q} = \frac{\sum_{k=1}^n x_{ik}x_{qk}}{\sqrt{\sum_{k=1}^n x_{ik}^2} \sqrt{\sum_{k=1}^n x_{qk}^2}}
+  sim_c(\boldsymbol x_i,\boldsymbol x_q) = cos(\boldsymbol x_i,\boldsymbol x_q)=\frac{\boldsymbol x_i\cdot \boldsymbol x_q}{\vert\vert\boldsymbol x_i\vert\vert\cdot\vert\vert\boldsymbol x_q\vert\vert} = \frac{\sum_{k=1}^n x_{ik}x_{qk}}{\sqrt{\sum_{k=1}^n x_{ik}^2} \sqrt{\sum_{k=1}^n x_{qk}^2}}
   $$
+
+  则余弦距离为
+
+  $$
+  dis_c(\boldsymbol x_i,\boldsymbol x_q) = 1 - sim_c(\boldsymbol x_i,\boldsymbol x_q)
+  $$
+
+  当向量的模长经过归一化时，欧氏距离与余弦距离有着单调的关系
 
 ## 1.5. 核回归
 
