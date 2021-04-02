@@ -182,6 +182,25 @@ $\lambda$ 的选择根据验证集验证时的验证损失来确定。
 
 核的选择比 $\lambda$ 的选择更重要。很多时候我们根本不知道核函数将数据映射成了什么样子，映射后的可分离性可能更好，也可能更差。这个时候我们会尝试不同的核函数和参数。
 
+对于非参数回归问题，点 $x_q$ 对应的预测值 $y_q$ 的条件期望可以写成某个未知函数 $m(\cdot)$ 与噪声 $\sigma$ 之和
+
+$$
+y_q = \mathbb E(y\vert x=x_q)=m(x)+\sigma
+$$
+
+1964年，Nadaraya 和 Watson 提出了一种局部加权平均估计 $m(\cdot)$ 方法，称为 Nadaraya-Watson 核估计（或 Nadaraya-Watson 回归）。
+
+$$
+y_q = \frac{\sum_{i=1}^N k_{\lambda}(x_q-x_i)y_i}{\sum_{i=1}^N k_{\lambda}(x_q-x_i)}
+$$
+
+另外两个核估计方法为 Priestley-Chao 核估计
+
+
+Gasser——Müller 核估计
+
+
+
 ## 1.4. 深度核回归
 
 
@@ -189,8 +208,4 @@ $\lambda$ 的选择根据验证集验证时的验证损失来确定。
 
 # 2. 参考文献
 
-[1] 马同学. [如何直观地理解拉格朗日插值法？](https://www.zhihu.com/question/58333118)
-
-[2] 素_履. [轨迹优化与直接配点法](https://blog.csdn.net/qq_35007540/article/details/105672547)
-
-[3] 百度文库. [龙格库塔法推导](https://wenku.baidu.com/view/98d914413868011ca300a6c30c2259010302f30a.html)
+[1] 维基百科. [Kernel regression](https://en.wikipedia.org/wiki/Kernel_regression)
