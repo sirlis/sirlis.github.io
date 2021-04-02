@@ -158,7 +158,7 @@ k 可以用原特征空间上点内积的方式经过运算转化成高维空间
 高斯核如下
 
 $$
-k_\lambda(x_i,x_q)=exp(-\frac{dis(x_i,x_q)^2}{\lambda})
+k_\lambda(x_i,x_q)=exp(-\frac{\vert x_i-x_q\vert^2}{\lambda})
 $$
 
 其它核包括均匀分布核、三角核等等，如下图所示。
@@ -175,6 +175,7 @@ $$
 
 - 核
 - $\lambda$
+
 $\lambda$ 的选择根据验证集验证时的验证损失来确定。
 
 ![](../assets/img/postsimg/20210401/02.jpg)
