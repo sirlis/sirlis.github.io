@@ -103,7 +103,7 @@ $$
 
   $p=1$ 时被称为曼哈顿距离；
   $p=2$ 时被称为欧氏距离（L2范数）；
-  $p=3$ 时被称为切比雪夫距离。
+  $p\rightarrow \infty$ 时被称为切比雪夫距离。
 
   对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的**余弦相似度**为
 
@@ -140,13 +140,25 @@ $$
 继续细化权重，提出**核权重**的概念。
 
 $$
-c_{qj} = kernel_\lambda(x_i,x_q)
+c_{qj} = k(x_i,x_q)
 $$
+
+kernel 是一个函数，一个二元函数，一个 $R^n\times R^n \rightarrow R^+$ 的二元函数，用来描述点与点之间的关系或者说距离的一种东西。
+
+范数就是我们之前强调的距离，或者说广义的距离。内积就是这个距离的定义的方式，由内积可以诱导出范数。可以用内积来刻画 kernel：
+
+$$
+k(x_i,x_q)=<x_i,x_q>
+$$
+
+根据不同的内积定义，可以构造出不同的核函数。
+
+k 可以用原特征空间上点内积的方式经过运算转化成高维空间点内积的函数，其实就是帮我们省去在高维空间里进行繁琐计算的 “简便运算法”。
 
 高斯核如下
 
 $$
-kernel_\lambda(x_i,x_q)=exp(-\frac{dis(x_i,x_q)^2}{\lambda})
+k_\lambda(x_i,x_q)=exp(-\frac{dis(x_i,x_q)^2}{\lambda})
 $$
 
 其它核包括均匀分布核、三角核等等，如下图所示。
@@ -156,7 +168,7 @@ $$
 **核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点**。然后权重是由特定的核函数来确定的。
 
 $$
-y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(x_i,x_q)y_i}{\sum_{i=1}^N kernel_{\lambda}(x_i,x_q)}
+y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N k_{\lambda}(x_i,x_q)y_i}{\sum_{i=1}^N k_{\lambda}(x_i,x_q)}
 $$
 
 要确定两个东西：
