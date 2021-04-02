@@ -16,7 +16,7 @@ math: true
   - [1.1. 回归](#11-回归)
   - [1.2. 近邻回归](#12-近邻回归)
   - [1.3. 核回归](#13-核回归)
-  - [1.4. 深度核回归](#14-深度核回归)
+  - [1.5. 深度核回归](#15-深度核回归)
 - [2. 参考文献](#2-参考文献)
 
 # 1. 基本知识
@@ -140,7 +140,7 @@ $$
 继续细化权重，提出**核权重**的概念。
 
 $$
-c_{qj} = k(x_i,x_q)
+c_{qj} = k(\boldsymbol x_i,\boldsymbol x_q)
 $$
 
 $k$ 是一个函数，一个二元函数，一个 $R^n\times R^n \rightarrow R^+$ 的二元函数，用来描述点与点之间的关系或者说距离的一种东西。
@@ -148,27 +148,27 @@ $k$ 是一个函数，一个二元函数，一个 $R^n\times R^n \rightarrow R^+
 范数就是我们之前强调的距离，或者说广义的距离。向量空间中两向量的内积可度量其距离，即内积就是这个距离的定义的方式，也即由内积可以诱导出范数。可以用内积来刻画 kernel
 
 $$
-k(x_i,x_q)=<x_i,x_q>
+k(\boldsymbol x_i,\boldsymbol x_q)=<\boldsymbol x_i,\boldsymbol x_q>
 $$
 
 根据不同的内积定义，可以构造出不同的核函数。
 
 k 可以用原特征空间上点内积的方式经过运算转化成高维空间点内积的函数，可以用来避免在高维空间里进行繁琐的内积计算。
 
-高斯核如下
+常用的**高斯核**如下
 
 $$
-k_\lambda(x_i,x_q)=exp(-\frac{\vert\vert x_i-x_q\vert\vert^2}{\lambda})
+k_\lambda(x_i,x_q)=exp(-\frac{\vert\vert \boldsymbol x_i-\boldsymbol x_q\vert\vert^2}{\lambda})
 $$
 
-其它核包括均匀分布核、三角核等等，如下图所示。
+其它常用的核函数包括均匀分布核、三角核等等，如下图所示。
 
 ![](../assets/img/postsimg/20210401/01.jpg)
 
 **核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点**。然后权重是由特定的核函数来确定的。
 
 $$
-y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N k_{\lambda}(x_i,x_q)y_i}{\sum_{i=1}^N k_{\lambda}(x_i,x_q)}
+y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N k_{\lambda}(\boldsymbol x_i,\boldsymbol x_q)y_i}{\sum_{i=1}^N k_{\lambda}(\boldsymbol x_i,\boldsymbol x_q)}
 $$
 
 要确定两个东西：
@@ -176,7 +176,7 @@ $$
 - 核
 - $\lambda$
 
-$\lambda$ 的选择根据验证集验证时的验证损失来确定。
+$\lambda$ 的选择根据验证集验证时的验证损失来确定。较小的 $\lambda$ 即使得预测量近受到附近距离很近的点的影响，过小的 $\lambda$ 会导致过拟合；过大的 $\lambda$ 则会导致过平滑，即欠拟合。
 
 ![](../assets/img/postsimg/20210401/02.jpg)
 
@@ -191,17 +191,12 @@ $$
 1964年，Nadaraya 和 Watson 提出了一种局部加权平均估计 $m(\cdot)$ 方法，称为 Nadaraya-Watson 核估计（或 Nadaraya-Watson 回归）。
 
 $$
-y_q = \frac{\sum_{i=1}^N k_{\lambda}(x_q-x_i)y_i}{\sum_{i=1}^N k_{\lambda}(x_q-x_i)}
+y_q = \frac{\sum_{i=1}^N k_{\lambda}(\boldsymbol x_q-\boldsymbol x_i)y_i}{\sum_{i=1}^N k_{\lambda}(\boldsymbol x_q-\boldsymbol x_i)}
 $$
 
-另外两个核估计方法为 Priestley-Chao 核估计
+另外两个核估计方法为 Priestley-Chao 核估计和 Gasser——Müller 核估计。
 
-
-Gasser——Müller 核估计
-
-
-
-## 1.4. 深度核回归
+## 1.5. 深度核回归
 
 
 
