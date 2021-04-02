@@ -108,7 +108,7 @@ $$
 
 ![](../assets/img/postsimg/20210401/01.jpg)
 
-核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点。
+**核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点。**
 
 $$
 y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(distance(x_i,x_q))y_i}{\sum_{i=1}^Nkernel_{\lambda}(distance(x_i,x_q))}
