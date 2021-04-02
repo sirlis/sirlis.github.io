@@ -74,32 +74,57 @@ KNN（K-Nearest Neighbor）回归：找寻 $k$ 个最近邻的点 $x_1,x_2,\cdot
 $$
 \begin{aligned}
 y_{q} &= \frac{c_{1}y_{1}+\cdots+c_{k}y_{k}}{\sum_{j=1}^k c_{qj}}\\
-c_{qj} &= \frac{1}{distance(x_j,x_q)}
+c_{qj} &= \frac{1}{dis(x_j,x_q)}
 \end{aligned}
 $$
 
-影响近邻回归性能的因素为 k 值和距离计算规则。
+影响近邻回归性能的因素：
 
-距离计算一般采用欧式距离、马氏距离、曼哈顿距离等。
+- **k**
+  如果 K 值选择的比较小，这时候我们就相当于使用较小的领域中的训练样本对实例进行预测。这时候，算法的**近似误差会减小**，因为只有与输入实例相近的训练样本才能才会对预测结果起作用。但是它也会有明显的缺点：算法的估计误差会偏大，预测的结果会对近邻点十分敏感，也就是说如果近邻点是噪声点的话，那么预测就会出错。也就是说，k 值太小会使得 KNN 算法容易**过拟合**。
 
-对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的欧式距离为
+  同理，如果 K 值选的比较大的话，这时候距离较远的训练样本都能够对实例的预测结果产生影响。这时候，而模型相对**比较鲁棒**，不会因个别噪声点对最终的预测产生影响。但是缺点也是十分明显的：算法的近似误差会偏大，距离较远的点（与预测实例不相似）也会同样对预测结果产生作用，使得预测产生较大偏差。此时相当于模型发生**欠拟合**。
 
-$$
-distance(x_i,x_q)=\left( \sum_{k=1}^n \vert x_i^k - x_q^k \vert^2 \right)^{\frac{1}{2}}
-$$
+  因此，在实际的工程实践过程中，我们一般采用交叉验证的方式选取 K 值。从上面的分析也可以知道，一般 k 值取得比较小。我们会选取 k 值在较小的范围，同时在测试集上准确率最高的那一个确定为最终的算法超参数 k。
+
+- **距离度量方法**
+  
+  距离计算一般采用:
+
+  - 闵可夫斯基距离
+  - 欧氏距离
+  - 曼哈顿距离
+  - 切比雪夫距离
+  - 余弦距离（余弦相似度）
+
+  闵可夫斯基距离不是一种距离，而是一类距离的定义。对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的**闵可夫斯基距离**为
+
+  $$
+  dis(\boldsymbol x_i,\boldsymbol x_q)=\left( \sum_{k=1}^n \vert x_i^k - x_q^k \vert^n \right)^{\frac{1}{n}}
+  $$
+
+  $p=1$ 时被称为曼哈顿距离；
+  $p=2$ 时被称为欧氏距离（L2范数）；
+  $p=3$ 时被称为切比雪夫距离。
+
+  对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的**余弦相似度**为
+
+  $$
+  sim_c(\boldsymbol x_i,\boldsymbol x_q) = cos(\boldsymbol \theta)=\frac{\boldsymbol x_i\cdot \boldsymbol x_q}{\boldsymbol x_i\boldsymbol x_q} = \frac{\sum_{k=1}^n x_{ik}x_{qk}}{\sqrt{\sum_{k=1}^n x_{ik}^2} \sqrt{\sum_{k=1}^n x_{qk}^2}}
+  $$
 
 ## 1.5. 核回归
 
 继续细化权重，提出**核权重**的概念。
 
 $$
-c_{qj} = kernel_\lambda(\vert x_j-x_q \vert)
+c_{qj} = kernel_\lambda(dis(x_i,x_q))
 $$
 
 高斯核如下
 
 $$
-kernel_\lambda(\vert x_j-x_q \vert)=e^\frac{-(x_i-x_q)^2}{\lambda}
+kernel_\lambda(dis(x_i,x_q))=exp(-\frac{dis(x_i,x_q)^2}{\lambda})
 $$
 
 其它核包括均匀分布核、三角核等等，如下图所示。
@@ -109,7 +134,7 @@ $$
 **核回归就是升级版的加权 KNN，区别在于不是加权 k 个最近的邻居，而是加权所有样本点。**
 
 $$
-y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(distance(x_i,x_q))y_i}{\sum_{i=1}^Nkernel_{\lambda}(distance(x_i,x_q))}
+y_q = \frac{\sum_{i=1}^N c_{qi}y_i}{\sum_{i=1}^Nc_{qi}} = \frac{\sum_{i=1}^N kernel_{\lambda}(dis(x_i,x_q))y_i}{\sum_{i=1}^Nkernel_{\lambda}(dis(x_i,x_q))}
 $$
 
 要确定两个东西：
