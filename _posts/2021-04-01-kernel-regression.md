@@ -80,6 +80,8 @@ c_{qj} &= \frac{1}{distance(x_j,x_q)}
 \end{aligned}
 $$
 
+影响近邻回归性能的因素为 k 值和距离计算规则。
+
 距离计算一般采用欧式距离、马氏距离、曼哈顿距离等。
 
 对于两个具有 $n$ 维特征的样本点 $\boldsymbol x_i,\boldsymbol x_q$，二者间的欧式距离为
@@ -87,8 +89,6 @@ $$
 $$
 distance(x_i,x_q)=\left( \sum_{k=1}^n \vert x_i^k - x_q^k \vert^2 \right)^{\frac{1}{2}}
 $$
-
-影响近邻回归性能的因素为 k 值和距离计算规则。
 
 ## 1.5. 核回归
 
