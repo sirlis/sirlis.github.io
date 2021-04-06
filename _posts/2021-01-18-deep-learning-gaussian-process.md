@@ -183,6 +183,10 @@ $$
 
 如果数据点再多点，例如 100 个数据点，则采样 10 组，得到下图：
 
+![](../assets/img/postsimg/20210118/7.png)
+
+上图每条曲线就是一个高斯过程的采样，每个数据点上的函数值都是高斯分布。且任意k个数据点对应的函数值的组合都是联合高斯分布。
+
 # 4. 参考文献
 
 [1] bingjianing. [多元高斯分布（The Multivariate normal distribution）](https://www.cnblogs.com/bingjianing/p/9117330.html)
