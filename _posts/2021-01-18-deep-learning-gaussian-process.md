@@ -90,6 +90,40 @@ $$
 
 非参数化的方法就没有这个缺点。用高斯过程来建模函数，就是一种**非参数方法**。
 
+首先看一个简单的例子，假设我们有两个点 $x_0=0$ 和 $x_1=1$ ，对应这两个点的函数值服从二维高斯分布（高斯过程中“高斯”二字的由来）
+
+$$
+\begin{aligned}
+\left(
+  \begin{matrix}
+  y_0\\
+  y_1
+  \end{matrix}
+\right)
+\sim \mathcal N
+\left(
+  \begin{matrix}
+  \left(
+  \begin{matrix}
+  0\\
+  1
+  \end{matrix}
+  \right),
+  \left(
+  \begin{matrix}
+  1&0\\
+  0&1
+  \end{matrix}
+  \right)
+  \end{matrix}
+\right)
+\end{aligned}
+$$
+
+从这个二维高斯分布中采样 10 组数据，其中两个点在 $x$ 轴上的两端，采样得到的两个 $y$ 对应在 $y$ 轴取值，可以得到下图所示的结果
+
+
+
 # 4. 参考文献
 
 [1] bingjianing. [多元高斯分布（The Multivariate normal distribution）](https://www.cnblogs.com/bingjianing/p/9117330.html)
