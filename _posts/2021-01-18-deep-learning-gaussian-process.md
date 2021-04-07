@@ -196,6 +196,66 @@ $$
 
 ## 3.3. 高斯过程回归
 
+高斯过程回归可以看作是一个根据先验与观测值推出后验的过程。回归问题就是希望我们通过 $x,y$ 学习一个由 $x$ 到 $y$ 的映射函数 $f$ 。然后给定一个 $x_p$ ,预测 $y_p=f(x)_p$ 。
+
+首先，通过 $\mu(t)$ 与 $k(t_i,t_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。如果获得了一组观测之后，可以用来修正均值和核函数。
+
+高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布 $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
+
+把随机变量分成两部分：$p$ 维 $\boldsymbol x_a$ 和 $q$ 维 $\boldsymbol x_b$，满足 $n=p+q$，按照分块规则可以写成
+
+$$
+\begin{aligned}
+  x=\left[\begin{matrix}
+    x_a\\x_b
+  \end{matrix}\right],
+  \mu=\left[\begin{matrix}
+    \mu_a\\\mu_b
+  \end{matrix}\right],
+  \Sigma=\left[\begin{matrix}
+    \Sigma_{aa} & \Sigma_{ab}\\\Sigma_{ba}&\Sigma_{bb}
+  \end{matrix}\right]
+\end{aligned}
+$$
+
+则下列条件分布依然是高维高斯分布
+
+$$
+\begin{aligned}
+x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
+\mu_{b\vert a} &= \Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\mu_a)+\mu_b\\
+\Sigma_{b\vert a} &= \Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}
+\end{aligned}
+$$
+
+推广到高斯过程，假设一组观测值，在每时刻对应的向量为 $X$，对应的值为 $Y$，在其它非观测时刻的连续域上向量为 $X^*$ 和 $Y^*=f(X^*)$。则联合分布满足无限维高斯分布
+
+$$
+\begin{aligned}
+  \left[\begin{matrix}
+    Y\\Y^*
+  \end{matrix}\right]
+  \sim
+  N(
+  \left[\begin{matrix}
+    \mu(X)\\\mu(X^*)
+  \end{matrix}\right],
+  \left[\begin{matrix}
+    k(X,X) & k(X,X^*)\\ k(X^*,X)&k(X^*,X^*)
+  \end{matrix}\right]
+  )
+\end{aligned}
+$$
+
+从这个联合分布中派生出来的条件概率 $f(X^*)\vert Y$ 同样也服从无限维高斯分布。套用上面高维高斯分布的公式
+
+$$
+\begin{aligned}
+  f(X^*)\vert Y &\sim N(\mu^*,k^*)\\
+  \mu^* &= k(X^*,X)k(X,X)^{-1}(Y-\mu(X))+\mu(X^*)\\
+  k^* &= k(X^*,X^*)-k(X^*,X)k(X,X)^{-1}k(X,X^*)
+\end{aligned}
+$$
 
 # 4. 参考文献
 
