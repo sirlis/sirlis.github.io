@@ -196,14 +196,27 @@ $$
 
 ## 3.3. 高斯过程回归
 
-高斯过程回归可以看作是一个根据先验与观测值推出后验的过程。回归问题就是希望我们通过 $x,y$ 学习一个由 $x$ 到 $y$ 的映射函数 $f$ 。然后给定一个 $x_p$ ,预测 $y_p=f(x)_p$ 。
+高斯过程回归可以看作是一个根据先验与观测值推出后验的过程。
 
-首先，通过 $\mu(t)$ 与 $k(t_i,t_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。如果获得了一组观测之后，可以用来修正均值和核函数。
+假设一组 $n$ 个观测值，每个观测值为 $D$ 维向量 $\boldsymbol X=\{\boldsymbol x_1, \cdots, \boldsymbol x_n\}$，对应的值为 $n$ 个 M 维目标向量 $\boldsymbol Y=\{\boldsymbol y_1,\cdots, \boldsymbol y_n\}$。假设回归残差服从iid正态分布 $p(\varepsilon)=\mathcal N(0,\sigma^2_{noise})$，则回归问题就是希望我们通过 $\boldsymbol X,\boldsymbol Y$ 学习一个由 $\boldsymbol X$ 到 $\boldsymbol Y$ 的映射函数 $f$，考虑噪声时有
 
-高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布 $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
+$$
+\boldsymbol y_i=f(\boldsymbol x_i)+\varepsilon_i,\quad where\quad \varepsilon_i\sim \mathcal N(0,\sigma^2_{noise})
+$$
 
-把随机变量分成两部分：$p$ 维 $\boldsymbol x_a$ 和 $q$ 维 $\boldsymbol x_b$，满足 $n=p+q$，按照分块规则可以写成
+然后给定其它非观测时刻的连续域上的向量 $\boldsymbol X^*$，预测 $\boldsymbol Y^*=f(\boldsymbol X^*)$ 。
 
+首先，通过 $\mu(\boldsymbol x)$ 与 $k(\boldsymbol x_i,\boldsymbol x_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。
+
+$$
+f(\boldsymbol X) \sim \mathcal{GP}[\mu,k(\boldsymbol X, \boldsymbol X)]
+$$
+
+如果获得了一组观测之后，可以用来修正均值和核函数。
+
+> 高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布  $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
+> 
+> 把随机变量分成两部分：$p$ 维 $\boldsymbol x_a$ 和 $q$ 维 $\boldsymbol x_b$，满足 $n=p+q$，按照分块规则可以写成
 $$
 \begin{aligned}
   x=\left[\begin{matrix}
@@ -217,9 +230,7 @@ $$
   \end{matrix}\right]
 \end{aligned}
 $$
-
-则下列条件分布依然是高维高斯分布
-
+> 则下列条件分布依然是高维高斯分布
 $$
 \begin{aligned}
 x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
@@ -228,7 +239,18 @@ x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
 \end{aligned}
 $$
 
-推广到高斯过程，假设一组观测值，在每时刻对应的向量为 $X$，对应的值为 $Y$，在其它非观测时刻的连续域上向量为 $X^*$ 和 $Y^*=f(X^*)$。则联合分布满足无限维高斯分布
+推广到高斯过程，高斯过程回归在高斯过程先验核正态分布似然下求解回归模型的后验 $p[f(\boldsymbol X)\vert f(\boldsymbol x_1),\cdots,f(\boldsymbol x_n)]$，并对测试样本的测试结果进行估计。
+
+根据回归模型核高斯过程的定义，$Y$ 和 $Y^*$ 的概率分布为
+
+$$
+\begin{aligned}
+Y&\sim \mathcal N(\mu(X),k(\boldsymbol X, \boldsymbol X)+\sigma^2_{noise}\boldsymbol I)\\
+Y^* &\sim \mathcal N(\mu(X^*),k(\boldsymbol X^*, \boldsymbol X^*))
+\end{aligned}
+$$
+
+二者的联合分布满足无限维高斯分布
 
 $$
 \begin{aligned}
@@ -241,20 +263,33 @@ $$
     \mu(X)\\\mu(X^*)
   \end{matrix}\right],
   \left[\begin{matrix}
-    k(X,X) & k(X,X^*)\\ k(X^*,X)&k(X^*,X^*)
+    k(X,X)+\sigma^2_{noise} \boldsymbol I & k(X,X^*)\\ k(X^*,X)&k(X^*,X^*)
   \end{matrix}\right]
   )
 \end{aligned}
 $$
 
-从这个联合分布中派生出来的条件概率 $f(X^*)\vert Y$ 同样也服从无限维高斯分布。套用上面高维高斯分布的公式
+从这个联合分布中派生出来的条件概率 $Y^*\vert Y$ 同样也服从无限维高斯分布。套用上面高维高斯分布的公式
 
 $$
 \begin{aligned}
   f(X^*)\vert Y &\sim N(\mu^*,k^*)\\
-  \mu^* &= k(X^*,X)k(X,X)^{-1}(Y-\mu(X))+\mu(X^*)\\
-  k^* &= k(X^*,X^*)-k(X^*,X)k(X,X)^{-1}k(X,X^*)
+  \mu^* &= k(X^*,X)[k(X,X)+\sigma^2_{noise}\boldsymbol I]^{-1}(Y-\mu(X))+\mu(X^*)\\
+  k^* &= k(X^*,X^*)-k(X^*,X)[k(X,X)+\sigma^2_{noise}\boldsymbol I]^{-1}k(X,X^*)
 \end{aligned}
+$$
+
+其中，所有核函数 $k(\cdot,\cdot)$ 都隐式依赖其超参数 $\gamma$。
+
+> 上式也可由联合正态分布的边缘分布性质（marginalization property）得到 
+$$
+p(Y^*\vert \boldsymbol X, Y, \boldsymbol X^*, \sigma^2_{noise})
+$$
+
+采用最大似然估计 $p(Y\vert X)$ 来计算损失函数
+
+$$
+log p(Y\vert X)=-\frac{1}{2}log{\vert k(X,X)+ \sigma^2_{noise}\boldsymbol I\vert}-\frac{1}{2}Y^T(k(X,X)+\sigma^2_{noise}\boldsymbol I)^{-1}Y-\frac{n}{2}log(2\pi)
 $$
 
 # 4. 参考文献
