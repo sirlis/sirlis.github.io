@@ -14,11 +14,11 @@ math: true
  
 - [1. 一元高斯分布](#1-一元高斯分布)
 - [2. 多元高斯分布](#2-多元高斯分布)
-  - [2.1. 独立多元高斯分布](#21-独立多元高斯分布)
 - [3. 高斯过程](#3-高斯过程)
   - [3.1. 概念](#31-概念)
   - [3.2. 举例](#32-举例)
   - [3.3. 高斯过程回归](#33-高斯过程回归)
+- [\right)^{-1}](#right-1)
 - [4. 参考文献](#4-参考文献)
 
 # 1. 一元高斯分布
@@ -35,21 +35,27 @@ $$
 
 ![](../assets/img/postsimg/20210118/1.png)
 
-这个函数描述了变量 $x$ 的一种分布特性，变量x的分布有如下特点：
+这个函数描述了变量 $x$ 的一种分布特性，变量 $x$ 的分布有如下特点：
 
 - 均值 = 0
 - 方差 = 1
 - 概率密度和 = 1
 
-一元高斯函数的一版形式为
+一元高斯函数的一般形式为
 
 $$
-f(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+f(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}
 $$
 
-函数图像为
+这里指数函数的参数 $-\frac{1}{2\sigma^2}(x-\mu)^2$ 是一个关于 $x$ 的二项式函数。由于系数为负，所以是抛物线开口向下的函数。此外，由于最前面的系数与 $x$ 无关，因此可以把它当作是一个正规化因子（normalization factor），以保证
 
-![](../assets/img/postsimg/20210118/2.png)
+$$
+\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty}{exp(-\frac{1}{2\sigma^2}(x-\mu)^2)}dx=1
+$$
+
+<!-- 函数图像为
+
+![](../assets/img/postsimg/20210118/2.png) -->
 
 若令
 
@@ -57,9 +63,24 @@ $$
 z = \frac{x-\mu}{\sigma}
 $$
 
-称这个过程为标准化，那么 $z\sim N(0,1)$。
+称这个过程为标准化
 
-唯一不太好理解的是前面的系数， 为什么多了一个 $\sigma$， 不是 $2\sigma$  或其他。直观理解如下图
+$$
+\begin{aligned}
+  x &= z\cdot \sigma + \mu\\
+  \Rightarrow p(x) &= \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}(z)^2}\\
+  \Rightarrow 1 &=\int_{-\infty}^{\infty}{p(x)dx}\\
+  &=\int_{-\infty}^{\infty}{\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}(z)^2}dx}\\
+  &=\int_{-\infty}^{\infty}{\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}(z)^2}\sigma\cdot dz}\\
+  &=\int_{-\infty}^{\infty}{\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(z)^2} dz}\\
+\end{aligned}
+$$
+
+即 $z\sim N(0,1)$。
+
+随机变量 $x$ 标准化的过程, 实际上的消除量纲影响和分布差异的过程. 通过将随机变量的值减去其均值再除以标准差, 使得随机变量与其均值的差距可以用若干个标准差来衡量, 从而实现了不同随机变量与其对应均值的差距, 可以以一种相对的距离来进行比较。
+
+<!-- 唯一不太好理解的是前面的系数， 为什么多了一个 $\sigma$， 不是 $2\sigma$  或其他。直观理解如下图
 
 ![](../assets/img/postsimg/20210118/3.png)
 
@@ -75,12 +96,33 @@ $$
 
 横向拓宽了，纵向还是保持不变，可以想象，最后的函数积分肯定不等于 1。区域的面积可以近似采用公式：$面积 = 底 × 高$ 求得：从 $AQRS -> DTUV$， 底乘以 2 倍，高维持不变，所以，要保持变化前后面积不变，函数的高度应该变为原来的 1/2。所以高斯函数在 $x$ 轴方向做 2 倍延展的同时，纵向应该压缩为原来的一半，才能重新形成新的高斯分布函数
 
-扩展到一般情形，$x$ 轴方向做 $\sigma$ 倍延拓的同时， $y$ 轴应该压缩 $\sigma$ 倍（乘以 $1/\sigma$ ）
+扩展到一般情形，$x$ 轴方向做 $\sigma$ 倍延拓的同时， $y$ 轴应该压缩 $\sigma$ 倍（乘以 $1/\sigma$ ） -->
 
 # 2. 多元高斯分布
 
-## 2.1. 独立多元高斯分布
+> 钱默吟. [多元高斯分布完全解析](https://zhuanlan.zhihu.com/p/58987388)
 
+多元高斯分布是一元高斯分布在向量形式的推广。
+
+假设随机向量 $\boldsymbol Z = [z_1,\cdots,z_n]$，其中 $z_i\sim \mathcal N(0,1)(i=1,\cdots,n)$ 且彼此独立，则随机向量的联合概率密度函数为
+
+$$
+\begin{aligned}
+  p(z_1, \cdots, z_n) &= \prod_{i=1}^n \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(z_i)^2}\\
+  &=\frac{1}{{2\pi}^{n/2}}e^{-1/2\cdot Z^TZ}\\
+1&=\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} p(z_1,\cdots,z_n)dz_1\cdots dz_n
+\end{aligned}
+$$
+
+称随机向量 $\boldsymbol Z\sim \mathcal N(\boldsymbol 0,\boldsymbol I)$，即服从均值为零向量，协方差矩阵为单位矩阵的高斯分布。。
+
+对于向量 $X=[X_1,\cdots,X_n]$，其概率密度函数的形式为
+
+$$
+p(x\vert \mu, \Sigma) = \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))
+$$
+
+则称 $X$ 为具有均值 $\mu \in \mathbb R^n$，协方差矩阵为 $\Sigma \in S^n$ 的多元高斯分布。
 
 
 # 3. 高斯过程
@@ -239,14 +281,33 @@ x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
 \end{aligned}
 $$
 
+> 分块矩阵求逆
+$$
+\begin{aligned}
+  \left(
+  \begin{matrix}
+    A&B\\
+    C&D
+  \end{matrix}  
+  \right)^{-1}
+  =
+  \left(
+  \begin{matrix}
+    M&-MBD^{-1}\\
+    -D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}
+  \end{matrix}  
+  \right)
+\end{aligned}
+$$
+
 推广到高斯过程，高斯过程回归在高斯过程先验核正态分布似然下求解回归模型的后验 $p[f(\boldsymbol X)\vert f(\boldsymbol x_1),\cdots,f(\boldsymbol x_n)]$，并对测试样本的测试结果进行估计。
 
-根据回归模型核高斯过程的定义，$Y$ 和 $Y^*$ 的概率分布为
+根据回归模型核高斯过程的定义，$\boldsymbol Y$ 和 $\boldsymbol Y^*$ 的概率分布为
 
 $$
 \begin{aligned}
-Y&\sim \mathcal N(\mu(X),k(\boldsymbol X, \boldsymbol X)+\sigma^2_{noise}\boldsymbol I)\\
-Y^* &\sim \mathcal N(\mu(X^*),k(\boldsymbol X^*, \boldsymbol X^*))
+Y&\sim \mathcal N(\mu(\boldsymbol X),k(\boldsymbol X, \boldsymbol X)+\sigma^2_{noise}\boldsymbol I)\\
+Y^* &\sim \mathcal N(\mu(\boldsymbol X^*),k(\boldsymbol X^*, \boldsymbol X^*))
 \end{aligned}
 $$
 
@@ -255,15 +316,15 @@ $$
 $$
 \begin{aligned}
   \left[\begin{matrix}
-    Y\\Y^*
+    \boldsymbol Y\\\boldsymbol Y^*
   \end{matrix}\right]
   \sim
   N(
   \left[\begin{matrix}
-    \mu(X)\\\mu(X^*)
+    \mu(\boldsymbol X)\\\mu(\boldsymbol X^*)
   \end{matrix}\right],
   \left[\begin{matrix}
-    k(X,X)+\sigma^2_{noise} \boldsymbol I & k(X,X^*)\\ k(X^*,X)&k(X^*,X^*)
+    k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise} \boldsymbol I & k(\boldsymbol X,\boldsymbol X^*)\\ k(\boldsymbol X^*,\boldsymbol X)&k(\boldsymbol X^*,\boldsymbol X^*)
   \end{matrix}\right]
   )
 \end{aligned}
@@ -273,24 +334,33 @@ $$
 
 $$
 \begin{aligned}
-  f(X^*)\vert Y &\sim N(\mu^*,k^*)\\
-  \mu^* &= k(X^*,X)[k(X,X)+\sigma^2_{noise}\boldsymbol I]^{-1}(Y-\mu(X))+\mu(X^*)\\
-  k^* &= k(X^*,X^*)-k(X^*,X)[k(X,X)+\sigma^2_{noise}\boldsymbol I]^{-1}k(X,X^*)
+  \boldsymbol Y^*\vert \boldsymbol Y &\sim N(\mu^*,k^*)\\
+  \mu^* &= k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}(\boldsymbol Y-\mu(\boldsymbol X))+\mu(\boldsymbol X^*)\\
+  k^* &= k(\boldsymbol X^*,\boldsymbol X^*)-k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}k(\boldsymbol X,\boldsymbol X^*)
 \end{aligned}
 $$
 
-其中，所有核函数 $k(\cdot,\cdot)$ 都隐式依赖其超参数 $\gamma$。
-
-> 上式也可由联合正态分布的边缘分布性质（marginalization property）得到 
-$$
-p(Y^*\vert \boldsymbol X, Y, \boldsymbol X^*, \sigma^2_{noise})
-$$
-
-采用最大似然估计 $p(Y\vert X)$ 来计算损失函数
+高斯过程回归的求解也被称为超参学习（hyper-parameter learning），是按照贝叶斯方法通过学习样本确定核函数的超参数 $\boldsymbol \theta$ 的过程。根据贝叶斯定理，高斯过程回归的超参数的后验表示如下
 
 $$
-log p(Y\vert X)=-\frac{1}{2}log{\vert k(X,X)+ \sigma^2_{noise}\boldsymbol I\vert}-\frac{1}{2}Y^T(k(X,X)+\sigma^2_{noise}\boldsymbol I)^{-1}Y-\frac{n}{2}log(2\pi)
+p(\boldsymbol \theta \vert \boldsymbol X,\boldsymbol Y) = \frac{p(\boldsymbol Y\vert \boldsymbol X,\boldsymbol \theta)p(\boldsymbol \theta)}{p(\boldsymbol Y\vert \boldsymbol X)}
 $$
+
+其中，$\boldsymbol \theta$ 包括核函数的超参数和残差的方差 $\sigma^2_{noise}$。
+
+$p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)$ 是似然，是对高斯过程回归的输出边缘化得到的边缘似然：
+
+$$
+p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \int p(\boldsymbol Y\vert f, \boldsymbol X,\boldsymbol \theta)p(f\vert\boldsymbol X,\boldsymbol \theta)df
+$$
+
+采用最大似然估计 $p(Y\vert X)$ 来对高斯过程的超参数进行估计。
+
+$$
+log\; p(\boldsymbol Y\vert \boldsymbol X, \boldsymbol \theta)=-\frac{1}{2}log{\vert k(\boldsymbol X,\boldsymbol X)+ \sigma^2_{noise}\boldsymbol I\vert}-\frac{1}{2}\boldsymbol (\boldsymbol Y-\mu(\boldsymbol X))^T(k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I)^{-1}(\boldsymbol Y-\mu(\boldsymbol X))-\frac{n}{2}log(2\pi)
+$$
+
+其中，第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第二项包含学习成本，是数据你和想，表示模型的经验风险（empirical risk）。
 
 # 4. 参考文献
 
@@ -301,3 +371,5 @@ $$
 [3] 我能说什么好. [通俗理解高斯过程及其应用](https://zhuanlan.zhihu.com/p/73832253)
 
 [4] 石溪. [如何通俗易懂地介绍 Gaussian Process](https://www.zhihu.com/question/46631426)
+
+[5] 钱默吟. [多元高斯分布完全解析](https://zhuanlan.zhihu.com/p/58987388)
