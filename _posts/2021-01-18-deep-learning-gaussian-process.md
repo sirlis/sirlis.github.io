@@ -114,7 +114,7 @@ $$
 \end{aligned}
 $$
 
-称随机向量 $\boldsymbol Z\sim \mathcal N(\boldsymbol 0,\boldsymbol I)$，即服从均值为零向量，协方差矩阵为单位矩阵的高斯分布。。
+称随机向量 $\boldsymbol Z\sim \mathcal N(\boldsymbol 0,\boldsymbol I)$，即服从均值为零向量，协方差矩阵为单位矩阵的高斯分布。
 
 对于向量 $X=[X_1,\cdots,X_n]$，其概率密度函数的形式为
 
@@ -240,74 +240,34 @@ $$
 
 高斯过程回归可以看作是一个根据先验与观测值推出后验的过程。
 
-假设一组 $n$ 个观测值，每个观测值为 $D$ 维向量 $\boldsymbol X=\{\boldsymbol x_1, \cdots, \boldsymbol x_n\}$，对应的值为 $n$ 个 M 维目标向量 $\boldsymbol Y=\{\boldsymbol y_1,\cdots, \boldsymbol y_n\}$。假设回归残差服从iid正态分布 $p(\varepsilon)=\mathcal N(0,\sigma^2_{noise})$，则回归问题就是希望我们通过 $\boldsymbol X,\boldsymbol Y$ 学习一个由 $\boldsymbol X$ 到 $\boldsymbol Y$ 的映射函数 $f$，考虑噪声时有
+假设一组 $n$ 个观测值，每个观测值为 $D$ 维向量 $\boldsymbol X=\{\boldsymbol x_1, \cdots, \boldsymbol x_n\}$，对应的值为 $n$ 个 $M$ 维目标向量 $\boldsymbol Y=\{\boldsymbol y_1,\cdots, \boldsymbol y_n\}$。假设回归残差 $\boldsymbol \varepsilon=[\varepsilon_1,\cdots,\varepsilon_n]$ 服从 $iid$ 正态分布 $p(\varepsilon)=\mathcal N(0,\sigma^2_{noise})$，则回归问题就是希望我们通过 $\boldsymbol X,\boldsymbol Y$ 学习一个由 $\boldsymbol X$ 到 $\boldsymbol Y$ 的映射函数 $f$
 
 $$
-\boldsymbol y_i=f(\boldsymbol x_i)+\varepsilon_i,\quad where\quad \varepsilon_i\sim \mathcal N(0,\sigma^2_{noise})
+\boldsymbol Y=f(\boldsymbol X)+\boldsymbol \varepsilon,\quad where\quad \varepsilon_i\sim \mathcal N(0,\sigma^2_{noise}), i=1,\cdots,n
 $$
 
-然后给定其它非观测时刻的连续域上的向量 $\boldsymbol X^*$，预测 $\boldsymbol Y^*=f(\boldsymbol X^*)$ 。
-
-首先，通过 $\mu(\boldsymbol x)$ 与 $k(\boldsymbol x_i,\boldsymbol x_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。
+未知映射 $f$ 遵循高斯过程，通过 $\boldsymbol \mu = [\mu(x_1),\cdots,\mu(x_n)]$ 与 $k(\boldsymbol x_i,\boldsymbol x_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。
 
 $$
-f(\boldsymbol X) \sim \mathcal{GP}[\mu,k(\boldsymbol X, \boldsymbol X)]
+f(\boldsymbol X) \sim \mathcal{GP}[\boldsymbol \mu,k(\boldsymbol X, \boldsymbol X)]
 $$
 
-如果获得了一组观测之后，可以用来修正均值和核函数。
+接着，给定其它 $m$ 个测试观测值 $\boldsymbol X^*$，预测 $\boldsymbol Y^*=f(\boldsymbol X^*)$ 。
 
-> 高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布  $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
-> 
-> 把随机变量分成两部分：$p$ 维 $\boldsymbol x_a$ 和 $q$ 维 $\boldsymbol x_b$，满足 $n=p+q$，按照分块规则可以写成
-$$
-\begin{aligned}
-  x=\left[\begin{matrix}
-    x_a\\x_b
-  \end{matrix}\right],
-  \mu=\left[\begin{matrix}
-    \mu_a\\\mu_b
-  \end{matrix}\right],
-  \Sigma=\left[\begin{matrix}
-    \Sigma_{aa} & \Sigma_{ab}\\\Sigma_{ba}&\Sigma_{bb}
-  \end{matrix}\right]
-\end{aligned}
-$$
-> 则下列条件分布依然是高维高斯分布
-$$
-\begin{aligned}
-x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
-\mu_{b\vert a} &= \Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\mu_a)+\mu_b\\
-\Sigma_{b\vert a} &= \Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}
-\end{aligned}
-$$
+我们希望对 $\boldsymbol Y^*\vert \boldsymbol Y$ 的条件概率 $p(\boldsymbol Y^*\vert \boldsymbol Y,\boldsymbol X,\boldsymbol X^*)$ 进行建模，即给定观察到的所有数据，确定预测样本 $\boldsymbol X^*$ 的预测值 $\boldsymbol Y^*$ 的分布。
 
-> 分块矩阵求逆
-$$
-\begin{aligned}
-  \left(
-  \begin{matrix}
-    A&B\\
-    C&D
-  \end{matrix}  
-  \right)^{-1}
-  =
-  \left(
-  \begin{matrix}
-    M&-MBD^{-1}\\
-    -D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}
-  \end{matrix}  
-  \right)
-\end{aligned}
-$$
+高斯过程并没有直接对这个条件概率分布进行建模，而是从联合概率分布出发，对 $\boldsymbol Y^*$ 的联合概率 $p(\boldsymbol Y^*\vert\boldsymbol X^*)$ 进行建模。当这个概率已知时，可以通过下面的式子得到新样本预测值的条件概率
 
-推广到高斯过程，高斯过程回归在高斯过程先验核正态分布似然下求解回归模型的后验 $p[f(\boldsymbol X)\vert f(\boldsymbol x_1),\cdots,f(\boldsymbol x_n)]$，并对测试样本的测试结果进行估计。
+$$
+p(\boldsymbol Y^*\vert\boldsymbol Y,\boldsymbol X^*) = \frac{p(\boldsymbol Y^*\vert \boldsymbol X^*)}{p(\boldsymbol Y\vert \boldsymbol X^*)} = \frac{p(\boldsymbol Y^*\vert \boldsymbol X^*)}{\int _{Y^*}p(\boldsymbol Y\vert \boldsymbol X^*)dY^*}
+$$
 
 根据回归模型核高斯过程的定义，$\boldsymbol Y$ 和 $\boldsymbol Y^*$ 的概率分布为
 
 $$
 \begin{aligned}
-Y&\sim \mathcal N(\mu(\boldsymbol X),k(\boldsymbol X, \boldsymbol X)+\sigma^2_{noise}\boldsymbol I)\\
-Y^* &\sim \mathcal N(\mu(\boldsymbol X^*),k(\boldsymbol X^*, \boldsymbol X^*))
+\boldsymbol Y&\sim \mathcal N(\mu(\boldsymbol X),k(\boldsymbol X, \boldsymbol X)+\sigma^2_{noise}\boldsymbol I)\\
+\boldsymbol Y^* &\sim \mathcal N(\mu(\boldsymbol X^*),k(\boldsymbol X^*, \boldsymbol X^*))
 \end{aligned}
 $$
 
@@ -362,6 +322,54 @@ $$
 
 其中，第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第二项包含学习成本，是数据你和想，表示模型的经验风险（empirical risk）。
 
+
+> **PS1：**
+> 高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布  $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
+> 
+> 把随机变量分成两部分：$p$ 维 $\boldsymbol x_a$ 和 $q$ 维 $\boldsymbol x_b$，满足 $n=p+q$，按照分块规则可以写成
+$$
+\begin{aligned}
+  x=\left[\begin{matrix}
+    x_a\\x_b
+  \end{matrix}\right],
+  \mu=\left[\begin{matrix}
+    \mu_a\\\mu_b
+  \end{matrix}\right],
+  \Sigma=\left[\begin{matrix}
+    \Sigma_{aa} & \Sigma_{ab}\\\Sigma_{ba}&\Sigma_{bb}
+  \end{matrix}\right]
+\end{aligned}
+$$
+> 则下列条件分布依然是高维高斯分布
+$$
+\begin{aligned}
+x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
+\mu_{b\vert a} &= \Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\mu_a)+\mu_b\\
+\Sigma_{b\vert a} &= \Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}
+\end{aligned}
+$$
+由此可推广到高斯过程。
+> **PS2：**
+> 分块矩阵求逆
+$$
+\begin{aligned}
+  \left(
+  \begin{matrix}
+    A&B\\
+    C&D
+  \end{matrix}  
+  \right)^{-1}
+  =
+  \left(
+  \begin{matrix}
+    M&-MBD^{-1}\\
+    -D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}
+  \end{matrix}  
+  \right)
+\end{aligned}
+$$
+
+
 # 4. 参考文献
 
 [1] bingjianing. [多元高斯分布（The Multivariate normal distribution）](https://www.cnblogs.com/bingjianing/p/9117330.html)
@@ -373,3 +381,6 @@ $$
 [4] 石溪. [如何通俗易懂地介绍 Gaussian Process](https://www.zhihu.com/question/46631426)
 
 [5] 钱默吟. [多元高斯分布完全解析](https://zhuanlan.zhihu.com/p/58987388)
+
+[6] li Eta. [如何通俗易懂地介绍 Gaussian Process？](https://www.zhihu.com/question/46631426/answer/102314452)
+
