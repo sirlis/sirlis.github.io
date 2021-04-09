@@ -109,7 +109,7 @@ $$
 $$
 \begin{aligned}
   p(z_1, \cdots, z_n) &= \prod_{i=1}^n \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(z_i)^2}\\
-  &=\frac{1}{{2\pi}^{n/2}}e^{-1/2\cdot Z^TZ}\\
+  &=\frac{1}{2\pi^{n/2}}e^{-1/2\cdot Z^TZ}\\
 1&=\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} p(z_1,\cdots,z_n)dz_1\cdots dz_n
 \end{aligned}
 $$
