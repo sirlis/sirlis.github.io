@@ -116,13 +116,50 @@ $$
 
 称随机向量 $\boldsymbol Z\sim \mathcal N(\boldsymbol 0,\boldsymbol I)$，即服从均值为零向量，协方差矩阵为单位矩阵的高斯分布。
 
-对于向量 $X=[X_1,\cdots,X_n]$，其概率密度函数的形式为
+对于向量 $X=[x_1,\cdots,x_n]$，其概率密度函数的形式为
 
 $$
-p(x\vert \mu, \Sigma) = \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))
+\begin{aligned}
+p(x_1,x_2,\cdots,x_n) &=\prod_{i=1}^n p(x_i)\\
+&=\frac{1}{(2\pi)^{n/2}\sigma_1\cdots\sigma_n}exp\left( -\frac{1}{2} \left[ \frac{(x_1-\mu_1)^2}{\sigma^2_1}+\cdots+\frac{(x_n-\mu_n)^2}{\sigma^2_n} \right] \right)\\
+\end{aligned}
 $$
 
-则称 $X$ 为具有均值 $\mu \in \mathbb R^n$，协方差矩阵为 $\Sigma \in S^n$ 的多元高斯分布。
+其中 $\mu_i, \sigma_i$ 为第 $i$ 维的均值和方差。按照矩阵表示
+
+$$
+\begin{aligned}
+  \boldsymbol x - \boldsymbol \mu &= [x_1-\mu_1,\cdots,x_n-\mu_n]^T\\
+  \Sigma &= \left[
+    \begin{matrix}
+      \sigma_1^2&0&\cdots&0\\
+      0&\sigma_2^2&\cdots&0\\
+      \vdots&\vdots&\ddots&0\\
+      0&0&\cdots&\sigma_n^2\\
+    \end{matrix}
+    \right]
+\end{aligned}
+$$
+
+那么有
+
+$$
+\begin{aligned}
+\sigma_1\cdots\sigma_n &= \vert\Sigma\vert^\frac{1}{2}\\
+\frac{(x_1-\mu_1)^2}{\sigma^2_1}+\cdots+\frac{(x_n-\mu_n)^2}{\sigma^2_n} &= (\boldsymbol x - \boldsymbol \mu)^T\Sigma^{-1}(\boldsymbol x - \boldsymbol \mu)
+\end{aligned}
+$$
+
+代入得
+
+$$
+\begin{aligned}
+p(x_1,x_2,\cdots,x_n) &=p(\boldsymbol x\vert \boldsymbol \mu, \Sigma)\\
+&= \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol x-\boldsymbol \mu)^T\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu))\\
+\end{aligned}
+$$
+
+则称 $X$ 为具有均值 $\boldsymbol \mu \in \mathbb R^n$，协方差矩阵为 $\Sigma \in S^n$ 的多元高斯分布。
 
 
 # 3. 高斯过程
@@ -254,13 +291,17 @@ $$
 
 接着，给定其它 $m$ 个测试观测值 $\boldsymbol X^*$，预测 $\boldsymbol Y^*=f(\boldsymbol X^*)$ 。
 
-我们希望对 $\boldsymbol Y^*\vert \boldsymbol Y$ 的条件概率 $p(\boldsymbol Y^*\vert \boldsymbol Y,\boldsymbol X,\boldsymbol X^*)$ 进行建模，即给定观察到的所有数据，确定预测样本 $\boldsymbol X^*$ 的预测值 $\boldsymbol Y^*$ 的分布。
+我们希望对 $\boldsymbol Y^*\vert \boldsymbol Y$ 的条件概率 $p(\boldsymbol Y^*\vert \boldsymbol X, \boldsymbol Y,\boldsymbol X^*)$ 进行建模，即给定观察到的所有数据 $\boldsymbol X, \boldsymbol Y,\boldsymbol X^*$，确定预测样本的预测值 $\boldsymbol Y^*$ 的分布。
 
-高斯过程并没有直接对这个条件概率分布进行建模，而是从联合概率分布出发，对 $\boldsymbol Y^*$ 的联合概率 $p(\boldsymbol Y^*\vert\boldsymbol X^*)$ 进行建模。当这个概率已知时，可以通过下面的式子得到新样本预测值的条件概率
+高斯过程并没有直接对这个条件概率分布进行建模，而是从联合概率分布出发，对 $\boldsymbol Y^*$ 的联合概率 $p(\boldsymbol Y,\boldsymbol Y^*\vert\boldsymbol X,\boldsymbol X^*)$ 进行建模。当这个概率已知时，可以通过下面的式子得到新样本预测值的条件概率
 
 $$
-p(\boldsymbol Y^*\vert\boldsymbol Y,\boldsymbol X^*) = \frac{p(\boldsymbol Y^*\vert \boldsymbol X^*)}{p(\boldsymbol Y\vert \boldsymbol X^*)} = \frac{p(\boldsymbol Y^*\vert \boldsymbol X^*)}{\int _{Y^*}p(\boldsymbol Y\vert \boldsymbol X^*)dY^*}
+p(\boldsymbol Y^*\vert\boldsymbol X,\boldsymbol Y,\boldsymbol X^*)
+= \frac{p(\boldsymbol Y,\boldsymbol Y^*\vert \boldsymbol X,\boldsymbol X^*)}{p(\boldsymbol Y\vert \boldsymbol X,\boldsymbol X^*)}
+= \frac{p(\boldsymbol Y,\boldsymbol Y^*\vert \boldsymbol X,\boldsymbol X^*)}{\int _{Y^*}p(\boldsymbol Y,\boldsymbol Y^*\vert \boldsymbol X,\boldsymbol X^*)dY^*}
 $$
+
+显然，核心是建立 $p(\boldsymbol Y,\boldsymbol Y^*\vert \boldsymbol X,\boldsymbol X^*)$ 的具体形式，然后通过上式求出关于 $\boldsymbol Y^*$ 的条件概率。
 
 根据回归模型核高斯过程的定义，$\boldsymbol Y$ 和 $\boldsymbol Y^*$ 的概率分布为
 
