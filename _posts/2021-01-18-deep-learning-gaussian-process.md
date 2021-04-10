@@ -331,11 +331,11 @@ $$
 \end{aligned}
 $$
 
-从这个联合分布中派生出来的条件概率 $Y^*\vert Y$ 同样也服从无限维高斯分布。套用上面高维高斯分布的公式
+从这个联合分布中派生出来的条件概率 $\boldsymbol Y^*\vert \boldsymbol Y$ 同样也服从无限维高斯分布。套用上面高维高斯分布的公式
 
 $$
 \begin{aligned}
-  \boldsymbol Y^*\vert \boldsymbol Y &\sim N(\mu^*,k^*)\\
+  \boldsymbol Y^*\vert \boldsymbol Y &\sim N(\mu^*,k^*) \Rightarrow p(\boldsymbol Y^*\vert \boldsymbol X,\boldsymbol Y,\boldsymbol X^*)= N(\mu^*,k^*)\\
   \mu^* &= k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}(\boldsymbol Y-\mu(\boldsymbol X))+\mu(\boldsymbol X^*)\\
   k^* &= k(\boldsymbol X^*,\boldsymbol X^*)-k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}k(\boldsymbol X,\boldsymbol X^*)
 \end{aligned}
