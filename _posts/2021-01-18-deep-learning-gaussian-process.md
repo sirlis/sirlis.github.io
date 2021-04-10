@@ -331,7 +331,7 @@ $$
 \end{aligned}
 $$
 
-从这个联合分布中派生出来的条件概率 $\boldsymbol Y^*\vert \boldsymbol Y$ 同样也服从无限维高斯分布。套用上面高维高斯分布的公式
+从这个联合分布中派生出来的条件概率 $\boldsymbol Y^*\vert \boldsymbol Y$ 同样也服从无限维高斯分布。套用高维高斯分布的公式
 
 $$
 \begin{aligned}
@@ -355,13 +355,24 @@ $$
 p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \int p(\boldsymbol Y\vert f, \boldsymbol X,\boldsymbol \theta)p(f\vert\boldsymbol X,\boldsymbol \theta)df
 $$
 
-采用最大似然估计 $p(Y\vert X)$ 来对高斯过程的超参数进行估计。
+采用最大似然估计来对高斯过程的超参数进行估计。
 
 $$
-log\; p(\boldsymbol Y\vert \boldsymbol X, \boldsymbol \theta)=-\frac{1}{2}log{\vert k(\boldsymbol X,\boldsymbol X)+ \sigma^2_{noise}\boldsymbol I\vert}-\frac{1}{2}\boldsymbol (\boldsymbol Y-\mu(\boldsymbol X))^T(k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I)^{-1}(\boldsymbol Y-\mu(\boldsymbol X))-\frac{n}{2}log(2\pi)
+\begin{aligned}
+  p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol x-\boldsymbol \mu)^T\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu))\\
+ \Rightarrow {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)
+ =&
+ -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol x-\boldsymbol \mu)^T\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu)\\
+ =&
+ -\frac{1}{2}{\rm ln}{\vert k(\boldsymbol X,\boldsymbol X)+ \sigma^2_{noise}\boldsymbol I\vert}-\frac{n}{2}{\rm ln}(2\pi)\\
+ &-\frac{1}{2}\boldsymbol (\boldsymbol Y-\mu(\boldsymbol X))^T(k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I)^{-1}(\boldsymbol Y-\mu(\boldsymbol X))
+\end{aligned}
 $$
 
-其中，第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第二项包含学习成本，是数据你和想，表示模型的经验风险（empirical risk）。
+其中，第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第三项包含学习成本，是数据拟合项，表示模型的经验风险（empirical risk）。
+
+上述式子对超参数 $\boldsymbol \theta$ 求导
+
 
 
 > **PS1：**
