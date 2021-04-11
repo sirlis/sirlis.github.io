@@ -285,7 +285,9 @@ $$
 
 未知映射 $f$ 遵循高斯过程，通过 $\boldsymbol \mu = [\mu(x_1),\cdots,\mu(x_n)]$ 与 $k(\boldsymbol x_i,\boldsymbol x_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。
 
-> 注意：经典高斯过程输入可以是多维，但输出只有 1 维（即单输出）。
+> 注意：经典高斯过程输入可以是多维，但输出只有 1 维（即单输出）。如果需要多维输出，当输出分量之间不相关时，可以分别设计多个高斯过程模型进行回归。当输出分量之间相关时，可以参考一些paper和工具包来实现，比如：
+> https://github.com/SheffieldML/multigp
+> https://github.com/SheffieldML/GPy/blob/devel/GPy/models/gp_multiout_regression.py
 
 $$
 f(\boldsymbol X) \sim \mathcal{GP}[\boldsymbol \mu,k(\boldsymbol X, \boldsymbol X)]
