@@ -359,20 +359,21 @@ $$
 
 $$
 \begin{aligned}
-  p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol x-\boldsymbol \mu)^T\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu))\\
+  p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))\\
  \Rightarrow {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)
  =&
- -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol x-\boldsymbol \mu)^T\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu)\\
- =&
- -\frac{1}{2}{\rm ln}{\vert k(\boldsymbol X,\boldsymbol X)+ \sigma^2_{noise}\boldsymbol I\vert}-\frac{n}{2}{\rm ln}(2\pi)\\
- &-\frac{1}{2}\boldsymbol (\boldsymbol Y-\mu(\boldsymbol X))^T(k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I)^{-1}(\boldsymbol Y-\mu(\boldsymbol X))
+ -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
 \end{aligned}
 $$
 
-其中，第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第三项包含学习成本，是数据拟合项，表示模型的经验风险（empirical risk）。
+上式第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第三项包含学习成本，是数据拟合项，表示模型的经验风险（empirical risk）。
 
-上述式子对超参数 $\boldsymbol \theta$ 求导
+其中，$\Sigma=k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I$，与超参数 $\boldsymbol \theta$ 有关。利用梯度下降的方法更新超参数，上述式子对超参数 $\boldsymbol \theta$ 求导
 
+$$
+\frac{\partial {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)}{\partial \boldsymbol \theta} = 
+-\frac{1}{2}tr(\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}) + \frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}(\boldsymbol Y-\mu(\boldsymbol X))
+$$
 
 
 > **PS1：**
@@ -416,7 +417,7 @@ $$
   \begin{matrix}
     M&-MBD^{-1}\\
     -D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}
-  \end{matrix}  
+  \end{matrix}
   \right)
 \end{aligned}
 $$
