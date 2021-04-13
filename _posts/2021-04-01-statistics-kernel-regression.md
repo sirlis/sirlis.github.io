@@ -16,7 +16,10 @@ math: true
   - [1.1. 回归](#11-回归)
   - [1.2. 近邻回归](#12-近邻回归)
   - [1.3. 核回归](#13-核回归)
-  - [1.5. 深度核回归](#15-深度核回归)
+  - [1.4. 深度核回归](#14-深度核回归)
+    - [1.4.1. 初始化](#141-初始化)
+    - [1.4.2. 前向传播](#142-前向传播)
+    - [1.4.3. 反向传播](#143-反向传播)
 - [2. 参考文献](#2-参考文献)
 
 # 1. 基本知识
@@ -196,10 +199,69 @@ $$
 
 另外两个核估计方法为 Priestley-Chao 核估计和 Gasser——Müller 核估计。
 
-## 1.5. 深度核回归
+## 1.4. 深度核回归
 
+> Andrew Gordon Wilson, et al. Deep Kernel Learning. 2016.
 
+数据集如下，输入 $n$ 个 $D$ 维数据 $\boldsymbol X=[\boldsymbol x_1,\cdots,\boldsymbol x_n]$，输出 $n$ 个 1 维数据 $\boldsymbol Y = [y(\boldsymbol x_1),\cdots,y(\boldsymbol x_n)]$。
 
+网络结构如下：
+
+![](../assets/img/postsimg/20210401/03.jpg)
+
+$n<6000$ 时网络为 $[d-1000-500-50-2-gp]$ 结构，$n\leq 6000$ 时网络为 $[d-1000-1000-500-50-2-gp]$ 结构。
+
+### 1.4.1. 初始化
+
+```python
+NNRegressor.fit()
+|--first_run()
+    |--layers[i].initialize_ws()
+```
+
+- **全连接层**
+
+ `Dense()`，初始化为
+
+```python
+def initialize_ws(self):
+  self.W=numpy.random.randn(self.n_inp,self.n_out)*numpy.sqrt(1.0/self.n_inp)
+  self.b=numpy.zeros((1,self.n_out))
+  self.dW=numpy.zeros((self.n_inp,self.n_out))
+  self.db=numpy.zeros((1,self.n_out))
+```
+
+即
+
+$$
+w\sim N(0,\sqrt{\frac{1}{D}})
+$$
+
+### 1.4.2. 前向传播
+
+```python
+NNRegressor.fit()
+|--Adam.fit()
+    |--NNRegressor.update()
+        |--CoreNN.forward()
+```
+
+对于全连接层 `Dense()`，前向传播为
+
+```python
+def forward(self,X):
+  self.inp=X
+  self.out=numpy.dot(self.inp,self.W)+self.b
+  return self.out
+```
+
+即
+
+$$
+\boldsymbol {o} = \boldsymbol x \cdot \boldsymbol w + \boldsymbol b
+$$
+
+### 1.4.3. 反向传播
 
 # 2. 参考文献
 
