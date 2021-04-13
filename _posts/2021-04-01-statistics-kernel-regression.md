@@ -209,7 +209,9 @@ $$
 
 ![](../assets/img/postsimg/20210401/03.jpg)
 
-$n<6000$ 时网络为 $[d-1000-500-50-2-gp]$ 结构，$n\leq 6000$ 时网络为 $[d-1000-1000-500-50-2-gp]$ 结构。
+$n<6000$ 时网络为 $[D-1000-500-50-2-gp]$ 结构，$n\leq 6000$ 时网络为 $[D-1000-1000-500-50-2-gp]$ 结构。
+
+其中前面为全连接的 MLP，输入 $D$ 维数据，输出 2 维特征，最后一层为高斯过程回归层，
 
 ### 1.4.1. 初始化
 
@@ -234,7 +236,40 @@ def initialize_ws(self):
 即
 
 $$
-w\sim N(0,\sqrt{\frac{1}{D}})
+\begin{aligned}
+w&\sim N(0,\sqrt{\frac{1}{D}}) \in \mathbb R^{D_i\times D_o}\\
+b &= [0,\cdots,0] \in \mathbb R^{D_o}\\
+dw &= \left[\begin{matrix}
+  0&\cdots&0\\
+  \vdots&\ddots&\vdots\\
+  0&\cdots&0\\
+  \end{matrix}
+\right] \in \mathbb R^{D_i\times D_o}\\
+db &= [0,\cdots,0] \in \mathbb R^{D_o}
+\end{aligned}
+$$
+
+- **高斯层**
+
+`CovMat()`，初始化为
+
+```python
+def initialize_ws(self):
+  self.W=numpy.ones((1,2))*numpy.array([[numpy.log(self.s_alpha/(1.0-self.s_alpha)),numpy.sqrt(self.var)]])
+  self.b=numpy.zeros((1,1))
+  self.dW=numpy.zeros((1,2))
+  self.db=numpy.zeros((1,1))
+```
+
+即
+
+$$
+\begin{aligned}
+w &= [{\rm ln}\frac{\alpha}{1-\alpha},\sqrt{var}],\quad where\; \alpha = 0.1,\; var = 1\\
+b &= [0]\\
+w &= [0,0]\\
+b &= [0]
+\end{aligned}
 $$
 
 ### 1.4.2. 前向传播
@@ -244,9 +279,12 @@ NNRegressor.fit()
 |--Adam.fit()
     |--NNRegressor.update()
         |--CoreNN.forward()
+            |--layers[i].forward(X)
 ```
 
-对于全连接层 `Dense()`，前向传播为
+- **全连接层**
+
+`Dense()`，前向传播为
 
 ```python
 def forward(self,X):
@@ -258,8 +296,38 @@ def forward(self,X):
 即
 
 $$
-\boldsymbol {o} = \boldsymbol x \cdot \boldsymbol w + \boldsymbol b
+\boldsymbol {o} = \boldsymbol x_{ND_i} \cdot \boldsymbol w_{D_iD_o} + \boldsymbol b_{D_o}\; \in \mathbb R^{N\times D_o}
 $$
+
+其中，$N$ 是样本数量；$D_i$ 是该层输入维度；$D_o$ 是该层输出维度，也是下一层输入维度。
+
+- **高斯层**
+
+`CovMat()`，前向传播为
+
+```python
+def forward_rbf(self,X):
+  self.inp=X
+  
+  #Calculate distances
+  ll=[]
+  for i in range(0,X.shape[1]):
+    tmp=X[:,i].reshape(1,-1)-X[:,i].reshape(-1,1)
+    ll.append(tmp.reshape(X.shape[0],X.shape[0],1))
+  self.z=numpy.concatenate(ll,-1)
+  
+  #Apply RBF function to distance
+  self.s0=numpy.exp(-0.5*numpy.sum(self.z**2,-1))
+  
+  #Multiply with variance
+  self.var=self.W[0,1]**2
+  self.s=self.var*self.s0
+  
+  #Add noise / whitekernel
+  self.s_alpha=1.0/(numpy.exp(-self.W[0,0])+1.0)
+  self.out=self.s+(self.s_alpha+1e-8)*numpy.identity(X.shape[0])
+  return self.out
+```
 
 ### 1.4.3. 反向传播
 
