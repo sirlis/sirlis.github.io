@@ -20,6 +20,7 @@ math: true
     - [1.4.1. 初始化](#141-初始化)
     - [1.4.2. 前向传播](#142-前向传播)
     - [1.4.3. 反向传播](#143-反向传播)
+    - [1.4.4. 预测](#144-预测)
 - [2. 参考文献](#2-参考文献)
 
 # 1. 基本知识
@@ -265,10 +266,10 @@ def initialize_ws(self):
 
 $$
 \begin{aligned}
-w &= [{\rm ln}\frac{\alpha}{1-\alpha},\sqrt{var}],\quad where\; \alpha = 0.1,\; var = 1\\
+\boldsymbol w &= [w_1,w_2] = [{\rm ln}\frac{\alpha}{1-\alpha},\sqrt{var}],\quad \alpha = 0.1,\; var = 1\\
 b &= [0]\\
-w &= [0,0]\\
-b &= [0]
+dw &= [0,0]\\
+db &= [0]
 \end{aligned}
 $$
 
@@ -301,6 +302,8 @@ $$
 
 其中，$N$ 是样本数量；$D_i$ 是该层输入维度；$D_o$ 是该层输出维度，也是下一层输入维度。
 
+经过多层全连接的 MLP，输入数据集从 $N\times D$ 维变为 $N\times M$ 维特征。
+
 - **高斯层**
 
 `CovMat()`，前向传播为
@@ -329,7 +332,120 @@ def forward_rbf(self,X):
   return self.out
 ```
 
+首先**计算每个样本对所有样本的距离矩阵**：
+
+第一步 `X[:,i].reshape(1,-1)-X[:,i].reshape(-1,1)`，对数据的每一列转置成行，然后扩充成方阵，然后减去直接对列扩充成的方阵。这里相当于对数据的每一列逐一减去各个列元素形成一个矩阵。
+
+>  $1m$ 维行向量减 $n1$ 维列向量时，python 会把 $1m$ 维行向量自动扩充为 $nm$ 维，每一行都是行向量的复制； 把 $n1$ 维列向量扩充为 $nm$ 维，增加的每一列都是列向量的复制，然后做差得到 $nm$ 维矩阵。
+ 
+![](../assets/img/postsimg/20210401/04.jpg)
+
+第二步，把上述矩阵重新排列为 $N\times N\times 1$ 的形式；
+
+第三步，逐一遍历所有列，得到 $D$ 个 $N\times N\times 1$ 的矩阵组成的列表，重新拼接为 $N\times N\times D$ 维矩阵。
+
+其实本**质上就是做了对数据集中的每个样本对所有其它样本做差的操作**，假设输入高斯过程的数据集为经过 MLP 的 $N\times M$ 维特征 $\boldsymbol x$
+
+$$
+\boldsymbol x = 
+\left[
+  \begin{matrix}
+    \boldsymbol x_1\\
+    \boldsymbol x_2\\
+    \vdots\\
+    \boldsymbol x_N
+  \end{matrix}
+\right]
+= \left[
+  \begin{matrix}
+    x_{11}&x_{12}&\cdots&x_{1M}\\
+    x_{21}&x_{22}&\cdots&x_{2M}\\
+    \vdots\\
+    x_{N1}&x_{N2}&\cdots&x_{NM}\\
+  \end{matrix}
+\right]\in \mathbb R^{N\times M}
+$$
+
+那么距离为
+
+$$
+\boldsymbol z =
+\left[
+\left[
+  \begin{matrix}
+    \boldsymbol x_1 - \boldsymbol x_1\\
+    \boldsymbol x_2 - \boldsymbol x_1\\
+    \vdots\\
+    \boldsymbol x_N - \boldsymbol x_1\\
+  \end{matrix}
+\right],
+\left[
+  \begin{matrix}
+    \boldsymbol x_1 - \boldsymbol x_2\\
+    \boldsymbol x_2 - \boldsymbol x_2\\
+    \vdots\\
+    \boldsymbol x_N - \boldsymbol x_2\\
+  \end{matrix}
+\right],
+\cdots,
+\left[
+  \begin{matrix}
+    \boldsymbol x_1 - \boldsymbol x_N\\
+    \boldsymbol x_2 - \boldsymbol x_N\\
+    \vdots\\
+    \boldsymbol x_N - \boldsymbol x_N\\
+  \end{matrix}
+\right]
+\right]\in \mathbb R^{N\times N\times M}
+$$
+
+对 $\boldsymbol z$ 的最后一维（$M$ 维）分量计算二范数的平方
+
+$$
+\vert\vert\boldsymbol z\vert\vert^2 = 
+\left[
+\begin{matrix}
+  \vert\vert\boldsymbol x_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2\\
+  \vert\vert\boldsymbol x_1 - \boldsymbol x_2\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_2\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_N\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{N\times N}
+$$
+
+其中二范数为
+
+$$
+\vert\vert\boldsymbol x_i - \boldsymbol x_j\vert\vert = \sqrt{\sum_{k=1}^M (x_{ik}-x_{jk})^2}
+$$
+
+其次**计算RBF**：
+
+$$
+\boldsymbol s_0 = e^{0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\quad\in \mathbb R_{N\times N}
+$$
+
+乘以偏差（之前定义的第 2 个权重系数 $w_2$）
+
+$$
+\boldsymbol s = w_2^2 \cdot \boldsymbol s_0  = var\cdot \boldsymbol s_0\quad\in \mathbb R_{N\times N}
+$$
+
+加噪声（之前定义的第 1 个权重系数 $w_1$）
+
+$$
+\begin{aligned}
+s_\alpha &= 1/{(e^{-w_1}+1}) = 1/(e^{\frac{-\alpha}{1-\alpha}}+1)\\
+\boldsymbol {out} &= \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
+\end{aligned}
+$$
+
 ### 1.4.3. 反向传播
+
+### 1.4.4. 预测
+
+$A\in \mathbb R^{N\times D}$ = 测试集
+$A_2\in \mathbb R^{n\times D}$ = 训练集
 
 # 2. 参考文献
 
