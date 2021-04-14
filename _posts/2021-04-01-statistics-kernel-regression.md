@@ -444,8 +444,70 @@ $$
 
 ### 1.4.4. 预测
 
-$A\in \mathbb R^{N\times D}$ = 测试集
-$A_2\in \mathbb R^{n\times D}$ = 训练集
+```python
+NNRegressor.fit()
+|--first_run()
+    for i in range(0,len(self.layers)):
+      if type(self.layers[i]) != Dropout and type(self.layers[i]) != CovMat:
+        self.layers[i].predict=self.layers[i].forward
+```
+
+在 `first_run()` 中，对于 MLP 部分，直接定义调用 `forward()` 函数进行前向传播（`predict = fprward`）。
+
+```python
+NNRegressor.predict(self,X):
+  A=X
+  A2=self.x
+  for i in range(0,len(self.layers)-1):
+    A2=self.layers[i].predict(A2)
+    A=self.layers[i].predict(A)
+    
+  self.K=self.layers[-1].forward(A2)
+  self.L_ = cholesky(self.K, lower=True)
+  
+  L_inv = solve_triangular(self.L_.T,numpy.eye(self.L_.shape[0]))
+  self.K_inv = L_inv.dot(L_inv.T)
+  
+  self.alpha_ = cho_solve((self.L_, True), self.y)
+  
+  
+  K2=numpy.zeros((X.shape[0],X.shape[0]))
+  K3=numpy.zeros((X.shape[0],self.K.shape[0]))
+  
+  if self.layers[-1].kernel=='rbf':
+    d1=0.0
+    d2=0.0
+    for i in range(0,A.shape[1]):
+      d1+=(A[:,i].reshape(-1,1)-A[:,i].reshape(1,-1))**2
+      d2+=(A[:,i].reshape(-1,1)-A2[:,i].reshape(1,-1))**2
+    K2=self.layers[-1].var*numpy.exp(-0.5*d1)+numpy.identity(A.shape[0])*(self.layers[-1].s_alpha+1e-8)
+    K3=self.layers[-1].var*numpy.exp(-0.5*d2)
+  elif self.layers[-1].kernel=='dot':
+    K2=numpy.dot(A,A.T)+numpy.identity(A.shape[0])*(self.layers[-1].s_alpha+1e-8) + self.layers[-1].var
+    K3=numpy.dot(A,A2.T) + self.layers[-1].var
+    
+  preds=numpy.zeros((X.shape[0],self.y.shape[1]))
+  for i in range(0,self.alpha_.shape[1]):
+    preds[:,i]=numpy.dot(K3,self.alpha_[:,i].reshape(-1,1))[:,0]
+  
+  return preds, numpy.sqrt(numpy.diagonal(K2-numpy.dot(K3,numpy.dot(self.K_inv,K3.T))))
+```
+
+其中 $A\in \mathbb R^{N\times D}$ 为测试集，$A_2\in \mathbb R^{n\times D}$ 为训练集，经过 MLP 前向传播后输出分别依然记作 $A, A_2$。
+
+首先调用 `CovMat()` 的前向传播函数，计算出训练集的核矩阵
+
+$$
+K = = \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
+$$
+
+然后对核矩阵进行 Cholesky 矩阵分解。
+
+> Cholesky 分解是把一个对称正定的矩阵表示成一个下三角矩阵 $L$ 和其转置的乘积的分解。
+> 
+> $$A = LL^T$$
+> 
+> 它要求矩阵的所有特征值必须大于零，故分解的下三角的对角元也是大于零的。
 
 # 2. 参考文献
 
