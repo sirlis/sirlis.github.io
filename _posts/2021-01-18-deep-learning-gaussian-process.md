@@ -714,7 +714,7 @@ NNRegressor.gp_loss(self,y,K):
   return self.nlml,self.nlml_grad
 ```
 
-设 $\boldsymbol y\in \mathbb R^{N\times 1}$ 是训练集标签，$\boldsymbol K \in \mathbb R^{N\times N}$ 是高斯层最终输出的核矩阵，$\boldsymbol A\in \mathbb R^{N\times M}$ 是全连接层输出的特征。
+设 $\boldsymbol K \in \mathbb R^{N\times N}$ 是高斯层最终输出的核矩阵，$\boldsymbol A\in \mathbb R^{N\times M}$ 是全连接层输出的特征。
 
 对核矩阵求逆得到  $\boldsymbol K^{-1}$ 。因为 $\boldsymbol K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程（`cholesky()` 和 `solve_triangular()`）。
 
@@ -732,18 +732,24 @@ $$
 
 那么只需要求 $(\boldsymbol L^T)^{-1}$ 就可以求出 $\boldsymbol K^{-1}$。
 
-根据 $\boldsymbol L\boldsymbol \alpha=\boldsymbol y$ 求出 $\boldsymbol \alpha$（`cho_solve()`）。
+设 $\boldsymbol y\in \mathbb R^{N\times 1}$ 是训练集标签，根据 $\boldsymbol L\boldsymbol \alpha=\boldsymbol y$ 求出 $\boldsymbol \alpha$（`cho_solve()`）。
 
 $$
-\boldsymbol \alpha = \boldsymbol y \boldsymbol L^{-1}  \in \mathbb R^{N\times 1}
+\boldsymbol \alpha = \boldsymbol L^{-1} \boldsymbol y  \in \mathbb R^{N\times 1}
 $$
+
+则
 
 $$
 \begin{aligned}
-gg1 &= \boldsymbol \alpha^T\boldsymbol y\\
-nlml &= 0.5\cdot gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + N\cdot {\rm ln} 2\pi\\
+gg1 &= \boldsymbol \alpha^T\boldsymbol y = \boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y \\
+nlml &= \frac{1}{2}gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi\\
+&=\frac{1}{2}\boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi
 \end{aligned}
 $$
+
+> 定理1：设 $A$ 为一 $n\times n$ 矩阵，则 $det(A^T)=det(A)$
+> 定理2：设 $A$ 为一 $n\times n$ 三角形矩阵，则 $det(A)$ 等于A的对角元素的乘积。
 
 ### 3.4.4. 预测
 
