@@ -498,16 +498,26 @@ NNRegressor.predict(self,X):
 首先调用 `CovMat()` 的前向传播函数，计算出训练集的核矩阵
 
 $$
-K = = \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
+K = \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
 $$
 
-然后对核矩阵进行 Cholesky 矩阵分解。
+然后对核矩阵求逆。
+
+因为 $K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程。
 
 > Cholesky 分解是把一个对称正定的矩阵表示成一个下三角矩阵 $L$ 和其转置的乘积的分解。
 > 
-> $$A = LL^T$$
+> $$K = LL^T$$
 > 
 > 它要求矩阵的所有特征值必须大于零，故分解的下三角的对角元也是大于零的。
+
+由于 $L$ 是可逆方阵，因此求逆和转置可以交换次序，则
+
+$$
+K^{-1} = (L^T)^{-1}L^{-1} = (L^T)^{-1}[{(L^T)^{-1}}]^T
+$$
+
+那么只需要求 $(L^T)^{-1}$ 就可以求出 $K^{-1}$。
 
 # 2. 参考文献
 
