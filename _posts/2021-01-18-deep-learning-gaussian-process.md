@@ -17,6 +17,11 @@ math: true
   - [3.1. 概念](#31-概念)
   - [3.2. 举例](#32-举例)
   - [3.3. 高斯过程回归](#33-高斯过程回归)
+  - [3.4. 深度核回归](#34-深度核回归)
+    - [3.4.1. 初始化](#341-初始化)
+    - [3.4.2. 前向传播](#342-前向传播)
+    - [3.4.3. 反向传播](#343-反向传播)
+    - [3.4.4. 预测](#344-预测)
 - [4. 参考文献](#4-参考文献)
 # 1. 一元高斯分布
 
@@ -423,6 +428,430 @@ $$
   \right)
 \end{aligned}
 $$
+
+
+## 3.4. 深度核回归
+
+> Andrew Gordon Wilson, et al. Deep Kernel Learning. 2016.
+
+数据集如下，输入 $n$ 个 $D$ 维数据 $\boldsymbol X=[\boldsymbol x_1,\cdots,\boldsymbol x_n]$，输出 $n$ 个 1 维数据 $\boldsymbol Y = [y(\boldsymbol x_1),\cdots,y(\boldsymbol x_n)]$。
+
+网络结构如下：
+
+![](../assets/img/postsimg/20210401/03.jpg)
+
+$n<6000$ 时网络为 $[D-1000-500-50-2-gp]$ 结构，$n\leq 6000$ 时网络为 $[D-1000-1000-500-50-2-gp]$ 结构。
+
+其中前面为全连接的 MLP，输入 $D$ 维数据，输出 2 维特征，最后一层为高斯过程回归层，
+
+### 3.4.1. 初始化
+
+```python
+NNRegressor.fit()
+|--first_run()
+    |--layers[i].initialize_ws()
+```
+
+- **全连接层**
+
+ `Dense()`，初始化为
+
+```python
+def initialize_ws(self):
+  self.W=numpy.random.randn(self.n_inp,self.n_out)*numpy.sqrt(1.0/self.n_inp)
+  self.b=numpy.zeros((1,self.n_out))
+  self.dW=numpy.zeros((self.n_inp,self.n_out))
+  self.db=numpy.zeros((1,self.n_out))
+```
+
+即
+
+$$
+\begin{aligned}
+w&\sim N(0,\sqrt{\frac{1}{D}}) \in \mathbb R^{D_i\times D_o}\\
+b &= [0,\cdots,0] \in \mathbb R^{D_o}\\
+dw &= \left[\begin{matrix}
+  0&\cdots&0\\
+  \vdots&\ddots&\vdots\\
+  0&\cdots&0\\
+  \end{matrix}
+\right] \in \mathbb R^{D_i\times D_o}\\
+db &= [0,\cdots,0] \in \mathbb R^{D_o}
+\end{aligned}
+$$
+
+- **高斯层**
+
+`CovMat()`，初始化为
+
+```python
+def initialize_ws(self):
+  self.W=numpy.ones((1,2))*numpy.array([[numpy.log(self.s_alpha/(1.0-self.s_alpha)),numpy.sqrt(self.var)]])
+  self.b=numpy.zeros((1,1))
+  self.dW=numpy.zeros((1,2))
+  self.db=numpy.zeros((1,1))
+```
+
+即
+
+$$
+\begin{aligned}
+\boldsymbol w &= [w_1,w_2] = [{\rm ln}\frac{\alpha}{1-\alpha},\sqrt{var}],\quad \alpha = 0.1,\; var = 1\\
+b &= [0]\\
+dw &= [0,0]\\
+db &= [0]
+\end{aligned}
+$$
+
+### 3.4.2. 前向传播
+
+```python
+NNRegressor.fit()
+|--Adam.fit()
+    |--NNRegressor.update()
+        |--CoreNN.forward()
+            |--layers[i].forward(X)
+```
+
+- **全连接层**
+
+`Dense()`，前向传播为
+
+```python
+def forward(self,X):
+  self.inp=X
+  self.out=numpy.dot(self.inp,self.W)+self.b
+  return self.out
+```
+
+即
+
+$$
+\boldsymbol {o} = \boldsymbol x_{ND_i} \cdot \boldsymbol w_{D_iD_o} + \boldsymbol b_{D_o}\; \in \mathbb R^{N\times D_o}
+$$
+
+其中，$N$ 是样本数量；$D_i$ 是该层输入维度；$D_o$ 是该层输出维度，也是下一层输入维度。
+
+经过多层全连接的 MLP，输入数据集从 $N\times D$ 维变为 $N\times M$ 维特征。
+
+- **高斯层**
+
+`CovMat()`，前向传播为
+
+```python
+def forward_rbf(self,X):
+  self.inp=X
+  
+  #Calculate distances
+  ll=[]
+  for i in range(0,X.shape[1]):
+    tmp=X[:,i].reshape(1,-1)-X[:,i].reshape(-1,1)
+    ll.append(tmp.reshape(X.shape[0],X.shape[0],1))
+  self.z=numpy.concatenate(ll,-1)
+  
+  #Apply RBF function to distance
+  self.s0=numpy.exp(-0.5*numpy.sum(self.z**2,-1))
+  
+  #Multiply with variance
+  self.var=self.W[0,1]**2
+  self.s=self.var*self.s0
+  
+  #Add noise / whitekernel
+  self.s_alpha=1.0/(numpy.exp(-self.W[0,0])+1.0)
+  self.out=self.s+(self.s_alpha+1e-8)*numpy.identity(X.shape[0])
+  return self.out
+```
+
+首先**计算每个样本对所有样本的距离矩阵**：
+
+第一步 `X[:,i].reshape(1,-1)-X[:,i].reshape(-1,1)`，对数据的每一列转置成行，然后扩充成方阵，然后减去直接对列扩充成的方阵。这里相当于对数据的每一列逐一减去各个列元素形成一个矩阵。
+
+>  $1m$ 维行向量减 $n1$ 维列向量时，python 会把 $1m$ 维行向量自动扩充为 $nm$ 维，每一行都是行向量的复制； 把 $n1$ 维列向量扩充为 $nm$ 维，增加的每一列都是列向量的复制，然后做差得到 $nm$ 维矩阵。
+ 
+![](../assets/img/postsimg/20210401/04.jpg)
+
+第二步，把上述矩阵重新排列为 $N\times N\times 1$ 的形式；
+
+第三步，逐一遍历所有列，得到 $D$ 个 $N\times N\times 1$ 的矩阵组成的列表，重新拼接为 $N\times N\times D$ 维矩阵。
+
+其实本**质上就是做了对数据集中的每个样本对所有其它样本做差的操作**，假设输入高斯过程的数据集为经过 MLP 的 $N\times M$ 维特征 $\boldsymbol x$
+
+$$
+\boldsymbol x = 
+\left[
+  \begin{matrix}
+    \boldsymbol x_1\\
+    \boldsymbol x_2\\
+    \vdots\\
+    \boldsymbol x_N
+  \end{matrix}
+\right]
+= \left[
+  \begin{matrix}
+    x_{11}&x_{12}&\cdots&x_{1M}\\
+    x_{21}&x_{22}&\cdots&x_{2M}\\
+    \vdots\\
+    x_{N1}&x_{N2}&\cdots&x_{NM}\\
+  \end{matrix}
+\right]\in \mathbb R^{N\times M}
+$$
+
+那么距离为
+
+$$
+\boldsymbol z =
+\left[
+\left[
+  \begin{matrix}
+    \boldsymbol x_1 - \boldsymbol x_1\\
+    \boldsymbol x_2 - \boldsymbol x_1\\
+    \vdots\\
+    \boldsymbol x_N - \boldsymbol x_1\\
+  \end{matrix}
+\right],
+\left[
+  \begin{matrix}
+    \boldsymbol x_1 - \boldsymbol x_2\\
+    \boldsymbol x_2 - \boldsymbol x_2\\
+    \vdots\\
+    \boldsymbol x_N - \boldsymbol x_2\\
+  \end{matrix}
+\right],
+\cdots,
+\left[
+  \begin{matrix}
+    \boldsymbol x_1 - \boldsymbol x_N\\
+    \boldsymbol x_2 - \boldsymbol x_N\\
+    \vdots\\
+    \boldsymbol x_N - \boldsymbol x_N\\
+  \end{matrix}
+\right]
+\right]\in \mathbb R^{N\times N\times M}
+$$
+
+对 $\boldsymbol z$ 的最后一维（$M$ 维）分量计算二范数的平方
+
+$$
+\vert\vert\boldsymbol z\vert\vert^2 = 
+\left[
+\begin{matrix}
+  \vert\vert\boldsymbol x_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_1 - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert\boldsymbol x_2 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_2 - \boldsymbol x_N\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_N\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{N\times N}
+$$
+
+其中二范数为
+
+$$
+\vert\vert\boldsymbol x_i - \boldsymbol x_j\vert\vert = \sqrt{\sum_{k=1}^M (x_{ik}-x_{jk})^2}
+$$
+
+其次**计算RBF**：
+
+$$
+\boldsymbol s_0 = e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\quad\in \mathbb R_{N\times N}
+$$
+
+乘以偏差（之前定义的第 2 个权重系数 $w_2$）
+
+$$
+\boldsymbol s = w_2^2 \cdot \boldsymbol s_0  = var\cdot \boldsymbol s_0\quad\in \mathbb R_{N\times N}
+$$
+
+加噪声（之前定义的第 1 个权重系数 $w_1$）
+
+$$
+\begin{aligned}
+s_\alpha &= 1/{(e^{-w_1}+1}) = 1/(e^{\frac{-\alpha}{1-\alpha}}+1)\\
+\boldsymbol {out} &= \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
+\end{aligned}
+$$
+
+最后输出 $N\times N$ 维的核矩阵 $\boldsymbol K$。
+
+### 3.4.3. 反向传播
+
+```python
+NNRegressor.fit(self,X,Y,...)
+|--Adam.fit(self,X,Y):
+  |--NNRegressor.update(self,X,Y):
+    |--CoreNN.backward(self,Y):
+      self.j,err=self.cost(Y,self.layers[-1].out)
+      for i in reversed(range(0,len(self.layers))):
+        err=self.layers[i].backward(err)
+      return err
+```
+
+首先计算损失函数。
+
+```python
+NNRegressor.__init__()
+  if gp:
+    self.cost=self.gp_loss
+NNRegressor.gp_loss(self,y,K):
+  self.y=y
+  self.A=self.layers[-2].out
+  self.K=K
+  self.L_ = cholesky(K, lower=True)
+  
+  L_inv = solve_triangular(self.L_.T,numpy.eye(self.L_.shape[0]))
+  self.K_inv = L_inv.dot(L_inv.T)
+  
+  self.alpha_ = cho_solve((self.L_, True), y)
+  self.nlml=0.0
+  self.nlml_grad=0.0
+  for i in range(0,y.shape[1]):
+    
+    gg1=numpy.dot(self.alpha_[:,i].reshape(1,-1),y[:,i].reshape(-1,1))[0,0]
+
+    self.nlml+=0.5*gg1+numpy.sum(numpy.log(numpy.diag(self.L_)))+K.shape[0]*0.5*numpy.log(2.0*numpy.pi)
+    yy=numpy.dot(y[:,i].reshape(-1,1),y[:,i].reshape(1,-1))
+    self.nlml_grad += -0.5*( numpy.dot(numpy.dot(self.K_inv,yy),self.K_inv)-self.K_inv)*K.shape[0]
+
+  return self.nlml,self.nlml_grad
+```
+
+设 $\boldsymbol y\in \mathbb R^{N\times 1}$ 是训练集标签，$\boldsymbol K \in \mathbb R^{N\times N}$ 是高斯层最终输出的核矩阵，$\boldsymbol A\in \mathbb R^{N\times M}$ 是全连接层输出的特征。
+
+对核矩阵求逆得到  $\boldsymbol K^{-1}$ 。因为 $\boldsymbol K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程（`cholesky()` 和 `solve_triangular()`）。
+
+> Cholesky 分解是把一个对称正定的矩阵表示成一个下三角矩阵 $\boldsymbol L$ 和其转置的乘积的分解。
+> 
+> $$\boldsymbol K = \boldsymbol L\boldsymbol L^T$$
+> 
+> 它要求矩阵的所有特征值必须大于零，故分解的下三角的对角元也是大于零的。
+
+由于 $L$ 是可逆方阵，因此求逆和转置可以交换次序，则
+
+$$
+\boldsymbol K^{-1} = (\boldsymbol L^T)^{-1}\boldsymbol L^{-1} = (\boldsymbol L^T)^{-1}[{(\boldsymbol L^T)^{-1}}]^T
+$$
+
+那么只需要求 $(\boldsymbol L^T)^{-1}$ 就可以求出 $\boldsymbol K^{-1}$。
+
+根据 $\boldsymbol L\boldsymbol \alpha=\boldsymbol y$ 求出 $\boldsymbol \alpha$（`cho_solve()`）。
+
+$$
+\boldsymbol \alpha = \boldsymbol y \boldsymbol L^{-1}  \in \mathbb R^{N\times 1}
+$$
+
+$$
+\begin{aligned}
+gg1 &= \boldsymbol \alpha^T\boldsymbol y\\
+nlml &= 0.5\cdot gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + N\cdot {\rm ln} 2\pi\\
+\end{aligned}
+$$
+
+### 3.4.4. 预测
+
+对于 **全连接层**，在 `first_run()` 中，直接定义调用 `forward()` 函数进行预测（`predict = forward`）。
+
+```python
+NNRegressor.fit()
+|--first_run()
+    for i in range(0,len(self.layers)):
+      if type(self.layers[i]) != Dropout and type(self.layers[i]) != CovMat:
+        self.layers[i].predict=self.layers[i].forward
+```
+
+对于**高斯层**，预测代码如下
+
+```python
+NNRegressor.predict(self,X):
+  A=X
+  A2=self.x
+  for i in range(0,len(self.layers)-1):
+    A2=self.layers[i].predict(A2)
+    A=self.layers[i].predict(A)
+    
+  self.K=self.layers[-1].forward(A2)
+  self.L_ = cholesky(self.K, lower=True)
+  
+  L_inv = solve_triangular(self.L_.T,numpy.eye(self.L_.shape[0]))
+  self.K_inv = L_inv.dot(L_inv.T)
+  
+  self.alpha_ = cho_solve((self.L_, True), self.y)
+  
+  
+  K2=numpy.zeros((X.shape[0],X.shape[0]))
+  K3=numpy.zeros((X.shape[0],self.K.shape[0]))
+  
+  if self.layers[-1].kernel=='rbf':
+    d1=0.0
+    d2=0.0
+    for i in range(0,A.shape[1]):
+      d1+=(A[:,i].reshape(-1,1)-A[:,i].reshape(1,-1))**2
+      d2+=(A[:,i].reshape(-1,1)-A2[:,i].reshape(1,-1))**2
+    K2=self.layers[-1].var*numpy.exp(-0.5*d1)+numpy.identity(A.shape[0])*(self.layers[-1].s_alpha+1e-8)
+    K3=self.layers[-1].var*numpy.exp(-0.5*d2)
+  elif self.layers[-1].kernel=='dot':
+    K2=numpy.dot(A,A.T)+numpy.identity(A.shape[0])*(self.layers[-1].s_alpha+1e-8) + self.layers[-1].var
+    K3=numpy.dot(A,A2.T) + self.layers[-1].var
+    
+  preds=numpy.zeros((X.shape[0],self.y.shape[1]))
+  for i in range(0,self.alpha_.shape[1]):
+    preds[:,i]=numpy.dot(K3,self.alpha_[:,i].reshape(-1,1))[:,0]
+  
+  return preds, numpy.sqrt(numpy.diagonal(K2-numpy.dot(K3,numpy.dot(self.K_inv,K3.T))))
+```
+
+设 $\boldsymbol A=\boldsymbol X\in \mathbb R^{n\times D}$ 为测试集，$\boldsymbol A_2=\boldsymbol x\in \mathbb R^{N\times D}$ 为训练集.
+
+首先经过全连接层前向传播后特征维度为 $M$，得到的输出分别依然记作 $\boldsymbol A\in \mathbb R^{n\times M}, \boldsymbol A_2\in \mathbb R^{N\times M}$。
+
+对于训练集 $\boldsymbol A_2$，调用高斯层的前向传播函数，计算出训练集的核矩阵
+
+$$
+\boldsymbol K = \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
+$$
+
+然后对核矩阵求逆。因为 $\boldsymbol K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程（`cholesky()` 和 `solve_triangular()`）。
+
+设 $\boldsymbol y\in \mathbb R^{N\times1}$ 是训练集的标签，则根据 $\boldsymbol L\boldsymbol \alpha=\boldsymbol y$ 求出 $\boldsymbol \alpha$（`cho_solve()`）。
+
+$$
+\boldsymbol \alpha = \boldsymbol y \boldsymbol L^{-1}  \in \mathbb R^{N\times 1}
+$$
+
+和高斯层的前向传播类似，分别计算测试集的核函数 $\boldsymbol K_2 \in \mathbb R^{n\times n}$，以及测试集与训练集之间的核函数 $\boldsymbol K_3 \in \mathbb R^{n\times N}$。
+
+$$
+\begin{aligned}
+\vert\vert\boldsymbol d_1\vert\vert^2 &= 
+\left[
+\begin{matrix}
+  \vert\vert\boldsymbol X_1 - \boldsymbol X_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_1 - \boldsymbol X_n\vert\vert^2\\
+  \vert\vert\boldsymbol X_2 - \boldsymbol X_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_2 - \boldsymbol X_n\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol X_n - \boldsymbol X_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_n - \boldsymbol X_n\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{n\times n}\\
+\vert\vert\boldsymbol d_2\vert\vert^2 &= 
+\left[
+\begin{matrix}
+  \vert\vert\boldsymbol X_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_1 - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert\boldsymbol X_2 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_2 - \boldsymbol x_N\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol X_n - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_n - \boldsymbol x_N\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{n\times N}\\
+\boldsymbol K_2 &= var\cdot e^{-0.5\cdot \vert\vert\boldsymbol d_1\vert\vert^2} + (s_\alpha + 10^{-8})\boldsymbol I_{n\times n}\\
+\boldsymbol K_3 &= var\cdot e^{-0.5\cdot \vert\vert\boldsymbol d_2\vert\vert^2}\\
+\end{aligned}
+$$
+
+预测输出的值为
+
+$$
+\begin{aligned}
+\boldsymbol Y &= \boldsymbol K_3 \cdot \boldsymbol \alpha\\
+std &= \sqrt{diag[\boldsymbol K_2-\boldsymbol K_3\boldsymbol K^{-1}\boldsymbol K_3^T]}
+\end{aligned}
+$$
+
 
 # 4. 参考文献
 
