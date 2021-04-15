@@ -405,8 +405,8 @@ $$
 \vert\vert\boldsymbol z\vert\vert^2 = 
 \left[
 \begin{matrix}
-  \vert\vert\boldsymbol x_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2\\
-  \vert\vert\boldsymbol x_1 - \boldsymbol x_2\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_2\vert\vert^2\\
+  \vert\vert\boldsymbol x_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_1 - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert\boldsymbol x_2 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_2 - \boldsymbol x_N\vert\vert^2\\
   \vdots&\ddots&\vdots\\
   \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_N\vert\vert^2\\
 \end{matrix}
@@ -422,7 +422,7 @@ $$
 其次**计算RBF**：
 
 $$
-\boldsymbol s_0 = e^{0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\quad\in \mathbb R_{N\times N}
+\boldsymbol s_0 = e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\quad\in \mathbb R_{N\times N}
 $$
 
 乘以偏差（之前定义的第 2 个权重系数 $w_2$）
@@ -440,9 +440,71 @@ s_\alpha &= 1/{(e^{-w_1}+1}) = 1/(e^{\frac{-\alpha}{1-\alpha}}+1)\\
 \end{aligned}
 $$
 
+最后输出 $N\times N$ 维的核矩阵 $\boldsymbol K$。
+
 ### 1.4.3. 反向传播
 
+```python
+NNRegressor.fit(self,X,Y,...)
+|--Adam.fit(self,X,Y):
+  |--NNRegressor.update(self,X,Y):
+    |--CoreNN.backward(self,Y):
+      self.j,err=self.cost(Y,self.layers[-1].out)
+      for i in reversed(range(0,len(self.layers))):
+        err=self.layers[i].backward(err)
+      return err
+```
+
+首先计算损失函数。
+
+```python
+NNRegressor.__init__()
+  if gp:
+    self.cost=self.gp_loss
+NNRegressor.gp_loss(self,y,K):
+  self.y=y
+  self.A=self.layers[-2].out
+  self.K=K
+  self.L_ = cholesky(K, lower=True)
+  
+  L_inv = solve_triangular(self.L_.T,numpy.eye(self.L_.shape[0]))
+  self.K_inv = L_inv.dot(L_inv.T)
+  
+  self.alpha_ = cho_solve((self.L_, True), y)
+  self.nlml=0.0
+  self.nlml_grad=0.0
+  for i in range(0,y.shape[1]):
+    
+    gg1=numpy.dot(self.alpha_[:,i].reshape(1,-1),y[:,i].reshape(-1,1))[0,0]
+
+    self.nlml+=0.5*gg1+numpy.sum(numpy.log(numpy.diag(self.L_)))+K.shape[0]*0.5*numpy.log(2.0*numpy.pi)
+    yy=numpy.dot(y[:,i].reshape(-1,1),y[:,i].reshape(1,-1))
+    self.nlml_grad += -0.5*( numpy.dot(numpy.dot(self.K_inv,yy),self.K_inv)-self.K_inv)*K.shape[0]
+
+  return self.nlml,self.nlml_grad
+```
+
+设 $\boldsymbol Y\in \mathbb R^{N\times 1}$ 是训练集标签，$\boldsymbol K \in \mathbb R^{N\times N}$ 是高斯层最终输出的核矩阵，$\boldsymbol A\in \mathbb R^{N\times M}$ 是全连接层输出的特征。
+
+对核矩阵求逆得到  $\boldsymbol K^{-1}$ 。因为 $\boldsymbol K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程（`cholesky()` 和 `solve_triangular()`）。
+
+> Cholesky 分解是把一个对称正定的矩阵表示成一个下三角矩阵 $\boldsymbol L$ 和其转置的乘积的分解。
+> 
+> $$\boldsymbol K = \boldsymbol L\boldsymbol L^T$$
+> 
+> 它要求矩阵的所有特征值必须大于零，故分解的下三角的对角元也是大于零的。
+
+由于 $L$ 是可逆方阵，因此求逆和转置可以交换次序，则
+
+$$
+\boldsymbol K^{-1} = (\boldsymbol L^T)^{-1}\boldsymbol L^{-1} = (\boldsymbol L^T)^{-1}[{(\boldsymbol L^T)^{-1}}]^T
+$$
+
+那么只需要求 $(\boldsymbol L^T)^{-1}$ 就可以求出 $\boldsymbol K^{-1}$。
+
 ### 1.4.4. 预测
+
+对于 **全连接层**，在 `first_run()` 中，直接定义调用 `forward()` 函数进行预测（`predict = forward`）。
 
 ```python
 NNRegressor.fit()
@@ -452,7 +514,7 @@ NNRegressor.fit()
         self.layers[i].predict=self.layers[i].forward
 ```
 
-在 `first_run()` 中，对于 MLP 部分，直接定义调用 `forward()` 函数进行前向传播（`predict = fprward`）。
+对于**高斯层**，预测代码如下
 
 ```python
 NNRegressor.predict(self,X):
@@ -493,31 +555,60 @@ NNRegressor.predict(self,X):
   return preds, numpy.sqrt(numpy.diagonal(K2-numpy.dot(K3,numpy.dot(self.K_inv,K3.T))))
 ```
 
-其中 $A\in \mathbb R^{N\times D}$ 为测试集，$A_2\in \mathbb R^{n\times D}$ 为训练集，经过 MLP 前向传播后输出分别依然记作 $A, A_2$。
+设 $\boldsymbol A=\boldsymbol X\in \mathbb R^{n\times D}$ 为测试集，$\boldsymbol A_2=\boldsymbol x\in \mathbb R^{N\times D}$ 为训练集.
 
-首先调用 `CovMat()` 的前向传播函数，计算出训练集的核矩阵
+首先经过全连接层前向传播后特征维度为 $M$，得到的输出分别依然记作 $\boldsymbol A\in \mathbb R^{n\times M}, \boldsymbol A_2\in \mathbb R^{N\times M}$。
 
-$$
-K = \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
-$$
-
-然后对核矩阵求逆。
-
-因为 $K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程。
-
-> Cholesky 分解是把一个对称正定的矩阵表示成一个下三角矩阵 $L$ 和其转置的乘积的分解。
-> 
-> $$K = LL^T$$
-> 
-> 它要求矩阵的所有特征值必须大于零，故分解的下三角的对角元也是大于零的。
-
-由于 $L$ 是可逆方阵，因此求逆和转置可以交换次序，则
+对于训练集 $\boldsymbol A_2$，调用高斯层的前向传播函数，计算出训练集的核矩阵
 
 $$
-K^{-1} = (L^T)^{-1}L^{-1} = (L^T)^{-1}[{(L^T)^{-1}}]^T
+\boldsymbol K = \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
 $$
 
-那么只需要求 $(L^T)^{-1}$ 就可以求出 $K^{-1}$。
+然后对核矩阵求逆。因为 $\boldsymbol K$ 为对称正定矩阵，可采用 Cholesky 矩阵分解加速求逆过程（`cholesky()` 和 `solve_triangular()`）。
+
+设 $\boldsymbol y\in \mathbb R^{N\times1}$ 是训练集的标签，则根据 $\boldsymbol L\boldsymbol \alpha=\boldsymbol y$ 求出 $\boldsymbol \alpha$（`cho_solve()`）。
+
+$$
+\boldsymbol \alpha = \boldsymbol y \boldsymbol L^{-1}  \in \mathbb R^{N\times 1}
+$$
+
+和高斯层的前向传播类似，分别计算测试集的核函数 $\boldsymbol K_2 \in \mathbb R^{n\times n}$，以及测试集与训练集之间的核函数 $\boldsymbol K_3 \in \mathbb R^{n\times N}$。
+
+$$
+\begin{aligned}
+\vert\vert\boldsymbol d_1\vert\vert^2 &= 
+\left[
+\begin{matrix}
+  \vert\vert\boldsymbol X_1 - \boldsymbol X_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_1 - \boldsymbol X_n\vert\vert^2\\
+  \vert\vert\boldsymbol X_2 - \boldsymbol X_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_2 - \boldsymbol X_n\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol X_n - \boldsymbol X_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_n - \boldsymbol X_n\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{n\times n}\\
+\vert\vert\boldsymbol d_2\vert\vert^2 &= 
+\left[
+\begin{matrix}
+  \vert\vert\boldsymbol X_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_1 - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert\boldsymbol X_2 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_2 - \boldsymbol x_N\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol X_n - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol X_n - \boldsymbol x_N\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{n\times N}\\
+\boldsymbol K_2 &= var\cdot e^{-0.5\cdot \vert\vert\boldsymbol d_1\vert\vert^2} + (s_\alpha + 10^{-8})\boldsymbol I_{n\times n}\\
+\boldsymbol K_3 &= var\cdot e^{-0.5\cdot \vert\vert\boldsymbol d_2\vert\vert^2}\\
+\end{aligned}
+$$
+
+预测输出的值为
+
+$$
+\begin{aligned}
+\boldsymbol Y &= \boldsymbol K_3 \cdot \boldsymbol \alpha\\
+std &= \sqrt{diag[\boldsymbol K_2-\boldsymbol K_3\boldsymbol K^{-1}\boldsymbol K_3^T]}
+\end{aligned}
+$$
+
 
 # 2. 参考文献
 
