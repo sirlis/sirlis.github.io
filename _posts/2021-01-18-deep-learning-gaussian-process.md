@@ -752,8 +752,8 @@ NNRegressor.gp_loss(self,y,K):
   self.y=y
   self.A=self.layers[-2].out
   self.K=K
+
   self.L_ = cholesky(K, lower=True)
-  
   L_inv = solve_triangular(self.L_.T,numpy.eye(self.L_.shape[0]))
   self.K_inv = L_inv.dot(L_inv.T)
   
@@ -761,9 +761,7 @@ NNRegressor.gp_loss(self,y,K):
   self.nlml=0.0
   self.nlml_grad=0.0
   for i in range(0,y.shape[1]):
-    
     gg1=numpy.dot(self.alpha_[:,i].reshape(1,-1),y[:,i].reshape(-1,1))[0,0]
-
     self.nlml+=0.5*gg1+numpy.sum(numpy.log(numpy.diag(self.L_)))+K.shape[0]*0.5*numpy.log(2.0*numpy.pi)
     yy=numpy.dot(y[:,i].reshape(-1,1),y[:,i].reshape(1,-1))
     self.nlml_grad += -0.5*( numpy.dot(numpy.dot(self.K_inv,yy),self.K_inv)-self.K_inv)*K.shape[0]
@@ -808,9 +806,6 @@ nlml &= \frac{1}{2}gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi\
 &=\frac{1}{2}\boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi
 \end{aligned}
 $$
-
-> 定理1：设 $A$ 为一 $n\times n$ 矩阵，则 $det(A^T)=det(A)$
-> 定理2：设 $A$ 为一 $n\times n$ 三角形矩阵，则 $det(A)$ 等于A的对角元素的乘积。
 
 ### 3.4.4. 预测
 
