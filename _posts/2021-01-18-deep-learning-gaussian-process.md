@@ -708,7 +708,7 @@ $$
 根据前文，极大似然估计的损失函数为：
 
 $$
-loss = -\frac{1}{2}{\rm ln}{\vert\boldsymbol K\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\boldsymbol K^{-1}(\boldsymbol Y-\mu(\boldsymbol X))
+loss = -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y
 $$
 
 > **定理1**：设 $\boldsymbol K$ 为一 $n\times n$ 正定对称矩阵矩阵，对 $\boldsymbol K$ 进行 Cholesky 分解
@@ -724,8 +724,12 @@ $$
 则 $loss$ 可改写为
 
 $$
-loss = -\sum_{i=1}^n {\rm ln}L_{ii}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\boldsymbol K^{-1}(\boldsymbol Y-\mu(\boldsymbol X))
+loss = -\sum_{i=1}^n {\rm ln}L_{ii}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y
 $$
+
+主要计算量在于求解核矩阵的逆 $\Sigma^{-1}$。下面结合代码进行说明。
+
+---
 
 ```python
 NNRegressor.fit(self,X,Y,...)
@@ -776,14 +780,13 @@ NNRegressor.gp_loss(self,y,K):
 > $$\boldsymbol K = \boldsymbol L\boldsymbol L^T$$
 > 
 > 它要求矩阵的所有特征值必须大于零，故分解的下三角的对角元也是大于零的。
-
-由于 $L$ 是可逆方阵，因此求逆和转置可以交换次序，则
-
-$$
+> 由于 $L$ 是可逆方阵，因此求逆和转置可以交换次序，则
+> 
+> $$
 \boldsymbol K^{-1} = (\boldsymbol L^T)^{-1}\boldsymbol L^{-1} = (\boldsymbol L^T)^{-1}[{(\boldsymbol L^T)^{-1}}]^T
 $$
-
-那么只需要求 $(\boldsymbol L^T)^{-1}$ 就可以求出 $\boldsymbol K^{-1}$。
+> 
+> 那么只需要求 $(\boldsymbol L^T)^{-1}$ 就可以求出 $\boldsymbol K^{-1}$。
 
 设 $\boldsymbol y\in \mathbb R^{N\times 1}$ 是训练集标签，根据 $\boldsymbol L\boldsymbol \alpha=\boldsymbol y$ 求出 $\boldsymbol \alpha$（`cho_solve()`）。
 
