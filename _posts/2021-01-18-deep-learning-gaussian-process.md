@@ -800,7 +800,7 @@ $$
 gg1 = \boldsymbol \alpha^T\boldsymbol y = \boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y \\
 $$
 
-有
+有 negative log marginal likelihood (nlml)
 
 $$
 \begin{aligned}
