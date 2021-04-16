@@ -304,7 +304,7 @@ $$
 f(\boldsymbol X) \sim \mathcal{GP}[\boldsymbol \mu,k(\boldsymbol X, \boldsymbol X)]
 $$
 
-高斯过程由其数学期望 $\boldsymbol \mu$ 和协方差函数 $k$ 完全决定。常见的选择是平稳高斯过程，即数学期望为一**常数**，协方差函数取平稳高斯过程可用的核函数，使用最多的核函数是 **RBF 核**。
+高斯过程由其数学期望 $\boldsymbol \mu$ 和协方差函数 $k$ 完全决定。常见的选择是平稳高斯过程，即数学期望为一**常数**，协方差函数取平稳高斯过程可用的核函数。
 
 高斯过程的均值函数决定着曲线的走势，常数均值相当于起了一个平移作用，均值函数不再是常数时，曲线将围绕着均值函数这条曲线而波动。
 
@@ -317,6 +317,8 @@ $\mu = 2x$ 时
 ![](../assets/img/postsimg/20210118/9.png)
 
 但是一般情况下，我们都会对数据集的输出进行标准化处理来达到去均值的目的，这样做的好处就是我们只需要设置 $\boldsymbol \mu=0$ 即可，而无需猜测输出大致的模样，并且在后面的超参数寻优的过程中也可以减少我们需要优化的超参数的个数。
+
+使用最多的核函数是 **RBF 核**
 
 ### 3.3.2. 求解超参数
 
@@ -341,6 +343,7 @@ $$
   p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))\\
  \Rightarrow L = {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =&
  -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
+ &= -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\quad \boldsymbol (\boldsymbol \mu = 0)
 \end{aligned}
 $$
 
@@ -349,8 +352,11 @@ $$
 其中，$\Sigma=k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I$，与超参数 $\boldsymbol \theta$ 有关。利用梯度下降的方法更新超参数，上述式子对超参数 $\boldsymbol \theta$ 求导
 
 $$
-\frac{\partial L}{\partial \boldsymbol \theta} = \frac{\partial {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)}{\partial \boldsymbol \theta} = 
--\frac{1}{2}tr(\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}) + \frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}(\boldsymbol Y-\mu(\boldsymbol X))
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol \theta} = \frac{\partial {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)}{\partial \boldsymbol \theta} &= 
+-\frac{1}{2}tr(\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}) + \frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}(\boldsymbol Y-\mu(\boldsymbol X))\\
+&=-\frac{1}{2}tr(\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}) + \frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}\boldsymbol Y\quad \boldsymbol (\boldsymbol \mu = 0)
+\end{aligned}
 $$
 
 注意，高斯过程回归中的目标函数不是凸的，因而带来的问题就是：通过求解这个最优化问题，我们可以得到的只能是一个局部最小值，而非真正的全局最小值。局部最小不能保证是全局最优时，初始值的选择变得非常的重要。因为一个初始值可能会走向一个具体的极小值，而不同的初始值或许可以得到不同最优值。一种解决方案就是，多次产生不同的初始超参数，然后操作一次最优化问题的求解，然后比较这些最优化，挑选得出其中最小的值。
