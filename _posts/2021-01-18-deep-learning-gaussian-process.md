@@ -17,6 +17,9 @@ math: true
   - [3.1. 概念](#31-概念)
   - [3.2. 举例](#32-举例)
   - [3.3. 高斯过程回归](#33-高斯过程回归)
+    - [3.3.1. 构建高斯过程先验](#331-构建高斯过程先验)
+    - [3.3.2. 求解超参数](#332-求解超参数)
+    - [3.3.3. 测试样本预测](#333-测试样本预测)
   - [3.4. 深度核回归](#34-深度核回归)
     - [3.4.1. 初始化](#341-初始化)
     - [3.4.2. 前向传播](#342-前向传播)
@@ -277,7 +280,13 @@ $$
 
 ## 3.3. 高斯过程回归
 
-高斯过程回归可以看作是一个根据先验与观测值推出后验的过程。
+高斯过程回归可以看作是一个根据先验与观测值推出后验的过程。一版遵循以下三步
+
+- 构建高斯过程先验
+- 求解超参数
+- 对测试样本进行预测
+
+### 3.3.1. 构建高斯过程先验
 
 假设一组 $n$ 个观测值，每个观测值为 $D$ 维向量 $\boldsymbol X=\{\boldsymbol x_1, \cdots, \boldsymbol x_n\}$，对应的值为 $n$ 个 1 维目标向量 $\boldsymbol Y=\{y_1,\cdots, y_n\}$。假设回归残差 $\boldsymbol \varepsilon=[\varepsilon_1,\cdots,\varepsilon_n]$ 服从 $iid$ 正态分布 $p(\varepsilon)=\mathcal N(0,\sigma^2_{noise})$，则回归问题就是希望我们通过 $\boldsymbol X,\boldsymbol Y$ 学习一个由 $\boldsymbol X$ 到 $\boldsymbol Y$ 的映射函数 $f$
 
@@ -294,6 +303,53 @@ $$
 $$
 f(\boldsymbol X) \sim \mathcal{GP}[\boldsymbol \mu,k(\boldsymbol X, \boldsymbol X)]
 $$
+
+高斯过程由其数学期望 $\boldsymbol \mu$ 和协方差函数 $k$ 完全决定。常见的选择是平稳高斯过程，即数学期望为一**常数**，协方差函数取平稳高斯过程可用的核函数，使用最多的核函数是 **RBF 核**。
+
+高斯过程的均值函数决定着曲线的走势，常数均值相当于起了一个平移作用，均值函数不再是常数时，曲线将围绕着均值函数这条曲线而波动。
+
+
+
+但是一般情况下，我们都会对数据集的输出进行标准化处理来达到去均值的目的，这样做的好处就是我们只需要设置 $\boldsymbol \mu=0$ 即可，而无需猜测输出大致的模样，并且在后面的超参数寻优的过程中也可以减少我们需要优化的超参数的个数。
+
+### 3.3.2. 求解超参数
+
+高斯过程回归的求解也被称为超参学习（hyper-parameter learning），是按照贝叶斯方法通过学习样本确定核函数的超参数 $\boldsymbol \theta$ 的过程。根据贝叶斯定理，高斯过程回归的超参数的后验表示如下
+
+$$
+p(\boldsymbol \theta \vert \boldsymbol X,\boldsymbol Y) = \frac{p(\boldsymbol Y\vert \boldsymbol X,\boldsymbol \theta)p(\boldsymbol \theta)}{p(\boldsymbol Y\vert \boldsymbol X)}
+$$
+
+其中，$\boldsymbol \theta$ 包括核函数的超参数和残差的方差 $\sigma^2_{noise}$。
+
+$p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)$ 是似然，是对高斯过程回归的输出边缘化得到的边缘似然：
+
+$$
+p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \int p(\boldsymbol Y\vert f, \boldsymbol X,\boldsymbol \theta)p(f\vert\boldsymbol X,\boldsymbol \theta)df
+$$
+
+采用最大似然估计来对高斯过程的超参数进行估计。
+
+$$
+\begin{aligned}
+  p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))\\
+ \Rightarrow L = {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =&
+ -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
+\end{aligned}
+$$
+
+上式第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第三项包含学习成本，是数据拟合项，表示模型的经验风险（empirical risk）。
+
+其中，$\Sigma=k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I$，与超参数 $\boldsymbol \theta$ 有关。利用梯度下降的方法更新超参数，上述式子对超参数 $\boldsymbol \theta$ 求导
+
+$$
+\frac{\partial L}{\partial \boldsymbol \theta} = \frac{\partial {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)}{\partial \boldsymbol \theta} = 
+-\frac{1}{2}tr(\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}) + \frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}(\boldsymbol Y-\mu(\boldsymbol X))
+$$
+
+注意，高斯过程回归中的目标函数不是凸的，因而带来的问题就是：通过求解这个最优化问题，我们可以得到的只能是一个局部最小值，而非真正的全局最小值。局部最小不能保证是全局最优时，初始值的选择变得非常的重要。因为一个初始值可能会走向一个具体的极小值，而不同的初始值或许可以得到不同最优值。一种解决方案就是，多次产生不同的初始超参数，然后操作一次最优化问题的求解，然后比较这些最优化，挑选得出其中最小的值。
+
+### 3.3.3. 测试样本预测
 
 接着，给定其它 $m$ 个测试观测值 $\boldsymbol X^*$，预测 $\boldsymbol Y^*=f(\boldsymbol X^*)$ 。
 
@@ -347,44 +403,6 @@ $$
 \end{aligned}
 $$
 
----
-
-高斯过程回归的求解也被称为超参学习（hyper-parameter learning），是按照贝叶斯方法通过学习样本确定核函数的超参数 $\boldsymbol \theta$ 的过程。根据贝叶斯定理，高斯过程回归的超参数的后验表示如下
-
-$$
-p(\boldsymbol \theta \vert \boldsymbol X,\boldsymbol Y) = \frac{p(\boldsymbol Y\vert \boldsymbol X,\boldsymbol \theta)p(\boldsymbol \theta)}{p(\boldsymbol Y\vert \boldsymbol X)}
-$$
-
-其中，$\boldsymbol \theta$ 包括核函数的超参数和残差的方差 $\sigma^2_{noise}$。
-
-$p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)$ 是似然，是对高斯过程回归的输出边缘化得到的边缘似然：
-
-$$
-p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \int p(\boldsymbol Y\vert f, \boldsymbol X,\boldsymbol \theta)p(f\vert\boldsymbol X,\boldsymbol \theta)df
-$$
-
-采用最大似然估计来对高斯过程的超参数进行估计。
-
-$$
-\begin{aligned}
-  p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))\\
- \Rightarrow L = {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)
- =&
- -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
-\end{aligned}
-$$
-
-上式第一项仅与回归模型有关，回归模型的核矩阵越复杂其取值越高，反映了模型的结构风险（structural risk）。第三项包含学习成本，是数据拟合项，表示模型的经验风险（empirical risk）。
-
-其中，$\Sigma=k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I$，与超参数 $\boldsymbol \theta$ 有关。利用梯度下降的方法更新超参数，上述式子对超参数 $\boldsymbol \theta$ 求导
-
-$$
-\frac{\partial L}{\partial \boldsymbol \theta} = \frac{\partial {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta)}{\partial \boldsymbol \theta} = 
--\frac{1}{2}tr(\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}) + \frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}\frac{\partial \Sigma}{\partial \boldsymbol \theta}(\boldsymbol Y-\mu(\boldsymbol X))
-$$
-
-注意，高斯过程回归中的目标函数不是凸的，因而带来的问题就是：通过求解这个最优化问题，我们可以得到的只能是一个局部最小值，而非真正的全局最小值。局部最小不能保证是全局最优时，初始值的选择变得非常的重要。因为一个初始值可能会走向一个具体的极小值，而不同的初始值或许可以得到不同最优值。一种解决方案就是，多次产生不同的初始超参数，然后操作一次最优化问题的求解，然后比较这些最优化，挑选得出其中最小的值。
-
 > **PS1：**
 > 高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布  $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
 > 
@@ -428,6 +446,7 @@ $$
   \right)
 \end{aligned}
 $$
+
 
 
 ## 3.4. 深度核回归
@@ -674,6 +693,28 @@ $$
 
 ### 3.4.3. 反向传播
 
+根据前文，极大似然估计的损失函数为：
+
+$$
+loss = -\frac{1}{2}{\rm ln}{\vert\boldsymbol K\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\boldsymbol K^{-1}(\boldsymbol Y-\mu(\boldsymbol X))
+$$
+
+> **定理1**：设 $\boldsymbol K$ 为一 $n\times n$ 正定对称矩阵矩阵，对 $\boldsymbol K$ 进行 Cholesky 分解
+> 
+> $$\vert\boldsymbol K\vert=\boldsymbol L \boldsymbol L^T$$
+> > 
+> 因为三角矩阵的行列式 $\vert\boldsymbol L\vert = \prod_{i=1}^n L_{ii}$，而 $\vert\boldsymbol K\vert = \vert\boldsymbol L\vert\vert\boldsymbol L^T\vert$，则有
+> 
+> $$\vert\boldsymbol K\vert=\prod_{i=1}^n L_{ii}^2$$
+> 
+> $${\rm ln}\vert\boldsymbol K\vert=2\sum_{i=1}^n {\rm ln}L_{ii}$$
+
+则 $loss$ 可改写为
+
+$$
+loss = -\sum_{i=1}^n {\rm ln}L_{ii}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\boldsymbol K^{-1}(\boldsymbol Y-\mu(\boldsymbol X))
+$$
+
 ```python
 NNRegressor.fit(self,X,Y,...)
 |--Adam.fit(self,X,Y):
@@ -741,8 +782,13 @@ $$
 则
 
 $$
+gg1 = \boldsymbol \alpha^T\boldsymbol y = \boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y \\
+$$
+
+有
+
+$$
 \begin{aligned}
-gg1 &= \boldsymbol \alpha^T\boldsymbol y = \boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y \\
 nlml &= \frac{1}{2}gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi\\
 &=\frac{1}{2}\boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi
 \end{aligned}
