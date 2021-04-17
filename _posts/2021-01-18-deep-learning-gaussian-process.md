@@ -297,14 +297,14 @@ $$
 未知映射 $f$ 遵循高斯过程，通过 $\boldsymbol \mu = [\mu(x_1),\cdots,\mu(x_n)]$ 与 $k(\boldsymbol x_i,\boldsymbol x_j)$ 定义一个高斯过程，但是因为此时没有任何观测值，所以这是一个先验。
 
 $$
-f(\boldsymbol X) \sim \mathcal{GP}[\boldsymbol \mu,k(\boldsymbol X, \boldsymbol X)]
+f(\boldsymbol X) \sim \mathcal{GP}[\boldsymbol \mu,\boldsymbol K(\boldsymbol X, \boldsymbol X)]
 $$
 
 > 注意：经典高斯过程输入可以是多维，但输出只有 1 维（即单输出）。如果需要多维输出，当输出分量之间不相关时，可以分别设计多个高斯过程模型进行回归。当输出分量之间相关时，可以参考一些paper和工具包来实现，比如：
 > https://github.com/SheffieldML/multigp
 > https://github.com/SheffieldML/GPy/blob/devel/GPy/models/gp_multiout_regression.py
 
-高斯过程由其数学期望 $\boldsymbol \mu$ 和协方差函数 $k$ 完全决定。常见的选择是平稳高斯过程，即数学期望为一**常数**，协方差函数取平稳高斯过程可用的核函数。
+高斯过程由其数学期望 $\boldsymbol \mu$ 和协方差函数 $\boldsymbol K$ 完全决定。常见的选择是平稳高斯过程，即数学期望为一**常数**，协方差函数取平稳高斯过程可用的核函数。
 
 高斯过程的均值函数决定着曲线的走势，常数均值相当于起了一个平移作用，均值函数不再是常数时，曲线将围绕着均值函数这条曲线而波动。
 
@@ -318,7 +318,7 @@ $\mu = 2x$ 时
 
 但是一般情况下，我们都会对数据集的输出进行标准化处理来达到去均值的目的，这样做的好处就是我们只需要设置 $\boldsymbol \mu=\boldsymbol 0$ 即可，而无需猜测输出大致的模样，并且在后面的超参数寻优的过程中也可以减少我们需要优化的超参数的个数。
 
-使用最多的核函数是 **RBF 核**
+使用最多的核函数是 **RBF 核**。
 
 ### 3.3.2. 求解超参数
 
@@ -336,16 +336,18 @@ $$
 p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \int p(\boldsymbol Y\vert f, \boldsymbol X,\boldsymbol \theta)p(f\vert\boldsymbol X,\boldsymbol \theta)df
 $$
 
-高斯分布的边缘分布也是高斯分布，因此边缘似然也服从高斯分布
+高斯分布的边缘分布也是高斯分布，因此边缘似然也服从高斯分布，则概率可写为
+
+$$
+p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))
+$$
 
 采用最大似然估计来对高斯过程的超参数进行估计。
 
 $$
 \begin{aligned}
-  p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =& \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))\\
- \Rightarrow L = {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) =&
- -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
- &= -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\quad \boldsymbol (\boldsymbol \mu = 0)
+ \Rightarrow L = {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) &= -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
+&= -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\quad \boldsymbol (\boldsymbol \mu = 0)
 \end{aligned}
 $$
 
@@ -419,6 +421,10 @@ $$
 \end{aligned}
 $$
 
+均值 $\mu^*$ 实际上是观测点 $\boldsymbol Y^*$ 的一个线性函数。
+
+协方差项 $k^*$ 的第一部分是我们的先验的协方差，减掉的后面的那一项实际上表示了观测到数据后函数分布不确定性的减少。如果第二项非常接近于 0，说明观测数据后我们的不确定性几乎不变，反之如果第二项非常大，则说明不确定性降低了很多。
+
 > **PS1：**
 > 高斯分布有一个很好的特性，即高斯分布的联合概率、边缘概率、条件概率仍然是满足高斯分布的，假设 $n$ 维随机变量满足高斯分布  $\boldsymbol x \sim N(\mu,\Sigma_{n\times n})$
 > 
@@ -445,25 +451,6 @@ x_b\vert x_a &\sim N(\mu_{b\vert a},\Sigma_{b\vert a})\\
 \end{aligned}
 $$
 由此可推广到高斯过程。
-> **PS2：**
-> 分块矩阵求逆
-$$
-\begin{aligned}
-  \left(
-  \begin{matrix}
-    A&B\\
-    C&D
-  \end{matrix}\right)^{-1} =
-  \left(
-  \begin{matrix}
-    M&-MBD^{-1}\\
-    -D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}
-  \end{matrix}
-  \right)
-\end{aligned}
-$$
-
-
 
 ## 3.4. 深度核回归
 
@@ -712,7 +699,7 @@ $$
 根据前文，极大似然估计的损失函数为：
 
 $$
-loss = -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y
+loss = -\frac{1}{2}{\rm ln}{\vert\boldsymbol K\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
 $$
 
 > **定理1**：设 $\boldsymbol K$ 为一 $n\times n$ 正定对称矩阵矩阵，对 $\boldsymbol K$ 进行 Cholesky 分解
@@ -808,7 +795,7 @@ $$
 \begin{aligned}
 nlml &= \frac{1}{2}gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi\\
 &=\frac{1}{2}\boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi\\
-&= -loss
+&= -loss\quad ?
 \end{aligned}
 $$
 
@@ -826,7 +813,7 @@ $$
 
 $$
 \begin{aligned}
-L = -loss &= \frac{1}{2}{\rm ln}{\vert\Sigma\vert}+\frac{n}{2}{\rm ln}(2\pi)+\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\\
+L = -loss &= \frac{1}{2}{\rm ln}{\vert \boldsymbol K\vert}+\frac{n}{2}{\rm ln}(2\pi)+\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y\\
 \frac{\partial L}{\partial \boldsymbol \theta} &= \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial \boldsymbol \theta}\\
 \frac{\partial L}{\partial \boldsymbol w} &= \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial g(\boldsymbol x,\boldsymbol w)}\frac{\partial g(\boldsymbol x,\boldsymbol w)}{\partial \boldsymbol w}\\
 \end{aligned}
@@ -836,9 +823,14 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol K} &= y\\
+\frac{\partial L}{\partial \boldsymbol K} &= -\frac{N}{2}[\boldsymbol K^{-1}\boldsymbol Y\boldsymbol Y^T\boldsymbol K^{-1} - \boldsymbol K^{-1}]\\
 \end{aligned}
 $$
+
+> 常用公式 1 （matrix cookbook 124）（对应第一项）：
+> $$\frac{\partial }{\partial \boldsymbol X}Tr(\boldsymbol A\boldsymbol X^{-1}\boldsymbol B) = -(\boldsymbol X^{-1})^TA^TB(\boldsymbol X^{-1})^T$$
+> 常用公式 2 （matrix cookbook 142）（对应第二项）：
+> $$\frac{\partial {\rm ln\ det}(\boldsymbol X)}{\partial \boldsymbol X}\vert\vert\boldsymbol X\vert\vert^2 = 2\boldsymbol X^{-1}-(\boldsymbol X^{-1}\cdot \boldsymbol I)$$
 
 ### 3.4.4. 预测
 
