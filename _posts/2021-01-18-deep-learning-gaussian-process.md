@@ -413,7 +413,9 @@ $$
 \begin{aligned}
   \boldsymbol Y^*\vert \boldsymbol Y &\sim N(\mu^*,k^*) \Rightarrow p(\boldsymbol Y^*\vert \boldsymbol X,\boldsymbol Y,\boldsymbol X^*)= N(\mu^*,k^*)\\
   \mu^* &= k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}(\boldsymbol Y-\mu(\boldsymbol X))+\mu(\boldsymbol X^*)\\
-  k^* &= k(\boldsymbol X^*,\boldsymbol X^*)-k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}k(\boldsymbol X,\boldsymbol X^*)
+  &= k(\boldsymbol X^*,\boldsymbol X)k(\boldsymbol X,\boldsymbol X)^{-1}\boldsymbol Y\\
+  k^* &= k(\boldsymbol X^*,\boldsymbol X^*)-k(\boldsymbol X^*,\boldsymbol X)[k(\boldsymbol X,\boldsymbol X)+\sigma^2_{noise}\boldsymbol I]^{-1}k(\boldsymbol X,\boldsymbol X^*)\\
+  &=k(\boldsymbol X^*,\boldsymbol X^*)-k(\boldsymbol X^*,\boldsymbol X)k(\boldsymbol X,\boldsymbol X)^{-1}k(\boldsymbol X,\boldsymbol X^*)
 \end{aligned}
 $$
 
@@ -824,15 +826,18 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial loss}{\partial \boldsymbol \theta} &= \frac{\partial loss}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial \boldsymbol \theta}\\
-\frac{\partial loss}{\partial \boldsymbol w} &= \frac{\partial loss}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial g(\boldsymbol x,\boldsymbol w)}\frac{\partial g(\boldsymbol x,\boldsymbol w)}{\partial \boldsymbol w}\\
+L = -loss &= \frac{1}{2}{\rm ln}{\vert\Sigma\vert}+\frac{n}{2}{\rm ln}(2\pi)+\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\\
+\frac{\partial L}{\partial \boldsymbol \theta} &= \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial \boldsymbol \theta}\\
+\frac{\partial L}{\partial \boldsymbol w} &= \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial g(\boldsymbol x,\boldsymbol w)}\frac{\partial g(\boldsymbol x,\boldsymbol w)}{\partial \boldsymbol w}\\
 \end{aligned}
 $$
 
 其中共同项可以首先求解
 
 $$
-\frac{\partial loss}{\partial \boldsymbol K} = 
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol K} &= y\\
+\end{aligned}
 $$
 
 ### 3.4.4. 预测
