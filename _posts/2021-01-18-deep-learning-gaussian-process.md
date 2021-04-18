@@ -719,10 +719,10 @@ $$
 则 $loss$ 可改写为
 
 $$
-loss = -\sum_{i=1}^n {\rm ln}L_{ii}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y
+loss = -\sum_{i=1}^n {\rm ln}L_{ii}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
 $$
 
-主要计算量在于求解核矩阵的逆 $\Sigma^{-1}$。下面结合代码进行说明。
+主要计算量在于求解核矩阵的逆 $\boldsymbol K^{-1}$。下面结合代码进行说明。
 
 ---
 
@@ -805,6 +805,8 @@ $$
 
 **【WARNING】**：关于为啥公式是 $y^TK^{-1}y$ 而代码是 $y^TL^{-1}y$ 没想明白。
 
+---
+
 要使得极大似然估计最大也就是 $loss$ 最大，就要使得 $nlml$ 最小，二者相差一个负号。
 
 求极值则对参数求偏导，因为核矩阵可表示为
@@ -831,10 +833,17 @@ $$
 \end{aligned}
 $$
 
-> 常用公式 1 （matrix cookbook 124）（对应第一项，$K$ 为实对称阵）：
+> 常用公式 1 （matrix cookbook 124）：
 > $$\frac{\partial }{\partial \boldsymbol X}Tr(\boldsymbol A\boldsymbol X^{-1}\boldsymbol B) = -(\boldsymbol X^{-1})^T\boldsymbol A^T\boldsymbol B(\boldsymbol X^{-1})^T$$
-> 常用公式 2 （matrix cookbook 142）（对应第二项）：
+> 常用公式 1 （网络）：
+> $$\frac{\partial }{\partial \boldsymbol A}(\boldsymbol x^T\boldsymbol A^{-1}\boldsymbol x) = -(\boldsymbol A^{-1})^T\boldsymbol x\boldsymbol x^T(\boldsymbol A^{-1})^T$$
+> 常用公式 2 （matrix cookbook 141）（对应第二项）：
 > $$\frac{\partial {\rm ln\ det}(\boldsymbol X)}{\partial \boldsymbol X} = 2\boldsymbol X^{-1}-(\boldsymbol X^{-1}\cdot \boldsymbol I)$$
+> 常用公式 2 （维基百科）（对应第二项）：
+> $$\frac{\partial {\rm ln\ det}(\boldsymbol X)}{\partial \boldsymbol X} = \boldsymbol X^{-1}$$
+
+**【WARNING】**：多余的 $N$ 怎么来的？
+
 
 ### 3.4.4. 预测
 
