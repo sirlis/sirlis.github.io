@@ -831,10 +831,10 @@ $$
 \end{aligned}
 $$
 
-> 常用公式 1 （matrix cookbook 124）（对应第一项）：
-> $$\frac{\partial }{\partial \boldsymbol X}Tr(\boldsymbol A\boldsymbol X^{-1}\boldsymbol B) = -(\boldsymbol X^{-1})^TA^TB(\boldsymbol X^{-1})^T$$
+> 常用公式 1 （matrix cookbook 124）（对应第一项，$K$ 为实对称阵）：
+> $$\frac{\partial }{\partial \boldsymbol X}Tr(\boldsymbol A\boldsymbol X^{-1}\boldsymbol B) = -(\boldsymbol X^{-1})^T\boldsymbol A^T\boldsymbol B(\boldsymbol X^{-1})^T$$
 > 常用公式 2 （matrix cookbook 142）（对应第二项）：
-> $$\frac{\partial {\rm ln\ det}(\boldsymbol X)}{\partial \boldsymbol X}\vert\vert\boldsymbol X\vert\vert^2 = 2\boldsymbol X^{-1}-(\boldsymbol X^{-1}\cdot \boldsymbol I)$$
+> $$\frac{\partial {\rm ln\ det}(\boldsymbol X)}{\partial \boldsymbol X} = 2\boldsymbol X^{-1}-(\boldsymbol X^{-1}\cdot \boldsymbol I)$$
 
 ### 3.4.4. 预测
 
