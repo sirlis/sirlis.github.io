@@ -850,10 +850,12 @@ $$
 
 **【WARNING】**：多余的 $N$ 怎么来的？
 
-继续求
+---
+
+继续对高斯层反向传播
 
 $$
-aerr = \frac{\partial L}{\partial \boldsymbol K}(s_\alpha)(1-s_\alpha)
+a_{err} = \frac{\partial L}{\partial \boldsymbol K}(s_\alpha)(1-s_\alpha)
 $$
 
 ### 3.4.4. 预测
