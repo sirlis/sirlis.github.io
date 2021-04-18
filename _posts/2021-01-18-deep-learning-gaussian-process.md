@@ -681,7 +681,7 @@ $$
 \boldsymbol s_0 = e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\quad\in \mathbb R_{N\times N}
 $$
 
-乘以偏差（之前定义的第 2 个权重系数 $w_2$）
+乘以方差（之前定义的第 2 个权重系数 $w_2$）
 
 $$
 \boldsymbol s = w_2^2 \cdot \boldsymbol s_0  = var\cdot \boldsymbol s_0\quad\in \mathbb R_{N\times N}
@@ -691,12 +691,18 @@ $$
 
 $$
 \begin{aligned}
-s_\alpha &= 1/{(e^{-w_1}+1}) = 1/(e^{\frac{-\alpha}{1-\alpha}}+1)\\
+s_\alpha &= 1/{(e^{-w_1}+1}) = 1/({\frac{1-\alpha}{\alpha}}+1) = \alpha\\
 \boldsymbol {out} &= \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I_{N\times N}
 \end{aligned}
 $$
 
-最后输出 $N\times N$ 维的核矩阵 $\boldsymbol K$。
+形式上等效于
+
+$$
+\boldsymbol K = var\cdot \boldsymbol K(X,X) + \alpha\cdot \boldsymbol I
+$$
+
+核函数**参数**分别为两个权重 $var, \alpha$，最后输出 $N\times N$ 维的核矩阵 $\boldsymbol {out} = \boldsymbol K$。
 
 ### 3.4.3. 反向传播
 
@@ -844,6 +850,11 @@ $$
 
 **【WARNING】**：多余的 $N$ 怎么来的？
 
+继续求
+
+$$
+aerr = \frac{\partial L}{\partial \boldsymbol K}(s_\alpha)(1-s_\alpha)
+$$
 
 ### 3.4.4. 预测
 
