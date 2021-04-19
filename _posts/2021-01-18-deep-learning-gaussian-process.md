@@ -318,7 +318,15 @@ $\mu = 2x$ 时
 
 但是一般情况下，我们都会对数据集的输出进行标准化处理来达到去均值的目的，这样做的好处就是我们只需要设置 $\boldsymbol \mu=\boldsymbol 0$ 即可，而无需猜测输出大致的模样，并且在后面的超参数寻优的过程中也可以减少我们需要优化的超参数的个数。
 
-使用最多的核函数是 **RBF 核**。
+使用最多的核函数是 **RBF 核**。下面是不同核的先验和后验图比较。
+
+![](../assets/img/postsimg/20210118/10.sphx_glr_plot_gpr_prior_posterior_001.png)
+
+![](../assets/img/postsimg/20210118/11.sphx_glr_plot_gpr_prior_posterior_003.png)
+
+![](../assets/img/postsimg/20210118/12.sphx_glr_plot_gpr_prior_posterior_004.png)
+
+![](../assets/img/postsimg/20210118/13.sphx_glr_plot_gpr_prior_posterior_005.png)
 
 ### 3.3.2. 求解超参数
 
