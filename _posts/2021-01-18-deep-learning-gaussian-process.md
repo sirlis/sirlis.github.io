@@ -512,15 +512,15 @@ def initialize_ws(self):
 
 $$
 \begin{aligned}
-w&\sim N(0,\sqrt{\frac{1}{D}}) \in \mathbb R^{D_i\times D_o}\\
-b &= [0,\cdots,0] \in \mathbb R^{D_o}\\
-dw &= \left[\begin{matrix}
+\boldsymbol w&\sim N(0,\sqrt{\frac{1}{D}}) \in \mathbb R^{D_i\times D_o}\\
+\boldsymbol b &= [0,\cdots,0] \in \mathbb R^{D_o}\\
+d\boldsymbol w &= \left[\begin{matrix}
   0&\cdots&0\\
   \vdots&\ddots&\vdots\\
   0&\cdots&0\\
   \end{matrix}
 \right] \in \mathbb R^{D_i\times D_o}\\
-db &= [0,\cdots,0] \in \mathbb R^{D_o}
+d\boldsymbol b &= [0,\cdots,0] \in \mathbb R^{D_o}
 \end{aligned}
 $$
 
@@ -616,7 +616,7 @@ def forward_rbf(self,X):
 
 第二步，把上述矩阵重新排列为 $N\times N\times 1$ 的形式；
 
-第三步，逐一遍历所有列，得到 $D$ 个 $N\times N\times 1$ 的矩阵组成的列表，重新拼接为 $N\times N\times D$ 维矩阵。
+第三步，逐一遍历所有列，得到 $M$ 个 $N\times N\times 1$ 的矩阵组成的列表，重新拼接为 $N\times N\times M$ 维矩阵。
 
 其实本**质上就是做了对数据集中的每个样本对所有其它样本做差的操作**，假设输入高斯过程的数据集为经过 MLP 的 $N\times M$ 维特征 $\boldsymbol x$
 
@@ -724,7 +724,7 @@ $$
 
 ### 3.4.3. 反向传播
 
-根据前文，极大似然估计的损失函数为：
+首先计算损失函数。根据前文，极大似然估计的损失函数为：
 
 $$
 loss = -\frac{1}{2}{\rm ln}{\vert\boldsymbol K\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
@@ -750,18 +750,19 @@ $$
 
 ---
 
-```python
-NNRegressor.fit(self,X,Y,...)
-|--Adam.fit(self,X,Y):
-  |--NNRegressor.update(self,X,Y):
-    |--CoreNN.backward(self,Y):
-      self.j,err=self.cost(Y,self.layers[-1].out)
-      for i in reversed(range(0,len(self.layers))):
-        err=self.layers[i].backward(err)
-      return err
-```
+根据代码分析损失函数的计算：
 
-首先计算损失函数。
+> ```python
+> NNRegressor.fit(self,X,Y,...)
+> |--Adam.fit(self,X,Y):
+>   |--NNRegressor.update(self,X,Y):
+>     |--CoreNN.backward(self,Y):
+>       self.j,err=self.cost(Y,self.layers[-1].out)
+>       for i in reversed(range(0,len(self.layers))):
+>         err=self.layers[i].backward(err)
+>       return err
+> ```
+
 
 ```python
 NNRegressor.__init__()
@@ -817,7 +818,7 @@ $$
 gg1 = \boldsymbol \alpha^T\boldsymbol y = \boldsymbol y^T (\boldsymbol L^{-1})^T\boldsymbol y \\
 $$
 
-有 negative log marginal likelihood (nlml)
+有负对数似然（negative log marginal likelihood, nlml）
 
 $$
 \begin{aligned}
@@ -827,19 +828,19 @@ nlml &= \frac{1}{2}gg1 + \sum_{i=1}^N {\rm ln}L_{ii} + \frac{N}{2}{\rm ln} 2\pi\
 \end{aligned}
 $$
 
-**【WARNING】**：关于为啥公式是 $y^TK^{-1}y$ 而代码是 $y^TL^{-1}y$ 没想明白。
+**【WARNING】**：关于为啥公式是 $y^TK^{-1}y$ 而代码是 $y^TL^{-1}y$ 没想明白。但是无所谓了，这里只是计算出 loss 的值用来打印显示，在实际反向传播中仍然是对 $K$ 求偏导的。
 
 ---
 
-要使得极大似然估计最大也就是 $loss$ 最大，就要使得 $nlml$ 最小，二者相差一个负号。
+要使得极大似然估计最大也就是 $loss$ 最大，就要使得 $nlml$ 最小，二者相差一个负号。采用梯度下降的方式，对参数求偏导来求极值。
 
-求极值则对参数求偏导，因为核矩阵可表示为
+因为核矩阵可表示为
 
 $$
 k(\boldsymbol x_i, \boldsymbol x_j\vert\boldsymbol \theta) \rightarrow k(g(\boldsymbol x_i,\boldsymbol w), g(\boldsymbol x_j,\boldsymbol w)\vert\boldsymbol \theta)
 $$
 
-其中 $g(\boldsymbol x,\boldsymbol w)$ 是深度神经网络的映射，那么
+其中 $g(\boldsymbol x,\boldsymbol w)$ 是深度神经网络的映射，那么参数为 $\boldsymbol \theta, \boldsymbol w$， 则
 
 $$
 \begin{aligned}
@@ -849,7 +850,7 @@ L = -loss &= \frac{1}{2}{\rm ln}{\vert \boldsymbol K\vert}+\frac{n}{2}{\rm ln}(2
 \end{aligned}
 $$
 
-其中共同项可以首先求解
+首先求解共同的第一项
 
 $$
 \begin{aligned}
@@ -872,8 +873,63 @@ $$
 
 继续对高斯层反向传播
 
+```python
+def backward_rbf(self,err):
+  #Update trainable weight gradients (if applicable) I.e. noise and variance.
+  if not self.alpha_fixed:
+    a_err=err*self.s_alpha*(1.0-self.s_alpha)
+    self.dW[0,0]=numpy.mean(numpy.diag(a_err))
+    self.dW[0,1]=numpy.mean(err*self.s0)*err.shape[0]*2.0*self.W[0,1]
+    
+  #Backprop through multiplication with variance
+  err=self.var*err
+  
+  #Backprop through RBF function
+  err=-err[:,:,numpy.newaxis]*self.z*self.s0[:,:,numpy.newaxis]
+  
+  #Backprop through distance calculation
+  err2=numpy.zeros_like(self.inp)
+  X=self.inp
+  for i in range(0,X.shape[1]):
+    err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
+    
+  return err2
+```
+
+对于噪声参数 $w_1$，偏导为
+
 $$
-a_{err} = \frac{\partial L}{\partial \boldsymbol K}(s_\alpha)(1-s_\alpha)
+\frac{\partial \boldsymbol K}{\partial \boldsymbol \theta} = \frac{\partial \boldsymbol K}{\partial s_\alpha}\frac{\partial s_\alpha}{\partial w_1}
+$$
+
+根据前述定义
+
+$$
+\begin{aligned}
+\boldsymbol K &= \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
+s_\alpha &= 1/{(e^{-w_1}+1})\\
+\end{aligned}
+$$
+
+那么
+
+$$
+\begin{aligned}
+\frac{\partial \boldsymbol K}{\partial s_\alpha} &= \boldsymbol I\\
+\frac{\partial s_\alpha}{\partial w_1} &= s_\alpha(1-s_\alpha)\\
+\end{aligned}
+$$
+
+所以有
+
+$$
+\boldsymbol a_{err} = \frac{\partial L}{\partial \boldsymbol K}\boldsymbol I(s_\alpha)(1-s_\alpha)
+$$
+
+对矩阵对角线元素取平均，作为权重的偏导
+
+$$
+dw_1 = \frac{1}{N}\sum_{i=1}^N a_{err,ii}
 $$
 
 ### 3.4.4. 预测
