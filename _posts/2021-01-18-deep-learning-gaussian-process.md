@@ -973,7 +973,12 @@ $$
 
 继续传播至距离计算项
 
-
+```python
+err2=numpy.zeros_like(self.inp)
+X=self.inp
+for i in range(0,X.shape[1]):
+  err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
+```
 
 ### 3.4.4. 预测
 
