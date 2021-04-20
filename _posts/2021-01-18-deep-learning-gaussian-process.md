@@ -854,7 +854,7 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol K} &= -\frac{N}{2}[\boldsymbol K^{-1}\boldsymbol Y\boldsymbol Y^T\boldsymbol K^{-1} - \boldsymbol K^{-1}]\\
+\frac{\partial L}{\partial \boldsymbol K} &= -\frac{N}{2}[\boldsymbol K^{-1}\boldsymbol Y\boldsymbol Y^T\boldsymbol K^{-1} - \boldsymbol K^{-1}]\equiv \boldsymbol {err}\\
 \end{aligned}
 $$
 
@@ -871,7 +871,7 @@ $$
 
 ---
 
-继续对高斯层反向传播
+继续对高斯层反向传播，高斯层参数为 $\boldsymbol \theta = [w_1, w_2]$
 
 ```python
 def backward_rbf(self,err):
@@ -899,14 +899,14 @@ def backward_rbf(self,err):
 对于噪声参数 $w_1$，偏导为
 
 $$
-\frac{\partial \boldsymbol K}{\partial \boldsymbol \theta} = \frac{\partial \boldsymbol K}{\partial s_\alpha}\frac{\partial s_\alpha}{\partial w_1}
+\frac{\partial \boldsymbol L}{\partial w_1} = \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial s_\alpha}\frac{\partial s_\alpha}{\partial w_1}
 $$
 
 根据前述定义
 
 $$
 \begin{aligned}
-\boldsymbol K &= \boldsymbol s + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
+\boldsymbol K &= w_2^2\boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
 s_\alpha &= 1/{(e^{-w_1}+1})\\
 \end{aligned}
 $$
@@ -917,20 +917,63 @@ $$
 \begin{aligned}
 \frac{\partial \boldsymbol K}{\partial s_\alpha} &= \boldsymbol I\\
 \frac{\partial s_\alpha}{\partial w_1} &= s_\alpha(1-s_\alpha)\\
+\frac{\partial \boldsymbol K}{\partial w_2} &= 2w_2\cdot \boldsymbol s_0\\
 \end{aligned}
 $$
 
 所以有
 
 $$
-\boldsymbol a_{err} = \frac{\partial L}{\partial \boldsymbol K}\boldsymbol I(s_\alpha)(1-s_\alpha)
+\frac{\partial \boldsymbol L}{\partial w_1} \equiv \boldsymbol a_{err} = \boldsymbol {err}\cdot\boldsymbol I\cdot(s_\alpha)(1-s_\alpha)
 $$
 
-对矩阵对角线元素取平均，作为权重的偏导
+因为噪声只影响矩阵的对角线元素，所以对矩阵对角线元素求均值，作为权重的偏导
 
 $$
-dw_1 = \frac{1}{N}\sum_{i=1}^N a_{err,ii}
+{\rm d}w_1 = \frac{1}{N}\sum_{i=1}^N a_{err,ii}
 $$
+
+
+对于标准差参数 $w_2$，偏导为
+
+$$
+\frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial w_2} = \boldsymbol {err}\cdot 2w_2\cdot \boldsymbol s_0
+$$
+
+矩阵运算提到前边，对整个矩阵求均值
+
+$$
+{\rm d}w_2 = \left(\frac{1}{NN}\sum [\boldsymbol {err}\cdot \boldsymbol s_0]_{ij}\right)\cdot N\cdot 2w_2
+$$
+
+**【WARNING】**：为啥计算 ${\rm d}w_2$ 时，代码中要额外乘以一个样本个数 $N$？
+
+---
+
+误差随后需要穿过高斯层，继续反向传播到全连接层，全连接层参数为 $\boldsymbol w$，此时我们假设高斯层的参数固定。根据之前的定义，有
+
+$$
+\begin{aligned}
+\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\\
+\boldsymbol K &= var\cdot \boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I
+\end{aligned}
+$$
+
+则
+
+$$
+\frac{\partial \boldsymbol K}{\partial \boldsymbol w} = \frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}\frac{\partial \boldsymbol \vert\vert z\vert\vert}{\partial \boldsymbol w}
+$$
+
+首先看前两项，为
+
+$$
+\frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}=var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)
+$$
+
+继续传播至距离计算项
+
+
 
 ### 3.4.4. 预测
 
