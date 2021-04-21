@@ -924,7 +924,7 @@ $$
 所以有
 
 $$
-\frac{\partial \boldsymbol L}{\partial w_1} \equiv \boldsymbol a_{err} = \boldsymbol {err}\cdot\boldsymbol I\cdot(s_\alpha)(1-s_\alpha)
+\frac{\partial \boldsymbol L}{\partial w_1} \equiv \boldsymbol a_{err} = \boldsymbol {err}\cdot\boldsymbol I\cdot(s_\alpha)(1-s_\alpha)\in \mathbb R^{N\times N}
 $$
 
 因为噪声只影响矩阵的对角线元素，所以对矩阵对角线元素求均值，作为权重的偏导
@@ -937,7 +937,7 @@ $$
 对于标准差参数 $w_2$，偏导为
 
 $$
-\frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial w_2} = \boldsymbol {err}\cdot 2w_2\cdot \boldsymbol s_0
+\frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial \boldsymbol K}\frac{\partial \boldsymbol K}{\partial w_2} = \boldsymbol {err}\cdot 2w_2\cdot \boldsymbol s_0\in \mathbb R^{N\times N}
 $$
 
 矩阵运算提到前边，对整个矩阵求均值
@@ -968,7 +968,10 @@ $$
 首先看前两项，为
 
 $$
-\frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}=var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)
+\begin{aligned}
+&\frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}=var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\\
+\Rightarrow &\frac{\partial L}{\partial \vert\vert z\vert\vert} = \boldsymbol {err}\cdot var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\equiv \boldsymbol e\in \mathbb R^{N\times N\times M}
+\end{aligned}
 $$
 
 继续传播至距离计算项
@@ -979,6 +982,12 @@ X=self.inp
 for i in range(0,X.shape[1]):
   err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
 ```
+
+$\boldsymbol e_2,\boldsymbol X\in \mathbb R^{N\times M},\ \boldsymbol e\in \mathbb R^{N\times N\times M}$
+
+$$
+\boldsymbol e = 
+$$
 
 ### 3.4.4. 预测
 
