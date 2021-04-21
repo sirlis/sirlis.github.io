@@ -989,6 +989,15 @@ $$
 \boldsymbol e = 
 $$
 
+继续传播至全连接层
+
+```python
+def backward(self,err):
+  self.db=numpy.sum(err,axis=0).reshape(1,-1)
+  self.dW=numpy.dot(self.inp.T,err)
+  return numpy.dot(err,self.W.T) 
+```
+
 ### 3.4.4. 预测
 
 对于 **全连接层**，在 `first_run()` 中，直接定义调用 `forward()` 函数进行预测（`predict = forward`）。
