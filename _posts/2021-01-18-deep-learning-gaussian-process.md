@@ -673,7 +673,7 @@ $$
 \right]\in \mathbb R^{N\times N\times M}
 $$
 
-对 $\boldsymbol z$ 的最后一维（$M$ 维）分量计算二范数的平方
+对 $\boldsymbol z$ 的前两维每个元素，沿着最后一维（$M$ 维）计算二范数的平方
 
 $$
 \vert\vert\boldsymbol z\vert\vert^2 = 
@@ -692,6 +692,8 @@ $$
 $$
 \vert\vert\boldsymbol x_i - \boldsymbol x_j\vert\vert = \sqrt{\sum_{k=1}^M (x_{ik}-x_{jk})^2}
 $$
+
+注意，$\vert\vert z\vert\vert$ 并不是矩阵的二范数，求导时别按照相应法则去计算。
 
 其次**计算RBF**：
 
@@ -974,6 +976,8 @@ $$
 \end{aligned}
 $$
 
+因为 $\vert\vert z\vert\vert\in\mathbb R^{N\times N\times M}$。
+
 继续传播至距离计算项
 
 ```python
@@ -983,10 +987,10 @@ for i in range(0,X.shape[1]):
   err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
 ```
 
-$\boldsymbol e_2,\boldsymbol X\in \mathbb R^{N\times M},\ \boldsymbol e\in \mathbb R^{N\times N\times M}$
+$\boldsymbol e_2,\boldsymbol X\in \mathbb R^{N\times M},\ \boldsymbol e\in \mathbb R^{N\times N\times M}$ 这里的 $\boldsymbol X$ 是高斯层的输入特征向量，也是全连接层的输出特征向量。
 
 $$
-\boldsymbol e = 
+\frac{\partial L}{\partial \boldsymbol X} = (\boldsymbol e - \boldsymbol e^T)/N \equiv \boldsymbol e_2
 $$
 
 继续传播至全连接层
@@ -997,6 +1001,24 @@ def backward(self,err):
   self.dW=numpy.dot(self.inp.T,err)
   return numpy.dot(err,self.W.T) 
 ```
+
+因为
+
+$$
+\boldsymbol X_{i+1} = \boldsymbol X_i\boldsymbol W_i+\boldsymbol B_i
+$$
+
+> https://zhuanlan.zhihu.com/p/47002393
+
+则有
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol X_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol X_i} = \boldsymbol e_2\cdot \boldsymbol W^T\\
+\frac{\partial L}{\partial \boldsymbol W_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol X_i^T\cdot\boldsymbol e_2\\
+\frac{\partial L}{\partial \boldsymbol B_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol I^T\cdot\boldsymbol e_2\\
+\end{aligned}
+$$
 
 ### 3.4.4. 预测
 
