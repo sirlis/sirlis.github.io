@@ -1014,7 +1014,7 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol X_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol X_i} = \boldsymbol e_2\cdot \boldsymbol W^T\quad \Rightarrow\quad next\ error\\
+\frac{\partial L}{\partial \boldsymbol X_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol X_i} = \boldsymbol e_2\cdot \boldsymbol W^T\quad \Rightarrow\quad error\ propagation\\
 \frac{\partial L}{\partial \boldsymbol W_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol X_i^T\cdot\boldsymbol e_2\\
 \frac{\partial L}{\partial \boldsymbol B_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol I^T\cdot\boldsymbol e_2\\
 \end{aligned}
@@ -1025,11 +1025,20 @@ $$
 若高斯过程仅作为中间层进行特征变换，后续还接有全连接层，采用 $MSE$ 损失函数，则反向传播为：
 
 $$
-L = \frac{1}{2N}\sum_{i=1}^{N} \vert\vert \boldsymbol y_{pred} - \boldsymbol y\vert\vert^2
+\begin{aligned}
+L &= \frac{1}{2N}\sum_{i=1}^{N} \vert\vert \boldsymbol y_{pred} - \boldsymbol y\vert\vert^2\\
+\frac{\partial L}{\partial \boldsymbol y} &= \boldsymbol y_{pred} - \boldsymbol y\quad \Rightarrow\quad error\ propagation
+\end{aligned}
 $$
 
+然后经过全连接层
+
 $$
-\frac{\partial L}{\partial \boldsymbol y} =  \boldsymbol y_{pred} - \boldsymbol y
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol X_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol X_i} = \boldsymbol e_2\cdot \boldsymbol W^T\quad \Rightarrow\quad error\ propagation\\
+\frac{\partial L}{\partial \boldsymbol W_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol X_i^T\cdot\boldsymbol e_2\\
+\frac{\partial L}{\partial \boldsymbol B_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol I^T\cdot\boldsymbol e_2\\
+\end{aligned}
 $$
 
 
