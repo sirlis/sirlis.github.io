@@ -925,10 +925,6 @@ $$
 
 所以有
 
-$$
-\frac{\partial \boldsymbol L}{\partial w_1} \equiv \boldsymbol a_{err} = \boldsymbol {err}\cdot\boldsymbol I\cdot(s_\alpha)(1-s_\alpha)\in \mathbb R^{N\times N}
-$$
-
 因为噪声只影响矩阵的对角线元素，所以对矩阵对角线元素求均值，作为权重的偏导
 
 $$
@@ -1055,37 +1051,82 @@ $$
 \end{aligned}
 $$
 
-以此类推，逐一穿过全连接层
+依此类推，逐一反向穿过全连接层
 
 $$
 \begin{aligned}
 \boldsymbol x_{i+1} &= \boldsymbol x_i\cdot \boldsymbol w_i + \boldsymbol b_i\\
-\frac{\partial L}{\partial \boldsymbol x_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol x_i} = \boldsymbol e_3\cdot \boldsymbol w^T_i\quad \Rightarrow\quad error\ propagation\\
 \frac{\partial L}{\partial \boldsymbol w_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol w_i} =  \boldsymbol x_i^T\cdot\boldsymbol e_3\\
 \frac{\partial L}{\partial \boldsymbol b_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol b_i} =  \boldsymbol I^T\cdot\boldsymbol e_3\\
+\frac{\partial L}{\partial \boldsymbol x_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol x_i} = \boldsymbol e_3\cdot \boldsymbol w^T_i \equiv \boldsymbol e\quad \Rightarrow\quad error\ propagation\\
 \end{aligned}
 $$
 
-反向传播至高斯层。根据之前的定义，有
+反向传播至高斯层，高斯层参数为 $[w_1, w_2]$。根据前述定义
 
 $$
 \begin{aligned}
-\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\\
-\boldsymbol K &= var\cdot \boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I
+\boldsymbol x_{i+1} &= w_2^2\boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
+\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z_i\vert\vert^2}\\
+s_\alpha &= 1/{(e^{-w_1}+1})\\
+\vert\vert\boldsymbol z_i\vert\vert^2 &=\left[
+\begin{matrix}
+  \vert\vert\boldsymbol x_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_1 - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert\boldsymbol x_2 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_2 - \boldsymbol x_N\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_N\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{N\times N}
+\end{aligned}
+$$
+
+对于噪声参数 $w_1$，偏导为
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial w_1} &= \frac{\partial L}{\partial \boldsymbol x_{i+1}}\frac{\partial \boldsymbol x_{i+1}}{\partial s_\alpha}\frac{\partial s_\alpha}{\partial w_1}\\
+&= \boldsymbol e \cdot \boldsymbol I \cdot s_\alpha(1-s_\alpha)\equiv \boldsymbol a_{err}\\
+\end{aligned}
+$$
+
+因为噪声只影响矩阵的对角线元素，所以对矩阵对角线元素求均值，作为权重的偏导
+
+$$
+{\rm d}w_1 = \frac{1}{N}\sum_{i=1}^N a_{err,ii}
+$$
+
+
+对于标准差参数 $w_2$，偏导为
+
+$$
+\frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial \boldsymbol x_{i+1}}\frac{\partial \boldsymbol x_{i+1}}{\partial w_2} = \boldsymbol {e}\cdot 2w_2\cdot \boldsymbol s_0\in \mathbb R^{N\times N}
+$$
+
+矩阵运算提到前边，对整个矩阵求均值
+
+$$
+{\rm d}w_2 = \left(\frac{1}{NN}\sum [\boldsymbol {e}\cdot \boldsymbol s_0]_{ij}\right)\cdot N\cdot 2w_2
+$$
+
+
+继续传播至距离项内。根据之前的定义，有
+
+$$
+\begin{aligned}
+\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z_i\vert\vert^2}\\
+\boldsymbol x_{i+1} &= var\cdot \boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I
 \end{aligned}
 $$
 
 则
 
-$$
-\frac{\partial \boldsymbol K}{\partial \boldsymbol w} = \frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}\frac{\partial \boldsymbol \vert\vert z\vert\vert}{\partial \boldsymbol w}
-$$
-
-首先看前两项，为
+>绝对值函数反向传播  https://blog.csdn.net/rosefun96/article/details/104031212
 
 $$
 \begin{aligned}
-&\frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}=var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\\
+\frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol x_i} &= \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \vert\vert \boldsymbol x_i\vert\vert}\frac{\partial \vert\vert \boldsymbol x_i\vert\vert}{\partial \boldsymbol x_i}\\
+&=w_2^2\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert \boldsymbol x_i\vert\vert)\cdot \frac{\boldsymbol x_i}{\vert\vert \boldsymbol x_i\vert\vert}\\
+&=w_2^2\cdot (-\boldsymbol s_0 )\cdot \boldsymbol x_i\\
 \Rightarrow &\frac{\partial L}{\partial \vert\vert z\vert\vert} = \boldsymbol {err}\cdot var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\equiv \boldsymbol e\in \mathbb R^{N\times N\times M}
 \end{aligned}
 $$
@@ -1093,13 +1134,6 @@ $$
 因为 $\vert\vert z\vert\vert\in\mathbb R^{N\times N\times M}$。
 
 继续传播至距离计算项
-
-```python
-err2=numpy.zeros_like(self.inp)
-X=self.inp
-for i in range(0,X.shape[1]):
-  err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
-```
 
 $\boldsymbol e_2,\boldsymbol X\in \mathbb R^{N\times M},\ \boldsymbol e\in \mathbb R^{N\times N\times M}$ 这里的 $\boldsymbol X$ 是高斯层的输入特征向量，也是全连接层的输出特征向量。
 
