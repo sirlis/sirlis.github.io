@@ -1022,47 +1022,42 @@ $$
 
 ![](../assets/img/postsimg/20210118/14.png)
 
-记样本个数为 $N$，样本（输入）特征维度为 $N_i$，各层输入输出特征维度为 $n_i$，输出层特征维度为 $N_o$，注意特征维度就是神经元个数。
+记样本个数为 $N$，样本（输入）特征维度为 $N_i$，各层输入输出特征维度为 $N_l$，输出层特征维度为 $N_o$，注意特征维度就是神经元个数。
 
 采用 $MSE$ 损失函数，则反向传播为：
 
 $$
 \begin{aligned}
 L &= \frac{1}{2N}\sum_{i=1}^{N} \vert\vert \boldsymbol y - \boldsymbol y_{pred}\vert\vert^2\\
-\frac{\partial L}{\partial \boldsymbol y_{pred}} &= \boldsymbol y_{pred} - \boldsymbol y\equiv \boldsymbol e_3\in \mathbb R^{N_i\times N_o}\quad \Rightarrow\quad error\ propagation
+\frac{\partial L}{\partial \boldsymbol y_{pred}} &= \boldsymbol y_{pred} - \boldsymbol y\equiv \boldsymbol e\in \mathbb R^{N_i\times N_o}\quad \Rightarrow\quad error\ propagation
 \end{aligned}
 $$
 
-传播至最后一层全连接层， $\boldsymbol x_{i+1} \in \mathbb R^{N_i\times n_{i+1}}, \boldsymbol w_{i+1}\in \mathbb R^{n_{i+1}\times N_o}, , \boldsymbol b_{i+1}\in \mathbb R^{N_i\times N_o}$
+**传播并穿过**最后一层全连接层（第 $l+1$ 层）， ${}^{(l+1)}\boldsymbol{x} \in \mathbb R^{N_i\times N_{l+1}}, {}^{(l+1)}\boldsymbol{w}\in \mathbb R^{N_{l+1}\times N_o}, {}^{(l+1)}\boldsymbol{b}\in \mathbb R^{N_i\times N_o}$
 
 $$
 \begin{aligned}
-\boldsymbol y_{pred} &= \boldsymbol x_{i+1}\cdot \boldsymbol w_{i+1}+\boldsymbol b_{i+1}\\
-\frac{\partial L}{\partial \boldsymbol w_{i+1}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial \boldsymbol w_{i+1}}=\boldsymbol x^T_{i+1}\cdot\boldsymbol e_3 \\
-\frac{\partial L}{\partial \boldsymbol b_{i+1}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial \boldsymbol b_{i+1}}=\boldsymbol I^T\cdot\boldsymbol e_3 
+\boldsymbol y_{pred} &= {}^{(l+1)}\boldsymbol{x}\cdot \boldsymbol {}^{(l+1)}\boldsymbol{w}+{}^{(l+1)}\boldsymbol{b}\\
+\frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{w}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial {}^{(l+1)}\boldsymbol{w}}={}^{(l+1)}\boldsymbol{x}^T\cdot\boldsymbol e \\
+\frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{b}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial{}^{(l+1)}\boldsymbol{b}}=\boldsymbol I^T\cdot\boldsymbol e\\
+\frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{x}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial {}^{(l+1)}\boldsymbol{x}}= \boldsymbol e \cdot {}^{(l+1)}\boldsymbol{w}^T\equiv \boldsymbol e\in \mathbb R^{N_i\times N_{l+1}}\quad \Rightarrow\quad error\ propagation
 \end{aligned}
 $$
 
-穿过最后一层全连接层
+依此类推，逐一反向**传播并穿过**全连接层（第 $l,\ l-1,\ \cdots$ 层）
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol x_{i+1}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial \boldsymbol x_{i+1}}= \boldsymbol e_3 \cdot \boldsymbol w_{i+1}^T\quad \Rightarrow\quad error\ propagation
+{}^{(l+1)}\boldsymbol{x} &= {}^{(l)}\boldsymbol{x}\cdot \boldsymbol {}^{(l)}\boldsymbol{w}+{}^{(l)}\boldsymbol{b}\\
+\frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{w}} &= \frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{x}}\frac{\partial {}^{(l+1)}\boldsymbol{x}}{\partial {}^{(l)}\boldsymbol{w}}={}^{(l)}\boldsymbol{x}^T\cdot\boldsymbol e \\
+\frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{b}} &= \frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{x}}\frac{\partial {}^{(l+1)}\boldsymbol{x}}{\partial{}^{(l)}\boldsymbol{b}}=\boldsymbol I^T\cdot\boldsymbol e\\
+\frac{\partial L}{\partial {}^{(l)}\boldsymbol{x}} &= \frac{\partial L}{\partial {}^{(l+1)}\boldsymbol{x}}\frac{\partial {}^{(l+1)}\boldsymbol{x}}{\partial {}^{(l)}\boldsymbol{x}}= \boldsymbol e \cdot {}^{(l)}\boldsymbol{w}^T\equiv \boldsymbol e\in \mathbb R^{N_i\times N_{l}}\quad \Rightarrow\quad error\ propagation
 \end{aligned}
 $$
 
-依此类推，逐一反向穿过全连接层
+反向传播**至**高斯层，假设高斯层输出为 ${}^{(l)}\boldsymbol x \in \mathbb R^{N_i \times N_{l}}$，输入为 ${}^{(l-1)}\boldsymbol x \in \mathbb R^{N_i \times N_{l-1}}$，其中 $N_{l}=N_i$。
 
-$$
-\begin{aligned}
-\boldsymbol x_{i+1} &= \boldsymbol x_i\cdot \boldsymbol w_i + \boldsymbol b_i\\
-\frac{\partial L}{\partial \boldsymbol w_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol w_i} =  \boldsymbol x_i^T\cdot\boldsymbol e_3\\
-\frac{\partial L}{\partial \boldsymbol b_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol b_i} =  \boldsymbol I^T\cdot\boldsymbol e_3\\
-\frac{\partial L}{\partial \boldsymbol x_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol x_i} = \boldsymbol e_3\cdot \boldsymbol w^T_i \equiv \boldsymbol e\quad \Rightarrow\quad error\ propagation\\
-\end{aligned}
-$$
-
-反向传播至高斯层，高斯层参数为 $[w_1, w_2]$。根据前述定义
+高斯层参数为 $[w_1, w_2]$。根据前述定义
 
 $$
 \begin{aligned}
