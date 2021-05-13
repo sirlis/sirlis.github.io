@@ -1061,17 +1061,17 @@ $$
 
 $$
 \begin{aligned}
-\boldsymbol x_{i+1} &= w_2^2\boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
+{}^{(l)}\boldsymbol x &= w_2^2\boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
 \boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z_i\vert\vert^2}\\
 s_\alpha &= 1/{(e^{-w_1}+1})\\
 \vert\vert\boldsymbol z_i\vert\vert^2 &=\left[
 \begin{matrix}
-  \vert\vert\boldsymbol x_1 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_1 - \boldsymbol x_N\vert\vert^2\\
-  \vert\vert\boldsymbol x_2 - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_2 - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert{}^{(l-1)}\boldsymbol x_1 - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_1 - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
+  \vert\vert{}^{(l-1)}\boldsymbol x_2 - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_2 - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
   \vdots&\ddots&\vdots\\
-  \vert\vert\boldsymbol x_N - \boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert\boldsymbol x_N - \boldsymbol x_N\vert\vert^2\\
+  \vert\vert{}^{(l-1)}\boldsymbol x_N - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_N - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
 \end{matrix}
-\right]\in \mathbb R^{N\times N}
+\right]\in \mathbb R^{N_i\times N_i}
 \end{aligned}
 $$
 
@@ -1079,7 +1079,7 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial w_1} &= \frac{\partial L}{\partial \boldsymbol x_{i+1}}\frac{\partial \boldsymbol x_{i+1}}{\partial s_\alpha}\frac{\partial s_\alpha}{\partial w_1}\\
+\frac{\partial L}{\partial w_1} &= \frac{\partial L}{\partial{}^{(l)}\boldsymbol x}\frac{\partial {}^{(l)}\boldsymbol x}{\partial s_\alpha}\frac{\partial s_\alpha}{\partial w_1}\\
 &= \boldsymbol e \cdot \boldsymbol I \cdot s_\alpha(1-s_\alpha)\equiv \boldsymbol a_{err}\\
 \end{aligned}
 $$
@@ -1094,10 +1094,10 @@ $$
 对于标准差参数 $w_2$，偏导为
 
 $$
-\frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial \boldsymbol x_{i+1}}\frac{\partial \boldsymbol x_{i+1}}{\partial w_2} = \boldsymbol {e}\cdot 2w_2\cdot \boldsymbol s_0\in \mathbb R^{N\times N}
+\frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial {}^{(l)}\boldsymbol x}\frac{\partial {}^{(l)}\boldsymbol x}{\partial w_2} = \boldsymbol {e}\cdot 2w_2\cdot \boldsymbol s_0\in \mathbb R^{N_i\times N_i}
 $$
 
-矩阵运算提到前边，对整个矩阵求均值
+909090909090==============矩阵运算提到前边，对整个矩阵求均值
 
 $$
 {\rm d}w_2 = \left(\frac{1}{NN}\sum [\boldsymbol {e}\cdot \boldsymbol s_0]_{ij}\right)\cdot N\cdot 2w_2
