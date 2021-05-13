@@ -1026,7 +1026,7 @@ $$
 
 ![](../assets/img/postsimg/20210118/14.png)
 
-记样本个数为 $N$，样本（输入）特征维度为 $N_i$，各层输入输出特征维度为 $n_i$，输出层维度为 $N_o$。
+记样本个数为 $N$，样本（输入）特征维度为 $N_i$，各层输入输出特征维度为 $n_i$，输出层特征维度为 $N_o$，注意特征维度就是神经元个数。
 
 采用 $MSE$ 损失函数，则反向传播为：
 
@@ -1066,7 +1066,48 @@ $$
 \end{aligned}
 $$
 
-反向传播至高斯层，
+反向传播至高斯层。根据之前的定义，有
+
+$$
+\begin{aligned}
+\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\\
+\boldsymbol K &= var\cdot \boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I
+\end{aligned}
+$$
+
+则
+
+$$
+\frac{\partial \boldsymbol K}{\partial \boldsymbol w} = \frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}\frac{\partial \boldsymbol \vert\vert z\vert\vert}{\partial \boldsymbol w}
+$$
+
+首先看前两项，为
+
+$$
+\begin{aligned}
+&\frac{\partial \boldsymbol K}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \boldsymbol \vert\vert z\vert\vert}=var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\\
+\Rightarrow &\frac{\partial L}{\partial \vert\vert z\vert\vert} = \boldsymbol {err}\cdot var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\equiv \boldsymbol e\in \mathbb R^{N\times N\times M}
+\end{aligned}
+$$
+
+因为 $\vert\vert z\vert\vert\in\mathbb R^{N\times N\times M}$。
+
+继续传播至距离计算项
+
+```python
+err2=numpy.zeros_like(self.inp)
+X=self.inp
+for i in range(0,X.shape[1]):
+  err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
+```
+
+$\boldsymbol e_2,\boldsymbol X\in \mathbb R^{N\times M},\ \boldsymbol e\in \mathbb R^{N\times N\times M}$ 这里的 $\boldsymbol X$ 是高斯层的输入特征向量，也是全连接层的输出特征向量。
+
+$$
+\frac{\partial L}{\partial \boldsymbol X} = (\boldsymbol e - \boldsymbol e^T)/N \equiv \boldsymbol e_2
+$$
+
+继续传播至全连接层
 
 ### 3.4.4. 预测
 
