@@ -1022,22 +1022,45 @@ $$
 
 ----
 
-若高斯过程仅作为中间层进行特征变换，后续还接有全连接层，采用 $MSE$ 损失函数，则反向传播为：
+若高斯过程仅作为中间层进行特征变换，后续还接有全连接层，采用 $MSE$ 损失函数.
+
+记样本个数为 $N$，样本（输入）特征维度为 $N_i$，各层输入输出特征维度为 $n_i$，输出层维度为 $N_o$
+
+则反向传播为：
 
 $$
 \begin{aligned}
-L &= \frac{1}{2N}\sum_{i=1}^{N} \vert\vert \boldsymbol y_{pred} - \boldsymbol y\vert\vert^2\\
-\frac{\partial L}{\partial \boldsymbol y} &= \boldsymbol y_{pred} - \boldsymbol y\quad \Rightarrow\quad error\ propagation
+L &= \frac{1}{2N}\sum_{i=1}^{N} \vert\vert \boldsymbol y - \boldsymbol y_{pred}\vert\vert^2\\
+\frac{\partial L}{\partial \boldsymbol y_{pred}} &= \boldsymbol y_{pred} - \boldsymbol y\equiv \boldsymbol e_3\in \mathbb R^{N_i\times N_o}\quad \Rightarrow\quad error\ propagation
 \end{aligned}
 $$
 
-然后经过全连接层
+传播至最后一层全连接层， $\boldsymbol x_{i+1} \in \mathbb R^{N_i\times n_{i+1}}, \boldsymbol w_{i+1}\in \mathbb R^{n_{i+1}\times N_o}, , \boldsymbol b_{i+1}\in \mathbb R^{N_i\times N_o}$
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol X_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol X_i} = \boldsymbol e_2\cdot \boldsymbol W^T\quad \Rightarrow\quad error\ propagation\\
-\frac{\partial L}{\partial \boldsymbol W_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol X_i^T\cdot\boldsymbol e_2\\
-\frac{\partial L}{\partial \boldsymbol B_i} &= \boldsymbol e_2\cdot \frac{\partial \boldsymbol X_{i+1}}{\partial \boldsymbol W_i} =  \boldsymbol I^T\cdot\boldsymbol e_2\\
+\boldsymbol y_{pred} &= \boldsymbol x_{i+1}\cdot \boldsymbol w_{i+1}+\boldsymbol b_{i+1}\\
+\frac{\partial L}{\partial \boldsymbol w_{i+1}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial \boldsymbol w_{i+1}}=\boldsymbol x^T_{i+1}\cdot\boldsymbol e_3 \\
+\frac{\partial L}{\partial \boldsymbol b_{i+1}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial \boldsymbol b_{i+1}}=\boldsymbol I^T\cdot\boldsymbol e_3 
+\end{aligned}
+$$
+
+穿过最后一层全连接层
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol x_{i+1}} &= \frac{\partial L}{\partial \boldsymbol y_{pred}}\frac{\partial \boldsymbol y_{pred}}{\partial \boldsymbol x_{i+1}}= \boldsymbol e_3 \cdot \boldsymbol w_{i+1}^T\quad \Rightarrow\quad error\ propagation
+\end{aligned}
+$$
+
+以此类推，逐一穿过全连接层
+
+$$
+\begin{aligned}
+\boldsymbol x_{i+1} &= \boldsymbol x_i\cdot \boldsymbol w_i + \boldsymbol b_i\\
+\frac{\partial L}{\partial \boldsymbol x_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol x_i} = \boldsymbol e_3\cdot \boldsymbol w^T_i\quad \Rightarrow\quad error\ propagation\\
+\frac{\partial L}{\partial \boldsymbol w_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol w_i} =  \boldsymbol x_i^T\cdot\boldsymbol e_3\\
+\frac{\partial L}{\partial \boldsymbol b_i} &= \boldsymbol e_3\cdot \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol b_i} =  \boldsymbol I^T\cdot\boldsymbol e_3\\
 \end{aligned}
 $$
 
