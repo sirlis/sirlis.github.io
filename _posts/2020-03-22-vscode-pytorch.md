@@ -75,7 +75,7 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 【20200907补充，注意清华源可能不包括torchvision，因此万全之策还是加上 `-c pytorch`】
 
-【20210524补充，还可以尝试阿里云，在官方pip安装命令后加上 -i 阿里云】
+【20210524补充，尝试过各种其它方法，别试了没用的，老老实实翻墙等网络连接好的时候用官方命令安装把......】
 
 ```
 pip3 install torch==1.8.1+cu102 torchvision==0.9.1+cu102 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html -i http://mirrors.aliyun.com/pypi/simple/ 
