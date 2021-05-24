@@ -1062,9 +1062,9 @@ $$
 $$
 \begin{aligned}
 {}^{(l)}\boldsymbol x &= w_2^2\boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
-\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z_i\vert\vert^2}\\
+\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\\
 s_\alpha &= 1/{(e^{-w_1}+1})\\
-\vert\vert\boldsymbol z_i\vert\vert^2 &=\left[
+\vert\vert\boldsymbol z\vert\vert^2 &=\left[
 \begin{matrix}
   \vert\vert{}^{(l-1)}\boldsymbol x_1 - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_1 - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
   \vert\vert{}^{(l-1)}\boldsymbol x_2 - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_2 - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
@@ -1097,19 +1097,28 @@ $$
 \frac{\partial L}{\partial w_2} = \frac{\partial L}{\partial {}^{(l)}\boldsymbol x}\frac{\partial {}^{(l)}\boldsymbol x}{\partial w_2} = \boldsymbol {e}\cdot 2w_2\cdot \boldsymbol s_0\in \mathbb R^{N_i\times N_i}
 $$
 
-909090909090==============矩阵运算提到前边，对整个矩阵求均值
+由于 $w_2$ 为标量，因此将矩阵运算提到前边，对整个矩阵求均值
 
 $$
 {\rm d}w_2 = \left(\frac{1}{NN}\sum [\boldsymbol {e}\cdot \boldsymbol s_0]_{ij}\right)\cdot N\cdot 2w_2
 $$
 
 
-继续传播至距离项内。根据之前的定义，有
+反向传播**穿过**高斯层，继续传播至距离项内。根据之前的定义，有
 
 $$
 \begin{aligned}
-\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z_i\vert\vert^2}\\
-\boldsymbol x_{i+1} &= var\cdot \boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I
+{}^{(l)}\boldsymbol x &= w_2^2\boldsymbol s_0 + (s_\alpha+10^{-8})\cdot \boldsymbol I\\
+\boldsymbol s_0 &= e^{-0.5\cdot \vert\vert\boldsymbol z\vert\vert^2}\\
+s_\alpha &= 1/{(e^{-w_1}+1})\\
+\vert\vert\boldsymbol z\vert\vert^2 &=\left[
+\begin{matrix}
+  \vert\vert{}^{(l-1)}\boldsymbol x_1 - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_1 - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
+  \vert\vert{}^{(l-1)}\boldsymbol x_2 - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_2 - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
+  \vdots&\ddots&\vdots\\
+  \vert\vert{}^{(l-1)}\boldsymbol x_N - {}^{(l-1)}\boldsymbol x_1\vert\vert^2 & \cdots & \vert\vert{}^{(l-1)}\boldsymbol x_N - {}^{(l-1)}\boldsymbol x_N\vert\vert^2\\
+\end{matrix}
+\right]\in \mathbb R^{N_i\times N_i}
 \end{aligned}
 $$
 
@@ -1119,16 +1128,25 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol x_i} &= \frac{\partial \boldsymbol x_{i+1}}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \vert\vert \boldsymbol x_i\vert\vert}\frac{\partial \vert\vert \boldsymbol x_i\vert\vert}{\partial \boldsymbol x_i}\\
-&=w_2^2\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert \boldsymbol x_i\vert\vert)\cdot \frac{\boldsymbol x_i}{\vert\vert \boldsymbol x_i\vert\vert}\\
-&=w_2^2\cdot (-\boldsymbol s_0 )\cdot \boldsymbol x_i\\
-\Rightarrow &\frac{\partial L}{\partial \vert\vert z\vert\vert} = \boldsymbol {err}\cdot var\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert z\vert\vert)\equiv \boldsymbol e\in \mathbb R^{N\times N\times M}
+\frac{\partial L}{\partial {}^{(l-1)}\boldsymbol x} & = \frac{\partial L}{\partial {}^{(l)}\boldsymbol x}\frac{\partial {}^{(l)}\boldsymbol x}{\partial {}^{(l-1)}\boldsymbol x}\\
+& = \boldsymbol e \cdot \frac{\partial {}^{(l)}\boldsymbol x}{\partial \boldsymbol s_0}\frac{\partial \boldsymbol s_0}{\partial \vert\vert \boldsymbol z\vert\vert}\frac{\partial \vert\vert \boldsymbol z\vert\vert}{\partial \boldsymbol z}\frac{\partial \boldsymbol z}{\partial {}^{(l-1)}\boldsymbol x}\\
+&=\boldsymbol e\cdot w_2^2\cdot (-\boldsymbol s_0 \cdot \boldsymbol \vert\vert \boldsymbol z\vert\vert)\cdot \frac{\boldsymbol z}{\vert\vert \boldsymbol z\vert\vert}\cdot\frac{\partial \boldsymbol z}{\partial {}^{(l-1)}\boldsymbol x}\\
+&=\boldsymbol e\cdot w_2^2\cdot (-\boldsymbol s_0 )\cdot \boldsymbol z\cdot\frac{\partial \boldsymbol z}{\partial {}^{(l-1)}\boldsymbol x}\\
 \end{aligned}
 $$
 
-因为 $\vert\vert z\vert\vert\in\mathbb R^{N\times N\times M}$。
+令
 
-继续传播至距离计算项
+$$
+\boldsymbol e\cdot w_2^2\cdot (-\boldsymbol s_0 )\cdot \boldsymbol z \equiv \boldsymbol e \in \mathbb R^{N_i\times N_i\times N_{(l-1)}}
+$$
+
+```python
+err2=numpy.zeros_like(self.inp)
+X=self.inp
+for i in range(0,X.shape[1]):
+  err2[:,i]=numpy.sum(err[:,:,i]-err[:,:,i].T,0)/X.shape[0]
+```
 
 $\boldsymbol e_2,\boldsymbol X\in \mathbb R^{N\times M},\ \boldsymbol e\in \mathbb R^{N\times N\times M}$ 这里的 $\boldsymbol X$ 是高斯层的输入特征向量，也是全连接层的输出特征向量。
 
@@ -1136,7 +1154,7 @@ $$
 \frac{\partial L}{\partial \boldsymbol X} = (\boldsymbol e - \boldsymbol e^T)/N \equiv \boldsymbol e_2
 $$
 
-继续传播至全连接层
+继续传播至全连接层，后续略。
 
 ### 3.4.4. 预测
 
