@@ -342,12 +342,12 @@ $$
 p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) = \frac{1}{(2\pi)^{n/2}\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X)))
 $$
 
-采用最大似然估计来对高斯过程的超参数进行估计。
+采用最大似然估计来对高斯过程的超参数进行估计，则负对数似然函数为
 
 $$
 \begin{aligned}
- \Rightarrow L = {\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) &= -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))\\
-&= -\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\quad \boldsymbol (\boldsymbol \mu = 0)
+ \Rightarrow L = -{\rm ln}\ p(\boldsymbol Y\vert\boldsymbol X,\boldsymbol \theta) &= -[-\frac{1}{2}{\rm ln}{\vert\Sigma\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}(\boldsymbol Y-\mu(\boldsymbol X))^T\Sigma^{-1}(\boldsymbol Y-\mu(\boldsymbol X))]\\
+&= \frac{1}{2}{\rm ln}{\vert\Sigma\vert}+\frac{n}{2}{\rm ln}(2\pi)+\frac{1}{2}\boldsymbol Y^T\Sigma^{-1}\boldsymbol Y\quad \boldsymbol (\boldsymbol \mu = 0)
 \end{aligned}
 $$
 
@@ -706,10 +706,10 @@ $$
 
 ### 3.4.3. 反向传播
 
-根据前文，极大似然估计的损失函数为：
+根据前文，极大似然估计即最小化负对数似然函数：
 
 $$
-loss = -\frac{1}{2}{\rm ln}{\vert\boldsymbol K\vert}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
+{\rm argmin}_\theta \quad loss = \frac{1}{2}{\rm ln}{\vert\boldsymbol K\vert}+\frac{n}{2}{\rm ln}(2\pi)+\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
 $$
 
 > **定理1**：设 $\boldsymbol K$ 为一 $n\times n$ 正定对称矩阵矩阵，对 $\boldsymbol K$ 进行 Cholesky 分解
@@ -725,7 +725,7 @@ $$
 则 $loss$ 可改写为
 
 $$
-loss = -\sum_{i=1}^n {\rm ln}L_{ii}-\frac{n}{2}{\rm ln}(2\pi)-\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
+loss = \sum_{i=1}^n {\rm ln}L_{ii}+\frac{n}{2}{\rm ln}(2\pi)+\frac{1}{2}\boldsymbol Y^T\boldsymbol K^{-1}\boldsymbol Y
 $$
 
 主要计算量在于求解核矩阵的逆 $\boldsymbol K^{-1}$。下面结合代码进行说明。
