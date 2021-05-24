@@ -75,6 +75,14 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 【20200907补充，注意清华源可能不包括torchvision，因此万全之策还是加上 `-c pytorch`】
 
+【20210524补充，还可以尝试阿里云，在官方pip安装命令后加上 -i 阿里云】
+
+```
+pip3 install torch==1.8.1+cu102 torchvision==0.9.1+cu102 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html -i http://mirrors.aliyun.com/pypi/simple/ 
+```
+
+
+
 完整的GPU版本的PyTorch包含以下组件，版本号为我使用的版本号，其他人需要根据自身实际情况调整（尽量按照官网给出的版本匹配）：
 
 - pytorch  1.6.0
