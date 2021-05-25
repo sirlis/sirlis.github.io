@@ -65,17 +65,20 @@ conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
 pip3 install torch==1.8.1+cu102 torchvision==0.9.1+cu102 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-打开Anaconda Navigator，激活相应的环境，打开环境的终端，输入上述命令即可完成PyTorch的安装。【20200907补充，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
+打开Anaconda Navigator，激活相应的环境，打开环境的终端，输入上述命令即可完成PyTorch的安装。
 
-若已经更换了 Anaconda 的镜像源为国内源，则可以去掉后面的 `-c pytorch`，即使用
+【**20200907补充**，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
+
+【**20210524补充**，尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要换国内源（删除.conrc文件）......】
+
+<!-- 若已经更换了 Anaconda 的镜像源为国内源，则可以去掉后面的 `-c pytorch`，即使用
 
 ```
 conda install pytorch torchvision cudatoolkit=10.1
 ```
 
-【20200907补充，注意清华源不包括torchvision，因此还是加上 `-c pytorch` 走官方】
+【20200907补充，注意清华源不包括torchvision，因此还是加上 `-c pytorch` 走官方】 -->
 
-【20210524补充，尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要换国内源（删除.conrc文件）......】
 
 我使用的完整的GPU版本的PyTorch包含以下组件【2021年05月25日更新】，我没装torchaudio，其他人根据自身实际情况可能有所不同：
 
