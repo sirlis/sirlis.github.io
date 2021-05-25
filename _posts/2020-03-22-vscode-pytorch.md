@@ -86,6 +86,12 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 注意，务必不要单独通过 Anaconda 安装 pytorch，那样安装的版本是 cpu 版的。
 
+更新可以通过以下命令
+
+```
+conda update pytorch torchvision -c pytorch
+```
+
 ## 3.2. 部署其它包
 
 ### 3.2.1. CUDA
