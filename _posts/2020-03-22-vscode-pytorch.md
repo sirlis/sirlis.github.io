@@ -69,7 +69,12 @@ pip3 install torch==1.8.1+cu102 torchvision==0.9.1+cu102 torchaudio===0.8.1 -f h
 
 【**20200907补充**，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
 
-【**20210524补充**，尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要换国内源（删除.conrc文件）......】
+【**20210524补充**，尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要用国内源，而是使用官方默认源（也即删除.conrc文件），否则会报如下代理连接错误】
+
+```
+ProxyError: Conda cannot proceed due to an error in your proxy configuration.
+Check for typos and other configuration errors in any '.netrc' file in your home dire any environment variables ending in '_PROXY', and any other system-wide proxy configuration settings.
+```
 
 <!-- 若已经更换了 Anaconda 的镜像源为国内源，则可以去掉后面的 `-c pytorch`，即使用
 
@@ -89,11 +94,13 @@ conda install pytorch torchvision cudatoolkit=10.1
 
 注意，务必不要单独通过 Anaconda 安装 pytorch，那样安装的版本是 cpu 版的。
 
-更新可以通过以下命令
+更新可以通过以下命令（关闭fq代理，使用官方默认源）
 
 ```
 conda update pytorch torchvision -c pytorch
 ```
+
+![](../assets/img/postsimg/20200322/01.1.update.png)
 
 ## 3.2. 部署其它包
 
