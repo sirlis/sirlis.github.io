@@ -29,6 +29,8 @@ math: true
 > 2014. Ross Girshick，JeffDonahue,TrevorDarrell,Jitendra Malik. 
 > **Rich feature hierarchies for accurate oject detection and semantic segmentation**
 
+![](../assets/img/postsimg/20210608/02.rcnn.jpg)
+
 目标检测有两个主要任务：物体分类和定位，为了完成这两个任务，R-CNN借鉴了滑动窗口思想， 采用对区域进行识别的方案，具体是：
 
 - **提取候选区域**。输入一张图片，通过指定算法从图片中提取 2000 个类别独立的候选区域（可能目标区域）。R-CNN 目标检测首先需要获取2000个目标候选区域，能够生成候选区域的方法很多，比如：
