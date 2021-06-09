@@ -13,9 +13,12 @@ math: true
  ---
  
 - [1. 前言](#1-前言)
-  - [1.1. R-CNN](#11-r-cnn)
-  - [1.2. Fast R-CNN](#12-fast-r-cnn)
-- [2. 参考文献](#2-参考文献)
+  - [1.1. AlexNet](#11-alexnet)
+  - [1.2. VGG16](#12-vgg16)
+- [2. 二阶段方法](#2-二阶段方法)
+  - [2.1. R-CNN](#21-r-cnn)
+  - [2.2. Fast R-CNN](#22-fast-r-cnn)
+- [3. 参考文献](#3-参考文献)
 
 # 1. 前言
 
@@ -25,7 +28,13 @@ math: true
 
 近几年来，目标检测算法取得了很大的突破。比较流行的算法可以分为两类，一类是基于 Region Proposal 的 R-CNN 系算法（R-CNN，Fast R-CNN, Faster R-CNN等），它们是two-stage的，需要先算法产生目标候选框，也就是目标位置，然后再对候选框做分类与回归。而另一类是 Yolo，SSD 这类 one-stage 算法，其仅仅使用一个卷积神经网络 CNN 直接预测不同目标的类别与位置。第一类方法是准确度高一些，但是速度慢，但是第二类算法是速度快，但是准确性要低一些。
 
-## 1.1. R-CNN
+## 1.1. AlexNet
+
+## 1.2. VGG16
+
+# 2. 二阶段方法
+
+## 2.1. R-CNN
 
 > 2014. Ross Girshick，JeffDonahue,TrevorDarrell,Jitendra Malik. 
 > **Rich feature hierarchies for accurate oject detection and semantic segmentation**
@@ -37,7 +46,7 @@ math: true
 - **提取候选区域**。输入一张图片，通过指定算法从图片中提取 2000 个类别独立的候选区域（可能目标区域）。R-CNN 目标检测首先需要获取2000个目标候选区域，能够生成候选区域的方法很多，比如：
 
   - objectness
-  - selective search
+  - **selective search**
   - category-independen object proposals
   - constrained parametric min-cuts (CPMC)
   - multi-scale combinatorial grouping
@@ -48,7 +57,7 @@ math: true
   候选区域有 2000 个，所以很多会进行重叠。针对每个类，通过计算 IoU 指标（交并比），采取非极大性抑制，以最高分的区域为基础，剔除掉那些重叠位置的区域。
 
 
-- **提取特征向量**。对于上述获取的候选区域，进一步使用 AlexNet (2012) 提取 4096 维特征向量。（AlexNet 的输入图像大小是 227x227，而通过 Selective Search 产生的候选区域大小不一，为了与 AlexNet 兼容，R-CNN 采用了非常暴力的手段，那就是无视候选区域的大小和形状，统一变换到 227x227 的尺寸。有一个细节，在对 Region 进行变换的时候，首先对这些区域进行膨胀处理，在其 box 周围附加了 p 个像素，也就是人为添加了边框，在这里 p=16。）网络训练过程如下：
+- **提取特征向量**。对于上述获取的候选区域，使用 **AlexNet** (2012) 提取 4096 维特征向量。（AlexNet 的输入图像大小是 227x227，而通过 Selective Search 产生的候选区域大小不一，为了与 AlexNet 兼容，R-CNN 采用了非常暴力的手段，那就是无视候选区域的大小和形状，统一变换到 227x227 的尺寸。有一个细节，在对 Region 进行变换的时候，首先对这些区域进行膨胀处理，在其 box 周围附加了 p 个像素，也就是人为添加了边框，在这里 p=16。）网络训练过程如下：
   - 首先进行有监督预训练：使用 ImageNet 训练网络参数，这里只训练和**分类**有关的参数，因为 ImageNet 数据只有分类，没有位置标注。输入图片尺寸调整为 227x227，最后一层输出：4096 维向量 -> 1000 维向量的映射（因为 ImageNet 挑战使用了一个“修剪”的1000 个非重叠类的列表）。
   - 然后在特定样本下的微调（迁移学习） ：采用训练好的 AlexNet 模型进行 PASCAL VOC 2007 样本集下的微调，学习率 = 0.001，最后一层输出：4096 维向量 -> 21 维向量的映射（PASCAL VOC 2007 样本集包含 20 个类 + 背景类共 21 类，既有图像中物体类别标签，也有图像中物体位置标签）。将候选区域与 GroundTrue 中的 box 标签相比较，如果 IoU > 0.5，说明两个对象重叠的位置比较多，于是就可以认为这个候选区域是正，否则就是负。mini-batch 为 128（32 个正样本和 96 个负样本）。
 
@@ -69,10 +78,10 @@ math: true
 - 时间和内存消耗比较大。在训练 SVM 和回归的时候需要用网络训练的特征（2000×4096=819万参数）作为输入，特征保存在磁盘上再读入的时间消耗还是比较大的；
 - 测试的时候也比较慢，每张图片的每个 region proposal 都要做卷积，重复操作太多。
 
-## 1.2. Fast R-CNN
+## 2.2. Fast R-CNN
 
 主干网络是 VGG16
 
-# 2. 参考文献
+# 3. 参考文献
 
 [1] 维基百科. [Kernel regression](https://en.wikipedia.org/wiki/Kernel_regression)
