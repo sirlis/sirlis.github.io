@@ -106,7 +106,7 @@ filter 还包括偏置 bias。
 - `bias`：bool，输出增加偏差，default=True；
 
 假设输入数据为 $(N, C_{in}, H_{in},W_{in})$ （$N$ 张 $C_{in}$ 通道数的高 $H_{in}$ 宽 $W_{in}$ 的图片），
-输出为
+对于输入的每一张图片，比如第 $N_i$ 张图片，输出特征图的通道数为 $C_{out}$，具体为
 
 $$
 out(N_i,C_{{out}_j})=bias(C_{{out}_j}) + \sum_{k=1}^{C_{in}}weight(C_{{out}_j},k)\star input(N_i,k)
