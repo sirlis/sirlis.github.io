@@ -56,7 +56,13 @@ AlexNet 的网络结构如下：
 
 - Max Pool
   最大池化，代替之前网络的平均池化。采用 3$\times$3卷积核，stride = 2，因此会出现重叠池化的现象。可以减小过拟合。
+  池化后得到：
 
+  ```
+  wide = (54 + 2 * padding - kernel_size) / stride + 1 = 54
+  height = (54 + 2 * padding - kernel_size) / stride + 1 = 54
+  dimention = 96
+  ```
 ## 1.2. VGG16
 
 # 2. 二阶段方法
