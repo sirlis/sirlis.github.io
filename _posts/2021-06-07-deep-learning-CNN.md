@@ -1,5 +1,5 @@
 ---
-title: 计算机视觉（Two-Stage 目标检测）
+title: 深度学习基础（CNN 卷积神经网络）
 date: 2021-06-08 09:08:49 +0800
 categories: [Academic, Knowledge]
 tags: [deeplearning]
@@ -11,15 +11,11 @@ math: true
 <!--more-->
 
  ---
- 
-- [1. 前言](#1-前言)
-  - [1.1. AlexNet](#11-alexnet)
-  - [1.2. VGG16](#12-vgg16)
-- [2. 二阶段方法](#2-二阶段方法)
-  - [2.1. R-CNN](#21-r-cnn)
-  - [2.2. Fast R-CNN](#22-fast-r-cnn)
-- [3. 参考文献](#3-参考文献)
-
+ - [1. 基础知识](#1-基础知识)
+  - [1.1. 卷积核（kernel）](#11-卷积核kernel)
+  - [1.2. 滤波器（filter）](#12-滤波器filter)
+  - [1.3. 池化](#13-池化)
+- [2. 参考文献](#2-参考文献)
 
 # 1. 基础知识
 
