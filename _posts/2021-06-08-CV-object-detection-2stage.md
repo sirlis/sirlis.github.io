@@ -24,11 +24,38 @@ math: true
 
 图片分类任务我们已经熟悉了，就是算法对其中的对象进行分类。而今天我们要了解构建神经网络的另一个问题，即目标检测问题。这意味着，我们不仅要用算法判断图片中是不是一辆汽车， 还要在图片中标记出它的位置， 用边框或红色方框把汽车圈起来， 这就是目标检测问题。 其中“定位”的意思是判断汽车在图片中的具体位置。
 
-![](./assets/img/postimg/../../../../assets/img/postsimg/20210608/01.objectdetection.jpg)
+![](./assets/img/postimg/20210608/01.objectdetection.jpg)
 
 近几年来，目标检测算法取得了很大的突破。比较流行的算法可以分为两类，一类是基于 Region Proposal 的 R-CNN 系算法（R-CNN，Fast R-CNN, Faster R-CNN等），它们是two-stage的，需要先算法产生目标候选框，也就是目标位置，然后再对候选框做分类与回归。而另一类是 Yolo，SSD 这类 one-stage 算法，其仅仅使用一个卷积神经网络 CNN 直接预测不同目标的类别与位置。第一类方法是准确度高一些，但是速度慢，但是第二类算法是速度快，但是准确性要低一些。
 
 ## 1.1. AlexNet
+
+AlexNet 的网络结构如下：
+
+![](../assets/img/postsimg/20210608/03.alexnet.jpg)
+
+- Conv 11$\times$11s4,96 / ReLU
+
+  输入为 $224 \times 224 \times 3$ 的图像，每个通道包含 96 个 $11\times 11,\ stride=4$ 的卷积核，一共参数量为
+
+  $$
+  3\ channel \times 11\times 11\times 96\ kernels = 34,848 \approx35K\ params
+  $$
+
+  卷积后得到
+
+  ```
+  wide = (224 + 2 * padding - kernel_size) / stride + 1 = 54
+  height = (224 + 2 * padding - kernel_size) / stride + 1 = 54
+  dimention = 96
+  ```
+
+- Local Response Norm
+
+  局部响应归一化层完成一种 “临近抑制” 操作，对局部输入区域进行归一化。借鉴了神经生物学中侧抑制（lateral inhibitio ）的概念，指的是被激活的神经元会抑制它周围的神经元，从而实现局部抑制。但是，在 2015 年 Very Deep Convolutional Networks for Large-Scale Image Recognition 提到 LRN 基本没什么用。因而在后面的 Googlenet，以及之后的一些 CNN 架构模型，LRN 已经不再使用，因为出现了更加有说服能力的批量归一化（Batch Normalization, BN）。
+
+- Max Pool
+  最大池化，代替之前网络的平均池化。采用 3$\times$3卷积核，stride = 2，因此会出现重叠池化的现象。可以减小过拟合。
 
 ## 1.2. VGG16
 
