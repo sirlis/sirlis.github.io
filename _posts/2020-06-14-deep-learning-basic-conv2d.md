@@ -105,7 +105,14 @@ filter 还包括偏置 bias。
 - `groups`：从输入通道到输出通道分组的个数，default=1；
 - `bias`：bool，输出增加偏差，default=True；
 
-假设输入图片的高度和宽度为 $H_{in}$ 和 $H_{in}$，则输出特征图的高度和宽度$H_{out}$ 和 $H_{out}$ 为
+假设输入数据为 $(N, C_{in}, H_{in},W_{in})$ （$N$ 张 $C_{in}$ 通道数的高 $H_{in}$ 宽 $W_{in}$ 的图片），
+输出为
+
+$$
+out(N_i,C_{{out}_j})=bias(C_{{out}_j}) + \sum_{k=1}^{C_{in}}weight(C_{{out}_j},k)\star input(N_i,k)
+$$
+
+其中 $H_{out}$ 和 $H_{out}$ 为
 
 $$
 \begin{aligned}
@@ -113,6 +120,7 @@ H_{out} &= \frac{H_{in} + 2\times padding[0] - dilation[0]\times (kernel\_size[0
 W_{out} &= \frac{W_{in} + 2\times padding[1] - dilation[1]\times (kernel\_size[1]-1)-1}{stride[1]}+1
 \end{aligned}
 $$
+
 
 若采用默认参数，有
 
