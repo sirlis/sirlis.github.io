@@ -39,7 +39,7 @@ AlexNet 的网络结构如下：
   输入为 $224 \times 224 \times 3$ 的图像，每个通道包含 96 个 $11\times 11,\ stride=4$ 的卷积核，一共参数量为
 
   $$
-  3\ channel \times 11\times 11\times 96\ kernels = 34,848 \approx35K\ params
+  3\ channel \times 11\times 11\times 96\ kernels + 96\ bias = 34944 \approx35K\ params
   $$
 
   卷积后得到
@@ -65,8 +65,27 @@ AlexNet 的网络结构如下：
   ```
 ## 1.2. VGG16
 
+> 2015. ICLR. Very Deep Convolutional Networks for Large-Scale Image Recognition
+> Visual Geometry Group
+
+相比 AlexNet 的一个改进是采用连续的几个 3x3 的卷积核代替 AlexNet 中的较大卷积核（11x11，7x7，5x5）。
+
+- 使用了 3 个 3x3 卷积核来代替 7x7 卷积核
+- 使用了 2 个 3x3 卷积核来代替 5*5 卷积核
+
+对于给定的感受野（与输出有关的输入图片的局部大小），采用堆积的小卷积核是优于采用大的卷积核，因为多层非线性层可以增加网络深度来保证学习更复杂的模式，而且代价还比较小（参数更少）。
+
 ![](../assets/img/postsimg/20210607/01.vgg.jpg)
 
+[VGG网络的结构](https://dgschwend.github.io/netscope/#/preset/vgg-16) 非常一致，从头到尾全部使用的是 `3x3x3,stride=1,padding=1` 的卷积和 `2x2` 的 max pooling。
+
+输入 $224\times 224 \times 3\ channel$ 的图像。首先经过 2 次 64 个滤波器的卷积。套公式计算发现卷积后输出尺寸不变
+
+$$
+H/W = (224+2\times padding - kernel)/stride + 1 = 224
+$$
+
+然后经过 `2x2` 最大池化后大小缩小为原来的一半。
 
 # 2. 二阶段方法
 
