@@ -65,6 +65,9 @@ AlexNet 的网络结构如下：
   ```
 ## 1.2. VGG16
 
+![](../assets/img/postsimg/20210607/01.vgg.jpg)
+
+
 # 2. 二阶段方法
 
 ## 2.1. R-CNN
