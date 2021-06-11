@@ -50,7 +50,7 @@ math: true
 对于输入的每一张图片，比如第 $N_i$ 张图片，输出特征图的通道数为 $C_{out}$，具体为
 
 $$
-out(N_i,C_{{out}_j})=bias(C_{{out}_j}) + \sum_{k=1}^{C_{in}}weight(C_{{out}_j},k)\star input(N_i,k)
+out(N_i,C_{out,j})=bias(C_{out,j}) + \sum_{k=1}^{C_{in}}weight(C_{out,j},k)\star input(N_i,k)
 $$
 
 其中 $H_{out}$ 和 $H_{out}$ 为
