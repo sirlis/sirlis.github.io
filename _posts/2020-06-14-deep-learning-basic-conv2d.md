@@ -62,6 +62,14 @@ W_{out} &= \frac{W_{in} + 2\times padding[1] - dilation[1]\times (kernel\_size[1
 \end{aligned}
 $$
 
+若采 $dilation = 1$，有
+
+$$
+\begin{aligned}
+H_{out} &= \frac{H_{in} + 2\times padding[0] - kernel\_size[0]}{stride[0]}+1 \\
+W_{out} &= \frac{W_{in} + 2\times padding[1] - kernel\_size[1]}{stride[1]}+1
+\end{aligned}
+$$
 
 若采用默认参数，有
 
