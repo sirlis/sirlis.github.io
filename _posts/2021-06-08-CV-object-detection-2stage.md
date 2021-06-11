@@ -77,7 +77,9 @@ AlexNet 的网络结构如下：
 
 ![](../assets/img/postsimg/20210607/01.vgg.jpg)
 
-[VGG网络的结构](https://dgschwend.github.io/netscope/#/preset/vgg-16) 非常一致，从头到尾全部使用的是 `3x3x3,stride=1,padding=1` 的卷积和 `2x2` 的 max pooling。
+![](../assets/img/postsimg/20210607/02.vgg2.jpg)
+
+[VGG网络的结构](https://dgschwend.github.io/netscope/#/preset/vgg-16) 非常一致，从头到尾全部使用的是 `3x3x3,stride=1,padding=1` 的卷积和 `2x2` 的 max pooling。VGG16 特指 D 列包含 16 个权重层的网络结构，而 VGG19 特指 E 列包含 19 个权重层的网络结构。
 
 输入 $224\times 224 \times 3\ channel$ 的图像。首先经过 2 次 64 个滤波器的卷积。套公式计算发现卷积后输出尺寸不变
 
@@ -85,7 +87,7 @@ $$
 H/W = (224+2\times padding - kernel)/stride + 1 = 224
 $$
 
-然后经过 `2x2` 最大池化后大小缩小为原来的一半。
+然后经过 `2x2` 最大池化后大小缩小为原来的一半。后续
 
 # 2. 二阶段方法
 
@@ -135,7 +137,7 @@ $$
 
 ## 2.2. Fast R-CNN
 
-主干网络是 VGG16
+主干网络是 VGG16，
 
 # 3. 参考文献
 
