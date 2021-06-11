@@ -87,7 +87,7 @@ $$
 H/W = (224+2\times padding - kernel)/stride + 1 = 224
 $$
 
-然后经过 `2x2` 最大池化后大小缩小为原来的一半。后续
+然后经过 `2x2` 最大池化后大小缩小为原来的一半。按照网络结构继续进行，最终经过五次池化得到 `7x7x512` 的 feature map。传入 `4096` 维的全连接层（FC 层），参数个数为 $7\times 7\times 512\times 4096+4096\ bias=102764544$，经过 ReLU，后再接一个 4096 维的 FC 层，参数个数为 $4096\times 4096=16777216$，经过 ReLU，最后送入 1000 维 FC 层，后接 softmax 进行分类。
 
 # 2. 二阶段方法
 
@@ -149,9 +149,14 @@ $$
 框架：
 
 - **提取候选框（region proposals）**。输入原始图像，通过 selective search 提取感兴趣区域。每个区域的坐标用四元数组 $[r,c,h,w]$ （左上行列坐标与高和宽）定义，该四元数组相对于原始图像，都有对应的 ground truth BBox 和 ground truth class label。
-- **将候选框坐标映射到 feature map 上**。采用 VGG16 时，将最后一个 max pooling 层替换为 ROI pooling 层，因此区域坐标经过前四次池化，输出的 feature maps 是原图像的 1/16，则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以16，并量化到最接近的整数，得到映射的坐标，即为 ROI。
-  ROI（Region of Interest）是指在一张图片上完成 Selective Search 后得到的 候选框 在特征图上的一个映射
-- **ROI pooling**。将feature maps 上的区域坐标送入 ROI pooling 层，得到固定大小的输出maps。
+  ![](../assets/img/postsimg/20210607/05.regionproposal.jpg)
+- **将候选框坐标映射到 feature map 上**。采用 VGG16 时，最后一个 max pooling 层后接 ROI pooling 层，区域坐标经过5 次池化，输出的 feature maps 是原图像的 1/32（`16x16x512`），则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以 32 并量化到最接近的整数，得到映射的坐标，即为 ROI feture map。
+    ![](../assets/img/postsimg/20210607/06.roifeature.jpg)
+  一个 ROI 的原始大小为 145x200 ，左上角设置为 (192x296) 。除以 32（比例因子）并取整，左上角变为 (9,6)，高宽变为 4x6。
+    ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
+- **ROI pooling**。将feature maps 上的区域坐标送入 ROI pooling 层，得到固定大小的输出 feature maps，以便送入后续固定大小的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 HxW ，因为输入的 ROI feature map 大小不一样，假设为 hxw，需要对这个 feature map 进行池化来减小尺寸，那么可以计算出池化窗口的尺寸为：(hxw)/HxW，即用这个计算出的窗口对 RoI feature map 做 max pooling，Pooling 对每一个 feature map 通道都是独立的。
+  假设我们需要池化得到固定大小的 `3x3x512` feature maps，需要进行 `1x2x512` max pooling，丢失 ROI 的最后一行。遍历每个 ROI 最终得到 `Nx3x3x512` 的矩阵。
+  ![](../assets/img/postsimg/20210607/08.roipooling.jpg)
 
 # 3. 参考文献
 
