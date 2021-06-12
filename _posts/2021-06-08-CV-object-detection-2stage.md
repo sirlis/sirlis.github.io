@@ -141,10 +141,10 @@ $$
 
 ![](../assets/img/postsimg/20210607/04.fastrcnn.jpg)
 
-主干网络是 **VGG16**，两大改进：
-- 实现大部分 end-to-end 训练（提proposal阶段除外）。所有的特征都暂存在显存中，就不需要额外的磁盘空间。
+- **提取特征图（feature maps）**。输入原始图像，主干网络采用 **VGG16** 来提取特征图，3 大改进：
+  - 实现大部分 end-to-end 训练（提proposal阶段除外）。所有的特征都暂存在显存中，就不需要额外的磁盘空间。
   - joint training （SVM分类，bbox回归 联合起来在 CNN 阶段训练）把最后一层的Softmax换成两个，一个是对区域的分类Softmax（包括背景），另一个是对bounding box的微调。这个网络有两个输入，一个是整张图片，另一个是候选proposals算法产生的可能proposals的坐标。（对于SVM和Softmax，论文在SVM和Softmax的对比实验中说明，SVM的优势并不明显，故直接用Softmax将整个网络整合训练更好。对于联合训练： 同时利用了分类的监督信息和回归的监督信息，使得网络训练的更加鲁棒，效果更好。这两种信息是可以有效联合的。）
-- 提出了一个RoI层，算是SPP的变种，SPP是pooling成多个固定尺度，RoI只pooling到单个固定的尺度 （论文通过实验得到的结论是多尺度学习能提高一点点mAP，不过计算量成倍的增加，故单尺度训练的效果更好。）
+  - 提出了一个RoI层，算是SPP的变种，SPP是pooling成多个固定尺度，RoI只pooling到单个固定的尺度 （论文通过实验得到的结论是多尺度学习能提高一点点mAP，不过计算量成倍的增加，故单尺度训练的效果更好。）
 
 框架：
 
@@ -154,7 +154,7 @@ $$
     ![](../assets/img/postsimg/20210607/06.roifeature.jpg)
   一个 ROI 的原始大小为 145x200 ，左上角设置为 (192x296) 。除以 32（比例因子）并取整，左上角变为 (9,6)，高宽变为 4x6。
     ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
-- **ROI pooling**。将feature maps 上的区域坐标送入 ROI pooling 层，得到固定大小的输出 feature maps，以便送入后续固定大小的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 HxW ，因为输入的 ROI feature map 大小不一样，假设为 hxw，需要对这个 feature map 进行池化来减小尺寸，那么可以计算出池化窗口的尺寸为：(hxw)/HxW，即用这个计算出的窗口对 RoI feature map 做 max pooling，Pooling 对每一个 feature map 通道都是独立的。
+- **ROI pooling**。将feature maps 上的区域坐标送入 ROI pooling 层，得到固定大小的输出 feature maps，以便送入后续固定大小的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以**计算出池化窗口的尺寸为：$(h\times w)/H\times (h\times w)/W$，即用这个计算出的窗口对 RoI feature map 做 max pooling**，Pooling 对每一个 feature map 通道都是独立的。
   假设我们需要池化得到固定大小的 `3x3x512` feature maps，需要进行 `1x2x512` max pooling，丢失 ROI 的最后一行。遍历每个 ROI 最终得到 `Nx3x3x512` 的矩阵。
   ![](../assets/img/postsimg/20210607/08.roipooling.jpg)
 
