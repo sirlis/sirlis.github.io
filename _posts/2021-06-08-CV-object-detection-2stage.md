@@ -155,10 +155,10 @@ $$
   在上图的例子中，一个 ROI 的原始大小为 `145x200` ，左上角设置为 `(192x296)` 。除以 32（比例因子）并取整，左上角变为 `(9,6)`，高宽变为 `4x6`，得到的 ROI feature maps 为 $[9,6,4,6]$。
     ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
   注意，映射过程存在一次量化损失。损失的信息如上图蓝色区域所示（之后会有改进的 ROI Align 方法去除损失）。
-- **ROI pooling**。将 ROI feature maps 转换为固定大小 feature maps 输出，以便送入后续固定长度的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以**计算出池化窗口的尺寸为：$(h\times w)/H\times (h\times w)/W$，即用这个计算出的窗口对 RoI feature map 做 max pooling**，Pooling 对每一个 feature map 通道都是独立的。
-  假设我们需要池化得到固定大小的 `3x3x512` feature maps，需要进行 `1x2x512` max pooling，丢失 ROI 的最后一行。遍历每个 ROI 最终得到 `Nx3x3x512` 的矩阵。
+- **ROI pooling**。将 ROI feature maps 转换为固定大小 feature maps 输出，以便送入后续固定长度的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以**计算出池化窗口的尺寸为：$(h/H)\times (w/W)$，即用这个计算出的窗口对 RoI feature map 做 max pooling**，Pooling 对每一个 feature map 通道都是独立的。
+  假设我们需要将上面得到的 `4x6x512` 池化为固定大小的 `3x3x512` feature maps，需要进行 `(4/3)x(6/3)x512 = 1x2x512` 的卷积核进行最大池化，会丢失 ROI 的最后一行。如此遍历每个 ROI feature map 最终得到 `Nx3x3x512` 的矩阵。
   ![](../assets/img/postsimg/20210607/08.roipooling.jpg)
-  注意，ROI Pooling 过程存在第二次量化损失。
+  注意，ROI Pooling 过程存在第二次量化损失（上面的例子中为最后一行）。
 
 # 3. 参考文献
 
