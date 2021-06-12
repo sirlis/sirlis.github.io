@@ -148,15 +148,17 @@ $$
 
 框架：
 
-- **提取候选框（region proposals）**。输入原始图像，通过 selective search 提取感兴趣区域。每个区域的坐标用四元数组 $[r,c,h,w]$ （左上行列坐标与高和宽）定义，该四元数组相对于原始图像，都有对应的 ground truth BBox 和 ground truth class label。
+- **提取候选框（region proposals）**。输入原始图像，通过 selective search 提取感兴趣区域。每个区域的坐标用四元数组 $[r,c,h,w]$ （左上角的行列坐标+高和宽）定义，该四元数组相对于原始图像，都有对应的 ground truth BBox 和 ground truth class label。
   ![](../assets/img/postsimg/20210607/05.regionproposal.jpg)
 - **将候选框坐标映射到 feature map 上**。采用 VGG16 时，最后一个 max pooling 层后接 ROI pooling 层，区域坐标经过5 次池化，输出的 feature maps 是原图像的 1/32（`16x16x512`），则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以 32 并量化到最接近的整数，得到映射的坐标，即为 ROI feture map。
     ![](../assets/img/postsimg/20210607/06.roifeature.jpg)
-  一个 ROI 的原始大小为 145x200 ，左上角设置为 (192x296) 。除以 32（比例因子）并取整，左上角变为 (9,6)，高宽变为 4x6。
+  在上图的例子中，一个 ROI 的原始大小为 `145x200` ，左上角设置为 `(192x296)` 。除以 32（比例因子）并取整，左上角变为 `(9,6)`，高宽变为 `4x6`，得到的 ROI feature maps 为 $[9,6,4,6]$。
     ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
-- **ROI pooling**。将feature maps 上的区域坐标送入 ROI pooling 层，得到固定大小的输出 feature maps，以便送入后续固定大小的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以**计算出池化窗口的尺寸为：$(h\times w)/H\times (h\times w)/W$，即用这个计算出的窗口对 RoI feature map 做 max pooling**，Pooling 对每一个 feature map 通道都是独立的。
+  注意，映射过程存在一次量化损失。损失的信息如上图蓝色区域所示（之后会有改进的 ROI Align 方法去除损失）。
+- **ROI pooling**。将 ROI feature maps 转换为固定大小 feature maps 输出，以便送入后续固定长度的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以**计算出池化窗口的尺寸为：$(h\times w)/H\times (h\times w)/W$，即用这个计算出的窗口对 RoI feature map 做 max pooling**，Pooling 对每一个 feature map 通道都是独立的。
   假设我们需要池化得到固定大小的 `3x3x512` feature maps，需要进行 `1x2x512` max pooling，丢失 ROI 的最后一行。遍历每个 ROI 最终得到 `Nx3x3x512` 的矩阵。
   ![](../assets/img/postsimg/20210607/08.roipooling.jpg)
+  注意，ROI Pooling 过程存在第二次量化损失。
 
 # 3. 参考文献
 
