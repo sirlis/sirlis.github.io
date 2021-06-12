@@ -21,6 +21,7 @@ math: true
     - [1.2.5. 激活](#125-激活)
     - [1.2.6. 共享权值](#126-共享权值)
     - [1.2.7. 初始化](#127-初始化)
+    - [三种卷积模式](#三种卷积模式)
   - [1.3. 池化](#13-池化)
     - [1.3.1. 最大池化](#131-最大池化)
     - [1.3.2. 平均池化](#132-平均池化)
@@ -100,6 +101,29 @@ $$
 - Xavier 初始化方法
 - He kai ming 初始化方法
 
+### 三种卷积模式
+
+橙色部分为 image, 蓝色部分为 filter。
+
+- **full mode**
+
+full 模式的意思是，从 filter 和 image 刚相交开始做卷积，白色部分为填 0。filter 的运动范围如图所示。
+
+![](./asserts/../../assets/img/postsimg/20210607/10.fullconv.jpg)
+
+- **same mode**
+
+当filter的中心 K 与 image 的边角重合时，开始做卷积运算。当卷积补偿 stride = 1 时，卷积之后输出的 feature map 尺寸相对于输入图片保持不变（same）。
+
+![](./asserts/../../assets/img/postsimg/20210607/10.sameconv.jpg)
+
+- **valid mode**
+
+当filter全部在image里面的时候，进行卷积运算。
+
+![](./asserts/../../assets/img/postsimg/20210607/10.validconv.jpg)
+
+
 ## 1.3. 池化
 
 池化层也称下采样层，会压缩输入的特征图，一方面减少了特征，导致了参数减少，进而简化了卷积网络计算时的复杂度；另一方面保持了特征的某种不变性（旋转、平移、伸缩等）。池化的思想来自于视觉机制，是对信息进行抽象的过程。
@@ -134,4 +158,4 @@ $$
 
 # 2. 参考文献
 
-[1] 维基百科. [Kernel regression](https://en.wikipedia.org/wiki/Kernel_regression)
+[1] 木盏. [卷积的三种模式](https://blog.csdn.net/leviopku/article/details/80327478). CSDN.
