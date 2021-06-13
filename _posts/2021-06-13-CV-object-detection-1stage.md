@@ -17,6 +17,7 @@ math: true
   - [2.1. 输入](#21-输入)
   - [2.2. 输出](#22-输出)
   - [2.3. 构造训练样本](#23-构造训练样本)
+  - [损失函数](#损失函数)
   - [2.4. 测试](#24-测试)
 - [3. 参考文献](#3-参考文献)
 
@@ -56,7 +57,7 @@ $7\times 7$网格，每个网格2个bounding box，对 $448\times 448$ 输入图
 
 - **2 个 bounding box 的位置**
 
-训练样本的 bounding box 位置应该填写对象实际的bounding box，但一个对象对应了 2 个 bounding box，该填哪一个呢？上面讨论过，需要根据网络输出的bounding box与对象实际 bounding box 的 IOU 来选择，所以要在训练过程中动态决定到底填哪一个 bounding box。参考下面第3点。
+训练样本的 bounding box 位置应该填写对象实际的bounding box，但一个对象对应了 2 个 bounding box，该填哪一个呢？上面讨论过，需要根据网络输出的bounding box 与对象实际 bounding box 的 IOU 来选择，所以要在训练过程中动态决定到底填哪一个 bounding box。参考下面第 3 点。
 
 - **2 个 bounding box 的置信度**
 
@@ -66,7 +67,17 @@ $$
 Confidence = Pr(Object) * IOU^{truth}_{pre}
 $$
 
-2 个 bounding box 的 $IOU$，哪个比较大就由哪个bounding box 负责预测该对象是否存在，相应的 $P(Object)=1$，$Confidence = IOU$。
+2 个 bounding box 的 $IOU$，哪个比较大就由哪个 bounding box 负责预测该对象是否存在，相应的 $P(Object)=1$，$Confidence = IOU$，该网格其它 bounding box 的 $Confidence = 0$。
+
+![](../assets/img/postsimg/20210613/trainlabel.jpg)
+
+注意，在训练过程中等网络输出以后，比较两个 bounding box 与自行车实际位置的 IOU，自行车的位置（实际 bounding box）放置在 IOU 比较大的那个 bounding box（图中假设是 bounding box1），且该 bounding box 的置信度设为 1。
+
+## 损失函数
+
+![](../assets/img/postsimg/20210613/loss.jpg)
+
+
 
 ## 2.4. 测试
 
@@ -81,3 +92,4 @@ $$
 # 3. 参考文献
 
 
+[1] X猪. [YOLO v1深入理解](https://www.jianshu.com/p/cad68ca85e27). 简书
