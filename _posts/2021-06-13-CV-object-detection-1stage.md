@@ -17,8 +17,8 @@ math: true
   - [2.1. 输入](#21-输入)
   - [2.2. 输出](#22-输出)
   - [2.3. 构造训练样本](#23-构造训练样本)
-  - [损失函数](#损失函数)
-  - [2.4. 测试](#24-测试)
+  - [2.4. 损失函数](#24-损失函数)
+  - [2.5. 测试](#25-测试)
 - [3. 参考文献](#3-参考文献)
 
 # 1. 前言
@@ -73,13 +73,39 @@ $$
 
 注意，在训练过程中等网络输出以后，比较两个 bounding box 与自行车实际位置的 IOU，自行车的位置（实际 bounding box）放置在 IOU 比较大的那个 bounding box（图中假设是 bounding box1），且该 bounding box 的置信度设为 1。
 
-## 损失函数
+## 2.4. 损失函数
 
 ![](../assets/img/postsimg/20210613/loss.jpg)
 
+损失函数就是网络实际输出与标签之间的误差，YOLO V1 简单粗暴采用 sum-squared error loss。
 
+$$
+\begin{aligned}
+loss =&\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}[(x_i-\hat{x}_i)^2+(y_i-\hat{y}_i)^2]\\
+&+\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb{I}_{ij}^{obj}[(\sqrt w_i-\sqrt{\hat{w}_i})^2+(\sqrt h_i-\sqrt{\hat{h}_i})^2]\\
+&+\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb{I}_{ij}^{obj}(C_i-\hat C_i)^2\\
+&+\lambda_{noobj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb{I}_{ij}^{obj}(C_i-\hat C_i)^2\\
+&+\sum_{i=0}^{S^2}\mathbb{I}_{i}^{obj}\sum_{c\in classes}(p_i(c) - \hat p_i(c))^2
+\end{aligned}
+$$
 
-## 2.4. 测试
+其中，三个布尔系数：
+
+- $\mathbb{I}_{ij}^{obj}=1$ 表示第 $i$ 个网格的第 $j$ 个 bounding box 中存在对象；
+- $\mathbb{I}_{ij}^{noobj}=1$ 表示第 $i$ 个网格的第 $j$ 个 bounding box 中不存在对象；
+- $\mathbb{I}_{i}^{obj}$ 表示第 $i$ 个网格中存在对象。
+
+加入这些项的意义在于，只对符合布尔条件的 网格 / bounding box 才参与误差计算。
+
+**第一行**，中心点的误差。
+
+**第二行**，边框宽度高度的误差。注意取了平方根，这是为了平衡小框和大框的不同权重，因为绝对偏差在小框上更加敏感。取平方根可以降低这种敏感度的差异，使得较大的对象和较小的对象在尺寸误差上有相似的权重
+
+系数 $\lambda_{coord}=5$ 用来调高位置误差（相对于分类误差和置信度误差）的权重。
+
+**第三行**，存在对象的 bounding box 的置信度误差。
+
+## 2.5. 测试
 
 测试时，每个网格预测的 class 信息和 bounding box 预测的 confidence 信息相乘，就得到每个 bounding box 的 class-specific confidence score：
 
