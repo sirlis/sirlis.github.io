@@ -79,7 +79,12 @@ AlexNet 的网络结构如下：
 
 ![](../assets/img/postsimg/20210607/02.vgg2.jpg)
 
-[VGG网络的结构](https://dgschwend.github.io/netscope/#/preset/vgg-16) 非常一致，从头到尾全部使用的是 `3x3x3,stride=1,padding=1` 的卷积和 `2x2` 的 max pooling。VGG16 特指 D 列包含 16 个权重层的网络结构，而 VGG19 特指 E 列包含 19 个权重层的网络结构。
+[VGG网络的结构](https://dgschwend.github.io/netscope/#/preset/vgg-16) 非常一致
+
+- 所有的卷积层都是 `3x3x3,stride=1,padding=1`（图像尺寸保持不变）；
+- 所有的池化层都是 `2x2,padding=0,stride=2` 的最大池化（图像尺寸缩小一半）。
+
+VGG16 特指 D 列包含 16 个权重层的网络结构，而 VGG19 特指 E 列包含 19 个权重层的网络结构。
 
 输入 $224\times 224 \times 3\ channel$ 的图像。首先经过 2 次 64 个滤波器的卷积。套公式计算发现卷积后输出尺寸不变
 
@@ -148,9 +153,9 @@ $$
 - **提取候选框（region proposals）**。输入原始图像，通过 selective search 提取感兴趣区域。每个区域的坐标用四元数组 $[r,c,h,w]$ （左上角的行列坐标+高和宽）定义，该四元数组相对于原始图像，都有对应的 ground truth BBox 和 ground truth class label。
   ![](../assets/img/postsimg/20210607/05.regionproposal.jpg)
 - **将候选框坐标映射到 feature map 上**。采用 VGG16 时，最后一个 max pooling 层后接 ROI pooling 层，区域坐标经过 5 次池化，输出的 feature maps 是原图像的 1/32（`16x16x512`），则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以 32 并量化到最接近的整数，得到映射的坐标，即为 ROI feture map。
-    ![](../assets/img/postsimg/20210607/06.roifeature.jpg)
+  ![](../assets/img/postsimg/20210607/06.roifeature.jpg)
   在上图的例子中，一个 ROI 的原始大小为 `145x200` ，左上角设置为 `(192x296)` 。除以 32（比例因子）并取整，左上角变为 `(9,6)`，高宽变为 `4x6`，得到的 ROI feature maps 为 $[9,6,4,6]$。
-    ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
+  ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
   注意，映射过程存在一次量化损失。损失的信息如上图蓝色区域所示（之后会有改进的 ROI Align 方法去除损失）。
 - **ROI pooling**。输入 conv5 层输出的 feature maps 以及 ROI 在该层上的映射（即 ROI feature maps），将其转换为固定大小 feature maps 输出，以便送入后续固定长度的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以计算出池化窗口的尺寸为：$(h/H)\times (w/W)$，即用这个计算出的窗口对 RoI feature map 做 max pooling，Pooling 对每一个 feature map 通道都是独立的。
   假设我们需要将上面得到的 `4x6x512` 池化为固定大小的 `3x3x512` feature maps，需要进行 `(4/3)x(6/3)x512 = 1x2x512` 的卷积核进行最大池化，会丢失 ROI 的最后一行。如此遍历每个 ROI feature map 最终得到 `Nx3x3x512` 的矩阵。
@@ -165,7 +170,12 @@ Fast R-CNN 的主要缺点在于 region proposal 的提取使用 selective searc
 
 # 4. Faster R-CNN
 
+![](../assets/img/postsimg/20210608/05.faster-rcnn.jpg)
 
+- 将输入图像缩放至固定大小 `M x N`，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 `M/16 x N/16` 的 feature map。
+- feature map 分别送入两个模块：Region Proposal Network （RPN）和 ROI Pooling。
+  - RPN 模块中（左下角），首先经过 `3x3` 卷积和激活函数，然后分为两条线。
+  - 上一条线，通过 softmax 分类
 
 # 5. 参考文献
 
