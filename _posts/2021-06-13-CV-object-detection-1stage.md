@@ -16,7 +16,8 @@ math: true
 - [2. YOLO V1](#2-yolo-v1)
   - [2.1. 输入](#21-输入)
   - [2.2. 输出](#22-输出)
-  - [构造训练样本](#构造训练样本)
+  - [2.3. 构造训练样本](#23-构造训练样本)
+  - [2.4. 测试](#24-测试)
 - [3. 参考文献](#3-参考文献)
 
 # 1. 前言
@@ -37,27 +38,45 @@ YOLO意思是You Only Look Once，创造性的将候选区和对象识别这两�
 
 输出是一个 $7\times 7\times 30$ 的张量。$7\times 7$ 对应原始图像的网格，30维向量 = 20个对象的概率 + 2个bounding box * 4个坐标 + 2个bounding box的置信度。
 
+![](../assets/img/postsimg/20210613/yolov1output.jpg)
+
 **前 20 维**，one hot 编码。因为YOLO支持识别20种不同的对象（人、鸟、猫、汽车、椅子等），所以这里有20个值表示该网格位置存在任一种对象的概率。
 
-**中 2 维**，2 个 bounding box 的置信度。 = 该bounding box内存在对象的概率 * 该bounding box与该对象实际bounding box的IOU
+**中 2 维**，2 个 bounding box 的置信度。 = 该 bounding box 内有对象的概率 * 该 bounding box 与该对象实际 bounding box 的 IOU。
 
 **后 8 维**，2 个 bounding box 的位置。每个 bounding box 需要 4 个数值来表示其位置，(Center_x, Center_y, width, height)，2 个 bounding box 共需要 8 个数值来表示其位置。
 
 $7\times 7$网格，每个网格2个bounding box，对 $448\times 448$ 输入图像来说覆盖粒度有点粗。我们也可以设置更多的网格以及更多的bounding box。设网格数量为 $S\times S$，每个网格产生 B 个边框（4 位置 + 1 置信度），网络支持识别 C 个不同的对象。这时，输出的向量长度为： $C + B\times (4+1)$ 整个输出的tensor就是： $S\times S\times (C + B\times (4+1))$。
 
-## 构造训练样本
+## 2.3. 构造训练样本
 
-- 20个对象分类的概率
+- **20 个对象分类的概率**
 
-对于输入图像中的每个对象，先找到其中心点。中心点落在某个网格内，该网格对应30维向量中的1维置1，其它维度置0。所有其它48个网格的30维向量中，该对象的概率都是0？（也即一个网格只能预测1个对象，网络一共能从一张图片中检测49个对象）。这就是所谓的"中心点所在的网格对预测该对象负责"。狗和汽车的分类概率也是同样的方法填写。
+对于输入图像中的每个对象，先找到其中心点。中心点落在某个网格内，该网格对应 30 维向量中的 1 维置 1，其它维度置 0。所有其它 48 个网格的30维向量中，该对象的概率都是 0（也即一个网格只能预测 1 个对象，网络一共能从一张图片中检测49个对象）。这就是所谓的"中心点所在的网格对预测该对象负责"。
 
-- 2个bounding box的位置
+- **2 个 bounding box 的位置**
 
-训练样本的bounding box位置应该填写对象实际的bounding box，但一个对象对应了2个bounding box，该填哪一个呢？上面讨论过，需要根据网络输出的bounding box与对象实际bounding box的IOU来选择，所以要在训练过程中动态决定到底填哪一个bounding box。参考下面第3点。
+训练样本的 bounding box 位置应该填写对象实际的bounding box，但一个对象对应了 2 个 bounding box，该填哪一个呢？上面讨论过，需要根据网络输出的bounding box与对象实际 bounding box 的 IOU 来选择，所以要在训练过程中动态决定到底填哪一个 bounding box。参考下面第3点。
 
-- 2个bounding box的置信度
+- **2 个 bounding box 的置信度**
 
 上面讨论过置信度公式
+
+$$
+Confidence = Pr(Object) * IOU^{truth}_{pre}
+$$
+
+2 个 bounding box 的 $IOU$，哪个比较大就由哪个bounding box 负责预测该对象是否存在，相应的 $P(Object)=1$，$Confidence = IOU$。
+
+## 2.4. 测试
+
+测试时，每个网格预测的 class 信息和 bounding box 预测的 confidence 信息相乘，就得到每个 bounding box 的 class-specific confidence score：
+
+$$
+Pr(C_i) = Pr(C_i\vert Object) *Pr(Object) * IOU_{pred}^{truth}
+$$
+
+得到每个box的class-specific confidence score以后，设置阈值，滤掉得分低的 boxes，对保留的 boxes 进行 NMS 处理，就得到最终的检测结果。
 
 # 3. 参考文献
 
