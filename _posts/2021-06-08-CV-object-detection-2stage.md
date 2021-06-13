@@ -15,10 +15,10 @@ math: true
 - [1. 前言](#1-前言)
   - [1.1. AlexNet](#11-alexnet)
   - [1.2. VGG16](#12-vgg16)
-- [2. 二阶段方法](#2-二阶段方法)
-  - [2.1. R-CNN](#21-r-cnn)
-  - [2.2. Fast R-CNN](#22-fast-r-cnn)
-- [3. 参考文献](#3-参考文献)
+- [2. R-CNN](#2-r-cnn)
+- [3. Fast R-CNN](#3-fast-r-cnn)
+- [4. Faster R-CNN](#4-faster-r-cnn)
+- [5. 参考文献](#5-参考文献)
 
 # 1. 前言
 
@@ -89,9 +89,8 @@ $$
 
 然后经过 `2x2` 最大池化后大小缩小为原来的一半。按照网络结构继续进行，最终经过五次池化得到 `7x7x512` 的 feature map。传入 `4096` 维的全连接层（FC 层），参数个数为 $7\times 7\times 512\times 4096+4096\ bias=102764544$，经过 ReLU，后再接一个 4096 维的 FC 层，参数个数为 $4096\times 4096=16777216$，经过 ReLU，最后送入 1000 维 FC 层，后接 softmax 进行分类。
 
-# 2. 二阶段方法
 
-## 2.1. R-CNN
+# 2. R-CNN
 
 > 2014. Ross Girshick，JeffDonahue,TrevorDarrell,Jitendra Malik. 
 > **Rich feature hierarchies for accurate oject detection and semantic segmentation**
@@ -137,7 +136,7 @@ $$
 - 时间和内存消耗比较大。在训练 SVM 和回归的时候需要用网络训练的特征（2000×4096=819万参数）作为输入，特征保存在磁盘上再读入的时间消耗还是比较大的；
 - 测试的时候也比较慢，每张图片的每个 region proposal 都要做卷积，重复操作太多。
 
-## 2.2. Fast R-CNN
+# 3. Fast R-CNN
 
 ![](../assets/img/postsimg/20210607/04.fastrcnn.jpg)
 
@@ -164,6 +163,10 @@ $$
 
 Fast R-CNN 的主要缺点在于 region proposal 的提取使用 selective search，目标检测时间大多消耗在这上面（提 region proposal 需要 2~3 s，而提特征分类只需 0.32 s），这也是后续 Faster R-CNN 的改进方向之一。
 
-# 3. 参考文献
+# 4. Faster R-CNN
+
+
+
+# 5. 参考文献
 
 [1] 维基百科. [Kernel regression](https://en.wikipedia.org/wiki/Kernel_regression)
