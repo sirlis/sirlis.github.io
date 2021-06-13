@@ -61,4 +61,4 @@ $7\times 7$网格，每个网格2个bounding box，对 $448\times 448$ 输入图
 
 # 3. 参考文献
 
-[1] 维基百科. [Kernel regression](https://en.wikipedia.org/wiki/Kernel_regression)
+
