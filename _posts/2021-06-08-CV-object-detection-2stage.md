@@ -170,12 +170,17 @@ Fast R-CNN 的主要缺点在于 region proposal 的提取使用 selective searc
 
 # 4. Faster R-CNN
 
+![](../assets/img/postsimg/20210608/05.faster-rcnn2.jpg)
 ![](../assets/img/postsimg/20210608/05.faster-rcnn.jpg)
 
-- 将输入图像缩放至固定大小 `M x N`，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 `M/16 x N/16` 的 feature map。
+- 将输入图像缩放至固定大小 `M x N`，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 `M/16 x N/16 x 256` 的 feature maps。
 - feature map 分别送入两个模块：Region Proposal Network （RPN）和 ROI Pooling。
-  - RPN 模块中（左下角），首先经过 `3x3` 卷积和激活函数，然后分为两条线。
-  - 上一条线，通过 softmax 分类
+  - RPN 模块中（左下角），首先经过 `3x3x256` 卷积和激活函数，相当于每个点又融合了周围 `3 x 3` 的空间信息（猜测这样做也许更鲁棒？进一步集中特征信息？），同时 256 深度不变。然后分为两条线。
+  - 上一条线做分类，对 `256` 通道图像做 `1 x 1 x 256` 卷积，即将输入图像于每个通道乘以卷积系数后加在一起，即相当于把原图像中本来各个独立的通道 “联通” 在了一起，得到一张单通道的 feature map。
+  - 单通道 feature map ，anchor，softmax
+  - 生成一堆 anchors，对其进行裁剪过滤后，通过 softmax 判断 anchors 属于前景（物体）还是背景，二分类。
+    > anchors 是一个矩阵，代表了一组矩形框，矩阵的每一行表示矩形左上和右下点的座标，比如，`rpn/generate_anchors.py` 生成 9 个矩形共有三种形状，三种尺寸分别是小（蓝 128）中（红 256）大（绿 512），三种比例分别为 `1:1, 1:2, 2:1` 。
+    > ![](../assets/img/postsimg/20210608/06.anchor.jpg)
 
 # 5. 参考文献
 
