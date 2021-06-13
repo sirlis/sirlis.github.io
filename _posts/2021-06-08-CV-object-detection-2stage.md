@@ -158,7 +158,11 @@ $$
   ![](../assets/img/postsimg/20210607/08.roipooling.jpg)
   注意，ROI Pooling 过程存在第二次量化损失（上面的例子中为最后一行）。
 
-  - **回归与分类**。将所有得到的固定大小的 ROI feature map 送入 FC 层，然后
+- **回归与分类**。将所有得到的固定大小的 ROI feature map 送入两个 4096 维的 FC 层，然后分别送入并列的两个 21 和 84 维的FC 层。前者是分类的输出，代表每个 ROI 属于每个类别（20类+背景）的得分，后者是回归的输出，代表每个 ROI 所属类别的四个坐标。
+在训练时：最后是损失函数，包括两部分，分类的是 softmaxWithLoss，输入是label和分类层输出的得分；回归的是SmoothL1Loss，输入是回归层的输出和 target 坐标及 weight。
+在测试时：最后**两个** loss 层要改成**一个** softmax 层，输入是分类的 score，输出概率。最后对每个类别采用非极大抑制（non-maximun suppression）。
+
+Fast R-CNN 的主要缺点在于 region proposal 的提取使用 selective search，目标检测时间大多消耗在这上面（提 region proposal 需要 2~3 s，而提特征分类只需 0.32 s），这也是后续 Faster R-CNN 的改进方向之一。
 
 # 3. 参考文献
 
