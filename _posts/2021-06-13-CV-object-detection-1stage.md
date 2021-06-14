@@ -290,7 +290,7 @@ $$
 \begin{aligned}
 output &= (input + 2*padding - kernel)/stride+1\\
 &= (256+2*0-3)/2 + 1\\
-&= floor(136.5) + 1\\
+&= ceil(136.5) + 1\\
 &= 128\\
 \end{aligned}
 $$
