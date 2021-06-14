@@ -244,7 +244,7 @@ $$
 
 式中，$t_x, t_y, t_w, t_h, t_o$ 是待学习参数。
 
-
+![](../assets/img/postsimg/20210613/anchoradjust.jpg)
 
 $c_x, x_y$ 是当前网格左上角到图像左上角的距离，要先将网格大小归一化，即令一个网格的宽=1，高=1。$\sigma$ 即 sigmoid 函数，可以将 $[-\infty,+\infty]$ 的 $t_x, t_y$ 映射到 $[0,1]$，从而约束在了当前网格内。
 
