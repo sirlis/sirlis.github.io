@@ -301,6 +301,8 @@ YOLO V2 的训练主要包括两个阶段。第一阶段就是先在 ImageNet �
 
 YOLO V2 曾采用 passthrough 结构来检测细粒度特征，在 YOLO V3 更进一步采用了 3 个不同尺度的特征图来进行对象检测。
 
+![](../assets/img/postsimg/20210613/yolov3threelevelfusion.jpg)
+
 # 5. 参考文献
 
 
