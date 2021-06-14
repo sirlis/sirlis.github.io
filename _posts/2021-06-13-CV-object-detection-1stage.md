@@ -284,7 +284,16 @@ YOLO V2 的训练主要包括两个阶段。第一阶段就是先在 ImageNet �
 
 ![](../assets/img/postsimg/20210613/yolov3structure.jpg)
 
-上图的 Darknet-53 网络采用 `256 x 256 x 3` 作为输入，首先经过一个 `3 x 3 x 32` 卷积层得到，然后经过一个 `3 x 3 x 64s2` 卷积层下采样一倍。后面还可以看到， DarkNet 摒弃了所有最大池化层，转而用 stride=2 的卷积层来做下采样。
+上图的 Darknet-53 网络采用 `256 x 256 x 3` 作为输入，首先经过一个 `3 x 3 x 32` 卷积层得到，然后经过一个 `3 x 3 x 64s2` 卷积层下采样一倍。后面还可以看到， DarkNet 摒弃了所有最大池化层，转而用 stride=2 的卷积层来做下采样。比如第二层：
+
+$$
+\begin{aligned}
+output &= (input + 2*padding - kernel)/stride+1\\
+&= (256+2*0-3)/2 + 1\\
+&= floor(136.5) + 1\\
+&= 128\\
+\end{aligned}
+$$
 
 紧接是若干重复模块。最左侧那一列的 1、2、8 等数字表示多少个重复的残差组件。每个残差组件有两个卷积层和一个快捷链路。以第一个残差模块为例：
 
@@ -299,9 +308,17 @@ YOLO V2 的训练主要包括两个阶段。第一阶段就是先在 ImageNet �
 
 ## 4.1. 多尺度特征
 
-YOLO V2 曾采用 passthrough 结构来检测细粒度特征，在 YOLO V3 更进一步采用了 3 个不同尺度的特征图来进行对象检测。
+YOLO V2 曾采用 passthrough 结构来检测细粒度特征，在 YOLO V3 更进一步采用了 3 个不同尺度的特征图来进行对象检测，构成特征金字塔（Feature Pyramid Networks, FPN）。
 
 ![](../assets/img/postsimg/20210613/yolov3threelevelfusion.jpg)
+
+对于 Scale2 和 Scale1 要经过上采样。常用方法包括：双线性插值（简单，不需要学习参数）和反卷积。则
+
+- ```
+  32 x 32 x 256 --------------------------------------- 
+                                                      |
+  16 x 16 x 512 -- (upsample) --> 32 x 32 x 512 -- (concat)
+  ```
 
 # 5. 参考文献
 
