@@ -117,7 +117,7 @@ full 模式的意思是，从 filter 和 image 刚相交开始做卷积，白色
 
 - **same mode**
 
-当filter的中心 K 与 image 的边角重合时，开始做卷积运算。当卷积补偿 stride = 1 时，卷积之后输出的 feature map 尺寸相对于输入图片保持不变（same）。
+当filter的中心 K 与 image 的边角重合时，开始做卷积运算。当卷积步长 stride = 1 时，卷积之后输出的 feature map 尺寸相对于输入图片保持不变（same）。
 
 ![](./asserts/../../assets/img/postsimg/20210607/10.sameconv.jpg)
 
