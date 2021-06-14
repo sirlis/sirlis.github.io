@@ -273,7 +273,7 @@ YOLO V2 的训练主要包括两个阶段。第一阶段就是先在 ImageNet �
 
 ## 3.8. 测试预测
 
-修改 Darknet-19 分类模型为检测模型，移除最后一个卷积层、global avgpooling 层以及 softmax 层，并且新增了三个 `3 x 3 x 1024` 卷积层，同时增加了一个passthrough层，最后使用 1*1 卷积层输出预测结果，输出的channels数为：num_anchors*(5+num_classes) ，和训练采用的数据集有关系。由于anchors数为5，对于VOC数据集（20种分类对象）输出的channels数就是125，最终的预测矩阵T的shape为 (batch_size, 13, 13, 125)，可以先将其reshape为 (batch_size, 13, 13, 5, 25) ，其中 T[:, :, :, :, 0:4] 为边界框的位置和大小 $[t_x, t_y, t_w, t_h]$ ，T[:, :, :, :, 4] 为边界框的置信度，而 T[:, :, :, :, 5:] 为类别预测值。
+修改 Darknet-19 分类模型为检测模型，移除最后一个卷积层、global avgpooling 层以及 softmax 层，并且新增了三个 `3 x 3 x 1024` 卷积层，同时增加了一个passthrough层，最后使用 `1 x 1` 卷积层输出预测结果，输出的 channels 数为：`num_anchors x (5+num_classes)`，和训练采用的数据集有关系。由于 anchors 数为 5，对于 VOC 数据集（20 种分类对象）输出的 channels 数就是 125，最终的预测矩阵 T 的 shape 为 `(batch_size, 13, 13, 125)`，可以先将其 reshape 为 `(batch_size, 13, 13, 5, 25)` ，其中 T[:, :, :, :, 0:4] 为边界框的位置和大小 $[t_x, t_y, t_w, t_h]$ ，T[:, :, :, :, 4] 为边界框的置信度，而 T[:, :, :, :, 5:] 为类别预测值。
 
 # YOLO V3
 
