@@ -152,7 +152,7 @@ YOLO以速度见长，处理速度可以达到45fps，其快速版本（网络�
 
 相比 YOLO V1，改进如下表所示。
 
-
+![](../assets/img/postsimg/20210613/yolov2improvetable.jpg)
 
 ## 3.1. 网络结构
 
