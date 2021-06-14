@@ -215,6 +215,7 @@ $$
 
 $centroid$ 是聚类时被选作中心的边框，$box$ 就是其它边框，$d$ 就是两者间的 “距离”。IOU 越大，“距离” 越近。聚类分析结果如下图所示：
 
+![](../assets/img/postsimg/20210613/anchors.jpg)
 
 上图左边是选择不同的聚类 k 值情况下，得到的 k 个 centroid 边框，计算样本中标注的边框与各 centroid 的 Avg IOU。显然，边框数 k 越多，Avg IOU 越大。YOLO V2 选择 k=5 作为边框数量与 IOU 的折中。对比手工选择的先验框，使用 **5** 个聚类框即可达到 61 Avg IOU，相当于 **9** 个手工设置的先验框 60.9 Avg IOU。
 
