@@ -71,9 +71,16 @@ pip3 install torch==1.8.1+cu102 torchvision==0.9.1+cu102 torchaudio===0.8.1 -f h
 
 【**20210524补充**，尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要用国内源，而是使用官方默认源（也即删除.conrc文件），否则会报如下代理连接错误】
 
-```
+```python
 ProxyError: Conda cannot proceed due to an error in your proxy configuration.
 Check for typos and other configuration errors in any '.netrc' file in your home dire any environment variables ending in '_PROXY', and any other system-wide proxy configuration settings.
+```
+
+【20210618补充，经组内pytorch大佬华哥指导，需要添加清华的pytorch源，即可从国内拉取完整的gpu版本pytorch】
+
+```python
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c nvidia
 ```
 
 <!-- 若已经更换了 Anaconda 的镜像源为国内源，则可以去掉后面的 `-c pytorch`，即使用
