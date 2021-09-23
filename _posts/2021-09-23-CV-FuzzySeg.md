@@ -96,3 +96,7 @@ G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})={ \min F(\boldsymbol{s},\boldsym
 s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i}
 \end{aligned}
 $$
+
+- 第一项：前面定义的稀疏编码模型；
+- 第二项：稀疏编码表征 $\boldsymbol s_i$ 聚类到某些中心 $\boldsymbol c_j$；
+- 第三项：模糊得分 $\boldsymbol u$ 被惩罚到与专家打分 $\hat{ \boldsymbol u}$ 一致。
