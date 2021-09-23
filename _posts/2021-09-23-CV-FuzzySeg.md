@@ -125,14 +125,14 @@ $$
 
 $$
 \begin{aligned}
-L(\textbf{s},\textbf{t},\textbf{u},\textbf{D}) &= \sum\limits_i {\lambda \vert\vert{\textbf{t}_i}|{|_1} + \frac{1}
-{2}\vert\vert{\textbf{x}_i} - } \textbf{D}{\textbf{s}_i}\vert\vert_2^2 \\
-& + {\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\textbf{s}_i} - {\textbf{c}_j}\vert\vert_2^2 \\
-& + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\textbf{u}}_i} - {\textbf{u}_i}\vert\vert_2^2 \\
-& + < {\theta _{i}},\textbf{u}_i\textbf{1} - 1 >+
-< {\mu _{i}},{\textbf{t}_i} - {\textbf{s}_i} >  \\
+L(\boldsymbol{s},\boldsymbol{t},\boldsymbol{u},\boldsymbol{D}) &= \sum\limits_i {\lambda \vert\vert{\boldsymbol{t}_i}|{|_1} + \frac{1}
+{2}\vert\vert{\boldsymbol{x}_i} - } \boldsymbol{D}{\boldsymbol{s}_i}\vert\vert_2^2 \\
+& + {\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+& + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
+& + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 >+
+< {\mu _{i}},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} >  \\
 & + \frac{{{\rho}}}
-{2}(\vert\vert{\textbf{t}_i} - {\textbf{s}_i}\vert\vert_2^2+\vert\vert\textbf{u}_i\textbf{1} - 1\vert\vert_2^2)
+{2}(\vert\vert{\boldsymbol{t}_i} - {\boldsymbol{s}_i}\vert\vert_2^2+\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2)
 \end{aligned}
 $$
 
@@ -144,9 +144,9 @@ $$
 
 $$
 \begin{aligned}
-\min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2^2 + {\eta _1}\sum\limits_{j} {{ u}^{(k)}_{ij}}\vert\vert{\textbf{s}_i} - {\textbf{c}_j}\vert\vert_2^2 \\
-& +  < {\mu_{i}},{\textbf{t}^{(k)}_i} - {\textbf{s}_i} >  + \frac{{{\rho}}}
-{2}\vert\vert{\textbf{t}^{(k)}_i} - {\textbf{s}_i}\vert\vert_2^2 \\
+\min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 + {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+& +  < {\mu_{i}},{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i} >  + \frac{{{\rho}}}
+{2}\vert\vert{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i}\vert\vert_2^2\\
 \end{aligned}
 $$
 
@@ -154,8 +154,8 @@ $$
 
 $$
 \begin{aligned}
-&\frac{\partial}{\partial \boldsymbol s_i} \frac{1}{2}\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2^2 \\
-=&\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2 \cdot \frac{{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}}{\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\textbf{x}_i} - \textbf{D}^{(k)}{\textbf{s}_i}] \; (129)\\
-=&
+&\frac{\partial}{\partial \boldsymbol s_i} \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 \\
+=&\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 \cdot \frac{{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}}{\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}] \quad (129)\\
+=&{\boldsymbol{x}_i} - \boldsymbol{D}^k\cdot (-{\boldsymbol D^k}^T) \quad (69)
 \end{aligned}
 $$
