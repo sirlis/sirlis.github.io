@@ -65,7 +65,7 @@ $$
 输入训练样本 $\boldsymbol X = [\boldsymbol x_1, \cdots, \boldsymbol x_n]\in \mathbb R^{k\times n}$，对于每个样本可以训练字典得到稀疏编码
 
 $$
-F(\boldsymbol s, \boldsymbol D)={min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n\frac{1}{2}\vert\vert\boldsymbol x_i - \boldsymbol D \boldsymbol s_i\vert\vert_2^2+\lambda\vert\vert \boldsymbol s_i\vert\vert_1,\quad s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j}
+F(\boldsymbol s, \boldsymbol D)=min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n\frac{1}{2}\vert\vert\boldsymbol x_i - \boldsymbol D \boldsymbol s_i\vert\vert_2^2+\lambda\vert\vert \boldsymbol s_i\vert\vert_1,\\ s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j
 $$
 
 专家提供的硬标签为 $\boldsymbol l_i \in \mathbb R^C$（one-hot 形式）。软模糊隶属度 $\boldsymbol u_i=[u_1,\cdots, u_C] \in \mathbb R^C$（分量和为 1），表明样本 $\boldsymbol x_i$ 与多个其他类别的关系。
@@ -90,13 +90,13 @@ $n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$
 模糊度对应原始特征域的标注数据，采用模糊惩罚稀疏编码（FPSC）来在稀疏编码空间保留上述模糊度。
 
 $$
-\begin{aligned}
-G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})={ \min F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+\\
-{\eta_2}\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2,\\
-s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i}
-\end{aligned}
+G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})= \min F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+
+\eta_2\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2,\\
+s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i
 $$
 
 - 第一项：前面定义的稀疏编码模型；
 - 第二项：稀疏编码表征 $\boldsymbol s_i$ 聚类到某些中心 $\boldsymbol c_j$；
 - 第三项：模糊得分 $\boldsymbol u$ 被惩罚到与专家打分 $\hat{ \boldsymbol u}$ 一致。
+
+其中，$\Omega$ 表示监督数据集，$I(i\in\Omega)$ 是一个指示函数，如果 $i\in\Omega$ 则取值为 1，否则为 0。
