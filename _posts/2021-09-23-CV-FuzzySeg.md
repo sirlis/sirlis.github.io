@@ -167,5 +167,11 @@ $$
 $$
 \begin{aligned}
 &\frac{\partial}{\partial \boldsymbol s_i} {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+=&2\eta_1\sum\limits_{j} u^{(k)}_{ij}(\boldsymbol{s}_i - \boldsymbol{c}_j)\quad (129)\\
+=&2\eta_1 \bar u \boldsymbol s_i - 2\eta_1\bar{\boldsymbol c}\\
+where \quad &\bar u=\sum\limits_j u^{(k)}_{ij},\quad \bar{ \textbf{c}}= \sum \limits_{j} u^{(k)}_{ij} \textbf{c}_j
 \end{aligned}
 $$
+
+括号k是啥？
+分步求导对嘛？
