@@ -155,7 +155,8 @@ $$
 $$
 \begin{aligned}
 &\frac{\partial}{\partial \boldsymbol s_i} \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 \\
-=&\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 \cdot \frac{{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}}{\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}] \quad (129)\\
-=&{\boldsymbol{x}_i} - \boldsymbol{D}^k\cdot (-{\boldsymbol D^k}^T) \quad (69)
+=&\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 \cdot \frac{\boldsymbol{x}_i -  \boldsymbol{D}^{(k)}\boldsymbol{s}_i}{\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}] \quad (129)\\
+=&({\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}) \cdot (-{\boldsymbol D^{(k)}}^T) \quad (69)\\
+=&{\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)}
 \end{aligned}
 $$
