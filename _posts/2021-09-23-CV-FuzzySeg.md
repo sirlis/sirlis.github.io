@@ -74,7 +74,7 @@ $$
 
 $$
 \begin{array}{l}
-\hat{u}_{ij} = \left\{
+\hat u_{ij} = \left\{
 \begin{aligned}
 \gamma + (1-\gamma)(n_{jm}/k) & & j=m \\
 (1-\gamma)(n_{jm}/k)  & & j\not=m \\
@@ -85,4 +85,6 @@ $$
 
 其中 $\gamma= \frac{N-C}{2^hN}$。N，C，h是啥？？
 
-$n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$ 是用于控制模糊隶属度的常数。为了简化计算，进一步将模糊的分进行归一化，使得 $\sum_j {{\hat{u}_{ij}} = 1}$。
+$n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$ 是用于控制模糊隶属度的常数。为了简化计算，进一步将模糊的分进行归一化，使得 $\sum_j \hat{u}_{ij} = 1$。
+
+模糊度
