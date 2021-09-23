@@ -14,6 +14,7 @@ math: true
 
 - [1. 参数定义](#1-参数定义)
 - [2. 模糊惩罚稀疏编码](#2-模糊惩罚稀疏编码)
+- [3. 优化](#3-优化)
   
 
 # 1. 参数定义
@@ -100,3 +101,14 @@ $$
 - 第三项：模糊得分 $\boldsymbol u$ 被惩罚到与专家打分 $\hat{ \boldsymbol u}$ 一致。
 
 其中，$\Omega$ 表示监督数据集，$I(i\in\Omega)$ 是一个指示函数，如果 $i\in\Omega$ 则取值为 1，否则为 0。
+
+
+# 3. 优化
+
+难点在于稀疏编码表征 $\boldsymbol s_i$ 的更新规则，因为他即在稀疏编码模型中出现，又在模糊聚类部分出现。参考稀疏优化的已有研究，引入辅助变量 $\boldsymbol t_i$ ，将优化转为如下形式
+
+$$
+\min G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D}), \; s.t. ~~\boldsymbol{s}_i=\boldsymbol{t}_i ~\forall i.
+$$
+
+上式是一个典型的约束优化问题，采用交替方向乘子法（ADM）可以将约束松弛到目标函数中。
