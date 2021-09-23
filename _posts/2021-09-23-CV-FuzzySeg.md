@@ -101,8 +101,8 @@ $n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$
 模糊度对应原始特征域的标注数据，采用模糊惩罚稀疏编码（FPSC）来在稀疏编码空间保留上述模糊度。
 
 $$
-G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})= \min_{\boldsymbol{s},\boldsymbol{u},\boldsymbol{D}} F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+
-\eta_2\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2,\\
+G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})= \min_{\boldsymbol{s},\boldsymbol{u},\boldsymbol{D}} [F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+
+\eta_2\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2],\\
 s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i
 $$
 
@@ -127,7 +127,7 @@ $$
 \begin{aligned}
 L(\textbf{s},\textbf{t},\textbf{u},\textbf{D}) &= \sum\limits_i {\lambda \vert\vert{\textbf{t}_i}|{|_1} + \frac{1}
 {2}\vert\vert{\textbf{x}_i} - } \textbf{D}{\textbf{s}_i}\vert\vert_2^2 \\
-& + {\eta _1}\sum\limits_{i,j} {{{u}_{ij}}\vert\vert{\textbf{s}_i} - {\textbf{c}_j}\vert\vert_2^2} \\
+& + {\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\textbf{s}_i} - {\textbf{c}_j}\vert\vert_2^2 \\
 & + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\textbf{u}}_i} - {\textbf{u}_i}\vert\vert_2^2 \\
 & + < {\theta _{i}},\textbf{u}_i\textbf{1} - 1 >+
 < {\mu _{i}},{\textbf{t}_i} - {\textbf{s}_i} >  \\
@@ -156,5 +156,6 @@ $$
 \begin{aligned}
 &\frac{\partial}{\partial \boldsymbol s_i} \frac{1}{2}\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2^2 \\
 =&\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2 \cdot \frac{{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}}{\vert\vert{\textbf{x}_i} -  \textbf{D}^{(k)}{\textbf{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\textbf{x}_i} - \textbf{D}^{(k)}{\textbf{s}_i}] \; (129)\\
+=&
 \end{aligned}
 $$
