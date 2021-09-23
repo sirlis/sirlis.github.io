@@ -12,7 +12,8 @@ math: true
 
  ---
 
- - [1. 网络结构](#1-网络结构)
+- [1. 参数定义](#1-参数定义)
+- [2. 模糊乘法稀疏编码](#2-模糊乘法稀疏编码)
   
 
 # 1. 参数定义
@@ -49,8 +50,20 @@ $$
 \boldsymbol{x}_i^O=\frac{1}{\vert\vert\boldsymbol{v}_1\vert\vert} (v_{11}^2-v_{12}^2, 2v_{11}v_{12}, 2v_{11}v_{13}, 2v_{12}v_{13},\frac{1}{\sqrt{3}}(2v_{13}^2-v_{11}^2-v_{12}^2)) \in \mathbb R^{5}
 $$
 
-- 核磁共振体素的特征向量 $\boldsymbol{x}_i$：
+- 原始数据域下，核磁共振体素的特征向量 $\boldsymbol{x}_i$：
 
 $$
 \boldsymbol{x}_i = [t_1, \boldsymbol x_i^G,\boldsymbol x_i^O]\in \mathbb R^k, \; k=17
+$$
+
+- 稀疏编码域下，体素特征向量的稀疏表示 $\boldsymbol s_i\in \mathbb R^l$。
+
+- 超完备词典 $\boldsymbol D = [\boldsymbol d_1, \boldsymbol d_2, \cdots, \boldsymbol d_l]\in \mathbb R^{k\times l}$
+
+# 2. 模糊乘法稀疏编码
+
+输入训练样本 $\boldsymbol X = [\boldsymbol x_1, \cdots, \boldsymbol x_n]\in \mathbb R^{k\times n}$，对于每个样本可以训练字典得到稀疏编码
+
+$$
+F(\boldsymbol s, \boldsymbol D)={min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n\frac{1}{2}\vert\vert\boldsymbol x_i - \boldsymbol D \boldsymbol s_i\vert\vert_2^2+\lambda\vert\vert \boldsymbol s_i\vert\vert_1,\quad s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j}
 $$
