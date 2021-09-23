@@ -13,7 +13,7 @@ math: true
  ---
 
 - [1. 参数定义](#1-参数定义)
-- [2. 模糊乘法稀疏编码](#2-模糊乘法稀疏编码)
+- [2. 模糊惩罚稀疏编码](#2-模糊惩罚稀疏编码)
   
 
 # 1. 参数定义
@@ -60,10 +60,11 @@ $$
 
 - 超完备词典 $\boldsymbol D = [\boldsymbol d_1, \boldsymbol d_2, \cdots, \boldsymbol d_l]\in \mathbb R^{k\times l}$
 
-# 2. 模糊乘法稀疏编码
+# 2. 模糊惩罚稀疏编码
 
 输入训练样本 $\boldsymbol X = [\boldsymbol x_1, \cdots, \boldsymbol x_n]\in \mathbb R^{k\times n}$，对于每个样本可以训练字典得到稀疏编码
 
 $$
 F(\boldsymbol s, \boldsymbol D)={min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n\frac{1}{2}\vert\vert\boldsymbol x_i - \boldsymbol D \boldsymbol s_i\vert\vert_2^2+\lambda\vert\vert \boldsymbol s_i\vert\vert_1,\quad s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j}
 $$
+
