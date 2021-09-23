@@ -76,12 +76,12 @@ $$
 
 $$
 F(\boldsymbol s, \boldsymbol D)=\min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n(\frac{1}{2}\vert\vert\boldsymbol x_i - \boldsymbol D \boldsymbol s_i\vert\vert_2^2+\lambda\vert\vert \boldsymbol s_i\vert\vert_1),\\
-s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j
+s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j\in[1,\cdots,l]
 $$
 
-专家提供的硬标签为 $\boldsymbol l_i \in \mathbb R^C$（one-hot 形式）。软模糊隶属度 $\boldsymbol u_i=[u_1,\cdots, u_C] \in \mathbb R^C$（分量和为 1），表明样本 $\boldsymbol x_i$ 与多个其他类别的关系。
+专家提供的硬标签为 $\boldsymbol l_i \in \mathbb R^C$（one-hot 形式）。软模糊隶属度 $\boldsymbol u_i=[u_1,\cdots, u_C] \in \mathbb R^C$（分量和为 1），表明样本 $\boldsymbol x_i$ 与多个其他类别的关系。其中，$C$ 为类别数。
 
-模糊隶属度采用模糊k近邻算法（FKNN）计算。首先计算样本特征向量间的欧式距离矩阵，然后对该距离矩阵进行排序，选取其中 $k$ 个最近邻的训练样本。对于属于第 $m$ 类别的样本 $\boldsymbol x$ ，其模糊隶属度计算方式为
+模糊隶属度采用模糊k近邻算法（FKNN）计算。首先计算样本特征向量间的欧式距离矩阵，然后对该距离矩阵进行排序，选取其中 $k$ 个最近邻的训练样本。对于属于第 $m$ 类别的样本 $\boldsymbol x_i$，其模糊隶属度计算方式为
 
 $$
 \begin{array}{l}
@@ -103,7 +103,7 @@ $n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$
 $$
 G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})= \min_{\boldsymbol{s},\boldsymbol{u},\boldsymbol{D}} [F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+
 \eta_2\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2],\\
-s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i
+s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i\in[1,\cdots,C]
 $$
 
 - 第一项：前面定义的稀疏编码模型；
@@ -144,7 +144,8 @@ $$
 
 $$
 \begin{aligned}
-\min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 + {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+\min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 +
+{\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
 & +  < {\mu_{i}},{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i} >  + \frac{{{\rho}}}
 {2}\vert\vert{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i}\vert\vert_2^2\\
 \end{aligned}
@@ -156,7 +157,15 @@ $$
 \begin{aligned}
 &\frac{\partial}{\partial \boldsymbol s_i} \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 \\
 =&\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 \cdot \frac{\boldsymbol{x}_i -  \boldsymbol{D}^{(k)}\boldsymbol{s}_i}{\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}] \quad (129)\\
-=&({\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}) \cdot (-{\boldsymbol D^{(k)}}^T) \quad (69)\\
-=&{\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)}
+=&({\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}\boldsymbol{s}) \cdot (-{\boldsymbol D^{(k)}}^T) \quad (69)\\
+=&{\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)}\boldsymbol{s}-{\boldsymbol D^{(k)}}^T\boldsymbol x_i\quad \in \mathbb R^{l\times 1}
+\end{aligned}
+$$
+
+第二项为
+
+$$
+\begin{aligned}
+&\frac{\partial}{\partial \boldsymbol s_i} {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
 \end{aligned}
 $$
