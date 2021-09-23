@@ -68,3 +68,21 @@ $$
 F(\boldsymbol s, \boldsymbol D)={min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n\frac{1}{2}\vert\vert\boldsymbol x_i - \boldsymbol D \boldsymbol s_i\vert\vert_2^2+\lambda\vert\vert \boldsymbol s_i\vert\vert_1,\quad s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j}
 $$
 
+专家提供的硬标签为 $\boldsymbol l_i \in \mathbb R^C$（one-hot 形式）。软模糊隶属度 $\boldsymbol u_i=[u_1,\cdots, u_C] \in \mathbb R^C$（分量和为 1），表明样本 $\boldsymbol x_i$ 与多个其他类别的关系。
+
+模糊隶属度采用模糊k近邻算法（FKNN）计算。首先计算样本特征向量间的欧式距离矩阵，然后对该距离矩阵进行排序，选取其中 $k$ 个最近邻的训练样本。对于属于第 $m$ 类别的样本 $\boldsymbol x$ ，其模糊隶属度计算方式为
+
+$$
+\begin{array}{l}
+\hat{u}_{ij} = \left\{
+\begin{aligned}
+\gamma + (1-\gamma)(n_{jm}/k) & & j=m \\
+(1-\gamma)(n_{jm}/k)  & & j\not=m \\
+\end{aligned}
+\right.
+ \end{array}
+$$
+
+其中 $\gamma= \frac{N-C}{2^hN}$。N，C，h是啥？？
+
+$n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$ 是用于控制模糊隶属度的常数。为了简化计算，进一步将模糊的分进行归一化，使得 $\sum_j {{\hat{u}_{ij}} = 1}$。
