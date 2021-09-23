@@ -24,7 +24,7 @@ $$
 \boldsymbol{T}=[\boldsymbol v_1,\boldsymbol v_2,\boldsymbol v_3]
 \begin{bmatrix}
 e_1 & 0 &0 \\
-0 & e_2 &0\\
+0 & e_2 &0 \\
 0 & 0 & e_3
 \end{bmatrix}
 [\boldsymbol v_1,\boldsymbol v_2,\boldsymbol v_3]^T
@@ -87,4 +87,12 @@ $$
 
 $n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$ 是用于控制模糊隶属度的常数。为了简化计算，进一步将模糊的分进行归一化，使得 $\sum_j \hat{u}_{ij} = 1$。
 
-模糊度
+模糊度对应原始特征域的标注数据，采用模糊惩罚稀疏编码（FPSC）来在稀疏编码空间保留上述模糊度。
+
+$$
+\begin{aligned}
+G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})={ \min F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+\\
+{\eta_2}\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2,\\
+s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i}
+\end{aligned}
+$$
