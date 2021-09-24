@@ -130,13 +130,13 @@ L(\boldsymbol{s},\boldsymbol{t},\boldsymbol{u},\boldsymbol{D}) &= \sum\limits_i 
 & + {\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
 & + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 >+
-< {\mu _{i}},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} >  \\
+< {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} >  \\
 & + \frac{{{\rho}}}
 {2}(\vert\vert{\boldsymbol{t}_i} - {\boldsymbol{s}_i}\vert\vert_2^2+\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2)
 \end{aligned}
 $$
 
-其中，$\mu_i\in \mathbb R^{1\times l}, \theta_i\in \mathbb R^1, \; \forall i$ 是拉格朗日乘子，$\rho\in\mathbb R^1$ 是增广拉格朗日参数。上述形式是典型的ADM形式，可以采用两步法求解，第一步参数更新，第二部双升？
+其中，$\boldsymbol \mu_i\in \mathbb R^{l\times 1}, \theta_i\in \mathbb R^1, \; \forall i$ 是拉格朗日乘子，$\rho\in\mathbb R^1$ 是增广拉格朗日参数。上述形式是典型的ADM形式，可以采用两步法求解，第一步参数更新，第二部双升？
 
 ## 3.1. 参数更新
 
@@ -170,6 +170,21 @@ $$
 =&2\eta_1\sum\limits_{j} u^{(k)}_{ij}(\boldsymbol{s}_i - \boldsymbol{c}_j)\quad (129)\\
 =&2\eta_1 \bar u \boldsymbol s_i - 2\eta_1\bar{\boldsymbol c}\\
 where \quad &\bar u=\sum\limits_j u^{(k)}_{ij},\quad \bar{ \textbf{c}}= \sum \limits_{j} u^{(k)}_{ij} \textbf{c}_j
+\end{aligned}
+$$
+
+第三项为矩阵内积，有
+
+$$
+< \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i > = tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))
+$$
+
+则
+
+$$
+\begin{aligned}
+&\frac{\partial}{\partial \boldsymbol s_i}< \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i > = \frac{\partial}{\partial \boldsymbol s_i}  tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))\\
+=&-\boldsymbol \mu_i\quad (101)
 \end{aligned}
 $$
 
