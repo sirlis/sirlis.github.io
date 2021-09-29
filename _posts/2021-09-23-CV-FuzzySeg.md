@@ -144,6 +144,8 @@ $$
 
 ### 3.1.1. s 更新
 
+**注：后文中公式的括号内编号为 《The Matrix Cookbook》 书内对应参考公式编号。**
+
 首先更新 $\boldsymbol s_i$，剔除与 $\boldsymbol s_i$ 无关的项，则有
 
 $$
@@ -180,7 +182,7 @@ where \quad &\bar u=\sum\limits_j u^{(k)}_{ij},\quad \bar{ \textbf{c}}= \sum \li
 \end{aligned}
 $$
 
-第三项为矩阵内积，有
+第三项为矩阵内积，根据内积的定义有
 
 $$
 < \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i > = tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))
@@ -193,6 +195,16 @@ $$
 \frac{\partial}{\partial \boldsymbol s_i}< \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i >
 =& \frac{\partial}{\partial \boldsymbol s_i}  tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))\\
 =&-\boldsymbol \mu_i\quad (101)
+\end{aligned}
+$$
+
+或者根据向量内积定义（$\boldsymbol \mu_i \in\mathbb R^{l\times 1}$ 和 $\boldsymbol t_i-\boldsymbol s_i \in\mathbb R^{l\times 1}$ 都是向量），去掉 $tr$ 符号，则求偏导为
+
+$$
+\begin{aligned}
+\frac{\partial}{\partial \boldsymbol s_i}< \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i >
+=& \frac{\partial}{\partial \boldsymbol s_i}  (\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))\\
+=&-\boldsymbol \mu_i \quad (70)
 \end{aligned}
 $$
 
@@ -231,13 +243,41 @@ $$
 \begin{aligned}
 \min_{\boldsymbol s_i} \; &   \sum\limits_i \lambda \vert\vert{\boldsymbol{t}_i}|{|_1}\\
 & + < {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} >  \\
-& + \frac{{{\rho}}}
-{2}(\vert\vert{\boldsymbol{t}_i} - {\boldsymbol{s}_i}\vert\vert_2^2
+& + \frac{\rho}{2}\vert\vert{\boldsymbol{t}_i} - {\boldsymbol{s}_i}\vert\vert_2^2
 \end{aligned}
 $$
 
-第一项求偏导为
+注意到，$\boldsymbol \mu_i \in\mathbb R^{l\times 1}$ 和 $\boldsymbol t_i-\boldsymbol s_i \in\mathbb R^{l\times 1}$ 都是向量，则内积项为
 
 $$
+< {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} > = {\boldsymbol \mu_i}^T({\boldsymbol{t}_i} - {\boldsymbol{s}_i})
+$$
 
+二范数项为
+
+$$
+\frac{\rho}{2}\vert\vert\boldsymbol{t}_i - \boldsymbol{s}_i\vert\vert_2^2 = \frac{\rho}{2}(\boldsymbol t_i - \boldsymbol s_i)^T(\boldsymbol t_i - \boldsymbol s_i)
+$$
+
+对于 $\boldsymbol t_i$ 而言，损失函数中的 $\boldsymbol \mu_i$ 没有影响，因此不妨将**损失函数后两项的和**配方成如下形式
+
+$$
+\begin{aligned}
+&< {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} > + \frac{\rho}{2}\vert\vert\boldsymbol{t}_i - \boldsymbol{s}_i\vert\vert_2^2 \\
+=& \frac{1}{\rho^2}{\boldsymbol \mu_i}^T{\boldsymbol \mu_i} + \frac{\rho}{2}\frac{2}{\rho}{\boldsymbol \mu_i}^T({\boldsymbol{t}_i} - {\boldsymbol{s}_i}) + \frac{\rho}{2}(\boldsymbol t_i - \boldsymbol s_i)^T(\boldsymbol t_i - \boldsymbol s_i)\\
+=& \frac{\rho}{2}[(\frac{1}{\rho}\boldsymbol \mu_i)^T(\frac{1}{\rho}\boldsymbol \mu_i) + \frac{1}{\rho}\boldsymbol \mu_i^T(\boldsymbol t_i - \boldsymbol s_i) + \frac{1}{\rho}\boldsymbol \mu_i(\boldsymbol t_i - \boldsymbol s_i)^T + (\boldsymbol t_i - \boldsymbol s_i)^T(\boldsymbol t_i - \boldsymbol s_i)]\\
+=& \frac{\rho}{2}\vert\vert \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) \vert\vert_2^2
+\end{aligned}
+$$
+
+则原始损失函数变为
+
+$$
+\min_{\boldsymbol s_i} \;    \sum\limits_i \lambda \vert\vert{\boldsymbol{t}_i}|{|_1} +\frac{\rho}{2}\vert\vert \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) \vert\vert_2^2
+$$
+
+上式是一个标准的 1 范数带二次项的形式，其标准闭环形式的偏导为
+
+$$
+\frac{\partial}{\partial \boldsymbol t_i} = 
 $$
