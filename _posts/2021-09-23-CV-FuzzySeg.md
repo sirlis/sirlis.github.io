@@ -157,8 +157,8 @@ $$
 \begin{aligned}
 &\frac{\partial}{\partial \boldsymbol s_i} \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 \\
 =&\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 \cdot \frac{\boldsymbol{x}_i -  \boldsymbol{D}^{(k)}\boldsymbol{s}_i}{\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2 }\cdot \frac{\partial}{\partial \boldsymbol s_i}[{\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}] \quad (129)\\
-=&({\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}\boldsymbol{s}) \cdot (-{\boldsymbol D^{(k)}}^T) \quad (69)\\
-=&{\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)}\boldsymbol{s}-{\boldsymbol D^{(k)}}^T\boldsymbol x_i\quad \in \mathbb R^{l\times 1}
+=&({\boldsymbol{x}_i} - \boldsymbol{D}^{(k)}\boldsymbol{s}_i) \cdot (-{\boldsymbol D^{(k)}}^T) \quad (69)\\
+=&{\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)}\boldsymbol{s}_i-{\boldsymbol D^{(k)}}^T\boldsymbol x_i\quad \in \mathbb R^{l\times 1}
 \end{aligned}
 $$
 
@@ -166,7 +166,7 @@ $$
 
 $$
 \begin{aligned}
-&\frac{\partial}{\partial \boldsymbol s_i} {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+\frac{\partial}{\partial \boldsymbol s_i} {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 
 =&2\eta_1\sum\limits_{j} u^{(k)}_{ij}(\boldsymbol{s}_i - \boldsymbol{c}_j)\quad (129)\\
 =&2\eta_1 \bar u \boldsymbol s_i - 2\eta_1\bar{\boldsymbol c}\\
 where \quad &\bar u=\sum\limits_j u^{(k)}_{ij},\quad \bar{ \textbf{c}}= \sum \limits_{j} u^{(k)}_{ij} \textbf{c}_j
@@ -183,10 +183,37 @@ $$
 
 $$
 \begin{aligned}
-&\frac{\partial}{\partial \boldsymbol s_i}< \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i > = \frac{\partial}{\partial \boldsymbol s_i}  tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))\\
+\frac{\partial}{\partial \boldsymbol s_i}< \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i >
+=& \frac{\partial}{\partial \boldsymbol s_i}  tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))\\
 =&-\boldsymbol \mu_i\quad (101)
 \end{aligned}
 $$
 
+第四项为
+
+$$
+\begin{aligned}
+\frac{\partial}{\partial \boldsymbol s_i} \frac{{{\rho}}}
+{2}\vert\vert \boldsymbol{t}^{(k)}_i - {\boldsymbol{s}_i}\vert\vert_2^2
+=&\rho\vert\vert \boldsymbol{t}^{(k)}_i - {\boldsymbol{s}_i}\vert\vert_2 \frac{\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i}{\vert\vert \boldsymbol{t}^{(k)}_i - {\boldsymbol{s}_i}\vert\vert_2}\cdot (-\boldsymbol I)\quad (129)\\
+=&\rho(\boldsymbol{s}_i - \boldsymbol{t}^{(k)}_i)
+\end{aligned}
+$$
+
+则求偏导后完整的表达式为
+
+$$
+\begin{aligned}
+&\frac{\partial}{\partial \boldsymbol s_i} L(\boldsymbol{s}_i,\boldsymbol{t},\boldsymbol{u},\boldsymbol{D})\\
+= &{\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)}\boldsymbol{s}_i-{\boldsymbol D^{(k)}}^T\boldsymbol x_i + 2\eta_1 \bar u \boldsymbol s_i - 2\eta_1\bar{\boldsymbol c} - \boldsymbol \mu_i + \rho(\boldsymbol{s}_i - \boldsymbol{t}^{(k)}_i)\\
+=& ({\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)} + 2\eta_1 \bar u + \rho)\boldsymbol s_i - ({\boldsymbol D^{(k)}}^T\boldsymbol x_i+2\eta_1\bar{\boldsymbol c}+\rho\boldsymbol{t}^{(k)}_i+\boldsymbol \mu_i)
+\end{aligned}
+$$
+
+令偏导数等于 0，则有
+
+$$
+\boldsymbol s_i = ({\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)} + 2\eta_1 \bar u + \rho)^{-1}({\boldsymbol D^{(k)}}^T\boldsymbol x_i+2\eta_1\bar{\boldsymbol c}+\rho\boldsymbol{t}^{(k)}_i+\boldsymbol \mu_i)
+$$
+
 括号k是啥？
-分步求导对嘛？
