@@ -16,6 +16,8 @@ math: true
 - [2. 模糊惩罚稀疏编码](#2-模糊惩罚稀疏编码)
 - [3. 优化](#3-优化)
   - [3.1. 参数更新](#31-参数更新)
+    - [3.1.1. s 更新](#311-s-更新)
+    - [3.1.2. t 更新](#312-t-更新)
   
 
 # 1. 参数定义
@@ -140,18 +142,23 @@ $$
 
 ## 3.1. 参数更新
 
+### 3.1.1. s 更新
+
 首先更新 $\boldsymbol s_i$，剔除与 $\boldsymbol s_i$ 无关的项，则有
 
 $$
 \begin{aligned}
-\min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2 +
-{\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
-& +  < {\mu_{i}},{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i} >  + \frac{{{\rho}}}
+\min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2\\
+& + {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+& +  < {\mu_{i}},{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i} > \\
+& + \frac{{{\rho}}}
 {2}\vert\vert{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i}\vert\vert_2^2\\
 \end{aligned}
 $$
 
-对上式求偏导，第一项为
+其中 $(k)$ 表示当前第 $k$ 步更新时的参数，涉及的参数为待更新的 $\boldsymbol s_i, \boldsymbol t_i, \boldsymbol D$。
+
+对上式求偏导，第一项求偏导为
 
 $$
 \begin{aligned}
@@ -162,7 +169,7 @@ $$
 \end{aligned}
 $$
 
-第二项为
+第二项求偏导为
 
 $$
 \begin{aligned}
@@ -179,7 +186,7 @@ $$
 < \boldsymbol \mu_i,\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i > = tr(\boldsymbol \mu_i^T\cdot(\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i))
 $$
 
-则
+则求偏导为
 
 $$
 \begin{aligned}
@@ -189,7 +196,7 @@ $$
 \end{aligned}
 $$
 
-第四项为
+第四项求偏导为
 
 $$
 \begin{aligned}
@@ -216,4 +223,21 @@ $$
 \boldsymbol s_i = ({\boldsymbol D^{(k)}}^T\boldsymbol D^{(k)} + 2\eta_1 \bar u + \rho)^{-1}({\boldsymbol D^{(k)}}^T\boldsymbol x_i+2\eta_1\bar{\boldsymbol c}+\rho\boldsymbol{t}^{(k)}_i+\boldsymbol \mu_i)
 $$
 
-括号k是啥？
+### 3.1.2. t 更新
+
+剔除与 $\boldsymbol t_i$ 无关的项，则有
+
+$$
+\begin{aligned}
+\min_{\boldsymbol s_i} \; &   \sum\limits_i \lambda \vert\vert{\boldsymbol{t}_i}|{|_1}\\
+& + < {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} >  \\
+& + \frac{{{\rho}}}
+{2}(\vert\vert{\boldsymbol{t}_i} - {\boldsymbol{s}_i}\vert\vert_2^2
+\end{aligned}
+$$
+
+第一项求偏导为
+
+$$
+
+$$
