@@ -264,8 +264,10 @@ $$
 $$
 \begin{aligned}
 &< {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} > + \frac{\rho}{2}\vert\vert\boldsymbol{t}_i - \boldsymbol{s}_i\vert\vert_2^2 \\
+=& {\boldsymbol \mu_i}^T({\boldsymbol{t}_i} - {\boldsymbol{s}_i}) + \frac{\rho}{2}(\boldsymbol t_i - \boldsymbol s_i)^T(\boldsymbol t_i - \boldsymbol s_i)\\
 =& \frac{1}{\rho^2}{\boldsymbol \mu_i}^T{\boldsymbol \mu_i} + \frac{\rho}{2}\frac{2}{\rho}{\boldsymbol \mu_i}^T({\boldsymbol{t}_i} - {\boldsymbol{s}_i}) + \frac{\rho}{2}(\boldsymbol t_i - \boldsymbol s_i)^T(\boldsymbol t_i - \boldsymbol s_i)\\
 =& \frac{\rho}{2}[(\frac{1}{\rho}\boldsymbol \mu_i)^T(\frac{1}{\rho}\boldsymbol \mu_i) + \frac{1}{\rho}\boldsymbol \mu_i^T(\boldsymbol t_i - \boldsymbol s_i) + \frac{1}{\rho}\boldsymbol \mu_i(\boldsymbol t_i - \boldsymbol s_i)^T + (\boldsymbol t_i - \boldsymbol s_i)^T(\boldsymbol t_i - \boldsymbol s_i)]\\
+=& \frac{\rho}{2}( \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) )^T( \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) )\\
 =& \frac{\rho}{2}\vert\vert \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) \vert\vert_2^2
 \end{aligned}
 $$
@@ -273,11 +275,17 @@ $$
 则原始损失函数变为
 
 $$
-\min_{\boldsymbol s_i} \;    \sum\limits_i \lambda \vert\vert{\boldsymbol{t}_i}|{|_1} +\frac{\rho}{2}\vert\vert \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) \vert\vert_2^2
+\min_{\boldsymbol t_i} \;    \sum\limits_i \lambda \vert\vert{\boldsymbol{t}_i}|{|_1} +\frac{\rho}{2}\vert\vert \frac{1}{\rho}\boldsymbol \mu_i + (\boldsymbol t_i - \boldsymbol s_i) \vert\vert_2^2
 $$
 
-上式是一个标准的 1 范数带二次项的形式，其标准闭环形式的偏导为
+
+上式是一个标准的 1 范数带二次项的形式，采用迭代收缩算法
+
+> L1-L2范数最小化问题-迭代收缩算法 https://www.cnblogs.com/yuningqiu/p/9936184.html
+
+其标准闭环形式的更新公式为
 
 $$
-\frac{\partial}{\partial \boldsymbol t_i} = 
+\boldsymbol t_i ^{(k+1)}= h_{\lambda\rho^{-1}}(\boldsymbol s_i^{(k)}-\rho^{-1}\boldsymbol \mu^{(k)})
 $$
+
