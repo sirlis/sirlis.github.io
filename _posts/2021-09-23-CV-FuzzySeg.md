@@ -18,6 +18,7 @@ math: true
   - [3.1. 参数更新](#31-参数更新)
     - [3.1.1. s 更新](#311-s-更新)
     - [3.1.2. t 更新](#312-t-更新)
+    - [3.1.3. u 更新](#313-u-更新)
   
 
 # 1. 参数定义
@@ -281,11 +282,14 @@ $$
 
 上式是一个标准的 1 范数带二次项的形式，采用迭代收缩算法
 
-> L1-L2范数最小化问题-迭代收缩算法 https://www.cnblogs.com/yuningqiu/p/9936184.html
+> L1-L2范数最小化问题-迭代收缩算法. https://www.cnblogs.com/yuningqiu/p/9936184.html
+> L1范数与L2范数的区别. https://zhuanlan.zhihu.com/p/28023308
 
 其标准闭环形式的更新公式为
 
 $$
 \boldsymbol t_i ^{(k+1)}= h_{\lambda\rho^{-1}}(\boldsymbol s_i^{(k)}-\rho^{-1}\boldsymbol \mu^{(k)})
 $$
+
+### 3.1.3. u 更新
 
