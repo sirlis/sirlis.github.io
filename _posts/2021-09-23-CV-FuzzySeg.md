@@ -82,6 +82,8 @@ F(\boldsymbol s, \boldsymbol D)=\min_{\boldsymbol s, \boldsymbol D} \sum_{i=1}^n
 s.t.\vert\vert\boldsymbol d_j\vert\vert_2^2 < 1 \; \forall j\in[1,\cdots,l]
 $$
 
+假设一共有 $C$ 类。
+
 专家提供的硬标签为 $\boldsymbol l_i \in \mathbb R^C$（one-hot 形式）。软模糊隶属度 $\boldsymbol u_i=[u_1,\cdots, u_C] \in \mathbb R^C$（分量和为 1），表明样本 $\boldsymbol x_i$ 与多个其他类别的关系。其中，$C$ 为类别数。
 
 模糊隶属度采用模糊k近邻算法（FKNN）计算。首先计算样本特征向量间的欧式距离矩阵，然后对该距离矩阵进行排序，选取其中 $k$ 个最近邻的训练样本。对于属于第 $m$ 类别的样本 $\boldsymbol x_i$，其模糊隶属度计算方式为
@@ -97,16 +99,20 @@ $$
  \end{array}
 $$
 
-其中 $\gamma= \frac{N-C}{2^hN}$。N，C，h是啥？？
+其中 $\gamma= \frac{N-C}{2^hN}$，$h,\lambda\in(0,1)$ 是控制模糊隶属度取值的常数，$n_{jm}$ 是属于第 $j$ 个类别的邻居样本个数。N，C是啥？？
+
 
 $n_{jm}$ 是属于第 $j$ 类别的邻居个数。$h \in (0,1),\gamma \in (0,1)$ 是用于控制模糊隶属度的常数。为了简化计算，进一步将模糊的分进行归一化，使得 $\sum_j \hat{u}_{ij} = 1$。
+
+> 进一步解读：对于每个样本，选取其 $k$ 个最近样本。计算该选择的样本对所有类别的模糊隶属度，该样本对应该类别的隶属度为第一个式子，该样本对于所有其它类别的隶属度为第二个式子；其中，每个隶属度右与对应类别的近邻样本个数有关。最后做一个归一化。
+
 
 模糊度对应原始特征域的标注数据，采用模糊惩罚稀疏编码（FPSC）来在稀疏编码空间保留上述模糊度。
 
 $$
 G(\boldsymbol{s},\boldsymbol{u},\boldsymbol{D})= \min_{\boldsymbol{s},\boldsymbol{u},\boldsymbol{D}} [F(\boldsymbol{s},\boldsymbol{D}) + {\eta_1}\sum\limits_{i,j} {u}_{ij}\vert\vert\boldsymbol{s}_i - {\boldsymbol{c}_j}\vert\vert_2^2+
 \eta_2\sum\limits_{i} I(i\in\Omega) \vert\vert \boldsymbol u_i-\hat{\boldsymbol u}_i\vert\vert_2^2],\\
-s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i\in[1,\cdots,C]
+s.t.\;\boldsymbol{u}_{i}\boldsymbol{1} = 1\;\forall i\in[1,\cdots,n]
 $$
 
 - 第一项：前面定义的稀疏编码模型；
@@ -114,6 +120,9 @@ $$
 - 第三项：模糊得分 $\boldsymbol u$ 被惩罚到与专家打分 $\hat{ \boldsymbol u}$ 一致。
 
 其中，$\Omega$ 表示监督数据集，$I(i\in\Omega)$ 是一个指示函数，如果 $i\in\Omega$ 则取值为 1，否则为 0。
+
+- $i=1,2,\cdots,n$ 遍历每个样本；
+- $j=1,2,\cdots,C$ 遍历每个类别；
 
 
 # 3. 优化
@@ -304,5 +313,49 @@ $$
 & + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 > \\
 & + \frac{{{\rho}}}
 {2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
+\end{aligned}
+$$
+
+对于第一项
+
+$$
+\begin{aligned}
+{\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 &= \sum\limits_{i}\eta _1\sum\limits_{j} {u}_{ij}\vert\vert{\boldsymbol{s}_i^{(k)}} - {\boldsymbol{c}_j}\vert\vert_2^2
+\end{aligned}
+$$
+
+令 $\boldsymbol T^{(k)} \in \mathbb R^C$，其每个分量为
+
+$$
+\boldsymbol T_j^{(k)} = \vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2, \quad j=1,2,\cdots, C
+$$
+
+可将第一个分量写成矩阵形式
+
+$$
+\sum\limits_{j} {u}_{ij}\vert\vert{\boldsymbol{s}_i^{(k)}} - {\boldsymbol{c}_j}\vert\vert_2^2 = tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})
+$$
+
+整个优化目标改写为
+
+$$
+\begin{aligned}
+\min_{\boldsymbol u_i} L(\boldsymbol{u}) &=  \sum\limits_{i}\eta _1\cdot  tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})\\
+& + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
+& + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 > \\
+& + \frac{{{\rho}}}
+{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
+\end{aligned}
+$$
+
+继续套用内积定义和二范数定义，有
+
+$$
+\begin{aligned}
+\min_{\boldsymbol u_i} L(\boldsymbol{u}) &=  \sum\limits_{i}\eta _1\cdot  tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})\\
+& + {\eta _2}\sum\limits_{i}I(i \in \Omega )({\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i})^T({\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}) \\
+& +  {\theta _{i}}^T(\boldsymbol{u}_i\boldsymbol{1} - 1 ) \\
+& + \frac{{{\rho}}}
+{2}(\boldsymbol{u}_i\boldsymbol{1} - 1)^T(\boldsymbol{u}_i\boldsymbol{1} - 1)
 \end{aligned}
 $$
