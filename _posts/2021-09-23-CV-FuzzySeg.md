@@ -19,6 +19,7 @@ math: true
     - [3.1.1. s 更新](#311-s-更新)
     - [3.1.2. t 更新](#312-t-更新)
     - [3.1.3. u 更新](#313-u-更新)
+    - [3.1.4. D 更新](#314-d-更新)
   
 
 # 1. 参数定义
@@ -188,7 +189,7 @@ $$
 \frac{\partial}{\partial \boldsymbol s_i} {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 
 =&2\eta_1\sum\limits_{j} u^{(k)}_{ij}(\boldsymbol{s}_i - \boldsymbol{c}_j)\quad (129)\\
 =&2\eta_1 \bar u \boldsymbol s_i - 2\eta_1\bar{\boldsymbol c}\\
-where \quad &\bar u=\sum\limits_j u^{(k)}_{ij},\quad \bar{ \textbf{c}}= \sum \limits_{j} u^{(k)}_{ij} \textbf{c}_j
+where \quad &\bar u=\sum\limits_j u^{(k)}_{ij},\quad \bar{ \boldsymbol{c}}= \sum \limits_{j} u^{(k)}_{ij} \boldsymbol{c}_j
 \end{aligned}
 $$
 
@@ -367,4 +368,34 @@ $$
 $$
 \boldsymbol u_i^{(k+1)} = (2{\eta _2}I(i \in \Omega )+\rho\boldsymbol{1}\boldsymbol{1}^T)^{-1}
 (2{\eta _2}I\hat{\boldsymbol{u}}_i-\eta_1\cdot \boldsymbol T^{(k)}+(\rho_{i}^{(k)}-\theta_{i}^{(k)})\boldsymbol 1^T)
+$$
+
+### 3.1.4. D 更新
+
+优化目标为
+
+$$
+\min \sum\limits_i  \vert\vert \boldsymbol{x}_i - \boldsymbol{D}{\boldsymbol{s}_i^{(k)}}\vert\vert_2^2
+$$
+
+这是个典型的最小二乘回归问题，对其二范数展开为
+
+$$
+\sum\limits_i(\boldsymbol{x}_i - \boldsymbol{D}\boldsymbol{s}_i^{(k)})^T(\boldsymbol{x}_i - \boldsymbol{D}\boldsymbol{s}_i^{(k)}) =\\
+\sum\limits_i[\boldsymbol{x}_i^T\boldsymbol{x}_i - \boldsymbol x_i^T\boldsymbol{D}\boldsymbol{s}_i^{(k)} - \boldsymbol x_i(\boldsymbol{D}\boldsymbol{s}_i^{(k)})^T + (\boldsymbol{D}\boldsymbol{s}_i^{(k)})^T\boldsymbol{D}\boldsymbol{s}_i^{(k)}]
+$$
+
+其对 $\boldsymbol D$ 的偏导为（参考Matrix Cookbook 式（70）、式（71）和式（77）)
+
+$$
+\sum\limits_i[-\boldsymbol x_i(\boldsymbol{s}_i^{(k)})^T-\boldsymbol{s}_i(\boldsymbol x_i^{(k)})^T+(\boldsymbol{s}_i^{(k)})^T\boldsymbol{D}\boldsymbol{s}_i^{(k)}+\boldsymbol{D}\boldsymbol{s}_i^{(k)}(\boldsymbol{s}_i^{(k)})^T]\\
+=\sum\limits_i[-2\boldsymbol x_i(\boldsymbol{s}_i^{(k)})^T+2\boldsymbol{D}\boldsymbol{s}_i^{(k)}(\boldsymbol{s}_i^{(k)})^T]
+$$
+
+> 对于向量乘法可交换顺序，即$a^T\cdot b = a\cdot b^T$
+
+令偏导等于 0，则更新式为
+
+$$
+\boldsymbol D^{(k+1)} = (\sum\limits_i\boldsymbol{s}_i^{(k)}(\boldsymbol{s}_i^{(k)})^T)^{-1}(\sum\limits_i\boldsymbol{x}_i^{(k)}(\boldsymbol{s}_i^{(k)})^T)
 $$
