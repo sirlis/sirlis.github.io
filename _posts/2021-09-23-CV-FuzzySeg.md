@@ -147,7 +147,7 @@ $$
 
 **注：后文中公式的括号内编号为 《The Matrix Cookbook》 书内对应参考公式编号。**
 
-首先更新 $\boldsymbol s_i$，剔除与 $\boldsymbol s_i$ 无关的项，则有
+首先更新 $\boldsymbol s_i$，剔除与 $\boldsymbol s_i$ 无关的项，则有优化目标为
 
 $$
 \begin{aligned}
@@ -238,7 +238,7 @@ $$
 
 ### 3.1.2. t 更新
 
-剔除与 $\boldsymbol t_i$ 无关的项，则有
+剔除与 $\boldsymbol t_i$ 无关的项，则有优化目标为
 
 $$
 \begin{aligned}
@@ -280,10 +280,10 @@ $$
 $$
 
 
-上式是一个标准的 1 范数带二次项的形式，采用迭代收缩算法
+上式是一个标准的 1 范数带二次项的形式，采用迭代收缩算法（具体解法参考下述链接）
 
 > L1-L2范数最小化问题-迭代收缩算法. https://www.cnblogs.com/yuningqiu/p/9936184.html
-> L1范数与L2范数的区别. https://zhuanlan.zhihu.com/p/28023308
+<!-- > L1范数与L2范数的区别. https://zhuanlan.zhihu.com/p/28023308 -->
 
 其标准闭环形式的更新公式为
 
@@ -291,5 +291,18 @@ $$
 \boldsymbol t_i ^{(k+1)}= h_{\lambda\rho^{-1}}(\boldsymbol s_i^{(k)}-\rho^{-1}\boldsymbol \mu^{(k)})
 $$
 
+其中，$h_{\lambda\rho^{-1}}$ 为压缩算子。
+
 ### 3.1.3. u 更新
 
+提出与 $\boldsymbol u_i$ 无关项，则有优化目标为
+
+$$
+\begin{aligned}
+\min_{\boldsymbol u_i} L(\boldsymbol{u}) &=  {\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
+& + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
+& + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 > \\
+& + \frac{{{\rho}}}
+{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
+\end{aligned}
+$$
