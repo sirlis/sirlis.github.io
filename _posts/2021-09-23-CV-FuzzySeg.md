@@ -344,8 +344,8 @@ $$
 & + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 > \\
 & + \frac{{{\rho}}}{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2\\
-= & \sum\limits_{i}\eta _1\cdot  tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})\\
-& + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
+= & \eta _1\cdot  tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})\\
+& + {\eta _2}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & +  {\theta _{i}}(\boldsymbol{u}_i\boldsymbol{1} - 1 ) \\
 & + \frac{{{\rho}}}{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
 \end{aligned}
@@ -355,15 +355,15 @@ $$
 
 $$
 \begin{aligned}
-&\eta _1\cdot \boldsymbol T^{(k)}\quad (103)\\
+&\eta_1\cdot \boldsymbol T^{(k)}\quad (103)\\
 -&2{\eta _2}I(i \in \Omega )(\boldsymbol{u}_i - \hat{\boldsymbol{u}}_i)\\
 +& {\theta _{i}}\boldsymbol{1}^T\quad (70)\\
-+& \rho \boldsymbol 1^T\quad (70)
++& \rho (\boldsymbol{u}_i\boldsymbol{1} - 1) \boldsymbol 1^T\quad (70)
 \end{aligned}
 $$
 
 令偏导等于 0，得到参数 $\boldsymbol u_i$ 的更新式
 
 $$
-\boldsymbol u_i^{(k+1)} = (2{\eta _2}\sum\limits_{i}I(i \in \Omega ))^{-1}
+\boldsymbol u_i^{(k+1)} = (2{\eta _2}\sum\limits_{i}I(i \in \Omega ))^{-1}(\eta_1\cdot \boldsymbol T^{(k)}+)
 $$
