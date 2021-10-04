@@ -356,14 +356,15 @@ $$
 $$
 \begin{aligned}
 &\eta_1\cdot \boldsymbol T^{(k)}\quad (103)\\
--&2{\eta _2}I(i \in \Omega )(\boldsymbol{u}_i - \hat{\boldsymbol{u}}_i)\\
++&2{\eta _2}I(i \in \Omega )(\boldsymbol{u}_i - \hat{\boldsymbol{u}}_i)\\
 +& {\theta _{i}}\boldsymbol{1}^T\quad (70)\\
 +& \rho (\boldsymbol{u}_i\boldsymbol{1} - 1) \boldsymbol 1^T\quad (70)
 \end{aligned}
 $$
 
-令偏导等于 0，得到参数 $\boldsymbol u_i$ 的更新式
+令偏导等于 0，得到参数 $\boldsymbol u_i$ 的更新式为
 
 $$
-\boldsymbol u_i^{(k+1)} = (2{\eta _2}I(i \in \Omega )-\rho\boldsymbol{1}\boldsymbol{1}^T)^{-1}(2{\eta _2}I\hat{\boldsymbol{u}}_i+\eta_1\cdot \boldsymbol T^{(k)}+(\theta_{i}^{(k)}-\rho_{i}^{(k)})\boldsymbol 1^T)
+\boldsymbol u_i^{(k+1)} = (2{\eta _2}I(i \in \Omega )+\rho\boldsymbol{1}\boldsymbol{1}^T)^{-1}
+(2{\eta _2}I\hat{\boldsymbol{u}}_i-\eta_1\cdot \boldsymbol T^{(k)}+(\rho_{i}^{(k)}-\theta_{i}^{(k)})\boldsymbol 1^T)
 $$
