@@ -365,5 +365,5 @@ $$
 令偏导等于 0，得到参数 $\boldsymbol u_i$ 的更新式
 
 $$
-\boldsymbol u_i^{(k+1)} = (2{\eta _2}\sum\limits_{i}I(i \in \Omega ))^{-1}(\eta_1\cdot \boldsymbol T^{(k)}+)
+\boldsymbol u_i^{(k+1)} = (2{\eta _2}I(i \in \Omega )-\rho\boldsymbol{1}\boldsymbol{1}^T)^{-1}(2{\eta _2}I\hat{\boldsymbol{u}}_i+\eta_1\cdot \boldsymbol T^{(k)}+(\theta_{i}^{(k)}-\rho_{i}^{(k)})\boldsymbol 1^T)
 $$
