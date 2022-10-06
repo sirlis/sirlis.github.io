@@ -62,7 +62,7 @@ $$
 
 前提（Premise）中涉及到的隶属度函数定义为
 
-![premise](../assets/img/postsimg/20201202/1.jpg)
+![premise](/assets/img/postsimg/20201202/1.jpg)
 
 假设输入 $x_1=12, x_2=5$，那么三个前提下的结论（Consequence）为
 
@@ -92,7 +92,7 @@ $$
 
 用一张表格可以列写如下
 
-![result](../assets/img/postsimg/20201202/2.jpg)
+![result](/assets/img/postsimg/20201202/2.jpg)
 
 ## 1.2. 特性
 
@@ -267,21 +267,21 @@ $$
 
 最后给出一个例子。假设系统为
 
-![kf1](../assets/img/postsimg/20201202/12.jpg)
+![kf1](/assets/img/postsimg/20201202/12.jpg)
 
 在将模型的前提固定为原始系统的前提的情况下，将噪声添加到数据中，可以从输入输出数据中识别出后果，如下所示。
 
-![kf2](../assets/img/postsimg/20201202/13.jpg)
+![kf2](/assets/img/postsimg/20201202/13.jpg)
 
 下图展示了包含噪声的输入输出数据，原始结论和辨识出的结论。
 
-![kf3](../assets/img/postsimg/20201202/14.jpg)
+![kf3](/assets/img/postsimg/20201202/14.jpg)
 
 ### 1.3.2. 前提参数辨识
 
 在本节中，我们说明如何确定前提中的模糊集，即在**前提变量已经选定**的情况下，如何将前提变量的空间划分为模糊子空间（包括确定规则个数和确定每个规则中的模糊集/隶属度函数参数），但是规则个数作者只是一笔带过。
 
-![inputoutputdata](../assets/img/postsimg/20201202/15.jpg)
+![inputoutputdata](/assets/img/postsimg/20201202/15.jpg)
 
 如上图所示，根据图中的输入输出数据来划分 $x$ 的模糊子空间，比如 `x is small` 或者 `x is big`。即可设计如下两个规则
 
@@ -305,15 +305,15 @@ $$
 
 假设原始系统描述如下
 
-![kf1](../assets/img/postsimg/20201202/12.jpg)
+![kf1](/assets/img/postsimg/20201202/12.jpg)
 
 结论和带噪音的输入输出数据如下图所示。
 
-![kf4](../assets/img/postsimg/20201202/16.jpg)
+![kf4](/assets/img/postsimg/20201202/16.jpg)
 
 所识别的前提参数如下。我们可以看到已经推导出几乎相同的参数。
 
-![kf5](../assets/img/postsimg/20201202/17.jpg)
+![kf5](/assets/img/postsimg/20201202/17.jpg)
 
 ### 1.3.3. 前提变量的选择
 
@@ -347,7 +347,7 @@ $$
 
 整个过程如图所示
 
-![vs](../assets/img/postsimg/20201202/18.jpg)
+![vs](/assets/img/postsimg/20201202/18.jpg)
 
 
 ## 1.4. 广义 TS 模糊系统

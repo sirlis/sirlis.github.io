@@ -46,7 +46,7 @@ inductive biases，归纳偏置。
 
 下图 (a) 为预测架构，输入 $t$ 时刻的所有对象的位置 $p^t_{i=1:N}$。使用 $t\leq T_{obs}$ 时刻的位置作为观测，对 $t\geq T_{obs}$ 时刻的位置进行预测。我们对每个对象的下一时刻位置 $\hat p^{t+1}_i$ 进行预测，预测量是相对于当前时刻 $p_i^t$ 的位置偏差（relative prediction）。
 
-![tp](../assets/img/postsimg/20201207/1.jpg) 
+![tp](/assets/img/postsimg/20201207/1.jpg) 
 
 - **公式 1**：将位置偏差拆分为一阶常速度估计 $\tilde v_i^t$ （惯性）和速度修正项 $\Delta v_i^t$ （意图和对象间的交互）。
 - **公式 2**：一阶常速度估计由当前时刻位置和前一时刻位置直接差分得到。
@@ -68,7 +68,7 @@ $$
 
 下图 (b) 作为交互模块。
 
-![im](../assets/img/postsimg/20201207/2.jpg) 
+![im](/assets/img/postsimg/20201207/2.jpg) 
 
 - **公式 1**：在每两个对象间**产生一条有向边来建立一张图（creates a graph by generating directed edges between all pairs of agents）**（忽略自身与自身的边连接），得到边集合 $\varepsilon$。将边集合、所有对象的位置和临时隐藏状态（意图）估计送入 模糊查询注意力模块（Fuzzy Query Attention, FQA）得到每一个对象的注意力向量 $a_i$，该向量汇聚了其与其它所有对象的交互信息。
   <font color=red>有向边的方向如何确定的不明确。</font>
@@ -85,7 +85,7 @@ $$
 
 ## 2.3. 模糊查询注意力模块
 
-![fqa](../assets/img/postsimg/20201207/3.jpg) 
+![fqa](/assets/img/postsimg/20201207/3.jpg) 
 
 FQA 模块将有向边图看作 发送-接收 对象对（sender-receiver pairs of agents）。从高层来看，该模块建模了所有发送对象对一个特定接收对象的汇聚影响。基本想法是建立 key-query-value self attention 网络（Vaswani et al）。
 

@@ -62,7 +62,7 @@ ANFIS的模型结构由自适应网络和模糊推理系统合并而成，在功
 
 那么该一阶T-S模糊推理系统的ANFIS网络结构如图所示
 
-![5](../assets/img/postsimg/20200925/5.jpg)
+![5](/assets/img/postsimg/20200925/5.jpg)
 
 输入x，y在第一层进行模糊化，模糊化的方法：用隶属函数（menbership functions，MFs，一般为钟形函数，**钟形函数参数为前向参数**）对输入特征x，y进行模糊化操作，得到一个[0,1]的隶属度（menbership grade），通常用mu表示。
 
@@ -144,7 +144,7 @@ invars[0] = ['x0', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 invars[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 ```
 
-![4](../assets/img/postsimg/20200925/4.jpg)
+![4](/assets/img/postsimg/20200925/4.jpg)
 
 `outvars` 列表通过遍历输出状态量的维度来建立，是一个字符串列表。假设输出状态量维度为3，则 `outvars` 的成员为
 

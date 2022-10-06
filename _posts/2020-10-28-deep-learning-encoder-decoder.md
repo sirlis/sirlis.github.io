@@ -70,7 +70,7 @@ apple = [0.2649816874, 0.14916784874, -1.51968714,...]
 
 NLP 中有各种各样的任务，比如分类（Classification），问答（QA），实体命名识别（NER）等。对于这些不同的任务，最早的做法是根据每类任务定制不同的模型，输入预训练好的 embedding，然后利用特定任务的数据集对模型进行训练，如下图所示。
 
-![1](../assets/img/postsimg/20201028/1.jpg)
+![1](/assets/img/postsimg/20201028/1.jpg)
 
 这里存在的问题就是，不是每个特定任务都有大量的标签数据可供训练，对于那些数据集非常小的任务，恐怕就难以得到一个理想的模型。
 
@@ -91,7 +91,7 @@ vieo. [encoder-decoder模型](https://blog.csdn.net/weixin_41803874/article/deta
 
 Encoder-Decoder（编码-解码）是深度学习中非常常见的一个模型框架，比如无监督算法的 auto-encoding 就是用编码-解码的结构设计并训练的；比如这两年比较热的 image caption 的应用，就是 CNN-RNN 的编码-解码框架；再比如神经网络机器翻译 NMT 模型，往往就是LSTM-LSTM 的编码-解码框架。因此，准确的说，Encoder-Decoder 并不是一个具体的模型，而是一类**框架**。Encoder 和 Decoder 部分可以是任意的文字，语音，图像，视频数据，模型可以采用 CNN，RNN，BiRNN、LSTM、GRU 等等。所以基于 Encoder-Decoder，我们可以设计出各种各样的应用算法。
 
-![encoder-decoder](../assets/img/postsimg/20201028/2.jpg)
+![encoder-decoder](/assets/img/postsimg/20201028/2.jpg)
 
 Encoder-Decoder框架有一个最显著的特征就是它是一个 End-to-End 学习的算法。
 
@@ -147,7 +147,7 @@ $$
 
 下面以对联为例采用 RNN 来阐述生成过程，那么架构图如下图所示
 
-![rnn-ed](../assets/img/postsimg/20201028/3.jpg)
+![rnn-ed](/assets/img/postsimg/20201028/3.jpg)
 
 只需要找到大量的对联数据对这个模型进行训练，那么即可利用这个模型，输入上联，机器自动产生下联了。具体实现方式如下
 
@@ -211,7 +211,7 @@ $$
 
 首先给出 **Encoder** 的网络结构
 
-![lstm encoder](../assets/img/postsimg/20201028/5-0.png)
+![lstm encoder](/assets/img/postsimg/20201028/5-0.png)
 
 - **input**：单词的 one-hot 向量，这个向量的维度与字典容量有关，比如字典里有 1000 个常用单词，那么向量维度就是 1000；
 - **embedding**：对 input 进行 word2vec 操作，将其转化为稠密的低维向量，得到 embedded_input；
@@ -224,7 +224,7 @@ $$
 
 下面给出 **Decoder** 的网络结构
 
-![lstm decoder](../assets/img/postsimg/20201028/6-0.png)
+![lstm decoder](/assets/img/postsimg/20201028/6-0.png)
 
 Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。**Encoder 得到的语义向量 $c$ 作为 Decoder 的 hidden_state 的初值。**
 
@@ -239,7 +239,7 @@ Decoder 与 Encoder 唯一关联的就是隐层变量 hidden_state。**Encoder �
   在推理测试时，根据 softmax 的结果选择概率最高的词作为预测输出和下一时刻的输入。
   有时为了简便起见也直接用 argmax 得到取值最大的那个维度对应的词作为输出，且作为下一时刻的输入，如下图。
 
-![gru decoder](../assets/img/postsimg/20201028/7-0.png)
+![gru decoder](/assets/img/postsimg/20201028/7-0.png)
 
 ### 2.1.3. 分析
 
@@ -257,7 +257,7 @@ Attention Model 即**注意力机制**，也称为对齐模型(alignment model)�
 
 在对联任务中，Encoder-Decoder 框架加上 **Attention** 应该会显著提升产生下联的质量，原因还是因为它是要求严格对仗的，所以在生成下联某个字的时候，找到对应上联相应字作为生成的重点参考信息无疑是非常重要的。比如看到上联的“三”字，Attention模型使得下联产生对应字 “一” 的时候重点参考上联的 “三” 这个字，应该知道对应的应该是一个数字型汉字。下图是加上 Attention 模型的示意图。
 
-![rnn-ed-attention](../assets/img/postsimg/20201028/4.jpg)
+![rnn-ed-attention](/assets/img/postsimg/20201028/4.jpg)
 
 增加 attention 机制后，Decoder 过程可以拆分成如下几个部分
 
@@ -275,7 +275,7 @@ attention score 表征原始输入序列 $x_t$ 对即将生成的目标词 $y_i$
 
 更加一般的注意力模型示意图如下图所示。已知输入序列 $X_1, X_2,...,X_T$，在第 $t$ 时刻输出 $y_t$ 时，我们希望相应的语义变量 $c$ 不再是固定的，而是与当前时刻输出挂钩，即 $C_t$。当前时刻的 $C_t$ 一般是输入序列隐层状态的加权和，其中权重为 attention weights，记作 $\alpha_{tj}$。
 
-![attention score](../assets/img/postsimg/20201028/9.jpg)
+![attention score](/assets/img/postsimg/20201028/9.jpg)
 
 注意力权重与输入输出的匹配程度有关，这个**匹配度就是注意力得分（attention score）**。匹配度的数学表示如下
 

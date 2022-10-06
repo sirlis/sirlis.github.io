@@ -52,7 +52,7 @@ math: true
 
 传统集合在模糊集理论中通常称作“明确集（crisp set），而隶属度函数只能取 0 或者 1 时，对应于传统集合的指示函数（indicator function）。
 
-![fuzzysetyoung](../assets/img/postsimg/20200925/1.jpg)
+![fuzzysetyoung](/assets/img/postsimg/20200925/1.jpg)
 
 模糊集可以表示为：
 
@@ -65,7 +65,7 @@ math: true
 
 另一个模糊集的实例：
 
-![fuzzyset4](../assets/img/postsimg/20200925/2.jpg)
+![fuzzyset4](/assets/img/postsimg/20200925/2.jpg)
 
 一个常用的隶属度函数为**高斯隶属度函数**
 
@@ -97,7 +97,7 @@ $$
 
 下面给一个并（取大）和交（取小）的例子。
 
-![fuzzyset4](../assets/img/postsimg/20200925/3.jpg)
+![fuzzyset4](/assets/img/postsimg/20200925/3.jpg)
 
 ## 1.3. 模糊度
 

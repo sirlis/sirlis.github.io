@@ -24,6 +24,12 @@ Check out the [Jekyll docs][jekyll] for more info on how to get the most out of 
 
 # 2. 图片
 
+**下面内容随着Jekyll版本更新已经作废，无需修改！**
+
+直接使用路径，如 `/assets/img/postsimg/20200505/1.jpg` 即可。
+
+------
+
 为了在`.md`中使用图片相对路径，保持本地和线上显示一致，需要修改Jekyll默认的永久链接格式。Jekyll默认的永久链接格式为：
 
 ```
@@ -49,6 +55,7 @@ permalink: :title/
 - [插入图片的路径在本地md编辑器和网页端不一致](https://github.com/cotes2020/jekyll-theme-chirpy/issues/122)
 - https://jekyllrb.com/docs/permalinks/
 - https://jekyllrb.com/docs/front-matter/
+
 
 # 3. 公式
 

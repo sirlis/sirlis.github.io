@@ -198,7 +198,7 @@ $$
 
 参考：*赵玉晖《深空探测中的轨道设计和轨道力学》*
 
-![1](../assets/img/postsimg/20201020/1.jpg)
+![1](/assets/img/postsimg/20201020/1.jpg)
 
 # 3. 历法
 
@@ -258,7 +258,7 @@ Julian Date，JD 等于 JDN 加上从 UT1 时 12 时起的小数日部分。
 > The Julian date (JD) of any instant is the Julian day number plus the fraction of a day since the preceding noon in Universal Time. Julian dates are expressed as a Julian day number with a decimal fraction added.[7] For example, the Julian Date for 00:30:00.0 UT January 1, 2013, is 2 456 293.520 833.[8]
 > Current value is as of 01:35, Monday, March 30, 2020 (UTC)
 
-![2](../assets/img/postsimg/20201020/2.jpg)
+![2](/assets/img/postsimg/20201020/2.jpg)
 
 > Historically, Julian dates were recorded relative to Greenwich Mean Time (GMT) (later, Ephemeris Time), but since 1997 the International Astronomical Union has recommended that Julian dates be specified in Terrestrial Time.[12] Seidelmann indicates that Julian dates may be used with International Atomic Time (TAI), Terrestrial Time (TT), Barycentric Coordinate Time ( $\rm TCB$ ), or Coordinated Universal Time (UTC) and that the scale should be indicated when the difference is significant.[13] The fraction of the day is found by converting the number of hours, minutes, and seconds after noon into the equivalent decimal fraction. Time intervals calculated from differences of Julian Dates specified in non-uniform time scales, such as UTC, may need to be corrected for changes in time scales (e.g. leap seconds).[7]
 

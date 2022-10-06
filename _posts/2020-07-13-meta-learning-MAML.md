@@ -32,7 +32,7 @@ MAML 是2017年 Chelsea Finn 大佬提出的一种基于优化（Optimized-based
 
 核心算法示意图如下
 
-![](../assets/img/postsimg/20200713/3.jpg)
+![](/assets/img/postsimg/20200713/3.jpg)
 
 如上图所示，作者便将目标设定为，通过梯度迭代，找到对于task敏感的参数 $\theta$ 。训练完成后的模型具有对新task的学习域分布最敏感的参数，因此可以在仅一或多次的梯度迭代中获得最符合新任务的  $\theta^*$  ，达到较高的准确率。
 
@@ -45,13 +45,13 @@ MAML 是2017年 Chelsea Finn 大佬提出的一种基于优化（Optimized-based
 
 MAML在监督分类中的算法伪代码如下：
 
-![](../assets/img/postsimg/20200713/6.jpg)
+![](/assets/img/postsimg/20200713/6.jpg)
 
 该算法是 meta-train 阶段，目的是得到 $M_{meta}$。下面进行详细分析：
 
 参考示意图如下，一个 task 表示为 $\mathcal T$
 
-![](../assets/img/postsimg/20200713/2.1.jpg)
+![](/assets/img/postsimg/20200713/2.1.jpg)
 
 **第一个Require**，假设我们有一个很大的图像池，里面有很多很多类别的图像，每类图像有几十个。我们从中随机抽取五个类别，形成一个 task $\mathcal T$，如此反复随机抽取可以得到一批（e.g. 1000个）task 作为训练集 $p(\mathcal T)$。假设一个 $\mathcal T$ 包含5类，每类20个样本，随机选5样本作为support set，剩余15样本为query set。
 
@@ -433,7 +433,7 @@ $$
 
 一阶近似的MAML可以看作是如下形式的参数更新：假设每个batch只有一个task，某次采用第m个task来更新模型参数，得到$\hat\theta^m$，再求一次梯度，沿着该梯度方向更新模型的原始参数$\phi$，将其从 $\phi^0$ 更新至 $\phi^1$，以此类推。
 
-![](../assets/img/postsimg/20200713/4.jpg)
+![](/assets/img/postsimg/20200713/4.jpg)
 
 与之相比，右边是模型预训练方法，它是将参数根据每次的训练任务一阶导数的方向来更新参数。
 

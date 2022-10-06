@@ -33,13 +33,13 @@ math: true
 
 LSTM 与 RNN 的主要输入输出区别如下图所示
 
-![rnn-lstm](../assets/img/postsimg/20201004/1.jpg)
+![rnn-lstm](/assets/img/postsimg/20201004/1.jpg)
 
 ## 1.2. 模型
 
 LSTM 网络的循环单元结构如下图所示
 
-![lstm](../assets/img/postsimg/20201004/2.jpg)
+![lstm](/assets/img/postsimg/20201004/2.jpg)
 
 其中，LSTM 引入三个门来控制信息的传递，分别为遗忘门 $\boldsymbol f_t$、输入门 $\boldsymbol i_t$、输出门 $\boldsymbol o_t$。三个门的作用是：
 
@@ -146,7 +146,7 @@ $$
 
 这样的方式本质上类似 Highway Network 或者 ResNet（残差连接），使得梯度的信息可以“贯穿”时间线，缓解梯度消散。
 
-![highway](../assets/img/postsimg/20201004/3.jpg)
+![highway](/assets/img/postsimg/20201004/3.jpg)
 
 这里需要强调的是：LSTM不是让所有远距离的梯度值都不会消散，而是只让具有时序关键信息位置的梯度可以一直传递。另一方面，仅在 $c_t$ 通路上缓解了梯度消失问题，而在 $h_t$ 通路上梯度消失依然存在。
 
@@ -203,7 +203,7 @@ $$
 
 `num_layers` 是 LSTM 堆叠的层数。LSTM 可以按照下图的形式进行堆叠。
 
-![num_layers lstm](../assets/img/postsimg/20201004/4.jpg)
+![num_layers lstm](/assets/img/postsimg/20201004/4.jpg)
 
 `batch_first` 是一个可选参数，指定是否将 `batch_size` 作为输入输出张量的第一个维度，如果是，则输入和输入的维度顺序为（`batch_size， seq_length，input_size`），否则，输入和输出的默认维度顺序是（`seq_length, batch_size, input_size`）。
 

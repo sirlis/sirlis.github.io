@@ -257,7 +257,7 @@ convert_to_img(False)
 
 得到的原始图像如下
 
-![01.mnistimages](../assets/img/postsimg/20200616/01.mnistimages.png)
+![01.mnistimages](/assets/img/postsimg/20200616/01.mnistimages.png)
 
 采用以下代码即可进行训练
 

@@ -349,7 +349,7 @@ $$
 
 其推导过程如下，如图：
 
-![full probability](../assets/img/postsimg/20201030/1.jpg)
+![full probability](/assets/img/postsimg/20201030/1.jpg)
 
 $$
 \begin{aligned}
@@ -519,7 +519,7 @@ $$
 
 函数图像如下图所示
 
-![-log](../assets/img/postsimg/20201030/2.jpg)
+![-log](/assets/img/postsimg/20201030/2.jpg)
 
 **事件发生前，$f$ 表示事件发生的不确定性；事件发生后，$f$ 表示事件所含有（所提供）的信息量**。自信息采用的单位取决于对数所选的底。由于概率 $P$（作为自变量） 是小于 1 的正数，又根据实际情况自信息也必然是正数，所以对数的底应选取为大于 1 的任意数。
 

@@ -24,7 +24,7 @@ math: true
 
 图片分类任务我们已经熟悉了，就是算法对其中的对象进行分类。而今天我们要了解构建神经网络的另一个问题，即目标检测问题。这意味着，我们不仅要用算法判断图片中是不是一辆汽车， 还要在图片中标记出它的位置， 用边框或红色方框把汽车圈起来， 这就是目标检测问题。 其中“定位”的意思是判断汽车在图片中的具体位置。
 
-![](../assets/img/postimg/20210608/01.objectdetection.jpg)
+![](/assets/img/postimg/20210608/01.objectdetection.jpg)
 
 近几年来，目标检测算法取得了很大的突破。比较流行的算法可以分为两类，一类是基于 Region Proposal 的 R-CNN 系算法（R-CNN，Fast R-CNN, Faster R-CNN等），它们是two-stage的，需要先算法产生目标候选框，也就是目标位置，然后再对候选框做分类与回归。而另一类是 Yolo，SSD 这类 one-stage 算法，其仅仅使用一个卷积神经网络 CNN 直接预测不同目标的类别与位置。第一类方法是准确度高一些，但是速度慢，但是第二类算法是速度快，但是准确性要低一些。
 
@@ -32,7 +32,7 @@ math: true
 
 AlexNet 的网络结构如下：
 
-![](../assets/img/postsimg/20210608/03.alexnet.jpg)
+![](/assets/img/postsimg/20210608/03.alexnet.jpg)
 
 - Conv 11$\times$11s4,96 / ReLU
 
@@ -75,9 +75,9 @@ AlexNet 的网络结构如下：
 
 对于给定的感受野（与输出有关的输入图片的局部大小），采用堆积的小卷积核是优于采用大的卷积核，因为多层非线性层可以增加网络深度来保证学习更复杂的模式，而且代价还比较小（参数更少）。
 
-![](../assets/img/postsimg/20210607/01.vgg.jpg)
+![](/assets/img/postsimg/20210607/01.vgg.jpg)
 
-![](../assets/img/postsimg/20210607/02.vgg2.jpg)
+![](/assets/img/postsimg/20210607/02.vgg2.jpg)
 
 [VGG网络的结构](https://dgschwend.github.io/netscope/#/preset/vgg-16) 非常一致
 
@@ -100,11 +100,11 @@ $$
 > 2014. Ross Girshick，JeffDonahue,TrevorDarrell,Jitendra Malik. 
 > **Rich feature hierarchies for accurate oject detection and semantic segmentation**
 
-![](../assets/img/postsimg/20210608/02.rcnn.jpg)
+![](/assets/img/postsimg/20210608/02.rcnn.jpg)
 
 目标检测有两个主要任务：物体分类和定位，为了完成这两个任务，R-CNN借鉴了滑动窗口思想， 采用对区域进行识别的方案。RCNN是一个 two-stage （两阶段，上图中 1+2 是第一阶段，3+4 是第二阶段）目标检测算法，具体实现步骤如下：
 
-![](../assets/img/postsimg/20210607/03.rcnn.jpg)
+![](/assets/img/postsimg/20210607/03.rcnn.jpg)
 
 
 - **提取候选区域**。输入一张图片，通过指定算法从图片中提取 2000 个类别独立的候选区域（可能目标区域）。R-CNN 目标检测首先需要获取2000个目标候选区域，能够生成候选区域的方法很多，比如：
@@ -143,7 +143,7 @@ $$
 
 # 3. Fast R-CNN
 
-![](../assets/img/postsimg/20210607/04.fastrcnn.jpg)
+![](/assets/img/postsimg/20210607/04.fastrcnn.jpg)
 
 - **提取特征图（feature maps）**。输入原始图像，主干网络采用 **VGG16** 来提取特征图，3 大改进：
   - 实现大部分 end-to-end 训练（提proposal阶段除外）。所有的特征都暂存在显存中，就不需要额外的磁盘空间。
@@ -151,15 +151,15 @@ $$
   - 提出了一个RoI层，算是SPP的变种，SPP是pooling成多个固定尺度，RoI只pooling到单个固定的尺度 （论文通过实验得到的结论是多尺度学习能提高一点点mAP，不过计算量成倍的增加，故单尺度训练的效果更好。）
 
 - **提取候选框（region proposals）**。输入原始图像，通过 selective search 提取感兴趣区域。每个区域的坐标用四元数组 $[r,c,h,w]$ （左上角的行列坐标+高和宽）定义，该四元数组相对于原始图像，都有对应的 ground truth BBox 和 ground truth class label。
-  ![](../assets/img/postsimg/20210607/05.regionproposal.jpg)
+  ![](/assets/img/postsimg/20210607/05.regionproposal.jpg)
 - **将候选框坐标映射到 feature map 上**。采用 VGG16 时，最后一个 max pooling 层后接 ROI pooling 层，区域坐标经过 5 次池化，输出的 feature maps 是原图像的 1/32（`16x16x512`），则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以 32 并量化到最接近的整数，得到映射的坐标，即为 ROI feture map。
-  ![](../assets/img/postsimg/20210607/06.roifeature.jpg)
+  ![](/assets/img/postsimg/20210607/06.roifeature.jpg)
   在上图的例子中，一个 ROI 的原始大小为 `145x200` ，左上角设置为 `(192x296)` 。除以 32（比例因子）并取整，左上角变为 `(9,6)`，高宽变为 `4x6`，得到的 ROI feature maps 为 $[9,6,4,6]$。
-  ![](../assets/img/postsimg/20210607/07.roifeaturequant.jpg)
+  ![](/assets/img/postsimg/20210607/07.roifeaturequant.jpg)
   注意，映射过程存在一次量化损失。损失的信息如上图蓝色区域所示（之后会有改进的 ROI Align 方法去除损失）。
 - **ROI pooling**。输入 conv5 层输出的 feature maps 以及 ROI 在该层上的映射（即 ROI feature maps），将其转换为固定大小 feature maps 输出，以便送入后续固定长度的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以计算出池化窗口的尺寸为：$(h/H)\times (w/W)$，即用这个计算出的窗口对 RoI feature map 做 max pooling，Pooling 对每一个 feature map 通道都是独立的。
   假设我们需要将上面得到的 `4x6x512` 池化为固定大小的 `3x3x512` feature maps，需要进行 `(4/3)x(6/3)x512 = 1x2x512` 的卷积核进行最大池化，会丢失 ROI 的最后一行。如此遍历每个 ROI feature map 最终得到 `Nx3x3x512` 的矩阵。
-  ![](../assets/img/postsimg/20210607/08.roipooling.jpg)
+  ![](/assets/img/postsimg/20210607/08.roipooling.jpg)
   注意，ROI Pooling 过程存在第二次量化损失（上面的例子中为最后一行）。
 
 - **回归与分类**。将所有得到的固定大小的 ROI feature map 送入两个 4096 维的 FC 层，然后分别送入并列的两个 21 和 84 维的FC 层。前者是分类的输出，代表每个 ROI 属于每个类别（20类+背景）的得分，后者是回归的输出，代表每个 ROI 所属类别的四个坐标。
@@ -170,8 +170,8 @@ Fast R-CNN 的主要缺点在于 region proposal 的提取使用 selective searc
 
 # 4. Faster R-CNN
 
-![](../assets/img/postsimg/20210608/05.faster-rcnn2.jpg)
-![](../assets/img/postsimg/20210608/05.faster-rcnn.jpg)
+![](/assets/img/postsimg/20210608/05.faster-rcnn2.jpg)
+![](/assets/img/postsimg/20210608/05.faster-rcnn.jpg)
 
 - 将输入图像缩放至固定大小 `M x N`，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 `M/16 x N/16 x 256` 的 feature maps。
 - feature map 分别送入两个模块：Region Proposal Network （RPN）和 ROI Pooling。
@@ -180,7 +180,7 @@ Fast R-CNN 的主要缺点在于 region proposal 的提取使用 selective searc
   - 单通道 feature map ，anchor，softmax
   - 生成一堆 anchors，对其进行裁剪过滤后，通过 softmax 判断 anchors 属于前景（物体）还是背景，二分类。
     > anchors 是一个矩阵，代表了一组矩形框，矩阵的每一行表示矩形左上和右下点的座标，比如，`rpn/generate_anchors.py` 生成 9 个矩形共有三种形状，三种尺寸分别是小（蓝 128）中（红 256）大（绿 512），三种比例分别为 `1:1, 1:2, 2:1` 。
-    > ![](../assets/img/postsimg/20210608/06.anchor.jpg)
+    > ![](/assets/img/postsimg/20210608/06.anchor.jpg)
 
 # 5. 参考文献
 

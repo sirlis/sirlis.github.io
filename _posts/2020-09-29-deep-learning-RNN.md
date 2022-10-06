@@ -51,7 +51,7 @@ $$
 
 网络结构如下图所示
 
-![rnn](../assets/img/postsimg/20200929/1.jpg)
+![rnn](/assets/img/postsimg/20200929/1.jpg)
 
 从数学上讲，上述公式可以堪称一个动力系统，因此隐层活性值在很多文献中也称为隐状态（hidden state）。
 
@@ -61,7 +61,7 @@ $$
 
 如果我们把每个时刻的状态都看作前馈神经网络的一层，循环神经网络可以看作在时间维度上权值共享的神经网络。一个简单的循环神经网络按时间展开后如下图所示
 
-![rnn](../assets/img/postsimg/20200929/2.jpg)
+![rnn](/assets/img/postsimg/20200929/2.jpg)
 
 令 $\boldsymbol x_t \in \mathbb R^M$ 为 $t$ 时刻的网络输入向量，则在该时刻的网络隐状态 $\boldsymbol h_t \in \mathbb R^D$ 和网络输出 $\boldsymbol y_t \in \mathbb R^N$ 的更新公式为
 
@@ -80,7 +80,7 @@ $$
 
 有了RNN前向传播算法的基础，就容易推导出RNN反向传播算法的流程了。RNN 反向传播算法的思路和 DNN 是一样的，即通过梯度下降法一轮轮的迭代，得到合适的RNN模型参数 $\boldsymbol U,\boldsymbol W,\boldsymbol V,\boldsymbol b,\boldsymbol c$。由于我们是**基于时间反向传播**，所以 RNN 的反向传播有时也叫做 **BPTT** (back-propagation through time)。当然这里的 BPTT 和 DNN 的 BP 也有很大的不同点，即这里所有的 $\boldsymbol U, \boldsymbol W,\boldsymbol V,\boldsymbol b,\boldsymbol c$ 在序列的各个位置是共享的，反向传播时我们更新的是相同的参数。
 
-![rnn](../assets/img/postsimg/20200929/5.jpg)
+![rnn](/assets/img/postsimg/20200929/5.jpg)
 
 RNN反向传播过程中，需要计算 $\boldsymbol U,\boldsymbol W,\boldsymbol V,\boldsymbol b,\boldsymbol c$ 等参数的梯度。清晰起见，我们将前向传播过程整理如下
 
@@ -95,7 +95,7 @@ $$
 
 反向传播的形象的分析如下图所示。途中绿线是正向传播过程，红线是反向传播过程。可以看出，在输出端的 $V,c$ 参数仅与 $t$ 时刻的反向传播通路有关，因此分别求导数后求和即可。而输入端 $U,W,b$ 参数的梯度受到两个反向传播通路的影响，分别是 $t$ 时刻的输出端反向通路，以及 $t+1$ 时刻隐层信息的反向通路。
 
-![rnn](../assets/img/postsimg/20200929/6.jpg)
+![rnn](/assets/img/postsimg/20200929/6.jpg)
 
 为了简化描述，这里的损失函数我们为[交叉熵损失函数](https://zhuanlan.zhihu.com/p/38241764)，输出的激活函数 $g(\cdot)$ 为 softmax 函数。对于 RNN，由于在序列的每个位置（任意 $t$ 时刻）都有输出 $\hat y_t$，也即都有损失函数，因此最终损失 $L$ 为
 
@@ -203,7 +203,7 @@ $\boldsymbol U,\boldsymbol W,\boldsymbol b$ 的梯度计算就比较复杂了，
 
 二者使用完全依据习惯而定，二者结果之间差一个转置。[这里](https://www.zhihu.com/question/352174717)讨论了两种布局下的优劣。
 
-<!-- ![layout](../assets/img/postsimg/20200929/2.5.jpg) -->
+<!-- ![layout](/assets/img/postsimg/20200929/2.5.jpg) -->
 
 
 如果我们采用分母布局（[点此参考](https://www.pianshen.com/article/5516168061/)），即分母保持列向量，分子按行向量展开，那么有
@@ -447,7 +447,7 @@ $$
 
 而对 $tanh$ 及  $tan'h$  进行画图如下
 
-![tanh](../assets/img/postsimg/20200929/7.jpg)
+![tanh](/assets/img/postsimg/20200929/7.jpg)
 
 可以看出，由于 $tanh'$ 的值域在 $(0,1)$ 之间，对于训练过程大部分情况下 $tanh'$ 是小于 1 的。若 $\boldsymbol W^T$ 的取值较小导致 $WT = \boldsymbol W^T tanh'(h) <1$，**多项连乘会导致最终的值趋近于0**。因此，随着 $t$ 与 $T$ 的逐渐拉大，隐层梯度中包含的 $WT$ 项的次方越来越高，其取值越来越接近 0 。这会导致较长时间 $t$ 前的梯度项 $\nabla_{\boldsymbol h_{t-1}}\boldsymbol L$ 中的第一项十分接近 0 ，即导致较长时间 $t$ 前的 $\boldsymbol L$ 对参数的梯度项仅与那个时刻的输出有关（上式中的 $\nabla$ 项），而不再包含 $\boldsymbol L$ 的信息。
 

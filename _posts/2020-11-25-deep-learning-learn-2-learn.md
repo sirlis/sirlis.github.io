@@ -97,7 +97,7 @@ $$
 
 ## 2.1. 问题框架
 
-![structure](../assets/img/postsimg/20201130/0.jpg)
+![structure](/assets/img/postsimg/20201130/0.jpg)
 
 假设最终的 optimizee 的参数为 $\theta^*(f,\phi)$，即其与 optimizer 参数 $\phi$ 和位置的目标函数 $f$ 有关。
 
@@ -155,11 +155,11 @@ $$
 
 可以用 GD 来最小化 $\mathcal L(\phi)$，梯度估计 $\partial \mathcal L(\phi)/\partial\phi$ 可以通过采样随机的 $f$ 然后对计算图进行反向传播来求解。我们允许梯度沿着实线反传，但是丢弃了沿着虚线的路径。这种考虑相当于假设 $\partial \nabla_t/\partial \phi = 0$，这样可以避免计算 $f$ 的二阶导。
 
-![lstmlearn](../assets/img/postsimg/20201130/1.jpg)
+![lstmlearn](/assets/img/postsimg/20201130/1.jpg)
 
 > 【**个人理解**】：从计算图上求$\partial \mathcal L(\phi)/\partial\phi$，需要沿着箭头方向反向流动，如果考虑虚线，那么就包括如下图所示的路径，这需要求 $\partial \nabla_t/\partial \theta \cdot \partial \theta / \partial \phi$，其中 $\theta$ 对 $\phi$ 包含三部分，一部分是 lstm 内直接相关的 $\partial \theta / \partial \phi$，另一部分是通过隐层回传的 $\partial \theta / \partial h_t$。第三一部分是随着 $\nabla_tf$ 往前回传的（$\partial \nabla_t/\partial \phi = \partial \nabla_t / \partial \theta \cdot \partial \theta / \partial \phi$），这一部分中包含 $f$ 的二阶导（$\partial \nabla_t / \partial \theta$），为了计算简便，作者假设该项等于 0，也即忽略了下图中梯度回传的虚线（红线）路径。
 >
-> ![lstmlearn](../assets/img/postsimg/20201130/3.jpg)
+> ![lstmlearn](/assets/img/postsimg/20201130/3.jpg)
 
 
 从上面 LSTM 优化器的设计来看，我们几乎没有加入任何先验的人为经验在里面，只是用了长短期记忆神经网络的架构，优化器本身的参数 $\phi$ 即 LSTM 的参数，这个优化器的参数代表了我们的更新策略，后面我们会学习这个参数，即学习用什么样的更新策略。
@@ -176,7 +176,7 @@ $$
 
 换句话说，这样设计的 lstm 变相实现了优化与维度（顺序）无关。这与传统的 RMSprop 和 ADAM 的优化方式类似，它们也是为每个维度的参数施行同样的梯度更新规则。
 
-![smalllstm](../assets/img/postsimg/20201130/2.jpg)
+![smalllstm](/assets/img/postsimg/20201130/2.jpg)
 
 > Adrien Lucas Ecoffet 的解读<sup>[[1](#ref1)]</sup>：
 > The “coordinatewise” section is phrased in a way that is a bit confusing to me, but I think it is actually quite simple: what it means is simply this: **every single “coordinate” has its own state** (though **the optimizer itself is shared**), and information is not shared across coordinates.
@@ -211,7 +211,7 @@ $$
 
 变换后画图如下（图中 $p=1$）
 
-![preprocessing](../assets/img/postsimg/20201130/4.jpg)
+![preprocessing](/assets/img/postsimg/20201130/4.jpg)
 
 
 # 3. 实验
@@ -241,7 +241,7 @@ $$
 
 结果如下
 
-![quadratic fcn](../assets/img/postsimg/20201130/5.jpg)
+![quadratic fcn](/assets/img/postsimg/20201130/5.jpg)
 
 ## 3.2. MNIST（MLP）
 
@@ -251,7 +251,7 @@ $$
 
 采用前面设计的预处理，后处理给 lstm 的输出乘以 0.1。结果如下
 
-![mnist](../assets/img/postsimg/20201130/6.jpg)
+![mnist](/assets/img/postsimg/20201130/6.jpg)
 
 下面研究对不同架构的泛化。
 
@@ -263,11 +263,11 @@ $$
 
 结果如下
 
-![mnist2](../assets/img/postsimg/20201130/7.jpg)
+![mnist2](/assets/img/postsimg/20201130/7.jpg)
 
 还对不同的架构的最终 loss 结果进行了比较。左图两虚线交叉表示基准（optimizer 在 1 层 20 神经元的架构下训练），其它点表示其它改变过后的架构。
 
-![mnist3](../assets/img/postsimg/20201130/8.jpg)
+![mnist3](/assets/img/postsimg/20201130/8.jpg)
 
 ## 3.3. CIFAR（CNN）
 
@@ -277,7 +277,7 @@ optimizee 采用包含卷积层和全连接层在内的网络，三层卷积层+
 
 结果如下（原文说的很乱，没法解读结果，好就完事了）
 
-![cifar](../assets/img/postsimg/20201130/9.jpg)
+![cifar](/assets/img/postsimg/20201130/9.jpg)
 
 > The left-most plot displays the results of using the optimizer to fit a classifier on a held-out test set. The additional two plots on the right display the performance of the trained optimizer on modified datasets which only contain a subset of the labels, i.e. the CIFAR-2 dataset only contains data corresponding to 2 of the 10 labels. Additionally we include an optimizer LSTM-sub which was only trained on the held-out labels.
 

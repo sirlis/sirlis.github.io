@@ -71,7 +71,7 @@ save('MixResults.mat','dataCell');
 
 最终保存的文件形式如图所示
 
-![image-20200814214150568](../assets/img/postsimg/20200815/1.jpg)
+![image-20200814214150568](/assets/img/postsimg/20200815/1.jpg)
 
 ## 1.2. Python读取mat文件
 
@@ -146,7 +146,7 @@ array([[array([[array(['wty0.0'], dtype='<U6')]], dtype=object),
 
 得到的数据为 ndarray ，数据结构为
 
-![image-20200815232302271](../assets/img/postsimg/20200815/2.jpg)
+![image-20200815232302271](/assets/img/postsimg/20200815/2.jpg)
 
 取出其中 `wty` 的数值，可以借助 `strip` 砍掉 “wty” 三个字符。注意 `strip` 返回的是一个字符串，需要通过强制格式转换转为数字
 
