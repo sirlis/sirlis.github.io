@@ -1,6 +1,7 @@
-
 ---
-title: 关于
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
 ---
 
 **分享生活和科研的日常。**
