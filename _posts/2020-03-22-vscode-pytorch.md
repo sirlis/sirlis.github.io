@@ -37,7 +37,7 @@ PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语�
 
 # 2. 配置Python开发环境
 
-参考[《VSCode部署Python开发环境》](http://sirlis.github.io/2020-03-21-vscode-python/)配置。
+参考[《VSCode部署Python开发环境》](http://sirlis.cn/posts/vscode-python/)配置。
 
 # 3. 配置PyTorch
 
@@ -119,13 +119,13 @@ CUDA依赖显卡驱动，提前更新显卡驱动并确认显卡驱动支持的C
 
 采用命令行安装时，命令行中已经带有安装CUDA的指令 `cudatoolkit=10.1`。若命令行安装失败，可通过Anaconda界面安装cudatoolkit。
 
-若界面安装仍然失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
+若界面安装仍然失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#33-手动部署cuda和cudnn)。
 
 ### 3.2.2. cuDNN
 
 可通过Anaconda界面安装。
 
-若界面安装失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#手动部署CUDA和cuDNN)。
+若界面安装失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#33-手动部署cuda和cudnn)。
 
 ### 3.2.3. Numpy
 
