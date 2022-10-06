@@ -1,6 +1,6 @@
 ---
 title: 数字孪生（光纤陀螺）
-date: 2022-10-23 16:23:19 +0800
+date: 2022-09-23 16:23:19 +0800
 categories: [Application, Engineering]
 tags: [simulation]
 math: true

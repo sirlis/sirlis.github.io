@@ -1,6 +1,6 @@
 ---
 title: 天文学基础（坐标系统）
-date: 2022-10-23 16:23:19 +0800
+date: 2022-03-23 16:23:19 +0800
 categories: [Academic, Knowledge]
 tags: [astronomy]
 math: true
