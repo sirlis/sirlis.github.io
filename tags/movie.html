@@ -1,5 +1,0 @@
----
-layout: tag
-title: movie
-tag: movie
----
