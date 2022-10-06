@@ -144,7 +144,7 @@ L(\boldsymbol{s},\boldsymbol{t},\boldsymbol{u},\boldsymbol{D}) &= \sum\limits_i 
 & + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 >+
 < {\boldsymbol \mu_i},{\boldsymbol{t}_i} - {\boldsymbol{s}_i} >  \\
-& + \frac{{{\rho}}}
+& + \frac{\rho}
 {2}(\vert\vert{\boldsymbol{t}_i} - {\boldsymbol{s}_i}\vert\vert_2^2+\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2)
 \end{aligned}
 $$
@@ -164,7 +164,7 @@ $$
 \min_{\boldsymbol s_i} \; &  \frac{1}{2}\vert\vert{\boldsymbol{x}_i} -  \boldsymbol{D}^{(k)}{\boldsymbol{s}_i}\vert\vert_2^2\\
 & + {\eta _1}\sum\limits_{j} u^{(k)}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
 & +  < {\mu_{i}},{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i} > \\
-& + \frac{{{\rho}}}
+& + \frac{\rho}
 {2}\vert\vert{\boldsymbol{t}^{(k)}_i} - {\boldsymbol{s}_i}\vert\vert_2^2\\
 \end{aligned}
 $$
@@ -223,7 +223,7 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial}{\partial \boldsymbol s_i} \frac{{{\rho}}}
+\frac{\partial}{\partial \boldsymbol s_i} \frac{\rho}
 {2}\vert\vert \boldsymbol{t}^{(k)}_i - {\boldsymbol{s}_i}\vert\vert_2^2
 =&\rho\vert\vert \boldsymbol{t}^{(k)}_i - {\boldsymbol{s}_i}\vert\vert_2 \frac{\boldsymbol{t}^{(k)}_i - \boldsymbol{s}_i}{\vert\vert \boldsymbol{t}^{(k)}_i - {\boldsymbol{s}_i}\vert\vert_2}\cdot (-\boldsymbol I)\quad (129)\\
 =&\rho(\boldsymbol{s}_i - \boldsymbol{t}^{(k)}_i)
@@ -312,7 +312,7 @@ $$
 \min_{\boldsymbol u_i} L(\boldsymbol{u}) &=  {\eta _1}\sum\limits_{i,j} {u}_{ij}\vert\vert{\boldsymbol{s}_i} - {\boldsymbol{c}_j}\vert\vert_2^2 \\
 & + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 > \\
-& + \frac{{{\rho}}}
+& + \frac{\rho}
 {2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
 \end{aligned}
 $$
@@ -344,11 +344,11 @@ $$
 \min_{\boldsymbol u_i} L(\boldsymbol{u}) = & \sum\limits_{i}\eta _1\cdot  tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})\\
 & + {\eta _2}\sum\limits_{i}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & + < {\theta _{i}},\boldsymbol{u}_i\boldsymbol{1} - 1 > \\
-& + \frac{{{\rho}}}{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2\\
+& + \frac{\rho}{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2\\
 = & \eta _1\cdot  tr(\boldsymbol u^T_i \cdot \boldsymbol T^{(k)})\\
 & + {\eta _2}I(i \in \Omega )\vert\vert{\hat{\boldsymbol{u}}_i} - {\boldsymbol{u}_i}\vert\vert_2^2 \\
 & +  {\theta _{i}}(\boldsymbol{u}_i\boldsymbol{1} - 1 ) \\
-& + \frac{{{\rho}}}{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
+& + \frac{\rho}{2}\vert\vert\boldsymbol{u}_i\boldsymbol{1} - 1\vert\vert_2^2
 \end{aligned}
 $$
 
