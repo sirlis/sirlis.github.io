@@ -6,7 +6,7 @@ tags: [html]
 math: true
 ---
 
-本文介绍了基于 jekyll 的个人博客环境的搭建方法，并介绍了部署到 github pages 的方法。
+本文介绍了基于 Chirpy Jekyll Theme 的个人博客环境的搭建方法，并介绍了部署到 github pages 的方法。
 
 <!--more-->
 
