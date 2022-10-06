@@ -112,7 +112,7 @@ $$
 
 > the prototypical networks algorithm is equivalent to performing mixture density estimation on the support set with an exponential family density. Prototype computation can be viewed in terms of hard clustering on the support set, with one cluster per class and each support point assigned to its corresponding class cluster.
 
-[如何理解Bregman divergence？]([https://www.zhihu.com/question/22426561/answer/209945856](https://links.jianshu.com/go?to=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F22426561%2Fanswer%2F209945856))
+[如何理解Bregman divergence？](https://links.jianshu.com/go?to=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F22426561%2Fanswer%2F209945856)
 
 已被证明，对于 Bregman 散度，聚类的均值就是到各类特征的距离的极小值。也就是说，如果采用某个 Bregman 散度距离函数，原型计算 $c_k$ 等价于 support set 中样本标签的最优聚类表示。
 
