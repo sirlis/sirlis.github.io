@@ -22,7 +22,7 @@ tags: [python]
 
 参考：https://blog.csdn.net/anshuai_aw1/article/details/82344884
 
-假设我们有一个const.py文件，内容如下：
+假设我们有一个`const.py`文件，内容如下：
 
 ```python
 PI = 3.14
@@ -35,7 +35,7 @@ main()
 # 运行结果：PI: 3.14
 ```
 
-现在，我们写一个用于计算圆面积的area.py文件，area.py文件需要用到const.py文件中的PI变量。从const.py中，我们把PI变量导入area.py：
+现在，我们写一个用于计算圆面积的`area.py`文件，area.py文件需要用到const.py文件中的PI变量。从const.py中，我们把PI变量导入`area.py`：
 
 ```python
 from const import PI
@@ -67,13 +67,13 @@ if __name__ == "__main__":
     main()
 ```
 
-运行const.py，输出如下：
+运行`const.py`，输出如下：
 
 ```python
 PI: 3.14
 ```
 
-运行area.py，输出如下：
+运行`area.py`，输出如下：
 
 ```python
 round area:  12.56

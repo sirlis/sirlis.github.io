@@ -85,7 +85,7 @@ NLP领域也引入了这种做法，用一个通用模型，在非常大的语�
 
 # 2. Encoder-Decoder
 
-在之前贴子关于 [RNN](deep-learning-RNN.md) / [LSTM](deep-learning-LSTM.md) 的讨论中，我们均考虑的是输入输出序列**等长**的问题，然而在实际中却大量存在输入输出序列长度不等的情况，如机器翻译、语音识别、问答系统等。这时我们便需要设计一种映射可变长序列至另一个可变长序列的RNN网络结构，Encoder-Decoder框架呼之欲出。
+在之前贴子关于 RNN / LSTM 的讨论中，我们均考虑的是输入输出序列**等长**的问题，然而在实际中却大量存在输入输出序列长度不等的情况，如机器翻译、语音识别、问答系统等。这时我们便需要设计一种映射可变长序列至另一个可变长序列的RNN网络结构，Encoder-Decoder框架呼之欲出。
 
 vieo. [encoder-decoder模型](https://blog.csdn.net/weixin_41803874/article/details/89409858)
 
@@ -143,7 +143,7 @@ $$
 > 学术状态抽奖器. [深度学习（BOT方向） 学习笔记（2） RNN Encoder-Decoder 及 LSTM 学习](https://blog.csdn.net/mebiuw/article/details/53341404)
 > 张俊林博客. [使用Encoder-Decoder模型自动生成对联的思路](https://blog.csdn.net/malefactor/article/details/51124732)
 
-最经典的 Encoder-Decoder 实现方式，即用 RNN 来实现。在RNN Encoder-Decoder 的工作当中，我们用一个 RNN 去模拟大脑的读入动作，用一个特定长度的特征向量去模拟我们的记忆，然后再用另外一个 RNN 去模拟大脑思考得到答案的动作，将三者组织起来利用就成了一个可以实现 Sequence2Sequence 工作的“模拟大脑”了。关于 RNN 的介绍这里不做展开，详见 [此处](deep-learning-RNN)。
+最经典的 Encoder-Decoder 实现方式，即用 RNN 来实现。在RNN Encoder-Decoder 的工作当中，我们用一个 RNN 去模拟大脑的读入动作，用一个特定长度的特征向量去模拟我们的记忆，然后再用另外一个 RNN 去模拟大脑思考得到答案的动作，将三者组织起来利用就成了一个可以实现 Sequence2Sequence 工作的“模拟大脑”了。关于 RNN 的介绍这里不做展开，详见 [另一个帖子](https://sirlis.cn/posts/deep-learning-RNN/)。
 
 下面以对联为例采用 RNN 来阐述生成过程，那么架构图如下图所示
 

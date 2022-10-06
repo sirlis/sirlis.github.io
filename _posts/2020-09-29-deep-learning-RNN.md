@@ -89,7 +89,7 @@ $$
 \boldsymbol a_t &= \boldsymbol W \boldsymbol h_{t-1} + \boldsymbol U \boldsymbol x_t + \boldsymbol b\\
 \boldsymbol h_t &= f(\boldsymbol a_t)\\
 \boldsymbol o_t &= \boldsymbol V \boldsymbol h_t + \boldsymbol c\\
-\hat \boldsymbol y_t &= g(\boldsymbol o_t)
+\hat{\boldsymbol y_t} &= g(\boldsymbol o_t)
 \end{aligned}
 $$
 
@@ -106,13 +106,13 @@ $$
 其中, $\boldsymbol 1_i$ 表示第 $i$ 维为1，其余维为0的向量。 -->
 
 $$
-\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - \boldsymbol y_t ln\hat \boldsymbol y_t \right]
+\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - \boldsymbol y_t ln\hat{\boldsymbol y_t} \right]
 $$
 
 注意到，对于任意时刻 $t$ 的损失函数 $\boldsymbol L_t$，在 $N$ 分类问题中其与每个维度分量均有关，因此损失函数可以进一步写为
 
 $$
-\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = -\sum_{t=1}^T\sum_{j=1}^N y_{tj}{\rm ln} \hat y_{tj}
+\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = -\sum_{t=1}^T\sum_{j=1}^N y_{tj}{\rm ln} \hat{y_{tj}}
 $$
 
 上式就是负对数似然函数的形式。
@@ -135,12 +135,12 @@ $$ -->
 $$
 \begin{aligned}
 \frac{\partial L}{\partial \boldsymbol c} &= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \boldsymbol c}
-= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
-&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat \boldsymbol y_t})\cdot softmax'\cdot \boldsymbol I\\
+= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat{\boldsymbol y_t}} \frac{\partial \hat{\boldsymbol y_t}}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
+&= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat{\boldsymbol y_t}})\cdot softmax'\cdot \boldsymbol I\\
 \end{aligned}
 $$
 
-由于 $softmax'$ 需要[分情况讨论](deep-learning-probability-basic/#35-softmax-函数)，当 $j=i$ 时 $softmax' = \hat y_j(1-\hat y_j)$；当 $j\neq i$ 时 $softmax' = \hat y_j\hat y_i$，那么有
+由于 $softmax'$ 需要分情况讨论，当 $j=i$ 时 $softmax' = \hat y_j(1-\hat y_j)$；当 $j\neq i$ 时 $softmax' = \hat y_j\hat y_i$，那么有
 
 $$
 \begin{aligned}
@@ -173,14 +173,14 @@ $$
 
 进一步分析
 
-- $j=i:\quad y_{tj}(1-\hat y_{tj}) = 1-\hat y_{tj} = y_{tj} - \hat y_{tj}$
-- $j\neq i:\quad y_{tj}\hat y_{ti} = \hat y_{ti} = y_{tj} - \hat y_{tj}$
+- $j=i:\quad y_{tj}(1-\hat y_{tj}) = 1-\hat y_{tj} = y_{tj} - \hat{y_{tj}}$
+- $j\neq i:\quad y_{tj}\hat y_{ti} = \hat y_{ti} = y_{tj} - \hat{y_{tj}}$
 
-可以发现，二者在形式上可以写成统一的形式 $\boldsymbol y_{tj} - \hat \boldsymbol y_{tj}$，那么有
+可以发现，二者在形式上可以写成统一的形式 $\boldsymbol y_{tj} - \hat {\boldsymbol y_{tj}}$，那么有
 
 $$
 \begin{aligned}
-\frac{\partial L}{\partial \boldsymbol c} = - \sum_{t=1}^T (\boldsymbol y_{tj} - \hat \boldsymbol y_{tj}) =\sum_{t=1}^T (\hat \boldsymbol y_{tj} - \boldsymbol y_{tj})
+\frac{\partial L}{\partial \boldsymbol c} = - \sum_{t=1}^T (\boldsymbol y_{tj} - \hat {\boldsymbol y_{tj}}) =\sum_{t=1}^T (\hat {\boldsymbol y_{tj}} - \boldsymbol y_{tj})
 \end{aligned}
 $$
 
@@ -189,8 +189,8 @@ $$
 $$
 \begin{aligned}
 \frac{\partial L}{\partial V} &= \sum_{t=1}^T \frac{\partial L_t}{\partial c}
-= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat \boldsymbol y_t} \frac{\partial \hat \boldsymbol y_t}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
-&= \sum_{t=1}^T (\hat \boldsymbol y_t-\boldsymbol y_t)\boldsymbol h_t
+= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat {\boldsymbol y_t}} \frac{\partial \hat {\boldsymbol y_t}}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
+&= \sum_{t=1}^T (\hat {\boldsymbol y_t}-\boldsymbol y_t)\boldsymbol h_t
 \end{aligned}
 $$
 
@@ -266,7 +266,7 @@ $$
 前面求 $\boldsymbol V, \boldsymbol c$ 的梯度时已经求出
 
 $$
-\frac{\partial \boldsymbol L}{\partial \boldsymbol o_T} = \frac{\partial \boldsymbol L}{\partial \hat \boldsymbol y_T}\frac{\partial \hat \boldsymbol y_T}{\partial \boldsymbol o_T} = \hat \boldsymbol y_T-\boldsymbol y_T = \nabla_{\boldsymbol o_T}\boldsymbol L
+\frac{\partial \boldsymbol L}{\partial \boldsymbol o_T} = \frac{\partial \boldsymbol L}{\partial \hat {\boldsymbol y_T}}\frac{\partial \hat {\boldsymbol y_T}}{\partial \boldsymbol o_T} = \hat {\boldsymbol y_T}-\boldsymbol y_T = \nabla_{\boldsymbol o_T}\boldsymbol L
 $$
 
 假定 $\boldsymbol {Vh}_T$ 的结果是**列**向量，而 $\boldsymbol h_T$ 也是**列**向量，根据分母布局，有

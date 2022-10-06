@@ -182,7 +182,7 @@ $$
 
 其中，$\sigma$ 表示 $sigmoid$ 激活函数。$f_t$ 表示遗忘门层。$N\_seq_{Traj_t}$ 是当前邻近网格单元序列输入，$M\_seq_{Traj_t}$ 是当前邻近网格单元序列的隶属度，$h_{t -1}$ 是上一时刻的输出，$W_f$ 是遗忘门层的权重矩阵，$b_f$ 是遗忘门层的偏差。
 
-> 可以参考[传统的 LSTM 单元和公式](deep-learning-LSTM)便于比对。这里将公式列写如下：
+> 可以参考[传统的 LSTM 单元和公式](http://sirlis.cn/posts/deep-learning-LSTM/)便于比对。这里将公式列写如下：
 > 
 > $$
 \boldsymbol f_t = \sigma(\boldsymbol W_f\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)
@@ -197,19 +197,19 @@ i_t &= \sigma(M\_seq_{Traj_t}\cdot W_i\cdot [h_{t-1},N\_seq_{Traj_t}]+ b_i)\\
 \end{aligned}
 $$
 
-> 相应的[传统的 LSTM 单元和公式](deep-learning-LSTM)为
+> 相应的传统的 LSTM 单元和公式为
 >
 > $$
 \begin{aligned}
 \boldsymbol i_t &= \sigma(\boldsymbol W_i\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
-\tilde \boldsymbol c_t &=\sigma(\boldsymbol W_c\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)
+\tilde {\boldsymbol c_t} &=\sigma(\boldsymbol W_c\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)
 \end{aligned}
 $$
 
 与传统 LSTM 相同，更新细胞状态 $C_t$
 
 $$
-C_t = f_t \odot c_{t-1} + i_t \odot \tilde \boldsymbol c_t
+C_t = f_t \odot c_{t-1} + i_t \odot \tilde {\boldsymbol c_t}
 $$
 
 最后，更新 LSTM 单元的输出

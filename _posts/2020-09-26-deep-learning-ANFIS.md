@@ -152,7 +152,7 @@ invars[1] = ['x1', [GaussMembFunc(), GaussMembFunc(), GaussMembFunc()]]
 outvars = ['y0', 'y1', 'y2']
 ```
 
-最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [AnfisNet()](#241-anfisnet) 查阅。
+最后，将 `invars` 和 `outvars`  作为参数传入 `AnfisNet()` 建立 ANFIS 网络。转到 [AnfisNet()](#41-anfisnet) 查阅。
 
 ## 3.2. make_gauss_mfs()
 
@@ -260,7 +260,7 @@ FuzzifyVariable(
 )]
 ```
 
-跳转到 [`FuzzifyVariable()` 类](#242-fuzzifyvariable-类) 查阅更多。
+跳转到 [`FuzzifyVariable()` 类](#42-fuzzifyvariable-类) 查阅更多。
 
 `self.num_rules` 将所有隶属度函数个数做元素积，这里
 
@@ -269,7 +269,7 @@ FuzzifyVariable(
 np.prod[3,3] = 9
 ```
 
-然后将`self.num_in`，`self.num_rules`，`self.num_out` 作为参数传给 [`PlainConsequentLayer()` 类](#244-plainconsequentlayer-类)。 最终，形成一个三层网络结构 `self.layer`。
+然后将`self.num_in`，`self.num_rules`，`self.num_out` 作为参数传给 [`PlainConsequentLayer()` 类](#44-plainconsequentlayer-类)。 最终，形成一个三层网络结构 `self.layer`。
 
 其中，`self.num_in`，`self.num_rules` 在实例化 `AnfisNet` 时确定，而 `self.num_out` 是通过下面代码根据 `self.outvarnames` 的长度得到的
 

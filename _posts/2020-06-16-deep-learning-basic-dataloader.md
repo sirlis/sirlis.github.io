@@ -31,7 +31,7 @@ math: true
 
 这里我们主要介绍前三个。
 
-`torchvision.datasets` 是用来进行数据加载的，PyTorch团队在这个包中帮我们提前处理好了很多很多图片数据集。参考 [PyTorch中文文档](#https://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-datasets/) 中的相关介绍。
+`torchvision.datasets` 是用来进行数据加载的，PyTorch团队在这个包中帮我们提前处理好了很多很多图片数据集。参考PyTorch中文文档中的[相关介绍](https://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-datasets/)。
 
 - MNIST
 - COCO
@@ -72,7 +72,7 @@ torch.utils.data.DataLoader(coco_cap, batch_size=args.batchSize, shuffle=True, n
 
 这个类其实也就是起到了封装我们加载函数的作用，在继承了这个 `Dataset` 类之后，我们需要实现的核心功能便是 `__getitem__()`函数，`__getitem__()` 是 `Python` 中类的默认成员函数，我们通过实现这个成员函数实现可以通过索引来返回图像数据的功能。那么怎么得到图像从而去返回呢？当然不会直接将图像数据加载到内存中，相反我们只需要得到图像的地址就足够了，然后在调用的时候通过不同的读取方式读取即可。
 
-不同的读取方式参见：[python深度学习库pytorch::transforms练习:opencv,scikit-image,PIL图像处理库比较](#https://oldpan.me/archives/pytorch-transforms-opencv-scikit-image)。
+不同的读取方式参见 [此处](https://oldpan.me/archives/pytorch-transforms-opencv-scikit-image)。
 
 ## 2.2. 自定义类
 
