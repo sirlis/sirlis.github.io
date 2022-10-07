@@ -20,12 +20,12 @@ math: true
 - [3. 产品（product目录）](#3-产品product目录)
 - [4. 精密星历](#4-精密星历)
   - [4.1. GPS 周](#41-gps-周)
-  - [4.2. 精密星历文件](#42-精密星历文件)
+- [5. 精密星历文件](#5-精密星历文件)
   
 
 核心参考文献：[GNSS](https://blog.csdn.net/gou_hailong/category_10131532.html). [CDDIS网站下 GNSS 相关的数据产品下载+命名方式解读+文件格式说明文件下载地址](https://blog.csdn.net/Gou_Hailong/article/details/109191352)
 
-# 1. 数据（data目录）
+## 1. 数据（data目录）
 
 CDDIS存档包含来自永久GNSS接收器全球网络的GNSS数据，这些网络支持以30秒的采样率运行的IGS，并包含24小时的数据（UTC时间00：00-23：59）。 IGS分析中心每天都会检索这些数据以生产IGS产品。 这些产品，例如每日和每周的卫星星历，站的位置和速度，卫星和站的时钟信息以及地球自转参数，都将提交给CDDIS。
 
@@ -170,14 +170,14 @@ RINEX V2 格式的每日 GNSS 数据使用 `mmmmDDD＃.YYt.Z` 文件名约定，
 ||01H_30S hourly 整个小时 采样30s|
 ||15M_01S minutely 15分 采样1s|
 
-# 2. 广播星历（Broadcast ephemeris data）
+## 2. 广播星历（Broadcast ephemeris data）
 
 广播星历是接收机直接从天线接收到的卫星所发射的信号中分离出来的。
 
 除了观测数据外，很大一部分的GNSS站点还提供广播导航数据。CDDIS从这些站点发送的这些特定于站点的文件中创建每日广播星历文件；这些文件（一个用于GPS，另一个用于GLONASS）包含每天的唯一GPS或GLONASS卫星星历消息。在UTC一天开始时会创建一个类似的文件，并从每小时广播的导航文件中每小时更新一次。因此，用户可以每天或每小时下载一个文件，其中包含后处理所需的所有广播星历消息。
 
 
-## 2.1. Daily GPS Broadcast Ephemeris Files
+### 2.1. Daily GPS Broadcast Ephemeris Files
 
 每日GPS广播星历文件是将单个站点的导航文件合并成一个可供用户使用的非冗余文件，而不是多个单独的导航文件。每天在BKG创建的文件包含来自欧洲站点的独特导航消息。日常文件的起始目录为：
 
@@ -190,7 +190,7 @@ YYYY/brdc/brdcDDD0.YYn.Z (合并GPS广播星历文件)
 YYYY/DDD/YYn/ifagDDD0.YYn.Z (以往在BKG创建的每日文件)
 ```
 
-## 2.2. Hourly GPS Broadcast Ephemeris Files
+### 2.2. Hourly GPS Broadcast Ephemeris Files
 
 组合的广播星历文件是每小时从CDDIS上存档的所有每小时导航文件中生成的。 每小时导航文件包含具有当天TOE的所有广播消息，该消息在小时的顶部创建时可用。 每小时使用新的导航消息更新文件。
 
@@ -201,7 +201,7 @@ YYYY/DDD/YYn/ifagDDD0.YYn.Z (以往在BKG创建的每日文件)
 https://cddis.nasa.gov/archive/gnss/data/hourly/
 将以下目录和文件名附加到起始目录:YYYY/DDD/hourDDDm.YYn.Z
 
-## 2.3. Daily GLONASS Broadcast Ephemeris Files
+### 2.3. Daily GLONASS Broadcast Ephemeris Files
 
 类似地，可以在GLONASS导航文件子目录中找到每日仅使用GLONASS的广播星历文件。每日仅使用glonass文件的起始目录为
 
@@ -210,7 +210,7 @@ https://cddis.nasa.gov/archive/gnss/data/daily/
 YYYY/DDD/YYg/brdcDDD0.YYg.ZOR
 YYYY/brdc/brdcDDD0.YYg.Z
 
-# 3. 产品（product目录）
+## 3. 产品（product目录）
 
 产品目录一览：
 
@@ -246,11 +246,11 @@ https://cddis.nasa.gov/archive/gnss/products/
 等等不再详述。
 
 
-# 4. 精密星历
+## 4. 精密星历
 
 精密星历由自建跟踪站提供（一般为当地、符合气象、大气层的实际）；可以较准确地提供轨道信息；事后计算；有偿服务；地面通讯获取。精密星历的获取需要根据GPS周来确定。
 
-## 4.1. GPS 周
+### 4.1. GPS 周
 
 GPS周的计算方法参考：[流浪猪头拯救地球](https://blog.csdn.net/Gou_Hailong). [GPS周计算](https://blog.csdn.net/Gou_Hailong/article/details/100805581)。
 
@@ -290,7 +290,7 @@ class Converter:
 
 比如想找2020年元旦的精密星历数据，经过计算知道那一天是GPS周第2086周，所以进入2086目录下去下载相应数据。
 
-## 4.2. 精密星历文件
+## 5. 精密星历文件
 
 目前IGS精密星历主要分为三种：最终精密星历（IGS Final，标识为 IGS）、快速精密星历（IGS Rapid，标识为 IGR）、以及超快速精密星历（IGS Ultra-Rapid，标识为 IGU）。对应的精密钟差也有这三种。其中超快速精密星历又分为观测的部分和预测的部分。
 
