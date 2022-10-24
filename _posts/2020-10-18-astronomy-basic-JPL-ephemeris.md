@@ -67,7 +67,7 @@ http://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory_Development_Ephemeris
 
 `DE405` 的头文件 `header.405` 包含了 `DE405` 的数据信息、天文常数和数据索引。数据索引是一个 3 行 13 列的表，每列数据代表一个天体的位置数据在数据块内的位置，依次为水星、金星、地月系统、火星、木星、土星、天王星、海王星、冥王星、月球、太阳，第12列数据代表章动角（nutations），包含两个角度：黄经章动 $\Psi$ 和交角章动 $\epsilon$ ，第13列数据代表岁差参数，包含三个欧拉角：$\zeta, z, \theta$ 。每列的第一行指示该天体数据在数据块的起始位置，第二行表示切比雪夫多项式的阶数，第三行表示该天体的数据被划分成几个子区间。下表展示的 DE421 与 DE405 的数据结构相同，最后一列是数据的维度（ 3 表示三轴）。
 
-![1](..\assets\img\postsimg\20201018\1.jpg)
+![1](/assets/img/postsimg/20201018/1.jpg)
 
 例如水星的数据索引为3、14、4，其中：
 
@@ -81,19 +81,19 @@ http://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory_Development_Ephemeris
 
 一个完整的DE星历表结构如下图所示。
 
-![2](..\assets\img\postsimg\20201018\2.jpg)
+![2](/assets/img/postsimg/20201018/2.jpg)
 
 某个数据块内的数据如下表所示。
 
-![3](..\assets\img\postsimg\20201018\3.jpg)
+![3](/assets/img/postsimg/20201018/3.jpg)
 
 某个数据块内水星子块的时间跨度如下表所示。
 
-![4](..\assets\img\postsimg\20201018\4.jpg)
+![4](/assets/img/postsimg/20201018/4.jpg)
 
 某数据块内水星子块的各个数据的含义如下表所示。
 
-![5](..\assets\img\postsimg\20201018\5.jpg)
+![5](/assets/img/postsimg/20201018/5.jpg)
 
 ## 2.3. DE405的计算
 
@@ -107,7 +107,7 @@ DE405采用的坐标系是以太阳系质心为原点，J2000地球平赤道面�
 
 由于 JPL 星历只给出了地月系统的坐标和月球的坐标，需要通过几何方式算出地球的位置坐标。
 
-![8](..\assets\img\postsimg\20201018\8.jpg)
+![8](/assets/img/postsimg/20201018/8.jpg)
 
 祭出不忍直视的草图。如图所示，假设 $x$ 为地球质心指向地月系质心（地月系统质心）的矢量，$m_e,m_m$ 分别为地球和月球质量，$P_m$ 为以地球中心为原点的月球坐标（星历查询可得），那么有
 $$
