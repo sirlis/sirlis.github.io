@@ -44,6 +44,13 @@ Assimp 全称为 Open Asset Import Library，这是一个模型加载库，可�
 
 ## 2. 部署方式
 
+部署过程在如下版本部署成功：
+
+- OS: Windows 11
+- CMake 3.25.0-rc2
+- gcc version 12.2.0 (x86_64-win32-sjlj-rev0, Built by MinGW-W64 project)
+- MinGW-w64: https://github.com/niXman/mingw-builds-binaries/releases 下载的 2022 Aug 23 版本
+
 ### 2.1. CMake
 
 首先需要下载 CMake，官网：https://cmake.org/
