@@ -42,10 +42,13 @@ Assimp 全称为 Open Asset Import Library，这是一个模型加载库，可�
 
 官方仓库地址：https://github.com/assimp/assimp
 
+Assimp 基本上没有预编译的文件，而且为了适配本机环境，最好还是自己编译，因此我们需要下载 Assimp 的源码。
+
 ## 2. 部署方式
 
 部署过程在如下版本部署成功：
 
+- assimp 5.2.5
 - OS: Windows 11
 - CMake 3.25.0-rc2
 - gcc version 12.2.0 (x86_64-win32-sjlj-rev0, Built by MinGW-W64 project)
@@ -88,6 +91,12 @@ mingw32-make.exe -j8
 
 ![make完成](/assets/img/postsimg/20221026/cmake_making.png)
 
+编译完成后，得到
+
+- include/assimp/config.h
+- bin/libassimp-5.dll
+- bin/unit.exe
+- lib/libassimp.dll.a
 
 ## 3. 参考文献
 
