@@ -353,17 +353,18 @@ VSCode 解释 `.py` 时，终端自动运行命令 `conda activate Pytorch(环�
 
 解决方法如下。
 
-要么将Anaconda安装路径的三个路径变量写入系统Path中
-
+【推荐】要么将Anaconda安装路径的三个路径变量写入系统 Path 中，然后**重启电脑**。
 ```
-D:\XXX\Anaconda3
-D:\XXX\Anaconda3\Scripts
-D:\XXX\Anaconda3\Library\bin
+X:\XXX\Anaconda3
+X:\XXX\Anaconda3\Scripts
+X:\XXX\Anaconda3\Library\bin
 ```
 
 要么打开VSCode的设置（`ctrl+,`），设置Python插件中的conda的路径
 
 ![condapath](/assets/img/postsimg/20200321/14.condapath.png)
+
+然后**重启电脑**。
 
 ## 4.2. 提示CommandNotFoundError
 
@@ -377,11 +378,15 @@ invocation to 'CALL conda.bat activate'.
 
 解决方法如下。
 
-首先在VSCode 的终端中输入 `conda init`，然后重启VSCode。
+首先在VSCode 的终端中输入 `conda init`，然后重启VSCode，查看问题是否解决。
 
-此时会出现错误，`无法加载文件 ******.ps1，因为在此系统中禁止执行脚本。`
+若出现错误
 
-关闭VSCode。按 `Win+X`，选择 `Windows PowerShell（管理员）` 打开，输入命令
+```
+无法加载文件 ******.ps1，因为在此系统中禁止执行脚本。
+```
+
+关闭VSCode，然后使用管理员权限打开 cmd，比如按 `Win+X`，选择 `Windows PowerShell（管理员）` 打开，输入命令
 
 ```
 set-ExecutionPolicy RemoteSigned
