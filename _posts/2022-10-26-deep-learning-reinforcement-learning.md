@@ -58,9 +58,10 @@ $$
 $$
 P=
 \begin{bmatrix}
-P_{11} & \dots & P_{1n}\\
-\vdots & \ddots & \vdots\\
-P_{n1} & \dots & P_{nn}\\
+P(s_1\vert s_1) & P(s_2\vert s_1) &\dots & P(s_n\vert s_1)\\
+P(s_1\vert s_2) & P(s_2\vert s_2) &\dots & P(s_n\vert s_2)\\
+\vdots & \vdots & \ddots &\vdots\\
+P(s_1\vert s_n) & P(s_2\vert s_n)&\dots & P(s_n\vert s_n)\\
 \end{bmatrix}
 $$
 
@@ -73,15 +74,28 @@ $$
 不难写出状态转移概率矩阵：
 
 $$
+\begin{aligned}
+&\quad C1\;\;\;C2\;\;\;C3\;\;\;Pass\;Pub\;FB\;\;Sleep\\
 P=
-\begin{bmatrix}
-    & 0.5 &&&0.5&\\
-    &&0.8&&&0.2\\
-    &&&0.6&0.4&&\\
-    0.2&0.4&0.4&&&&\\
-    0.1&&&&0.9&\\
-    &&&&&1\\
+\begin{array}{r}
+    C1\\
+    C2\\
+    C3\\
+    Pass\\
+    Pub \\
+    FB\\
+    Sleep
+\end{array}
+&\begin{bmatrix}
+    0& 0.5 &0&0&0&0.5&0\\
+    0&0&0.8&0&0&0&0.2\\
+    0&0&0&0.6&0.4&0&0\\
+    0&0&0&0&0&0&1\\
+    0.2&0.4&0.4&0&0&0&0\\
+    0.1&0&0&0&0&0.9&0\\
+    0&0&0&0&0&0&1\\
 \end{bmatrix}
+\end{aligned}
 $$
 
 马尔可夫过程中的三个概念：
@@ -106,6 +120,14 @@ $$
 ![马尔可夫奖励过程](/assets/img/postsimg/20221109/2-mrp.png)
 
 注意，在马尔可夫奖励过程中，奖励指的是离开一个状态或者进入一个状态的奖励（用来评价状态的好坏）。区别于之后的马尔可夫决策过程的奖励，是指动作的奖励（用来评价动作的优劣），而状态的好坏通过价值函数来判断。
+
+收获（Return）：是一个马尔可夫奖励过程中，从某一个状态 $s_t$ 开始采样直到终止状态时所有奖励的有衰减的和：
+
+$$
+G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}
+$$
+
+
 
 ## 3. 马尔可夫决策过程
 
