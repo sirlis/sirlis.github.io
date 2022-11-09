@@ -92,7 +92,7 @@ $$
 
 ## 马尔可夫奖励过程
 
-表述一个马尔可夫奖励过程，需要元组 $<S,P,R,\gamma>$
+表述一个马尔可夫奖励过程（Markov Reward Process），需要元组 $<S,P,R,\gamma>$
 
 其中：
 
@@ -128,3 +128,4 @@ $$
 ## 4. 参考文献
 
 [1] 知乎. [强化学习（Reinforcement Learning）](https://www.zhihu.com/topic/20039099/intro).
+[2] ReEchooo. [强化学习知识要点与编程实践（1）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114698902)
