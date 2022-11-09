@@ -112,8 +112,8 @@ $$
 
 - $S$ 是一个有限状态集；
 - $P$ 是集合中状态转移概率矩阵：$P_{s s^\prime}=\mathbb{P}[S_{t+1}=s^\prime \vert S_t = s]$；
-- $R$ 是一个奖励函数：$R_s = \mathbb{E}[R_{t+1}\vert S_t=s]$
-- $\gamma$ 是一个衰减因子：$\gamma \in [0,1]$。
+- $R$ 是奖励函数：$R_s = \mathbb{E}[R_{t+1}\vert S_t=s]$
+- $\gamma$ 是折扣因子：$\gamma \in [0,1]$。
 
 如下图所示
 
@@ -127,14 +127,16 @@ $$
 G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}
 $$
 
-越往后得到的奖励，折扣得越多。这说明我们其实更希望得到现有的奖励，未来的奖励就要把它打折扣。
+越往后得到的奖励，折扣得越多。这说明我们其实更希望得到现有的奖励，未来的奖励就要把它打折扣。折扣因子可以作为强化学习的一个超参数来进行调整，折扣因子不同就会得到不同行为的智能体。
 
 **价值**（Value）：对于马尔可夫奖励过程，状态价值函数被定义为 Return 的期望。也即从某个状态 $s_t$ 开始采样无数条完整状态序列后，其收益的平均值。
 
 $$
 \begin{aligned}
 V(s) &= \mathbb{E}[G_t \vert S_t=s]\\
-&=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+...\vert S_t=s]
+&=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...\vert S_t=s]\\
+&=\mathbb{E}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...)\vert S_t=s]\\
+&=\mathbb{E}[R_{t+1}+\gamma G_{t+1}\vert S_t=s]
 \end{aligned}
 $$
 
