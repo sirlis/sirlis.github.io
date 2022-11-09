@@ -37,6 +37,7 @@ math: true
 $$
 G = r_1+r_2+...+r_n
 $$
+
 ## 2. 马尔可夫过程
 
 马尔可夫过程（Markov Process）：
@@ -162,3 +163,4 @@ $$
 
 [1] 知乎. [强化学习（Reinforcement Learning）](https://www.zhihu.com/topic/20039099/intro).
 [2] ReEchooo. [强化学习知识要点与编程实践（1）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114698902)
+[3] ReEchooo. [强化学习笔记（2）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114435113)
