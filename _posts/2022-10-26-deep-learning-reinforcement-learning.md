@@ -1,19 +1,19 @@
 ---
-title: Windows环境下使用CMake+MinGW-w64编译模型加载库assimp
-date: 2022-09-23 16:23:19 +0800
-categories: [Tutorial, Coding]
-tags: [c]
+title: 强化学习
+date: 2022-11-09 112:36:19 +0800
+categories: [Academic, Knowledge]
+tags: [python]
 math: true
 ---
 
-本文介绍了在Windows环境下使用MinGW-w64编译模型加载库assimp的方法和坑。
+本文介绍了强化学习的基本概念和模型。
 
 <!--more-->
 
 ---
 
 - [1. 基本知识](#1-基本知识)
-  - [1.1. MinGW-w64](#11-mingw-w64)
+  - [1.1. 强化学习](#11-强化学习)
   - [1.2. assimp](#12-assimp)
 - [2. 部署方式](#2-部署方式)
   - [2.1. CMake](#21-cmake)
@@ -22,17 +22,21 @@ math: true
 
 ## 1. 基本知识
 
-### 1.1. MinGW-w64
+### 1.1. 强化学习
 
-MinGW 的全称是 Minimalist GNU on Windows 。是将经典的开源 C 语言编译器 GCC 移植到了 Windows 平台下，并且包含了 Win32API ，因此可以将源代码编译为可在 Windows 中运行的可执行程序。而且还可以使用一些 Windows 不具备的，Linux平台下的开发工具。
+强化学习是机器学习领域之一，受到行为心理学的启发，主要关注智能体如何在环境中采取不同的行动，以最大限度地提高累积奖励。
 
-**一句话来概括：MinGW 就是 GCC 的 Windows 版本 。**
+强化学习主要由智能体（Agent）、环境（Environment）、状态（State）、动作（Action）、奖励（Reward）组成。智能体执行了某个动作后，环境将会转换到一个新的状态，对于该新的状态环境会给出奖励信号（正奖励或者负奖励）。随后，智能体根据新的状态和环境反馈的奖励，按照一定的策略执行新的动作。上述过程为智能体和环境通过状态、动作、奖励进行交互的方式。
 
-MinGW-w64 与 MinGW 的区别在于 MinGW 只能编译生成32位可执行程序，而 MinGW-w64 则可以编译生成 64位 或 32位 可执行程序。正因为如此，MinGW 现已被 MinGW-w64 所取代，且 MinGW 也早已停止了更新，内置的 GCC 停滞在了 4.8.1 版本，而 MinGW-w64 内置的 GCC 则一直保持更新。
+假设体当前时刻 $t$ 智能体所处的状态记为 $s_t$，此时采取动作 $a_t$，改变了环境状态，并使得智能体在下一时刻 $t+1$ 达到了新状态 $s_{t+1}$，在新的状态下环境产生了反馈奖励 $r_{t+1}$ 给智能体。智能体根据新状态 $s_{t+1}$ 和反馈奖励 $r_{t+1}$ ，执行新动作 $a_{t+1}$，如此反复迭代交互。
 
-可在[此处](https://github.com/niXman/mingw-builds-binaries/releases)下载最新版本。(https://github.com/niXman/mingw-builds-binaries/releases)。
+![强化学习示意图](/assets/img/postsimg/20221109/0-reinforcement-learning-basic-diagram.jpg)
 
-更多介绍可参考：[VSCode部署C/C++开发环境](http://sirlis.cn/posts/vscode-c/)。
+上述过程的最终目的，是让智能体最大化累计奖励（Cumulative Award），累计奖励为 $G$，有
+
+$$
+G = r_1+r_2+...+r_n
+$$
 
 ### 1.2. assimp
 
