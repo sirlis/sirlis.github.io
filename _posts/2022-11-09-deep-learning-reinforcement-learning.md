@@ -1,6 +1,6 @@
 ---
 title: 强化学习
-date: 2022-11-09 112:36:19 +0800
+date: 2022-11-09 12:36:19 +0800
 categories: [Academic, Knowledge]
 tags: [python]
 math: true
