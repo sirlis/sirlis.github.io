@@ -134,12 +134,38 @@ $$
 
 $$
 \begin{aligned}
-V(s) &= \mathbb{E}[G_t \vert S_t=s]\\
-&=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...\vert S_t=s]\\
-&=\mathbb{E}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...)\vert S_t=s]\\
-&=\mathbb{E}[R_{t+1}+\gamma G_{t+1}\vert S_t=s]
+V_t &= \mathbb{E}[G_t \vert S_t=s_t]\\
+&=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...\vert S_t=s_t]\\
+&=\mathbb{E}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...)\vert S_t=s_t]\\
+&=\mathbb{E}[R_{t+1}+\gamma G_{t+1}\vert S_t=s]\\
+&=\mathbb{E}[R_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
+&=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]
 \end{aligned}
 $$
+
+将 $t$ 时刻状态 $S_t = s_t$ 简写为 $s_t$ ，类似将 $S_{t+1} = s_{t+1}$  简写为 $s_{t+1}$，则有
+
+$$
+\begin{aligned}
+V_t &= \mathbb{E}[G_t \vert s_t] = R_{s}+\gamma \mathbb{E}[G_{t+1}\vert s_t]\\
+V_{t+1} &= \mathbb{E}[G_{t+1}  \vert s_{t+1}]\\
+\Rightarrow  \mathbb{E} [V_{t+1}\vert s_t] &= \mathbb{E} [\mathbb{E}[G_{t+1}  \vert s_{t+1}]\vert s_t]
+\end{aligned}
+$$
+
+假设状态空间离散，根据条件期望的定义有
+
+$$
+\mathbb{E}[G_{t+1}  \vert s_{t+1}] = \sum_{g_{t+1} \in G_{t+1}} g_{t+1}\cdot p(g_{t+1}\vert s_{t+1})
+$$
+
+对上式左右求 $S_{t}=s_{t}$ 时的条件期望，有
+
+$$
+\mathbb{E} [\mathbb{E}[G_{t+1}  \vert s_{t+1}]\vert s_t] = \sum_{S_{t+1}}\mathbb{E}[G_{t+1} \vert s_{t+1}] p(a\vert t)
+$$
+
+因此这里全期望公式说的是，在状态 $s_{t}$ 下，下一状态 $s_{t+1}$ 的状态价值函数 $V(s_{t+1})$（它本身就是一个期望）的期望，等于，在状态 $s_{t}$ 下，下一状态 $s_{t+1}$ 的折扣回报 $G_{t+1}$（它不是一个期望）的期望。
 
 ## 4. 马尔可夫决策过程
 
@@ -162,5 +188,7 @@ $$
 ## 5. 参考文献
 
 [1] 知乎. [强化学习（Reinforcement Learning）](https://www.zhihu.com/topic/20039099/intro).
+
 [2] ReEchooo. [强化学习知识要点与编程实践（1）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114698902)
+
 [3] ReEchooo. [强化学习笔记（2）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114435113)
