@@ -153,7 +153,7 @@ V_{t+1} &= \mathbb{E}[G_{t+1}  \vert s_{t+1}]\\
 \end{aligned}
 $$
 
-假设状态空间离散，根据条件期望的定义有
+下面推到条件收益的期望。假设状态空间离散，根据条件期望的定义有
 
 $$
 \mathbb{E}[G_{t+1}  \vert s_{t+1}] = \sum_{g_{t+1} \in G_{t+1}} g_{t+1}\cdot p(g_{t+1}\vert s_{t+1})
