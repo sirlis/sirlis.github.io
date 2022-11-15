@@ -213,7 +213,7 @@ V(s) &= R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert s_t]\\
 \end{aligned}
 $$
 
-**证明1：**
+**[ 推导1 ]：**
 
 对后项进行全概率展开
 
@@ -238,18 +238,20 @@ $$
 
 即为马尔可夫奖励过程的**贝尔曼方程**（Bellman Equation）。
 
-**证明2：**
+**[ 推导2 ]：**
 
 > 定义：如果 $X$ 和 $Y$ 都是离散型随机变量，则条件期望（Conditional Expectation）定义为
 > $\mathbb{E}[Y\vert X=x]=\sum_y yP(Y=y\vert X=x)$
 > 定义：如果 $X$ 是随机变量，其期望为 $\mathbb{E}[X]$，$Y$ 为相同概率空间上的任意随机变量，则有全期望（Total Expectation）公式
 > $\mathbb{E}[X] = \mathbb{E}[\mathbb{E}[X\vert Y]]$
 
-现证明
+现证明（主要证明第一个等式）
 
 $$
-\mathbb{E}[G(s_{t+1})\vert S_t=s_t]
+\mathbb{E}[G(s_{t+1})\vert S_t=s_t] = \mathbb{E}[\mathbb{E}[G(s_{t+1})\vert S_{t+1}]\vert S_t=s_t] = \mathbb{E}[V(s_{t+1})\vert S_t=s_t]
 $$
+
+
 
 ## 4. 马尔可夫决策过程
 
