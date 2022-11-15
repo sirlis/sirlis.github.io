@@ -1,12 +1,12 @@
 ---
-title: 强化学习
+title: 强化学习（马尔可夫决策过程）
 date: 2022-11-09 12:36:19 +0800
 categories: [Academic, Knowledge]
 tags: [python]
 math: true
 ---
 
-本文介绍了强化学习的基本概念和模型。
+本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。
 
 <!--more-->
 
@@ -15,6 +15,9 @@ math: true
 - [1. 强化学习](#1-强化学习)
 - [2. 马尔可夫过程](#2-马尔可夫过程)
 - [3. 马尔可夫奖励过程](#3-马尔可夫奖励过程)
+  - [3.1. 奖励（Reward）](#31-奖励reward)
+  - [3.2. 回报（Return）](#32-回报return)
+  - [3.3. 价值（Value）](#33-价值value)
 - [4. 马尔可夫决策过程](#4-马尔可夫决策过程)
 - [5. 参考文献](#5-参考文献)
 
@@ -113,29 +116,33 @@ $$
 
 - $S$ 是一个有限状态集；
 - $P$ 是集合中状态转移概率矩阵：$P_{s s^\prime}=\mathbb{P}[S_{t+1}=s^\prime \vert S_t = s]$；
-- $R$ 是奖励函数：$R_s = \mathbb{E}[R_{t+1}\vert S_t=s]$
+- $R$ 是奖励函数：$R(s_t) = \mathbb{E}[R_{t+1}\vert S_t=s]$
 - $\gamma$ 是折扣因子：$\gamma \in [0,1]$。
 
 如下图所示
 
 ![马尔可夫奖励过程](/assets/img/postsimg/20221109/2-mrp.png)
 
+### 3.1. 奖励（Reward）
+
 **奖励**（Reward）：在马尔可夫奖励过程中，奖励指的是离开一个状态或者进入一个状态的奖励（用来评价**状态的好坏**）。$s$ 状态下的奖励是某一时刻 $t$ 处在状态 $s$ 下在下一个时刻 $t+1$ 能获得的奖励期望，即离开状态 $s$ 所能获得的立即奖励期望，定义如下
 
 $$
-R_s = \mathbb{E}[R_{t+1}\vert S_t=s_t]
+R(s_t) = \mathbb{E}[R_{t+1}\vert S_t=s_t]
 $$
 
-> 这里大家可能有疑问的是为什么是 $R_{t+1}$ 而不是 $R_t$ ，我们更倾向于理解这相当于离开这个状态才能获得奖励而不是进入这个状态即获得奖励。也有人请教了某大牛（David）。 David 回答：这仅是一个约定，为了在描述RL问题中涉及到的观测 $O$、行为 $A$、和奖励 $R$ 时比较方便。他同时指出如果把奖励改为 $R_t$ 而不是 $R_{t+1}$ ，只要规定好，本质上意义是相同的，在表述上可以把奖励描述为“当进入某个状态会获得相应的奖励”。大家认为是约定就好。
+> 为什么是 $R_{t+1}$ 而不是 $R_t$？因为约定离开这个状态才能获得奖励而不是进入这个状态即获得奖励。因为状态是从 $S_0$ 开始，智能体未采取动作之前，环境有一个初始状态，因此该状态的奖励对应位离开 $S_0$ 的奖励，在描述RL问题中涉及到的观测 $O$、行为 $A$、和奖励 $R$ 时也比较方便。事实上如果把奖励改为 $R_t$ 而不是 $R_{t+1}$ ，只要规定好，本质上意义是相同的，在表述上可以把奖励描述为“当进入某个状态会获得相应的奖励”。
 
 举例说明：当学生处在第一节课（Class 1）时，之后参加第2节课（Class 2）获得的 Reward 是 $-2$，若之后上网浏览 Facebook 获得的 Reward 也是 $-2$。
 
 在逻辑场景中，奖励是即时的，只在 $t$ 时刻状态到 $t+1$ 时刻状态时的反馈信息，但在实际过程中，$t$ 时刻状态 $s_t$ 可能对后续所有状态产生深远影响，而不是单独对 $t+1$ 时刻状态产生影响。因此需要引入后面的新概念：回报。
 
-**回报**（Return）：是一个马尔可夫奖励过程中，从某个状态 $s_t$ 开始采样直到终止状态时（一条完整的状态序列）所有奖励的折扣和：
+### 3.2. 回报（Return）
+
+**回报**（Return）：（或翻译为收益）是一个马尔可夫奖励过程中，从某个状态 $s_t$ 开始采样直到终止状态时（一条完整的状态序列）所有奖励的折扣和：
 
 $$
-G(s)=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}
+G(s_t)=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}
 $$
 
 越往后得到的奖励，折扣得越多。为什么需要折扣系数，原因如下：
@@ -161,10 +168,12 @@ G_class1 = -2 + 1/2 × (-1) + 1/4 × (-1) + 1/8 × (-2) + 1/16 ×(-2) = -3.125
 
 为了更加精准评估状态的好坏，引入新概念：价值。
 
+### 3.3. 价值（Value）
+
 **价值**（Value）：对于马尔可夫奖励过程，状态价值函数被定义为 Return 的期望。也即从某个状态 $s_t$ 开始采样无数条完整状态序列后，其回报的平均值。
 
 $$
-V_t = \mathbb{E}[G(s) \vert S_t=s_t]
+V(s_t) = \mathbb{E}[G(s) \vert S_t=s_t]
 $$
 
 对于上面的例子，如果仅观测到两个序列，那么在状态 Class 1 处的学生的值函数就是上述 2 个回报值除以 2 即可。
@@ -175,16 +184,16 @@ v(Class1) = ( (-2.25) + (-3.125))  ÷ 2 = -2.6875
 
 状态值函数的引入解决了回报 $G(s)$ 路径有很多条，不容易优化的问题，将其转化为期望，变成固定标量了。但状态值函数也不好算，因为在计算某个状态时候需要使用到将来所有状态的 $G(s)$，这明显是不科学的。引入贝尔曼方程的目的是使状态值函数容易求解。
 
-下面详细阐述
+下面详细阐述如何求解价值函数
 
 $$
 \begin{aligned}
-V_t &= \mathbb{E}[G(s) \vert S_t=s_t]\\
+V(s_t) &= \mathbb{E}[G(s_t) \vert S_t=s_t]\\
 &=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...\vert S_t=s_t]\\
 &=\mathbb{E}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...)\vert S_t=s_t]\\
-&=\mathbb{E}[R_{t+1}+\gamma G_{t+1}\vert S_t=s_t]\\
-&=\mathbb{E}[R_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
-&=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]
+&=\mathbb{E}[R_{t+1}+\gamma G(s_{t+1})\vert S_t=s_t]\\
+&=\mathbb{E}[R_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t]\\
+&=R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t]
 \end{aligned}
 $$
 
@@ -192,23 +201,25 @@ $$
 
 <!-- $$
 \begin{aligned}
-V_t &= \mathbb{E}[G(s) \vert s_t] = R_{s}+\gamma \mathbb{E}[G_{t+1}\vert s_t]\\
-V_{t+1} &= \mathbb{E}[G_{t+1}  \vert s_{t+1}]\\
-\Rightarrow  \mathbb{E} [V_{t+1}\vert s_t] &= \mathbb{E} [\mathbb{E}[G_{t+1}  \vert s_{t+1}]\vert s_t]
+V(s) &= \mathbb{E}[G(s) \vert s_t] = R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert s_t]\\
+V_{t+1} &= \mathbb{E}[G(s_{t+1})  \vert s_{t+1}]\\
+\Rightarrow  \mathbb{E} [V_{t+1}\vert s_t] &= \mathbb{E} [\mathbb{E}[G(s_{t+1})  \vert s_{t+1}]\vert s_t]
 \end{aligned}
 $$ -->
 
 $$
 \begin{aligned}
-V_t &= R_{s}+\gamma \mathbb{E}[G_{t+1}\vert s_t]\\
+V(s) &= R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert s_t]\\
 \end{aligned}
 $$
+
+**证明1：**
 
 对后项进行全概率展开
 
 $$
 \begin{aligned}
-\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t] &= \gamma \sum_{s_{t+1}\in S}\mathbb{E}[G_{t+1}\vert S_t=s_{t+1}]P(s_{t+1}\vert s_t)\\
+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t] &= \gamma \sum_{s_{t+1}\in S}\mathbb{E}[G(s_{t+1})\vert S_{t+1}=s_{t+1}]P(s_{t+1}\vert s_t)\\
 &= \gamma \sum_{s_{t+1}\in S} V_{t+1}P(s_{t+1}\vert s_t)
 \end{aligned}
 $$
@@ -216,16 +227,29 @@ $$
 上面第二步是因为（根据价值的定义）
 
 $$
-V_{t+1} = \mathbb{E}[G_{t+1}  \vert S_{t+1} = s_{t+1}]
+V_{t+1} = \mathbb{E}[G(s_{t+1})  \vert S_{t+1} = s_{t+1}]
 $$
 
 最终得到
 
 $$
-V_t = R_{s}+\gamma \sum_{s_{t+1}\in S} V_{t+1}P(s_{t+1}\vert s_t)
+V(s) = R_{s}+\gamma \sum_{s_{t+1}\in S} V_{t+1}P(s_{t+1}\vert s_t)
 $$
 
-即为**贝尔曼方程**（Bellman Equation）。
+即为马尔可夫奖励过程的**贝尔曼方程**（Bellman Equation）。
+
+**证明2：**
+
+> 定义：如果 $X$ 和 $Y$ 都是离散型随机变量，则条件期望（Conditional Expectation）定义为
+> $\mathbb{E}[Y\vert X=x]=\sum_y yP(Y=y\vert X=x)$
+> 定义：如果 $X$ 是随机变量，其期望为 $\mathbb{E}[X]$，$Y$ 为相同概率空间上的任意随机变量，则有全期望（Total Expectation）公式
+> $\mathbb{E}[X] = \mathbb{E}[\mathbb{E}[X\vert Y]]$
+
+现证明
+
+$$
+\mathbb{E}[G(s_{t+1})\vert S_t=s_t]
+$$
 
 ## 4. 马尔可夫决策过程
 
@@ -238,3 +262,5 @@ $$
 [2] ReEchooo. [强化学习知识要点与编程实践（1）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114698902)
 
 [3] ReEchooo. [强化学习笔记（2）——马尔可夫决策过程](https://blog.csdn.net/qq_41773233/article/details/114435113)
+
+[4] Ping2021. [第二讲 马尔可夫决策过程](https://zhuanlan.zhihu.com/p/494755866)
