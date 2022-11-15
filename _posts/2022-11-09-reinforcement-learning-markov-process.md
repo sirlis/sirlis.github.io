@@ -18,6 +18,7 @@ math: true
   - [3.1. 奖励（Reward）](#31-奖励reward)
   - [3.2. 回报（Return）](#32-回报return)
   - [3.3. 价值（Value）](#33-价值value)
+  - [3.4. 贝尔曼方程（Bellman Equation）](#34-贝尔曼方程bellman-equation)
 - [4. 马尔可夫决策过程](#4-马尔可夫决策过程)
 - [5. 参考文献](#5-参考文献)
 
@@ -184,7 +185,7 @@ v(Class1) = ( (-2.25) + (-3.125))  ÷ 2 = -2.6875
 
 状态值函数的引入解决了回报 $G(s)$ 路径有很多条，不容易优化的问题，将其转化为期望，变成固定标量了。但状态值函数也不好算，因为在计算某个状态时候需要使用到将来所有状态的 $G(s)$，这明显是不科学的。引入贝尔曼方程的目的是使状态值函数容易求解。
 
-下面详细阐述如何求解价值函数
+下面对价值函数进行展开
 
 $$
 \begin{aligned}
@@ -197,28 +198,23 @@ V(s_t) &= \mathbb{E}[G(s_t) \vert S_t=s_t]\\
 \end{aligned}
 $$
 
-将 $t$ 时刻状态 $S_t = s_t$ 简写为 $s_t$ ，类似将 $S_{t+1} = s_{t+1}$  简写为 $s_{t+1}$，则有
-
-<!-- $$
-\begin{aligned}
-V(s) &= \mathbb{E}[G(s) \vert s_t] = R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert s_t]\\
-V_{t+1} &= \mathbb{E}[G(s_{t+1})  \vert s_{t+1}]\\
-\Rightarrow  \mathbb{E} [V_{t+1}\vert s_t] &= \mathbb{E} [\mathbb{E}[G(s_{t+1})  \vert s_{t+1}]\vert s_t]
-\end{aligned}
-$$ -->
+上式中，第一项 $R_s$ 对应即时奖励，而第二项则代表了长期的潜在奖励。可以看出，长期潜在奖励的计算需与下一时刻状态对应回报的期望。
+然而，未来时刻的状态及其回报是不确定的，即
 
 $$
-\begin{aligned}
-V(s) &= R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert s_t]\\
-\end{aligned}
+\mathbb{E}[G(s_{t+1})\vert S_t=s_t]
 $$
+
+很难求解。因此直接计算价值函数是不现实的。下面介绍贝尔曼方程来计算价值函数。
+
+### 3.4. 贝尔曼方程（Bellman Equation）
 
 **[ 推导 1 ]：**
 
-> 定义：如果 $X$ 和 $Y$ 都是离散型随机变量，则条件期望（Conditional Expectation）定义为
-> $\mathbb{E}[Y\vert X=x]=\sum_y yP(Y=y\vert X=x)$
-> 定义：如果 $X$ 是随机变量，其期望为 $\mathbb{E}[X]$，$Y$ 为相同概率空间上的任意随机变量，则有全期望（Total Expectation）公式
-> $\mathbb{E}[X] = \mathbb{E}[\mathbb{E}[X\vert Y]]$
+> - **定义**：如果 $X$ 和 $Y$ 都是离散型随机变量，则条件期望（Conditional Expectation）定义为
+>   $\mathbb{E}[Y\vert X=x]=\sum_y yP(Y=y\vert X=x)$
+> - **定义**：如果 $X$ 是随机变量，其期望为 $\mathbb{E}[X]$，$Y$ 为相同概率空间上的任意随机变量，则有全期望（Total Expectation）公式
+>   $\mathbb{E}[X] = \mathbb{E}[\mathbb{E}[X\vert Y]]$
 
 现证明（主要证明第一个等式）
 
@@ -230,7 +226,7 @@ $$
 
 $$
 \begin{aligned}
-\mathbb{E}[\mathbb{E}[G(s_{t+1})\vert S_{t+1}]\vert S_t=s] &= \mathbb{E}\left[\sum_{g^\prime}g^{\prime}P(G(s^\prime)=g^{\prime}\vert S_{t+1})\vert s\right]\\
+\mathbb{E}[\mathbb{E}[G(s_{t+1})\vert S_{t+1}]\vert S_t=s] &= \mathbb{E}\left[\sum_{g^\prime}g^{\prime}P(G(s^\prime)=g^{\prime}\vert S_{t+1})\vert s\right]\quad (条件期望)\\
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime}P(G(s^\prime)=g^{\prime}\vert S_{t+1}=s^\prime, s)P(S_{t+1}=s^\prime\vert s)\\
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime} \frac{P(G(s^\prime)=g^{\prime}\vert S_{t+1}=s^\prime, s)P(S_{t+1}=s^\prime\vert s)\cdot P(s)}{P(s)} \\
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime} \frac{P(G(s^\prime)=g^{\prime}\vert S_{t+1}=s^\prime, s)P(S_{t+1}=s^\prime, s)}{P(s)} \\
@@ -238,46 +234,91 @@ $$
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime} P(G(s^\prime)=g^{\prime}, S_{t+1}=s^\prime \vert s) \\
 &=\sum_{g^\prime} \sum_{s^\prime}g^{\prime} P(G(s^\prime)=g^{\prime}, S_{t+1}=s^\prime \vert s) \\
 &=\sum_{g^\prime}g^{\prime} P(G(s^\prime)=g^{\prime} \vert s) \\
-&=\mathbb{E}[G(s_{t+1})\vert s]
+&=\mathbb{E}[G(s^\prime)\vert s]=\mathbb{E}[G(s_{t+1})\vert s_t]
 \end{aligned}
 $$
 
-得证。
-
-则马尔可夫奖励过程的贝尔曼方程为
+得证。则当前时刻的状态价值函数
 
 $$
 \begin{aligned}
-V(s_t)\mathbb{E}[R_{t+1}+\gamma G(s_{t+1})\vert S_t=s_t]\\
-&=
+V(s_t)&=R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t]\\
+&=R_{s}+\gamma \mathbb{E}[V(s_{t+1})\vert S_t=s_t]\\
+&=R_{s}+\gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)
 \end{aligned}
 $$
 
-**[ 推导 2 ]：** （可能不对）
+上式即为马尔可夫奖励过程的贝尔曼方程。
+
+**[ 推导 2 ]：** （可能不对？）
 
 对后项进行全概率展开
 
 $$
 \begin{aligned}
 \gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t] &= \gamma \sum_{s_{t+1}\in S}\mathbb{E}[G(s_{t+1})\vert S_{t+1}=s_{t+1}]P(s_{t+1}\vert s_t)\\
-&= \gamma \sum_{s_{t+1}\in S} V_{t+1}P(s_{t+1}\vert s_t)
+&= \gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)
 \end{aligned}
 $$
 
 上面第二步是因为（根据价值的定义）
 
 $$
-V_{t+1} = \mathbb{E}[G(s_{t+1})  \vert S_{t+1} = s_{t+1}]
+V(s_{t+1}) = \mathbb{E}[G(s_{t+1})  \vert S_{t+1} = s_{t+1}]
 $$
 
 最终得到
 
 $$
-V(s) = R_{s}+\gamma \sum_{s_{t+1}\in S} V_{t+1}P(s_{t+1}\vert s_t)
+V(s_t) = R_{s}+\gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)
 $$
 
-即为马尔可夫奖励过程的**贝尔曼方程**（Bellman Equation）。
+即为马尔可夫奖励过程的贝尔曼方程。
 
+---
+
+贝尔曼方程刻画了当前状态 $s_t$ 和下一个状态 $s_{t+1}$ 之间的关系。可以看出，当前状态的价值函数可以通过下一个状态的价值函数来迭代计算。
+
+若将马尔可夫奖励过程的状态构成 $n$ 维状态空间，贝尔曼方程可以写成矩阵形式
+
+$$
+\begin{aligned}
+\boldsymbol{V} &= \boldsymbol{R}+\gamma \boldsymbol{P} \boldsymbol{V}\\
+\begin{bmatrix}
+    V(s_1)\\
+    V(s_2)\\
+    \vdots\\
+    V(s_n)
+\end{bmatrix} &=
+\begin{bmatrix}
+    R(s_1)\\
+    R(s_2)\\
+    \vdots\\
+    R(s_n)
+\end{bmatrix}
++\gamma
+\begin{bmatrix}
+P(s_1\vert s_1) & P(s_2\vert s_1)& \cdots & P(s_n\vert s_1)\\    
+P(s_1\vert s_2) & P(s_2\vert s_2)& \cdots & P(s_n\vert s_2)\\    
+\vdots & \vdots & \ddots & \vdots\\    
+P(s_1\vert s_n) & P(s_2\vert s_n)& \cdots & P(s_n\vert s_n)\\    
+\end{bmatrix}
+\begin{bmatrix}
+    V(s_1)\\
+    V(s_2)\\
+    \vdots\\
+    V(s_n)
+\end{bmatrix}
+\end{aligned}
+$$
+
+上述是个线性方程组，可直接得到解析解
+
+$$
+\boldsymbol{V} = (\boldsymbol{I}-\gamma\boldsymbol{P}^{-1})\boldsymbol{R}
+$$
+
+需要注意的是，矩阵求逆的复杂度为 $O0(n^3)$，因此直接求解仅适用于状态空间规模小的问题。状态空间规模大的问题的求解通常使用迭代法。常用的迭代方法有：动态规划(Dynamic Programming)、蒙特卡洛评估(Monte-Carlo evaluation)、时序差分学(Temporal-Difference)等。
 
 ## 4. 马尔可夫决策过程
 
