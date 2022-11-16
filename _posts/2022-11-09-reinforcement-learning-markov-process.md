@@ -212,9 +212,9 @@ $$
 V(s_t) &= \mathbb{E}[G_t \vert S_t=s_t]\\
 &=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...\vert S_t=s_t]\\
 &=\mathbb{E}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...)\vert S_t=s_t]\\
-&=\mathbb{E}[R_{t+1}+\gamma G(s_{t+1})\vert S_t=s_t]\\
-&=\mathbb{E}[R_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t]\\
-&=R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t]
+&=\mathbb{E}[R_{t+1}+\gamma G_{t+1}\vert S_t=s_t]\\
+&=\mathbb{E}[R_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
+&=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]
 \end{aligned}
 $$
 
@@ -222,7 +222,7 @@ $$
 然而，未来时刻的状态及其回报是不确定的，即
 
 $$
-\mathbb{E}[G(s_{t+1})\vert S_t=s_t]
+\mathbb{E}[G_{t+1}\vert S_t=s_t]
 $$
 
 很难求解。因此直接计算价值函数是不现实的。下面介绍贝尔曼方程来计算价值函数。
@@ -239,14 +239,14 @@ $$
 现证明（主要证明第一个等式）
 
 $$
-\mathbb{E}[G(s_{t+1})\vert S_t=s_t] = \mathbb{E}[\mathbb{E}[G(s_{t+1})\vert S_{t+1}]\vert S_t=s_t] = \mathbb{E}[V(s_{t+1})\vert S_t=s_t]
+\mathbb{E}[G_{t+1}\vert S_t=s_t] = \mathbb{E}[\mathbb{E}[G_{t+1}\vert S_{t+1}]\vert S_t=s_t] = \mathbb{E}[V(s_{t+1})\vert S_t=s_t]
 $$
 
 为了推导简便，另 $s_{t+1} = s^\prime$，$s_t=s$，有
 
 $$
 \begin{aligned}
-\mathbb{E}[\mathbb{E}[G(s_{t+1})\vert S_{t+1}]\vert S_t=s] &= \mathbb{E}\left[\sum_{g^\prime}g^{\prime}P(G(s^\prime)=g^{\prime}\vert S_{t+1})\vert s\right]\quad (条件期望)\\
+\mathbb{E}[\mathbb{E}[G_{t+1}\vert S_{t+1}]\vert S_t=s] &= \mathbb{E}\left[\sum_{g^\prime}g^{\prime}P(G(s^\prime)=g^{\prime}\vert S_{t+1})\vert s\right]\quad (条件期望)\\
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime}P(G(s^\prime)=g^{\prime}\vert S_{t+1}=s^\prime, s)P(S_{t+1}=s^\prime\vert s)\\
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime} \frac{P(G(s^\prime)=g^{\prime}\vert S_{t+1}=s^\prime, s)P(S_{t+1}=s^\prime\vert s)\cdot P(s)}{P(s)} \\
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime} \frac{P(G(s^\prime)=g^{\prime}\vert S_{t+1}=s^\prime, s)P(S_{t+1}=s^\prime, s)}{P(s)} \\
@@ -254,7 +254,7 @@ $$
 &=\sum_{s^\prime} \sum_{g^\prime}g^{\prime} P(G(s^\prime)=g^{\prime}, S_{t+1}=s^\prime \vert s) \\
 &=\sum_{g^\prime} \sum_{s^\prime}g^{\prime} P(G(s^\prime)=g^{\prime}, S_{t+1}=s^\prime \vert s) \\
 &=\sum_{g^\prime}g^{\prime} P(G(s^\prime)=g^{\prime} \vert s) \\
-&=\mathbb{E}[G(s^\prime)\vert s]=\mathbb{E}[G(s_{t+1})\vert s_t]
+&=\mathbb{E}[G(s^\prime)\vert s]=\mathbb{E}[G_{t+1}\vert s_t]
 \end{aligned}
 $$
 
@@ -262,7 +262,7 @@ $$
 
 $$
 \begin{aligned}
-V(s_t)&=R_{s}+\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t]\\
+V(s_t)&=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
 &=R_{s}+\gamma \mathbb{E}[V(s_{t+1})\vert S_t=s_t]\\
 &=R_{s}+\gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)
 \end{aligned}
@@ -276,7 +276,7 @@ $$
 
 $$
 \begin{aligned}
-\gamma \mathbb{E}[G(s_{t+1})\vert S_t=s_t] &= \gamma \sum_{s_{t+1}\in S}\mathbb{E}[G(s_{t+1})\vert S_{t+1}=s_{t+1}]P(s_{t+1}\vert s_t)\\
+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t] &= \gamma \sum_{s_{t+1}\in S}\mathbb{E}[G_{t+1}\vert S_{t+1}=s_{t+1}]P(s_{t+1}\vert s_t)\\
 &= \gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)
 \end{aligned}
 $$
@@ -284,7 +284,7 @@ $$
 上面第二步是因为（根据价值的定义）
 
 $$
-V(s_{t+1}) = \mathbb{E}[G(s_{t+1})  \vert S_{t+1} = s_{t+1}]
+V(s_{t+1}) = \mathbb{E}[G_{t+1}  \vert S_{t+1} = s_{t+1}]
 $$
 
 最终得到
