@@ -465,7 +465,7 @@ $$
 q_\pi(s,a) = R_s^a + \gamma\sum_{s\in S} p(s^\prime \vert s,a) v_\pi(s^\prime)
 $$
 
-证明如下
+证明如下（https://www.bilibili.com/read/cv5304088/）
 
 $$
 \begin{aligned}
