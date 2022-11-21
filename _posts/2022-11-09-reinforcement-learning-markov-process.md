@@ -369,8 +369,7 @@ $$
 
 ### 4.2. 策略（Policy）
 
-**策略 $\pi(a\vert s)$ 是从状态 $s$ 到每个动作 $a$ 的选择概率之间的映射** 
-，即
+**策略 $\pi(a\vert s)$ 是从状态 $s$ 到每个动作 $a$ 的选择概率之间的映射** ，即
 
 $$
 \pi(a\vert s) = \mathbb{P}[A_t=a\vert S_t=s]
@@ -397,7 +396,7 @@ $$
 p(s^\prime,r \vert s,a) \doteq \mathbb{P}\{S_t=s^\prime, R_t=r \vert S_{t-1}=s, A_{t-1}=a\} 
 $$
 
-函数 $p$ 定义了 MDP 的**动态特性**。动态特性函数是一个描述 $t+1$ 和 $t$ 前后两个相邻时刻的随机变量间动态关系的条件概率。
+函数 $p$ 定义了 MDP 的**动态特性**。动态特性函数是一个描述 $t-1$ 和 $t$ 前后两个相邻时刻的随机变量间动态关系的条件概率。
 
 在 MDP 中，由 $p$ 给出的概率完全刻画了环境的动态特性，即$S_t,R_t$ 的每个可能的值出现的概率只取决于前一个状态 $S_{t-1}$ 和动作 $A_{t-1}$，且与更早时刻的状态和动作无关（马尔可夫性）。
 
@@ -429,6 +428,33 @@ $$
 v_\pi(s) = \mathbb{E}[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]
 $$
 
+首先易知
+
+$$
+\mathbb{E}_\pi[R_t\vert S_t=s] = \sum_a\pi(a\vert s)\sum_{s^\prime}\sum_r p(s^\prime, r \vert s,a) r
+$$
+
+而
+
+$$
+\begin{aligned}
+\mathbb{E}_\pi[\mathbb{E}[G_{t+1}\vert S_{t}=s]] &= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) \mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]\\
+&= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) v_\pi(s^\prime)
+\end{aligned}
+$$
+
+则 $v_\pi(s)$ 的贝尔曼方程推导过程如下
+
+$$
+\begin{aligned}
+v_\pi(s) &= \mathbb{E}_\pi[G_t \vert S_t=s]\\
+&=\mathbb{E}_\pi[R_{t+1}+ \gamma G_{t+1}\vert S_t=s]\\
+&=\sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)]  
+\end{aligned}
+$$
+
+...(TODO)
+
 #### 4.4.2. 动作价值函数
 
 类似地，我们把策略 $\pi$ 下在状态 $s$ 时采取动作 $a$ 的价值即为 $q_\pi(s,a)$。即根据策略 $\pi$，从状态 $s$ 开始，执行动作 $a$ 之后，所有可能的决策序列的期望回报
@@ -440,7 +466,7 @@ $$
 与 MRP 中的价值函数类似，动作价值函数也有如下贝尔曼方程成立
 
 $$
-q_\pi(s,a) = \mathbb{E}[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert S_t = s, A_t = a]
+q_\pi(s,a) = \mathbb{E}_\pi[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert S_t = s, A_t = a]
 $$
 
 #### 4.4.3. 回溯图与回溯操作
@@ -451,21 +477,28 @@ $$
 
 ![回溯图](/assets/img/postsimg/20221109/4-backup-diagram.png)
 
-易知
+严谨地说，$q_\pi$ 和 $v_\pi$ 的作用是评估给定策略 $\pi$ 的价值，也就是一直使用这个策略来选取动作能得到的期望回报。不同之处是，$v_\pi$ 评估的对象是状态，考虑从状态 $s$ 出发，遵循策略 $\pi$ 得到的期望回报；$q_\pi$ 评估的对象是一个状态-动作对，考虑从状态 $s$ 出发，执行动作 $a$ 之后，遵循策略 $\pi$ 得到的期望回报。
+
+因此，$v_\pi$ 可以写成 $q_\pi$ 关于策略 $\pi$（执行不同动作）的期望，$q_\pi$ 可以写成 $v_\pi$ 关于状态转移 $P_{ss^\prime}^a=p(s^\prime \vert s,a)$（执行动作 $a$ 后转移到不同状态）的期望。然后它们相互套娃，就得到了下面的两条等式，这两个等式也可以通过回溯图来只管理解。
+
+[ **等式1** ]：
 
 $$
-v_\pi(s) = \sum_{a\in A}\pi(a\vert s)q_\pi(s,a)
+\begin{aligned}
+v_\pi(s) &= \mathbb{E}_aq_\pi(s,a)\\
+&= \sum_{a\in A}\pi(a\vert s)q_\pi(s,a)
+\end{aligned}
 $$
 
 即，在状态 $s$ 时，遵循策略 $\pi$ 后，状态 $s$ 的价值体表示为在该状态下采取所有可能动作的动作价值（$q$ 值）按该状态下动作发生概率（策略 $\pi$）的乘积求和，
 
-且有
+[ **等式2** ]：
 
 $$
 q_\pi(s,a) = R_s^a + \gamma\sum_{s\in S} p(s^\prime \vert s,a) v_\pi(s^\prime)
 $$
 
-证明如下（https://www.bilibili.com/read/cv5304088/）
+证明如下
 
 $$
 \begin{aligned}
@@ -473,6 +506,10 @@ q_\pi(s,a) &= \mathbb{E}_\pi\left[ \sum_{t=0}^{+\infty} \gamma^t R_{t+1} \vert S
 &=\mathbb{E}_\pi\left[R_1+ \sum_{t=1}^{+\infty} \gamma^t R_{t+1} \vert S_0=s, A_0=a \right]\\
 \end{aligned}
 $$
+
+...(TODO)
+
+（其它参考：https://zhuanlan.zhihu.com/p/478709774 ）
 
 ## 5. 参考文献
 
@@ -486,4 +523,4 @@ $$
 
 [5] shuhuai008. https://www.bilibili.com/video/BV1RA411q7wt?from=search&seid=4107546504069376636
 
-[6] shuhuai008. https://www.bilibili.com/video/BV1RA411q7wt?p=5
+[6] koch. [强化学习-贝尔曼方程和贝尔曼最优方程的推导](https://zhuanlan.zhihu.com/p/505723322)
