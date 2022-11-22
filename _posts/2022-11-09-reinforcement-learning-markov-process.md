@@ -408,6 +408,12 @@ $$
 
 所以，整个马尔可夫决策过程的全部信息包含在状态变量集合 $A$，$S$，$R$ 和函数空间 $P$ 中，每个时刻都有一个 $A_t$，$S_t$，$R_t$，每两个相邻时刻之间都有一个 $p_t$。
 
+类似地，状态动作 $s,a$ 对的期望奖励可以写作两个参数的函数
+
+$$
+r(s,a) = \sum_{r\in R} r \sum_{s^\prime \in S} p(s^\prime, r \vert s,a)
+$$
+
 ### 4.4. 价值函数（Value Function）
 
 马尔可夫决策过程中，价值函数分为状态价值函数和动作价值函数。
@@ -425,42 +431,43 @@ $$
 与 MRP 中的价值函数类似，状态价值函数也有如下贝尔曼方程成立
 
 $$
-v_\pi(s) = \mathbb{E}[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]
+v_\pi(s) = \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]
 $$
 
-首先易知
+方程推导过程如下，首先易知
 
 $$
-\mathbb{E}_\pi[R_t\vert S_t=s] = \sum_a\pi(a\vert s)\sum_{s^\prime}\sum_r p(s^\prime, r \vert s,a) r
+\mathbb{E}_\pi[R_{t+1}\vert S_t=s] = \sum_a\pi(a\vert s)\sum_{s^\prime}\sum_r p(s^\prime, r \vert s,a) r
 $$
 
 而
 
 $$
 \begin{aligned}
-\mathbb{E}_\pi[\mathbb{E}[G_{t+1}\vert S_{t}=s]] &= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) \mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]\\
+\mathbb{E}_\pi[G_{t+1}\vert S_{t}=s] &= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) \mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]\\
 &= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) v_\pi(s^\prime)
 \end{aligned}
 $$
 
-则 $v_\pi(s)$ 的贝尔曼方程推导过程如下
+则有
 
 $$
 \begin{aligned}
 v_\pi(s) &= \mathbb{E}_\pi[G_t \vert S_t=s]\\
 &=\mathbb{E}_\pi[R_{t+1}+ \gamma G_{t+1}\vert S_t=s]\\
-&=\sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)]  
+&=\sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ] \\
+&=\sum_{a, s^\prime, r}\pi(s\vert a)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]
 \end{aligned}
 $$
 
-...(TODO)
+最后一行，通过将求和符号合并后，我们可以看出，上述状等式描述了一个关于三参数 $a\in A, s^\prime \in S, r\in R$ 再所有可能性上的求和。对于每一个三元组，我们计算出其概率 $\pi(s\vert a)p(s^\prime,r \vert s,a)$ 然后乘以方括号内的值作为权值，最后甲醛加权求和得到状态价值函数的期望。
 
 #### 4.4.2. 动作价值函数
 
 类似地，我们把策略 $\pi$ 下在状态 $s$ 时采取动作 $a$ 的价值即为 $q_\pi(s,a)$。即根据策略 $\pi$，从状态 $s$ 开始，执行动作 $a$ 之后，所有可能的决策序列的期望回报
 
 $$
-q_\pi(s,a) = \mathbb{E}[G_t \vert S_t=s, A_t=a]
+q_\pi(s,a) = \mathbb{E}_\pi[G_t \vert S_t=s, A_t=a]
 $$
 
 与 MRP 中的价值函数类似，动作价值函数也有如下贝尔曼方程成立
@@ -479,7 +486,7 @@ $$
 
 严谨地说，$q_\pi$ 和 $v_\pi$ 的作用是评估给定策略 $\pi$ 的价值，也就是一直使用这个策略来选取动作能得到的期望回报。不同之处是，$v_\pi$ 评估的对象是状态，考虑从状态 $s$ 出发，遵循策略 $\pi$ 得到的期望回报；$q_\pi$ 评估的对象是一个状态-动作对，考虑从状态 $s$ 出发，执行动作 $a$ 之后，遵循策略 $\pi$ 得到的期望回报。
 
-因此，$v_\pi$ 可以写成 $q_\pi$ 关于策略 $\pi$（执行不同动作）的期望，$q_\pi$ 可以写成 $v_\pi$ 关于状态转移 $P_{ss^\prime}^a=p(s^\prime \vert s,a)$（执行动作 $a$ 后转移到不同状态）的期望。然后它们相互套娃，就得到了下面的两条等式，这两个等式也可以通过回溯图来只管理解。
+因此，$v_\pi$ 可以写成 $q_\pi$ 关于策略 $\pi$（执行不同动作）的期望，$q_\pi$ 可以写成 $v_\pi$ 关于状态转移 $P_{ss^\prime}^a=p(s^\prime \vert s,a)$（执行动作 $a$ 后转移到不同状态）的期望。然后它们相互套娃，就得到了下面的两条等式，这两个等式也可以通过回溯图来直观理解。
 
 [ **等式1** ]：
 
@@ -490,7 +497,10 @@ v_\pi(s) &= \mathbb{E}_aq_\pi(s,a)\\
 \end{aligned}
 $$
 
-即，在状态 $s$ 时，遵循策略 $\pi$ 后，状态 $s$ 的价值体表示为在该状态下采取所有可能动作的动作价值（$q$ 值）按该状态下动作发生概率（策略 $\pi$）的乘积求和，
+上面回溯图的上半部分对应上述等式，描述了处于特定状态 $s$ 的价值。即在状态 $s$ 时，遵循策略 $\pi$ 后，状态 $s$ 的价值体表示为在该状态下采取所有可能动作的动作价值（$q$ 值）按该状态下动作发生概率（策略 $\pi$）的乘积求和。
+
+从状态 $s$ 来看，我们有可能采取两种行动（图中黑点），每个动作都有一个 $q$ 值（状态-动作值函数）。对 $q$ 值进行平均，这个均值告诉我们在特定状态下有多好，也即 $v_\pi(s)$。
+
 
 [ **等式2** ]：
 
@@ -521,6 +531,6 @@ $$
 
 [4] Ping2021. [第二讲 马尔可夫决策过程](https://zhuanlan.zhihu.com/p/494755866)
 
-[5] shuhuai008. https://www.bilibili.com/video/BV1RA411q7wt?from=search&seid=4107546504069376636
+[5] 木头人puppet. [强化学习：贝尔曼方程和最优性](https://www.jianshu.com/p/9878238a1c9e)
 
 [6] koch. [强化学习-贝尔曼方程和贝尔曼最优方程的推导](https://zhuanlan.zhihu.com/p/505723322)
