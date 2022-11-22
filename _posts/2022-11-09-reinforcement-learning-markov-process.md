@@ -555,10 +555,6 @@ q_\pi(s,a) &= \mathbb{E}_\pi\left[ G_t \vert S_t=s, A_t=a \right]\\
 &=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\pi(s^\prime) \right]\\\end{aligned}
 $$
 
-...(TODO)
-
-（其它参考：https://zhuanlan.zhihu.com/p/478709774 ）
-
 ## 5. 参考文献
 
 [1] 知乎. [强化学习（Reinforcement Learning）](https://www.zhihu.com/topic/20039099/intro).
