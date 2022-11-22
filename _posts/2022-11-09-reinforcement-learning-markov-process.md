@@ -411,7 +411,7 @@ $$
 类似地，状态动作 $s,a$ 对的期望奖励可以写作两个参数的函数
 
 $$
-r(s,a) = \sum_{r\in R} r \sum_{s^\prime \in S} p(s^\prime, r \vert s,a)
+r(s,a) = \mathbb{E}_\pi [R_{t+1} \vert S_t = s] = \sum_{r\in R} r \sum_{s^\prime \in S} p(s^\prime, r \vert s,a)
 $$
 
 ### 4.4. 价值函数（Value Function）
@@ -444,23 +444,23 @@ $$
 
 $$
 \begin{aligned}
-\mathbb{E}_\pi[G_{t+1}\vert S_{t}=s] &= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) \mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]\\
-&= \sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) v_\pi(s^\prime)
+\mathbb{E}_\pi[G_{t+1}\vert S_{t}=s] &= \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) \mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]\\
+&= \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) v_\pi(s^\prime)
 \end{aligned}
 $$
 
-则有
+则有贝尔曼方程推导如下
 
 $$
 \begin{aligned}
 v_\pi(s) &= \mathbb{E}_\pi[G_t \vert S_t=s]\\
 &=\mathbb{E}_\pi[R_{t+1}+ \gamma G_{t+1}\vert S_t=s]\\
-&=\sum_a \pi(s\vert a) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ] \\
-&=\sum_{a, s^\prime, r}\pi(s\vert a)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]
+&=\sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ] \\
+&=\sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]
 \end{aligned}
 $$
 
-最后一行，通过将求和符号合并后，我们可以看出，上述状等式描述了一个关于三参数 $a\in A, s^\prime \in S, r\in R$ 再所有可能性上的求和。对于每一个三元组，我们计算出其概率 $\pi(s\vert a)p(s^\prime,r \vert s,a)$ 然后乘以方括号内的值作为权值，最后甲醛加权求和得到状态价值函数的期望。
+最后一行，通过将求和符号合并后，我们可以看出，上述状等式描述了一个关于三参数 $a\in A, s^\prime \in S, r\in R$ 在所有可能性上的求和。对于每一个三元组，我们计算出其概率 $\pi(a\vert s)p(s^\prime,r \vert s,a)$ 然后乘以方括号内的值作为权值，最后甲醛加权求和得到状态价值函数的期望。
 
 #### 4.4.2. 动作价值函数
 
