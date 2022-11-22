@@ -551,7 +551,8 @@ $$
 q_\pi(s,a) &= \mathbb{E}_\pi\left[ G_t \vert S_t=s, A_t=a \right]\\
 &=\mathbb{E}_\pi\left[R_{t+1}+\gamma G_{t+1}\vert S_t=s, A_t=a \right]\\
 &=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) \mathbb{E}_\pi [G_{t+1} \vert S_{t+1}=s^\prime, A_{t+1}=a^\prime]  \right]\\
-\end{aligned}
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\\
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\pi(s^\prime) \right]\\\end{aligned}
 $$
 
 ...(TODO)
