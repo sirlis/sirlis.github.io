@@ -13,6 +13,9 @@ math: true
 ---
 
 - [1. 强化学习](#1-强化学习)
+  - [1.1. 状态和观测](#11-状态和观测)
+  - [1.2. 动作空间](#12-动作空间)
+  - [1.3. 策略](#13-策略)
 - [2. 马尔可夫过程（MP）](#2-马尔可夫过程mp)
 - [3. 马尔可夫奖励过程（MRP）](#3-马尔可夫奖励过程mrp)
   - [3.1. 奖励（Reward）](#31-奖励reward)
@@ -48,6 +51,25 @@ math: true
 $$
 G = r_1+r_2+...+r_n
 $$
+
+### 1.1. 状态和观测
+
+「状态」$s$ 是对环境当前所处环境的完整描述，对于状态来说环境的所有信息都是可知的。而「观测」$o$ 则是一个状态的部分描述，可能会忽略一些信息。
+
+在深度强化学习中，我们通常会使用实值向量`vector`、矩阵 `matrix` 或者高维张量 `tensor` 来表示状态和观测。比如，视觉的观测可以表示为像素值构成的 RGB 矩阵，机器人的状态则可以表示为其关节角度和速度。
+
+当智能体能够观测到环境的全部状态时，这样的环境是可完全观测的 `fully observed`；当智能体只能观测到部分状态时，这样的环境称为可部分观测 `partially observed`。
+
+>「注」：在强化学习的公式中我们经常会看到表示状态的符号 $s$，但是实际上更准确的用法应该是使用表示观测的符号 $o$。比如，当我们探讨智能体如果进行动作决策时，公式中通常会说动作是基于状态的，但是「实际上动作是基于观测的」，因为智能体是无法直接感知到状态的。为了遵循惯例，之后的公式仍然会使用符号 $s$。
+❞
+
+### 1.2. 动作空间
+
+「**给定的环境中有效的动作集合称为动作空间**」。有些环境中（比如 Atari 和 Go），「动作空间是离散的」`discrete`，也就是说智能体的动作数量是有限的；而有些环境中（比如机器人控制），「动作空间是连续的」`continuous`，这些空间中动作通常用实值向量表示。
+
+「**动作空间是离散的还是连续的**」在强化学习问题中非常重要，有些方法只适合用于其中一个场景，所以这点需要特别关注。
+
+### 1.3. 策略
 
 ## 2. 马尔可夫过程（MP）
 
@@ -151,7 +173,7 @@ $$
 
 ### 3.2. 回报（Return）
 
-某时刻 $t$ 的回报定义为**从时刻 $t$ 开始的 ==采样一条== 状态序列得到的所有奖励的折扣和**：
+某时刻 $t$ 的回报（收益）定义为**从时刻 $t$ 开始的 ==采样一条== 状态序列得到的所有奖励的折扣和**：
 
 $$
 G_t\doteq R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}
@@ -431,7 +453,10 @@ $$
 与 MRP 中的价值函数类似，状态价值函数也有如下贝尔曼方程成立
 
 $$
-v_\pi(s) = \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]
+\begin{aligned}
+v_\pi(s) &= \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]\\
+&=\sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]
+\end{aligned}
 $$
 
 方程推导过程如下，首先易知
@@ -501,6 +526,17 @@ $$
 
 从状态 $s$ 来看，我们有可能采取两种行动（图中黑点），每个动作都有一个 $q$ 值（状态-动作值函数）。对 $q$ 值进行平均，这个均值告诉我们在特定状态下有多好，也即 $v_\pi(s)$。
 
+上述等式可以通过 $v_\pi(s)$ 的贝尔曼方程推导得到，即
+
+$$
+\begin{aligned}
+v_\pi(s) &= \sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]\\
+&= \sum_{a}\pi(a\vert s)\cdot \sum_{s^\prime, r}p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]\\
+&=\sum_{a}\pi(a\vert s)\cdot \sum_{s^\prime, r}p(s^\prime,r \vert s,a)\cdot [r+\gamma r+\gamma^2 r+...\vert s,a]\\
+&=\sum_{a}\pi(a\vert s)\cdot \mathbb{E}_\pi[G_t\vert s,a]\\
+&=\sum_{a}\pi(a\vert s)\cdot q_\pi(s,a)
+\end{aligned}
+$$
 
 [ **等式2** ]：
 
@@ -512,8 +548,9 @@ $$
 
 $$
 \begin{aligned}
-q_\pi(s,a) &= \mathbb{E}_\pi\left[ \sum_{t=0}^{+\infty} \gamma^t R_{t+1} \vert S_0=s, A_0=a \right]\\
-&=\mathbb{E}_\pi\left[R_1+ \sum_{t=1}^{+\infty} \gamma^t R_{t+1} \vert S_0=s, A_0=a \right]\\
+q_\pi(s,a) &= \mathbb{E}_\pi\left[ G_t \vert S_t=s, A_t=a \right]\\
+&=\mathbb{E}_\pi\left[R_{t+1}+\gamma G_{t+1}\vert S_t=s, A_t=a \right]\\
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) \mathbb{E}_\pi [G_{t+1} \vert S_{t+1}=s^\prime, A_{t+1}=a^\prime]  \right]\\
 \end{aligned}
 $$
 
