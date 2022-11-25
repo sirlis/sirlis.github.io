@@ -12,25 +12,6 @@ math: true
 
 ---
 
-- [1. 强化学习](#1-强化学习)
-  - [1.1. 状态和观测](#11-状态和观测)
-  - [1.2. 动作空间](#12-动作空间)
-  - [1.3. 策略](#13-策略)
-- [2. 马尔可夫过程（MP）](#2-马尔可夫过程mp)
-- [3. 马尔可夫奖励过程（MRP）](#3-马尔可夫奖励过程mrp)
-  - [3.1. 奖励（Reward）](#31-奖励reward)
-  - [3.2. 回报（Return）](#32-回报return)
-  - [3.3. 价值函数（Value Function）](#33-价值函数value-function)
-  - [3.4. 贝尔曼方程（Bellman Equation）](#34-贝尔曼方程bellman-equation)
-- [4. 马尔可夫决策过程（MDP）](#4-马尔可夫决策过程mdp)
-  - [4.1. 动作（Action）](#41-动作action)
-  - [4.2. 策略（Policy）](#42-策略policy)
-  - [4.3. 动态特性](#43-动态特性)
-  - [4.4. 价值函数（Value Function）](#44-价值函数value-function)
-    - [4.4.1. 状态价值函数](#441-状态价值函数)
-    - [4.4.2. 动作价值函数](#442-动作价值函数)
-    - [4.4.3. 回溯图与回溯操作](#443-回溯图与回溯操作)
-- [5. 参考文献](#5-参考文献)
 
 ## 1. 强化学习
 
@@ -440,7 +421,7 @@ $$
 
 马尔可夫决策过程中，价值函数分为状态价值函数和动作价值函数。
 
-#### 4.4.1. 状态价值函数
+#### 4.4.1. 状态价值函数 $v_\pi(s)$
 
 **状态价值函数（state-value Function）是从某个状态 $s$ 开始，==执行策略 $\pi$== 所获得的回报的期望**；也即在执行当前策略时，衡量智能体处在状态 $s$ 时的价值大小。即
 
@@ -450,12 +431,79 @@ $$
 
 其中，$\mathbb{E}_\pi[\cdot]$ 指在给定策略 $\pi$ 时一个随机变量的期望值，$t$ 可以是任意时刻。注意，终止状态的价值始终为零。我们把函数 $v_\pi(s)$ 称为策略 $\pi$ 的状态价值函数。
 
+
+#### 4.4.2. 动作价值函数 $q_\pi(s,a)$
+
+类似地，我们把策略 $\pi$ 下在状态 $s$ 时采取动作 $a$ 的价值即为 $q_\pi(s,a)$。即根据策略 $\pi$，从状态 $s$ 开始，执行动作 $a$ 之后，所有可能的决策序列的期望回报
+
+$$
+q_\pi(s,a) \doteq \mathbb{E}_\pi[G_t \vert S_t=s, A_t=a]
+$$
+
+#### 4.4.3. 回溯图与回溯操作
+
+回溯操作就是将后继状态（或“状态-动作”二元组）的价值信息 _回传_ 给当前时刻的状态（或”状态-动作“二元组），可以用回溯图来表示，这是强化学习的核心内容。
+
+典型的回溯图如下
+
+![回溯图](/assets/img/postsimg/20221109/4-backup-diagram.png)
+
+严谨地说，$q_\pi$ 和 $v_\pi$ 的作用是评估给定策略 $\pi$ 的价值，也就是一直使用这个策略来选取动作能得到的期望回报。不同之处是，$v_\pi$ 评估的对象是状态，考虑从状态 $s$ 出发，遵循策略 $\pi$ 得到的期望回报；$q_\pi$ 评估的对象是一个状态-动作对，考虑从状态 $s$ 出发，执行动作 $a$ 之后，遵循策略 $\pi$ 得到的期望回报。
+
+因此，$v_\pi$ 可以写成 $q_\pi$ 关于策略 $\pi$（执行不同动作）的期望，$q_\pi$ 可以写成 $v_\pi$ 关于状态转移 $P_{ss^\prime}^a=p(s^\prime \vert s,a)$（执行动作 $a$ 后转移到不同状态）的期望。然后它们相互套娃，就得到了下面的两条等式，这两个等式也可以通过回溯图来直观理解。
+
+[ **等式1** ]：
+
+$$
+v_\pi(s) = \mathbb{E}_aq_\pi(s,a) = \sum_{a\in A}\pi(a\vert s)q_\pi(s,a)
+$$
+
+上面回溯图的上半部分对应上述等式，描述了处于特定状态 $s$ 的价值。即在状态 $s$ 时，遵循策略 $\pi$ 后，状态 $s$ 的价值体表示为在该状态下采取所有可能动作的动作价值（$q$ 值）按该状态下动作发生概率（策略 $\pi$）的乘积求和。
+
+从状态 $s$ 来看，我们有可能采取两种行动（图中黑点），每个动作都有一个 $q$ 值（状态-动作值函数）。对 $q$ 值进行平均，这个均值告诉我们在特定状态下有多好，也即 $v_\pi(s)$。
+
+上述等式可以通过 $v_\pi(s)$ 的贝尔曼方程推导得到，即
+
+$$
+\begin{aligned}
+v_\pi(s) &= \sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]\\
+&= \sum_{a}\pi(a\vert s)\cdot \sum_{s^\prime, r}p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]\\
+&=\sum_{a}\pi(a\vert s)\cdot \sum_{s^\prime, r}p(s^\prime,r \vert s,a)\cdot [r+\gamma r+\gamma^2 r+...\vert s,a]\\
+&=\sum_{a}\pi(a\vert s)\cdot \mathbb{E}_\pi[G_t\vert s,a]\\
+&=\sum_{a}\pi(a\vert s)\cdot q_\pi(s,a)
+\end{aligned}
+$$
+
+[ **等式2** ]：
+
+$$
+q_\pi(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\pi(s^\prime) \right]
+$$
+
+证明如下
+
+$$
+\begin{aligned}
+q_\pi(s,a) &= \mathbb{E}_\pi\left[ G_t \vert S_t=s, A_t=a \right]\\
+&=\mathbb{E}_\pi\left[R_{t+1}+\gamma G_{t+1}\vert S_t=s, A_t=a \right]\\
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) \mathbb{E}_\pi [G_{t+1} \vert S_{t+1}=s^\prime, A_{t+1}=a^\prime]  \right]\\
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\\
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\pi(s^\prime) \right]
+\end{aligned}
+$$
+
+上式也可以从回溯图中推导得出。
+
+#### 4.4.4. 贝尔曼方程
+
 与 MRP 中的价值函数类似，状态价值函数也有如下贝尔曼方程成立
+
+[ **等式3** ]：
 
 $$
 \begin{aligned}
 v_\pi(s) &= \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]\\
-&=\sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]
+&=\sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ]
 \end{aligned}
 $$
 
@@ -485,76 +533,19 @@ v_\pi(s) &= \mathbb{E}_\pi[G_t \vert S_t=s]\\
 \end{aligned}
 $$
 
-最后一行，通过将求和符号合并后，我们可以看出，上述状等式描述了一个关于三参数 $a\in A, s^\prime \in S, r\in R$ 在所有可能性上的求和。对于每一个三元组，我们计算出其概率 $\pi(a\vert s)p(s^\prime,r \vert s,a)$ 然后乘以方括号内的值作为权值，最后甲醛加权求和得到状态价值函数的期望。
+最后一行，通过将求和符号合并后，我们可以看出，上述状等式描述了一个关于三参数 $a\in A, s^\prime \in S, r\in R$ 在所有可能性上的求和。对于每一个三元组，我们计算出其概率 $\pi(a\vert s)p(s^\prime,r \vert s,a)$ 然后乘以方括号内的值作为权值，最后加权求和得到状态价值函数的期望。参考回溯图可以更好理解。
 
-#### 4.4.2. 动作价值函数
+类似地，动作价值函数也有如下贝尔曼方程成立
 
-类似地，我们把策略 $\pi$ 下在状态 $s$ 时采取动作 $a$ 的价值即为 $q_\pi(s,a)$。即根据策略 $\pi$，从状态 $s$ 开始，执行动作 $a$ 之后，所有可能的决策序列的期望回报
-
-$$
-q_\pi(s,a) = \mathbb{E}_\pi[G_t \vert S_t=s, A_t=a]
-$$
-
-与 MRP 中的价值函数类似，动作价值函数也有如下贝尔曼方程成立
-
-$$
-q_\pi(s,a) = \mathbb{E}_\pi[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert S_t = s, A_t = a]
-$$
-
-#### 4.4.3. 回溯图与回溯操作
-
-回溯操作就是将后继状态（或“状态-动作”二元组）的价值信息 _回传_ 给当前时刻的状态（或”状态-动作“二元组），可以用回溯图来表示，这是强化学习的核心内容。
-
-典型的回溯图如下
-
-![回溯图](/assets/img/postsimg/20221109/4-backup-diagram.png)
-
-严谨地说，$q_\pi$ 和 $v_\pi$ 的作用是评估给定策略 $\pi$ 的价值，也就是一直使用这个策略来选取动作能得到的期望回报。不同之处是，$v_\pi$ 评估的对象是状态，考虑从状态 $s$ 出发，遵循策略 $\pi$ 得到的期望回报；$q_\pi$ 评估的对象是一个状态-动作对，考虑从状态 $s$ 出发，执行动作 $a$ 之后，遵循策略 $\pi$ 得到的期望回报。
-
-因此，$v_\pi$ 可以写成 $q_\pi$ 关于策略 $\pi$（执行不同动作）的期望，$q_\pi$ 可以写成 $v_\pi$ 关于状态转移 $P_{ss^\prime}^a=p(s^\prime \vert s,a)$（执行动作 $a$ 后转移到不同状态）的期望。然后它们相互套娃，就得到了下面的两条等式，这两个等式也可以通过回溯图来直观理解。
-
-[ **等式1** ]：
+[ **等式4** ]：
 
 $$
 \begin{aligned}
-v_\pi(s) &= \mathbb{E}_aq_\pi(s,a)\\
-&= \sum_{a\in A}\pi(a\vert s)q_\pi(s,a)
+q_\pi(s,a) &= \mathbb{E}_\pi[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert S_t = s, A_t = a]\\
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\    
 \end{aligned}
 $$
 
-上面回溯图的上半部分对应上述等式，描述了处于特定状态 $s$ 的价值。即在状态 $s$ 时，遵循策略 $\pi$ 后，状态 $s$ 的价值体表示为在该状态下采取所有可能动作的动作价值（$q$ 值）按该状态下动作发生概率（策略 $\pi$）的乘积求和。
-
-从状态 $s$ 来看，我们有可能采取两种行动（图中黑点），每个动作都有一个 $q$ 值（状态-动作值函数）。对 $q$ 值进行平均，这个均值告诉我们在特定状态下有多好，也即 $v_\pi(s)$。
-
-上述等式可以通过 $v_\pi(s)$ 的贝尔曼方程推导得到，即
-
-$$
-\begin{aligned}
-v_\pi(s) &= \sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]\\
-&= \sum_{a}\pi(a\vert s)\cdot \sum_{s^\prime, r}p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]\\
-&=\sum_{a}\pi(a\vert s)\cdot \sum_{s^\prime, r}p(s^\prime,r \vert s,a)\cdot [r+\gamma r+\gamma^2 r+...\vert s,a]\\
-&=\sum_{a}\pi(a\vert s)\cdot \mathbb{E}_\pi[G_t\vert s,a]\\
-&=\sum_{a}\pi(a\vert s)\cdot q_\pi(s,a)
-\end{aligned}
-$$
-
-[ **等式2** ]：
-
-$$
-q_\pi(s,a) = R_s^a + \gamma\sum_{s\in S} p(s^\prime \vert s,a) v_\pi(s^\prime)
-$$
-
-证明如下
-
-$$
-\begin{aligned}
-q_\pi(s,a) &= \mathbb{E}_\pi\left[ G_t \vert S_t=s, A_t=a \right]\\
-&=\mathbb{E}_\pi\left[R_{t+1}+\gamma G_{t+1}\vert S_t=s, A_t=a \right]\\
-&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) \mathbb{E}_\pi [G_{t+1} \vert S_{t+1}=s^\prime, A_{t+1}=a^\prime]  \right]\\
-&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\\
-&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\pi(s^\prime) \right]
-\end{aligned}
-$$
 
 ## 5. 参考文献
 
