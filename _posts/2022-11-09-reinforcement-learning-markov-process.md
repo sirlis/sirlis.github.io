@@ -191,9 +191,9 @@ $$
 
 为了能够评估状态的好坏，引入新概念：价值函数。
 
-### 3.3. 价值函数（Value Function）
+### 3.3. 价值函数
 
-**价值函数**（Value）：**从某个状态 $s_t$ 开始的回报的期望，也即从某个状态 $s_t$ 开始采样无数条完整状态序列的回报的平均值**，即
+**价值函数**（Value Function）：**从某个状态 $s_t$ 开始的回报的期望，也即从某个状态 $s_t$ 开始采样无数条完整状态序列的回报的平均值**，即
 
 $$
 V(s_t) = \mathbb{E}[G_t \vert S_t=s_t]
@@ -231,7 +231,7 @@ $$
 
 很难求解。因此直接计算价值函数是不现实的。下面介绍贝尔曼方程来计算价值函数。
 
-### 3.4. 贝尔曼方程（Bellman Equation）
+### 3.4. 贝尔曼方程
 
 **[ 推导 1 ]：**
 
@@ -417,11 +417,11 @@ $$
 r(s,a) = \mathbb{E}_\pi [R_{t+1} \vert S_t = s] = \sum_{r\in R} r \sum_{s^\prime \in S} p(s^\prime, r \vert s,a)
 $$
 
-### 4.4. 价值函数（Value Function）
+### 4.4. 价值函数
 
 马尔可夫决策过程中，价值函数分为状态价值函数和动作价值函数。
 
-#### 4.4.1. 状态价值函数 $v_\pi(s)$
+#### 4.4.1. 状态价值函数
 
 **状态价值函数（state-value Function）是从某个状态 $s$ 开始，==执行策略 $\pi$== 所获得的回报的期望**；也即在执行当前策略时，衡量智能体处在状态 $s$ 时的价值大小。即
 
@@ -432,7 +432,7 @@ $$
 其中，$\mathbb{E}_\pi[\cdot]$ 指在给定策略 $\pi$ 时一个随机变量的期望值，$t$ 可以是任意时刻。注意，终止状态的价值始终为零。我们把函数 $v_\pi(s)$ 称为策略 $\pi$ 的状态价值函数。
 
 
-#### 4.4.2. 动作价值函数 $q_\pi(s,a)$
+#### 4.4.2. 动作价值函数
 
 类似地，我们把策略 $\pi$ 下在状态 $s$ 时采取动作 $a$ 的价值即为 $q_\pi(s,a)$。即根据策略 $\pi$，从状态 $s$ 开始，执行动作 $a$ 之后，所有可能的决策序列的期望回报
 
@@ -494,7 +494,7 @@ $$
 
 上式也可以从回溯图中推导得出。
 
-#### 4.4.4. 贝尔曼方程
+### 4.5. 贝尔曼期望方程
 
 与 MRP 中的价值函数类似，状态价值函数也有如下贝尔曼方程成立
 
@@ -542,10 +542,62 @@ $$
 $$
 \begin{aligned}
 q_\pi(s,a) &= \mathbb{E}_\pi[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert S_t = s, A_t = a]\\
-&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\    
+&=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\
 \end{aligned}
 $$
 
+### 4.6. 最优价值函数
+
+强化学习中，唯一能变动的部分就是策略 $\pi$。因此我们希望能找到一个最优的策略
+
+$$
+\pi_* = \mathop{argmax}\limits_\pi \;v_\pi(s) = \mathop{argmax}\limits_\pi \;q_\pi(s,a) 
+$$
+
+使得价值函数最大
+
+$$
+\begin{aligned}
+v_*(s) &\doteq \mathop{max}\limits_\pi \;v_\pi(s) = v_{\pi_*}(s)\\
+q_*(s,a) &\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_*}(s,a)\\
+\end{aligned}
+$$
+
+已知状态价值函数是动作价值函数的期望（加权平均）
+
+$$
+v_\pi(s) = \mathbb{E}_aq_\pi(s,a)
+$$
+
+那么当取最优策略时，其必然取到最大值，即
+
+[ **等式5** ]：
+
+$$
+v_*(s) = \mathop{max}\limits_a \; q_*(s,a)
+$$
+
+但给定动作 $a$ 后的状态转移 $s-s^\prime$ 并不是最优策略能够决定的，而是由环境决定，因此最优动作价值函数并不能将求和符号改为 max 符号，即
+
+[ **等式6** ]：
+
+$$
+q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_*(s^\prime) \right]
+$$
+
+### 4.7. 贝尔曼最优方程
+
+最优状态价值函数对应的贝尔曼最优方程为
+
+$$
+v_*(s) = \mathop{max}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_*(s^\prime)  ]
+$$
+
+将 $v_*(s)$ 带入 [ **等式6** ] ，最优动作价值函数对应的贝尔曼最优方程为
+
+$$
+q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{max}\limits_a \; q_*(s^\prime,a^\prime) \right]
+$$
 
 ## 5. 参考文献
 
