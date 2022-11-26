@@ -587,13 +587,13 @@ $$
 
 ### 4.7. 贝尔曼最优方程
 
-最优状态价值函数对应的贝尔曼最优方程为
+改写 [ **等式3** ] ，最优状态价值函数对应的贝尔曼最优方程为
 
 $$
 v_*(s) = \mathop{max}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_*(s^\prime)  ]
 $$
 
-将 $v_*(s)$ 带入 [ **等式6** ] ，最优动作价值函数对应的贝尔曼最优方程为
+将 [ **等式5** ] 带入 [ **等式6** ] ，最优动作价值函数对应的贝尔曼最优方程为
 
 $$
 q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{max}\limits_a \; q_*(s^\prime,a^\prime) \right]
