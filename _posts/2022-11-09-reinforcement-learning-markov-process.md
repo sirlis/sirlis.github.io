@@ -599,6 +599,25 @@ $$
 q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{max}\limits_a \; q_*(s^\prime,a^\prime) \right]
 $$
 
+### 4.8. 最优策略
+
+解决强化学习问题意味着要寻找一个最优的策略让个体在与环境交互过程中获得始终比其它策略都要多的收获，这个最优策略我们可以用 $\pi_*$ 表示。一旦找到这个最优策略，那么我们就解决了这个强化学习问题。
+
+一般来说，比较难去找到一个最优策略，但是可以通过比较若干不同策略的优劣来确定一个较好的策略，也就是局部最优解。
+
+如何比较策略的优劣呢？一般是通过对应的价值函数来比较的，也就是说，寻找较优策略可以通过寻找较优的价值函数 $v_*(s)$ 或 $q_*(s,a)$ 来完成。
+
+对于最优的策略，基于动作价值函数我们可以定义为：
+
+$$
+\pi_*(a\vert s) = \left\{
+\begin{aligned}
+    1 &\quad if \; a=argmax_a\; q_*(s,a)\\
+    0 &\quad else
+\end{aligned}
+\right.
+$$
+
 ## 5. 参考文献
 
 [1] 知乎. [强化学习（Reinforcement Learning）](https://www.zhihu.com/topic/20039099/intro).
