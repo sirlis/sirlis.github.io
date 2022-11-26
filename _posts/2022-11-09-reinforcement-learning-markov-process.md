@@ -609,7 +609,7 @@ $$
 
 - **已知** $v_*$
 
-为了求解最优策略，只需要做一步搜索就行。也就是在  对于不同的 $a\in A$，计算
+为了求解最优策略，只需要做一步搜索就行。也就是对于不同的 $a\in A$，计算
 
 $$
 \pi_*(a\vert s) \leftarrow \mathop{argmax}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_*(s^\prime)]
