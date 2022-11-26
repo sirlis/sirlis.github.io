@@ -618,6 +618,8 @@ $$
 \right.
 $$
 
+只要我们找到了最大的状态价值函数或者动作价值函数，那么对应的策略 $\pi_*(a\vert s)$ 就是我们强化学习问题的解。
+
 ## 5. 参考文献
 
 [1] 知乎. [强化学习（Reinforcement Learning）](https://www.zhihu.com/topic/20039099/intro).
