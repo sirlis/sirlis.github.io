@@ -167,9 +167,9 @@ $$
 > 策略改进定理
 > 给定 $\pi,\pi^\prime$，
 > 如果 $\forall s\in S, q_\pi(s,\pi^\prime(s))\geq v_\pi(s)$，
-> 那么有 $\forall s\in S, v_\pi^\prime(s)(s)\geq v_\pi(s)$。
+> 那么有 $\forall s\in S, v_\pi^\prime(s)\geq v_\pi(s)$。
 
-策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有，$\pi^\prime \geq \pi$ 。
+策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有 $\pi^\prime \geq \pi$ 。
 
 证明如下：
 
@@ -177,11 +177,19 @@ $$
 \begin{aligned}
 v_\pi(s) &\leq q_\pi(s,\pi^\prime(s))\\ 
 &=\mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s,A_t = \pi^\prime(s)]\\
-&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s]\quad (R_{t+1}由\pi^\prime 控制，后面R_{t+2}\cdots 仍由\pi控制)\\
+&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s]\quad (走1步：R_{t+1}由\pi^\prime 控制，后面由\pi控制)\\
 &\leq \mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma q_\pi(S_{t+1},\pi^\prime(S_{t+1}))\vert S_t=s]\\
-&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma    \mathbb{E}_\pi^{\prime}[R_{t+2}+\gamma v_\pi(S_{t+2})\vert S_{t+1}]   \vert S_t=s]\quad （带入前式）\\
+&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \mathbb{E}_{\pi^{\prime}}[R_{t+2}+\gamma v_\pi(S_{t+2})\vert S_{t+1}]   \vert S_t=s]\quad （前式带入）\\
+&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \mathbb{E}_{\pi^{\prime}}[R_{t+2}\vert S_{t+1}]+\gamma^2 \mathbb{E}_{\pi^{\prime}} [v_\pi(S_{t+2}) \vert S_{t+1} ]  \vert S_t=s]\\
+&=\mathbb{E}_{\pi^\prime}[R_{t+1}+R_{t+2}+\gamma^2 v_\pi(S_{t+2})\vert S_t=s] \quad （走2步）\\
+&=\cdots\\
+&=\mathbb{E}_\pi^\prime[R_{t+1}+\gamma R_{t+2}+\cdots \vert S_t=s] \\
+&= v_{\pi^\prime}(s)
 \end{aligned}
 $$
+
+> 参考推导见：[策略改进定理及证明中隐式期望的处理](https://zhuanlan.zhihu.com/p/533279050)
+>
 
 ---
 
@@ -192,6 +200,10 @@ $$
 当我们计算出最终的状态价值后，我们发现：
 - 第二行第一个格子周围的价值分别是0,-18,-20，此时我们用贪婪法，则我们调整行动策略为向状态价值为0的方向（上方）移动，而不是随机移动。而此时
 - 第二行第二个格子周围的价值分别是-14,-14,-20, -20。那么我们整行动策略为向状态价值为-14的方向（左或者上）移动。
+
+> 注意到：上述过程的策略是基于最大的 $v_\pi(s)$，但实际上应该根据 $q_\pi(s,a)$ 来调整策略 
+> $$q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$$
+> 但由于本例中，所有可行的的状态转化概率P=1，瞬时奖励都是-1，衰减因子定义为1，所以其实 $q$ 函数的值就是下一个状态的状态价值 $v$，这也就是为什么直接往状态价值最大的那个状态移动就可以的原因。
 
 **总结**，策略迭代就是在循环进行两部分工作，第一步是使用当前策略 $\pi$ 评估计算当前策略的最终状态价值 $v$，第二步是根据状态价值 $v$ 根据一定的方法（比如贪婪法）更新策略 $\pi$，接着回到第一步，一直迭代下去，最终得到收敛的策略 $\pi_*$ 和状态价值 $v_∗$。
 
@@ -209,7 +221,7 @@ $$
      - $\Delta = 0$
      - 对于每个 $s\in S$：
        - $v \leftarrow v_k(s)$
-       - $v_k(s) \leftarrow \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k-1}(s^\prime)]$
+       - $v_k(s) =\sum_a \pi(a\vert s) \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k-1}(s^\prime)]$
        - $\Delta = max(\Delta, v-v_k(s))$
    - 直至 $\Delta < \theta$  （$v(s)$收敛）
    
@@ -219,7 +231,7 @@ $$
      - $a_{old} = \pi(s)$
      - $q_\pi(s,a) = \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v(s^\prime)]$
      - $\pi(s)\leftarrow \mathop{argmax}\limits_a\; q_\pi(s,a) $ （贪婪法）
-     - 如果 $a_old \neq \pi(s)$ 那么 $policy\;stable \leftarrow false$
+     - 如果 $a_{old} \neq \pi(s)$ 那么 $policy\;stable \leftarrow false$
    - 如果 $policy\;stable \leftarrow true$，停止迭代，得到 $v_*\approx v, \pi_*\approx \pi$；否则返回步骤 2
 
 #### 2.2.2. 值迭代
