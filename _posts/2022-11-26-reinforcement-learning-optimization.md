@@ -162,9 +162,30 @@ $$
 
 可以看到，动态规划的策略评估计算过程并不复杂，但是如果我们的问题是一个非常复杂的模型的话，这个计算量还是非常大的。
 
-##### 2.2.2. 策略改进
+##### 2.2.1.3. 策略改进
 
-前面我们给定一个随机策略 $\pi(a\vert s) = 0.25, \forall a\in A$，并得到了其对应的状态价值函数。
+> 策略改进定理
+> 给定 $\pi,\pi^\prime$，
+> 如果 $\forall s\in S, q_\pi(s,\pi^\prime(s))\geq v_\pi(s)$，
+> 那么有 $\forall s\in S, v_\pi^\prime(s)(s)\geq v_\pi(s)$。
+
+策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有，$\pi^\prime \geq \pi$ 。
+
+证明如下：
+
+$$
+\begin{aligned}
+v_\pi(s) &\leq q_\pi(s,\pi^\prime(s))\\ 
+&=\mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s,A_t = \pi^\prime(s)]\\
+&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s]\quad (R_{t+1}由\pi^\prime 控制，后面R_{t+2}\cdots 仍由\pi控制)\\
+&\leq \mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma q_\pi(S_{t+1},\pi^\prime(S_{t+1}))\vert S_t=s]\\
+&=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma    \mathbb{E}_\pi^{\prime}[R_{t+2}+\gamma v_\pi(S_{t+2})\vert S_{t+1}]   \vert S_t=s]\quad （带入前式）\\
+\end{aligned}
+$$
+
+---
+
+依然是 Grid World 例子，前面我们给定一个随机策略 $\pi(a\vert s) = 0.25, \forall a\in A$，并得到了其对应的状态价值函数。
 
 可以采用**贪婪法**来改进我们的这个策略。具体而言，**个体在某个状态下选择的行为是其能够到达后续所有可能的状态中状态价值最大的那个状态**，如上图右侧所示，最终求解控制问题。
 
@@ -201,7 +222,7 @@ $$
      - 如果 $a_old \neq \pi(s)$ 那么 $policy\;stable \leftarrow false$
    - 如果 $policy\;stable \leftarrow true$，停止迭代，得到 $v_*\approx v, \pi_*\approx \pi$；否则返回步骤 2
 
-#### 2.2.3. 值迭代
+#### 2.2.2. 值迭代
 
 由于策略迭代通常在迭代几次后就可以收敛（上文中的 Grid World 例子，第三次迭代后，策略就已经达到最优），因此我们可以提前截断策略评估过程。
 
@@ -214,7 +235,7 @@ $$
 
 【todo】
 
-#### 2.2.4. 策略搜索
+#### 2.2.3. 策略搜索
 
 ## 3. 参考文献
 
