@@ -167,9 +167,7 @@ $$
 > 策略改进定理
 > 给定 $\pi,\pi^\prime$，
 > 如果 $\forall s\in S, q_\pi(s,\pi^\prime(s))\geq v_\pi(s)$，
-> 那么有 $\forall s\in S, v_\pi^\prime(s)\geq v_\pi(s)$。
-
-策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有 $\pi^\prime \geq \pi$ 。
+> 那么有 $\forall s\in S, v_{\pi^\prime}(s)\geq v_\pi(s)$。
 
 证明如下：
 
@@ -190,6 +188,8 @@ $$
 
 > 参考推导见：[策略改进定理及证明中隐式期望的处理](https://zhuanlan.zhihu.com/p/533279050)
 >
+
+策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有 $\pi^\prime \geq \pi$ 。
 
 ---
 
