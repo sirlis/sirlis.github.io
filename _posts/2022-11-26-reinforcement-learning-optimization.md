@@ -16,7 +16,7 @@ math: true
 
 强化学习的最终目标是为了求解最优策略，而最优策略一定对应着最优的价值函数，因此可将强化学习的目标分解为以下两个基本问题：
 
-- **预测问题**，也即预测给定策略的状态价值函数。给定强化学习的6个要素：状态集$S$, 动作集$A$, 模型状态转移概率矩阵$P$, 即时奖励$R$，衰减因子$\gamma$,  给定策略$\pi$， 求解该策略的状态价值函数$v_\pi(s)$；
+- **预测问题**，也即预测给定策略的状态价值函数。给定强化学习的6个要素：状态集$S$, 动作集$A$, 模型状态转移概率矩阵$P$, 即时奖励$R$，衰减因子$\gamma$,  给定策略$\pi$， 求解该策略的状态价值函数$v_\pi(s)$ 或动作价值函数 $q_\pi(s,a)$；
 - **控制问题**，也即求解最优的价值函数和策略。给定强化学习的5个要素：状态集$S$, 动作集$A$, 模型状态转移概率矩阵$P$, 即时奖励$R$，衰减因子$\gamma$, 求解最优的状态价值函数$v_*$和最优策略$\pi_*$。　
 
 ## 2. 基于模型的方法
@@ -48,9 +48,73 @@ $$
 
 下面具体介绍策略评估和策略改进。
 
-- **策略评估** 求解预测问题
+##### 2.1.1.1. 策略评估（解析解）
 
-策略评估的基本思路是从**任意初始的策略和初始的状态价值函数开始**，结合贝尔曼方程、状态转移概率和奖励，同步迭代更新状态价值函数，直至其收敛，得到该策略下最终的状态价值函数。
+记
+
+$$
+\begin{aligned}
+v_\pi &\doteq [v_\pi(s_1)\; v_\pi(s_2)\; \cdots]^T_{n\times 1}\\
+r_\pi &\doteq [r_\pi(s_1)\; r_\pi(s_2)\; \cdots]^T_{n\times 1}\\
+P_\pi &\doteq [P_\pi(s,s^\prime)]_{n\times n}
+\end{aligned}
+$$
+
+根据贝尔曼期望方程，可以看出其是一个关于 $v_\pi(s)$ 的线性方程
+
+$$
+\begin{aligned}
+v_\pi(s) =& \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ]\\
+=&\sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a)r\\
+&+\gamma \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a)v_\pi(s^\prime)\\
+\end{aligned}
+$$
+
+其中第一项（积掉 $s^\prime$）
+
+$$
+\begin{aligned}
+&=\sum_a \pi(a\vert s) \sum_r p(r \vert s,a) r\\
+&= \sum_a \pi(a\vert s) \mathbb{E}_\pi[R_{t+1}\vert s,a]\\
+&\doteq \sum_a \pi(a\vert s) r(s,a)\quad （定义r(s,a)）\\ 
+&\doteq r_\pi(s)\quad \quad \quad \quad \quad \quad （定义r_\pi(s)）
+\end{aligned}
+$$
+
+其中第二项（积掉 $r$）
+
+$$
+\begin{aligned}
+&=\gamma \sum_a \pi(a\vert s) \sum_{s^\prime} p(s^\prime \vert s,a)v_\pi(s^\prime)\\
+&=\gamma \sum_{s^\prime} \sum_a \pi(a\vert s) p(s^\prime \vert s,a)v_\pi(s^\prime)\\
+&\doteq\gamma \sum_{s^\prime} P_\pi(s,s^\prime)v_\pi(s^\prime)\quad （积掉a，定义P_\pi(s,s^\prime)）\\
+\end{aligned}
+$$
+
+于是有
+
+$$
+\begin{aligned}
+v_\pi(s) =& r_\pi(s) + \gamma \sum_{s^\prime} P_\pi(s,s^\prime) v_\pi(s^\prime)
+\end{aligned}
+$$
+
+另 $s_i = s, s_j = s^\prime$ 有
+
+$$
+\begin{aligned}
+v_\pi(s_i) =& r_\pi(s_i) + \gamma \sum_{j=1}^n P_\pi(s_i,s_j) v_\pi(s_j)\\
+\Rightarrow V_\pi &= R_\pi + \gamma P_\pi V_\pi \quad （上式即为该式第i行）\\
+\Rightarrow V_\pi &= (I-\gamma P_\pi)^{-1}R_\pi
+\end{aligned}
+$$
+
+上述计算复杂度为 $O(n^3)$。当状态维度较高时，上述计算过于复杂，因此用后面的迭代求解方法。
+
+
+##### 2.1.1.2. 策略评估（迭代法）
+
+策略评估迭代求解的基本思路是从**任意初始的策略和初始的状态价值函数开始**，结合贝尔曼方程、状态转移概率和奖励，同步迭代更新状态价值函数，直至其收敛，得到该策略下最终的状态价值函数。策略评估旨在求解预测问题。
 
 假设给定一个策略 $\pi$，和初始时刻所有状态的状态价值 $v_0(s)$。
 
