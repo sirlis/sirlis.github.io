@@ -313,6 +313,29 @@ $$
 
 可以看出，价值迭代是极端情况下的策略迭代。
 
+#### 异步动态规划
+
+每次进行价值估计和更新时都要对全部的状态进行一次遍历，这未免太过繁琐，尤其是当状态空间足够大时，消耗在遍历上的资源就不尽人意了。那能不能一次更新只针对部分状态进行呢？只更新部分状态还能保证价值更新的收敛吗？
+
+可以的。
+
+在异步动态规划算法中，每一次迭代并不对所有状态的价值进行更新，而是依据一定的原则有选择性地更新部分状态的价值，这种算法能显著节约计算资源，并且只要所有状态能够得到持续的访问更新，那么也能确保算法收敛至最优解。
+下面分别介绍比较常用的异步动态规划思想：
+
+- 原位动态规划 (in-place dynamic programming)：直接利用当前状态的后续状态的价值来更新当前状态的价值。
+- 优先级动态规划 (prioritised sweeping)：对每一个状态进行优先级分级，优先级越高的状态其状态价值优先得到更新。
+- 实时动态规划 (real-time dynamic programming)：直接使用个体与环境交互产生的实际经历来更新状态价值，对于那些个体实际经历过的状态进行价值更新。
+
+#### 异步价值迭代
+
+前面的价值迭代中，需要存储两份状态价值函数 $v,\; v_k(s)$，实际上也可以只保存一份，即 “in-place” 方法。
+
+$$
+{\color{red}v(s)} \leftarrow max_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma {\color{red}v(s^\prime)}]
+$$
+
+
+
 ## 3. 参考文献
 
 [1] 刘建平Pinard. [强化学习（三）用动态规划（DP）求解](https://www.cnblogs.com/pinard/p/9463815.html).
@@ -322,3 +345,5 @@ $$
 [3] shuhuai008. [bilibili【强化学习】动态规划【白板推导系列】](https://www.bilibili.com/video/BV1nV411k7ve)
 
 [4] 韵尘. [知乎：4.2 —— 策略改进（Policy Improvement）](https://zhuanlan.zhihu.com/p/537229275)（含收敛性证明）
+
+[5] 韵尘. [知乎：4.5 —— 异步动态规划（Asynchronous Dynamic Programming）](https://zhuanlan.zhihu.com/p/537705334)
