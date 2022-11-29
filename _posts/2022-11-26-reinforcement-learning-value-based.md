@@ -6,18 +6,18 @@ tags: [python,reinforcementlearning]
 math: true
 ---
 
-本文介绍了强化学习的方法分类，主要包括基于模型的方法换个无模型的方法。其中，基于模型的方法分为策略迭代、值迭代、策略搜索，无模型的方法包括蒙特卡洛方法和时间差分法。
+本文介绍了强化学习的 model-free 方法。 model-free 方法主要包括 value-based 方法和 policy-based 方法。本文重点介绍 value-based 方法，包括 SARSA 和 Q-Learning。
 
 <!--more-->
 
 ---
 
-## 1. x
+## 1. 引言
 
-x
+在前面的 model-based 动态规划方法中，我们假设已知模型的动态特性 $p(s^\prime,r \vert s,a)$，此时可以对下一步的状态和汇报做出预测。而在很多实际案例中，我们无法得知模型的动态特性，此时动态规划方法就不适用了。
 
 
-## 3. 参考文献
+## 2. 参考文献
 
 [1] 刘建平Pinard. [强化学习（三）用动态规划（DP）求解](https://www.cnblogs.com/pinard/p/9463815.html).
 
