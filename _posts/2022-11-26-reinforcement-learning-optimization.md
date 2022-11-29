@@ -164,10 +164,13 @@ $$
 
 ##### 2.2.1.3. 策略改进
 
+- **策略改进定理**
+
 > 策略改进定理
 > 给定 $\pi,\pi^\prime$，
 > 如果 $\forall s\in S, q_\pi(s,\pi^\prime(s))\geq v_\pi(s)$，
-> 那么有 $\forall s\in S, v_{\pi^\prime}(s)\geq v_\pi(s)$。
+> 那么有 $\forall s\in S, v_{\pi^\prime}(s)\geq v_\pi(s)$，
+> 即 $\pi^\prime \geq \pi$。
 
 证明如下：
 
@@ -189,7 +192,35 @@ $$
 > 参考推导见：[策略改进定理及证明中隐式期望的处理](https://zhuanlan.zhihu.com/p/533279050)
 >
 
-基于以上证明，我们知道策略改进是切实可行的，那么究竟怎么做才能更新策略呢？很简单，只要贪心一点就够了！在当前策略对应的状态价值函数下，智能体在每个状态都计算一下所有动作各自的状态-动作价值函数，选出值最大的执行就可以。
+基于以上证明，我们知道策略改进是切实可行的，那么究竟怎么做才能更新策略呢？
+
+- **贪心方法**
+
+很简单，只要贪心一点就够了！在当前策略对应的状态价值函数下，智能体在每个状态都计算一下所有动作各自的状态-动作价值函数，选出值最大的执行就可以。贪心方法如下：
+
+$$
+\forall s\in S,\;  \pi^\prime(s) =
+\left\{
+\begin{aligned}
+1, \quad & a=\mathop{argmax}\limits_a\; q_\pi(s,a) \\
+0, \quad & otherwise
+\end{aligned}
+\right.
+$$
+
+证明：
+
+$$
+\forall s\in S,\; v_\pi(s) = \mathbb{E}_a[q_\pi(s,a)] \leq max_a q_\pi(s,a) = max_a q_\pi(s,\pi^\prime(s))
+$$
+
+满足策略改进定理条件，因此有
+
+$$
+\forall s\in S,\;v_{\pi^\prime}(s) \geq v_\pi(s)
+$$
+
+得证。
 
 因此，策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有 $\pi^\prime \geq \pi$ 。
 
