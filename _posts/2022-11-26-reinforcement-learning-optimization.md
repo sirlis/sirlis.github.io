@@ -236,7 +236,7 @@ $$
      - 如果 $a_{old} \neq \pi(s)$ 那么 $policy\;stable \leftarrow false$
    - 如果 $policy\;stable \leftarrow true$，停止迭代，得到 $v_*\approx v, \pi_*\approx \pi$；否则返回步骤 2
 
-#### 2.2.2. 值迭代
+#### 2.2.2. 价值迭代
 
 由于策略迭代通常在迭代几次后就可以收敛（上文中的 Grid World 例子，第三次迭代后，策略就已经达到最优），因此我们可以提前截断策略评估过程。
 
@@ -244,10 +244,28 @@ $$
 
 价值迭代过程：对每一个当前状态 s ,对每个可能的动作 a 都计算一下采取这个动作后到达的下一个状态的期望价值。选择最大的期望价值函数作为当前状态的价值函数 V(s) ，循环执行这个步骤，直到价值函数收敛。
 
+价值迭代的算法表述如下：
 
-具体迭代公式如下：
+1. **初始化**
+   - 对于所有 $s\in S$，任意初始化$V(s)$ 和 $\pi(s)$
+   - 给定 $p(s^\prime,r\vert s,a)$ 和 $r$ 和 $\gamma$
+   - 给定一个很小的正整数 $\theta$
 
-【todo】
+2. **策略评估**
+   - 循环($k$)：
+     - $\Delta = 0$
+     - 对于每个 $s\in S$：
+       - $v \leftarrow v_k(s)$
+       - $v_k(s) \leftarrow {\color{red}max_a} \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k-1}(s^\prime)]$
+       - $\Delta = max(\Delta, v-v_k(s))$
+   - 直至 $\Delta < \theta$  （$v(s)$收敛）
+   
+3. **策略改进**
+   - $q_\pi(s,a) = \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v(s^\prime)]$
+   - $\pi(s)\leftarrow \mathop{argmax}\limits_a\; q_\pi(s,a) $ 
+
+可以看出：
+- 更新目标：根据 ``max`` 操作符我们可以发现，价值迭代的更新目标不再是 $v_\pi$ ，公式中没有任何显示的策略 $\pi$ 的影子，反之，其更新目标正是最优价值函数（也即最优策略），一旦价值迭代收敛，基于其产生的贪婪策略就是最优策略；
 
 #### 2.2.3. 策略搜索
 
