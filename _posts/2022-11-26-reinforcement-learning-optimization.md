@@ -2,7 +2,7 @@
 title: 强化学习（model-based 动态规划）
 date: 2022-11-26 11:24:19 +0800
 categories: [Academic, Knowledge]
-tags: [python]
+tags: [python,reinforcementlearning]
 math: true
 ---
 
