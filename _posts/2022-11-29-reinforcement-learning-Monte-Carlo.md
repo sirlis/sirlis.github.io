@@ -19,10 +19,6 @@ math: true
 
 ## 2. 参考文献
 
-[1] 刘建平Pinard. [强化学习（三）用动态规划（DP）求解](https://www.cnblogs.com/pinard/p/9463815.html).
+[1] shuhuai008. [bilibili蒙特卡洛方法-强化学习-合集](https://space.bilibili.com/97068901/channel/collectiondetail?sid=196314)
 
-[2] Zeal. [知乎：强化学习二：策略迭代法](https://zhuanlan.zhihu.com/p/358464793)
-
-[3] shuhuai008. [bilibili【强化学习】动态规划【白板推导系列】](https://www.bilibili.com/video/BV1nV411k7ve)
-
-[4] 韵尘. [知乎：4.2 —— 策略改进（Policy Improvement）](https://zhuanlan.zhihu.com/p/537229275)（含收敛性证明）
+[2] 韵尘. [知乎：5.1 —— 蒙特卡洛预测（Monte Carlo Prediction）](https://zhuanlan.zhihu.com/p/538564739)
