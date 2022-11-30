@@ -2,7 +2,7 @@
 title: 强化学习（马尔可夫决策过程）
 date: 2022-11-09 12:36:19 +0800
 categories: [Academic, Knowledge]
-tags: [python,reinforcementlearning]
+tags: [python,reinforcement learning]
 math: true
 ---
 

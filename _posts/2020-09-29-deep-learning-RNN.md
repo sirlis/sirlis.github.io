@@ -2,7 +2,7 @@
 title: 深度学习基础（RNN）
 date: 2020-09-29 09:43:19 +0800
 categories: [Academic, Knowledge]
-tags: [deeplearning]
+tags: [deep learning]
 math: true
 ---
 

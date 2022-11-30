@@ -2,7 +2,7 @@
 title: 强化学习（model-free value-based）
 date: 2022-12-10 11:24:19 +0800
 categories: [Academic, Knowledge]
-tags: [python,reinforcementlearning]
+tags: [python,reinforcement learning]
 math: true
 ---
 

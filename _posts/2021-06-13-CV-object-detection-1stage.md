@@ -2,7 +2,7 @@
 title: 计算机视觉（One-Stage 目标检测）
 date: 2021-06-08 09:08:49 +0800
 categories: [Academic, Knowledge]
-tags: [deeplearning]
+tags: [deep learning,computer vision]
 math: true
 ---
 

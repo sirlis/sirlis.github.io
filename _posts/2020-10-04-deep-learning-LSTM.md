@@ -2,7 +2,7 @@
 title: 深度学习基础（LSTM）
 date: 2020-10-04 10:39:19 +0800
 categories: [Academic, Knowledge]
-tags: [deeplearning]
+tags: [deep learning]
 math: true
 ---
 
@@ -22,7 +22,7 @@ math: true
   - [2.1. LSTM 的 PyTorch 类](#21-lstm-的-pytorch-类)
   - [2.2. LSTM 实现 MNIST 识别](#22-lstm-实现-mnist-识别)
 - [3. 常见错误](#3-常见错误)
-  - [3.1. CUDNN_STATUS_BAD_PARAM](#31-cudnn_status_bad_param)
+  - [3.1. CUDNN\_STATUS\_BAD\_PARAM](#31-cudnn_status_bad_param)
 - [4. 参考文献](#4-参考文献)
 
 # 1. LSTM

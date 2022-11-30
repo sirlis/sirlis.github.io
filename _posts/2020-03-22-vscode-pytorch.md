@@ -2,7 +2,7 @@
 title: VSCode部署Pytorch机器学习框架
 date: 2020-03-22 09:22:19 +0800
 categories: [Tutorial, Coding]
-tags: [python, pytorch]
+tags: [vscode, python, pytorch]
 math: true
 ---
 
@@ -26,7 +26,7 @@ math: true
   - [3.4. 测试](#34-测试)
 - [4. 常见错误](#4-常见错误)
   - [4.1. RuntimeError:An attempt has been made...](#41-runtimeerroran-attempt-has-been-made)
-  - [requires_grad 与 requires_grad_ 混淆](#requires_grad-与-requires_grad_-混淆)
+  - [requires\_grad 与 requires\_grad\_ 混淆](#requires_grad-与-requires_grad_-混淆)
 - [5. 参考文献](#5-参考文献)
 
 # 1. 简介

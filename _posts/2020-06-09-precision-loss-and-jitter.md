@@ -2,7 +2,7 @@
 title: 精度损失和抖颤
 date: 2020-06-09 20:23:49 +0800
 categories: [Tutorial, Coding]
-tags: [opengl]
+tags: [simulation, opengl]
 math: true
 ---
 

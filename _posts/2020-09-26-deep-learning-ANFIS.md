@@ -2,7 +2,7 @@
 title: 自适应网络模糊推理系统（ANFIS）
 date: 2020-09-26 08:55:19 +0800
 categories: [Academic, Paper]
-tags: [fuzzy, deeplearning]
+tags: [fuzzy, deep learning]
 math: true
 ---
 
@@ -19,8 +19,8 @@ math: true
   - [1.4. ANFIS 学习算法](#14-anfis-学习算法)
 - [2. 程序文件组成](#2-程序文件组成)
 - [3. membership.py](#3-membershippy)
-  - [3.1. make_anfis()](#31-make_anfis)
-  - [3.2. make_gauss_mfs()](#32-make_gauss_mfs)
+  - [3.1. make\_anfis()](#31-make_anfis)
+  - [3.2. make\_gauss\_mfs()](#32-make_gauss_mfs)
   - [3.3. GaussMemFunc()](#33-gaussmemfunc)
 - [4. anfis.py](#4-anfispy)
   - [4.1. AnfisNet()](#41-anfisnet)

@@ -2,7 +2,7 @@
 title: 深度学习基础（Encoder-Decoder）
 date: 2020-10-28 10:51:19 +0800
 categories: [Academic, Knowledge]
-tags: [deeplearning]
+tags: [deep learning]
 math: true
 ---
 

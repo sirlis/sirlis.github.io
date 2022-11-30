@@ -2,7 +2,7 @@
 title: 最优控制基础（微分方程的解法）
 date: 2021-01-25 09:07:49 +0800
 categories: [Academic, Knowledge]
-tags: [optimalcontrol]
+tags: [optimal control]
 math: true
 ---
 

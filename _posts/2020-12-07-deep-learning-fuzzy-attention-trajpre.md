@@ -2,7 +2,7 @@
 title: 深度学习文章阅读（模糊注意力轨迹预测）
 date: 2020-12-07 16:39:19 +0800
 categories: [Academic, Paper]
-tags: [fuzzy, deeplearning]
+tags: [fuzzy, deep-learning]
 math: true
 ---
 

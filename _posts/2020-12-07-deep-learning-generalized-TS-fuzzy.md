@@ -2,7 +2,7 @@
 title: 深度学习文章阅读（广义TS模糊系统）
 date: 2020-12-08 10:48:19 +0800
 categories: [Academic, Paper]
-tags: [fuzzy]
+tags: [deep learning, fuzzy]
 math: true
 ---
 

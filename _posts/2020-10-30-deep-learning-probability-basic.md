@@ -2,7 +2,7 @@
 title: 深度学习基础（概率与统计）
 date: 2020-10-30 10:46:19 +0800
 categories: [Academic, Knowledge]
-tags: [probability]
+tags: [statistics]
 math: true
 ---
 

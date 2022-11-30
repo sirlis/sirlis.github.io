@@ -2,7 +2,7 @@
 title: 深度学习基础（CNN 卷积神经网络）
 date: 2021-06-08 09:08:49 +0800
 categories: [Academic, Knowledge]
-tags: [deeplearning]
+tags: [deep learning]
 math: true
 ---
 

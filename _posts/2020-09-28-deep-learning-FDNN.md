@@ -2,7 +2,7 @@
 title: 深度学习文章阅读（FDNN）
 date: 2020-09-28 09:43:19 +0800
 categories: [Academic, Paper]
-tags: [fuzzy, deeplearning]
+tags: [fuzzy, deep learning]
 math: true
 ---
 
@@ -173,11 +173,11 @@ $$
 
 作者设计了三个不同的网络结构 C1，C2 和 C3，复杂程度逐渐增加。
 
-||Input | Fuzzy | Neural | Fusion | Output |
-|-|-|-|-|-|-|
-|C1|$n$|$k\times n$|$64(2)$|$64(2)$|$k$|
-|C2|$n$|$k\times n$|$128(2)$|$128(2)$|$k$|
-|C3|$n$|$k\times n$|$256(2)$|$256(2)$|$k$|
+|     | Input | Fuzzy       | Neural   | Fusion   | Output |
+| --- | ----- | ----------- | -------- | -------- | ------ |
+| C1  | $n$   | $k\times n$ | $64(2)$  | $64(2)$  | $k$    |
+| C2  | $n$   | $k\times n$ | $128(2)$ | $128(2)$ | $k$    |
+| C3  | $n$   | $k\times n$ | $256(2)$ | $256(2)$ | $k$    |
 
 作者采用2个分类任务来进行实验：自然场景图像分类和股票走势预测。
 

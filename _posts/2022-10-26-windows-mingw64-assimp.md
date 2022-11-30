@@ -2,7 +2,7 @@
 title: Windows环境下使用CMake+MinGW-w64编译模型加载库assimp
 date: 2022-10-26 16:23:19 +0800
 categories: [Tutorial, Coding]
-tags: [c]
+tags: [c/c++, vscode]
 math: true
 ---
 

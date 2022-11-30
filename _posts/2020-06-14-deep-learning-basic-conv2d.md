@@ -2,7 +2,7 @@
 title: 深度学习基础（PyTorch的CNN组成）
 date: 2020-06-14 16:24:19 +0800
 categories: [Academic, Knowledge]
-tags: [python, pytorch, deeplearning]
+tags: [python, pytorch, deep learning]
 math: true
 ---
 
@@ -21,7 +21,7 @@ math: true
 - [2. 激活函数](#2-激活函数)
   - [2.1. conv2d](#21-conv2d)
   - [2.2. softmax](#22-softmax)
-  - [2.3. log_softmax](#23-log_softmax)
+  - [2.3. log\_softmax](#23-log_softmax)
 - [3. 损失函数](#3-损失函数)
   - [3.1. CrossEntropyLoss](#31-crossentropyloss)
   - [3.2. NLLLoss](#32-nllloss)

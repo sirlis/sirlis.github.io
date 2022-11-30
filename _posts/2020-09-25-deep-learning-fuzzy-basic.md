@@ -2,7 +2,7 @@
 title: 深度学习基础（Fuzzy，FNN）
 date: 2020-09-25 08:55:19 +0800
 categories: [Academic, Knowledge]
-tags: [fuzzy, deeplearning]
+tags: [fuzzy, deep learning]
 math: true
 ---
 
@@ -130,11 +130,11 @@ $$
 
 模糊逻辑的定义形式有很多种，比较常见的被称为是 Zadeh operators，如下表所示
 
-|Boolean|Fuzzy|
-|-|-|
-|AND(x,y)|MIN(x,y)|
-|OR(x,y)|MAX(x,y)|
-|NOT(x)|1-x|
+| Boolean  | Fuzzy    |
+| -------- | -------- |
+| AND(x,y) | MIN(x,y) |
+| OR(x,y)  | MAX(x,y) |
+| NOT(x)   | 1-x      |
 
 另一种 AND/OR 算子基于**乘法**定义
 
@@ -178,12 +178,12 @@ $$
 
 神经网络控制和模糊控制的优劣比较如下表所示。
 
-|Neural Networks|Fuzzy Systems|
-|-|-|
-no mathematical model necessary | no mathematical model necessary          
-learning from scratch           | apriori knowledge essential              
-several learning algorithms     | not capable to learn                     
-black-box behavior              | simple interpretation and implementation
+| Neural Networks                 | Fuzzy Systems                            |
+| ------------------------------- | ---------------------------------------- |
+| no mathematical model necessary | no mathematical model necessary          |
+| learning from scratch           | apriori knowledge essential              |
+| several learning algorithms     | not capable to learn                     |
+| black-box behavior              | simple interpretation and implementation |
 
 从表中可以看出，如果将二者结合，可以充分发挥二者的优势，弥补二者的劣势。
 

@@ -2,7 +2,7 @@
 title: 深度学习文章阅读（Image Segmentation）
 date: 2021-09-23 09:53:49 +0800
 categories: [Academic, Paper]
-tags: [deeplearning]
+tags: [deep learning,computer vision]
 math: true
 ---
 

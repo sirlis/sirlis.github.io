@@ -2,7 +2,7 @@
 title: LaTeX+VSCode环境配置
 date: 2020-08-28 09:17:19 +0800
 categories: [Tutorial, Writing]
-tags: [latex]
+tags: [latex, vscode]
 math: true
 ---
 

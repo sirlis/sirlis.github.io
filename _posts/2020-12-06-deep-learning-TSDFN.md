@@ -2,7 +2,7 @@
 title: 深度学习文章阅读（TS深度模糊网络）
 date: 2020-12-06 16:39:19 +0800
 categories: [Academic, Paper]
-tags: [fuzzy]
+tags: [fuzzy, deep learning]
 math: true
 ---
 

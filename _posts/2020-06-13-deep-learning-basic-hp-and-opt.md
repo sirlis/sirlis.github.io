@@ -2,7 +2,7 @@
 title: 深度学习基础（基本超参数和优化器）
 date: 2020-06-13 16:24:19 +0800
 categories: [Academic, Knowledge]
-tags: [python]
+tags: [python, deep learning]
 math: true
 ---
 
@@ -14,7 +14,7 @@ math: true
 
 - [1. 基本超参数](#1-基本超参数)
   - [1.1. epoch](#11-epoch)
-  - [1.2. batch & batch_size](#12-batch--batch_size)
+  - [1.2. batch \& batch\_size](#12-batch--batch_size)
   - [1.3. iteration](#13-iteration)
 - [2. 优化器](#2-优化器)
   - [2.1. 批量梯度下降（BGD）](#21-批量梯度下降bgd)

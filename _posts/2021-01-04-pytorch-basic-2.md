@@ -2,7 +2,7 @@
 title: PyTorch基础（随机数种子）
 date: 2021-01-04 15:22:19 +0800
 categories: [Tutorial，Coding]
-tags: [python]
+tags: [python,deep learning]
 math: true
 ---
 
