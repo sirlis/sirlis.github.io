@@ -27,9 +27,6 @@ tagline: 分享生活和科研的日常  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
   一个基于 Jekyll 和 GitHub Pages 的个人博客。
 
-# Used to detemine custom excerpt tag. This will be the excepty on home page.
-excerpt_separator: <!--more-->
-
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://sirlis.github.io'
 
