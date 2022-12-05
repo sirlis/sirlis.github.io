@@ -97,3 +97,5 @@ $$
 [1] shuhuai008. [bilibili蒙特卡洛方法-强化学习-合集](https://space.bilibili.com/97068901/channel/collectiondetail?sid=196314)
 
 [2] 韵尘. [知乎：5.1 —— 蒙特卡洛预测（Monte Carlo Prediction）](https://zhuanlan.zhihu.com/p/538564739)
+
+[3] 静静的喝酒. [强化学习之SARSA](https://blog.csdn.net/qq_34758157/article/details/124608790?spm=1001.2014.3001.5501)
