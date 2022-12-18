@@ -12,7 +12,7 @@ math: true
 
 ---
 
-## 引言
+## 1. 引言
 
 在前面的的介绍中，我们分别介绍了两种基于价值的方法，动态规划法和蒙特卡洛法。本节介绍第三种基于价值的方法：时序差分法。
 
@@ -29,27 +29,18 @@ $$
 其中：
 - DP：自举。更新 $v_{k+1}$ 时采用上一步的 $v_k$ 进行组装，**缺点：环境动态特性必须已知**；
 - MC：采样。依据大数定律，让样本均值逼近期望，**缺点：必须完整采集一幕**；
+- TD：
 
-### 测试1
+因此时序差分法（TD0），是在 MC 的基础上，不走完整个序列，而是只走**一步**
 
-#### 测试11
+$$
+\begin{aligned}
+MC:\quad & v(S_t) \leftarrow v(S_t)+\alpha(G_t-V(S_t)) \\
+TD0:\quad & v(S_t) \leftarrow v(S_t)+\alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
+\end{aligned}
+$$
 
-#### 测试12
-
-#### 测试13
-
-## 测试2
-
-### 测试22
-
-### 测试323
 
 ## 参考文献
 
-[1] 刘建平Pinard. [强化学习（三）用动态规划（DP）求解](https://www.cnblogs.com/pinard/p/9463815.html).
-
-[2] Zeal. [知乎：强化学习二：策略迭代法](https://zhuanlan.zhihu.com/p/358464793)
-
-[3] shuhuai008. [bilibili【强化学习】动态规划【白板推导系列】](https://www.bilibili.com/video/BV1nV411k7ve)
-
-[4] 韵尘. [知乎：4.2 —— 策略改进（Policy Improvement）](https://zhuanlan.zhihu.com/p/537229275)（含收敛性证明）
+[3] shuhuai008. [bilibili【【强化学习】 时序差分-策略评估](https://www.bilibili.com/video/BV1wS4y1F7zn)
