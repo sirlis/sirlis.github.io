@@ -1,5 +1,5 @@
 ---
-title: 强化学习（model-free 蒙特卡洛法）
+title: 强化学习（蒙特卡洛法）
 date: 2022-11-29 17:07:19 +0800
 categories: [Academic, Knowledge]
 tags: [python,reinforcement learning]
