@@ -67,7 +67,7 @@ Repeat (for each episode):
 
 上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。
 
-### 离轨策略（off-policy）下的时序差分控制
+### 离轨策略下的时序差分控制
 
 实际上，在 $s^\prime$ 状态下，存在一个确定性策略
 
@@ -96,6 +96,10 @@ Repeat (for each episode):
         \;Q(s^\prime,a^*)-Q(s,a)]}$
         $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime$
     $\qquad$until $s$ is terminal
+
+此时，更新时使用（采样得到动作）的策略 $\pi$ 并不是我们待更新的策略，因此被称为离轨策略（off-policy）。
+
+### 期望SARSA
 
 ## 参考文献
 
