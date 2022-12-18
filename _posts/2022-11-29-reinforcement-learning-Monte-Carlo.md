@@ -80,7 +80,7 @@ $$
 u_1 &= \frac{1}{1}\sum_{i=1}^1 x_i = 3\\
 u_2 &= \frac{1}{2}\sum_{i=1}^2 x_i = \frac{3+4}{2} = 3.5\\
 \Rightarrow u_2 &= u_1+\frac{1}{2}(x_2-u_1) = 3+\frac{1}{2} = 3.5\\
-u_3 &= u_2+\frac{1}{3}(x_3-u_2) = 3+\frac{1}{2} = 3.5
+\Rightarrow u_3 &= u_2+\frac{1}{3}(x_3-u_2) = 3.5+\frac{1}{2} = 4
 \end{aligned}
 $$
 
