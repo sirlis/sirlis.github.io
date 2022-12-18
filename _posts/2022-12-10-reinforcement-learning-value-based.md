@@ -1,5 +1,5 @@
 ---
-title: 强化学习（model-free value-based）
+title: 强化学习（model-free temporal-difference，时序差分法）
 date: 2022-12-10 11:24:19 +0800
 categories: [Academic, Knowledge]
 tags: [python,reinforcement learning]

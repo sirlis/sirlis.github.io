@@ -1,12 +1,12 @@
 ---
-title: 强化学习（model-based 动态规划）
+title: 强化学习（动态规划）
 date: 2022-11-26 11:24:19 +0800
 categories: [Academic, Knowledge]
 tags: [python,reinforcement learning]
 math: true
 ---
 
-本文介绍了强化学习的 model-based 方法，采用动态规划的思想，分别介绍策略迭代和价值迭代方法。
+本文介绍了强化学习的动态规划法，采用动态规划的思想，分别介绍策略迭代和价值迭代方法。
 
 <!--more-->
 
