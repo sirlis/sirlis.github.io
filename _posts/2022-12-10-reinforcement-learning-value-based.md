@@ -101,6 +101,12 @@ Repeat (for each episode):
 
 ### 期望SARSA
 
+我们可以对 SARSA 进行改进，不再进行采样得到动作 $a^\prime$，而是对 $Q$ 进行加权平均，此时
+
+$$
+Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathbb{E}_\pi[Q(s^\prime,a^\prime)\vert s^\prime]-Q(s,a)]
+$$
+
 ## 参考文献
 
 [1] shuhuai008. [bilibili【强化学习】(SARSA) 时序差分-同轨策略TD控制](https://www.bilibili.com/video/BV1BS4y1r7cm)
