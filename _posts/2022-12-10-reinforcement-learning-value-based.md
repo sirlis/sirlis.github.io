@@ -35,12 +35,64 @@ $$
 
 $$
 \begin{aligned}
-MC:\quad & v(S_t) \leftarrow v(S_t)+\alpha(G_t-V(S_t)) \\
-TD0:\quad & v(S_t) \leftarrow v(S_t)+\alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
+MC:\quad & v(S_t) \leftarrow v(S_t)+\alpha(G_t-v(S_t)) \\
+TD0:\quad & v(S_t) \leftarrow v(S_t)+\alpha(R_{t+1}+\gamma v(S_{t+1})-v(S_t))
 \end{aligned}
 $$
 
+### 同轨策略下的时序差分控制（SARSA）
+
+$$
+\begin{aligned}
+V(S_t) & \leftarrow V(S_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{V(S_{t+1})}_{自举}-V(S_t))\\
+Q(S_t,A_t) & \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{Q(S_{t+1},A_{t+1})}_{脑采}-Q(S_t,A_t))\\
+\end{aligned}
+$$
+
+上述更新方式即为 **SARSA。**
+
+伪代码如下：
+
+
+Initialize Q(s,a) arbitrarily
+Repeat (for each episode):
+    $\qquad$Initialize s
+    $\qquad$Repeat (for each step of episode):
+        $\qquad$$\qquad$Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)
+        $\qquad$$\qquad$Take action a, observe r, s'
+        $\qquad$$\qquad$<font color=red>Choose $a^\prime$ from $s^\prime$ using policy derived from Q (e.g., $\epsilon$-greedy)</font>
+        $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s^\prime,a^\prime)-Q(s,a)]}$
+        $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime; a\leftarrow a^\prime$
+    $\qquad$until $s$ is terminal
+
+上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。
+
+### 离轨策略（off-policy）下的时序差分控制
+
+实际上，在 $s^\prime$ 状态下，存在一个确定性策略
+
+$$
+a^*=\pi(s^\prime) = argmax_a\; Q(s^\prime, a)
+$$
+
+再更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是使用这个确定性策略。这种更新方式即为 **Q-Learning**。
+
+伪代码如下：
+
+
+Initialize Q(s,a) arbitrarily
+Repeat (for each episode):
+    $\qquad$Initialize s
+    $\qquad$Repeat (for each step of episode):
+        $\qquad$$\qquad$Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)
+        $\qquad$$\qquad$Take action a, observe r, s'
+        $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma 
+        \;max_{a^\prime}Q(s^\prime,a^\prime)-Q(s,a)]}$
+        $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime$
+    $\qquad$until $s$ is terminal
 
 ## 参考文献
 
-[3] shuhuai008. [bilibili【【强化学习】 时序差分-策略评估](https://www.bilibili.com/video/BV1wS4y1F7zn)
+[1] shuhuai008. [bilibili【强化学习】(SARSA) 时序差分-同轨策略TD控制](https://www.bilibili.com/video/BV1BS4y1r7cm)
+
+[2] 莫烦. [什么是 Sarsa (强化学习)](https://zhuanlan.zhihu.com/p/24860793)
