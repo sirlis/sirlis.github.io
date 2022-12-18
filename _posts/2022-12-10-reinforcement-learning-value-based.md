@@ -60,7 +60,7 @@ Repeat (for each episode):
     $\qquad$Repeat (for each step of episode):
         $\qquad$$\qquad$Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)
         $\qquad$$\qquad$Take action a, observe r, s'
-        $\qquad$$\qquad$<font color=red>Choose $a^\prime$ from $s^\prime$ using policy derived from Q (e.g., $\epsilon$-greedy)</font>
+        $\qquad$$\qquad$<font color=red>Choose $a^\prime$ from $s^\prime$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</font>
         $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s^\prime,a^\prime)-Q(s,a)]}$
         $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime; a\leftarrow a^\prime$
     $\qquad$until $s$ is terminal
@@ -75,7 +75,13 @@ $$
 a^*=\pi(s^\prime) = argmax_a\; Q(s^\prime, a)
 $$
 
-再更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是使用这个确定性策略。这种更新方式即为 **Q-Learning**。
+此时有
+
+$$
+max_{a^\prime}\; Q(s^\prime,a^\prime) = Q(s^\prime, a^*)
+$$
+
+更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是使用这个确定性策略。这种更新方式即为 **Q-Learning**。
 
 伪代码如下：
 
@@ -84,10 +90,10 @@ Initialize Q(s,a) arbitrarily
 Repeat (for each episode):
     $\qquad$Initialize s
     $\qquad$Repeat (for each step of episode):
-        $\qquad$$\qquad$Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)
+        $\qquad$$\qquad$Choose a from s using policy derived from $Q$ (e.g., $\epsilon$-greedy)
         $\qquad$$\qquad$Take action a, observe r, s'
         $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma 
-        \;max_{a^\prime}Q(s^\prime,a^\prime)-Q(s,a)]}$
+        \;Q(s^\prime,a^*)-Q(s,a)]}$
         $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime$
     $\qquad$until $s$ is terminal
 
