@@ -1,12 +1,12 @@
 ---
-title: 强化学习（model-free temporal-difference，时序差分法）
-date: 2022-12-10 11:24:19 +0800
+title: 强化学习（时序差分法）
+date: 2022-12-18 14:59:19 +0800
 categories: [Academic, Knowledge]
 tags: [python,reinforcement learning]
 math: true
 ---
 
-本文介绍了强化学习的 model-free 方法。 model-free 方法主要包括 value-based 方法和 policy-based 方法。本文重点介绍 value-based 方法，包括 SARSA 和 Q-Learning。
+本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。
 
 <!--more-->
 
