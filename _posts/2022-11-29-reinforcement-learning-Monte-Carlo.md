@@ -87,7 +87,12 @@ $$
 则蒙特卡洛增量更新方法如下
 
 $$
-v(S_t) \leftarrow v(S_t) + \alpha (G_t - v(S_t))
+\left\{
+\begin{aligned}
+N(S_t) &\leftarrow N(S_t)+1\\
+v(S_t) &\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
+\end{aligned}
+\right.
 $$
 
 这样只需要每次得到一个新的 $G_t$ 即可更新一次价值函数，即便和真正的均值存在差异，但更新时间更短，更容易观察到收敛结果，且可以随着时间的推移逐步接近均值。
