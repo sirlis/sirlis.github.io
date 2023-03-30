@@ -342,7 +342,7 @@ $$
 \boldsymbol{V} = (\boldsymbol{I}-\gamma\boldsymbol{P})^{-1}\boldsymbol{R}
 $$
 
-需要注意的是，矩阵求逆的复杂度为 $O(n^3)$，因此直接求解仅适用于状态空间规模小的问题。状态空间规模大的问题的求解通常使用迭代法。常用的迭代方法有：动态规划(Dynamic Programming)、蒙特卡洛评估(Monte-Carlo evaluation)、时序差分学(Temporal-Difference)等。
+需要注意的是，矩阵求逆的复杂度为 $O(n^3)$，因此直接求解仅适用于状态空间规模小的问题。状态空间规模大的问题的求解通常使用迭代法。常用的迭代方法有：动态规划(Dynamic Programming)、蒙特卡洛评估(Monte-Carlo evaluation)、时序差分(Temporal-Difference)等。
 
 ## 4. 马尔可夫决策过程（MDP）
 
