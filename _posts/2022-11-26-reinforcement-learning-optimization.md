@@ -102,7 +102,7 @@ v_\pi(s) =& r_\pi(s) + \gamma \sum_{s^\prime} P_\pi(s,s^\prime) v_\pi(s^\prime)
 \end{aligned}
 $$
 
-另 $s_i = s, s_j = s^\prime$ 有
+令 $s_i = s, s_j = s^\prime$ 有
 
 $$
 \begin{aligned}
