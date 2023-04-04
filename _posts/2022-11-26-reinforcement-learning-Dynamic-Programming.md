@@ -306,7 +306,7 @@ $$
      - $\Delta = 0$
      - 对于每个 $s\in S$：
        - $v \leftarrow v_k(s)$
-       - $v_{k+1}(s) \leftarrow {\color{red}max_a} \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k}(s^\prime)]$
+       - $v_{k+1}(s) \leftarrow {\color{red}max_a} \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k}(s^\prime)]\qquad$  贝尔曼最优方程
        - $\Delta = max(\Delta, v-v_{k+1}(s))$
    - 直至 $\Delta < \theta$  （$v(s)$收敛）
    
