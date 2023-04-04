@@ -12,18 +12,15 @@ math: true
 
 ---
 
-## 1. 引言
+## 1. 引言  
 
-回顾强化学习的目标：价值估计（预测问题）和策略寻优（控制问题）。
 
-在前面的的介绍中，我们分别介绍了两种基于价值的方法，动态规划法和蒙特卡洛法。这里进行简要的回顾：
+回顾强化学习的目标：价值估计（预测问题）和策略寻优（控制问题）。在前面的的介绍中，我们分别介绍了两种基于价值的方法，动态规划法和蒙特卡洛法：
 
 - **动态规划法**（DP）：是 model-based 方法，包含策略评估和策略改进两步，策略评估用来进行价值估计（即预测问题），策略改进用来进行策略寻优（控制问题）。
 - **蒙特卡洛法**（MC）：是 model-free 方法，因为一般情况下我们无法得到具体模型（状态转移概率），因此通过采样完整序列后，通过 $G_t$ 来进行策略评估（价值估计）。
 
-本节介绍第三种基于价值的方法：时序差分法。
-
-首先回顾一下价值函数的等式：
+本节介绍第三种基于价值的方法：时序差分法（TD）。首先回顾一下价值函数的等式：
 
 $$
 \begin{aligned}
@@ -113,8 +110,8 @@ Repeat (for each episode):
     $\qquad$Repeat (for each step of episode):
         $\qquad$$\qquad$Choose a from s using policy derived from $Q$ (e.g., $\epsilon$-greedy)
         $\qquad$$\qquad$Take action a, observe r, s'
-        $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma 
-        \;Q(s^\prime,a^*)-Q(s,a)]}$
+        $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathop{\text{max}}\limits_{a}
+        Q(s^\prime,a)-Q(s,a)]}$
         $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime$
     $\qquad$until $s$ is terminal
 
