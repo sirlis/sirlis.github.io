@@ -74,6 +74,8 @@ pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url http
 - cuda 10.2.89
 - cudnn 7.6.5（与cuda版本有关）
 
+<!-- ![](/assets/img/postsimg/20200322/01.1.update.png) -->
+
 【**2023.04.22更新**】win11+RTX2060，经测试可使用的GPU版本的PyTorch包含以下组件（官网默认源pip安装命令2.1G）：
 
 - pytorch 1.12.1+cu113
@@ -88,7 +90,6 @@ pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url http
 conda update pytorch torchvision -c pytorch
 ``` -->
 
-![](/assets/img/postsimg/20200322/01.1.update.png)
 
 ## 3.2. 部署其它包
 
@@ -98,7 +99,11 @@ CUDA（Compute Unified Device Architecture），是NVIDIA推出的运算平台�
 
 CUDA依赖显卡驱动，提前更新显卡驱动并确认显卡驱动支持的CUDA版本号。
 
-采用命令行安装时，命令行中已经带有安装CUDA的指令 `cudatoolkit=10.1`。若命令行安装失败，可通过Anaconda界面安装cudatoolkit。
+> 采用命令行安装 PyTorch 时，命令行中已经带有安装CUDA的指令 `cudatoolkit=xx.x`。CUDA Toolkit 可理解为是 CUDA 的一个子集，其主要包含应用程序在使用 CUDA 相关的功能时所依赖的动态链接库。conda安装只会安装一些计算库，不会安装编译工具。而官方的 CUDA 包包含的东西会完整一些。
+> 在运行基于pytorch的代码时会使用conda提供的cudatoolkit包，而忽视Nvidia官方的CUDA Toolkit。这也就是为什么有时候我们通过nvcc -V查看的CUDA运行API版本很低(比如7.5)，但是能成功运行cuda9.0的pytorch的原因。
+> 但是需要注意： 如果项目代码需要使用python setup.py develop或./make.sh来编译依赖cuda的torch模块（如C语言脚本）时候，这个时候可能会导致错误，错误原因是编译过程使用的是系统自带的CUDA而不是conda安装的CUDA包，当系统自带CUDA版本不支持项目代码时，会引发一些奇怪的问题，所以最好的办法是保持pytorch安装的cudatoolkit版本与系统自带版本（`nvcc -V`）查看一致。
+
+可通过Anaconda界面安装。
 
 若界面安装仍然失败，可尝试手动安装，请前往 [手动部署CUDA和cuDNN](#33-手动部署cuda和cudnn)。
 
@@ -154,13 +159,21 @@ conda install pandas
 
 首先需要更新自己的显卡驱动，此处不再赘述。
 
-若要手动部署CUDA和cuDNN，必须遵循先CUDA后cuDNN的顺序。首先前往官网（https://www.nvidia.com/）下载CUDA。
+若要手动部署CUDA和cuDNN，必须遵循先CUDA后cuDNN的顺序。
 
-![下载cuda](/assets/img/postsimg/20200322/05.manualcuda.png)
+<del>首先前往官网（https://www.nvidia.com/）下载CUDA。</del> 
 
-在打开的页面中点击 ”Download Now“ 按钮，然后再新页面中选择 “Legacy Releases” 按钮，不要按照页面的说法进行系统选择等操作。
+【**2023.04.22更新**】官网下载页面和网址天天变，大家自己找一下把...
 
-![安装cuda1](/assets/img/postsimg/20200322/06.cuda1.png)
+```
+https://developer.nvidia.com/cuda-downloads?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_network
+```
+
+<!-- ![下载cuda](/assets/img/postsimg/20200322/05.manualcuda.png) -->
+
+<!-- 在打开的页面中点击 ”Download Now“ 按钮，然后再新页面中选择 “Legacy Releases” 按钮，不要按照页面的说法进行系统选择等操作。 -->
+
+<!-- ![安装cuda1](/assets/img/postsimg/20200322/06.cuda1.png) -->
 
 然后根据自己的实际情况选择相应的CUDA版本下载安装。
 
@@ -186,7 +199,7 @@ cd C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\demo_suite
 
 ![CUDA版本](/assets/img/postsimg/20200322/10.cudapass.png)
 
-然后，前往[此处](https://developer.nvidia.com/cudnn)（https://developer.nvidia.com/cudnn），点击 “Download cuDNN” 按钮下载cuDNN。下载前需要书册账号并登陆。**注意**，cuDNN版本与CUDA版本间存在匹配关系，下载时一定要注意。
+然后，前往[此处](https://developer.nvidia.com/cudnn)（https://developer.nvidia.com/cudnn ），点击 “Download cuDNN” 按钮下载cuDNN。下载前需要注册账号并登陆。**注意**，cuDNN版本与CUDA版本间存在匹配关系，下载时一定要注意。
 
 下载解压后得到的文件直接覆盖到CUDA安装路径，如下图所示。
 
@@ -194,7 +207,13 @@ cd C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\demo_suite
 
 ## 3.4. 测试
 
-在环境中启动终端，输入
+在环境中启动终端，激活 pytorch 安装的环境
+
+```
+conda activate [name_of_your_env]
+```
+
+输入
 
 ```
 python
@@ -204,11 +223,22 @@ python
 
 ![12.test1](/assets/img/postsimg/20200322/12.test1.png)
 
+检查pytorch是否能够正确调用GPU驱动和是否能够启用CUDA，输入：
+
+```python
+import torch
+torch.cuda.is_available()
+```
+
+返回 `True` 即可。
+
+![14.test3](/assets/img/postsimg/20200322/14.test3.png)
+
+
 然后一行行输入以下命令
 
 ```python
 from __future__ import print_function
-import torch
 x = torch.rand(5, 3)
 print(x)
 ```
@@ -225,16 +255,12 @@ tensor([[0.3380, 0.3845, 0.3217],
 
 ![13.test2](/assets/img/postsimg/20200322/13.test2.png)
 
-检查pytorch是否能够正确调用GPU驱动和是否能够启用CUDA，输入：
+推出 python
 
 ```python
-import torch
-torch.cuda.is_available()
+exit()
 ```
 
-返回 `True` 即可。
-
-![14.test3](/assets/img/postsimg/20200322/14.test3.png)
 
 # 4. 常见错误
 
