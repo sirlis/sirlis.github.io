@@ -49,14 +49,14 @@ PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语�
 
 **注意**，PyTorch包含两个版本，CPU版（CUDA=None）和GPU版，若计算机没有合适的独立显卡，则CUDA选择None。不过GPU版同样包含CPU版的所有功能，因此完全可以安装GPU版，然后不用GPU计算加速功能。
 
-**注意**，请自行确认独立显卡驱动支持的**CUDA版本**。打开控制面板，选择查看方式为“小图标”，选择“Nvidia控制面板”，然后如图所示的步骤依次打开“系统信息” => “组件”，查看 “NVCUDA.DLL” 的产品名称，并选择不超过其版本号的CUDA版本号。
+**注意**，请自行确认独立显卡驱动支持的**CUDA版本**。打开控制面板，选择查看方式为“小图标”，选择“Nvidia控制面板”，然后如图所示的步骤依次打开“系统信息” => “组件”，查看 “NVCUDA.DLL” 的产品名称，并选择**不超过其版本号的CUDA版本号**。
 
 ![CUDA版本查看](/assets/img/postsimg/20200322/04.cudaversion.png)
 
 确定CUDA版本号后，根据官网给出的命令安装（可以灵活选择，比如用不到torchaudio就删了）。
 
 ```python
-# cuda 11.5  python 3.9
+# 20230422 win11 rtx2060 miniconda python 3.9
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 
@@ -69,10 +69,17 @@ pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url http
 <del>【**20210524补充**】尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要用国内源，而是使用官方默认源（也即删除.conrc文件），否则会报如下代理连接错误 `ProxyError: Conda cannot proceed due to an error in your proxy configuration.`</del>
 
 【**2021.05.25更新**】，经测试可使用的GPU版本的PyTorch包含以下组件：
-- pytorch  1.8.1
-- torchvision  0.9.1
-- cuda  10.2.89（与显卡支持的cuda版本有关）
-- cudnn  7.6.5（与cuda版本有关）
+- pytorch 1.8.1
+- torchvision 0.9.1
+- cuda 10.2.89
+- cudnn 7.6.5（与cuda版本有关）
+
+【**2023.04.22更新**】win11+RTX2060，经测试可使用的GPU版本的PyTorch包含以下组件（官网默认源pip安装命令2.1G）：
+
+- pytorch 1.12.1+cu113
+- torchvision 0.13.1+cu113
+- cuda 11.1.105 （官网下载 `cuda_11.1.1_win10_network.exe`，命令行 `nvcc -V`）
+- cudnn 8.9.0 (官网下载 `cudnn-windows-x86_64-8.9.0.131_cuda11-archive.zip` 解压覆盖至 CUDA 安装路径)
 
 <!-- 
 更新可以通过以下命令（关闭fq代理，使用官方默认源）
