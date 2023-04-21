@@ -53,59 +53,33 @@ PyTorch是一个开源的Python机器学习库，基于Torch，用于自然语�
 
 ![CUDA版本查看](/assets/img/postsimg/20200322/04.cudaversion.png)
 
-若采用conda安装（推荐），则命令行如下
+确定CUDA版本号后，根据官网给出的命令安装（可以灵活选择，比如用不到torchaudio就删了）。
 
-```
-conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
-```
-
-若采用pip安装，则命令行如下
-
-```
-pip3 install torch==1.8.1+cu102 torchvision==0.9.1+cu102 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+```python
+# cuda 11.5  python 3.9
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 
 打开Anaconda Navigator，激活相应的环境，打开环境的终端，输入上述命令即可完成PyTorch的安装。
 
-【**20200907补充**，请务必尽量用上述命令行安装，才能安装 gpu 版本的 pytorch，单独从 Anaconda 界面安装的是 cpu 版的】
+【**2023.04.22补充**】注意，使用 `conda` 通过官网命令行安装也可能安装为 cpu 版本，推荐 pip 安装。
 
-【**20210524补充**，尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要用国内源，而是使用官方默认源（也即删除.conrc文件），否则会报如下代理连接错误】
+【**2020.09.07补充**】请务必尽量用官网提供的命令行安装，直接从 Anaconda 界面安装的是 cpu 版本
 
-```python
-ProxyError: Conda cannot proceed due to an error in your proxy configuration.
-Check for typos and other configuration errors in any '.netrc' file in your home dire any environment variables ending in '_PROXY', and any other system-wide proxy configuration settings.
-```
+<del>【**20210524补充**】尝试过各种加速下载的方法，卒，老老实实用官方命令安装吧，且用conda时最好关闭任何fq代理，而且不要用国内源，而是使用官方默认源（也即删除.conrc文件），否则会报如下代理连接错误 `ProxyError: Conda cannot proceed due to an error in your proxy configuration.`</del>
 
-【20210618补充，经组内pytorch大佬华哥指导，需要添加清华的pytorch源，即可从国内拉取完整的gpu版本pytorch】
-
-```python
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
-conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c nvidia
-```
-
-<!-- 若已经更换了 Anaconda 的镜像源为国内源，则可以去掉后面的 `-c pytorch`，即使用
-
-```
-conda install pytorch torchvision cudatoolkit=10.1
-```
-
-【20200907补充，注意清华源不包括torchvision，因此还是加上 `-c pytorch` 走官方】 -->
-
-
-我使用的完整的GPU版本的PyTorch包含以下组件【2021年05月25日更新】，我没装torchaudio，其他人根据自身实际情况可能有所不同：
-
+【**2021.05.25更新**】，经测试可使用的GPU版本的PyTorch包含以下组件：
 - pytorch  1.8.1
 - torchvision  0.9.1
 - cuda  10.2.89（与显卡支持的cuda版本有关）
 - cudnn  7.6.5（与cuda版本有关）
 
-注意，务必不要单独通过 Anaconda 安装 pytorch，那样安装的版本是 cpu 版的。
-
+<!-- 
 更新可以通过以下命令（关闭fq代理，使用官方默认源）
 
 ```
 conda update pytorch torchvision -c pytorch
-```
+``` -->
 
 ![](/assets/img/postsimg/20200322/01.1.update.png)
 
