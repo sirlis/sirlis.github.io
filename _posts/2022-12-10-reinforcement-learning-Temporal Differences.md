@@ -12,6 +12,13 @@ math: true
 
 ---
 
+- [1. 引言](#1-引言)
+  - [同轨策略下的时序差分控制（SARSA）](#同轨策略下的时序差分控制sarsa)
+  - [离轨策略下的时序差分控制（Q-Learning）](#离轨策略下的时序差分控制q-learning)
+  - [期望SARSA](#期望sarsa)
+- [参考文献](#参考文献)
+
+
 ## 1. 引言  
 
 
@@ -71,21 +78,22 @@ $$
 
 伪代码如下：
 
-
-Initialize Q(s,a) arbitrarily
-Repeat (for each episode):
-    $\qquad$Initialize s
-    $\qquad$Repeat (for each step of episode):
-        $\qquad$$\qquad$Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)
-        $\qquad$$\qquad$Take action a, observe r, s'
-        $\qquad$$\qquad$<font color=red>Choose $a^\prime$ from $s^\prime$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</font>
-        $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s^\prime,a^\prime)-Q(s,a)]}$
-        $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime; a\leftarrow a^\prime$
-    $\qquad$until $s$ is terminal
+----
+- Initialize Q(s,a) arbitrarily
+- Repeat (for each episode):
+    - Initialize s
+    - Repeat (for each step of episode):
+        - Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)
+        - Take action a, observe r, s'
+        - <font color=red>Choose $a^\prime$ from $s^\prime$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</font>
+        - $\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s^\prime,a^\prime)-Q(s,a)]}$
+        - $\color{red}{s\leftarrow}s^\prime; a\leftarrow a^\prime$
+    - until $s$ is terminal
+----
 
 上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。
 
-### 离轨策略下的时序差分控制
+### 离轨策略下的时序差分控制（Q-Learning）
 
 实际上，在 $s^\prime$ 状态下，存在一个确定性策略
 
@@ -103,17 +111,18 @@ $$
 
 伪代码如下：
 
-
-Initialize Q(s,a) arbitrarily
-Repeat (for each episode):
-    $\qquad$Initialize s
-    $\qquad$Repeat (for each step of episode):
-        $\qquad$$\qquad$Choose a from s using policy derived from $Q$ (e.g., $\epsilon$-greedy)
-        $\qquad$$\qquad$Take action a, observe r, s'
-        $\qquad$$\qquad$$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathop{\text{max}}\limits_{a}
+----
+- Initialize Q(s,a) arbitrarily
+- Repeat (for each episode):
+    - Initialize s
+    - Repeat (for each step of episode):
+        - Choose a from s using policy derived from $Q$ (e.g., $\epsilon$-greedy)
+        - Take action a, observe r, s'
+        - $\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathop{\text{max}}\limits_{a}
         Q(s^\prime,a)-Q(s,a)]}$
-        $\qquad$$\qquad$$\color{red}{s\leftarrow}s^\prime$
-    $\qquad$until $s$ is terminal
+        - $\color{red}{s\leftarrow}s^\prime$
+    - until $s$ is terminal
+----
 
 此时，更新时使用（采样得到动作）的策略 $\pi$ 并不是我们待更新的策略，因此被称为离轨策略（off-policy）。
 
