@@ -89,6 +89,7 @@ $$
         - $\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s^\prime,a^\prime)-Q(s,a)]}$
         - $\color{red}{s\leftarrow}s^\prime; a\leftarrow a^\prime$
     - until $s$ is terminal
+  
 ----
 
 上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。
@@ -122,6 +123,7 @@ $$
         Q(s^\prime,a)-Q(s,a)]}$
         - $\color{red}{s\leftarrow}s^\prime$
     - until $s$ is terminal
+  
 ----
 
 此时，更新时使用（采样得到动作）的策略 $\pi$ 并不是我们待更新的策略，因此被称为离轨策略（off-policy）。
