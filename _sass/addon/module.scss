@@ -7,7 +7,7 @@
 %heading {
   color: var(--heading-color);
   font-weight: 400;
-  font-family: 'Lato', 'Microsoft Yahei', sans-serif;
+  font-family: $font-family-heading;
 }
 
 %section {
@@ -69,10 +69,13 @@
 }
 
 %clickable-transition {
-  transition: color 0.35s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 %no-cursor {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -88,6 +91,10 @@
   font-style: normal;
 }
 
+%rounded {
+  border-radius: $base-radius;
+}
+
 %img-caption {
   + em {
     display: block;
@@ -101,18 +108,35 @@
 
 %sidebar-links {
   color: rgba(117, 117, 117, 0.9);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
+}
+
+%text-clip {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 /* ---------- scss mixin --------- */
 
-@mixin no-text-decoration {
-  text-decoration: none;
+@mixin mt-mb($value) {
+  margin-top: $value;
+  margin-bottom: $value;
 }
 
 @mixin ml-mr($value) {
   margin-left: $value;
   margin-right: $value;
+}
+
+@mixin pt-pb($val) {
+  padding-top: $val;
+  padding-bottom: $val;
 }
 
 @mixin pl-pr($val) {
@@ -133,19 +157,17 @@
 @mixin align-center {
   position: relative;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
 }
 
-@mixin prompt($type, $fw-icon, $icon-weight: 900) {
+@mixin prompt($type, $fa-content, $fa-style: 'solid') {
   &.prompt-#{$type} {
     background-color: var(--prompt-#{$type}-bg);
 
     &::before {
-      content: $fw-icon;
+      content: $fa-content;
       color: var(--prompt-#{$type}-icon-color);
-      font-weight: $icon-weight;
+      font: var(--fa-font-#{$fa-style});
     }
   }
 }

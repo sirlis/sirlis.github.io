@@ -8,7 +8,7 @@
   $timeline-width: 4px;
 
   %timeline {
-    content: "";
+    content: '';
     width: $timeline-width;
     position: relative;
     float: left;
@@ -37,12 +37,11 @@
       top: 24px;
     }
 
-    &::after { /* Year dot */
-      content: "";
+    /* Year dot */
+    &::after {
+      content: '';
       display: inline-block;
       position: relative;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
       border-radius: 50%;
       width: 12px;
       height: 12px;
@@ -53,7 +52,6 @@
       box-shadow: 0 0 2px 0 #c2c6cc;
       z-index: 1;
     }
-
   }
 
   ul {
@@ -65,8 +63,15 @@
       text-overflow: ellipsis;
 
       &:nth-child(odd) {
-        background-color: var(--main-bg, #fff);
-        background-image: linear-gradient(to left, #fff, #fbfbfb, #fbfbfb, #fbfbfb, #fff);
+        background-color: var(--main-bg, #ffffff);
+        background-image: linear-gradient(
+          to left,
+          #ffffff,
+          #fbfbfb,
+          #fbfbfb,
+          #fbfbfb,
+          #ffffff
+        );
       }
 
       &::before {
@@ -81,7 +86,6 @@
     &:last-child li:last-child::before {
       height: 1.5rem;
     }
-
   } /* #archives ul */
 
   .date {
@@ -97,8 +101,7 @@
 
     &.day {
       font-size: 85%;
-      font-family: 'Lato', sans-serif;
-
+      font-family: Lato, sans-serif;
     }
   }
 
@@ -114,11 +117,9 @@
 
     &::before {
       /* the dot before post title */
-      content: "";
+      content: '';
       display: inline-block;
       position: relative;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
       border-radius: 50%;
       width: 8px;
       height: 8px;
@@ -130,8 +131,7 @@
       z-index: 1;
     }
   }
-
-} // #archives
+} /* #archives */
 
 @media all and (max-width: 576px) {
   #archives {
