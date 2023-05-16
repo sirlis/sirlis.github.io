@@ -14,10 +14,10 @@ math: true
 
 - [1. 引言](#1-引言)
 - [CMake 配置](#cmake-配置)
-  - [VScode + CMake 开发环境搭建](#vscode--cmake-开发环境搭建)
-  - [CMakeLists.txt 文件解析](#cmakeliststxt-文件解析)
-- [基于 CMake 的构建](#基于-cmake-的构建)
-  - [构建（build）](#构建build)
+  - [环境搭建](#环境搭建)
+  - [配置（Configure）](#配置configure)
+  - [生成（Generate）](#生成generate)
+  - [构建（Build）](#构建build)
   - [运行和调试](#运行和调试)
 - [基于 CMake 的打包](#基于-cmake-的打包)
   - [CPack](#cpack)
@@ -42,7 +42,7 @@ CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工�
 
 显然，CMake 是一个比上述几种 make 更高级的编译配置工具。一些使用 CMake 作为项目架构系统的知名开源项目有 VTK、ITK、KDE、OpenCV、OSG 等
 
-### VScode + CMake 开发环境搭建
+### 环境搭建
 
 前提，已经安装有至少一个C/C++编译器，如 MinGW-W64。可以通过`gcc --version` 查看版本来确认安装是否成功。
 
@@ -60,25 +60,20 @@ CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工�
 ![](/assets/img/postsimg/20230515/select-a-kit.jpg)
 选择后即会在项目根目录下自动创建`CMakeLists.txt` 文件。
 
-### CMakeLists.txt 文件解析
+### 配置（Configure）
 
-通常一个文件需要包含：
+配置即编写 `CMakeLists.txt` 文件，通常一个 `CMakeLists.txt` 文件需要包含：
 
-```cmake
-project(xxx)                                          #必须
+- `project(xxx)`，必须
+- `add_subdirectory(子文件夹名称)`，若父目录包含多个子目录则必须
+- `add_library(库文件名称 STATIC 文件)`，通常子目录(二选一)
+- `add_executable(可执行文件名称 文件)`，通常父目录(二选一)
+- `include_directories(路径)`，必须
+- `link_directories(路径)`，非必须
+- `target_link_libraries(库文件名称/可执行文件名称 链接的库文件名称)`，必须
 
-add_subdirectory(子文件夹名称)                         #父目录必须，子目录不必
 
-add_library(库文件名称 STATIC 文件)                    #通常子目录(二选一)
-add_executable(可执行文件名称 文件)                     #通常父目录(二选一)
-
-include_directories(路径)                              #必须
-link_directories(路径)                                 #必须
-
-target_link_libraries(库文件名称/可执行文件名称 链接的库文件名称)       #必须
-```
-
-一个典型的文件如下：
+一个典型的 `CMakeLists.txt` 文件如下：
 
 ```cmake
 cmake_minimum_required(VERSION 3.0.0) # 设置最小的cmake版本号
@@ -207,23 +202,23 @@ endif()
 - 采用 `add_subdirectory(子文件夹名称)` 编译子文件夹的 `CMakeLists.txt`；
 - 如果需要将工程编译为静态库，那么使用 `add_library(库文件名称 STATIC 文件)`。注意，库文件名称通常为 `libxxx.so`，在这里要去掉前后缀写 `xxx` 即可；
 - 规定 `.so/.a` 库文件路径使用 `link_directories(路径)`；
-- `Ctrl+S` 保存 `CMakeLists.txt` 时会自动生成构建所需的中间文件。
 
 
-## 基于 CMake 的构建
+### 生成（Generate）
 
-### 构建（build）
+`Ctrl+S` 保存 `CMakeLists.txt` 时会自动生成生成项目构建所需的中间文件，生成过程如下图所示。
+
+![](/assets/img/postsimg/20230515/cmake-configure.jpg)
+
+生成完毕得到的中间文件如下图所示。
+
+![](/assets/img/postsimg/20230515/cmake-configure-result.jpg)
+
+### 构建（Build）
 
 注意，为了简单起见，我们从一开始就采用cmake的 out-of-source 方式来构建（即生成中间产物与源代码分离），并始终坚持这种方法，这也就是此处为什么单独创建一个目录，然后在该目录下执行 cmake 的原因。
 
-一般会在 `CMakeLists.txt` 所在的目录下（一般也就是工程项目的根目录）手动新建一个 `build` 文件夹。或执行以下命令
-```cmd
-mkdir build
-cd build
-cmake ..
-make
-```
-即可在 `build` 文件夹内生成可执行程序。
+一般会在 `CMakeLists.txt` 所在的目录下（一般也就是工程项目的根目录）手动新建一个 `build` 文件夹。
 
 采用 CMake 构建项目有三种方式：
 - 方式1：打开命令板（`Ctrl+Shift+P`）并运行 `CMake：Build`；
