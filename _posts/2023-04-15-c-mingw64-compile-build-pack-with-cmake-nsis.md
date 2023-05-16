@@ -286,16 +286,15 @@ NSIS基于脚本文件，支持变量、函数和字符串操作，就像一种�
 
 ### 基于 CPack 和 NSIS 的打包
 
-执行 cmake 命令后, 你会发现 `build` 目录下面多了两个文件 `CPackConfig.cmake` 和 `CPackSourceConfig.cmake`。
+完成项目构建后, 你会发现 `build` 目录下面多了两个文件 `CPackConfig.cmake` 和 `CPackSourceConfig.cmake`。在终端执行以下命令完成打包，得到可执行安装程序。
 
-在终端执行以下命令完成打包。
-
-```c
+```
 cpack.exe .\CPackConfig.cmake
 ```
 
 ![](/assets/img/postsimg/20230515/pack.jpg)
 
+将安装程序分发到其它 Windows 平台即可完成安装。
 
 ## 参考文献
 
