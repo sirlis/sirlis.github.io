@@ -26,7 +26,7 @@ math: true
 
 # 2. 图片
 
-推荐在 `assets/` 下面新建文件夹存放帖子图片，如 `assets/postimg/`。
+推荐在 `assets/` 下面新建文件夹存放帖子图片，如 `assets/postsimg/`。
 
 在 md 文件中直接使用路径，如 `![img description](/assets/img/postsimg/20200505/1.jpg)` 即可。
 
