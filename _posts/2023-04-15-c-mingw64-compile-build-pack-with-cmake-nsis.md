@@ -1,8 +1,8 @@
 ---
 title: Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程
-date: 2022-12-18 14:59:19 +0800
-categories: [Academic, Knowledge]
-tags: [python,reinforcement learning]
+date: 2023-05-15 23:59:19 +0800
+categories: [Tutorial, Coding]
+tags: [vscode, c/c++, cmake, cpack, mingw64]
 math: true
 ---
 
