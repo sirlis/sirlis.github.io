@@ -301,6 +301,10 @@ cpack.exe .\CPackConfig.cmake
 
 将安装程序分发到其它 Windows 平台即可完成安装。
 
+注意，若发布的安装程序在完成安装后，提示缺少某个 dll 文件，那么需要重新更改 `CMakeLists.txt` 文件，将相应的 dll 文件进行安装。最好使用dll依赖查询工具来查看编译得到的可执行程序（.exe）依赖哪些第三方dll，然后逐一添加，参考 [配置](#配置configure) 中的 `#安装`。
+
+可选的工具包括 [Dependencies](https://github.com/lucasg/Dependencies)。
+
 ## 参考文献
 
 [1] maskerII. [【简书】CMakeLists 入门](https://www.jianshu.com/p/2bdcd7d7b164)
