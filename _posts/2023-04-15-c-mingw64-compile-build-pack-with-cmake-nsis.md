@@ -6,7 +6,7 @@ tags: [vscode, c/c++, cmake, cpack, mingw64]
 math: true
 ---
 
-本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。
+本文介绍了 Windows 环境下使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。
 
 <!--more-->
 
