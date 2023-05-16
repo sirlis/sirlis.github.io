@@ -46,11 +46,11 @@ math: true
 
 假设输入图片为 $6\times 6 \times 1\ channel$，卷积核为 $3\times 3$，stride=1（表示 kernel 的滑动步长为1），padding=1（表示对原始输入图像周围额外增加一层，配合stride=1，可以保证卷积后图片大小不变），则卷积过程如下图所示：
 
-![](./asserts///assets/img/postsimg/20210607/00.kernel.gif)
+![](/asserts///assets/img/postsimg/20210607/00.kernel.gif)
 
 上面的kernel可用于**锐化**图像。比如，考虑下图所示的两个输入图像。
 
-![](./asserts///assets/img/postsimg/20210607/00.kerneldemo.jpg)
+![](/asserts///assets/img/postsimg/20210607/00.kerneldemo.jpg)
 
 - 第一个图像，中心值为3 * 5 + 2 * -1 + 2 * -1 + 2 * -1 + 2 * -1 =7，值3增加到7。
 - 第二个图像，输出是1 * 5 + 2 * -1 + 2 * -1 + 2 * -1 + 2 * -1 = -3，值1减少到-3。
@@ -69,7 +69,7 @@ $$
 
 举例，采用 1 个 $3\ channel$ 的滤波器，每个通道的卷积核大小仍为 3x3，padding=0，stride=1。卷积过程如下，每一个通道的像素值与对应通道的卷积核的数值进行卷积，因此每一个通道会对应一个输出卷积结果，三个卷积结果对应位置累加 **求和**，得到最终的卷积结果。
 
-![](./asserts///assets/img/postsimg/20210607/multiconv.jpg)
+![](/asserts///assets/img/postsimg/20210607/multiconv.jpg)
 
 上述过程中，每一个 滤波器 的通道数必须与输入图片的通道数 **一致**。
 
@@ -95,7 +95,7 @@ $$
 
 共享权值包括 共享权重 和 共享偏置。简而言之，卷积核的权重与偏置在卷积过程中保持不变。如下图所示，相同颜色的权值保持不变
 
-![](./asserts///assets/img/postsimg/20210607/10.cnnforward.jpg)
+![](/asserts///assets/img/postsimg/20210607/10.cnnforward.jpg)
 
 ### 1.2.7. 初始化
 
@@ -113,29 +113,29 @@ $$
 
 full 模式的意思是，从 filter 和 image 刚相交开始做卷积，白色部分为填 0。filter 的运动范围如图所示。
 
-![](./asserts///assets/img/postsimg/20210607/10.fullconv.jpg)
+![](/asserts///assets/img/postsimg/20210607/10.fullconv.jpg)
 
 - **same mode**
 
 当filter的中心 K 与 image 的边角重合时，开始做卷积运算。当卷积步长 stride = 1 时，卷积之后输出的 feature map 尺寸相对于输入图片保持不变（same）。
 
-![](./asserts///assets/img/postsimg/20210607/10.sameconv.jpg)
+![](/asserts///assets/img/postsimg/20210607/10.sameconv.jpg)
 
 - **valid mode**
 
 当filter全部在image里面的时候，进行卷积运算。
 
-![](./asserts///assets/img/postsimg/20210607/10.validconv.jpg)
+![](/asserts///assets/img/postsimg/20210607/10.validconv.jpg)
 
 ### 1.2.9. 反向传播
 
 为了说明反向传播，需要先分析前向传播。假设卷积的前向传播采用 valid 模式。
 
-![](./asserts///assets/img/postsimg/20210607/11.convbackprop.jpg)
+![](/asserts///assets/img/postsimg/20210607/11.convbackprop.jpg)
 
 我们发现，当误差反向传播到卷积层时，我们的操作方法依然是一个卷积，只不过要把卷积核**翻转（旋转180°）**，然后在周围补 0。注意到，前向传播采用 valid mode 卷积，反向传播时是 full mode 卷积，如图所示：
 
-![](./asserts///assets/img/postsimg/20210607/11.convbackprop2.jpg)
+![](/asserts///assets/img/postsimg/20210607/11.convbackprop2.jpg)
 
 显然，如果前向传播是 full mode 卷积，那么反向传播就是 valid mode 卷积，不过依旧要将卷积核翻过来。
 
@@ -157,7 +157,7 @@ full 模式的意思是，从 filter 和 image 刚相交开始做卷积，白色
 
 采用 $2\times 2$ 卷积核对 $4\times 4$ 图像的最大池化过程：
 
-![](./asserts///assets/img/postsimg/20210607/08.maxpool.jpg)
+![](/asserts///assets/img/postsimg/20210607/08.maxpool.jpg)
 
 通常认为如果选取区域均值(mean pooling)，往往能保留整体数据的特征，较好的突出背景信息。
 
@@ -165,7 +165,7 @@ full 模式的意思是，从 filter 和 image 刚相交开始做卷积，白色
 
 采用 $2\times 2$ 卷积核对 $4\times 4$ 图像的平均池化过程：
 
-![](./asserts///assets/img/postsimg/20210607/09.avgpool.jpg)
+![](/asserts///assets/img/postsimg/20210607/09.avgpool.jpg)
 
 如果选取区域最大值(max pooling)，则能更好保留纹理特征。
 
