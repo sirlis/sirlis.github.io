@@ -205,7 +205,20 @@ endif()
 
 ### 生成（Generate）
 
-`Ctrl+S` 保存 `CMakeLists.txt` 时会自动生成生成项目构建所需的中间文件，生成过程如下图所示。
+我们一般会在 `CMakeLists.txt` 所在的目录下（一般也就是工程项目的根目录）手动新建一个 `build` 文件夹，这将用于存储 CMake 构建的中间文件和生成的目标文件。这种方式实际上是 cmake 的 out-of-source 构建方式。这种方法可以保证生成中间产物与源代码分离（即生成的所有目标文件都存储在 `build` 文件夹中，因此不会干扰源代码中的任何文件）。
+
+采用命令行的方式可操作如下
+
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+若使用 VSCode 并安装了合适的插件，那么在使用快捷键 `Ctrl+S` 保存 `CMakeLists.txt` 时，会自动生成生成项目构建所需的中间文件。
+
+配置和生成过程如下图所示。
 
 ![](/assets/img/postsimg/20230515/cmake-configure.jpg)
 
@@ -214,10 +227,6 @@ endif()
 ![](/assets/img/postsimg/20230515/cmake-configure-result.jpg)
 
 ### 构建（Build）
-
-注意，为了简单起见，我们从一开始就采用cmake的 out-of-source 方式来构建（即生成中间产物与源代码分离），并始终坚持这种方法，这也就是此处为什么单独创建一个目录，然后在该目录下执行 cmake 的原因。
-
-一般会在 `CMakeLists.txt` 所在的目录下（一般也就是工程项目的根目录）手动新建一个 `build` 文件夹。
 
 采用 CMake 构建项目有三种方式：
 - 方式1：打开命令板（`Ctrl+Shift+P`）并运行 `CMake：Build`；
