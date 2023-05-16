@@ -56,9 +56,9 @@ CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工�
 
 - 手动创建，直接在工程项目的根目录下新建一个 `CMakeLists.txt` 文件；
 
-- 【推荐】插件自动创建，在 VSCode 中打开工程项目文件夹，输入快捷键组合 `Ctrl + Shift + P` 然后输入 `cmake quick start` 进行快速设置。首次设置会弹出 `Select a Kit` 需要选择一个编译器，若正确安装 MinGW-W64 并添加了环境变量，一般会自动检索到类似 `GCC XX.X.X x86-64-w64-mingw32` 的编译器，注意检查后面的路径是否正确，然后选择即可。
+- 【推荐】插件自动创建，在 VSCode 中打开工程项目文件夹，输入快捷键组合 `Ctrl + Shift + P` 然后输入 `cmake quick start` 进行快速设置。首次设置会弹出 `Select a Kit` 需要选择一个编译器，若正确安装 MinGW-W64 并添加了环境变量，一般会自动检索到类似 `GCC XX.X.X x86-64-w64-mingw32` 的编译器，注意检查后面的路径是否正确，然后选择即可。选择后即会在项目根目录下自动创建`CMakeLists.txt` 文件。
+
 ![](/assets/img/postsimg/20230515/select-a-kit.jpg)
-选择后即会在项目根目录下自动创建`CMakeLists.txt` 文件。
 
 ### 配置（Configure）
 
@@ -225,6 +225,7 @@ endif()
 - 方式3：打开命令行窗口（快捷键 `Ctrl + ~` ）输入 `cmake --build build`；
 
 下图是采用方式2进行构建的示意图。
+
 ![](/assets/img/postsimg/20230515/build.png)
 
 ### 运行和调试
@@ -240,6 +241,7 @@ endif()
 CPack 是 CMake 2.4.2 之后的一个内置工具，用于创建软件的二进制包和源代码包。
 
 CPack 在整个 CMake 工具链的位置如下图所示。
+
 ![](/assets/img/postsimg/20230515/cpack.png)
 
 CPack 支持打包的包格式有以下种类：
