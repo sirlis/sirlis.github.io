@@ -169,7 +169,7 @@ conda和pip通常被认为几乎完全相同。虽然这两个工具的某些功
 
 另外，conda查看环境中安装的所有包时，可以包含从Anaconda界面安装的包，而pip则只能查看到所有通过命令行安装的包。如下图所示，通过Anaconda界面安装的cudatoolkit和cudnn包，在pip中无法查到。
 
-![不同包管理工具的查看区别](..\assets\img\postsimg\20200322\08.different.png)
+![](..\assets\img\postsimg\20200322\08.different.png)
 
 对于用户而言，尽可能从一而终的采用一种包管理工具。若使用Anaconda配置的python环境，则推荐使用conda，配合Anaconda界面使用更加友好，除非某些包无法通过conda安装，则可采用pip安装。
 
