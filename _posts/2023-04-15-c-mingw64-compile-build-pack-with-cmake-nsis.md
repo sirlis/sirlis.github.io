@@ -176,29 +176,30 @@ if(WIN32)
     set(CPACK_NSIS_PACKAGE_NAME "${PROJECT_NAME}")
     set(CPACK_NSIS_DISPLAY_NAME "${PROJECT_NAME}")
 
-    # ico我还没设置成功...会报错，先注释掉了
-    # set(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/DSSimulator.svg")
-    # set(CPACK_NSIS_MUI_ICON "DSSimulator.svg")
+    # 添加ico文件给打包的安装程序
+    set(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\DSSimulator.ico")
+    set(CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\DSSimulator.ico")
 
     ### 用来告诉安装程序，卸载的时候需要额外删掉前面 install 时额外加入的 资源文件（夹）和 dll 等
     # 这里采用函数的形式（百度抄的），也可以在外部编写 '.nsi'文件然后引用进来（听着就麻烦）
-    function(add_uninstall_command)
-        foreach(file IN LISTS ARGN) # ARGN 是参数
+    function(uninstall_extra)
+        foreach(file IN LISTS ARGN)
             if(IS_DIRECTORY "${file}")
                 set(command "rmdir /s /q \"$INSTDIR\\\\${file}\"")
             else()
                 set(command "del /f /q \"$INSTDIR\\\\${file}\"")
             endif()
-            # 这句就是给 NSIS 提供的删除命令
             set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "${CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS}\n !system '${command}'")
         endforeach()
     endfunction()
-    # 调用函数把前面添加的东西删掉
-    add_uninstall_command("$INSTDIR/data" "$INSTDIR/config" "$INSTDIR/res" "$INSTDIR/libstdc++-6.dll" "$INSTDIR/libgcc_s_seh.dll" "$INSTDIR/libwinpthread-1.dll")
-    # 这句话必须要有哦
-    include(CPack)
 
+    if(MINGW) # delete all things in install directory
+        uninstall_extra("$INSTDIR")
+    endif()
 endif()
+
+# 这句话必须要有哦
+include(CPack)
 
 ### 这是用来提示自己的命令行的命令，不然老年痴呆记不住
 # cmake --build . --target install --verbose
