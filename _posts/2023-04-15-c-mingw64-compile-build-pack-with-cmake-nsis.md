@@ -118,7 +118,10 @@ file(GLOB_RECURSE ALL_SRC
 # MESSAGE("add_executable"  ${ALL_SRC}) # 打印
 
 # 把所有.c/.cpp 文件添加到名字为 ${PROJECT_NAME} 的可执行程序中
-add_executable(${PROJECT_NAME} ${ALL_SRC})
+if(WIN32)
+    set(RESOURCE_FILES res.rc) # add icon
+endif()
+add_executable(${PROJECT_NAME} ${ALL_SRC} ${RESOURCE_FILES})
 
 ### 定义宏定义来控制工程中的一些功能
 # 比如代码里通过 #ifdef AASSAA aaa #else bbb
@@ -134,11 +137,17 @@ if(WIN32)
     target_link_libraries(${PROJECT_NAME} ws2_32)
 
     ### 安装（linux中的sudo apt install 的概念，win中不知道是啥）
-    set(CMAKE_PREFIX_PATH "E:/ProgramFiles/Git/mingw64") # 设置编译器路径，用来找程序依赖的额外dll
-    # 注意，这里最好使用Depends工具来查看编译得到的可执行程序（.exe）依赖哪些第三方dll，然后逐一添加
-    install(FILES "${CMAKE_PREFIX_PATH}/bin/libstdc++-6.dll" DESTINATION .)
-    install(FILES "${CMAKE_PREFIX_PATH}/bin/libgcc_s_seh-1.dll" DESTINATION .)
-    install(FILES "${CMAKE_PREFIX_PATH}/bin/libwinpthread-1.dll" DESTINATION .)
+    if(MINGW) # 根据Windows的环境变量得到mingw64的安装位置，然后得到bin文件夹
+        find_program(MINGW_EXECUTABLE mingw32-make.exe PATH $ENV{PATH} REQUIRED)
+        get_filename_component(MINGW_BIN ${MINGW_EXECUTABLE} DIRECTORY)
+        set(EXTRA_DLL # 注意，这里最好使用Depends工具来查看exe程序依赖哪些第三方dll，然后逐一添加
+            "${MINGW_BIN}/libstdc++-6.dll"
+            "${MINGW_BIN}/libgcc_s_seh-1.dll"
+            "${MINGW_BIN}/libwinpthread-1.dll"
+        )
+        # 将依赖的dll文件拷贝到安装路径（目前支持seh异常模型版本的mingw64）
+        install(FILES ${EXTRA_DLL} DESTINATION .)
+    endif()
     # 将可执行程序打包到（将来安装位置的）根目录
     install(TARGETS ${PROJECT_NAME} DESTINATION .)
     # 将一些额外的资源文件夹，配置文件（夹）等拷贝到目标目录
