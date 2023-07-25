@@ -3,18 +3,18 @@
  */
 
 export function back2top() {
-  $(window).on('scroll', () => {
-    if (
-      $(window).scrollTop() > 50 &&
-      $('#sidebar-trigger').css('display') === 'none'
-    ) {
-      $('#back-to-top').fadeIn();
+  const $window = $(window);
+  const $btn = $('#back-to-top');
+
+  $window.on('scroll', () => {
+    if ($window.scrollTop() > 50) {
+      $btn.fadeIn();
     } else {
-      $('#back-to-top').fadeOut();
+      $btn.fadeOut();
     }
   });
 
-  $('#back-to-top').on('click', () => {
-    window.scrollTo(0, 0);
+  $btn.on('click', () => {
+    $window.scrollTop(0);
   });
 }
