@@ -55,6 +55,8 @@ CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工�
 - CMake
 - CMake Tools
 
+在 Cmake Tools 插件设置中将 Cmake 的 `make.exe` 可执行程序完整路径设置到 `cmake.cmakePath`。同时将 make.exe 所在的路径添加到系统的环境变量中（因为后续用 `cpack.exe` 打包时候也要找路径）。
+
 使用 CMake 插件创建 `CMakeLists.txt` 文件（文件名一个字都不能错）。两种创建方式，推荐后者：
 
 - 手动创建，直接在工程项目的根目录下新建一个 `CMakeLists.txt` 文件；
