@@ -72,13 +72,11 @@ Python是一种跨平台的计算机程序设计语言。 是一个高层次的�
 
 ### 安装Anaconda
 
-推荐采用**Anaconda**配置Python环境，可参考[[1](#ref1)]。Anaconda是一个方便的python包管理和环境管理软件，一般用来配置不同的项目环境。我们常常会遇到这样的情况，正在做的项目A和项目B分别基于python2和python3，而电脑一般只能安装一个环境，这个时候Anaconda就派上了用场，它可以创建多个互不干扰的环境，分别运行不同版本的软件包，以达到兼容的目的。
+常用**Anaconda**配置Python环境[[1](#ref1)]（若嫌弃庞大可使用**Miniconda**）。Anaconda是一个方便的python包管理和环境管理软件，一般用来配置不同的项目环境。我们常常会遇到这样的情况，正在做的项目A和项目B分别基于 python 3.7 和 python 3.9，而电脑一般只能安装一个环境，这个时候Anaconda就派上了用场，它可以创建多个互不干扰的环境，分别运行不同版本的软件包，以达到兼容的目的。
 
 Anaconda通过管理工具包、开发环境、Python版本，大大简化了你的工作流程。不仅可以方便地安装、更新、卸载工具包，而且安装时能自动安装相应的依赖包，同时还能使用不同的虚拟环境隔离不同要求的项目。
 
-注意，如果全程采用官方网站进行下载安装，**翻墙**是必不可少的。
-
-Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anaconda.com/）选择对应平台的Anaconda3安装包下载。对于Windows 10平台，推荐下载64-Bit的Python3.8版本的安装包（466M）。
+Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anaconda.com/） 选择对应平台的Anaconda3安装包下载。对于Windows 10平台，推荐下载64-Bit的Python3.8版本的安装包（466M）。
 
 ![Anaconda](/assets/img/postsimg/20200321/02.anacondadownload.png)
 
@@ -98,7 +96,7 @@ D:\XXX\Anaconda3\Library\bin
 
 ### 新建和备份环境
 
-新建环境需要联网。在开始菜单中找到“Anaconda Navigator”，单击打开后，点击左侧的“Environments”，可以看到默认存在一个 `base(root)` 环境。点击下方的Create按钮新建一个环境。
+在开始菜单中找到“Anaconda Navigator”，单击打开后，点击左侧的“Environments”，可以看到默认存在一个 `base(root)` 环境。点击下方的Create按钮新建一个环境。
 
 ![Anaconda](/assets/img/postsimg/20200321/04.newenvironment.png)
 
@@ -106,9 +104,19 @@ D:\XXX\Anaconda3\Library\bin
 
 ![Anaconda](/assets/img/postsimg/20200321/05.configenv.png)
 
+也可在终端使用如下命令建立一个使用 python 3.9 的新环境：
+
+```
+conda create -n [your_env_name] python=3.9
+```
+
 **注意**，envs 内的每一个子文件夹都是一个独立的环境，删除、重命名子文件夹等价于删除、重命名环境。将子文件夹复制到其他机器的Anaconda的envs文件夹中，该机器的Anaconda可直接识别并应用该环境。因此可在配置好一个环境后，对该子文件夹进行备份。
 
-**激活**某个环境的方法为左键单击该环境。打开某个环境的**终端**为点击环境名称旁边的三角按钮，在弹出菜单中选择 `Open Terminal`。
+**激活**某个环境的方法为左键单击该环境。打开某个环境的**终端**为点击环境名称旁边的三角按钮，在弹出菜单中选择 `Open Terminal`。也可以使用如下命令：
+
+```
+conda activate [your_env_name]
+```
 
 ### 配置依赖包
 
