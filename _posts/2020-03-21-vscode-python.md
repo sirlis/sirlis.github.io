@@ -12,37 +12,38 @@ math: true
 
  ---
  
-- [1. 简介](#1-简介)
-- [2. VSCode下载与安装](#2-vscode下载与安装)
-- [3. 配置Python开发环境](#3-配置python开发环境)
-  - [3.1. 部署解释器](#31-部署解释器)
-  - [3.2. 安装Anaconda](#32-安装anaconda)
-  - [3.3. 新建和备份环境](#33-新建和备份环境)
-  - [3.4. 配置依赖包](#34-配置依赖包)
-    - [3.4.1. 更新包管理工具](#341-更新包管理工具)
-      - [3.4.1.1. pip](#3411-pip)
-      - [3.4.1.2. conda（推荐）](#3412-conda推荐)
-      - [3.4.1.3. 说明](#3413-说明)
-    - [3.4.2. 更换镜像源](#342-更换镜像源)
-      - [3.4.2.1. pip镜像源](#3421-pip镜像源)
-      - [3.4.2.2. conda镜像源](#3422-conda镜像源)
-    - [3.4.3. 常用命令](#343-常用命令)
-  - [3.5. 生成配置文件](#35-生成配置文件)
-    - [3.5.1. 解释配置（settings.json）](#351-解释配置settingsjson)
-    - [3.5.2. 调试配置（launch.json）](#352-调试配置launchjson)
-  - [3.6. 调试运行测试](#36-调试运行测试)
-- [4. 常见错误](#4-常见错误)
-  - [4.1. 无法将conda项识别为cmdet...](#41-无法将conda项识别为cmdet)
-  - [4.2. 提示CommandNotFoundError](#42-提示commandnotfounderror)
-  - [4.3. OMP: Error #15: Initializing xxx](#43-omp-error-15-initializing-xxx)
-  - [4.4. Refactor failed...](#44-refactor-failed)
-- [5. 参考文献](#5-参考文献)
+- [简介](#简介)
+- [VSCode下载与安装](#vscode下载与安装)
+- [配置Python开发环境](#配置python开发环境)
+  - [部署解释器](#部署解释器)
+  - [安装Anaconda](#安装anaconda)
+  - [新建和备份环境](#新建和备份环境)
+  - [配置依赖包](#配置依赖包)
+    - [更新包管理工具](#更新包管理工具)
+      - [pip](#pip)
+      - [conda](#conda)
+      - [说明](#说明)
+    - [更换镜像源](#更换镜像源)
+      - [pip镜像源](#pip镜像源)
+      - [conda镜像源](#conda镜像源)
+    - [常用命令](#常用命令)
+  - [生成配置文件](#生成配置文件)
+    - [解释配置（settings.json）](#解释配置settingsjson)
+    - [调试配置（launch.json）](#调试配置launchjson)
+  - [调试运行测试](#调试运行测试)
+- [常见错误](#常见错误)
+  - [无法将conda项识别为cmdet...](#无法将conda项识别为cmdet)
+  - [无法加载文件 \\WindowsPowerShell\\profile.ps1](#无法加载文件-windowspowershellprofileps1)
+  - [提示CommandNotFoundError](#提示commandnotfounderror)
+  - [OMP: Error #15: Initializing xxx](#omp-error-15-initializing-xxx)
+  - [Refactor failed...](#refactor-failed)
+- [参考文献](#参考文献)
 
-# 1. 简介
+## 简介
 
 Python是一种跨平台的计算机程序设计语言。 是一个高层次的结合了解释性、编译性、互动性和面向对象的脚本语言。最初被设计用于编写自动化脚本(shell)，随着版本的不断更新和语言新功能的添加，越来越多地被用于独立的、大型项目的开发。
 
-# 2. VSCode下载与安装
+## VSCode下载与安装
 
 前往[官网](https://code.visualstudio.com)（https://code.visualstudio.com）下载安装，支持Windows、Linux和Mac系统。可以下载安装版，也可以选择解压即用的绿色版。区别在于安装板会向系统路径写入配置信息，绿色版所有的依赖信息和配置信息均存放于一个目录中。安装版可以在线下载更新和安装更新，绿色版只能下载新版本的绿色安装包解压后覆盖来更新。
 
@@ -59,9 +60,9 @@ Python是一种跨平台的计算机程序设计语言。 是一个高层次的�
 - VSCode默认编码为UTF8，对中文支持并不完美，特别是打开已有的包含中文注释的源代码文件时要特别注意，可能导致中文乱码，且在保存文件时弹出警告。因此，对于包含中文注释的已有文件，一般需要新建一个空白文件，保存为UTF8编码格式，然后重新输入中文注释部分再进行保存。
 
 
-# 3. 配置Python开发环境
+## 配置Python开发环境
 
-## 3.1. 部署解释器
+### 部署解释器
 
 扩展商店搜索“python”，安装微软官方出品的Python扩展。然后重启VSCode。
 
@@ -69,7 +70,7 @@ Python是一种跨平台的计算机程序设计语言。 是一个高层次的�
 
 然后配置Python解释器。
 
-## 3.2. 安装Anaconda
+### 安装Anaconda
 
 推荐采用**Anaconda**配置Python环境，可参考[[1](#ref1)]。Anaconda是一个方便的python包管理和环境管理软件，一般用来配置不同的项目环境。我们常常会遇到这样的情况，正在做的项目A和项目B分别基于python2和python3，而电脑一般只能安装一个环境，这个时候Anaconda就派上了用场，它可以创建多个互不干扰的环境，分别运行不同版本的软件包，以达到兼容的目的。
 
@@ -95,7 +96,7 @@ D:\XXX\Anaconda3\Scripts
 D:\XXX\Anaconda3\Library\bin
 ```
 
-## 3.3. 新建和备份环境
+### 新建和备份环境
 
 新建环境需要联网。在开始菜单中找到“Anaconda Navigator”，单击打开后，点击左侧的“Environments”，可以看到默认存在一个 `base(root)` 环境。点击下方的Create按钮新建一个环境。
 
@@ -109,11 +110,11 @@ D:\XXX\Anaconda3\Library\bin
 
 **激活**某个环境的方法为左键单击该环境。打开某个环境的**终端**为点击环境名称旁边的三角按钮，在弹出菜单中选择 `Open Terminal`。
 
-## 3.4. 配置依赖包
+### 配置依赖包
 
-### 3.4.1. 更新包管理工具
+#### 更新包管理工具
 
-#### 3.4.1.1. pip
+##### pip
 
 Python默认的包管理工具是**pip**。输入以下命令查看pip版本
 
@@ -135,7 +136,7 @@ python -m pip install --upgrade pip
 
 ![Anaconda](/assets/img/postsimg/20200321/07.piplatest.png)
 
-#### 3.4.1.2. conda（推荐）
+##### conda
 
 还可以采用第三方的开源跨平台包管理工具**conda**进行包管理，作为pip无法进行包更新时的备份工具。
 
@@ -159,7 +160,7 @@ conda update -n base conda
 
 ![Anaconda](/assets/img/postsimg/20200321/13.updateconda.png)
 
-#### 3.4.1.3. 说明
+##### 说明
 
 conda和pip通常被认为几乎完全相同。虽然这两个工具的某些功能重叠，但它们设计用于不同的目的。 [pip](https://pip.pypa.io/en/stable/)是Python Packaging Authority推荐的用于从[Python Package Index](https://pypi.org/)安装包的工具。 Pip安装打包为wheels或源代码分发的Python软件。后者可能要求系统安装兼容的编译器和库。
 
@@ -173,9 +174,9 @@ conda和pip通常被认为几乎完全相同。虽然这两个工具的某些功
 
 对于用户而言，尽可能从一而终的采用一种包管理工具。若使用Anaconda配置的python环境，则推荐使用conda，配合Anaconda界面使用更加友好，除非某些包无法通过conda安装，则可采用pip安装。
 
-### 3.4.2. 更换镜像源
+#### 更换镜像源
 
-#### 3.4.2.1. pip镜像源
+##### pip镜像源
 
 pip的默认镜像源在国外，更新包会下载缓慢甚至无法下载，可更换到国内的镜像源（清华、阿里、中科大等）。
 
@@ -199,7 +200,7 @@ trusted-host = pypi.tuna.tsinghua.edu.cn
 
 ![更新索引](/assets/img/postsimg/20200321/09.updateindex.png)
 
-#### 3.4.2.2. conda镜像源
+##### conda镜像源
 
 可通过修改用户目录下的 `.condarc` 文件来更换源，文件位于
 
@@ -248,7 +249,7 @@ conda clean -i
 
 
 
-### 3.4.3. 常用命令
+#### 常用命令
 
 - 安装包（**注意！必须要断开所有VPN等科学上网代理再进行安装！**）
 
@@ -300,11 +301,11 @@ python -m pip install --upgrade pip
 conda update -n base -c defaults conda
 ```
 
-## 3.5. 生成配置文件
+### 生成配置文件
 
 在项目工作路径下新建 `.vscode` 文件夹，其中新建以下两个配置文件，并用下面的内容填充。
 
-### 3.5.1. 解释配置（settings.json）
+#### 解释配置（settings.json）
 
 ```
 {
@@ -314,7 +315,7 @@ conda update -n base -c defaults conda
 
 其中具体的python路径位置因Anaconda安装位置不同而不同，注意转义字符 `\\`。
 
-### 3.5.2. 调试配置（launch.json）
+#### 调试配置（launch.json）
 
 ```
 {
@@ -331,7 +332,7 @@ conda update -n base -c defaults conda
 }
 ```
 
-## 3.6. 调试运行测试
+### 调试运行测试
 
 随便新建一个 `python` 文件，如 `printtest.py` 进行测试，下图可以看出具备代码智能补全功能。
 
@@ -341,9 +342,9 @@ conda update -n base -c defaults conda
 
 ![调试运行测试](/assets/img/postsimg/20200321/16.run.png)
 
-# 4. 常见错误
+## 常见错误
 
-## 4.1. 无法将conda项识别为cmdet...
+### 无法将conda项识别为cmdet...
 
 VSCode 解释 `.py` 时，终端自动运行命令 `conda activate Pytorch(环境名)` 时提示
 
@@ -366,7 +367,15 @@ X:\XXX\Anaconda3\Library\bin
 
 然后**重启电脑**。
 
-## 4.2. 提示CommandNotFoundError
+### 无法加载文件 \WindowsPowerShell\profile.ps1
+
+以管理员身份打开 PowerShell 输入
+
+```
+set-executionpolicy remotesigned
+```
+
+### 提示CommandNotFoundError
 
 VSCode 解释 `.py` 时，终端自动运行命令 `conda activate xxx(环境名)` 时提示
 
@@ -405,7 +414,7 @@ set-ExecutionPolicy RemoteSigned
 
 之后重启VSCode，`F5` 执行Python文件应该就不会提示错误了。
 
-## 4.3. OMP: Error #15: Initializing xxx
+### OMP: Error #15: Initializing xxx
 
 ```python
 OMP: Error #15: Initializing libiomp5md.dll, but found libiomp5md.dll already initialized
@@ -418,7 +427,7 @@ import os
 os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 ```
 
-## 4.4. Refactor failed...
+### Refactor failed...
 
 当打开一个 `.py` 文件，试图通过 `F2` 快捷键来修改变量名称时，会弹出 `Refactor failed.......` 一大串错误。这是因为如果该文件没有运行过，VSCode 默认的 Python 自动补齐和静态分析工具 Jedi 必须要求先运行一次 `.py` 文件才能进行改名。因此可以选择更加新的自动补齐和静态分析工具 Pylance （由微软开发）解决不运行文件而需要改名的操作。
 
@@ -426,7 +435,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 左下角齿轮打开设置，输入 jedi ，定位到 `Python: Language Server`，然后将选项改成 `Pylance` ，提示需要安装 Pylance 插件，安装后重启 VSCode 即可。
 
-# 5. 参考文献
+## 参考文献
 
 <span id="ref1">[1]</span> [挖掘机小王子](https://www.zhihu.com/people/WaJueJiPrince). [VSCode+Anaconda打造舒适的Python环境](https://zhuanlan.zhihu.com/p/30324113).
 
