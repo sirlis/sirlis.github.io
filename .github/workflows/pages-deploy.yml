@@ -47,7 +47,7 @@ jobs:
 
       - name: Build site
         # run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
-        run:
+        run:|
           npm install --global yarn
           yarn install
           yarn build
