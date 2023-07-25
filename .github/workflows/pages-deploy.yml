@@ -52,7 +52,7 @@ jobs:
           yarn install
           yarn build
           bundle update
-          JEKYLL_ENV=production bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
+          bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
 
