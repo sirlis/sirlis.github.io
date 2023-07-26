@@ -300,7 +300,7 @@ NSIS允许您创建从只复制文件的基本安装程序到处理许多高级�
 
 NSIS基于脚本文件，支持变量、函数和字符串操作，就像一种普通的编程语言一样，但它是为创建安装程序而设计的。在默认选项下，它的开销只有34kb。同时由于其强大的脚本语言和对外部插件的支持，仍然提供了许多选项。
 
-安装完成后，NSIS 具备一个 GUI，但是我一般不用，而是直接通过 CMakeLists.txt 文件调用 NSIS 进行打包。详见 [配置](#配置configure) 中的 `#打包`。
+安装完成后，NSIS 具备一个 GUI，但是我一般不用，而是直接通过 CMakeLists.txt 文件调用 NSIS 进行打包。详见 [配置](#22-配置configure) 中的 `#打包`。
 
 如果需要使用 GUI 来辅助生成打包脚本，参考 [此处](https://www.cnblogs.com/modou/p/3573772.html)。
 
@@ -316,7 +316,7 @@ cpack.exe .\CPackConfig.cmake
 
 将安装程序分发到其它 Windows 平台即可完成安装。
 
-注意，若发布的安装程序在完成安装后，提示缺少某个 dll 文件，那么需要重新更改 `CMakeLists.txt` 文件，将相应的 dll 文件进行安装。最好使用dll依赖查询工具来查看编译得到的可执行程序（.exe）依赖哪些第三方dll，然后逐一添加，参考 [配置](#配置configure) 中的 `#安装`。
+注意，若发布的安装程序在完成安装后，提示缺少某个 dll 文件，那么需要重新更改 `CMakeLists.txt` 文件，将相应的 dll 文件进行安装。最好使用dll依赖查询工具来查看编译得到的可执行程序（.exe）依赖哪些第三方dll，然后逐一添加，参考 [配置](#22-配置configure) 中的 `#安装`。
 
 可选的工具包括 [Dependencies](https://github.com/lucasg/Dependencies)。
 
