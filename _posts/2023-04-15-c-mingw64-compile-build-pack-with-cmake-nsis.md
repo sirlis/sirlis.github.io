@@ -13,17 +13,17 @@ math: true
 ---
 
 - [1. 引言](#1-引言)
-- [CMake 配置](#cmake-配置)
-  - [环境搭建](#环境搭建)
-  - [配置（Configure）](#配置configure)
-  - [生成（Generate）](#生成generate)
-  - [构建（Build）](#构建build)
-  - [运行和调试](#运行和调试)
-- [基于 CMake 的打包](#基于-cmake-的打包)
-  - [CPack](#cpack)
-  - [NSIS](#nsis)
-  - [基于 CPack 和 NSIS 的打包](#基于-cpack-和-nsis-的打包)
-- [参考文献](#参考文献)
+- [2. CMake 配置](#2-cmake-配置)
+  - [2.1. 环境搭建](#21-环境搭建)
+  - [2.2. 配置（Configure）](#22-配置configure)
+  - [2.3. 生成（Generate）](#23-生成generate)
+  - [2.4. 构建（Build）](#24-构建build)
+  - [2.5. 运行和调试](#25-运行和调试)
+- [3. 基于 CMake 的打包](#3-基于-cmake-的打包)
+  - [3.1. CPack](#31-cpack)
+  - [3.2. NSIS](#32-nsis)
+  - [3.3. 基于 CPack 和 NSIS 的打包](#33-基于-cpack-和-nsis-的打包)
+- [4. 参考文献](#4-参考文献)
 
 
 ## 1. 引言  
@@ -35,7 +35,7 @@ math: true
 
 原作者只需要生成一份 `CMakeLists.txt` 文档，框架的使用者们只需要在下载源码的同时下载作者提供的 `CMakeLists.txt`，就可以利用CMake，在原作者的帮助下进行工程的搭建。Cmake 编程的过程实际上是编写 `CMakeLists.txt`的过程，使用的是 “Cmake” 语言和语法。
 
-## CMake 配置
+## 2. CMake 配置
 
 CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性
 
@@ -45,7 +45,7 @@ CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工�
 
 显然，CMake 是一个比上述几种 make 更高级的编译配置工具。一些使用 CMake 作为项目架构系统的知名开源项目有 VTK、ITK、KDE、OpenCV、OSG 等
 
-### 环境搭建
+### 2.1. 环境搭建
 
 前提，已经安装有至少一个C/C++编译器，如 MinGW-W64。可以通过`gcc --version` 查看版本来确认安装是否成功。
 
@@ -65,7 +65,7 @@ CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工�
 
 ![](/assets/img/postsimg/20230515/select-a-kit.jpg)
 
-### 配置（Configure）
+### 2.2. 配置（Configure）
 
 配置即编写 `CMakeLists.txt` 文件，通常一个 `CMakeLists.txt` 文件需要包含：
 
@@ -218,7 +218,7 @@ include(CPack)
 - 规定 `.so/.a` 库文件路径使用 `link_directories(路径)`；
 
 
-### 生成（Generate）
+### 2.3. 生成（Generate）
 
 我们一般会在 `CMakeLists.txt` 所在的目录下（一般也就是工程项目的根目录）手动新建一个 `build` 文件夹，这将用于存储 CMake 构建的中间文件和生成的目标文件。这种方式实际上是 cmake 的 out-of-source 构建方式。这种方法可以保证生成中间产物与源代码分离（即生成的所有目标文件都存储在 `build` 文件夹中，因此不会干扰源代码中的任何文件）。
 
@@ -241,7 +241,7 @@ make
 
 ![](/assets/img/postsimg/20230515/cmake-configure-result.jpg)
 
-### 构建（Build）
+### 2.4. 构建（Build）
 
 采用 CMake 构建项目有三种方式：
 - 方式1：打开命令板（`Ctrl+Shift+P`）并运行 `CMake：Build`；
@@ -252,15 +252,15 @@ make
 
 ![](/assets/img/postsimg/20230515/build.png)
 
-### 运行和调试
+### 2.5. 运行和调试
 
 运行和调试项目，打开某个源代码文件，并设置一个断点。然后打开命令板（`Ctrl+Shift+P`），并运行 `CMake： dbug`，然后按F5继续调试。
 
 或者点击 VSCode 下方的 【虫子】 图标进行 DEBUG 调试。
 
-## 基于 CMake 的打包
+## 3. 基于 CMake 的打包
 
-### CPack
+### 3.1. CPack
 
 CPack 是 CMake 2.4.2 之后的一个内置工具，用于创建软件的二进制包和源代码包。
 
@@ -290,7 +290,7 @@ CPack 支持打包的包格式有以下种类：
 
 **如何安装 CPack**：安装 CMake 的时候会把 CPack 一起安装了。
 
-### NSIS
+### 3.2. NSIS
 
 官网下载最新版本并安装：https://nsis.sourceforge.io/Download。
 
@@ -304,7 +304,7 @@ NSIS基于脚本文件，支持变量、函数和字符串操作，就像一种�
 
 如果需要使用 GUI 来辅助生成打包脚本，参考 [此处](https://www.cnblogs.com/modou/p/3573772.html)。
 
-### 基于 CPack 和 NSIS 的打包
+### 3.3. 基于 CPack 和 NSIS 的打包
 
 完成项目构建后, 你会发现 `build` 目录下面多了两个文件 `CPackConfig.cmake` 和 `CPackSourceConfig.cmake`。在终端执行以下命令完成打包，得到可执行安装程序。
 
@@ -320,7 +320,7 @@ cpack.exe .\CPackConfig.cmake
 
 可选的工具包括 [Dependencies](https://github.com/lucasg/Dependencies)。
 
-## 参考文献
+## 4. 参考文献
 
 [1] maskerII. [【简书】CMakeLists 入门](https://www.jianshu.com/p/2bdcd7d7b164)
 
