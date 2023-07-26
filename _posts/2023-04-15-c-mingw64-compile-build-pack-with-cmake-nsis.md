@@ -18,7 +18,7 @@ math: true
   - [2.2. 配置（Configure）](#22-配置configure)
   - [2.3. 生成（Generate）](#23-生成generate)
   - [2.4. 构建（Build）](#24-构建build)
-  - [2.5. 运行和调试](#25-运行和调试)
+  - [2.5. 运行和调试（Debug）](#25-运行和调试debug)
 - [3. 基于 CMake 的打包](#3-基于-cmake-的打包)
   - [3.1. CPack](#31-cpack)
   - [3.2. NSIS](#32-nsis)
@@ -252,11 +252,11 @@ make
 
 ![](/assets/img/postsimg/20230515/build.png)
 
-### 2.5. 运行和调试
+### 2.5. 运行和调试（Debug）
 
-运行和调试项目，打开某个源代码文件，并设置一个断点。然后打开命令板（`Ctrl+Shift+P`），并运行 `CMake： dbug`，然后按F5继续调试。
+运行和调试项目，打开某个源代码文件，并设置一个断点。然后打开命令板（`Ctrl+Shift+P`），并运行 `CMake： debug`，然后按 F5 继续调试。
 
-或者点击 VSCode 下方的 【虫子】 图标进行 DEBUG 调试。
+或者点击 VSCode 下方的 【**虫子**】 图标进行 DEBUG 调试。
 
 ## 3. 基于 CMake 的打包
 
