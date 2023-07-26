@@ -42,7 +42,7 @@ $$
 如果旋转角度被限制在 $-180^{\circ}< \theta < 180^{\circ}$，那么四元数标量部分可以由下式计算
 
 $$
-q_0 = \sqrt(1-\vert\vert \bar{q} \vert\vert ^2)
+q_0 = \sqrt{(1-\vert\vert \bar{q} \vert\vert ^2)}
 $$
 
 注意，相对姿态轴角表示中， $(-\bar{n},-\theta)$ 和 $(\bar{n},\theta)$ 起到的旋转效果相同。带入姿态四元数定义式，可以得到惯性系相对于本体系的姿态四元数
