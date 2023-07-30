@@ -93,10 +93,12 @@ mingw32-make.exe -j8
 
 编译完成后，得到
 
-- include/assimp/config.h
-- bin/libassimp-5.dll
+- include/assimp/config.h（将本文件拷贝至工程的 `include` 文件夹或 `assimp` 文件夹之类 ）
+- bin/libassimp-5.dll（Windows下将本文件拷贝至 `.exe` ）
 - bin/unit.exe
 - lib/libassimp.dll.a
+
+将 `include/assimp` 中的所有头文件（除了 `config.h`）拷贝至前面一样的文件夹（工程的 `include` 文件夹或 `assimp` 文件夹之类）
 
 ## 3. 参考文献
 
