@@ -35,7 +35,7 @@ math: true
 
 旋转矩阵​ $\bm{R}$ 可以由旋转轴和旋转角唯一确定。假设位置矢量​ $\bm{p}$ 绕定点旋转到位置矢量 $\bm{p}^\prime$，旋转轴为 $\bm{n}$，旋转角为 $\theta$，如下图所示。可以证明，$\bm{R}$ 可由 $\bm{n},\theta$ 显示表示。
 
-
+![](/assets/img/postsimg/20230602/rotation1.jpg)
 
 
 ## 3. 姿态四元数
