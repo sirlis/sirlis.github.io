@@ -14,7 +14,8 @@ math: true
 
 - [1. 基础](#1-基础)
   - [1.1. 矢量的正交分解](#11-矢量的正交分解)
-  - [1.2. 坐标系定义](#12-坐标系定义)
+  - [1.2. 叉乘矩阵](#12-叉乘矩阵)
+  - [1.3. 坐标系定义](#13-坐标系定义)
 - [2. 轴角旋转](#2-轴角旋转)
 - [3. 姿态四元数](#3-姿态四元数)
 - [4. 向量的坐标变换](#4-向量的坐标变换)
@@ -52,7 +53,41 @@ $$
 \bm{R} = \bm{I}-\bm{e}\bm{e}^\top
 $$
 
-### 1.2. 坐标系定义
+### 1.2. 叉乘矩阵
+
+设 $\bm{a} = [a_1,a_2,a_3]^\top\in\mathbb{R}^3,\; \bm{b} = [b_1,b_2,b_3]^\top\in\mathbb{R}^3$，那么向量 $\bm{a}$ 叉乘向量 $\bm{b}$ 可表示为
+
+$$
+\bm{a}\times\bm{b} = \bm{a}^\times\bm{b}
+$$
+
+其中叉乘矩阵满足
+
+$$
+\bm{a}^\times = \frac{\partial(\bm{a}\times\bm{b})}{\partial \bm{b}} = \begin{bmatrix}
+    0 & -a_3 & a_2\\
+    a_3 & 0 & -a_1\\
+    -a_2 & a_1 & 0
+\end{bmatrix}
+$$
+
+> **七绝一首，速求法向量**
+> 向量横着写两遍，
+> 掐头去尾留中间，
+> 交叉相乘再相减，
+> 求得向量再化简。
+> **或者写成行列式方便记忆**
+> $$
+> \left |
+> \begin{matrix}
+>     i & j & k\\
+>     a_1 & a_2 & a_3\\
+>     b_1 & b_2 & b_3\\
+> \end{matrix}
+> \right |
+> $$
+
+### 1.3. 坐标系定义
 
 在航天器相对位姿跟踪任务中，需要明确各个坐标系，并以此来描述刚体的位姿和受力情况。通常会涉及到以下几个相关坐标系。
 - 地心惯性坐标系 $I$；
@@ -66,7 +101,7 @@ $$
 
 旋转矩阵​ $\bm{R}$ 可以由旋转轴和旋转角唯一确定。假设位置矢量​ $\bm{p}$ 绕定点旋转到位置矢量 $\bm{p}^\prime$，旋转轴为 $\bm{n}$，旋转角为 $\theta$，如下图所示。可以证明，$\bm{R}$ 可由 $\bm{n},\theta$ 显示表示。
 
-![](/assets/img/postsimg/20230602/rotation1.jpg)
+![](/assets/img/postsimg/20230602/rotation1.jpg) ![](/assets/img/postsimg/20230602/rotation2.jpg)
 
 从图中可以看出
 
@@ -74,10 +109,43 @@ $$
 \bm{p}^\prime = \vec{OQ} + \vec{QP^\prime}
 $$
 
-其中 $\vec{OQ}$ 是 $\bm{p}$ 沿着轴 $\bm{n}$ 的轴向分量，由正交分解有
+其中 $\vec{OQ}$ 是 $\bm{p}$ 平行于轴 $\bm{n}$ 的轴向分量，由正交分解有
 
 $$
-\vec{OQ} = 
+\begin{aligned}
+\vec{OQ} &= \bm{n}\bm{n}^\top\bm{p}\\
+\vec{QP^\prime} &= (\cos\theta)\vec{QP} + (\sin\theta)\vec{QP^{\prime\prime}}
+\end{aligned}
+$$
+
+又因为 $\vec{QP}$ 是 $\bm{p}$ 与垂直于轴 $\bm{n}$ 的垂向分量，由正交分解有
+
+$$
+\vec{QP} = (\bm{I} - \bm{n}\bm{n}^\top)\bm{p}
+$$
+
+根据矢量叉乘运算的几何意义，有
+
+$$
+\vec{QP^{\prime\prime}} = \bm{n}\times\bm{p} = \bm{n}^\times\bm{p}
+$$
+
+带入可得
+
+$$
+\vec{QP^\prime} = \cos{\theta}(\bm{I} - \bm{n}\bm{n}^\top)\bm{p}+\sin{\theta}\bm{n}^\times\bm{p}
+$$
+
+综上
+
+$$
+\bm{p}^\prime = \bm{n}\bm{n}^\top\bm{p}+\cos{\theta}(\bm{I} - \bm{n}\bm{n}^\top)\bm{p}+\sin{\theta}\bm{n}^\times\bm{p} = \bm{R}\bm{p}
+$$
+
+则旋转矩阵为
+
+$$
+\bm{R} = \bm{n}\bm{n}^\top+\cos{\theta}(\bm{I} - \bm{n}\bm{n}^\top)+\sin{\theta}\bm{n}^\times
 $$
 
 ## 3. 姿态四元数
