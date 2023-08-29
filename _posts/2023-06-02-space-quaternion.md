@@ -29,7 +29,7 @@ math: true
 
 对一个矢量​ $\bm{v}$ 进行沿单位参考轴 $\bm{e}$ ​正交分解为两个分量，分别为平行于 $\bm{e}$ ​的轴向分量 $\bm{v}_{\parallel}$ 和垂直于 $\bm{e}$ ​的垂直分量 $\bm{v}_{\perp}$。如下图所示。
 
-
+![](/assets/img/postsimg/20230602/orthogonal_decomposition.jpg)
 
 ### 坐标系定义
 
