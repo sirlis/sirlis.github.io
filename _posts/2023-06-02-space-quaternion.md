@@ -234,4 +234,6 @@ $$
 
 [1] 皮皮夏. [【知乎】刚体的转动和旋转变换](https://zhuanlan.zhihu.com/p/39375082)
 
-[1] 皮皮夏. [【知乎】四元数代数以及姿态动力学建模](https://zhuanlan.zhihu.com/p/375199378)
+[2] 皮皮夏. [【知乎】四元数代数以及姿态动力学建模](https://zhuanlan.zhihu.com/p/375199378)
+
+[3] lxycg. [【知乎】四元数和旋转(Quaternion & rotation)](https://www.zhihu.com/tardis/zm/art/78987582)
