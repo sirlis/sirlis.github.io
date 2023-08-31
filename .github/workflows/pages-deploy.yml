@@ -76,3 +76,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+  
+  # sync github repos to gitee (currently done when push sirlis.github.io)
+  # private key at 'C:\Users\Administrator\.ssh\id_rsa' and saved in github/repo/settings/secrets as GITEE_PRIVATE_KEY
+  # token at 'C:\Users\Administrator\.ssh\gitee_token.txt' and saved in github/repo/settings/secrets as GITEE_TOKEN
+  syncgitee:
+    needs: [build, deploy]
+    steps:
+      - name: Mirror the Github organization repos to Gitee.
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/sirlis
+          dst: gitee/sirlis
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          white_list: "sirlis.github.io,digital-spacecraft-simulator,digital-spacecraft-scene"
+          black_list: "FuzzySeg,RailDefect"
+          # account_type: org
+          # src_account_type: org
+          # dst_account_type: org
