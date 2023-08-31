@@ -98,6 +98,9 @@ jobs:
           # account_type: org
           # src_account_type: org
           # dst_account_type: org
+
+      # build gitee pages
+      # https://github.com/yanglbme/gitee-pages-action
       - name: Build Gitee Pages
         uses: yanglbme/gitee-pages-action@master
         with:
