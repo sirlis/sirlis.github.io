@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-09-01T14:24:45+08:00</updated>
+  <updated>2023-09-01T14:45:16+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -77,7 +77,13 @@
 
 1.1. 矢量的正交分解
 
-对一个矢量​ $\boldsymbol{v}$ 进行沿单位参考轴 $\boldsymbol{e}$ ​正交分解为两个分量，分别为平行于 $\boldsymbol{e}$ ​的轴向分量 $\boldsymbol{v}{\parallel}$ 和垂直于 $\boldsymbol{e...
+对一个矢量​ $\boldsymbol{v}$ 进行沿单位参考轴 $\boldsymbol{e}$ ​正交分解为两个分量，分别为平行于 $\boldsymbol{e}$ ​的轴向分量和垂直于 $\boldsymbol{e}$ ​的垂直分量。如下图所示。
+
+
+
+有
+
+\[\beg...
     </summary>
   
 
