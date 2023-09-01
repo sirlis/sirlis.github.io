@@ -1,44 +1,52 @@
----
-layout: compress
-
-# The list to be cached by PWA
----
-
 const resource = [
     /* --- CSS --- */
-    '{{ "/assets/css/style.css" | relative_url }}',
+    '/assets/css/style.css',
 
     /* --- PWA --- */
-    '{{ "/app.js" | relative_url }}',
-    '{{ "/sw.js" | relative_url }}',
+    '/app.js',
+    '/sw.js',
 
     /* --- HTML --- */
-    '{{ "/index.html" | relative_url }}',
-    '{{ "/404.html" | relative_url }}',
+    '/index.html',
+    '/404.html',
 
-    {% for tab in site.tabs %}
-        '{{ tab.url | relative_url }}',
-    {% endfor %}
+    
+        '/categories/',
+    
+        '/tags/',
+    
+        '/archives/',
+    
+        '/about/',
+    
 
     /* --- Favicons & compressed JS --- */
-    {% assign cache_list = site.static_files | where: 'swcache', true  %}
-    {% for file in cache_list %}
-        '{{ file.path | relative_url }}'{%- unless forloop.last -%},{%- endunless -%}
-    {% endfor %}
+    
+    
+        '/assets/img/favicons/android-chrome-256x256.png',
+        '/assets/img/favicons/android-chrome-512x512.png',
+        '/assets/img/favicons/apple-touch-icon.png',
+        '/assets/img/favicons/favicon-16x16.png',
+        '/assets/img/favicons/favicon-32x32.png',
+        '/assets/img/favicons/favicon.ico',
+        '/assets/img/favicons/head.png',
+        '/assets/img/favicons/mstile-150x150.png',
+        '/assets/img/favicons/android-chrome-192x192.png',
+        '/assets/js/dist/categories.min.js',
+        '/assets/js/dist/commons.min.js',
+        '/assets/js/dist/home.min.js',
+        '/assets/js/dist/misc.min.js',
+        '/assets/js/dist/page.min.js',
+        '/assets/js/dist/post.min.js'
 ];
 
 /* The request url with below domain will be cached */
 const allowedDomains = [
-    {% if site.google_analytics.id != empty and site.google_analytics.id %}
-        'www.googletagmanager.com',
-        'www.google-analytics.com',
-    {% endif %}
+    
 
-    '{{ site.url | split: "//" | last }}',
+    'localhost:4000',
 
-    {% if site.img_cdn contains '//' and site.img_cdn %}
-        '{{ site.img_cdn | split: '//' | last | split: '/' | first }}',
-    {% endif %}
+    
 
     'fonts.gstatic.com',
     'fonts.googleapis.com',
@@ -48,3 +56,4 @@ const allowedDomains = [
 
 /* Requests that include the following path will be banned */
 const denyUrls = [];
+
