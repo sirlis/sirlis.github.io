@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="航天中的四元数以及姿态运动学" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-01T14:47:14+08:00","datePublished":"2023-06-02T18:38:19+08:00","description":"本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。","headline":"航天中的四元数以及姿态运动学","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/space-quaternion/"},"url":"http://localhost:4000/posts/space-quaternion/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-01T22:48:09+08:00","datePublished":"2023-06-02T18:38:19+08:00","description":"本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。","headline":"航天中的四元数以及姿态运动学","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/space-quaternion/"},"url":"http://localhost:4000/posts/space-quaternion/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1017,7 +1017,7 @@
 
 <em
   class=""
-  data-ts="1693550834"
+  data-ts="1693579689"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -1067,7 +1067,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1477 字"
+  title="1479 字"
 >
   <em>8 分钟</em>阅读</span>
 
@@ -1096,8 +1096,8 @@
   <li><a href="#3-姿态四元数">3. 姿态四元数</a>
     <ul>
       <li><a href="#31-四元数定义">3.1. 四元数定义</a></li>
-      <li><a href="#四元数表示旋转">四元数表示旋转</a></li>
-      <li><a href="#32-姿态四元数">3.2. 姿态四元数</a></li>
+      <li><a href="#32-四元数表示旋转">3.2. 四元数表示旋转</a></li>
+      <li><a href="#33-姿态四元数">3.3. 姿态四元数</a></li>
     </ul>
   </li>
   <li><a href="#4-向量的坐标变换">4. 向量的坐标变换</a></li>
@@ -1228,11 +1228,11 @@
 
 \[\mathbb{H}^u=\{q\in \mathbb{H}: q\cdot q=(1,0,0,0)\}\]
 
-<h3 id="四元数表示旋转"><span class="me-2">四元数表示旋转</span><a href="#四元数表示旋转" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="32-四元数表示旋转"><span class="me-2">3.2. 四元数表示旋转</span><a href="#32-四元数表示旋转" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>三维空间中的旋转可以被认为是一个函数 $\phi$ ，从 $\mathbb{R}^3$ 到自身的映射。函数 $\phi$ 要想表示一个旋转，必须在旋转过程中保持向量长度（lengths）、向量夹角（angles）和 handedness 不变。handedness 和左右手坐标系有关，例如左手坐标系中向量旋转后，仍要符合左手坐标系规则。</p>
 
-<h3 id="32-姿态四元数"><span class="me-2">3.2. 姿态四元数</span><a href="#32-姿态四元数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="33-姿态四元数"><span class="me-2">3.3. 姿态四元数</span><a href="#33-姿态四元数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>单位四元数可以用来表示两个坐标系之间的相对姿态，此时又可称其为<strong>旋转四元数</strong>。若本体坐标系 $B$ 相对于惯性系 $I$ 的姿态用欧拉旋转轴角表示为 $(\bar{n},\theta)$，即本体坐标系 $B$ 绕着单位轴 $\bar{n}$ 旋转角度 $\theta$ 到达惯性坐标系 $I$。那么本体坐标系 $B$ 相对于惯性坐标系 $I$ 的姿态四元数为</p>
 
