@@ -1,0 +1,59 @@
+name: "Sync to Gitee and Deploy"
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # sync github repos to gitee (currently done when push sirlis.github.io)
+  # https://github.com/Yikun/hub-mirror-action
+  # private key at 'C:\Users\Administrator\.ssh\id_rsa' and saved in github/repo/settings/secrets as GITEE_PRIVATE_KEY
+  # token at 'C:\Users\Administrator\.ssh\gitee_token.txt' and saved in github/repo/settings/secrets as GITEE_TOKEN
+  sync2gitee:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync to Gitee
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/sirlis
+          dst: gitee/sirlis
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          # mappings: "sirlis.github.io=>sirlis"
+          white_list: "sirlis.github.io,sirlis"
+          black_list: "FuzzySeg,RailDefect,digital-spacecraft-simulator,digital-spacecraft-scene"
+          # account_type: org
+          # src_account_type: org
+          # dst_account_type: org
+
+      # build gitee pages
+      # https://github.com/yanglbme/gitee-pages-action
+      - name: Build Gitee Pages
+        uses: yanglbme/gitee-pages-action@master
+        with:
+            # 注意替换为你的 Gitee 用户名
+            gitee-username: sirlis
+            # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
+            gitee-password: ${{ secrets.GITEE_PASSWORD }}
+            # 注意替换为你的 Gitee 仓库
+            gitee-repo: sirlis/sirlis
+    
