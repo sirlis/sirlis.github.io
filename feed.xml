@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-09-01T14:45:16+08:00</updated>
+  <updated>2023-09-01T22:42:35+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/space-quaternion/" rel="alternate" type="text/html" title="航天中的四元数以及姿态运动学" />
     <published>2023-06-02T18:38:19+08:00</published>
   
-    <updated>2023-06-02T18:38:19+08:00</updated>
+    <updated>2023-09-01T14:47:14+08:00</updated>
   
     <id>http://localhost:4000/posts/space-quaternion/</id>
     <content src="http://localhost:4000/posts/space-quaternion/" />
