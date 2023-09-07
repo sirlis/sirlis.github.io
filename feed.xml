@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-09-01T22:48:22+08:00</updated>
+  <updated>2023-09-07T18:51:32+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,72 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</title>
+    <link href="http://localhost:4000/posts/linux-WSL/" rel="alternate" type="text/html" title="在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发" />
+    <published>2023-09-07T15:32:19+08:00</published>
+  
+    <updated>2023-09-07T18:51:15+08:00</updated>
+  
+    <id>http://localhost:4000/posts/linux-WSL/</id>
+    <content src="http://localhost:4000/posts/linux-WSL/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了如何在
+
+
+
+
+
+  1. 什么是 WSL
+    
+      1.1. WSL 1 和 WSL 2
+      1.2. 例外情况（使用 WSL 1 而不是 WSL 2）
+    
+  
+  2. 安装 WSL
+  3. 跨系统文件存储和访问
+  4. 配置 VSCode
+  5. 参考文献
+
+
+1. 什么是 WSL
+
+官方文档：https://learn.microsoft.com/zh-cn/windows/wsl/
+
+适用于 Linux 的 Windows 子系统 (WSL) 可让开发人员直接在 Windows 上按原样运行 GNU/Linux 环境（包括大多数命令行工具、实用工具和应用程序），且不会产生传统虚拟机或双启动设置开销。
+
+1.1. WSL 1 和 WSL 2
+
+
+  
+    
+      功能
+      WSL 1
+      WSL 2
+   ...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -271,71 +337,6 @@
 2.1. 大数定律
 
 大数定律的定义是，当随机事件发生的次数足够多时，随机事件发生的频率趋近于预期的概率。可以简单理解为样本数量越多，其平概率越接近于期望值。大数定律的条件：1、独立重复事件；2、重复次数...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>强化学习（动态规划）</title>
-    <link href="http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/" rel="alternate" type="text/html" title="强化学习（动态规划）" />
-    <published>2022-11-26T11:24:19+08:00</published>
-  
-    <updated>2022-11-26T11:24:19+08:00</updated>
-  
-    <id>http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/</id>
-    <content src="http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。
-
-
-
-
-
-
-  1. 强化学习问题的求解
-  2. 动态规划
-    
-      2.1. 策略迭代
-        
-          2.1.1. 策略评估
-          2.1.2. 策略改进
-          2.1.3. 策略迭代
-        
-      
-      2.2. 价值迭代
-      2.3. 异步动态规划
-    
-  
-  3. 参考文献
-
-
-1. 强化学习问题的求解
-
-强化学习的最终目标是为了求解最优策略，而最优策略一定对应着最优的价值函数（只要知道了最优价值函数就能很轻松的得到最优策略），因此可将强化学习的目标分解为以下两个基本问题：
-
-
-  预测问题，也即预测给定策略的状态价值函数。给定强化学习的6...
     </summary>
   
 
