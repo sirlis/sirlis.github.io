@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-07T18:51:15+08:00","datePublished":"2023-09-07T15:32:19+08:00","description":"本文介绍了如何在","headline":"在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-WSL/"},"url":"http://localhost:4000/posts/linux-WSL/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-11T11:09:05+08:00","datePublished":"2023-09-07T15:32:19+08:00","description":"本文介绍了如何在","headline":"在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-WSL/"},"url":"http://localhost:4000/posts/linux-WSL/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -670,6 +670,30 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -736,13 +760,13 @@
 
 <em
   class=""
-  data-ts="1694083875"
+  data-ts="1694401745"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/09/07
+  2023/09/11
 </em>
 
     </span>
@@ -786,9 +810,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2220 字"
+  title="2505 字"
 >
-  <em>12 分钟</em>阅读</span>
+  <em>13 分钟</em>阅读</span>
 
     </div>
 
@@ -809,9 +833,14 @@
       <li><a href="#12-例外情况使用-wsl-1-而不是-wsl-2">1.2. 例外情况（使用 WSL 1 而不是 WSL 2）</a></li>
     </ul>
   </li>
-  <li><a href="#2-安装-wsl">2. 安装 WSL</a></li>
-  <li><a href="#3-跨系统文件存储和访问">3. 跨系统文件存储和访问</a></li>
-  <li><a href="#4-配置-vscode">4. 配置 VSCode</a></li>
+  <li><a href="#2-安装-wsl">2. 安装 WSL</a>
+    <ul>
+      <li><a href="#21-安装-cc-开发环境依赖">2.1. 安装 C/C++ 开发环境依赖</a></li>
+      <li><a href="#22-安装-python-开发环境依赖">2.2. 安装 Python 开发环境依赖</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-配置-vscode">3. 配置 VSCode</a></li>
+  <li><a href="#4-跨系统文件存储和访问">4. 跨系统文件存储和访问</a></li>
   <li><a href="#5-参考文献">5. 参考文献</a></li>
 </ul>
 
@@ -961,27 +990,88 @@ WSL 2 的内存使用量会随使用而缩放。 当进程释放内存时，这�
 </pre></td><td class="rouge-code"><pre><span class="n">sudo</span><span class="w"> </span><span class="nx">apt</span><span class="w"> </span><span class="nx">update</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">sudo</span><span class="w"> </span><span class="nx">apt</span><span class="w"> </span><span class="nx">upgrade</span><span class="w">
 </span></pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="3-跨系统文件存储和访问"><span class="me-2">3. 跨系统文件存储和访问</span><a href="#3-跨系统文件存储和访问" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h3 id="21-安装-cc-开发环境依赖"><span class="me-2">2.1. 安装 C/C++ 开发环境依赖</span><a href="#21-安装-cc-开发环境依赖" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<ul>
-  <li>
-    <p>若要在 Windows 文件资源管理器中打开 WSL 项目，请输入：<code class="language-plaintext highlighter-rouge">explorer.exe .</code>
-请确保在命令的末尾添加句点以打开当前目录。</p>
-  </li>
-  <li>
-    <p>将项目文件与计划使用的工具存储在相同的操作系统上。
-若想获得最快的性能速度，请将文件存储在 WSL 文件系统中，前提是使用 Linux 工具在 Linux 命令行（Ubuntu、OpenSUSE 等）中处理这些文件。 如果是使用 Windows 工具在 Windows 命令行（PowerShell、命令提示符）中工作，请将文件存储在 Windows 文件系统中。 可以跨操作系统访问文件，但这可能会显著降低性能。</p>
-  </li>
-</ul>
+<p>在 WSL 控制台（VScode远程模式下的终端）安装如下程序包，配置 Linux 下的 C/C++ 开发环境：</p>
 
-<p>例如，在存储 WSL 项目文件时：</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install </span>build-essential
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>gdb
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>cmake
+</pre></td></tr></tbody></table></code></div></div>
+<h3 id="22-安装-python-开发环境依赖"><span class="me-2">2.2. 安装 Python 开发环境依赖</span><a href="#22-安装-python-开发环境依赖" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<ul>
-  <li>使用 Linux 文件系统根目录：<code class="language-plaintext highlighter-rouge">\\wsl$\&lt;DistroName&gt;\home\&lt;UserName&gt;\Project</code></li>
-  <li>而不使用 Windows 文件系统根目录：<code class="language-plaintext highlighter-rouge">C:\Users\&lt;UserName&gt;\Project</code> 或 <code class="language-plaintext highlighter-rouge">/mnt/c/Users/&lt;UserName&gt;/Project$</code></li>
-</ul>
+<p>如果要从 Python 源代码开始编译 Python 解释器，则需要安装如下依赖</p>
 
-<h2 id="4-配置-vscode"><span class="me-2">4. 配置 VSCode</span><a href="#4-配置-vscode" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt <span class="nb">install </span>zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libbz2-dev liblzma-dev sqlite3 libsqlite3-dev tk-dev uuid-dev libgdbm-compat-dev
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>如果从第三方 PPA（Personal Package Archive）安装 Python</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>add-apt-repository ppa:deadsnakes/ppa
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>然后再次更新 apt</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt update
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>可以看到新增的 PPA 也加入更新来源列表了</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>Hit:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease                           
+Hit:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease                   
+Hit:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease                 
+Hit:5 https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu jammy InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>然后就可以安装 Python，以 3.9 版本为例（PYthon 3.10 是 Ubuntu 22.04 LTS 自带的默认 Python 3 版本因此不提供下载，但 WSL2 默认似乎没有 Python）</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt <span class="nb">install </span>python3.9
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>然后通过以下命令确认安装是否成功（成功的话应该能看到 Python 版本号）</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python3.9 <span class="nt">--version</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>以后即可用 <code class="language-plaintext highlighter-rouge">python3.9</code> 来运行脚本，而不是使用 <code class="language-plaintext highlighter-rouge">python</code> 或者 <code class="language-plaintext highlighter-rouge">python3</code>。</p>
+
+<h2 id="3-配置-vscode"><span class="me-2">3. 配置 VSCode</span><a href="#3-配置-vscode" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <blockquote>
   <p>https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-vscode
@@ -998,18 +1088,6 @@ Visual Studio Code以及 WSL 扩展使你能够直接从 VS Code 将 WSL 用作�
 <blockquote>
   <p>注：在 WSL 中打开 Windows 本地的项目，Windows 中的所有路径默认在 <code class="language-plaintext highlighter-rouge">/mnt/</code> 下。</p>
 </blockquote>
-
-<p>在 WSL 控制台（VScode远程模式下的终端）安装如下程序包，配置 Linux 下的 C/C++ 开发环境：</p>
-
-<div class="language-bash highlighter-rouge"><div class="code-header">
-        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install </span>build-essential
-<span class="nb">sudo </span>apt-get <span class="nb">install </span>gdb
-<span class="nb">sudo </span>apt-get <span class="nb">install </span>cmake
-</pre></td></tr></tbody></table></code></div></div>
 
 <p>指令检查版本确认是否安装成功</p>
 
@@ -1033,6 +1111,26 @@ gdb <span class="nt">-v</span>
   <li>CMake</li>
   <li>Cmake Tools</li>
   <li>Python</li>
+</ul>
+
+<h2 id="4-跨系统文件存储和访问"><span class="me-2">4. 跨系统文件存储和访问</span><a href="#4-跨系统文件存储和访问" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li>
+    <p>若要在 Windows 文件资源管理器中打开 WSL 项目，请输入：<code class="language-plaintext highlighter-rouge">explorer.exe .</code>
+请确保在命令的末尾添加句点以打开当前目录。</p>
+  </li>
+  <li>
+    <p>将项目文件与计划使用的工具存储在相同的操作系统上。
+若想获得最快的性能速度，请将文件存储在 WSL 文件系统中，前提是使用 Linux 工具在 Linux 命令行（Ubuntu、OpenSUSE 等）中处理这些文件。 如果是使用 Windows 工具在 Windows 命令行（PowerShell、命令提示符）中工作，请将文件存储在 Windows 文件系统中。 可以跨操作系统访问文件，但这可能会显著降低性能。</p>
+  </li>
+</ul>
+
+<p>例如，在存储 WSL 项目文件时：</p>
+
+<ul>
+  <li>使用 Linux 文件系统根目录：<code class="language-plaintext highlighter-rouge">\\wsl$\&lt;DistroName&gt;\home\&lt;UserName&gt;\Project</code>（比如 <code class="language-plaintext highlighter-rouge">\\wsl$\Ubuntu-22.04\home\zhangsan</code>）</li>
+  <li>而不使用 Windows 文件系统根目录：<code class="language-plaintext highlighter-rouge">C:\Users\&lt;UserName&gt;\Project</code> 或 <code class="language-plaintext highlighter-rouge">/mnt/c/Users/&lt;UserName&gt;/Project$</code></li>
 </ul>
 
 <h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
