@@ -703,6 +703,41 @@
   
 
   
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
 
   
   
@@ -810,9 +845,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2505 字"
+  title="2862 字"
 >
-  <em>13 分钟</em>阅读</span>
+  <em>15 分钟</em>阅读</span>
 
     </div>
 
@@ -836,7 +871,12 @@
   <li><a href="#2-安装-wsl">2. 安装 WSL</a>
     <ul>
       <li><a href="#21-安装-cc-开发环境依赖">2.1. 安装 C/C++ 开发环境依赖</a></li>
-      <li><a href="#22-安装-python-开发环境依赖">2.2. 安装 Python 开发环境依赖</a></li>
+      <li><a href="#22-安装-python-开发环境依赖">2.2. 安装 Python 开发环境依赖</a>
+        <ul>
+          <li><a href="#221-依靠第三方安装推荐">2.2.1. 依靠第三方安装（推荐）</a></li>
+          <li><a href="#222-在系统环境下安装">2.2.2. 在系统环境下安装</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#3-配置-vscode">3. 配置 VSCode</a></li>
@@ -863,23 +903,23 @@
   <tbody>
     <tr>
       <td>托管 VM</td>
-      <td style="text-align: center"><input type="checkbox" /></td>
-      <td style="text-align: right"><input type="checkbox" checked="1" /></td>
+      <td style="text-align: center"><input type="checkbox" disabled="" /></td>
+      <td style="text-align: right"><input type="checkbox" checked="1" disabled="" /></td>
     </tr>
     <tr>
       <td>完整的 Linux 内核</td>
-      <td style="text-align: center"><input type="checkbox" /></td>
-      <td style="text-align: right"><input type="checkbox" checked="1" /></td>
+      <td style="text-align: center"><input type="checkbox" disabled="" /></td>
+      <td style="text-align: right"><input type="checkbox" checked="1" disabled="" /></td>
     </tr>
     <tr>
       <td>完全的系统调用兼容性</td>
-      <td style="text-align: center"><input type="checkbox" /></td>
-      <td style="text-align: right"><input type="checkbox" checked="1" /></td>
+      <td style="text-align: center"><input type="checkbox" disabled="" /></td>
+      <td style="text-align: right"><input type="checkbox" checked="1" disabled="" /></td>
     </tr>
     <tr>
       <td>跨 OS 文件系统的性能</td>
-      <td style="text-align: center"><input type="checkbox" checked="1" /></td>
-      <td style="text-align: right"><input type="checkbox" /></td>
+      <td style="text-align: center"><input type="checkbox" checked="1" disabled="" /></td>
+      <td style="text-align: right"><input type="checkbox" disabled="" /></td>
     </tr>
   </tbody>
 </table></div>
@@ -1004,6 +1044,150 @@ WSL 2 的内存使用量会随使用而缩放。 当进程释放内存时，这�
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>cmake
 </pre></td></tr></tbody></table></code></div></div>
 <h3 id="22-安装-python-开发环境依赖"><span class="me-2">2.2. 安装 Python 开发环境依赖</span><a href="#22-安装-python-开发环境依赖" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="221-依靠第三方安装推荐"><span class="me-2">2.2.1. 依靠第三方安装（推荐）</span><a href="#221-依靠第三方安装推荐" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>参考官网（https://docs.conda.io/projects/miniconda/en/latest/） 安装 miniconda 环境</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nb">mkdir</span> <span class="nt">-p</span> ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh <span class="nt">-O</span> ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh <span class="nt">-b</span> <span class="nt">-u</span> <span class="nt">-p</span> ~/miniconda3
+<span class="nb">rm</span> <span class="nt">-rf</span> ~/miniconda3/miniconda.sh
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>安装完毕后输入以下命令初始化控制台</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>~/miniconda3/bin/conda init bash
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>查询 <code class="language-plaintext highlighter-rouge">conda</code> 版本，确认是否安装成功</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>conda <span class="nt">-V</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>换源</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano ~/.condarc
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>然后在弹出的编辑界面粘贴以下代码</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre>channels:
+  - defaults
+show_channel_urls: <span class="nb">true
+</span>channel_alias: https://mirrors.tuna.tsinghua.edu.cn/anaconda
+default_channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>最后使用 <code class="language-plaintext highlighter-rouge">CTRL + X</code> 保存退出，然后更新缓存</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get update
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>然后依次执行以下常用命令</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="c"># 更新conda</span>
+conda update conda
+ 
+<span class="c"># 查看虚拟环境列表</span>
+conda <span class="nb">env </span>list
+
+<span class="c"># 创建虚拟环境</span>
+conda create <span class="nt">--name</span> &lt;env_name&gt; <span class="o">[</span>python_version] <span class="o">[</span>package_name]
+conda create <span class="nt">--name</span> li <span class="nv">python</span><span class="o">=</span>3.9 <span class="c"># 例子</span>
+
+<span class="c"># 启动环境（注意以后安装包都要先启动环境）</span>
+conda activate li
+
+<span class="c"># 查看--安装--更新--删除包</span>
+conda list
+conda search &lt;package_name&gt; <span class="c"># 查询包</span>
+conda <span class="nb">install</span> &lt;package_name&gt;
+conda <span class="nb">install </span><span class="nv">package_name</span><span class="o">=</span>1.5.0
+conda update package_name
+conda remove package_name
+
+<span class="c"># pytorch 可以用pip安装，方便快捷，默认gpu版本</span>
+pip3 <span class="nb">install </span>torch
+
+</pre></td></tr></tbody></table></code></div></div>
+
+<h4 id="222-在系统环境下安装"><span class="me-2">2.2.2. 在系统环境下安装</span><a href="#222-在系统环境下安装" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>如果要从 Python 源代码开始编译 Python 解释器，则需要安装如下依赖</p>
 
@@ -1467,40 +1651,6 @@ gdb <span class="nt">-v</span>
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1556,67 +1706,9 @@ gdb <span class="nt">-v</span>
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
+        
+        
+
   
     
     
@@ -1658,9 +1750,27 @@ gdb <span class="nt">-v</span>
     
     
       
-        
-        
-
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -1760,6 +1870,110 @@ gdb <span class="nt">-v</span>
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
       
         
         
@@ -1894,6 +2108,16 @@ gdb <span class="nt">-v</span>
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1928,6 +2152,16 @@ gdb <span class="nt">-v</span>
     
     
       
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -2113,6 +2347,18 @@ gdb <span class="nt">-v</span>
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3106,12 +3352,13 @@ gdb <span class="nt">-v</span>
   
 
   
-    <div
-      class="btn btn-outline-primary disabled"
+    <a
+      href="/posts/linux-reduce-repo-size-through-git-folder/"
+      class="btn btn-outline-primary"
       prompt="下一篇"
     >
-      <p>-</p>
-    </div>
+      <p>如何清理 .git 文件夹来减小 github 仓库大小</p>
+    </a>
   
 </div>
 
@@ -3339,40 +3586,6 @@ gdb <span class="nt">-v</span>
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3428,67 +3641,9 @@ gdb <span class="nt">-v</span>
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
+        
+        
+
   
     
     
@@ -3530,9 +3685,27 @@ gdb <span class="nt">-v</span>
     
     
       
-        
-        
-
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -3632,6 +3805,110 @@ gdb <span class="nt">-v</span>
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
       
         
         
@@ -3766,6 +4043,16 @@ gdb <span class="nt">-v</span>
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -3800,6 +4087,16 @@ gdb <span class="nt">-v</span>
     
     
       
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     

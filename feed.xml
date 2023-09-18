@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-09-12T17:32:53+08:00</updated>
+  <updated>2023-09-18T15:06:05+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,73 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>如何清理 .git 文件夹来减小 github 仓库大小</title>
+    <link href="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" rel="alternate" type="text/html" title="如何清理 .git 文件夹来减小 github 仓库大小" />
+    <published>2023-09-18T13:58:19+08:00</published>
+  
+    <updated>2023-09-18T13:58:19+08:00</updated>
+  
+    <id>http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/</id>
+    <content src="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了如何在
+
+
+
+
+
+  1. github
+    
+      1.1. git 命令
+      1.2. github 桌面
+      1.3. .git 文件夹
+    
+  
+  2. .git 文件夹清理
+  3. 参考文献
+
+
+1. github
+
+1.1. git 命令
+
+1.2. github 桌面
+
+1.3. .git 文件夹
+
+2. .git 文件夹清理
+
+需要 Linux 环境。
+
+
+  
+    检查仓库是否存在未提交的更改
+
+    如果仓库存在未提交的更改，会在后续操作中提示提示 Cannot rewrite branches: You have unstaged changes. 表明尝试重写分支时，有一些未暂存的更改。这意味着你在Git版本控制中，工作目录或者暂存区有一些更改还没有被添加到暂存区。因此，Git不能进行重写操作，因为这可能会导...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -62,6 +129,11 @@
     
       2.1. 安装 C/C++ 开发环境依赖
       2.2. 安装 Python 开发环境依赖
+        
+          2.2.1. 依靠第三方安装（推荐）
+          2.2.2. 在系统环境下安装
+        
+      
     
   
   3. 配置 VSCode
@@ -73,7 +145,7 @@
 
 官方文档：https://learn.microsoft.com/zh-cn/windows/wsl/
 
-适用于 Linux 的 Windows 子系统 (WSL) 可让开发人员直接在 Windows 上按原样运行 GNU/Linux 环境（包括大多数命令行工具、实用工具和应用程序），且不会产生传统虚拟机或双启动设置开销...
+适用于 Linux 的 Windows 子系统 (WSL...
     </summary>
   
 
@@ -269,69 +341,6 @@
 
   动态规划法（DP）：是 model-based 方法，包含策略评估和策略改进两步，策略评估用来进行价值估计（即预测问题），策略改进用来进行策略寻优（控制问题）。
   蒙特卡洛法（MC）：是 model-free 方法，因为一般情况下我们无法得到具体模型（状态转移概率），因此通过采样完整序列后，通...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>强化学习（蒙特卡洛法）</title>
-    <link href="http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/" rel="alternate" type="text/html" title="强化学习（蒙特卡洛法）" />
-    <published>2022-11-29T17:07:19+08:00</published>
-  
-    <updated>2022-11-29T17:07:19+08:00</updated>
-  
-    <id>http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/</id>
-    <content src="http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了强化学习的 model-free 方法——蒙特卡洛法。
-
-
-
-
-
-
-  1. 引言
-  2. 蒙特卡洛法
-    
-      2.1. 大数定律
-      2.2. 蒙特卡洛法
-      2.3. 蒙特卡洛价值估计
-      2.4. 增量更新方法
-    
-  
-  3. 参考文献
-
-
-1. 引言
-
-在前面的 model-based 动态规划方法中，我们假设已知模型的动态特性 $p(s^\prime,r \vert s,a)$，此时可以对下一步的状态和回报做出预测。而在很多实际案例中，我们无法得知模型的动态特性，此时动态规划方法就不适用了。
-
-2. 蒙特卡洛法
-
-2.1. 大数定律
-
-大数定律的定义是，当随机事件发生的次数足够多时，随机事件发生的频率趋近于预期的概率。可以简单理解为样本数量越多，其平概率越接近于期望值。大数定律的条件：1、独立重复事件；2、重复次数...
     </summary>
   
 

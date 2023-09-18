@@ -37,25 +37,25 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="日常tips手册（Rime输入法）" />
+<meta property="og:title" content="如何清理 .git 文件夹来减小 github 仓库大小" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="本文记录个人科研生活中的各种小tips和遇到的问题及其解决方案，留作提醒查阅。" />
-<meta property="og:description" content="本文记录个人科研生活中的各种小tips和遇到的问题及其解决方案，留作提醒查阅。" />
-<link rel="canonical" href="http://localhost:4000/posts/rime-shift-switch-zh-en/" />
-<meta property="og:url" content="http://localhost:4000/posts/rime-shift-switch-zh-en/" />
+<meta name="description" content="本文介绍了如何在" />
+<meta property="og:description" content="本文介绍了如何在" />
+<link rel="canonical" href="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" />
+<meta property="og:url" content="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-10-30T22:06:49+08:00" />
+<meta property="article:published_time" content="2023-09-18T13:58:19+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="日常tips手册（Rime输入法）" />
+<meta property="twitter:title" content="如何清理 .git 文件夹来减小 github 仓库大小" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-10-30T22:06:49+08:00","datePublished":"2020-10-30T22:06:49+08:00","description":"本文记录个人科研生活中的各种小tips和遇到的问题及其解决方案，留作提醒查阅。","headline":"日常tips手册（Rime输入法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/rime-shift-switch-zh-en/"},"url":"http://localhost:4000/posts/rime-shift-switch-zh-en/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-18T13:58:19+08:00","datePublished":"2023-09-18T13:58:19+08:00","description":"本文介绍了如何在","headline":"如何清理 .git 文件夹来减小 github 仓库大小","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"},"url":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>日常tips手册（Rime输入法） | SIRLIS
+  <title>如何清理 .git 文件夹来减小 github 仓库大小 | SIRLIS
   </title>
 
   <!--
@@ -468,7 +468,7 @@
         
           
             
-              <span>日常tips手册（Rime输入法）</span>
+              <span>如何清理 .git 文件夹来减小 github 仓库大小</span>
             
 
           
@@ -606,6 +606,46 @@
       
 
     
+
+    
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -620,11 +660,6 @@
     
 
     
-
-  
-
-  
-  
 
   
 
@@ -646,7 +681,7 @@
 
 
 
-<h1 data-toc-skip>日常tips手册（Rime输入法）</h1>
+<h1 data-toc-skip>如何清理 .git 文件夹来减小 github 仓库大小</h1>
 
 <div class="post-meta text-muted">
     <!-- published date -->
@@ -663,13 +698,13 @@
 
 <em
   class=""
-  data-ts="1604066809"
+  data-ts="1695016699"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2020/10/30
+  2023/09/18
 </em>
 
     </span>
@@ -715,9 +750,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1411 字"
+  title="1008 字"
 >
-  <em>7 分钟</em>阅读</span>
+  <em>5 分钟</em>阅读</span>
 
     </div>
 
@@ -726,59 +761,91 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>本文记录个人科研生活中的各种小tips和遇到的问题及其解决方案，留作提醒查阅。</p>
+  <p>本文介绍了如何在</p>
 
 <!--more-->
 
 <hr />
-
 <ul>
-  <li><a href="#1-rime-输入法">1. Rime 输入法</a>
+  <li><a href="#1-github">1. github</a>
     <ul>
-      <li><a href="#11-基础配置">1.1. 基础配置</a></li>
-      <li><a href="#12-皮肤设置">1.2. 皮肤设置</a></li>
-      <li><a href="#13-特殊符号快速输入">1.3. 特殊符号快速输入</a></li>
-      <li><a href="#14-shift-直接上屏且切换中英文">1.4. shift 直接上屏且切换中英文</a></li>
+      <li><a href="#11-git-命令">1.1. git 命令</a></li>
+      <li><a href="#12-github-桌面">1.2. github 桌面</a></li>
+      <li><a href="#13-git-文件夹">1.3. .git 文件夹</a></li>
     </ul>
   </li>
-  <li><a href="#2-参考文献">2. 参考文献</a></li>
+  <li><a href="#2-git-文件夹清理">2. .git 文件夹清理</a></li>
+  <li><a href="#3-参考文献">3. 参考文献</a></li>
 </ul>
 
-<h1 id="1-rime-输入法">1. Rime 输入法</h1>
+<h2 id="1-github"><span class="me-2">1. github</span><a href="#1-github" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h2 id="11-基础配置"><span class="me-2">1.1. 基础配置</span><a href="#11-基础配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h3 id="11-git-命令"><span class="me-2">1.1. git 命令</span><a href="#11-git-命令" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>XNOM. <a href="https://www.jianshu.com/p/296bba666604">30分钟搞定 自由输入法RIME简明配置指南</a></p>
+<h3 id="12-github-桌面"><span class="me-2">1.2. github 桌面</span><a href="#12-github-桌面" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h3 id="13-git-文件夹"><span class="me-2">1.3. .git 文件夹</span><a href="#13-git-文件夹" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h2 id="2-git-文件夹清理"><span class="me-2">2. .git 文件夹清理</span><a href="#2-git-文件夹清理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>需要 Linux 环境。</p>
 
 <ul>
   <li>
-    <p>Rime 的各种配置，均是由 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件所定义。<code class="language-plaintext highlighter-rouge">yaml</code> 是一种标记语言。<code class="language-plaintext highlighter-rouge">.yaml</code> 文件实际上是文本文档。可使用记事本、或 Emeditor 等进行编辑。</p>
+    <p><strong>检查仓库是否存在未提交的更改</strong></p>
+
+    <p>如果仓库存在未提交的更改，会在后续操作中提示提示 <code class="language-plaintext highlighter-rouge">Cannot rewrite branches: You have unstaged changes.</code> 表明尝试重写分支时，有一些未暂存的更改。这意味着你在Git版本控制中，工作目录或者暂存区有一些更改还没有被添加到暂存区。因此，Git不能进行重写操作，因为这可能会导致你丢失这些未提交的更改。</p>
+
+    <p>可以通过以下命令检查本地仓库与云端仓库的差异，定位未提交的更改</p>
+
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  git diff
+</pre></td></tr></tbody></table></code></div>    </div>
+
+    <p>执行命令后按 <code class="language-plaintext highlighter-rouge">q</code> 退出。</p>
+
+    <p>可以通过以下命令提交更改</p>
+
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>  git add <span class="nb">.</span> <span class="c"># 将所有文件添加到暂存区</span>
+  git commit <span class="nt">-m</span> <span class="s2">"Your commit message"</span> <span class="c"># 提交你的更改</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+    <p>或丢弃更改</p>
+
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  git checkout <span class="nt">--</span> <span class="nb">.</span> <span class="c"># 丢弃工作目录中的所有更改</span>
+</pre></td></tr></tbody></table></code></div>    </div>
   </li>
   <li>
-    <p>对 Rime 进行自定义，是通过对 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件修改达成。不同的 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件，控制不同的功能实现。<code class="language-plaintext highlighter-rouge">.custom.yaml</code> 实际上是相当于对 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件打补丁，在重新部署后，会将 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 中的内容写入 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件中，完成自定。</p>
+    <p><strong>查看占用仓库大小最大的文件</strong></p>
 
-    <ul>
-      <li>例一：<code class="language-plaintext highlighter-rouge">weasel.yaml</code> 是常规设置，主要控制托盘图标、候选词横竖排列、界面配色等等功能。那么，我们需要定制界面配色，只需在 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code> 中修改，重新部署后就可实现。</li>
-      <li>例二：<code class="language-plaintext highlighter-rouge">default.yaml</code> 是默认设置，主要控制快捷键、按键上屏等等。同样，作修改就编辑 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code> 文件即可。</li>
-      <li>例三：以上是全局设置，亦即不论使用何种输入方案，均起作用。<code class="language-plaintext highlighter-rouge">double_pinyin_flypy.custom.yaml</code> 这种则是输入法方案设置。主要实现特殊标点符号、词库等功能。是针对特定输入方案的配置。</li>
-    </ul>
-  </li>
-</ul>
+    <p>bash 下执行以下命令</p>
 
-<p>可见，我们绝大部分的自定，都只需修改对应的 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件即可。</p>
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  git rev-list <span class="nt">--objects</span> <span class="nt">--all</span> | <span class="nb">grep</span> <span class="nt">-f</span> &lt; <span class="o">(</span>git verify-pack <span class="nt">-v</span> .git/objects/pack/<span class="k">*</span>.idx| <span class="nb">sort</span> <span class="nt">-k</span> 3 <span class="nt">-n</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1 <span class="nt">-d</span> <span class="s2">" "</span> | <span class="nb">tail</span> <span class="nt">-N</span><span class="o">)</span>
+</pre></td></tr></tbody></table></code></div>    </div>
 
-<ul>
-  <li>所有自定修改，都必须重新部署。在开始菜单可以找到【小狼毫】重新部署。</li>
-</ul>
+    <p>举例</p>
 
-<h2 id="12-皮肤设置"><span class="me-2">1.2. 皮肤设置</span><a href="#12-皮肤设置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  git rev-list <span class="nt">--objects</span> <span class="nt">--all</span> | <span class="nb">grep</span> <span class="nt">-f</span> &lt; <span class="o">(</span>git verify-pack <span class="nt">-v</span> .git/objects/pack/pack-3a121311b111a111c11111x1111f111111111111.idx| <span class="nb">sort</span> <span class="nt">-k</span> 3 <span class="nt">-n</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1 <span class="nt">-d</span> <span class="s2">" "</span> | <span class="nb">tail</span> <span class="nt">-10</span><span class="o">)</span>
+</pre></td></tr></tbody></table></code></div>    </div>
 
-<p>XNOM. <a href="https://www.jianshu.com/p/296bba666604">30分钟搞定 自由输入法RIME简明配置指南</a></p>
+    <p>将在控制台输出类似如下：</p>
 
-<p>打开 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code> 文件，若没有，则新建。所有自定义项均在 <code class="language-plaintext highlighter-rouge">patch:</code> 下，注意缩进</p>
-
-<div class="language-yaml highlighter-rouge"><div class="code-header">
-        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -789,167 +856,78 @@
 8
 9
 10
-11
-12
-13
-</pre></td><td class="rouge-code"><pre><span class="na">customization</span><span class="pi">:</span>
-  <span class="na">distribution_code_name</span><span class="pi">:</span> <span class="s">Weasel</span>
-  <span class="na">distribution_version</span><span class="pi">:</span> <span class="s">0.14.3</span>
-  <span class="na">generator</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Weasel::UIStyleSettings"</span>
-  <span class="na">modified_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Mon</span><span class="nv"> </span><span class="s">Jul</span><span class="nv"> </span><span class="s">13</span><span class="nv"> </span><span class="s">11:31:05</span><span class="nv"> </span><span class="s">2020"</span>
-  <span class="na">rime_version</span><span class="pi">:</span> <span class="s">1.5.3</span>
-<span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">style/color_scheme"</span><span class="err">:</span> <span class="s">google</span> <span class="c1"># 皮肤风格</span>
-  <span class="s2">"</span><span class="s">style/layout/border_width"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/layout/border"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/horizontal"</span><span class="err">:</span> <span class="kc">true</span> <span class="c1">#横排显示候选词</span>
-  <span class="s2">"</span><span class="s">style/font_face"</span><span class="err">:</span> <span class="s">Microsoft YaHei</span> <span class="c1"># 候选词字体</span>
-  <span class="s2">"</span><span class="s">style/font_point"</span><span class="err">:</span> <span class="m">12</span> <span class="c1"># 候选词字号</span>
-</pre></td></tr></tbody></table></code></div></div>
+</pre></td><td class="rouge-code"><pre>  344ee5dcae1xxxxx3d80daa8714ed7d16b21dxxx src/vehicles/cls_Spacecraft.cpp
+  98eecfdf58a0c0dc33bbfae46bxxxe5d837d5xxx src/vehicles/cls_Spacecraft_Docker.cpp
+  a8a5bca95b08084xxxx7160c4c5d98631f1cdxxx config/usrSpacecraft.json
+  e1cf4bf431f82d788fcaaaaac4ecca05503248xxx winDSSimulator.exe
+  8932ce1bca5ba3c1ae39cxxxx054d14f15ad8xxx winDSSimulator.exe
+  17965fde8b22564a73addxxx10e77a815ef89xxx src/SimDynamics.cpp
+  33e7714xxxxaa033326648609f614837f49d2xxx winDSSimulator.exe
+  f3c41a010b75743fbb111161d84ebcc57ae85xxx winDSSimulator.exe
+  058da4754e97e910a72xxxxxxxa4d6f6513f5xxx winDSSimulator.exe
+  351e85631xxxx609d92523a67ca5d1e3e7f47xxx src/class/clsEarthDynamics.cpp
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>
+    <p><strong>从历史中移除大文件</strong></p>
 
-<p>一个模仿 Windows 10 自带的微软拼音皮肤的设置如下，以供修改尝试参考：</p>
+    <p>使用以下命令检查仓库中的文件个数（在执行 <code class="language-plaintext highlighter-rouge">filter-branch</code> 清理命令后个数会减少）</p>
 
-<div class="language-yaml highlighter-rouge"><div class="code-header">
-        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  git count-objects <span class="nt">-v</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+
+    <p>对于每次提交操作，<code class="language-plaintext highlighter-rouge">filter-branch</code> 命令都会使用给定的过滤器重写仓库的历史。</p>
+
+    <p>以下命令删除历史中存在的图像（例如 <code class="language-plaintext highlighter-rouge">*.exe</code>、<code class="language-plaintext highlighter-rouge">*.json</code>、<code class="language-plaintext highlighter-rouge">*.jpg</code>、<code class="language-plaintext highlighter-rouge">*.png</code> 和 <code class="language-plaintext highlighter-rouge">*.gif</code>），这些文件类型是常见的无需跟踪和回退修改的文件。</p>
+
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  git filter-branch <span class="nt">-f</span> <span class="nt">--index-filter</span> <span class="s1">'git rm --cached --ignore-unmatch "config/**.json" "**.exe" "**.jpg" "**.png" "**.gif"'</span> <span class="nt">--prune-empty</span> <span class="nt">--tag-name-filter</span> <span class="nb">cat</span> <span class="nt">--</span> <span class="nt">--all</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+
+    <p>需要注意以下几点：</p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">git rm --cached</code>：这个命令会从Git的索引中移除指定的文件，而不是从工作目录中移除。这意味着你的工作目录中仍然会保留这些文件的副本。如果你希望从工作目录和索引中都删除这些文件，你应该使用git rm –cached -r –ignore-unmatch…这样的命令。</li>
+      <li>文件模式：你使用的文件模式，例如 <code class="language-plaintext highlighter-rouge">"config/**.jpg"</code> 和 <code class="language-plaintext highlighter-rouge">"**.png"</code> 等，是用双引号包围的。这通常是可以正常工作的，但是如果你在文件名中有一些特殊字符或者空格，可能会导致问题。你需要确定这些模式正确匹配了你想要删除的文件。</li>
+      <li><code class="language-plaintext highlighter-rouge">--prune-empty</code>：这个选项会导致Git丢弃那些没有任何修改的提交。因为你的操作可能导致一些提交没有任何修改，所以这个选项可能会被用到。</li>
+      <li><code class="language-plaintext highlighter-rouge">--tag-name-filter cat</code>：这个选项会重命名所有的标签。cat命令会直接输出标签名，这意味着你的标签名字可能会改变。你需要考虑这是否是你想要的行为。</li>
+      <li><code class="language-plaintext highlighter-rouge">--all</code>：这个选项会让Git处理所有的引用，包括所有分支和标签。如果你只想处理特定的分支或标签，你可以去掉这个选项。</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>清理仓库</strong></p>
+
+    <p>清楚旧提交中不需要的日志和文件。</p>
+
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-</pre></td><td class="rouge-code"><pre><span class="na">customization</span><span class="pi">:</span>
-  <span class="na">distribution_code_name</span><span class="pi">:</span> <span class="s">Weasel</span>
-  <span class="na">distribution_version</span><span class="pi">:</span> <span class="s">0.14.3</span>
-  <span class="na">generator</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Weasel::UIStyleSettings"</span>
-  <span class="na">modified_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Thu</span><span class="nv"> </span><span class="s">Jun</span><span class="nv"> </span><span class="s">27</span><span class="nv"> </span><span class="s">17:32:21</span><span class="nv"> </span><span class="s">2019"</span>
-  <span class="na">rime_version</span><span class="pi">:</span> <span class="s">1.5.3</span>
+</pre></td><td class="rouge-code"><pre>  <span class="nb">rm</span> <span class="nt">-Rf</span> .git/refs/original
+  <span class="nb">rm</span> <span class="nt">-Rf</span> .git/logs/
+  git gc <span class="nt">--aggressive</span> <span class="nt">--prune</span><span class="o">=</span>now
+</pre></td></tr></tbody></table></code></div>    </div>
 
-<span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">style/display_tray_icon"</span><span class="err">:</span> <span class="kc">true</span>
-  <span class="s">"style/horizontal"</span><span class="err">:</span> <span class="kc">true</span> <span class="c1">#横排显示</span>
-  <span class="s2">"</span><span class="s">style/font_face"</span><span class="err">:</span> <span class="s2">"</span><span class="s">Microsoft</span><span class="nv"> </span><span class="s">YaHei"</span> <span class="c1">#字体</span>
-  <span class="s2">"</span><span class="s">style/font_point"</span><span class="err">:</span> <span class="m">13</span> <span class="c1">#字体大小</span>
-  <span class="s2">"</span><span class="s">style/inline_preedit"</span><span class="err">:</span> <span class="kc">true</span> <span class="c1"># 嵌入式候选窗单行显示</span>
+    <p>将清理后的本地仓库更新到云端。</p>
 
-  <span class="s2">"</span><span class="s">style/layout/border_width"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/layout/border"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/layout/margin_x"</span><span class="err">:</span> <span class="m">12</span> <span class="c1">#候选字左右边距</span>
-  <span class="s2">"</span><span class="s">style/layout/margin_y"</span><span class="err">:</span> <span class="m">12</span> <span class="c1">#候选字上下边距</span>
-  <span class="s2">"</span><span class="s">style/layout/hilite_padding"</span><span class="err">:</span> <span class="m">12</span> <span class="c1">#候选字背景色色块高度 若想候选字背景色块无边界填充候选框，仅需其高度和候选字上下边距一致即可</span>
-  <span class="s2">"</span><span class="s">style/layout/hilite_spacing"</span><span class="err">:</span> <span class="m">3</span> <span class="c1"># 序号和候选字之间的间隔</span>
-  <span class="s2">"</span><span class="s">style/layout/spacing"</span><span class="err">:</span> <span class="m">10</span> <span class="c1">#作用不明</span>
-  <span class="s2">"</span><span class="s">style/layout/candidate_spacing"</span><span class="err">:</span> <span class="m">24</span> <span class="c1"># 候选字间隔</span>
-  <span class="s2">"</span><span class="s">style/layout/round_corner"</span><span class="err">:</span> <span class="m">0</span> <span class="c1">#候选字背景色块圆角幅度</span>
-
-  <span class="s2">"</span><span class="s">style/color_scheme"</span><span class="err">:</span> <span class="s">Micosoft</span>
-  <span class="s">"preset_color_schemes/Micosoft"</span><span class="err">:</span>
-    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Micosoft"</span>
-    <span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">XNOM"</span>
-    <span class="na">back_color</span><span class="pi">:</span> <span class="s">0xffffff</span> <span class="c1">#候选框 背景色</span>
-    <span class="na">border_color</span><span class="pi">:</span> <span class="s">0xD77800</span> <span class="c1">#候选框 边框颜色</span>
-    <span class="na">text_color</span><span class="pi">:</span> <span class="s">0x000000</span> <span class="c1">#已选择字 文字颜色</span>
-    <span class="na">hilited_text_color</span><span class="pi">:</span> <span class="s">0x000000</span> <span class="c1">#已选择字右侧拼音 文字颜色</span>
-    <span class="na">hilited_back_color</span><span class="pi">:</span> <span class="s">0xffffff</span> <span class="c1">#已选择字右侧拼音 背景色</span>
-    <span class="na">hilited_candidate_text_color</span><span class="pi">:</span> <span class="s">0xffffff</span> <span class="c1">#候选字颜色</span>
-    <span class="na">hilited_candidate_back_color</span><span class="pi">:</span> <span class="s">0xD77800</span> <span class="c1">#候选字背景色</span>
-    <span class="na">candidate_text_color</span><span class="pi">:</span> <span class="s">0x000000</span> <span class="c1">#未候选字颜色</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<h2 id="13-特殊符号快速输入"><span class="me-2">1.3. 特殊符号快速输入</span><a href="#13-特殊符号快速输入" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
-
-<p>百度贴吧. <a href="https://tieba.baidu.com/p/3079474120">小狼毫输入法怎么输入希腊字母和数学符号</a></p>
-
-<p>首先确定使用的拼音方案，比如如果使用 <code class="language-plaintext highlighter-rouge">luna_pinyin_simp</code> （明月拼音简化字）方案，那么新建 <code class="language-plaintext highlighter-rouge">lunar_pinyin_simp.custom.yaml</code> 配置文件，写入：</p>
-
-<div class="language-yaml highlighter-rouge"><div class="code-header">
-        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+    <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3
-</pre></td><td class="rouge-code"><pre><span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">punctuator/import_preset"</span> <span class="err">:</span> <span class="s">symbols</span>
-  <span class="s">"recognizer/patterns/punct"</span><span class="err">:</span> <span class="s2">"</span><span class="s">^/([A-Z|a-z]*|[0-9]|10)$"</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>然后小狼毫文件夹里点击 <strong>小狼毫重新部署</strong>，即可。</p>
-
-<p>通过 <code class="language-plaintext highlighter-rouge">/</code> 键配合缩写实现快速输入。注意使用键盘的 <code class="language-plaintext highlighter-rouge">?</code> 键唤起，而不是小键盘的 <code class="language-plaintext highlighter-rouge">/</code> 键。</p>
-
-<ul>
-  <li>输入 <code class="language-plaintext highlighter-rouge">/xl</code> 直接给出希腊字母，如 $\alpha$ 等。</li>
-  <li>输入 <code class="language-plaintext highlighter-rouge">/sx</code> 直接给出常用数学符号，如 ±, ÷ 等。</li>
-  <li>输入 <code class="language-plaintext highlighter-rouge">/jh</code> 直接给出一些特殊符号，如 ■，□，▣，▥ 等。</li>
+</pre></td><td class="rouge-code"><pre>  git push origin <span class="nt">--force</span> <span class="nt">--all</span>
+  git push origin <span class="nt">--force</span> <span class="nt">--tags</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
 </ul>
 
-<h2 id="14-shift-直接上屏且切换中英文"><span class="me-2">1.4. shift 直接上屏且切换中英文</span><a href="#14-shift-直接上屏且切换中英文" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>Xeon-Shao. <a href="https://blog.csdn.net/sdujava2011/article/details/84098971">小狼毫（Rime）输入法设置Shift直接上屏英文字符并切换为英文状态方法</a></p>
-
-<p>小狼毫默认输入方式下，左Shift键只切换为英文，右Shift键直接上屏中文。这对于用惯了搜狗的人来说在进行中英文混输的时候经常出错，特别影响效率，接下来提供方法解决这个问题。</p>
-
-<ul>
-  <li>开始菜单中，找到小狼毫的文件夹，打开 “<strong>用户资料文件夹</strong>”，如果有 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code>，则复制一份，复制后的文件重命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>；如果没有，则自己新建文件命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>，并将内容修改为如下：</li>
-</ul>
-
-<div class="language-yaml highlighter-rouge"><div class="code-header">
-        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="na">customization</span><span class="pi">:</span>
-  <span class="na">distribution_code_name</span><span class="pi">:</span> <span class="s">Weasel</span>
-  <span class="na">distribution_version</span><span class="pi">:</span> <span class="s">0.12.0</span>
-  <span class="na">generator</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Weasel::UIStyleSettings"</span>
-  <span class="na">modified_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Thu</span><span class="nv"> </span><span class="s">Nov</span><span class="nv"> </span><span class="s">15</span><span class="nv"> </span><span class="s">09:43:07</span><span class="nv"> </span><span class="s">2018"</span>
-  <span class="na">rime_version</span><span class="pi">:</span> <span class="s">1.3.2</span>
-<span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">ascii_composer/switch_key/Shift_L"</span><span class="err">:</span> <span class="s">commit_code</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<ul>
-  <li>小狼毫文件夹里点击 “<strong>小狼毫重新部署</strong>”；</li>
-</ul>
-
-<p><code class="language-plaintext highlighter-rouge">Shift_L: commit_code</code> 的意思是：其中 <code class="language-plaintext highlighter-rouge">L</code> 指 <code class="language-plaintext highlighter-rouge">Left</code>，左的意思。<code class="language-plaintext highlighter-rouge">commit-</code> 提交。<code class="language-plaintext highlighter-rouge">code－</code> 代码。 当我们输入一段文字未上屏之前，按此键后字符将被将直接上屏。</p>
-
-<h1 id="2-参考文献">2. 参考文献</h1>
-
-<p>无。</p>
+<p>[1] Junyong Lee. <a href="https://junyonglee.me/github/How-to-clean-up-git-repository/#checking-top-largest-files-consuming-repos-space">How to clean up .git folder for reducing repository size</a></p>
 
 </div>
 
@@ -960,7 +938,7 @@
   <div class="post-meta mb-3">
     <i class="far fa-folder-open fa-fw me-1"></i>
     
-      <a href='/categories/diary/'>Diary</a>
+      <a href='/categories/knowledge/'>Knowledge</a>
   </div>
   
 
@@ -969,8 +947,17 @@
   <div class="post-tags">
     <i class="fa fa-tags fa-fw me-1"></i>
       
-      <a href="/tags/other/"
-          class="post-tag no-text-decoration" >other</a>
+      <a href="/tags/github/"
+          class="post-tag no-text-decoration" >github</a>
+      
+      <a href="/tags/git/"
+          class="post-tag no-text-decoration" >git</a>
+      
+      <a href="/tags/linux/"
+          class="post-tag no-text-decoration" >linux</a>
+      
+      <a href="/tags/windows/"
+          class="post-tag no-text-decoration" >windows</a>
       
   </div>
   
@@ -1004,7 +991,7 @@
     
       
       <a
-        href="https://twitter.com/intent/tweet?text=%E6%97%A5%E5%B8%B8tips%E6%89%8B%E5%86%8C%EF%BC%88Rime%E8%BE%93%E5%85%A5%E6%B3%95%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Frime-shift-switch-zh-en%2F"
+        href="https://twitter.com/intent/tweet?text=%E5%A6%82%E4%BD%95%E6%B8%85%E7%90%86%20.git%20%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%A5%E5%87%8F%E5%B0%8F%20github%20%E4%BB%93%E5%BA%93%E5%A4%A7%E5%B0%8F%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Flinux-reduce-repo-size-through-git-folder%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Twitter"
@@ -1017,7 +1004,7 @@
     
       
       <a
-        href="https://www.facebook.com/sharer/sharer.php?title=%E6%97%A5%E5%B8%B8tips%E6%89%8B%E5%86%8C%EF%BC%88Rime%E8%BE%93%E5%85%A5%E6%B3%95%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Frime-shift-switch-zh-en%2F"
+        href="https://www.facebook.com/sharer/sharer.php?title=%E5%A6%82%E4%BD%95%E6%B8%85%E7%90%86%20.git%20%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%A5%E5%87%8F%E5%B0%8F%20github%20%E4%BB%93%E5%BA%93%E5%A4%A7%E5%B0%8F%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Flinux-reduce-repo-size-through-git-folder%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Facebook"
@@ -1030,7 +1017,7 @@
     
       
       <a
-        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Frime-shift-switch-zh-en%2F&text=%E6%97%A5%E5%B8%B8tips%E6%89%8B%E5%86%8C%EF%BC%88Rime%E8%BE%93%E5%85%A5%E6%B3%95%EF%BC%89%20-%20SIRLIS"
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Flinux-reduce-repo-size-through-git-folder%2F&text=%E5%A6%82%E4%BD%95%E6%B8%85%E7%90%86%20.git%20%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%A5%E5%87%8F%E5%B0%8F%20github%20%E4%BB%93%E5%BA%93%E5%A4%A7%E5%B0%8F%20-%20SIRLIS"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Telegram"
@@ -1963,391 +1950,391 @@
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
@@ -2776,7 +2763,7 @@
         
         
         <div class="col">
-          <a href="/posts/research-tips-paper-download-arrange/" class="card post-preview h-100">
+          <a href="/posts/Ubuntu-In-Windows-10/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -2789,14 +2776,14 @@
 
 <em
   class="small"
-  data-ts="1599286999"
+  data-ts="1595732119"
   data-df="YYYY/MM/DD"
   
 >
-  2020/09/05
+  2020/07/26
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>科研Tips（文献查询、下载和管理）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>Windows10通过应用商店安装Ubuntu</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -2805,22 +2792,19 @@
 
 
 
-                  乏味的科研生活中，文献查阅、下载和整理工作无疑是工作量枯燥的一个环节之一，本文将各类文献的查询和检索方法罗列如下，并引入Zotero这个文献管理软件来管理已经下载的文献。
+                  本文主要介绍 Windows10 下部署 Ubuntu 的一种方法——借助 Microsoft Store 部署。由于科研需要，一些程序和数据需要在 linux 环境下进行操作，在不安装双系统和部署虚拟机的前提下，尝试本方法进行 Ubuntu 的安装。
 
 
 
 
 
 
-  1. 文献号查询
+  1. 环境配置
+  2. 下载和安装
+  3. 注意事项
+  4. 基本操作
     
-      1.1. 百度学术查询
-      1.2. 图书馆数据库查询
-      1.3. ResearchGate查询
-      1.4. 注意事项
-    
-  
- ...
+      4.1. 备份、删除和还...
                 </p>
               </div>
             </div>
@@ -2830,7 +2814,7 @@
         
         
         <div class="col">
-          <a href="/posts/research-tips-color-table/" class="card post-preview h-100">
+          <a href="/posts/linux-WSL/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -2843,14 +2827,14 @@
 
 <em
   class="small"
-  data-ts="1604887279"
+  data-ts="1694071939"
   data-df="YYYY/MM/DD"
   
 >
-  2020/11/09
+  2023/09/07
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>科研Tips（颜色码表）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -2859,15 +2843,25 @@
 
 
 
-                  本文列举了常用颜色码表以供平时查询，包括rgb编码，16进制编码。
+                  本文介绍了如何在
 
 
 
 
 
-1. 颜色码表
 
-颜色名十六进制RGBAliceBlue#F0F8FFrgb(240, 248, 255)AntiqueWhite#FAEBD7rgb(250, 235, 215)Aqua#00FFFFrgb(0, 255, 255)Aquamarine#7FFFD4rgb(127, 255, 212)Azure#...
+  1. 什么是 WSL
+    
+      1.1. WSL 1 和 WSL 2
+      1.2. 例外情况（使用 WSL 1 而不是 WSL 2）
+    
+  
+  2. 安装 WSL
+    
+      2.1. 安装 C/C++ 开发环境依赖
+      2.2. 安装 Python 开发环境依赖
+        
+          2.2....
                 </p>
               </div>
             </div>
@@ -2877,7 +2871,7 @@
         
         
         <div class="col">
-          <a href="/posts/research-tips-math-symbols/" class="card post-preview h-100">
+          <a href="/posts/astronomy-basic-coordinate/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -2890,14 +2884,14 @@
 
 <em
   class="small"
-  data-ts="1604887279"
+  data-ts="1648023799"
   data-df="YYYY/MM/DD"
   
 >
-  2020/11/09
+  2022/03/23
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>科研Tips（数学符号）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>天文学基础（坐标系统）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -2906,35 +2900,26 @@
 
 
 
-                  本文列举了常用数学符号以供平时查询，包括希腊字母、二元关系符、二元运算符。
+                  本文介绍了天文学中基本的座标系统。
 
 
 
-  1. 帽子和鞋子
-  2. 空格
-  3. 希腊字母
-  4. 二元关系符
-  5. 二元运算符
-  6. 大尺寸运算符
-  7. 箭头
-  8. 其它符号
-  
-    9. 矩阵
-  
 
 
-1. 帽子和鞋子
 
-
-  
+  1. 背景
     
-      命令
-      效果
+      1.1. 国际地球自转和参考框架服务
+      1.2. 国际天文学联合会
     
   
-  
+  2. 坐标系
     
-    ...
+      2.1. 参考系统与参考框架
+      2.2. 坐标系的分类
+      2.3. 国际天球参考系统和参考框架（ICRS/ICRF）
+        
+         ...
                 </p>
               </div>
             </div>
@@ -2954,22 +2939,21 @@
 <div class="post-navigation d-flex justify-content-between">
   
     <a
-      href="/posts/deep-learning-probability-basic/"
+      href="/posts/linux-WSL/"
       class="btn btn-outline-primary"
       prompt="上一篇"
     >
-      <p>深度学习基础（概率与统计）</p>
+      <p>在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</p>
     </a>
   
 
   
-    <a
-      href="/posts/deep-learning-FLSTM/"
-      class="btn btn-outline-primary"
+    <div
+      class="btn btn-outline-primary disabled"
       prompt="下一篇"
     >
-      <p>深度学习文章阅读（Fuzzy-LSTM）</p>
-    </a>
+      <p>-</p>
+    </div>
   
 </div>
 
