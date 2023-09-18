@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="如何清理 .git 文件夹来减小 github 仓库大小" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-18T13:58:19+08:00","datePublished":"2023-09-18T13:58:19+08:00","description":"本文介绍了如何在","headline":"如何清理 .git 文件夹来减小 github 仓库大小","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"},"url":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-18T15:12:56+08:00","datePublished":"2023-09-18T13:58:19+08:00","description":"本文介绍了如何在","headline":"如何清理 .git 文件夹来减小 github 仓库大小","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"},"url":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -711,6 +711,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1695021176"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/09/18
+</em>
+
+    </span>
+    
 
   
 
@@ -750,7 +774,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1008 字"
+  title="1006 字"
 >
   <em>5 分钟</em>阅读</span>
 
@@ -831,7 +855,7 @@
     <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>  git rev-list <span class="nt">--objects</span> <span class="nt">--all</span> | <span class="nb">grep</span> <span class="nt">-f</span> &lt; <span class="o">(</span>git verify-pack <span class="nt">-v</span> .git/objects/pack/<span class="k">*</span>.idx| <span class="nb">sort</span> <span class="nt">-k</span> 3 <span class="nt">-n</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1 <span class="nt">-d</span> <span class="s2">" "</span> | <span class="nb">tail</span> <span class="nt">-N</span><span class="o">)</span>
+</pre></td><td class="rouge-code"><pre>  git rev-list <span class="nt">--objects</span> <span class="nt">--all</span> | <span class="nb">grep</span> <span class="nt">-f</span> &lt;<span class="o">(</span>git verify-pack <span class="nt">-v</span> .git/objects/pack/<span class="k">*</span>.idx| <span class="nb">sort</span> <span class="nt">-k</span> 3 <span class="nt">-n</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1 <span class="nt">-d</span> <span class="s2">" "</span> | <span class="nb">tail</span> <span class="nt">-N</span><span class="o">)</span>
 </pre></td></tr></tbody></table></code></div>    </div>
 
     <p>举例</p>
@@ -839,7 +863,7 @@
     <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>  git rev-list <span class="nt">--objects</span> <span class="nt">--all</span> | <span class="nb">grep</span> <span class="nt">-f</span> &lt; <span class="o">(</span>git verify-pack <span class="nt">-v</span> .git/objects/pack/pack-3a121311b111a111c11111x1111f111111111111.idx| <span class="nb">sort</span> <span class="nt">-k</span> 3 <span class="nt">-n</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1 <span class="nt">-d</span> <span class="s2">" "</span> | <span class="nb">tail</span> <span class="nt">-10</span><span class="o">)</span>
+</pre></td><td class="rouge-code"><pre>  git rev-list <span class="nt">--objects</span> <span class="nt">--all</span> | <span class="nb">grep</span> <span class="nt">-f</span> &lt;<span class="o">(</span>git verify-pack <span class="nt">-v</span> .git/objects/pack/pack-3a121311b111a111c11111x1111f111111111111.idx| <span class="nb">sort</span> <span class="nt">-k</span> 3 <span class="nt">-n</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1 <span class="nt">-d</span> <span class="s2">" "</span> | <span class="nb">tail</span> <span class="nt">-10</span><span class="o">)</span>
 </pre></td></tr></tbody></table></code></div>    </div>
 
     <p>将在控制台输出类似如下：</p>
@@ -1075,6 +1099,13 @@
   <div id="access-lastmod" class="post">
     <div class="panel-heading">最近更新</div>
     <ul class="post-content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
+        </li>
       
         
         

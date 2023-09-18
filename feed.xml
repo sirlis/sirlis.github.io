@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-09-18T15:06:05+08:00</updated>
+  <updated>2023-09-18T15:13:08+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" rel="alternate" type="text/html" title="如何清理 .git 文件夹来减小 github 仓库大小" />
     <published>2023-09-18T13:58:19+08:00</published>
   
-    <updated>2023-09-18T13:58:19+08:00</updated>
+    <updated>2023-09-18T15:12:56+08:00</updated>
   
     <id>http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/</id>
     <content src="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" />
@@ -91,7 +91,7 @@
     <link href="http://localhost:4000/posts/linux-WSL/" rel="alternate" type="text/html" title="在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发" />
     <published>2023-09-07T15:32:19+08:00</published>
   
-    <updated>2023-09-11T11:09:05+08:00</updated>
+    <updated>2023-09-18T15:06:38+08:00</updated>
   
     <id>http://localhost:4000/posts/linux-WSL/</id>
     <content src="http://localhost:4000/posts/linux-WSL/" />
