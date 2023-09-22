@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="深度学习基础（LSTM）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-10-04T10:39:19+08:00","datePublished":"2020-10-04T10:39:19+08:00","description":"本文介绍了 LSTM （长短时记忆网络）的基本概念，以及正/反向传播的推导过程，然后分析了 LSTM 如何克服 RNN 的梯度消失问题，最后介绍了 PyTorch 的 LSTM 模块的实现。","headline":"深度学习基础（LSTM）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-LSTM/"},"url":"http://localhost:4000/posts/deep-learning-LSTM/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-23T00:26:26+08:00","datePublished":"2020-10-04T10:39:19+08:00","description":"本文介绍了 LSTM （长短时记忆网络）的基本概念，以及正/反向传播的推导过程，然后分析了 LSTM 如何克服 RNN 的梯度消失问题，最后介绍了 PyTorch 的 LSTM 模块的实现。","headline":"深度学习基础（LSTM）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-LSTM/"},"url":"http://localhost:4000/posts/deep-learning-LSTM/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1013,6 +1013,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1695399986"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/09/23
+</em>
+
+    </span>
+    
 
   
 
@@ -1052,9 +1076,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4583 字"
+  title="4423 字"
 >
-  <em>25 分钟</em>阅读</span>
+  <em>24 分钟</em>阅读</span>
 
     </div>
 
@@ -1109,12 +1133,12 @@
 
 <p><a href="/assets/img/postsimg/20201004/2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201004/2.jpg" alt="lstm" class="lazyload" data-proofer-ignore></a></p>
 
-<p>其中，LSTM 引入三个门来控制信息的传递，分别为遗忘门 $\boldsymbol f_t$、输入门 $\boldsymbol i_t$、输出门 $\boldsymbol o_t$。三个门的作用是：</p>
+<p>其中，LSTM 引入三个门来控制信息的传递，分别为遗忘门 $\boldsymbol{f}_t$、输入门 $\boldsymbol{i}_t$、输出门 $\boldsymbol{o}_t$。三个门的作用是：</p>
 
 <ul>
-  <li>遗忘门 $\boldsymbol f_t$ 控制上一个时刻的内部状态 $\boldsymbol c_{t-1}$ 需要遗忘多少信息；</li>
-  <li>输入门 $\boldsymbol i_t$ 控制当前时刻的候选状态 $\tilde \boldsymbol c_t$ 有多少信息需要保存；</li>
-  <li>输出门 $\boldsymbol o_t$ 控制当前时刻的内部状态 $\boldsymbol c_t$ 有多少信息需要输出给外部状态 $\boldsymbol h_t$。</li>
+  <li>遗忘门 $\boldsymbol{f}<em>t$ 控制上一个时刻的内部状态 $\boldsymbol{c}</em>{t-1}$ 需要遗忘多少信息；</li>
+  <li>输入门 $\boldsymbol{i}_t$ 控制当前时刻的候选状态 $\boldsymbol{c}_t$ 有多少信息需要保存；</li>
+  <li>输出门 $\boldsymbol{o}_t$ 控制当前时刻的内部状态 $\boldsymbol{c}_t$ 有多少信息需要输出给外部状态 $\boldsymbol{h}_t$。</li>
 </ul>
 
 <h2 id="13-前向传播"><span class="me-2">1.3. 前向传播</span><a href="#13-前向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -1122,45 +1146,52 @@
 <p>三个门的计算方式为：</p>
 
 \[\begin{aligned}
-\boldsymbol f_t &amp;= \sigma(\boldsymbol W_f \boldsymbol h_{t-1} + \boldsymbol U_f \boldsymbol x_t + \boldsymbol b_f)=\sigma([\boldsymbol W_f, \boldsymbol U_f]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
-\boldsymbol i_t &amp;= \sigma(\boldsymbol W_i \boldsymbol h_{t-1} + \boldsymbol U_i \boldsymbol x_t + \boldsymbol b_i)=\sigma([\boldsymbol W_i, \boldsymbol U_i]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
-\boldsymbol o_t &amp;= \sigma(\boldsymbol W_o \boldsymbol h_{t-1} + \boldsymbol U_o \boldsymbol x_t + \boldsymbol b_o)=\sigma([\boldsymbol W_o, \boldsymbol U_o]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
+\boldsymbol{f}_t &amp;= \sigma(\boldsymbol W_f \boldsymbol{h}_{t-1} + \boldsymbol{U}_f \boldsymbol{x}_t + \boldsymbol{b}_f)=\sigma([\boldsymbol W_f, \boldsymbol{U}_f]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
+\boldsymbol{i}_t &amp;= \sigma(\boldsymbol W_i \boldsymbol{h}_{t-1} + \boldsymbol{U}_i \boldsymbol{x}_t + \boldsymbol{b}_i)=\sigma([\boldsymbol W_i, \boldsymbol{U}_i]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
+\boldsymbol{o}_t &amp;= \sigma(\boldsymbol W_o \boldsymbol{h}_{t-1} + \boldsymbol{U}_o \boldsymbol{x}_t + \boldsymbol{b}_o)=\sigma([\boldsymbol W_o, \boldsymbol{U}_o]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
 \end{aligned}\]
 
-<p>其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的“门”是一种“软”门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。注意到，等式右边包含一个对 $\boldsymbol h_{t-1}$ 和 $\boldsymbol x_t$ <strong>向量拼接</strong>的操作，相应的参数也因此进行了拼接。</p>
+<p>其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的“门”是一种“软”门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。注意到，等式右边包含一个对 $\boldsymbol{h}_{t-1}$ 和 $\boldsymbol{x}_t$ <strong>向量拼接</strong>的操作，相应的参数也因此进行了拼接。</p>
 
-<p>相比 RNN，LSTM 引入了一个新的状态，称为细胞状态（cell state），表示为 $\boldsymbol c_t$，专门进行现行的循环信息传递，同时输出（非线性地）输出信息给隐层状态 $\boldsymbol h_t\in \mathbb R^D$。计算公式如下</p>
+<p>相比 RNN，LSTM 引入了一个新的状态，称为细胞状态（cell state），表示为 $\boldsymbol{c}_t$，专门进行现行的循环信息传递，同时输出（非线性地）输出信息给隐层状态 $\boldsymbol{h}_t\in \mathbb{R}^D$。计算公式如下</p>
 
 \[\begin{aligned}
-\tilde \boldsymbol c_t &amp;= tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)=tanh([\boldsymbol W_c, \boldsymbol U_c]\cdot[\boldsymbol h_{t-1}, \boldsymbol x_t]^T + \boldsymbol b_f)\\
-\boldsymbol c_t &amp;= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \tilde \boldsymbol c_t\\
-\boldsymbol h_t &amp;= \boldsymbol o_t \odot tanh(\boldsymbol c_t)
+\boldsymbol{c}_t &amp;= \tanh(\boldsymbol W_c \boldsymbol{h}_{t-1} + \boldsymbol{U}_c \boldsymbol{x}_t + \boldsymbol{b}_c)=\tanh([\boldsymbol W_c, \boldsymbol{U}_c]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
+\boldsymbol{c}_t &amp;= \boldsymbol{f}_t \odot \boldsymbol{c}_{t-1} + \boldsymbol{i}_t \odot \boldsymbol{c}_t\\
+\boldsymbol{h}_t &amp;= \boldsymbol{o}_t \odot \tanh(\boldsymbol{c}_t)
 \end{aligned}\]
 
-<p>其中，$\tilde \boldsymbol c_t \in \mathbb R^D$ 是通过非线性函数（$tanh$）得到的候选状态，$\boldsymbol c_{t-1}$ 是上一时刻的记忆单元，$\odot$ 是向量的元素乘积。在每个时刻，LSTM 网络的细胞状态 $\boldsymbol c_t$ 记录了截至当前时刻的历史信息。</p>
+<p>其中，</p>
+<ul>
+  <li>$\boldsymbol{c}_t\in\mathbb{R}^D$ 是通过非线性函数（$\tanh$）得到的候选状态，</li>
+  <li>$\boldsymbol{c}_{t-1}$ 是上一时刻的记忆单元，</li>
+  <li>$\odot$ 是向量的元素乘积。</li>
+</ul>
 
-<p>根据不同的门状态取值，可以实现不同的功能。当 $\boldsymbol f_t = 0,\boldsymbol i_t = 1$ 时，记忆单元将历史信息清空，并将候选状态向量 $\tilde \boldsymbol c_t$ 写入，但此时记忆单元 $\boldsymbol c_t$ 依然和上一时刻的历史信息相关。当$\boldsymbol f_t = 1,\boldsymbol i_t = 0$ 时，记忆单元将复制上一时刻的内容，不写入新的信息。</p>
+<p>在每个时刻，LSTM 网络的细胞状态 $\boldsymbol{c}_t$ 记录了截至当前时刻的历史信息。</p>
 
-<p>需要注意的是，<strong>LSTM 中的 $\boldsymbol c_t$ 对应于传统 RNN 中的 $\boldsymbol h_t$</strong>，通常是上一个传过来的历史状态乘以遗忘门后加上一些新信息得到，因此更新比较缓慢。而 LSTM 中的 $\boldsymbol h_t$ 则变化剧烈的多，在不同的时刻下的取值往往区别很大。</p>
+<p>根据不同的门状态取值，可以实现不同的功能。当 $\boldsymbol{f}_t = 0,\boldsymbol{i}_t = 1$ 时，记忆单元将历史信息清空，并将候选状态向量 $\boldsymbol{c}_t$ 写入，但此时记忆单元 $\boldsymbol{c}_t$ 依然和上一时刻的历史信息相关。当$\boldsymbol{f}_t = 1,\boldsymbol{i}_t = 0$ 时，记忆单元将复制上一时刻的内容，不写入新的信息。</p>
 
-<p>再次进行维度分析，$\boldsymbol h_t,\boldsymbol c_t,\boldsymbol i_t,\boldsymbol f_t,\boldsymbol o_t \in \mathbb R^D$ 且 $\boldsymbol b_f,\boldsymbol b_i,\boldsymbol b_o,\boldsymbol b_c \in \mathbb R^D$，$\boldsymbol x_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol U_f,\boldsymbol U_i,\boldsymbol U_o,\boldsymbol U_c \in \mathbb R^{D\times D}$。则上面所有式子可简洁描述为</p>
+<p>需要注意的是，<strong>LSTM 中的 $\boldsymbol{c}_t$ 对应于传统 RNN 中的 $\boldsymbol{h}_t$</strong>，通常是上一个传过来的历史状态乘以遗忘门后加上一些新信息得到，因此更新比较缓慢。而 LSTM 中的 $\boldsymbol{h}_t$ 则变化剧烈的多，在不同的时刻下的取值往往区别很大。</p>
+
+<p>再次进行维度分析，$\boldsymbol{h}_t,\boldsymbol{c}_t,\boldsymbol{i}_t,\boldsymbol{f}_t,\boldsymbol{o}_t \in \mathbb R^D$ 且 $\boldsymbol{b}_f,\boldsymbol{b}_i,\boldsymbol{b}_o,\boldsymbol{b}_c \in \mathbb R^D$，$\boldsymbol{x}_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol{U}_f,\boldsymbol{U}_i,\boldsymbol{U}_o,\boldsymbol{U}_c \in \mathbb R^{D\times D}$。则上面所有式子可简洁描述为</p>
 
 \[\begin{aligned}
 \begin{bmatrix}
- \tilde \boldsymbol c_t\\ 
- \boldsymbol o_t\\
- \boldsymbol i_t\\
- \boldsymbol f_t 
+ \boldsymbol{c}_t\\ 
+ \boldsymbol{o}_t\\
+ \boldsymbol{i}_t\\
+ \boldsymbol{f}_t 
 \end{bmatrix}=
 \begin{bmatrix}
- tanh\\ 
+ \tanh\\ 
  \sigma\\
  \sigma\\
  \sigma 
 \end{bmatrix}\left( \boldsymbol W
 \begin{bmatrix}
- \boldsymbol h_{t-1}\\ 
- \boldsymbol x_t
+ \boldsymbol{h}_{t-1}\\ 
+ \boldsymbol{x}_t
 \end{bmatrix}+\boldsymbol b
  \right)
 \end{aligned}\]
@@ -1169,16 +1200,16 @@
 
 \[\begin{aligned}
 \boldsymbol W &amp;=\begin{bmatrix}
- \boldsymbol W_c &amp; \boldsymbol U_c\\ 
- \boldsymbol W_o &amp; \boldsymbol U_o\\
- \boldsymbol W_i &amp; \boldsymbol U_i\\ 
- \boldsymbol W_f &amp; \boldsymbol U_f
+ \boldsymbol W_c &amp; \boldsymbol{U}_c\\ 
+ \boldsymbol W_o &amp; \boldsymbol{U}_o\\
+ \boldsymbol W_i &amp; \boldsymbol{U}_i\\ 
+ \boldsymbol W_f &amp; \boldsymbol{U}_f
 \end{bmatrix} \in \mathbb R^{4D\times (D+M)}\\
 \boldsymbol b &amp;= \begin{bmatrix}
- \boldsymbol b_c\\ 
- \boldsymbol b_o\\
- \boldsymbol b_i\\
- \boldsymbol b_f 
+ \boldsymbol{b}_c\\ 
+ \boldsymbol{b}_o\\
+ \boldsymbol{b}_i\\
+ \boldsymbol{b}_f 
 \end{bmatrix}\in \mathbb R^{4D}
 \end{aligned}\]
 
@@ -1190,14 +1221,14 @@
 
 <p><a href="https://www.zhihu.com/question/34878706">LSTM如何来避免梯度弥散和梯度爆炸？</a></p>
 
-<p>LSTM 通过引入门机制，把矩阵乘法变成了 element-wise 的 <a href="https://baike.baidu.com/item/%E5%93%88%E8%BE%BE%E7%8E%9B%E7%A7%AF">Hadamard product</a>（哈达玛积，逐元素相乘）。这样做后，细胞状态 $\boldsymbol c_t$ （对应于 RNN 中的隐状态 $\boldsymbol h_t$）的更新公式变为</p>
+<p>LSTM 通过引入门机制，把矩阵乘法变成了 element-wise 的 <a href="https://baike.baidu.com/item/%E5%93%88%E8%BE%BE%E7%8E%9B%E7%A7%AF">Hadamard product</a>（哈达玛积，逐元素相乘）。这样做后，细胞状态 $\boldsymbol{c}_t$ （对应于 RNN 中的隐状态 $\boldsymbol{h}_t$）的更新公式变为</p>
 
-\[\boldsymbol c_t = \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)\]
+\[\boldsymbol{c}_t = \boldsymbol{f}_t \odot \boldsymbol{c}_{t-1} + \boldsymbol{i}_t \odot \tanh(\boldsymbol W_c \boldsymbol{h}_{t-1} + \boldsymbol{U}_c \boldsymbol{x}_t + \boldsymbol{b}_c)\]
 
 <p>进一步推导</p>
 
 \[\begin{aligned}
-\frac{\partial \boldsymbol L}{\partial \boldsymbol c_{t-1}} &amp;= \frac{\partial L}{\partial c_t}\frac{\partial c_t}{\partial c_{t-1}} = \frac{\partial L}{\partial c_t} \odot diag(f_t+\cdots)
+\frac{\partial \boldsymbol L}{\partial \boldsymbol{c}_{t-1}} &amp;= \frac{\partial L}{\partial c_t}\frac{\partial c_t}{\partial c_{t-1}} = \frac{\partial L}{\partial c_t} \odot diag(f_t+\cdots)
 \end{aligned}\]
 
 <p>公式里其余的项不重要，这里就用省略号代替了。可以看出当 $f_t=1$ 时，就算其余项很小，梯度仍然可以很好地传导到上一个时刻，此时即使层数较深也不会发生 Gradient Vanish 的问题；当 $f_t=0$ 时，即上一时刻的信号不影响到当前时刻，则此项也会为0。$f_t$ 在这里控制着梯度传导到上一时刻的衰减程度，与它 Forget Gate 的功能一致。</p>
@@ -1255,15 +1286,15 @@
 <p>我们再次将 LSTM 的前向传播列写如下便于比对</p>
 
 \[\begin{aligned}
-\boldsymbol f_t &amp;= \sigma(\boldsymbol W_f \boldsymbol h_{t-1} + \boldsymbol U_f \boldsymbol x_t + \boldsymbol b_f)\\
-\boldsymbol i_t &amp;= \sigma(\boldsymbol W_i \boldsymbol h_{t-1} + \boldsymbol U_i \boldsymbol x_t + \boldsymbol b_i)\\
-\boldsymbol o_t &amp;= \sigma(\boldsymbol W_o \boldsymbol h_{t-1} + \boldsymbol U_o \boldsymbol x_t + \boldsymbol b_o)\\
-\tilde \boldsymbol c_t &amp;= tanh(\boldsymbol W_c \boldsymbol h_{t-1} + \boldsymbol U_c \boldsymbol x_t + \boldsymbol b_c)\\
-\boldsymbol c_t &amp;= \boldsymbol f_t \odot \boldsymbol c_{t-1} + \boldsymbol i_t \odot \tilde \boldsymbol c_t\\
-\boldsymbol h_t &amp;= \boldsymbol o_t \odot tanh(\boldsymbol c_t)
+\boldsymbol{f}_t &amp;= \sigma(\boldsymbol W_f \boldsymbol{h}_{t-1} + \boldsymbol{U}_f \boldsymbol{x}_t + \boldsymbol{b}_f)\\
+\boldsymbol{i}_t &amp;= \sigma(\boldsymbol W_i \boldsymbol{h}_{t-1} + \boldsymbol{U}_i \boldsymbol{x}_t + \boldsymbol{b}_i)\\
+\boldsymbol{o}_t &amp;= \sigma(\boldsymbol W_o \boldsymbol{h}_{t-1} + \boldsymbol{U}_o \boldsymbol{x}_t + \boldsymbol{b}_o)\\
+\boldsymbol{c}_t &amp;= \tanh(\boldsymbol W_c \boldsymbol{h}_{t-1} + \boldsymbol{U}_c \boldsymbol{x}_t + \boldsymbol{b}_c)\\
+\boldsymbol{c}_t &amp;= \boldsymbol{f}_t \odot \boldsymbol{c}_{t-1} + \boldsymbol{i}_t \odot \boldsymbol{c}_t\\
+\boldsymbol{h}_t &amp;= \boldsymbol{o}_t \odot \tanh(\boldsymbol{c}_t)
 \end{aligned}\]
 
-<p>前面我们已经假设，$\boldsymbol h_t,\boldsymbol c_t,\boldsymbol i_t,\boldsymbol f_t,\boldsymbol o_t \in \mathbb R^D$ 且 $\boldsymbol b_f,\boldsymbol b_i,\boldsymbol b_o,\boldsymbol b_c \in \mathbb R^D$，$\boldsymbol x_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol U_f,\boldsymbol U_i,\boldsymbol U_o,\boldsymbol U_c \in \mathbb R^{D\times D}$。</p>
+<p>前面我们已经假设，$\boldsymbol{h}_t,\boldsymbol{c}_t,\boldsymbol{i}_t,\boldsymbol{f}_t,\boldsymbol{o}_t \in \mathbb R^D$ 且 $\boldsymbol{b}_f,\boldsymbol{b}_i,\boldsymbol{b}_o,\boldsymbol{b}_c \in \mathbb R^D$，$\boldsymbol{x}_t\in \mathbb R^M$，那么 $\boldsymbol W_f,\boldsymbol W_i,\boldsymbol W_o,\boldsymbol W_c \in \mathbb R^{D\times M}$， $\boldsymbol{U}_f,\boldsymbol{U}_i,\boldsymbol{U}_o,\boldsymbol{U}_c \in \mathbb R^{D\times D}$。</p>
 
 <p><code class="language-plaintext highlighter-rouge">input_size</code> 就是输入层维度 $M$，比如某个词或者某张图的 embedding dim （特征维度）。</p>
 
@@ -1915,6 +1946,13 @@ cuDNN error: CUDNN_STATUS_BAD_PARAM
   <div id="access-lastmod" class="post">
     <div class="panel-heading">最近更新</div>
     <ul class="post-content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
+        </li>
       
         
         
