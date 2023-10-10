@@ -1346,7 +1346,7 @@
   <p>https://www.cnblogs.com/xiaoheizi-12345/p/14287592.html</p>
 </blockquote>
 
-<p><a href="/assets/img/postsimg/20210616/yolov5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/yolov5.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210616/yolov5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/yolov5.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>其中橙色的数字表示层号，0-9层构成backbone，10-23层构成head，17、20、23 层的输出是Detect()函数的输入。</p>
 
@@ -1538,7 +1538,7 @@
 
 <p>以yolov5s为例，原始的 <code class="language-plaintext highlighter-rouge">640 × 640 × 3</code> 的图像输入Focus结构，采用切片操作，先变成 <code class="language-plaintext highlighter-rouge">320 × 320 × 12</code> 的特征图，再经过一次卷积操作，最终变成 <code class="language-plaintext highlighter-rouge">320 × 320 × 32</code> 的特征图。切片操作如下：</p>
 
-<p><a href="/assets/img/postsimg/20210616/focus.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/focus.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210616/focus.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/focus.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>该模块的设计主要是减少计算量加快速度。作者原话：Focus() module is designed for FLOPS reduction and speed increase, not mAP increase.</p>
 
@@ -1664,7 +1664,7 @@
   <li><code class="language-plaintext highlighter-rouge">e</code>：expansion: bottleneck 结构中的瓶颈部分的通道膨胀率，使用0.5即为变为输入的1/2；</li>
 </ul>
 
-<p><a href="/assets/img/postsimg/20210616/bottleneck.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/bottleneck.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210616/bottleneck.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/bottleneck.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>瓶颈层的瓶颈主要体现在通道数上面。一般 <code class="language-plaintext highlighter-rouge">1 x 1</code> 卷积具有很强的灵活性，这里用于降低通道数，如膨胀率为  <code class="language-plaintext highlighter-rouge">0.5</code>，若输入通道为 <code class="language-plaintext highlighter-rouge">640</code>，那么经过<code class="language-plaintext highlighter-rouge">1 x 1</code> 的卷积层之后变为 <code class="language-plaintext highlighter-rouge">320</code>；经过 <code class="language-plaintext highlighter-rouge">3x3</code> 之后变为输出的通道数，这样参数量会大量减少。</p>
 
@@ -1726,7 +1726,7 @@
 
 <p>Cross Stage Partial Network (CSPNet) 就是从网络结构设计的角度来解决以往工作在推理过程中需要很大计算量的问题。</p>
 
-<p><a href="/assets/img/postsimg/20210616/cspnet.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/cspnet.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210616/cspnet.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/cspnet.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>CSP bottleneck 结构在 Bottleneck 部分存在一个可修改的参数 <code class="language-plaintext highlighter-rouge">n</code>，标识使用的Bottleneck结构个数。这一条也是我们的主分支，是对残差进行学习的主要结构，右侧分支<code class="language-plaintext highlighter-rouge">nn.Conv2d</code>是shortcut分支。</p>
 
@@ -2138,6 +2138,13 @@ python detect.py --source path/*.jpg  # 文件夹下某类型媒体
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -2146,13 +2153,6 @@ python detect.py --source path/*.jpg  # 文件夹下某类型媒体
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         

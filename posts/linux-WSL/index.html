@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-18T15:06:38+08:00","datePublished":"2023-09-07T15:32:19+08:00","description":"本文介绍了如何在","headline":"在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-WSL/"},"url":"http://localhost:4000/posts/linux-WSL/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-10-10T14:55:06+08:00","datePublished":"2023-09-07T15:32:19+08:00","description":"本文介绍了如何在","headline":"在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-WSL/"},"url":"http://localhost:4000/posts/linux-WSL/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -694,6 +694,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -795,13 +807,13 @@
 
 <em
   class=""
-  data-ts="1695020798"
+  data-ts="1696920906"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/09/18
+  2023/10/10
 </em>
 
     </span>
@@ -845,9 +857,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2862 字"
+  title="3027 字"
 >
-  <em>15 分钟</em>阅读</span>
+  <em>16 分钟</em>阅读</span>
 
     </div>
 
@@ -877,6 +889,7 @@
           <li><a href="#222-在系统环境下安装">2.2.2. 在系统环境下安装</a></li>
         </ul>
       </li>
+      <li><a href="#23-配置-gui-开发环境">2.3 配置 GUI 开发环境</a></li>
     </ul>
   </li>
   <li><a href="#3-配置-vscode">3. 配置 VSCode</a></li>
@@ -925,6 +938,11 @@
 </table></div>
 
 <p>WSL 1 和 WSL 2 之间的主要区别在于，是否在托管 VM 内使用实际的 Linux 内核、支持完整的系统调用兼容性以及跨 Linux 和 Windows 操作系统的性能。 WSL 2 是安装 Linux 发行版时的当前默认版本，它使用最新最好的虚拟化技术在轻量级实用工具虚拟机 (VM) 内运行 Linux 内核。从上面的比较表中可以看出，WSL 2 架构在几个方面优于 WSL 1，但跨 OS 文件系统的性能除外，对于这种情况，可通过将项目文件存储在与处理项目时运行的工具相同的操作系统上进行处理。</p>
+
+<blockquote>
+  <p>https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps
+<strong>注意！如果需要使用 Linux 的 GUI 程序，只能使用 WSL 2。</strong></p>
+</blockquote>
 
 <h3 id="12-例外情况使用-wsl-1-而不是-wsl-2"><span class="me-2">1.2. 例外情况（使用 WSL 1 而不是 WSL 2）</span><a href="#12-例外情况使用-wsl-1-而不是-wsl-2" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1017,12 +1035,33 @@ WSL 2 的内存使用量会随使用而缩放。 当进程释放内存时，这�
       <li>创建用户名和密码后，该帐户将是分发版的默认用户，并将在启动时自动登录。</li>
       <li>此帐户将被视为 Linux 管理员，能够运行 sudo (Super User Do) 管理命令。</li>
       <li>在 WSL 上运行的每个 Linux 发行版都有其自己的 Linux 用户帐户和密码。 每当添加分发版、重新安装或重置时，都必须配置帐户。</li>
+      <li>忘记用户账户密码可以通过在 Windows 下进入 root 账户重新设置
+        <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">wsl.exe</span><span class="w"> </span><span class="nt">--user</span><span class="w"> </span><span class="nx">root</span><span class="w">
+</span><span class="n">passwd</span><span class="w"> </span><span class="p">[</span><span class="n">your_user_name</span><span class="p">]</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>        </div>
+      </li>
     </ul>
   </li>
   <li>
-    <p>更新 WSL</p>
+    <p>更新 WSL（若要使用GUI程序请务必更新）</p>
   </li>
 </ul>
+
+<p>在 Windows 下</p>
+
+<div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">wsl</span><span class="w"> </span><span class="nt">--update</span><span class="w">
+</span><span class="n">wsl</span><span class="w"> </span><span class="nt">--shutdown</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div></div>
+
+<p>在 WSL 中</p>
 
 <div class="language-powershell highlighter-rouge"><div class="code-header">
         <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
@@ -1255,6 +1294,37 @@ All packages are up to date.
 
 <p>以后即可用 <code class="language-plaintext highlighter-rouge">python3.9</code> 来运行脚本，而不是使用 <code class="language-plaintext highlighter-rouge">python</code> 或者 <code class="language-plaintext highlighter-rouge">python3</code>。</p>
 
+<h3 id="23-配置-gui-开发环境"><span class="me-2">2.3 配置 GUI 开发环境</span><a href="#23-配置-gui-开发环境" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>安装 <code class="language-plaintext highlighter-rouge">mesa</code>，<code class="language-plaintext highlighter-rouge">mesa</code> 可以支持 <code class="language-plaintext highlighter-rouge">glxinfo</code> 命令，这个命令可以查看很多与显卡、OpenGL 相关的信息</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install </span>mesa-utils
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>然后查看显卡是否能够识别</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>glxinfo | <span class="nb">grep </span>rendering
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>获取显卡 OpenGL 版本信息</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>glxinfo | <span class="nb">grep </span>OpenGL
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install </span>libglfw3-dev
+</pre></td></tr></tbody></table></code></div></div>
 <h2 id="3-配置-vscode"><span class="me-2">3. 配置 VSCode</span><a href="#3-配置-vscode" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <blockquote>
@@ -1481,6 +1551,13 @@ gdb <span class="nt">-v</span>
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -1489,13 +1566,6 @@ gdb <span class="nt">-v</span>
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         

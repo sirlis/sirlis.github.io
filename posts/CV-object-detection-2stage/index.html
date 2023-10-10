@@ -1694,7 +1694,7 @@
 
 <p>图片分类任务我们已经熟悉了，就是算法对其中的对象进行分类。而今天我们要了解构建神经网络的另一个问题，即目标检测问题。这意味着，我们不仅要用算法判断图片中是不是一辆汽车， 还要在图片中标记出它的位置， 用边框或红色方框把汽车圈起来， 这就是目标检测问题。 其中“定位”的意思是判断汽车在图片中的具体位置。</p>
 
-<p><a href="/assets/img/postsimg/20210608/01.objectdetection.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/01.objectdetection.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210608/01.objectdetection.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/01.objectdetection.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>近几年来，目标检测算法取得了很大的突破。比较流行的算法可以分为两类，一类是基于 Region Proposal 的 R-CNN 系算法（R-CNN，Fast R-CNN, Faster R-CNN等），它们是two-stage的，需要先算法产生目标候选框，也就是目标位置，然后再对候选框做分类与回归。而另一类是 Yolo，SSD 这类 one-stage 算法，其仅仅使用一个卷积神经网络 CNN 直接预测不同目标的类别与位置。第一类方法是准确度高一些，但是速度慢，但是第二类算法是速度快，但是准确性要低一些。</p>
 
@@ -1702,7 +1702,7 @@
 
 <p>AlexNet 的网络结构如下：</p>
 
-<p><a href="/assets/img/postsimg/20210608/03.alexnet.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/03.alexnet.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210608/03.alexnet.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/03.alexnet.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li>
@@ -1763,9 +1763,9 @@ Visual Geometry Group</li>
 
 <p>对于给定的感受野（与输出有关的输入图片的局部大小），采用堆积的小卷积核是优于采用大的卷积核，因为多层非线性层可以增加网络深度来保证学习更复杂的模式，而且代价还比较小（参数更少）。</p>
 
-<p><a href="/assets/img/postsimg/20210607/01.vgg.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/01.vgg.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210607/01.vgg.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/01.vgg.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
-<p><a href="/assets/img/postsimg/20210607/02.vgg2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/02.vgg2.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210607/02.vgg2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/02.vgg2.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p><a href="https://dgschwend.github.io/netscope/#/preset/vgg-16">VGG网络的结构</a> 非常一致</p>
 
@@ -1791,11 +1791,11 @@ Visual Geometry Group</li>
   </ol>
 </blockquote>
 
-<p><a href="/assets/img/postsimg/20210608/02.rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/02.rcnn.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210608/02.rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/02.rcnn.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>目标检测有两个主要任务：物体分类和定位，为了完成这两个任务，R-CNN借鉴了滑动窗口思想， 采用对区域进行识别的方案。RCNN是一个 two-stage （两阶段，上图中 1+2 是第一阶段，3+4 是第二阶段）目标检测算法，具体实现步骤如下：</p>
 
-<p><a href="/assets/img/postsimg/20210607/03.rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/03.rcnn.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210607/03.rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/03.rcnn.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li>
@@ -1849,7 +1849,7 @@ Visual Geometry Group</li>
 
 <h1 id="3-fast-r-cnn">3. Fast R-CNN</h1>
 
-<p><a href="/assets/img/postsimg/20210607/04.fastrcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/04.fastrcnn.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210607/04.fastrcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/04.fastrcnn.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li><strong>提取特征图（feature maps）</strong>。输入原始图像，主干网络采用 <strong>VGG16</strong> 来提取特征图，3 大改进：
@@ -1860,16 +1860,16 @@ Visual Geometry Group</li>
     </ul>
   </li>
   <li><strong>提取候选框（region proposals）</strong>。输入原始图像，通过 selective search 提取感兴趣区域。每个区域的坐标用四元数组 $[r,c,h,w]$ （左上角的行列坐标+高和宽）定义，该四元数组相对于原始图像，都有对应的 ground truth BBox 和 ground truth class label。
-<a href="/assets/img/postsimg/20210607/05.regionproposal.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/05.regionproposal.jpg" alt="" class="lazyload" data-proofer-ignore></a></li>
+<a href="/assets/img/postsimg/20210607/05.regionproposal.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/05.regionproposal.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></li>
   <li><strong>将候选框坐标映射到 feature map 上</strong>。采用 VGG16 时，最后一个 max pooling 层后接 ROI pooling 层，区域坐标经过 5 次池化，输出的 feature maps 是原图像的 1/32（<code class="language-plaintext highlighter-rouge">16x16x512</code>），则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以 32 并量化到最接近的整数，得到映射的坐标，即为 ROI feture map。
-<a href="/assets/img/postsimg/20210607/06.roifeature.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/06.roifeature.jpg" alt="" class="lazyload" data-proofer-ignore></a>
+<a href="/assets/img/postsimg/20210607/06.roifeature.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/06.roifeature.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a>
 在上图的例子中，一个 ROI 的原始大小为 <code class="language-plaintext highlighter-rouge">145x200</code> ，左上角设置为 <code class="language-plaintext highlighter-rouge">(192x296)</code> 。除以 32（比例因子）并取整，左上角变为 <code class="language-plaintext highlighter-rouge">(9,6)</code>，高宽变为 <code class="language-plaintext highlighter-rouge">4x6</code>，得到的 ROI feature maps 为 $[9,6,4,6]$。
-<a href="/assets/img/postsimg/20210607/07.roifeaturequant.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/07.roifeaturequant.jpg" alt="" class="lazyload" data-proofer-ignore></a>
+<a href="/assets/img/postsimg/20210607/07.roifeaturequant.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/07.roifeaturequant.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a>
 注意，映射过程存在一次量化损失。损失的信息如上图蓝色区域所示（之后会有改进的 ROI Align 方法去除损失）。</li>
   <li>
     <p><strong>ROI pooling</strong>。输入 conv5 层输出的 feature maps 以及 ROI 在该层上的映射（即 ROI feature maps），将其转换为固定大小 feature maps 输出，以便送入后续固定长度的 FC 层。假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个 feature map 进行池化来减小尺寸，那么可以计算出池化窗口的尺寸为：$(h/H)\times (w/W)$，即用这个计算出的窗口对 RoI feature map 做 max pooling，Pooling 对每一个 feature map 通道都是独立的。
 假设我们需要将上面得到的 <code class="language-plaintext highlighter-rouge">4x6x512</code> 池化为固定大小的 <code class="language-plaintext highlighter-rouge">3x3x512</code> feature maps，需要进行 <code class="language-plaintext highlighter-rouge">(4/3)x(6/3)x512 = 1x2x512</code> 的卷积核进行最大池化，会丢失 ROI 的最后一行。如此遍历每个 ROI feature map 最终得到 <code class="language-plaintext highlighter-rouge">Nx3x3x512</code> 的矩阵。
-<a href="/assets/img/postsimg/20210607/08.roipooling.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/08.roipooling.jpg" alt="" class="lazyload" data-proofer-ignore></a>
+<a href="/assets/img/postsimg/20210607/08.roipooling.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210607/08.roipooling.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a>
 注意，ROI Pooling 过程存在第二次量化损失（上面的例子中为最后一行）。</p>
   </li>
   <li><strong>回归与分类</strong>。将所有得到的固定大小的 ROI feature map 送入两个 4096 维的 FC 层，然后分别送入并列的两个 21 和 84 维的FC 层。前者是分类的输出，代表每个 ROI 属于每个类别（20类+背景）的得分，后者是回归的输出，代表每个 ROI 所属类别的四个坐标。
@@ -1881,8 +1881,8 @@ Visual Geometry Group</li>
 
 <h1 id="4-faster-r-cnn">4. Faster R-CNN</h1>
 
-<p><a href="/assets/img/postsimg/20210608/05.faster-rcnn2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/05.faster-rcnn2.jpg" alt="" class="lazyload" data-proofer-ignore></a>
-<a href="/assets/img/postsimg/20210608/05.faster-rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/05.faster-rcnn.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210608/05.faster-rcnn2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/05.faster-rcnn2.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a>
+<a href="/assets/img/postsimg/20210608/05.faster-rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/05.faster-rcnn.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li>将输入图像缩放至固定大小 <code class="language-plaintext highlighter-rouge">M x N</code>，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 256</code> 的 feature maps。</li>
@@ -1894,7 +1894,7 @@ Visual Geometry Group</li>
       <li>生成一堆 anchors，对其进行裁剪过滤后，通过 softmax 判断 anchors 属于前景（物体）还是背景，二分类。
         <blockquote>
           <p>anchors 是一个矩阵，代表了一组矩形框，矩阵的每一行表示矩形左上和右下点的座标，比如，<code class="language-plaintext highlighter-rouge">rpn/generate_anchors.py</code> 生成 9 个矩形共有三种形状，三种尺寸分别是小（蓝 128）中（红 256）大（绿 512），三种比例分别为 <code class="language-plaintext highlighter-rouge">1:1, 1:2, 2:1</code> 。
-<a href="/assets/img/postsimg/20210608/06.anchor.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/06.anchor.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<a href="/assets/img/postsimg/20210608/06.anchor.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/06.anchor.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
         </blockquote>
       </li>
     </ul>
@@ -2051,6 +2051,13 @@ Visual Geometry Group</li>
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -2059,13 +2066,6 @@ Visual Geometry Group</li>
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         

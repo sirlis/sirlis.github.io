@@ -1568,13 +1568,13 @@ P_n(x) = &amp;f(x_0) \\
 
 <p>牛逼的拉格朗日认为，需要找到三个二次曲线作为基，就可以达到目标。</p>
 
-<p><a href="/assets/img/postsimg/20210125/08.gif" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/08.gif" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/08.gif" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/08.gif" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>拉格朗日插值法的公式结构整齐紧凑，在理论分析中十分方便，然而在计算中，当插值点增加或减少一个时，所对应的基本多项式就需要全部重新计算，于是整个公式都会变化，非常繁琐。这时可以用重心拉格朗日插值法或牛顿插值法来代替。</p>
 
 <p>此外，当<strong>插值点比较多</strong>的时候，拉格朗日插值多项式的次数可能会很高，因此具有数值不稳定的特点，也就是说尽管在已知的几个点取到给定的数值，但在附近却会和 “实际上” 的值之间有很大的偏差（如下图）。这类现象也被称为<strong>龙格现象</strong>，解决的办法是分段用较低次数的插值多项式。</p>
 
-<p><a href="/assets/img/postsimg/20210125/04.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/04.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/04.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/04.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>上图展示了拉格朗日插值法的数值稳定性：如图，用于模拟一个十分平稳的函数时，插值多项式的取值可能会突然出现一个大的偏差（图中的14至15中间）</p>
 
@@ -1636,7 +1636,7 @@ P_n(x) = &amp;f(x_0) \\
   T_4(x) &amp;= 8x^4 - 8x^2+1\\
 \end{aligned}\]
 
-<p><a href="/assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/01.350px-Chebyshev_polynomial.gif" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p><strong>第一类切比雪夫多项式的根</strong>又被称为<a href="https://en.wikipedia.org/wiki/Chebyshev_nodes">切比雪夫节点</a>，在 $[0,1]$ 区间内为</p>
 
@@ -1648,7 +1648,7 @@ P_n(x) = &amp;f(x_0) \\
 
 <p>形象的看，切比雪夫节点等价于 $n$ 等分单位半球的点的 $x$ 坐标（下图中 $n=10$）。</p>
 
-<p><a href="/assets/img/postsimg/20210125/02.Chebyshev-nodes-by-projection.svg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/02.Chebyshev-nodes-by-projection.svg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/02.Chebyshev-nodes-by-projection.svg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/02.Chebyshev-nodes-by-projection.svg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>对于任意区间 $[a,b]$，切比雪夫节点为</p>
 
@@ -1656,7 +1656,7 @@ P_n(x) = &amp;f(x_0) \\
 
 <p>切比雪夫节点广泛用于多项式插值，因为他们具备一个很好的性质，即具有最小的龙格现象。</p>
 
-<p><a href="/assets/img/postsimg/20210125/03.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/03.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/03.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/03.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <h1 id="3-ode-ipv的数值解法">3. ODE-IPV的数值解法</h1>
 
@@ -2073,12 +2073,12 @@ a_2 &amp;= \frac{1}{2h}[f(p(t_0+h),t_0+h)-f(p(t_0),t_0)]\\
 
 <p>下面我们用一个例子来进一步说明配点法如何应用于轨迹优化最优控制问题[1]。如图所示，一个滑块放置在光滑地面上，并受到一个水平方向的作用力。我们想要滑块在里的作用下，在 1s 的时间内从开始位置运动到指定位置，并刚好停在该处。</p>
 
-<p><a href="/assets/img/postsimg/20210125/05.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/05.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/05.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/05.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>这个问题存在着无数种可能的运动轨迹，进一步，我们希望从中确定一条最优的轨迹，如图所示。</p>
 
-<p><a href="/assets/img/postsimg/20210125/06.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/06.jpg" alt="" class="lazyload" data-proofer-ignore></a>
-<a href="/assets/img/postsimg/20210125/07.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/07.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210125/06.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/06.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a>
+<a href="/assets/img/postsimg/20210125/07.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210125/07.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>系统状态方程为</p>
 
@@ -2301,6 +2301,13 @@ v_0 = 0,\quad v_N = 0
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -2309,13 +2316,6 @@ v_0 = 0,\quad v_N = 0
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         

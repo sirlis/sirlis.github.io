@@ -1667,7 +1667,7 @@
 
 <p>输出是一个 $7\times 7\times 30$ 的张量。$7\times 7$ 对应原始图像的网格，30维向量 = 20个对象的概率 + 2个bounding box * 4个坐标 + 2个bounding box的置信度。</p>
 
-<p><a href="/assets/img/postsimg/20210613/yolov1output.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov1output.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/yolov1output.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov1output.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p><strong>前 20 维</strong>，one hot 编码。因为YOLO支持识别20种不同的对象（人、鸟、猫、汽车、椅子等），所以这里有20个值表示该网格位置存在任一种对象的概率。</p>
 
@@ -1701,13 +1701,13 @@
 
 <p>2 个 bounding box 的 $IOU$，哪个比较大就由哪个 bounding box 负责预测该对象是否存在，相应的 $P(Object)=1$，$Confidence = IOU$，该网格其它 bounding box 的 $Confidence = 0$。</p>
 
-<p><a href="/assets/img/postsimg/20210613/trainlabel.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/trainlabel.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/trainlabel.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/trainlabel.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>注意，在训练过程中等网络输出以后，比较两个 bounding box 与自行车实际位置的 IOU，自行车的位置（实际 bounding box）放置在 IOU 比较大的那个 bounding box（图中假设是 bounding box1），且该 bounding box 的置信度设为 1。</p>
 
 <h2 id="25-损失函数"><span class="me-2">2.5. 损失函数</span><a href="#25-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p><a href="/assets/img/postsimg/20210613/loss.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/loss.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/loss.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/loss.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>损失函数就是网络实际输出与标签之间的误差，YOLO V1 简单粗暴采用 sum-squared error loss。</p>
 
@@ -1777,13 +1777,13 @@ loss =&amp;\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}[(x_i-\hat{x}_i)^2+(y_i-
 
 <p>相比 YOLO V1，改进如下表所示。</p>
 
-<p><a href="/assets/img/postsimg/20210613/yolov2improvetable.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov2improvetable.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/yolov2improvetable.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov2improvetable.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <h2 id="31-网络结构"><span class="me-2">3.1. 网络结构</span><a href="#31-网络结构" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>主干网络换成 <strong>Darknet-19</strong>，19 个卷积层和 5 个最大池化层，比 VGG-16 小一些，精度不弱于它，但浮点运算减少到约 1/5，运算速度更快。</p>
 
-<p><a href="/assets/img/postsimg/20210613/yolov2structure.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov2structure.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/yolov2structure.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov2structure.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li><strong>移除全连接层</strong></li>
@@ -1848,7 +1848,7 @@ loss =&amp;\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}[(x_i-\hat{x}_i)^2+(y_i-
 
 <p>$centroid$ 是聚类时被选作中心的边框，$box$ 就是其它边框，$d$ 就是两者间的 “距离”。IOU 越大，“距离” 越近。聚类分析结果如下图所示：</p>
 
-<p><a href="/assets/img/postsimg/20210613/anchors.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/anchors.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/anchors.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/anchors.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>上图左边是选择不同的聚类 k 值情况下，得到的 k 个 centroid 边框，计算样本中标注的边框与各 centroid 的 Avg IOU。显然，边框数 k 越多，Avg IOU 越大。YOLO V2 选择 k=5 作为边框数量与 IOU 的折中。对比手工选择的先验框，使用 <strong>5</strong> 个聚类框即可达到 61 Avg IOU，相当于 <strong>9</strong> 个手工设置的先验框 60.9 Avg IOU。</p>
 
@@ -1873,7 +1873,7 @@ Pr(obj)\cdot IOU(b, obj) = \sigma (t_o)\]
 
 <p>式中，$t_x, t_y, t_w, t_h, t_o$ 是待学习参数。</p>
 
-<p><a href="/assets/img/postsimg/20210613/anchoradjust.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/anchoradjust.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/anchoradjust.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/anchoradjust.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>$c_x, x_y$ 是当前网格左上角到图像左上角的距离，要先将网格大小归一化，即令一个网格的宽=1，高=1。$\sigma$ 即 sigmoid 函数，可以将 $[-\infty,+\infty]$ 的 $t_x, t_y$ 映射到 $[0,1]$，从而约束在了当前网格内（蓝色区域）。</p>
 
@@ -1903,11 +1903,11 @@ Pr(obj)\cdot IOU(b, obj) = \sigma (t_o)\]
 
 <h2 id="41-网络结构"><span class="me-2">4.1. 网络结构</span><a href="#41-网络结构" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p><a href="/assets/img/postsimg/20210613/yolov3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov3.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/yolov3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov3.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>其中主干网络（Backbone）为 Backbone。从 YOLO V3 开始引入 Neck 。在目标检测领域，为了更好的提取融合特征，通常在 Backbone 和输出层之间会插入一些层，这个部分称为 Neck。相当于目标检测网络的颈部，也是非常关键的。</p>
 
-<p><a href="/assets/img/postsimg/20210613/yolov3structure.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov3structure.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/yolov3structure.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov3structure.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>DarkNet-53 的基本单元为 <strong>Convolutional</strong>，包括 <code class="language-plaintext highlighter-rouge">{conv2d + BN + Leaky ReLU}</code>。</p>
 
@@ -1940,7 +1940,7 @@ output &amp;= (input + 2*padding - kernel)/stride+1\\
 
 <p>YOLO V2 曾采用 passthrough 结构来检测细粒度特征，在 YOLO V3 更进一步采用了 3 个不同尺度的特征图来进行对象检测，构成特征金字塔（Feature Pyramid Networks, FPN）。</p>
 
-<p><a href="/assets/img/postsimg/20210613/yolov3threelevelfusion.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov3threelevelfusion.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20210613/yolov3threelevelfusion.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210613/yolov3threelevelfusion.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>分别从主干网络的中间层引出两个特征图，分别为：</p>
 
@@ -2187,6 +2187,13 @@ B：26 x 26 x 256 --&gt; 26 x 26 x 128 --------&gt; 52 x 52 x 128 --&gt; 52 x 52
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -2195,13 +2202,6 @@ B：26 x 26 x 256 --&gt; 26 x 26 x 128 --------&gt; 52 x 52 x 128 --&gt; 52 x 52
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         

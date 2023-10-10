@@ -1015,7 +1015,7 @@
 
 <p>众所周知，现在的主流的传统深度学习技术需要大量的数据来训练一个好的模型。例如典型的 MNIST 分类问题，一共有 10 个类（“0”~“9”，一共10类数字），训练集一共有 6000 个样本，平均下来每个类大约 600 个样本。</p>
 
-<p><a href="/assets/img/postsimg/20200713/0.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/0.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200713/0.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/0.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>但是我们想一下我们人类自己，我们区分 0 到 9 的数字图片的时候需要看 6000 张图片才知道怎么区分吗？很显然，不需要！这表明当前的深度学习技术和我们人类智能差距还是很大的，要想弥补这一差距，少样本学习是一个很关键的问题。</p>
 
@@ -1034,7 +1034,7 @@
 
 <p>下面我们来看一张图，这张图来自论文《Optimization as a Model for Few-Shot Learning》，左边是训练集一共 5 张图片来自 5 个类，每个类只有1张图片。右边是测试集，理论上可以有任意多个图片用于测试，图中只给出了两张实例。</p>
 
-<p><a href="/assets/img/postsimg/20200713/1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/1.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200713/1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/1.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>如果采用传统的深度学习方法，必须能够提供大量 $D_{train}$ 样本图像，比如上图中需要提供大量鸟类、坦克、狗、人、钢琴的图像，才能训练出一个比较好的深度神经网络，使得网络能够以较高的准确率分辨 $D_{test}$ 中的图像。但是如果无法提供大量图像，那么就会出现严重的过拟合（over-fitting）问题，即因为训练的样本太少了，训练出的模型可能在训练集上效果还行，但是在测试集上面会遭遇灾难性的崩塌。或者换句话说，只有给模型提供训练集中的图片时才能正确分类，提供测试集中存在一定差异的相似图片就无法正确分类。因此，FSL问题的关键是解决过拟合 (overfitting) 的问题，一般可以采用元学习的方法来解决FSL问题。</p>
 
@@ -1048,7 +1048,7 @@
 
 <p>以下面这张图为例，为了学习如何从很少的样本中正确的识别分类“狮子”和“碗”（Meta-Test），首先提供一堆其它不同类别的图像（Meta-Train），喂给神经网络进行训练，期望它能够学到区分不同类别的先验知识，然后当提供包含狮子和碗在内的任务时，能够通过少量的微调，快速得到分类准确的模型。</p>
 
-<p><a href="/assets/img/postsimg/20200713/2.1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/2.1.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200713/2.1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/2.1.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>Meta-learning 中有一个术语叫 task ，比如上面图片，是<strong>一个 5-way 1-shot 问题，其中每一行 5-way 1-shot 就是一个 task</strong>，我们需要先学习很多很多这样的 task，然后再来解决这个新的 task 。最最最重要的一点，这是一个新的 task，这个新的 task 中的类别是之前我们学习过的 task 中没有见过的！ 在 Meta-learning 中之前学习的 task 我们称为 <strong>meta-train task</strong>，我们遇到的新的 task 称为 <strong>meta-test task</strong>。因为每一个 task 都有自己的训练集和测试集，因此为了不引起混淆，我们把 task 内部的训练集和测试集一般称为 <strong>support set</strong> 和 <strong>query set</strong>。</p>
 
@@ -1071,7 +1071,7 @@
   </li>
 </ul>
 
-<p><a href="/assets/img/postsimg/20200713/5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/5.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200713/5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200713/5.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>上图展示了 <strong>2-way 4-shot</strong> 的分类问题。N=2，K=4。希望得到一个模型，能够快速从dogs和otters中进行识别区分。</p>
 
@@ -1278,6 +1278,13 @@
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -1286,13 +1293,6 @@
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         

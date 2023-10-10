@@ -1472,7 +1472,7 @@ NS 方程由一个连续方程和一个动量方程组成（变成标量就是�
   <li>$e_5$ 是连续方程的残差（对应密度，然后通过状态方程得到压力 $p$？）；</li>
 </ul>
 
-<p><a href="/assets/img/postsimg/20201225/2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/2.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/2.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <h2 id="12-损失函数"><span class="me-2">1.2. 损失函数</span><a href="#12-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1504,37 +1504,37 @@ NS 方程由一个连续方程和一个动量方程组成（变成标量就是�
   <li><strong>第二</strong>，为了避免需要给速度指定适当的边界条件，必须有足够的垂直于边界的浓度梯度 （$\partial c/\partial n\neq 0$），为了使该方法能够推断出速度场的单个解。</li>
 </ul>
 
-<p><a href="/assets/img/postsimg/20201225/3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/3.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/3.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>在训练域的区域中，浓度分布本身不能携带足够的信息来保证获得单个速度场或压力场，可以为算法提供额外信息，如额外的速度或压力数据（比如，针对壁边界上的速度的无滑移边界条件）。但是在本文中，除了一个实验（图 S8 和 S9）外，其它实验中我们只基于封装在浓度数据内的信息。该算法的输入本质上是散布在空间和时间上的被动标量数据点云（图2B）。</p>
 
-<p><a href="/assets/img/postsimg/20201225/4.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/4.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/4.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/4.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>如 图2 所示，<strong>在圆柱体下游任意的训练域内，算法的预测与参考数据之间的定量一致性很好</strong>。</p>
 
-<p><a href="/assets/img/postsimg/20201225/5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/5.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/5.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>我们针对被动标量浓度分布的训练数据的时空分辨率进行了系统研究（图 2F 和图 S5），结果表明算法对于点云数据的时空分辨率非常鲁棒。具体而言，如果用于训练的算法每个涡街脱落周期的时间快照少于<strong>五个</strong>，或者在空间域中少于 <strong>250 个</strong> 点，算法才会崩溃。</p>
 
-<p><a href="/assets/img/postsimg/20201225/6.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/6.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/6.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/6.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <h3 id="132-3d-颅内动脉瘤的定量血流动力学"><span class="me-2">1.3.2. 3D 颅内动脉瘤的定量血流动力学</span><a href="#132-3d-颅内动脉瘤的定量血流动力学" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>训练样本（浓度）和参考数据（速度和压力）来源于右颈内动脉的动脉瘤，如下图所示。图B 中画了两个参考平面，用以后续的展示预测信息和参考信息的插值对比。</p>
 
-<p><a href="/assets/img/postsimg/20201225/7.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/7.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/7.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/7.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>用来预测浓度和速度压力数据的 NS先验的神经网络结构如下图所示。多了一个 z（w） 维速度数据。</p>
 
-<p><a href="/assets/img/postsimg/20201225/8.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/8.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/8.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/8.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>结果对比如下图所示。左边两列是竖着的垂直于 Z 轴的参考平面，右边两列是横着的垂直于 X 轴（原文错写为垂直于 Y 轴）的参考平面。三行从上到下分别为浓度，速度和压力。</p>
 
-<p><a href="/assets/img/postsimg/20201225/9.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/9.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/9.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/9.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <p>流动流线，根据参考速度场和回归速度场计算得出的，根据压力场着色。 所有字段的轮廓级别范围都相同，以便进行更好的比较。</p>
 
-<p><a href="/assets/img/postsimg/20201225/10.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/10.jpg" alt="" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20201225/10.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201225/10.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <h1 id="2-优势">2. 优势</h1>
 
@@ -1724,6 +1724,13 @@ NS 方程由一个连续方程和一个动量方程组成（变成标量就是�
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
@@ -1732,13 +1739,6 @@ NS 方程由一个连续方程和一个动量方程组成（变成标量就是�
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
         </li>
       
         
