@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="计算机视觉（YOLO V5）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-06-08T09:08:49+08:00","datePublished":"2021-06-08T09:08:49+08:00","description":"本文介绍了计算机视觉中单阶段目标检测问题的一个最新实现，即 YOLO V5。","headline":"计算机视觉（YOLO V5）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/CV-yolov5/"},"url":"http://localhost:4000/posts/CV-yolov5/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-10-10T15:06:20+08:00","datePublished":"2021-06-08T09:08:49+08:00","description":"本文介绍了计算机视觉中单阶段目标检测问题的一个最新实现，即 YOLO V5。","headline":"计算机视觉（YOLO V5）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/CV-yolov5/"},"url":"http://localhost:4000/posts/CV-yolov5/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1246,6 +1246,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1696921580"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/10/10
+</em>
+
+    </span>
+    
 
   
 
@@ -1750,7 +1774,7 @@
   <li>每个目标一行，整个图片没有目标的话不需要有txt文件</li>
   <li>每行的格式为<code class="language-plaintext highlighter-rouge">class_num x_center y_center width height</code></li>
   <li>其中<code class="language-plaintext highlighter-rouge">class_num</code>取值为<code class="language-plaintext highlighter-rouge">0</code>至<code class="language-plaintext highlighter-rouge">total_class - 1</code>，框的四个值<code class="language-plaintext highlighter-rouge">x_center y_center width height</code>是相对于图片分辨率大小正则化的<code class="language-plaintext highlighter-rouge">0-1</code>之间的数，左上角为<code class="language-plaintext highlighter-rouge">(0,0)</code>，右下角为<code class="language-plaintext highlighter-rouge">(1,1)</code></li>
-  <li><a href="https://user-images.githubusercontent.com/26833433/91506361-c7965000-e886-11ea-8291-c72b98c25eec.jpg" class="popup img-link "><img width="500" data-src="https://user-images.githubusercontent.com/26833433/91506361-c7965000-e886-11ea-8291-c72b98c25eec.jpg" class="lazyload" data-proofer-ignore></a></li>
+  <li><a href="/assets/img/postsimg/20210616/coordinate.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210616/coordinate.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></li>
 </ul>
 
 <h2 id="22-数据存放位置"><span class="me-2">2.2. 数据存放位置</span><a href="#22-数据存放位置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -2138,20 +2162,6 @@ python detect.py --source path/*.jpg  # 文件夹下某类型媒体
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
@@ -2159,7 +2169,28 @@ python detect.py --source path/*.jpg  # 文件夹下某类型媒体
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/space-quaternion/">航天中的四元数以及姿态运动学</a>
+          <a href="/posts/CV-yolov5/">计算机视觉（YOLO V5）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-pytorch/">VSCode部署Pytorch机器学习框架</a>
         </li>
       
     </ul>

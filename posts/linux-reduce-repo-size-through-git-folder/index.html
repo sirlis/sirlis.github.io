@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="如何清理 .git 文件夹来减小 github 仓库大小" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-09-18T15:12:56+08:00","datePublished":"2023-09-18T13:58:19+08:00","description":"本文介绍了如何在","headline":"如何清理 .git 文件夹来减小 github 仓库大小","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"},"url":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-10-12T13:50:26+08:00","datePublished":"2023-09-18T13:58:19+08:00","description":"本文介绍了如何在","headline":"如何清理 .git 文件夹来减小 github 仓库大小","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"},"url":"http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -658,6 +658,30 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -724,13 +748,13 @@
 
 <em
   class=""
-  data-ts="1695021176"
+  data-ts="1697089826"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/09/18
+  2023/10/12
 </em>
 
     </span>
@@ -774,9 +798,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1006 字"
+  title="1727 字"
 >
-  <em>5 分钟</em>阅读</span>
+  <em>9 分钟</em>阅读</span>
 
     </div>
 
@@ -798,7 +822,12 @@
       <li><a href="#13-git-文件夹">1.3. .git 文件夹</a></li>
     </ul>
   </li>
-  <li><a href="#2-git-文件夹清理">2. .git 文件夹清理</a></li>
+  <li><a href="#2-git-文件夹清理">2. .git 文件夹清理</a>
+    <ul>
+      <li><a href="#21-linux-环境命令行清理">2.1. Linux 环境命令行清理</a></li>
+      <li><a href="#22-跨平台-bfg-工具清理">2.2. 跨平台 BFG 工具清理</a></li>
+    </ul>
+  </li>
   <li><a href="#3-参考文献">3. 参考文献</a></li>
 </ul>
 
@@ -810,7 +839,13 @@
 
 <h3 id="13-git-文件夹"><span class="me-2">1.3. .git 文件夹</span><a href="#13-git-文件夹" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<p>git 是增量更新模式，所有改动都会保存在 <code class="language-plaintext highlighter-rouge">.git</code> 隐藏文件夹内。</p>
+
+<p><code class="language-plaintext highlighter-rouge">.git</code> 文件夹清理不会把仓库中已有的文件夹和里面的内容删除，会保留最新的一次提交，并且默认最近的一次提交是干净无误的提交。</p>
+
 <h2 id="2-git-文件夹清理"><span class="me-2">2. .git 文件夹清理</span><a href="#2-git-文件夹清理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="21-linux-环境命令行清理"><span class="me-2">2.1. Linux 环境命令行清理</span><a href="#21-linux-环境命令行清理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>需要 Linux 环境。</p>
 
@@ -883,7 +918,7 @@
 </pre></td><td class="rouge-code"><pre>  344ee5dcae1xxxxx3d80daa8714ed7d16b21dxxx src/vehicles/cls_Spacecraft.cpp
   98eecfdf58a0c0dc33bbfae46bxxxe5d837d5xxx src/vehicles/cls_Spacecraft_Docker.cpp
   a8a5bca95b08084xxxx7160c4c5d98631f1cdxxx config/usrSpacecraft.json
-  e1cf4bf431f82d788fcaaaaac4ecca05503248xxx winDSSimulator.exe
+  e1cf4bf431f82d788fcaaaaac4ecca05503248xx winDSSimulator.exe
   8932ce1bca5ba3c1ae39cxxxx054d14f15ad8xxx winDSSimulator.exe
   17965fde8b22564a73addxxx10e77a815ef89xxx src/SimDynamics.cpp
   33e7714xxxxaa033326648609f614837f49d2xxx winDSSimulator.exe
@@ -948,6 +983,101 @@
 </pre></td></tr></tbody></table></code></div>    </div>
   </li>
 </ul>
+
+<h3 id="22-跨平台-bfg-工具清理"><span class="me-2">2.2. 跨平台 BFG 工具清理</span><a href="#22-跨平台-bfg-工具清理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<blockquote>
+  <p>https://rtyley.github.io/bfg-repo-cleaner/
+BFG Repo-Cleaner 是一个原生 <code class="language-plaintext highlighter-rouge">git-filter-branch</code> 的更加简单快速的替代，基于 JDK 8+</p>
+</blockquote>
+
+<p>首先前往官网安装 JDK（https://www.oracle.com/java/technologies/downloads/）。</p>
+
+<p>然后下载 BFG（https://rtyley.github.io/bfg-repo-cleaner/）。</p>
+
+<p>一切准备就绪后，进入清理环节</p>
+
+<ul>
+  <li>
+    <p>克隆一个全新的 repo 裸仓库到本地（通过 <code class="language-plaintext highlighter-rouge">--mirror</code> 参数）</p>
+
+    <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="nx">clone</span><span class="w"> </span><span class="nt">--mirror</span><span class="w"> </span><span class="nx">https://github.com/</span><span class="p">[</span><span class="n">user_name</span><span class="p">]</span><span class="nx">/</span><span class="p">[</span><span class="n">repo_name</span><span class="p">]</span><span class="o">.</span><span class="nf">git</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+
+    <blockquote>
+      <p><strong>【注意】</strong>，基于<code class="language-plaintext highlighter-rouge">https</code>的命令行克隆需要授权，若安装 <code class="language-plaintext highlighter-rouge">Git</code> 时候没有选择附带 <code class="language-plaintext highlighter-rouge">Git Credential Manager</code>，需要手动独立安装（https://github.com/git-ecosystem/git-credential-manager/releases），否则会失败，因为 Github 在 2021 年移除了通过账户名和密码授权的方式。
+<strong>裸仓库</strong>：https://git-scm.com/docs/gitglossary.html#def_bare_repository， 裸存储库通常是一个适当命名的目录，后缀为.git，没有任何受修订控制的文件的本地签出副本。也就是说，所有通常会出现在隐藏的.Git子目录中的Git管理和控制文件都直接出现在repository.Git目录中，而不包含其他文件。</p>
+    </blockquote>
+  </li>
+  <li>将下载好的 <code class="language-plaintext highlighter-rouge">bfg-1.14.0.jar</code> 放置在克隆裸仓库 <code class="language-plaintext highlighter-rouge">[repo_name].git</code> 相同的路径，如：
+    <div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>./mirror/[repo_name].git
+./mirror/bfg-1.14.0.jar
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>
+    <p>根据文件大小批量清除历史记录</p>
+
+    <p>例：清理大小超过 <code class="language-plaintext highlighter-rouge">1M</code> 的二进制文件</p>
+
+    <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="n">java</span><span class="w"> </span><span class="nt">-jar</span><span class="w"> </span><span class="nx">bfg-1.14.0.jar</span><span class="w"> </span><span class="nt">--strip-blobs-bigger-than</span><span class="w"> </span><span class="nx">1M</span><span class="w"> </span><span class="p">[</span><span class="n">repo_name</span><span class="p">]</span><span class="o">.</span><span class="nf">git</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>
+    <p>根据指定文件名清除历史记录</p>
+
+    <p>例：清理所有后缀为 <code class="language-plaintext highlighter-rouge">.zip</code> 的文件</p>
+
+    <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="n">java</span><span class="w"> </span><span class="nt">-jar</span><span class="w"> </span><span class="nx">bfg-1.14.0.jar</span><span class="w"> </span><span class="nt">--delete-files</span><span class="w"> </span><span class="o">*.</span><span class="nf">zip</span><span class="w"> </span><span class="p">[</span><span class="n">repo_name</span><span class="p">]</span><span class="o">.</span><span class="nf">git</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>
+    <p>根据文件夹清除历史记录</p>
+
+    <p>例：清理文件夹 <code class="language-plaintext highlighter-rouge">build</code></p>
+
+    <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="n">java</span><span class="w"> </span><span class="nt">-jar</span><span class="w"> </span><span class="nx">bfg-1.14.0.jar</span><span class="w"> </span><span class="nt">--delete-folders</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="p">[</span><span class="n">repo_name</span><span class="p">]</span><span class="o">.</span><span class="nf">git</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>
+    <p>进入 <code class="language-plaintext highlighter-rouge">.git</code> 目录，执行垃圾回收</p>
+
+    <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="n">cd</span><span class="w"> </span><span class="p">[</span><span class="n">your_repo</span><span class="p">]</span><span class="o">.</span><span class="nf">git</span><span class="w">
+  </span><span class="nx">git</span><span class="w"> </span><span class="nx">reflog</span><span class="w"> </span><span class="nx">expire</span><span class="w"> </span><span class="nt">--expire</span><span class="o">=</span><span class="n">now</span><span class="w"> </span><span class="nt">--all</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">git</span><span class="w"> </span><span class="nx">gc</span><span class="w"> </span><span class="nt">--prune</span><span class="o">=</span><span class="n">now</span><span class="w"> </span><span class="nt">--aggressive</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>
+    <p>最后，执行提交操作</p>
+
+    <div class="language-powershell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">git</span><span class="w"> </span><span class="nx">push</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li><strong>【注意】</strong> 最后的最后，必须移除所有该仓库的本地同步内容重新同步，包括自己和他人已经同步过的该仓库。因为旧的同步仓库包含未被清理过的所有脏记录，如果某个本地同步仓库在使用 <code class="language-plaintext highlighter-rouge">BFG</code> 清理后进行提交，会将重新造成记录污染。因此需要删除本地同步仓库后重新同步抓取，保证清理过程不会因为其它该仓库的历史本地信息因下一次提交而被污染。当然，不要忘记，重新同步到本地后，试试 repo 能否编译通过 0.0。</li>
+</ul>
+
+<p>清理完毕，可以删除 <code class="language-plaintext highlighter-rouge">mirror/[your_repo].git</code> 文件夹。</p>
 
 <h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1104,20 +1234,6 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
@@ -1125,7 +1241,28 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/space-quaternion/">航天中的四元数以及姿态运动学</a>
+          <a href="/posts/CV-yolov5/">计算机视觉（YOLO V5）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-pytorch/">VSCode部署Pytorch机器学习框架</a>
         </li>
       
     </ul>

@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-10-10T15:00:57+08:00</updated>
+  <updated>2023-10-12T14:07:40+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" rel="alternate" type="text/html" title="如何清理 .git 文件夹来减小 github 仓库大小" />
     <published>2023-09-18T13:58:19+08:00</published>
   
-    <updated>2023-09-18T15:12:56+08:00</updated>
+    <updated>2023-10-12T13:50:26+08:00</updated>
   
     <id>http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/</id>
     <content src="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" />
@@ -60,6 +60,11 @@
     
   
   2. .git 文件夹清理
+    
+      2.1. Linux 环境命令行清理
+      2.2. 跨平台 BFG 工具清理
+    
+  
   3. 参考文献
 
 
@@ -71,15 +76,19 @@
 
 1.3. .git 文件夹
 
+git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内。
+
+.git 文件夹清理不会把仓库中已有的文件夹和里面的内容删除，会保留最新的一次提交，并且默认最近的一次提交是干净无误的提交。
+
 2. .git 文件夹清理
+
+2.1. Linux 环境命令行清理
 
 需要 Linux 环境。
 
 
   
-    检查仓库是否存在未提交的更改
-
-    如果仓库存在未提交的更改，会在后续操作中提示提示 Cannot rewrite branches: You have unstaged changes. 表明尝试重写分支时，有一些未暂存的更改。这意味着你在Git版本控制中，工作目录或者暂存区有一些更改还没有被添加到暂存区。因此，Git不能进行重写操作，因为这可能会导...
+ ...
     </summary>
   
 
@@ -158,7 +167,7 @@
     <link href="http://localhost:4000/posts/space-quaternion/" rel="alternate" type="text/html" title="航天中的四元数以及姿态运动学" />
     <published>2023-06-02T18:38:19+08:00</published>
   
-    <updated>2023-09-01T22:48:09+08:00</updated>
+    <updated>2023-10-10T15:02:18+08:00</updated>
   
     <id>http://localhost:4000/posts/space-quaternion/</id>
     <content src="http://localhost:4000/posts/space-quaternion/" />
@@ -229,7 +238,7 @@
     <link href="http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/" rel="alternate" type="text/html" title="Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程" />
     <published>2023-05-15T23:59:19+08:00</published>
   
-    <updated>2023-05-15T23:59:19+08:00</updated>
+    <updated>2023-10-10T15:02:18+08:00</updated>
   
     <id>http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/</id>
     <content src="http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/" />
