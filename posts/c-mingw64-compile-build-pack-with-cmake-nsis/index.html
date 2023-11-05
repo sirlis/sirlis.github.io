@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-10-10T15:02:18+08:00","datePublished":"2023-05-15T23:59:19+08:00","description":"本文介绍了 Windows 环境下使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。","headline":"Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/"},"url":"http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-05T11:31:14+08:00","datePublished":"2023-05-15T23:59:19+08:00","description":"本文介绍了 Windows 环境下使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。","headline":"Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/"},"url":"http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1043,6 +1043,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1059,6 +1071,78 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1221,13 +1305,13 @@
 
 <em
   class=""
-  data-ts="1696921338"
+  data-ts="1699155074"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/10/10
+  2023/11/05
 </em>
 
     </span>
@@ -1271,9 +1355,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3901 字"
+  title="5384 字"
 >
-  <em>21 分钟</em>阅读</span>
+  <em>29 分钟</em>阅读</span>
 
     </div>
 
@@ -1289,51 +1373,75 @@
 <hr />
 
 <ul>
-  <li><a href="#1-引言">1. 引言</a></li>
-  <li><a href="#2-cmake-配置">2. CMake 配置</a>
+  <li><a href="#1-引言">1. 引言</a>
     <ul>
-      <li><a href="#21-环境搭建">2.1. 环境搭建</a></li>
-      <li><a href="#22-配置configure">2.2. 配置（Configure）</a></li>
-      <li><a href="#23-生成generate">2.3. 生成（Generate）</a></li>
-      <li><a href="#24-构建build">2.4. 构建（Build）</a></li>
-      <li><a href="#25-运行和调试debug">2.5. 运行和调试（Debug）</a></li>
+      <li><a href="#11-传统编译">1.1. 传统编译</a></li>
+      <li><a href="#12-make-编译">1.2. Make 编译</a></li>
+      <li><a href="#13-cmake-编译">1.3. CMake 编译</a></li>
     </ul>
   </li>
-  <li><a href="#3-基于-cmake-的打包">3. 基于 CMake 的打包</a>
+  <li><a href="#2-安装-cmake">2. 安装 CMake</a></li>
+  <li><a href="#3-编写-cmakeliststxt">3. 编写 CMakeLists.txt</a>
     <ul>
-      <li><a href="#31-cpack">3.1. CPack</a></li>
-      <li><a href="#32-nsis">3.2. NSIS</a></li>
-      <li><a href="#33-基于-cpack-和-nsis-的打包">3.3. 基于 CPack 和 NSIS 的打包</a></li>
+      <li><a href="#31-版本与编译选项配置">3.1. 版本与编译选项配置</a></li>
+      <li><a href="#32-可执行程序配置">3.2. 可执行程序配置</a></li>
+      <li><a href="#33-头文件搜索">3.3. 头文件搜索</a></li>
+      <li><a href="#34-子项目wip">3.4. 子项目（WIP）</a></li>
+      <li><a href="#35-otherswip">3.5. others（WIP）</a></li>
+      <li><a href="#36-生成generate">3.6. 生成（Generate）</a></li>
+      <li><a href="#37-构建build">3.7. 构建（Build）</a></li>
+      <li><a href="#38-运行和调试debug">3.8. 运行和调试（Debug）</a></li>
     </ul>
   </li>
-  <li><a href="#4-参考文献">4. 参考文献</a></li>
+  <li><a href="#4-基于-cmake-的打包">4. 基于 CMake 的打包</a>
+    <ul>
+      <li><a href="#41-cpack">4.1. CPack</a></li>
+      <li><a href="#42-nsis">4.2. NSIS</a></li>
+      <li><a href="#43-基于-cpack-和-nsis-的打包">4.3. 基于 CPack 和 NSIS 的打包</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-参考文献">5. 参考文献</a></li>
 </ul>
 
 <h2 id="1-引言"><span class="me-2">1. 引言</span><a href="#1-引言" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>前面我们介绍了在VSCode中采用MinGW-W64作为C/C++的编译器来进行C++编程。为了进一步对构建完成的工程项目进行打包分发，需要采用CMake和NSIS来对项目进行编译打包。</p>
+<p>假如我们有一个大型的 C++ 项目，由非常多的互相调用的工程共同组成，一些用于生成库文件，一些用于实现逻辑功能。他们之间的调用关系复杂而严格，如果想在这样复杂的框架下进行二次开发，显然只拥有它的源码是远远不够的，还需要清楚的明白这几十个项目之间的复杂关系。即使是原作者给出了相关的结构文档，对新手来说建立工程的过程依旧是漫长而艰辛的，开发人员的核心业务是软件开发，而不是软件构建。Cmake目的是实现软件构建流程的自动化，并且是跨平台的。</p>
 
-<p>假如我们有一个大型的C++项目，由非常多的互相调用的工程共同组成，一些用于生成库文件，一些用于实现逻辑功能。他们之间的调用关系复杂而严格，如果想在这样复杂的框架下进行二次开发，显然只拥有它的源码是远远不够的，还需要清楚的明白这几十个项目之间的复杂关系。即使是原作者给出了相关的结构文档，对新手来说建立工程的过程依旧是漫长而艰辛的，开发人员的核心业务是软件开发，而不是软件构建。Cmake目的是实现软件构建流程的自动化，并且是跨平台的。</p>
+<p>原作者只需要生成一份 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文档，框架的使用者们只需要在下载源码的同时下载作者提供的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>，就可以利用 CMake，在原作者的帮助下进行工程的搭建。Cmake 编程的过程实际上是编写 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>的过程，使用的是 “Cmake” 语言和语法。</p>
 
-<p>原作者只需要生成一份 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文档，框架的使用者们只需要在下载源码的同时下载作者提供的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>，就可以利用CMake，在原作者的帮助下进行工程的搭建。Cmake 编程的过程实际上是编写 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>的过程，使用的是 “Cmake” 语言和语法。</p>
+<h3 id="11-传统编译"><span class="me-2">1.1. 传统编译</span><a href="#11-传统编译" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h2 id="2-cmake-配置"><span class="me-2">2. CMake 配置</span><a href="#2-cmake-配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>将一个C++项目从源文件编译得到可执行程序文件，需要使用C/C++编译器。较广泛使用的是 GCC（GNU Compiler Collection，GNU编译器套件），它可以编译很多种编程语言(包括C、C++、Objective-C、Fortran、Java等等)。GCC 编译的核心是 <code class="language-plaintext highlighter-rouge">gcc</code> 命令。对于源文件数量较少且路径单一的情况，可以直接在终端输入编译命令进行编译，示意如下：</p>
 
-<p>CMake（官网：https://cmake.org）是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性</p>
+<div class="language-shell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>g++ <span class="nt">-c</span> demo.cpp <span class="nt">-I</span> /aaa/bbb/ <span class="nt">-o</span> demo.exe
+</pre></td></tr></tbody></table></code></div></div>
+<h3 id="12-make-编译"><span class="me-2">1.2. Make 编译</span><a href="#12-make-编译" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>你或许听过好几种 Make 工具，例如 GNU Make ，QT 的 qmake ，微软的 MS nmake，BSD Make（pmake），Makepp，等等。这些 Make 工具遵循着不同的规范和标准，所执行的 Makefile 格式也千差万别。这样就带来了一个严峻的问题：如果软件想跨平台，必须要保证能够在不同平台编译。而如果使用上面的 Make 工具，就得为每一种标准写一次 <code class="language-plaintext highlighter-rouge">Makefile</code> ，这将是一件让人抓狂的工作。CMake 就是针对上面问题所设计的工具：它首先允许开发者编写一种平台无关的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的本地化 Makefile 和工程文件，如 Unix 的 Makefile 或 Windows 的 Visual Studio 工程。从而做到“Write once, run everywhere”。</p>
+<p>当程序包含很多源文件时，用 <code class="language-plaintext highlighter-rouge">gcc</code> 命令逐个去编译时，就很容易混乱而且工作量大。所以就出现了 Make 工具。它是一个自动化编译工具，我们可以使用一条命令实现完全编译，但是需要编写一个规则文件，Make工具依据它来批量处理编译，这个文件就是 Makefile 文件。</p>
+
+<p>Makefile 带来的好处就是——“自动化编译”，一旦写好，只需要一个 make 命令，整个工程完全自动编译，极大的提高了软件开发的效率。make 是一个命令工具，是一个解释 Makefile 中指令的命令工具，一般来说，大多数的 IDE 都有这个命令，比如：Delphi 的 make，Visual C++ 的 nmake，Linux 下 GNU 的 Makefile 都成为了一种在工程方面的编译方法。</p>
+
+<p>Makefile 在一些简单的工程完全可以人工手写，但是当工程非常大的时候，手写 Makefile 也是非常麻烦的，如果换了个平台 Makefile 又要重新修改。另一方面，若想要更换开发环境，如需要将工程迁移到 Visual Studio IDE 进行开发，需要构建基于 VS 的项目框架，生成 <code class="language-plaintext highlighter-rouge">.sln</code> 和 <code class="language-plaintext highlighter-rouge">.vcproj</code> 文件，此时 Makefile 就无能为力了。</p>
 
 <blockquote>
-  <p>比如，同一个工程源码，可以通过 CMake 得到 Visual Studio 系列软件使用的 <code class="language-plaintext highlighter-rouge">.sln</code> 和 <code class="language-plaintext highlighter-rouge">.vcproj</code> 工程文件，也可以生成 <code class="language-plaintext highlighter-rouge">makefile</code> 文件。</p>
+  <p><strong>.sln 文件（解决方案文件）</strong> 是 Visual Studio 的解决方案文件，用于组织和管理一个或多个项目。它可以包含一个或多个项目，以及这些项目之间的关系和配置信息。一个 .sln 文件本身并不包含任何代码或文件，它只是包含引用到该解决方案中所有项目的信息和设置。.sln 文件可以存储在版本控制系统中，以便多个开发人员共享和协作。
+<strong>.vcxproj 文件（项目文件）</strong> 是 Visual C++ 项目文件，包含项目的设置和配置信息，例如编译器选项、预处理器选项、文件列表和库依赖项等。它通常是随着每个项目的创建而生成的，并存储在项目的根目录下。每个项目都有一个单独的 .vcxproj 文件，而解决方案只包含对每个项目的引用。</p>
 </blockquote>
 
-<p>显然，CMake 是一个比上述几种 make 更高级的编译配置工具。一些使用 CMake 作为项目架构系统的知名开源项目有 VTK、ITK、KDE、OpenCV、OSG 等</p>
+<h3 id="13-cmake-编译"><span class="me-2">1.3. CMake 编译</span><a href="#13-cmake-编译" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h3 id="21-环境搭建"><span class="me-2">2.1. 环境搭建</span><a href="#21-环境搭建" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>这个时候出现了CMake这个工具，CMake能够输出各种各样的 Makefile 或者 project 文件，从而帮助程序员减轻负担。CMake 通过编写 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，实现跨平台生成对应能用的 Makefile 或工程文件，我们不需要自己再去修改。</p>
+
+<p><code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 是一种平台无关的文件，用来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的本地化 Makefile 和工程文件，如 Unix 的 Makefile 或 Windows 的 Visual Studio 工程。从而做到 <strong>“Write once, run everywhere”</strong>。一些使用 CMake 作为项目架构系统的知名开源项目有 VTK、ITK、KDE、OpenCV、OSG 等。</p>
+
+<h2 id="2-安装-cmake"><span class="me-2">2. 安装 CMake</span><a href="#2-安装-cmake" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>前提，已经安装有至少一个C/C++编译器，如 MinGW-W64。可以通过<code class="language-plaintext highlighter-rouge">gcc --version</code> 查看版本来确认安装是否成功。</p>
 
-<p>在 Windows 环境下，直接前往官网下载最新的安装包安装。可以通过 <code class="language-plaintext highlighter-rouge">cmake --version</code> 查看版本来确认安装是否成功。</p>
+<p>在 Windows 环境下，CMake 可以在官网（https://cmake.org）下载，安装后包括一个控制台程序和一个 GUI 程序。可以通过 <code class="language-plaintext highlighter-rouge">cmake --version</code> 检查安装情况和版本情况。</p>
 
 <p>在 VScode 中，需要安装以下两个插件：</p>
 <ul>
@@ -1343,22 +1451,228 @@
 
 <p>在 Cmake Tools 插件设置中将 Cmake 的 <code class="language-plaintext highlighter-rouge">make.exe</code> 可执行程序完整路径设置到 <code class="language-plaintext highlighter-rouge">cmake.cmakePath</code>。同时将 make.exe 所在的路径添加到系统的环境变量中（因为后续用 <code class="language-plaintext highlighter-rouge">cpack.exe</code> 打包时候也要找路径）。</p>
 
-<p>使用 CMake 插件创建 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件（文件名一个字都不能错）。两种创建方式，推荐后者：</p>
+<p>使用 CMake 插件创建 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件（文件名一个字都不能错）。两种创建方式：</p>
 
 <ul>
   <li>
     <p>手动创建，直接在工程项目的根目录下新建一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件；</p>
   </li>
   <li>
-    <p>【推荐】插件自动创建，在 VSCode 中打开工程项目文件夹，输入快捷键组合 <code class="language-plaintext highlighter-rouge">Ctrl + Shift + P</code> 然后输入 <code class="language-plaintext highlighter-rouge">cmake quick start</code> 进行快速设置。首次设置会弹出 <code class="language-plaintext highlighter-rouge">Select a Kit</code> 需要选择一个编译器，若正确安装 MinGW-W64 并添加了环境变量，一般会自动检索到类似 <code class="language-plaintext highlighter-rouge">GCC XX.X.X x86-64-w64-mingw32</code> 的编译器，注意检查后面的路径是否正确，然后选择即可。选择后即会在项目根目录下自动创建<code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件。</p>
+    <p>自动创建，在 VSCode 中打开工程项目文件夹，输入快捷键组合 <code class="language-plaintext highlighter-rouge">Ctrl + Shift + P</code> 然后输入 <code class="language-plaintext highlighter-rouge">cmake quick start</code> 进行快速设置。首次设置会弹出 <code class="language-plaintext highlighter-rouge">Select a Kit</code> 需要选择一个编译器，若正确安装 MinGW-W64 并添加了环境变量，一般会自动检索到类似 <code class="language-plaintext highlighter-rouge">GCC XX.X.X x86-64-w64-mingw32</code> 的编译器，注意检查后面的路径是否正确，然后选择即可。选择后即会在项目根目录下自动创建<code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件。</p>
   </li>
 </ul>
 
 <p><a href="/assets/img/postsimg/20230515/select-a-kit.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230515/select-a-kit.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
-<h3 id="22-配置configure"><span class="me-2">2.2. 配置（Configure）</span><a href="#22-配置configure" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h2 id="3-编写-cmakeliststxt"><span class="me-2">3. 编写 CMakeLists.txt</span><a href="#3-编写-cmakeliststxt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>配置即编写 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，通常一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件需要包含：</p>
+<p>一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件有自己的格式和命令，下面以基本的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 为例，按照文件内从上到下的顺序逐一介绍</p>
+
+<h3 id="31-版本与编译选项配置"><span class="me-2">3.1. 版本与编译选项配置</span><a href="#31-版本与编译选项配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-cmake highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cmake"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c1"># 指定 cmake 的最低版本</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span>VERSION 3.10<span class="p">)</span>
+<span class="c1"># 设置 cmake 的 C 版本为 C99</span>
+<span class="nb">set</span><span class="p">(</span>CMAKE_C_STANDARD 99<span class="p">)</span>
+<span class="c1"># 设置 cmake 的 C++ 版本为 C++11</span>
+<span class="nb">set</span><span class="p">(</span>CMAKE_CXX_STANDARD 11<span class="p">)</span>
+<span class="c1"># 要求强制执行C++版本检查，若不符合则报错</span>
+<span class="nb">set</span><span class="p">(</span>CMAKE_CXX_STANDARD_REQUIRED True<span class="p">)</span>
+<span class="c1"># 设置 cmake 默认编译选项为 Release</span>
+<span class="nb">set</span><span class="p">(</span>CMAKE_BUILD_TYPE <span class="s2">"Release"</span> CACHE STRING <span class="s2">""</span> FORCE<span class="p">)</span>
+<span class="c1"># 在控制台打印编译选项</span>
+<span class="nb">message</span><span class="p">(</span>STATUS <span class="s2">"[INFO] Set to </span><span class="si">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="si">}</span><span class="s2"> build."</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>在 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件中：</p>
+<ul>
+  <li>采用 <code class="language-plaintext highlighter-rouge">set(变量 文件名/路径/...)</code> 函数给文件名/路径名或其他字符串起别名，用 <code class="language-plaintext highlighter-rouge">${变量}</code> 获取变量内容；</li>
+  <li>采用 <code class="language-plaintext highlighter-rouge">${xxx}</code> 来取变量的值；</li>
+</ul>
+
+<h3 id="32-可执行程序配置"><span class="me-2">3.2. 可执行程序配置</span><a href="#32-可执行程序配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>一个大型 C++ 项目一般包括多个子项目路径，分别实现较为独立的不同功能，假设项目路径为</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>//test文件夹
+|--3rdpaty
+    |--glm
+        |--rotate.h
+|--include
+    |--a.h
+    |--b.h
+|--path1
+    |--add.cpp
+    |--add.h
+    |--CMakeLists.txt // path1
+|--function.h
+|--function.cpp
+|--main.cpp
+|--CMakeLists.txt // main
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>根目录下存在 <code class="language-plaintext highlighter-rouge">main.cpp</code> 和 <code class="language-plaintext highlighter-rouge">function.cpp/.h</code>，假设他们可以完整编译为可执行程序，但需要依赖 <code class="language-plaintext highlighter-rouge">include</code> 文件夹中的头文件和 <code class="language-plaintext highlighter-rouge">3rdparty</code> 文件夹中的头文件，那么在 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>(main) 中内容可写为</p>
+
+<div class="language-cmake highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cmake"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># 指定项目名称为 test</span>
+<span class="nb">project</span><span class="p">(</span>test<span class="p">)</span>
+<span class="c1"># 编译可执行程序(test)，以及生成该程序需要的源文件</span>
+<span class="nb">add_executable</span><span class="p">(</span>test function.cpp main.cpp
+    function.h include/a.h include/b.h 3rdparty/glm/rotate.h<span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="33-头文件搜索"><span class="me-2">3.3. 头文件搜索</span><a href="#33-头文件搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>为了避免繁琐的头文件列写过程，我们可以<strong>在设定项目编译的源程序文件后</strong>，指定其头文件搜索路径</p>
+
+<div class="language-cmake highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cmake"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nb">add_executable</span><span class="p">(</span>test function.cpp main.cpp<span class="p">)</span>
+<span class="c1"># 添加当前根目录为头文件搜索路径</span>
+<span class="nb">target_include_directories</span><span class="p">(</span>test PRIVATE .<span class="p">)</span>
+<span class="c1"># 添加 include 目录为头文件搜索路径</span>
+<span class="nb">target_include_directories</span><span class="p">(</span>test PRIVATE include<span class="p">)</span>
+<span class="c1"># 添加 include/glm 目录为头文件搜索路径</span>
+<span class="nb">target_include_directories</span><span class="p">(</span>test PRIVATE 3rdparty/glm<span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">PRIVATE</code> 表示隐式包含，此时后面给出的头文件搜索路径只能被 <code class="language-plaintext highlighter-rouge">test</code> 所使用。如果选择 <code class="language-plaintext highlighter-rouge">PUBLIC</code> 则后续其他可执行程序等也都可以使用。为了保证高内聚低耦合的特点，建议尽量使用 <code class="language-plaintext highlighter-rouge">PRIVATE</code>。</p>
+
+<p>可以看出，为了包含头文件搜索路径，我们需要写很多次重复语句 。为了简化头文件搜索路径定义，我们可以采用如下两种方式</p>
+
+<ul>
+  <li><strong>根据项目所有头文件自动列出头文件路径</strong>
+    <div class="language-cmake highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cmake"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="nb">add_executable</span><span class="p">(</span>test function.cpp main.cpp<span class="p">)</span>
+<span class="c1"># 从根目录下开始递归寻找所有头文件，存到 all_h 列表</span>
+<span class="nb">file</span><span class="p">(</span>GLOB_RECURSE all_h ./*.h<span class="p">)</span>
+<span class="nb">foreach</span><span class="p">(</span>HEADER <span class="si">${</span><span class="nv">all_h</span><span class="si">}</span><span class="p">)</span>
+<span class="c1"># 对于每一个头文件，得到其路径 h_path</span>
+<span class="nb">get_filename_component</span><span class="p">(</span>h_path <span class="si">${</span><span class="nv">HEADER</span><span class="si">}</span> DIRECTORY<span class="p">)</span>
+<span class="c1"># 将路径添加到 h_dirs 列表 </span>
+<span class="nb">list</span><span class="p">(</span>APPEND h_dirs <span class="si">${</span><span class="nv">h_path</span><span class="si">}</span><span class="p">)</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+<span class="c1"># 对 h_dirs 列表去除重复项</span>
+<span class="nb">list</span><span class="p">(</span>REMOVE_DUPLICATES h_dirs<span class="p">)</span>
+<span class="c1"># 将 h_dirs 添加项目 test 的头文件搜索路径</span>
+<span class="nb">target_include_directories</span><span class="p">(</span>test PRIVATE <span class="si">${</span><span class="nv">h_dirs</span><span class="si">}</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+    <p><strong>优点</strong>：当新添加头文件时，可以自动更新搜索路径
+<strong>缺点</strong>：若源程序文件中显式给出了头文件的相对路径包含关系，如</p>
+    <div class="language-cpp highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cpp"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;glm/rotate.h&gt;</span><span class="cp">
+</span></pre></td></tr></tbody></table></code></div>    </div>
+    <p>此时自动搜索的路径没有包含 <code class="language-plaintext highlighter-rouge">./3rdparty</code>，因为该路径下没有头文件，那么就会导致连接错误，找不到头文件。相反，自动搜索路径会包含 <code class="language-plaintext highlighter-rouge">./3rdparty/glm</code>，因为其中存在 <code class="language-plaintext highlighter-rouge">rotate.h</code>。</p>
+  </li>
+  <li><strong>手动设置头文件路径列表</strong>
+    <div class="language-cmake highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cmake"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1"># 显式添加头文件搜索路径到列表 h_dirs</span>
+<span class="nb">list</span><span class="p">(</span>APPEND h_dirs
+  ./
+  ./include
+  ./3rdparty
+<span class="p">)</span>
+<span class="c1"># 将 h_dirs 添加项目 test 的头文件搜索路径</span>
+<span class="nb">target_include_directories</span><span class="p">(</span>test PRIVATE <span class="si">${</span><span class="nv">h_dirs</span><span class="si">}</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+    <p><strong>优点</strong>：可以更好配合头文件引用关系
+<strong>缺点</strong>：需要手动维护头文件路径列表，路径多了列表会很长
+一般鼓励大家用此种方法，因为项目的头文件列表本来就推荐显式维护</p>
+  </li>
+</ul>
+
+<h3 id="34-子项目wip"><span class="me-2">3.4. 子项目（WIP）</span><a href="#34-子项目wip" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>通过子项目路径下的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>（path1）文件联合根目录下的  <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>（main）进行配置</p>
+
+<div class="language-cmake highlighter-rouge"><div class="code-header">
+        <span data-label-text="Cmake"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">####### CMakeLists.txt (main)</span>
+<span class="c1"># 添加子项目路径 path1</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span>path1<span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span>test function.cpp main.cpp function.h <span class="si">${</span><span class="nv">path1src</span><span class="si">}</span><span class="p">)</span>
+
+<span class="c1">####### CMakeLists.txt (path1)</span>
+<span class="nb">set</span><span class="p">(</span>path1src path1/add.cpp path1/add.h<span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="35-otherswip"><span class="me-2">3.5. others（WIP）</span><a href="#35-otherswip" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">project(xxx)</code>，必须</li>
@@ -1512,14 +1826,14 @@
 
 <span class="nb">set</span><span class="p">(</span>CMAKE_VERBOSE_MAKEFILE <span class="s2">"ON"</span><span class="p">)</span> <span class="c1"># 启用详细打印，方便查看bug</span>
 
-<span class="c1">### 通过遍历来搜寻所有 .h 文件，并保存到 ALL_H 变量中</span>
+<span class="c1">### 通过遍历来搜寻所有 .h 文件，并保存到 all_h 变量中</span>
 <span class="c1"># ${PROJECT_SOURCE_DIR} 是默认的工程根目录</span>
-<span class="nb">file</span><span class="p">(</span>GLOB_RECURSE ALL_H
+<span class="nb">file</span><span class="p">(</span>GLOB_RECURSE all_h
         <span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span>/src/**.h
 <span class="p">)</span>
 
 <span class="c1">### 遍历每个 .h 文件（这段抄的网上的）</span>
-<span class="nb">foreach</span><span class="p">(</span>file  <span class="si">${</span><span class="nv">ALL_H</span><span class="si">}</span><span class="p">)</span>
+<span class="nb">foreach</span><span class="p">(</span>file  <span class="si">${</span><span class="nv">all_h</span><span class="si">}</span><span class="p">)</span>
     <span class="c1"># 找到文件的上级路径</span>
     <span class="nb">string</span><span class="p">(</span>REGEX REPLACE <span class="s2">"/$"</span> <span class="s2">""</span> CURRENT_FOLDER_ABSOLUTE <span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="p">)</span>
     <span class="nb">string</span><span class="p">(</span>REGEX REPLACE <span class="s2">"(.*/)(.*)"</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">1"</span> CURRENT_FOLDER <span class="si">${</span><span class="nv">CURRENT_FOLDER_ABSOLUTE</span><span class="si">}</span><span class="p">)</span>
@@ -1628,10 +1942,7 @@
 <span class="c1"># cpack.exe .\CPackConfig.cmake</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>在 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件中：</p>
 <ul>
-  <li>采用 <code class="language-plaintext highlighter-rouge">set(变量 文件名/路径/...)</code> 函数给文件名/路径名或其他字符串起别名，用 <code class="language-plaintext highlighter-rouge">${变量}</code> 获取变量内容；</li>
-  <li>采用 <code class="language-plaintext highlighter-rouge">${xxx}</code> 来取变量的值；</li>
   <li>采用 <code class="language-plaintext highlighter-rouge">aux_source_directory(路径 变量)</code> 可获取路径下所有的.cpp/.c/.cc文件（不包括子目录），并赋值给变量;</li>
   <li>采用 <code class="language-plaintext highlighter-rouge">add_compile_definitions(xxx=1)</code> 可以给宏具体值，但是只有高版本的cmake支持，等价于 <code class="language-plaintext highlighter-rouge">#define xxx 1</code>；</li>
   <li>采用 <code class="language-plaintext highlighter-rouge">add_subdirectory(子文件夹名称)</code> 编译子文件夹的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>；</li>
@@ -1639,7 +1950,7 @@
   <li>规定 <code class="language-plaintext highlighter-rouge">.so/.a</code> 库文件路径使用 <code class="language-plaintext highlighter-rouge">link_directories(路径)</code>；</li>
 </ul>
 
-<h3 id="23-生成generate"><span class="me-2">2.3. 生成（Generate）</span><a href="#23-生成generate" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="36-生成generate"><span class="me-2">3.6. 生成（Generate）</span><a href="#36-生成generate" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>我们一般会在 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 所在的目录下（一般也就是工程项目的根目录）手动新建一个 <code class="language-plaintext highlighter-rouge">build</code> 文件夹，这将用于存储 CMake 构建的中间文件和生成的目标文件。这种方式实际上是 cmake 的 out-of-source 构建方式。这种方法可以保证生成中间产物与源代码分离（即生成的所有目标文件都存储在 <code class="language-plaintext highlighter-rouge">build</code> 文件夹中，因此不会干扰源代码中的任何文件）。</p>
 
@@ -1667,7 +1978,7 @@ make
 
 <p><a href="/assets/img/postsimg/20230515/cmake-configure-result.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230515/cmake-configure-result.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
-<h3 id="24-构建build"><span class="me-2">2.4. 构建（Build）</span><a href="#24-构建build" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="37-构建build"><span class="me-2">3.7. 构建（Build）</span><a href="#37-构建build" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>采用 CMake 构建项目有三种方式：</p>
 <ul>
@@ -1680,15 +1991,15 @@ make
 
 <p><a href="/assets/img/postsimg/20230515/build.png" class="popup img-link "><img data-src="/assets/img/postsimg/20230515/build.png" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
-<h3 id="25-运行和调试debug"><span class="me-2">2.5. 运行和调试（Debug）</span><a href="#25-运行和调试debug" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="38-运行和调试debug"><span class="me-2">3.8. 运行和调试（Debug）</span><a href="#38-运行和调试debug" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>运行和调试项目，打开某个源代码文件，并设置一个断点。然后打开命令板（<code class="language-plaintext highlighter-rouge">Ctrl+Shift+P</code>），并运行 <code class="language-plaintext highlighter-rouge">CMake： debug</code>，然后按 F5 继续调试。</p>
 
 <p>或者点击 VSCode 下方的 【<strong>虫子</strong>】 图标进行 DEBUG 调试。</p>
 
-<h2 id="3-基于-cmake-的打包"><span class="me-2">3. 基于 CMake 的打包</span><a href="#3-基于-cmake-的打包" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="4-基于-cmake-的打包"><span class="me-2">4. 基于 CMake 的打包</span><a href="#4-基于-cmake-的打包" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h3 id="31-cpack"><span class="me-2">3.1. CPack</span><a href="#31-cpack" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="41-cpack"><span class="me-2">4.1. CPack</span><a href="#41-cpack" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>CPack 是 CMake 2.4.2 之后的一个内置工具，用于创建软件的二进制包和源代码包。</p>
 
@@ -1720,7 +2031,7 @@ make
 
 <p><strong>如何安装 CPack</strong>：安装 CMake 的时候会把 CPack 一起安装了。</p>
 
-<h3 id="32-nsis"><span class="me-2">3.2. NSIS</span><a href="#32-nsis" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="42-nsis"><span class="me-2">4.2. NSIS</span><a href="#42-nsis" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>官网下载最新版本并安装：https://nsis.sourceforge.io/Download。</p>
 
@@ -1730,11 +2041,11 @@ make
 
 <p>NSIS基于脚本文件，支持变量、函数和字符串操作，就像一种普通的编程语言一样，但它是为创建安装程序而设计的。在默认选项下，它的开销只有34kb。同时由于其强大的脚本语言和对外部插件的支持，仍然提供了许多选项。</p>
 
-<p>安装完成后，NSIS 具备一个 GUI，但是我一般不用，而是直接通过 CMakeLists.txt 文件调用 NSIS 进行打包。详见 <a href="#22-配置configure">配置</a> 中的 <code class="language-plaintext highlighter-rouge">#打包</code>。</p>
+<p>安装完成后，NSIS 具备一个 GUI，但是我一般不用，而是直接通过 CMakeLists.txt 文件调用 NSIS 进行打包。</p>
 
 <p>如果需要使用 GUI 来辅助生成打包脚本，参考 <a href="https://www.cnblogs.com/modou/p/3573772.html">此处</a>。</p>
 
-<h3 id="33-基于-cpack-和-nsis-的打包"><span class="me-2">3.3. 基于 CPack 和 NSIS 的打包</span><a href="#33-基于-cpack-和-nsis-的打包" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="43-基于-cpack-和-nsis-的打包"><span class="me-2">4.3. 基于 CPack 和 NSIS 的打包</span><a href="#43-基于-cpack-和-nsis-的打包" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>完成项目构建后, 你会发现 <code class="language-plaintext highlighter-rouge">build</code> 目录下面多了两个文件 <code class="language-plaintext highlighter-rouge">CPackConfig.cmake</code> 和 <code class="language-plaintext highlighter-rouge">CPackSourceConfig.cmake</code>。在终端执行以下命令完成打包，得到可执行安装程序。</p>
 
@@ -1748,11 +2059,11 @@ make
 
 <p>将安装程序分发到其它 Windows 平台即可完成安装。</p>
 
-<p>注意，若发布的安装程序在完成安装后，提示缺少某个 dll 文件，那么需要重新更改 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，将相应的 dll 文件进行安装。最好使用dll依赖查询工具来查看编译得到的可执行程序（.exe）依赖哪些第三方dll，然后逐一添加，参考 <a href="#22-配置configure">配置</a> 中的 <code class="language-plaintext highlighter-rouge">#安装</code>。</p>
+<p>注意，若发布的安装程序在完成安装后，提示缺少某个 dll 文件，那么需要重新更改 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，将相应的 dll 文件进行安装。最好使用dll依赖查询工具来查看编译得到的可执行程序（.exe）依赖哪些第三方dll，然后逐一添加。</p>
 
 <p>可选的工具包括 <a href="https://github.com/lucasg/Dependencies">Dependencies</a>。</p>
 
-<h2 id="4-参考文献"><span class="me-2">4. 参考文献</span><a href="#4-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>[1] maskerII. <a href="https://www.jianshu.com/p/2bdcd7d7b164">【简书】CMakeLists 入门</a></p>
 
@@ -1915,6 +2226,20 @@ make
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/c-mingw64-compile-build-pack-with-cmake-nsis/">Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
@@ -1930,20 +2255,6 @@ make
         
         <li class="text-truncate lh-lg">
           <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-pytorch/">VSCode部署Pytorch机器学习框架</a>
         </li>
       
     </ul>
@@ -3718,15 +4029,16 @@ make
 
 
 
-  1. 简介
-  2. 下载与安装
+  1. VSCode简介
+  2. VSCode下载与安装
   3. 配置C/C++开发环境
     
-      3.1. 部署编译器
-      3.2. MSVC 生成配置文件
+      3.1. MinGW-W64 编译器
         
-          3.2.1. 语言配置（c_cpp_properties.json）
-          3.2.2. 编译配置（...
+          3.1.1. 安装编译器
+          3.1.2. 配置 “编译-调试-运行” 链
+            
+ ...
                 </p>
               </div>
             </div>
