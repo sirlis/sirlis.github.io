@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-11-05T21:53:08+08:00</updated>
+  <updated>2023-11-06T11:14:16+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -234,14 +234,14 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
 
   
   <entry>
-    <title>Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程</title>
-    <link href="http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/" rel="alternate" type="text/html" title="Windows环境下使用MinGW-W64、CMake和NSIS打包C++工程" />
+    <title>使用CMake开发C++工程</title>
+    <link href="http://localhost:4000/posts/c-cmake-development/" rel="alternate" type="text/html" title="使用CMake开发C++工程" />
     <published>2023-05-15T23:59:19+08:00</published>
   
-    <updated>2023-11-05T11:31:14+08:00</updated>
+    <updated>2023-05-15T23:59:19+08:00</updated>
   
-    <id>http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/</id>
-    <content src="http://localhost:4000/posts/c-mingw64-compile-build-pack-with-cmake-nsis/" />
+    <id>http://localhost:4000/posts/c-cmake-development/</id>
+    <content src="http://localhost:4000/posts/c-cmake-development/" />
     <author>
       <name>sirlis</name>
     </author>
@@ -262,7 +262,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
 
 
 
-      本文介绍了 Windows 环境下使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。
+      本文介绍了使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。
 
 
 
@@ -282,14 +282,14 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
       3.1. 版本与编译选项配置
       3.2. 可执行程序配置
       3.3. 头文件搜索
-      3.4. 子项目（WIP）
-      3.5. others（WIP）
-      3.6. 生成（Generate）
-      3.7. 构建（Build）
-      3.8. 运行和调试（Debug）
+      3.4. 源文件搜索
+      3.5. 子项目（WIP）
+      3.6. others（WIP）
+      3.7. 生成（Generate）
+      3.8. 构建（Build）
+      3.9. 运行和调试（Debug）
     
-  
-  4....
+  ...
     </summary>
   
 
