@@ -38,9 +38,10 @@ jobs:
           dst: gitee/sirlis
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
-          # mappings: "sirlis.github.io=>sirlis"
-          white_list: "sirlis.github.io,sirlis"
-          black_list: "FuzzySeg,RailDefect,digital-spacecraft-simulator,digital-spacecraft-scene"
+          mappings: "sirlis.github.io=>sirlis"
+          white_list: "sirlis.github.io"
+          black_list: "FuzzySeg,RailDefect,digital-spacecraft-simulator,digital-spacecraft-scene,digital-spacecraft"
+          force_update: true
           # account_type: org
           # src_account_type: org
           # dst_account_type: org
