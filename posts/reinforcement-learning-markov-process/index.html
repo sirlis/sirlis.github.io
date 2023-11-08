@@ -1322,7 +1322,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6899 字"
+  title="6932 字"
 >
   <em>38 分钟</em>阅读</span>
 
@@ -1518,7 +1518,7 @@ P=
 
 <h3 id="32-回报return"><span class="me-2">3.2. 回报（Return）</span><a href="#32-回报return" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>某时刻 $t$ 的回报（收益）定义为<strong>从时刻 $t$ 开始的 ==采样一条== 状态序列得到的所有奖励的折扣和</strong>：</p>
+<p>某时刻 $t$ 的回报（收益）定义为<strong>从时刻 $t$ 开始的 <font color="red">采样一条</font> 状态序列得到的所有奖励的折扣和</strong>：</p>
 
 \[G_t\doteq R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}\]
 
@@ -1586,8 +1586,7 @@ V(s_t) &amp;= \mathbb{E}[G_t \vert S_t=s_t]\\
 &amp;=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]
 \end{aligned}\]
 
-<p>上式中，第一项 $R_s$ 对应即时奖励，第二项则代表了长期的潜在奖励。可以看出，长期潜在奖励的计算需与下一时刻状态对应回报的期望。
-然而，未来时刻的状态及其回报是不确定的，即</p>
+<p>上式中，第一项 $R_s$ 对应即时奖励，第二项则代表了长期的潜在奖励。可以看出，长期潜在奖励的计算需要获取下一时刻状态对应回报的期望。然而，未来时刻的状态及其回报是不确定的，即</p>
 
 \[\mathbb{E}[G_{t+1}\vert S_t=s_t]\]
 
@@ -1694,6 +1693,10 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 <p>需要注意的是，矩阵求逆的复杂度为 $O(n^3)$，因此直接求解仅适用于状态空间规模小的问题。状态空间规模大的问题的求解通常使用迭代法。常用的迭代方法有：动态规划(Dynamic Programming)、蒙特卡洛评估(Monte-Carlo evaluation)、时序差分(Temporal-Difference)等。</p>
 
+<blockquote>
+  <p>注意到，只有当 $P$ 已知的情况下，也就是模型已知时，才可以得到解析解。</p>
+</blockquote>
+
 <h2 id="4-马尔可夫决策过程mdp"><span class="me-2">4. 马尔可夫决策过程（MDP）</span><a href="#4-马尔可夫决策过程mdp" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>马尔可夫决策过程是在马尔可夫奖励过程的基础上加入了决策，即增加了动作。其定义为：</p>
@@ -1765,7 +1768,7 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 <h4 id="441-状态价值函数"><span class="me-2">4.4.1. 状态价值函数</span><a href="#441-状态价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p><strong>状态价值函数（state-value Function）是从某个状态 $s$ 开始，==执行策略 $\pi$== 所获得的回报的期望</strong>；也即在执行当前策略时，衡量智能体处在状态 $s$ 时的价值大小。即</p>
+<p><strong>状态价值函数（state-value Function）是从某个状态 $s$ 开始，<font color="red">执行策略 $\pi$</font> 所获得的回报的期望</strong>；也即在执行当前策略时，衡量智能体处在状态 $s$ 时的价值大小。即</p>
 
 \[v_\pi(s) \doteq \mathbb{E}_\pi[G_t \vert S_t=s]\]
 
@@ -1869,13 +1872,13 @@ q_\pi(s,a) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert
 
 <p>强化学习中，唯一能变动的部分就是策略 $\pi$。因此我们希望能找到一个最优的策略</p>
 
-\[\pi_* = \mathop{argmax}\limits_\pi \;v_\pi(s) = \mathop{argmax}\limits_\pi \;q_\pi(s,a)\]
+\[\pi_\star = \mathop{argmax}\limits_\pi \;v_\pi(s) = \mathop{argmax}\limits_\pi \;q_\pi(s,a)\]
 
 <p>使得价值函数最大</p>
 
 \[\begin{aligned}
-v_*(s) &amp;\doteq \mathop{max}\limits_\pi \;v_\pi(s) = v_{\pi_*}(s)\\
-q_*(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_*}(s,a)\\
+v_\star(s) &amp;\doteq \mathop{max}\limits_\pi \;v_\pi(s) = v_{\pi_\star}(s)\\
+q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,a)\\
 \end{aligned}\]
 
 <p>已知状态价值函数是动作价值函数的期望（加权平均）</p>
@@ -1886,49 +1889,49 @@ q_*(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_*}(s,a)\\
 
 <p>[ <strong>等式5</strong> ]：</p>
 
-\[v_*(s) = \mathop{max}\limits_a \; q_*(s,a)\]
+\[v_\star(s) = \mathop{max}\limits_a \; q_\star(s,a)\]
 
 <p>但给定动作 $a$ 后的状态转移 $s-s^\prime$ 并不是最优策略能够决定的，而是由环境决定，因此最优动作价值函数并不能将求和符号改为 max 符号，即</p>
 
 <p>[ <strong>等式6</strong> ]：</p>
 
-\[q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_*(s^\prime) \right]\]
+\[q_\star(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\star(s^\prime) \right]\]
 
 <h3 id="47-贝尔曼最优方程"><span class="me-2">4.7. 贝尔曼最优方程</span><a href="#47-贝尔曼最优方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>改写 [ <strong>等式3</strong> ] ，最优状态价值函数对应的贝尔曼最优方程为</p>
 
-\[v_*(s) = \mathop{max}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_*(s^\prime)  ]\]
+\[v_\star(s) = \mathop{max}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\star(s^\prime)  ]\]
 
 <p>将 [ <strong>等式5</strong> ] 带入 [ <strong>等式6</strong> ] ，最优动作价值函数对应的贝尔曼最优方程为</p>
 
-\[q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{max}\limits_a \; q_*(s^\prime,a^\prime) \right]\]
+\[q_\star(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{max}\limits_a \; q_\star(s^\prime,a^\prime) \right]\]
 
 <h3 id="48-最优策略"><span class="me-2">4.8. 最优策略</span><a href="#48-最优策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>解决强化学习问题意味着要寻找一个最优的策略让个体在与环境交互过程中获得始终比其它策略都要多的收获，这个最优策略我们可以用 $\pi_*$ 表示。一旦找到这个最优策略，那么我们就解决了这个强化学习问题。</p>
+<p>解决强化学习问题意味着要寻找一个最优的策略让个体在与环境交互过程中获得始终比其它策略都要多的收获，这个最优策略我们可以用 $\pi_\star$ 表示。一旦找到这个最优策略，那么我们就解决了这个强化学习问题。</p>
 
 <p>一般来说，比较难去找到一个最优策略，但是可以通过比较若干不同策略的优劣来确定一个较好的策略，也就是局部最优解。</p>
 
-<p>如何比较策略的优劣呢？一般是通过对应的价值函数来比较的，也就是说，寻找较优策略可以通过寻找最优价值函数 $v_<em>(s)$ 或 $q_</em>(s,a)$ 来完成。</p>
+<p>如何比较策略的优劣呢？一般是通过对应的价值函数来比较的，也就是说，寻找较优策略可以通过寻找最优价值函数 $v_{<em>}(s)$ 或 $q_{</em>}(s,a)$ 来完成。</p>
 
 <ul>
-  <li><strong>已知</strong> $v_*$</li>
+  <li><strong>已知</strong> $v_{*}$</li>
 </ul>
 
 <p>为了求解最优策略，只需要做一步搜索就行。也就是对于不同的 $a\in A$，计算</p>
 
-\[\pi_*(a\vert s) \leftarrow \mathop{argmax}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_*(s^\prime)]\]
+\[\pi_\star(a\vert s) \leftarrow \mathop{argmax}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_\star(s^\prime)]\]
 
-<p>就是我们的最优策略。为什么只需要一步搜索就行呢？因为 $v_*$ 已经考虑未来可能行为的回报。</p>
+<p>就是我们的最优策略。为什么只需要一步搜索就行呢？因为 $v_\star$ 已经考虑未来可能行为的回报。</p>
 
 <ul>
-  <li><strong>已知</strong> $q_*$</li>
+  <li><strong>已知</strong> $q_{*}$</li>
 </ul>
 
-<p>已知 $q_<em>$ 就更直接了，只要 $q_</em>$ 中最大值对应的动作就是最优动作（策略。）</p>
+<p>已知 $q_{\star}$ 就更直接了，只要 $q_\star$ 中最大值对应的动作就是最优动作（策略）</p>
 
-\[\pi_*(a\vert s) \leftarrow \mathop{argmax}\limits_a\; q_*(s,a)\]
+\[\pi_\star(a\vert s) \leftarrow \mathop{argmax}\limits_a\; q_\star(s,a)\]
 
 <p>我们可以看到我们甚至不用知道环境模型 $p$。但代价是我们需要计算所有状态-动作对的价值函数。</p>
 
@@ -2096,6 +2099,20 @@ q_*(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_*}(s,a)\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/c-cmake-development/">使用CMake开发C++工程</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
         </li>
       
@@ -2111,20 +2128,6 @@ q_*(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_*}(s,a)\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/CV-yolov5/">计算机视觉（YOLO V5）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
         </li>
       
     </ul>

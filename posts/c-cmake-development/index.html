@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="使用CMake开发C++工程" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-05-15T23:59:19+08:00","datePublished":"2023-05-15T23:59:19+08:00","description":"本文介绍了使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。","headline":"使用CMake开发C++工程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/c-cmake-development/"},"url":"http://localhost:4000/posts/c-cmake-development/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-06T23:23:20+08:00","datePublished":"2023-05-15T23:59:19+08:00","description":"本文介绍了使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。","headline":"使用CMake开发C++工程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/c-cmake-development/"},"url":"http://localhost:4000/posts/c-cmake-development/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1304,6 +1304,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1699284200"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/11/06
+</em>
+
+    </span>
+    
 
   
 
@@ -1343,9 +1367,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6263 字"
+  title="6605 字"
 >
-  <em>34 分钟</em>阅读</span>
+  <em>36 分钟</em>阅读</span>
 
     </div>
 
@@ -1409,9 +1433,33 @@
 </pre></td></tr></tbody></table></code></div></div>
 <h3 id="12-make-编译"><span class="me-2">1.2. Make 编译</span><a href="#12-make-编译" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>当程序包含很多源文件时，用 <code class="language-plaintext highlighter-rouge">gcc</code> 命令逐个去编译时，就很容易混乱而且工作量大。所以就出现了 Make 工具。它是一个自动化编译工具，我们可以使用一条命令实现完全编译，但是需要编写一个规则文件，Make工具依据它来批量处理编译，这个文件就是 Makefile 文件。</p>
+<p>当源文件越来越多时，调用 <code class="language-plaintext highlighter-rouge">gcc/g++</code> 命令逐个去编译时，就很容易混乱而且工作量大。特别地，当只改动工程项目中的某一些源程序文件时，单纯使用命令编译会把所有源程序文件重新编译一遍，而逐文件编译为 <code class="language-plaintext highlighter-rouge">.o</code> 文件再手动确定是否需要更新和编译工作量巨大。</p>
 
-<p>Makefile 带来的好处就是——“自动化编译”，一旦写好，只需要一个 make 命令，整个工程完全自动编译，极大的提高了软件开发的效率。make 是一个命令工具，是一个解释 Makefile 中指令的命令工具，一般来说，大多数的 IDE 都有这个命令，比如：Delphi 的 make，Visual C++ 的 nmake，Linux 下 GNU 的 Makefile 都成为了一种在工程方面的编译方法。</p>
+<p>为了简化编译操作，GNU 推出了 Make 工具。它是一个自动化编译工具，我们可以使用一条命令实现完全编译，但是需要编写一个规则文件，Make 工具依据它来批量处理编译，这个文件就是 Makefile 文件。一个典型的 Makefile 文件如下</p>
+
+<div class="language-makefile highlighter-rouge"><div class="code-header">
+        <span data-label-text="Makefile"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nl">a.out</span><span class="o">:</span> <span class="nf">hello.o main.o</span>
+    <span class="err">g++</span> <span class="err">hello.o</span> <span class="err">main.o</span> <span class="err">-o</span> <span class="err">a.out</span>
+
+<span class="nl">hello.o</span><span class="o">:</span> <span class="nf">hello.cpp</span>
+    <span class="err">g++</span> <span class="err">-c</span> <span class="err">hello.cpp</span> <span class="err">-o</span> <span class="err">hello.o</span>
+
+<span class="nl">main.o</span><span class="o">:</span> <span class="nf">main.cpp</span>
+    <span class="err">g++</span> <span class="err">-c</span> <span class="err">main.cpp</span> <span class="err">-o</span> <span class="err">main.o</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Makefile 文件规定了每个文件的依赖关系和生成各文件的规则。这样，当某个文件的所有依赖并没有发生变化时，即可不用重新编译该文件，而是直接利用之前编译好得到的 <code class="language-plaintext highlighter-rouge">.o</code> 文件即可。</p>
+
+<p>Makefile 带来的好处就是——“自动化编译”，一旦写好，只需要一个 <code class="language-plaintext highlighter-rouge">make</code> 命令，整个工程完全自动编译，极大的提高了软件开发的效率。make 是一个命令工具，是一个解释 Makefile 中指令的命令工具，一般来说，大多数的 IDE 都有这个命令，比如：Delphi 的 make，Visual C++ 的 nmake，Linux 下 GNU 的 Makefile 都成为了一种在工程方面的编译方法。</p>
 
 <p>Makefile 在一些简单的工程完全可以人工手写，但是当工程非常大的时候，手写 Makefile 也是非常麻烦的，如果换了个平台 Makefile 又要重新修改。另一方面，若想要更换开发环境，如需要将工程迁移到 Visual Studio IDE 进行开发，需要构建基于 VS 的项目框架，生成 <code class="language-plaintext highlighter-rouge">.sln</code> 和 <code class="language-plaintext highlighter-rouge">.vcproj</code> 文件，此时 Makefile 就无能为力了。</p>
 
@@ -1420,11 +1468,19 @@
 <strong>.vcxproj 文件（项目文件）</strong> 是 Visual C++ 项目文件，包含项目的设置和配置信息，例如编译器选项、预处理器选项、文件列表和库依赖项等。它通常是随着每个项目的创建而生成的，并存储在项目的根目录下。每个项目都有一个单独的 .vcxproj 文件，而解决方案只包含对每个项目的引用。</p>
 </blockquote>
 
+<p>Makefile 的局限性还包括：</p>
+<ul>
+  <li>make 在 UNIX 类系统上是通用的，但是 Windows 不支持；</li>
+  <li>需要准确指出每个项目之间的依赖关系，有头文件时特别头疼；</li>
+  <li>make 语法非常简单，无法实现 shell 或 python 那样做很多判断等；</li>
+  <li>不同编译器有不同的 flag 规则，为 g++ 准备的参数可能对 msvc 并不适用。</li>
+</ul>
+
 <h3 id="13-cmake-编译"><span class="me-2">1.3. CMake 编译</span><a href="#13-cmake-编译" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>这个时候出现了CMake这个工具，CMake能够输出各种各样的 Makefile 或者 project 文件，从而帮助程序员减轻负担。CMake 通过编写 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，实现跨平台生成对应能用的 Makefile 或工程文件，我们不需要自己再去修改。</p>
+<p>为了解决 make 的问题，出现了 CMake 这个跨平台工具。CMake 能够输出各种各样的 Makefile 或者 project 文件，从而帮助程序员减轻负担。</p>
 
-<p><code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 是一种平台无关的文件，用来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的本地化 Makefile 和工程文件，如 Unix 的 Makefile 或 Windows 的 Visual Studio 工程。从而做到 <strong>“Write once, run everywhere”</strong>。一些使用 CMake 作为项目架构系统的知名开源项目有 VTK、ITK、KDE、OpenCV、OSG 等。</p>
+<p>CMake 通过编写 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，实现跨平台生成对应能用的 Makefile 或工程文件，我们不需要自己再去修改。<code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 是一种平台无关的文件，用来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的本地化 Makefile 和工程文件，如 Unix 的 Makefile 或 Windows 的 Visual Studio 工程。从而做到 <strong>“Write once, run everywhere”</strong>。一些使用 CMake 作为项目架构系统的知名开源项目有 VTK、ITK、KDE、OpenCV、OSG 等。</p>
 
 <h2 id="2-安装-cmake"><span class="me-2">2. 安装 CMake</span><a href="#2-安装-cmake" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1455,7 +1511,7 @@
 
 <h2 id="3-编写-cmakeliststxt"><span class="me-2">3. 编写 CMakeLists.txt</span><a href="#3-编写-cmakeliststxt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件有自己的格式和命令，下面以基本的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 为例，按照文件内从上到下的顺序逐一介绍</p>
+<p>一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件有自己的格式和命令，下面以基本的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 为例，按照文件内从上到下的顺序逐一介绍。</p>
 
 <h3 id="31-版本与编译选项配置"><span class="me-2">3.1. 版本与编译选项配置</span><a href="#31-版本与编译选项配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -2157,7 +2213,9 @@ make
 
 <p>[2] TomKing-tm. <a href="https://blog.csdn.net/weixin_43470971/article/details/119621643">vsCode+CMake开发环境搭建</a></p>
 
-<p>[3] 魔豆的BLOG. <a href="https://www.cnblogs.com/modou/p/3573772.html">使用NSIS制作安装包</a></p>
+<p>[3] 双笙子佯谬. <a href="https://www.bilibili.com/video/BV1fa411r7zp/">现代C++中的高性能并行编程与优化</a></p>
+
+<p>[4] 魔豆的BLOG. <a href="https://www.cnblogs.com/modou/p/3573772.html">使用NSIS制作安装包</a></p>
 
 </div>
 
@@ -2314,6 +2372,20 @@ make
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/c-cmake-development/">使用CMake开发C++工程</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
         </li>
       
@@ -2329,20 +2401,6 @@ make
         
         <li class="text-truncate lh-lg">
           <a href="/posts/CV-yolov5/">计算机视觉（YOLO V5）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
         </li>
       
     </ul>

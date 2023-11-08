@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-11-06T11:14:16+08:00</updated>
+  <updated>2023-11-08T10:01:44+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -238,7 +238,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
     <link href="http://localhost:4000/posts/c-cmake-development/" rel="alternate" type="text/html" title="使用CMake开发C++工程" />
     <published>2023-05-15T23:59:19+08:00</published>
   
-    <updated>2023-05-15T23:59:19+08:00</updated>
+    <updated>2023-11-06T23:23:20+08:00</updated>
   
     <id>http://localhost:4000/posts/c-cmake-development/</id>
     <content src="http://localhost:4000/posts/c-cmake-development/" />

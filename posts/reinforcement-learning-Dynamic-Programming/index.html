@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（动态规划）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-26T11:24:19+08:00","datePublished":"2022-11-26T11:24:19+08:00","description":"本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。","headline":"强化学习（动态规划）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"},"url":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-07T15:14:58+08:00","datePublished":"2022-11-26T11:24:19+08:00","description":"本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。","headline":"强化学习（动态规划）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"},"url":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -911,6 +911,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1699341298"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/11/07
+</em>
+
+    </span>
+    
 
   
 
@@ -950,7 +974,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4749 字"
+  title="4748 字"
 >
   <em>26 分钟</em>阅读</span>
 
@@ -1171,7 +1195,9 @@ v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
   <li><strong>贪心方法</strong></li>
 </ul>
 
-<p>我们知道：$v_\pi(s) = \mathbb{E}<em>a[q</em>\pi(s,a)]$ ，而根据期望的定义，最大的 $q$ 函数肯定是大于等于其期望的，即 $q_\pi(s,a)<em>{max} \geq v</em>\pi(s)$ 。</p>
+<p>我们知道：$v_\pi(s) = \mathbb{E}<em>a[q</em>\pi(s,a)]$ ，而根据期望的定义，最大的 $q$ 函数肯定是大于等于其期望的，即</p>
+
+\[q_\pi(s,a)_{max} \geq v_\pi(s)\]
 
 <p>那么我们每次都选择使得 $q_\pi(s,a)$ 最大的那个动作，构成策略，就可以保证满足策略改进定理，构成的策略就是更好的策略了！这就是贪心方法。</p>
 
@@ -1499,6 +1525,20 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/c-cmake-development/">使用CMake开发C++工程</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
         </li>
       
@@ -1514,20 +1554,6 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         
         <li class="text-truncate lh-lg">
           <a href="/posts/CV-yolov5/">计算机视觉（YOLO V5）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
         </li>
       
     </ul>
