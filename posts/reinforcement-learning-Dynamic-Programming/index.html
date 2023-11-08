@@ -1195,7 +1195,11 @@ v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
   <li><strong>贪心方法</strong></li>
 </ul>
 
-<p>我们知道：$v_\pi(s) = \mathbb{E}<em>a[q</em>\pi(s,a)]$ ，而根据期望的定义，最大的 $q$ 函数肯定是大于等于其期望的，即</p>
+<p>我们知道：</p>
+
+\[v_{\pi}(s) = \mathbb{E}_{a}[q_{\pi}(s,a)]\]
+
+<p>而根据期望的定义，最大的 $q$ 函数肯定是大于等于其期望的，即</p>
 
 \[q_\pi(s,a)_{max} \geq v_\pi(s)\]
 
@@ -1299,7 +1303,7 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
 
 <p>一种重要的特殊的情况是，<strong>在一次遍历后即刻停止策略评估</strong>（对每一个状态进行一次更新），该算法被称为<strong>价值迭代</strong>。</p>
 
-<p>价值迭代算法是策略评估过程只进行一次迭代的策略迭代算法，其过程为 ：对每一个当前状态 s ,对每个可能的动作 a 都计算一下采取这个动作后到达的下一个状态的期望价值。<strong>选择最大的期望价值函数作为当前状态的价值函数</strong> $v(s)$ ，循环执行这个步骤，直到价值函数收敛。</p>
+<p>价值迭代算法是策略评估过程只进行一次迭代的策略迭代算法，其过程为 ：对每一个当前状态 $s$ ，对每个可能的动作 $a$ 都计算一下采取这个动作后到达的下一个状态的期望价值。<strong>选择最大的期望价值函数作为当前状态的价值函数</strong> $v(s)$ ，循环执行这个步骤，直到价值函数收敛。</p>
 
 <p>价值迭代的算法表述如下：</p>
 
@@ -1525,6 +1529,13 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
@@ -1547,13 +1558,6 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CV-yolov5/">计算机视觉（YOLO V5）</a>
         </li>
       
     </ul>
