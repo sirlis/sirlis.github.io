@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（时序差分法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-12-18T14:59:19+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-09T20:06:44+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -699,6 +699,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1699531604"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/11/09
+</em>
+
+    </span>
+    
 
   
 
@@ -738,9 +762,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1124 字"
+  title="1441 字"
 >
-  <em>6 分钟</em>阅读</span>
+  <em>8 分钟</em>阅读</span>
 
     </div>
 
@@ -812,7 +836,7 @@ TD:\quad &amp; v(S_t) \leftarrow v(S_t)+\alpha({\color{red}R_{t+1}+\gamma v(S_{t
 
 \[\begin{aligned}
 V(S_t) &amp; \leftarrow V(S_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{V(S_{t+1})}_{自举}-V(S_t))\\
-Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{Q(S_{t+1},A_{t+1})}_{脑采}-Q(S_t,A_t))\\
+Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{Q(S_{t+1},A_{t+1})}_{自举}-Q(S_t,A_t))\\
 \end{aligned}\]
 
 <p>上述更新方式即为 <strong>SARSA。</strong></p>
@@ -821,14 +845,14 @@ Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gam
 
 <hr />
 <ul>
-  <li>Initialize Q(s,a) arbitrarily</li>
+  <li>Initialize $Q(s,a)$ arbitrarily</li>
   <li>Repeat (for each episode):
     <ul>
-      <li>Initialize s</li>
+      <li>Initialize $s$</li>
       <li>Repeat (for each step of episode):
         <ul>
-          <li>Choose a from s using policy derived from Q (e.g., $\epsilon$-greedy)</li>
-          <li>Take action a, observe r, s’</li>
+          <li>Choose $a$ from $s$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</li>
+          <li>Take action $a$, observe $r$, $s^\prime$</li>
           <li>
             <font color="red">Choose $a^\prime$ from $s^\prime$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</font>
           </li>
@@ -843,11 +867,13 @@ Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gam
 
 <hr />
 
-<p>上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。</p>
+<p>上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。这个策略可以是任何策略，如 $greedy$ 贪婪策略、$\epsilon-greedy$ 贪婪策略，随机策略等。</p>
+
+<p>从上面的伪代码可以看出，每次执行动作时，都是从<strong>一个策略</strong>中得到的。而更新 $Q(s,a)$ 的值时，也是使用的<strong>同一个策略</strong>得到的动作计算出的 $Q(s^\prime,a^\prime)$ 。此时，由于这个策略不一定是最优策略（一般肯定不是最优策略），那么对应的 $a^\prime$ 未必是$s^\prime$ 状态下的最优选择。如果策略采用 $\epsilon-greedy$ 贪婪策略，它需要兼顾探索和利用，因此训练的时候会显得有点“胆小”。所以说 SARSA 是一个偏向保守的方法，训练过程慢慢摸索会比较慢。</p>
 
 <h3 id="12-离轨策略下的时序差分控制q-learning"><span class="me-2">1.2. 离轨策略下的时序差分控制（Q-Learning）</span><a href="#12-离轨策略下的时序差分控制q-learning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>实际上，在 $s^\prime$ 状态下，存在一个确定性策略</p>
+<p>实际上，在 $s^\prime$ 状态下，存在一个确定性策略（也即 $greedy$ 贪婪策略）</p>
 
 \[a^*=\pi(s^\prime) = argmax_a\; Q(s^\prime, a)\]
 
@@ -855,20 +881,20 @@ Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gam
 
 \[max_{a^\prime}\; Q(s^\prime,a^\prime) = Q(s^\prime, a^*)\]
 
-<p>更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是使用这个确定性策略。这种更新方式即为 <strong>Q-Learning</strong>。</p>
+<p>更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是直接查阅已有的 Q table 找到当前状态下已知的最大 $Q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $Q(s,a)$。这种更新方式即为 <strong>Q-Learning</strong>。</p>
 
 <p>伪代码如下：</p>
 
 <hr />
 <ul>
-  <li>Initialize Q(s,a) arbitrarily</li>
+  <li>Initialize $Q(s,a)$ arbitrarily</li>
   <li>Repeat (for each episode):
     <ul>
-      <li>Initialize s</li>
+      <li>Initialize $s$</li>
       <li>Repeat (for each step of episode):
         <ul>
-          <li>Choose a from s using policy derived from $Q$ (e.g., $\epsilon$-greedy)</li>
-          <li>Take action a, observe r, s’</li>
+          <li>Choose $a$ from $s$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</li>
+          <li>Take action $a$, observe $r$, $s^\prime$</li>
           <li>$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathop{\text{max}}\limits_{a}
   Q(s^\prime,a)-Q(s,a)]}$</li>
           <li>$\color{red}{s\leftarrow}s^\prime$</li>
@@ -881,7 +907,9 @@ Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gam
 
 <hr />
 
-<p>此时，更新时使用（采样得到动作）的策略 $\pi$ 并不是我们待更新的策略，因此被称为离轨策略（off-policy）。</p>
+<p>Q-Learning 分离了目标策略与行为策略。一方面，在更新 $Q(s,a)$ 时，Q-Learning 可以大胆地用激进地 $greedy$ 策略作为行为策略探索得到的经验轨迹来优化目标策略，从而更有可能探索到最佳策略。而在实际执行时，采用诸如 $\epsilon-greedy$ 策略等较为保守的行为策略来选取动作。</p>
+
+<p>因此，Q-Learning 又被被称为离轨策略（off-policy）。</p>
 
 <h3 id="13-期望sarsa"><span class="me-2">1.3. 期望SARSA</span><a href="#13-期望sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1041,6 +1069,13 @@ Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gam
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
@@ -1063,13 +1098,6 @@ Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gam
         
         <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
     </ul>

@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（马尔可夫决策过程）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-08T11:00:12+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-09T19:31:26+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1235,6 +1235,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1296,13 +1308,13 @@
 
 <em
   class=""
-  data-ts="1699412412"
+  data-ts="1699529486"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/11/08
+  2023/11/09
 </em>
 
     </span>
@@ -1346,9 +1358,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7066 字"
+  title="7290 字"
 >
-  <em>39 分钟</em>阅读</span>
+  <em>40 分钟</em>阅读</span>
 
     </div>
 
@@ -1389,7 +1401,8 @@
         <ul>
           <li><a href="#441-状态价值函数">4.4.1. 状态价值函数</a></li>
           <li><a href="#442-动作价值函数">4.4.2. 动作价值函数</a></li>
-          <li><a href="#443-回溯图与回溯操作">4.4.3. 回溯图与回溯操作</a></li>
+          <li><a href="#443-二者的意义">4.4.3. 二者的意义</a></li>
+          <li><a href="#444-回溯图与回溯操作">4.4.4. 回溯图与回溯操作</a></li>
         </ul>
       </li>
       <li><a href="#45-贝尔曼期望方程">4.5. 贝尔曼期望方程</a></li>
@@ -1808,7 +1821,20 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 \[q_\pi(s,a) \doteq \mathbb{E}_\pi[G_t \vert S_t=s, A_t=a]\]
 
-<h4 id="443-回溯图与回溯操作"><span class="me-2">4.4.3. 回溯图与回溯操作</span><a href="#443-回溯图与回溯操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="443-二者的意义"><span class="me-2">4.4.3. 二者的意义</span><a href="#443-二者的意义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<blockquote>
+  <p>如何理解强化学习中的Q值和V值？ https://zhuanlan.zhihu.com/p/109498587
+强化学习-1-Q_Table based Method  https://zhuanlan.zhihu.com/p/138291295</p>
+</blockquote>
+
+<p><strong>状态价值函数</strong>是对状态的价值的衡量。从某个状态出发，依据特定策略 $\pi$ 采用不同动作，在环境的影响下进行状态转移。</p>
+
+<p><strong>动作价值函数</strong>是对某状态下特定动作的价值的衡量。从某个状态出发，采取特定的动作 $a$，在环境的影响下进行状态转移；后续依据特定策略 $\pi$ 采用不同动作，在环境的影响下进行状态转移。</p>
+
+<p>强化学习模型的好坏，主要取决于在当前状态下，是否能选择出收益最大的动作，因此 $q(s,a)$ 的精准预估显得十分重要。</p>
+
+<h4 id="444-回溯图与回溯操作"><span class="me-2">4.4.4. 回溯图与回溯操作</span><a href="#444-回溯图与回溯操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>回溯操作就是将后继状态（或“状态-动作”二元组）的价值信息 <em>回传</em> 给当前时刻的状态（或”状态-动作“二元组），可以用回溯图来表示，这是强化学习的核心内容。</p>
 
@@ -2127,6 +2153,13 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
@@ -2149,13 +2182,6 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
         
         <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
     </ul>

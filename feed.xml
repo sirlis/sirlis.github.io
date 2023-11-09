@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-11-08T11:00:06+08:00</updated>
+  <updated>2023-11-09T20:08:22+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -301,7 +301,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
     <link href="http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/" rel="alternate" type="text/html" title="强化学习（时序差分法）" />
     <published>2022-12-18T14:59:19+08:00</published>
   
-    <updated>2022-12-18T14:59:19+08:00</updated>
+    <updated>2023-11-09T20:06:44+08:00</updated>
   
     <id>http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/</id>
     <content src="http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/" />
