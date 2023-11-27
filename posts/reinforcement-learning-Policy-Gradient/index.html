@@ -37,24 +37,25 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="astronomy" />
+<meta property="og:title" content="强化学习（策略梯度法）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="sirlis" />
-<meta property="og:description" content="sirlis" />
-<link rel="canonical" href="http://localhost:4000/tags/astronomy/" />
-<meta property="og:url" content="http://localhost:4000/tags/astronomy/" />
+<meta name="description" content="本文介绍了强化学习的策略梯度法（Policy Gradient）。" />
+<meta property="og:description" content="本文介绍了强化学习的策略梯度法（Policy Gradient）。" />
+<link rel="canonical" href="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />
+<meta property="og:url" content="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />
 <meta property="og:site_name" content="SIRLIS" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-11-27T16:43:19+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="astronomy" />
+<meta property="twitter:title" content="强化学习（策略梯度法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"sirlis","headline":"astronomy","url":"http://localhost:4000/tags/astronomy/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-27T16:43:19+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>astronomy | SIRLIS
+  <title>强化学习（策略梯度法） | SIRLIS
   </title>
 
   <!--
@@ -106,7 +107,12 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.21.0/dist/tocbot.min.css">
+  
 
+  
+    <!-- Manific Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css">
   
 
   <!-- JavaScript -->
@@ -459,16 +465,10 @@
           
         
           
-            <span>
-              <a href="/tags">
-                标签
-              </a>
-            </span>
-          
         
           
             
-              <span>astronomy</span>
+              <span>强化学习（策略梯度法）</span>
             
 
           
@@ -480,7 +480,7 @@
     <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
 
     <div id="topbar-title">
-      标签
+      文章
     </div>
 
     <i id="search-trigger" class="fas fa-search fa-fw"></i>
@@ -511,7 +511,7 @@
 
 
 
-<div class="row mb-5">
+<div class="row">
   <!-- core -->
   <div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pe-xl-4">
     
@@ -522,112 +522,373 @@
       
         
       
+        <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+<!-- images -->
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+<h1 data-toc-skip>强化学习（策略梯度法）</h1>
+
+<div class="post-meta text-muted">
+    <!-- published date -->
+    <span>
+      发表于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1701074599"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2023/11/27
+</em>
+
+    </span>
+
+    <!-- lastmod date -->
+    
+
+  
+
+  <div class="d-flex justify-content-between">
+    <!-- author(s) -->
+    <span>
+      
+
+      作者
+
+      <em>
+      
+        <a href="https://github.com/sirlis">sirlis</a>
+      
+      </em>
+    </span>
+
+    <div>
+      <!-- read time -->
+      <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="691 字"
+>
+  <em>3 分钟</em>阅读</span>
+
+    </div>
+
+  </div> <!-- .d-flex -->
+
+</div> <!-- .post-meta -->
+
+<div class="post-content">
+  <p>本文介绍了强化学习的策略梯度法（Policy Gradient）。</p>
+
+<!--more-->
+
+<hr />
+
+<ul>
+  <li><a href="#1-引言">1. 引言</a></li>
+  <li><a href="#策略梯度">策略梯度</a></li>
+  <li><a href="#2-参考文献">2. 参考文献</a></li>
+</ul>
+
+<h2 id="1-引言"><span class="me-2">1. 引言</span><a href="#1-引言" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>前面介绍了 DQN 方法，其原理非常简单，神经网络的输入是原始的状态信息，如游戏画面，输出是在这种状态下执行各种动作的回报，即价值函数（Q函数）。训练完成之后，神经网络逼近的是最优 Q 函数 $Q(s,a)$。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;Q(s,a1)                       +----+
+  s  ---&gt; |f(x)| ----&gt;Q(s,a2)       or     s,ai ---&gt;|f(x)| ----&gt;Q(s,ai)
+          +----+ ----&gt;Q(s,a3)                       +----+
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>DQN虽然在某些问题上取得了成功，但存在以下问题：</p>
+
+<ul>
+  <li>
+    <p>无法表示随机策略，某些问题的最优策略是随机策略，需要以不同的概率选择不同的动作。而DQN之类的算法在实现时采用了贪心策略，显然无法实现这种按照概率执行各种候选动作的要求。</p>
+  </li>
+  <li>
+    <p>这种方法输出值（各个动作的最优Q函数值）的微小改变会导致某一动作被选中或不选中，这种不连续的变化会影响算法的收敛。这很容易理解，假设一个动作a的Q函数值本来在所有动作中是第2大的，把它增加0.0001，就变成第最大的，那这种微小的变化会导致策略完全改变。因为之前它不是最优动作，现在变成最优动作了。</p>
+  </li>
+  <li>
+    <p>无法表示连续动作。DQN要求动作空间是离散的，且只能是有限个。某些问题中，动作是连续的，例如要控制在x y z方向的速度、加速度，这些值显然是连续的。</p>
+  </li>
+</ul>
+
+<h2 id="策略梯度"><span class="me-2">策略梯度</span><a href="#策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>相比之下，策略梯度算法是一种更为直接的方法，它让神经网络直接输出策略函数 $\pi(s)$，即在状态s下应该执行何种动作。对于非确定性策略，输出的是这种状态下执行各种动作的概率值，即如下的条件概率</p>
+
+\[\pi(a\vert s) = p(a\vert s)\]
+
+<p>所谓确定性策略，是只在某种状态下要执行的动作是确定即唯一的，而非确定性动作在每种状态下要执行的动作是随机的，可以按照一定的概率值进行选择。这种做法的原理如下图所示。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;p(a1|s)
+  s  ---&gt; |f(x)| ----&gt;p(a2|s)
+          |  θ | ----&gt;...
+          +----+ ----&gt;Q(a3|s)
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="2-参考文献"><span class="me-2">2. 参考文献</span><a href="#2-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>[1] shuhuai008. <a href="https://www.bilibili.com/video/BV1BS4y1r7cm">bilibili【强化学习】(SARSA) 时序差分-同轨策略TD控制</a></p>
+
+<p>[2] 莫烦. <a href="https://zhuanlan.zhihu.com/p/24860793">什么是 Sarsa (强化学习)</a></p>
+
+</div>
+
+<div class="post-tail-wrapper text-muted">
+
+  <!-- categories -->
+  
+  <div class="post-meta mb-3">
+    <i class="far fa-folder-open fa-fw me-1"></i>
+    
+      <a href='/categories/academic/'>Academic</a>,
+      <a href='/categories/knowledge/'>Knowledge</a>
+  </div>
+  
+
+  <!-- tags -->
+  
+  <div class="post-tags">
+    <i class="fa fa-tags fa-fw me-1"></i>
+      
+      <a href="/tags/reinforcement-learning/"
+          class="post-tag no-text-decoration" >reinforcement learning</a>
+      
+  </div>
+  
+
+  <div class="post-tail-bottom
+    d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+    <div class="license-wrapper">
+
+      
+
         
 
+        本文由作者按照 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         进行授权
 
+      
+    </div>
 
-<div id="page-tag">
-  <h1 class="ps-lg-2">
-    <i class="fa fa-tag fa-fw text-muted"></i>
-    astronomy
-    <span class="lead text-muted ps-2">4</span>
-  </h1>
-  <ul class="post-content ps-0">
+    <!-- Post sharing snippet -->
+
+<div class="share-wrapper">
+  <span class="share-label text-muted me-1">分享</span>
+  <span class="share-icons">
     
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
-        <span class="dash flex-grow-1"></span>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<span
-  class="text-muted small"
-  data-ts="1648023799"
-  data-df="YYYY/MM/DD"
-  
->
-  2022/03/23
-</span>
-
-      </li>
     
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="/posts/astronomy-CDDIS/">CDDIS网站下GNSS相关数据解析（卫星星历部分）</a>
-        <span class="dash flex-grow-1"></span>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<span
-  class="text-muted small"
-  data-ts="1637226349"
-  data-df="YYYY/MM/DD"
-  
->
-  2021/11/18
-</span>
-
-      </li>
     
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="/posts/astronomy-basic-time-calender/">天文学基础（时间和历法）</a>
-        <span class="dash flex-grow-1"></span>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
 
-
-
-
-
-<span
-  class="text-muted small"
-  data-ts="1603198819"
-  data-df="YYYY/MM/DD"
-  
->
-  2020/10/20
-</span>
-
-      </li>
     
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="/posts/astronomy-basic-JPL-ephemeris/">天文学基础（JPL星历）</a>
-        <span class="dash flex-grow-1"></span>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<span
-  class="text-muted small"
-  data-ts="1603028959"
-  data-df="YYYY/MM/DD"
-  
->
-  2020/10/18
-</span>
-
-      </li>
+      
+      <a
+        href="https://twitter.com/intent/tweet?text=%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Freinforcement-learning-Policy-Gradient%2F"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Twitter"
+        target="_blank"
+        rel="noopener"
+        aria-label="Twitter"
+      >
+        <i class="fa-fw fab fa-twitter"></i>
+      </a>
     
-  </ul>
+      
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?title=%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Freinforcement-learning-Policy-Gradient%2F"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Facebook"
+        target="_blank"
+        rel="noopener"
+        aria-label="Facebook"
+      >
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+      
+      <a
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Freinforcement-learning-Policy-Gradient%2F&text=%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%89%20-%20SIRLIS"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Telegram"
+        target="_blank"
+        rel="noopener"
+        aria-label="Telegram"
+      >
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <i
+      id="copy-link"
+      class="fa-fw fas fa-link small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="分享链接"
+      data-title-succeed="链接已复制！"
+    >
+    </i>
+  </span>
 </div>
+
+
+  </div><!-- .post-tail-bottom -->
+
+</div><!-- div.post-tail-wrapper -->
+
 
       
     
@@ -1503,10 +1764,1136 @@
     </div>
 
     
+      
+      
+
+
+
+  <div id="toc-wrapper" class="ps-0 pe-4 mb-5">
+    <div class="panel-heading ps-3 pt-2 mb-2">文章内容</div>
+    <nav id="toc"></nav>
+  </div>
+
+
+    
   </div>
 </div>
 
 <!-- tail -->
+
+  <div class="row">
+    <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-3 pe-xl-4 mt-5">
+      
+        
+        <!--
+  Recommend the other 3 posts according to the tags and categories of the current post,
+  if the number is not enough, use the other latest posts to supplement.
+-->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<!-- Fill with the other newlest posts -->
+
+
+
+
+
+  <div id="related-posts" class="mb-2 mb-sm-4">
+    <h3 class="pt-2 mb-4 ms-1" data-toc-skip>
+      相关文章
+    </h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        
+        
+        <div class="col">
+          <a href="/posts/reinforcement-learning-markov-process/" class="card post-preview h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class="small"
+  data-ts="1667968579"
+  data-df="YYYY/MM/DD"
+  
+>
+  2022/11/09
+</em>
+
+              <h4 class="pt-0 my-2" data-toc-skip>强化学习（马尔可夫决策过程）</h4>
+              <div class="text-muted small">
+                <p>
+                  
+
+
+
+
+
+                  本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。
+
+
+
+
+
+
+  1. 强化学习
+    
+      1.1. 状态和观测
+      1.2. 动作空间
+      1.3. 策略
+    
+  
+  2. 马尔可夫过程（MP）
+  3. 马尔可夫奖励过程（MRP）
+    
+      3.1. 奖励（Reward）
+      3.2. ...
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      
+        
+        
+        <div class="col">
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/" class="card post-preview h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class="small"
+  data-ts="1669433059"
+  data-df="YYYY/MM/DD"
+  
+>
+  2022/11/26
+</em>
+
+              <h4 class="pt-0 my-2" data-toc-skip>强化学习（动态规划）</h4>
+              <div class="text-muted small">
+                <p>
+                  
+
+
+
+
+
+                  本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。
+
+
+
+
+
+
+  1. 强化学习问题的求解
+  2. 动态规划
+    
+      2.1. 策略迭代
+        
+          2.1.1. 策略评估
+          2.1.2. 策略改进
+          2.1.3. 策略迭代
+   ...
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      
+        
+        
+        <div class="col">
+          <a href="/posts/reinforcement-learning-Monte-Carlo/" class="card post-preview h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class="small"
+  data-ts="1669712839"
+  data-df="YYYY/MM/DD"
+  
+>
+  2022/11/29
+</em>
+
+              <h4 class="pt-0 my-2" data-toc-skip>强化学习（蒙特卡洛法）</h4>
+              <div class="text-muted small">
+                <p>
+                  
+
+
+
+
+
+                  本文介绍了强化学习的 model-free 方法——蒙特卡洛法。
+
+
+
+
+
+
+  1. 引言
+  2. 蒙特卡洛法
+    
+      2.1. 大数定律
+      2.2. 蒙特卡洛法
+      2.3. 蒙特卡洛价值估计
+      2.4. 增量更新方法
+    
+  
+  3. 参考文献
+
+
+1. 引言
+
+在前面的 model-based 动态规划方法中，我们假设已知模型的动态...
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      
+    </div>
+    <!-- .card-deck -->
+  </div>
+  <!-- #related-posts -->
+
+
+      
+        
+        <!-- Navigation buttons at the bottom of the post. -->
+
+<div class="post-navigation d-flex justify-content-between">
+  
+    <a
+      href="/posts/linux-reduce-repo-size-through-git-folder/"
+      class="btn btn-outline-primary"
+      prompt="上一篇"
+    >
+      <p>如何清理 .git 文件夹来减小 github 仓库大小</p>
+    </a>
+  
+
+  
+    <div
+      class="btn btn-outline-primary disabled"
+      prompt="下一篇"
+    >
+      <p>-</p>
+    </div>
+  
+</div>
+
+      
+        
+        <!--  The comments switcher -->
+
+  
+  <!-- https://utteranc.es/ -->
+<script src="https://utteranc.es/client.js"
+        repo="sirlis/sirlis.github.io"
+        issue-term="pathname"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    const origin = "https://utteranc.es";
+    const iframe = "iframe.utterances-frame";
+    const lightTheme = "github-light";
+    const darkTheme = "github-dark";
+    let initTheme = lightTheme;
+
+    if ($("html[data-mode=dark]").length > 0
+        || ($("html[data-mode]").length == 0
+            && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      initTheme = darkTheme;
+    }
+
+    addEventListener("message", (event) => {
+      let theme;
+
+      /* credit to <https://github.com/utterance/utterances/issues/170#issuecomment-594036347> */
+      if (event.origin === origin) {
+        /* page initial */
+        theme = initTheme;
+
+      } else if (event.source === window && event.data &&
+            event.data.direction === ModeToggle.ID) {
+        /* global theme mode changed */
+        const mode = event.data.message;
+        theme = (mode === ModeToggle.DARK_MODE ? darkTheme : lightTheme);
+
+      } else {
+        return;
+      }
+
+      const message = {
+        type: "set-theme",
+        theme: theme
+      };
+
+      const utterances = document.querySelector(iframe).contentWindow;
+      utterances.postMessage(message, origin);
+    });
+
+  });
+</script>
+
+
+
+      
+    </div>
+  </div>
 
 
         <!-- The Search results -->
@@ -2390,6 +3777,13 @@
 <!-- layout specified -->
 
 
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
 
 
 
@@ -2453,17 +3847,66 @@
 
   
 
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
 
 
-  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js"></script>
 
 
 
 
 
 
-<script defer src="/assets/js/dist/misc.min.js"></script>
+<script defer src="/assets/js/dist/post.min.js"></script>
 
+
+  <!-- MathJax -->
+  <script>
+    /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */
+    MathJax = {
+      tex: {
+        /* start/end delimiter pairs for in-line math */
+        inlineMath: [
+          ['$', '$'],
+          ['\\(', '\\)']
+        ],
+        /* start/end delimiter pairs for display math */
+        displayMath: [
+          ['$$', '$$'],
+          ['\\[', '\\]']
+        ]
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
 
 
 
