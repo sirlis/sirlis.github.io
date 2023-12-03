@@ -45,12 +45,12 @@
 <meta property="og:url" content="http://localhost:4000/about/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2023-11-08T11:00:06+08:00" />
+<meta property="article:published_time" content="2023-12-03T22:08:20+08:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="About" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","dateModified":"2023-11-08T11:00:06+08:00","datePublished":"2023-11-08T11:00:06+08:00","description":"分享生活和科研的日常。","headline":"About","name":"sirlis","sameAs":["https://github.com/sirlis"],"url":"http://localhost:4000/about/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","dateModified":"2023-12-03T22:08:20+08:00","datePublished":"2023-12-03T22:08:20+08:00","description":"分享生活和科研的日常。","headline":"About","name":"sirlis","sameAs":["https://github.com/sirlis"],"url":"http://localhost:4000/about/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -602,10 +602,11 @@
     <p>兴趣方向：</p>
 
     <ul>
-      <li>计算机科学/视觉（CS &amp; CV）</li>
       <li>小样本学习/元学习（FSL/Meta-learning）</li>
-      <li>数据驱动的三维场景演示（OpenGL/OSG）</li>
-      <li>前端开发（Electron）</li>
+      <li>强化学习（RL）</li>
+      <li>数据驱动的三维场景演示（OpenGL/GLFW/Glad）</li>
+      <li>即时渲染前端开发（ImGui/ImPlot）</li>
+      <li>计算机科学/视觉（CS &amp; CV）</li>
     </ul>
   </li>
   <li>
@@ -616,7 +617,6 @@
       <li>Python</li>
       <li>MATLAB</li>
       <li>LaTeX</li>
-      <li>HTML</li>
     </ul>
   </li>
   <li>
@@ -689,6 +689,13 @@
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
@@ -711,13 +718,6 @@
         
         <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
     </ul>
@@ -1203,6 +1203,142 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
       
         
         
@@ -1296,148 +1432,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1515,6 +1509,9 @@
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
       
         
@@ -1525,9 +1522,6 @@
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
     </div>
   </div>
@@ -2025,6 +2019,142 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
       
         
         
@@ -2118,148 +2248,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2337,6 +2325,9 @@
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
       
         
@@ -2347,9 +2338,6 @@
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
     </div>
   </div>

@@ -37,25 +37,25 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="航天中的四元数以及姿态运动学" />
+<meta property="og:title" content="强化学习（策略梯度法）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。" />
-<meta property="og:description" content="本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。" />
-<link rel="canonical" href="http://localhost:4000/posts/space-quaternion/" />
-<meta property="og:url" content="http://localhost:4000/posts/space-quaternion/" />
+<meta name="description" content="本文介绍了强化学习的策略梯度法（Policy Gradient）。" />
+<meta property="og:description" content="本文介绍了强化学习的策略梯度法（Policy Gradient）。" />
+<link rel="canonical" href="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />
+<meta property="og:url" content="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2023-06-02T18:38:19+08:00" />
+<meta property="article:published_time" content="2023-11-27T16:43:19+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="航天中的四元数以及姿态运动学" />
+<meta property="twitter:title" content="强化学习（策略梯度法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-10-10T15:02:18+08:00","datePublished":"2023-06-02T18:38:19+08:00","description":"本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。","headline":"航天中的四元数以及姿态运动学","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/space-quaternion/"},"url":"http://localhost:4000/posts/space-quaternion/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-27T16:43:19+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>航天中的四元数以及姿态运动学 | SIRLIS
+  <title>强化学习（策略梯度法） | SIRLIS
   </title>
 
   <!--
@@ -468,7 +468,7 @@
         
           
             
-              <span>航天中的四元数以及姿态运动学</span>
+              <span>强化学习（策略梯度法）</span>
             
 
           
@@ -548,227 +548,6 @@
 
 
 
-  
-  
-
-  <!-- CDN URL -->
-  
-
-  <!-- Add image path -->
-  
-
-  
-    
-      
-      
-    
-
-    
-    
-
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-      
-
-      
-    
-
-    <!-- take out classes -->
-    
-
-    
-
-    
-
-    
-
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
-    
-      
-    
-
-    <!-- Bypass the HTML-proofer test -->
-    
-
-    
-      <!-- make sure the `<img>` is wrapped by `<a>` -->
-      
-
-      
-        <!-- create the image wrapper -->
-        
-      
-    
-
-    <!-- combine -->
-    
-
-  
-    
-
-    
-    
-
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-      
-
-      
-    
-
-    <!-- take out classes -->
-    
-
-    
-
-    
-
-    
-
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
-    
-      
-    
-
-    <!-- Bypass the HTML-proofer test -->
-    
-
-    
-      <!-- make sure the `<img>` is wrapped by `<a>` -->
-      
-
-      
-        <!-- create the image wrapper -->
-        
-      
-    
-
-    <!-- combine -->
-    
-
-  
-    
-
-    
-    
-
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-      
-
-      
-    
-
-    <!-- take out classes -->
-    
-
-    
-
-    
-
-    
-
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
-    
-      
-    
-
-    <!-- Bypass the HTML-proofer test -->
-    
-
-    
-      <!-- make sure the `<img>` is wrapped by `<a>` -->
-      
-
-      
-        <!-- create the image wrapper -->
-        
-      
-    
-
-    <!-- combine -->
-    
-
-  
-
-  
-
-
 
 <!-- Add header for code snippets -->
 
@@ -827,6 +606,86 @@
       
 
     
+
+    
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
       
 
       
@@ -927,42 +786,8 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-
-    
-
-  
-
-  
-  
-
-  
-
-  
-  
 
   
 
@@ -974,7 +799,7 @@
 
 
 
-<h1 data-toc-skip>航天中的四元数以及姿态运动学</h1>
+<h1 data-toc-skip>强化学习（策略梯度法）</h1>
 
 <div class="post-meta text-muted">
     <!-- published date -->
@@ -991,42 +816,18 @@
 
 <em
   class=""
-  data-ts="1685702299"
+  data-ts="1701074599"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/06/02
+  2023/11/27
 </em>
 
     </span>
 
     <!-- lastmod date -->
-    
-    <span>
-      更新于
-      <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em
-  class=""
-  data-ts="1696921338"
-  data-df="YYYY/MM/DD"
-  
-    data-bs-toggle="tooltip" data-bs-placement="bottom"
-  
->
-  2023/10/10
-</em>
-
-    </span>
     
 
   
@@ -1067,9 +868,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1479 字"
+  title="5340 字"
 >
-  <em>8 分钟</em>阅读</span>
+  <em>29 分钟</em>阅读</span>
 
     </div>
 
@@ -1078,203 +879,561 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。</p>
+  <p>本文介绍了强化学习的策略梯度法（Policy Gradient）。</p>
 
 <!--more-->
 
 <hr />
 
 <ul>
-  <li><a href="#1-基础">1. 基础</a>
+  <li><a href="#1-回顾">1. 回顾</a></li>
+  <li><a href="#2-基于策略的强化学习">2. 基于策略的强化学习</a>
     <ul>
-      <li><a href="#11-矢量的正交分解">1.1. 矢量的正交分解</a></li>
-      <li><a href="#12-叉乘矩阵">1.2. 叉乘矩阵</a></li>
-      <li><a href="#13-坐标系定义">1.3. 坐标系定义</a></li>
+      <li><a href="#21-策略函数">2.1. 策略函数</a></li>
+      <li><a href="#22-策略函数的分布形式">2.2. 策略函数的分布形式</a></li>
+      <li><a href="#23-策略梯度的概念">2.3. 策略梯度的概念</a></li>
+      <li><a href="#24-策略梯度的计算">2.4. 策略梯度的计算</a>
+        <ul>
+          <li><a href="#241-基于累计收益的策略梯度">2.4.1. 基于累计收益的策略梯度</a></li>
+          <li><a href="#242-基于价值函数的策略梯度">2.4.2. 基于价值函数的策略梯度</a>
+            <ul>
+              <li><a href="#2421-策略梯度定理">2.4.2.1. 策略梯度定理</a></li>
+              <li><a href="#2422-reinforce蒙特卡洛策略梯度">2.4.2.2. REINFORCE（蒙特卡洛策略梯度）</a></li>
+            </ul>
+          </li>
+          <li><a href="#243-策略梯度的改进">2.4.3. 策略梯度的改进</a>
+            <ul>
+              <li><a href="#2431-reinforce-with-baseline">2.4.3.1. REINFORCE with baseline</a></li>
+              <li><a href="#2432-actor-critic">2.4.3.2. Actor-Critic</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
     </ul>
   </li>
-  <li><a href="#2-轴角旋转">2. 轴角旋转</a></li>
-  <li><a href="#3-姿态四元数">3. 姿态四元数</a>
-    <ul>
-      <li><a href="#31-四元数定义">3.1. 四元数定义</a></li>
-      <li><a href="#32-四元数表示旋转">3.2. 四元数表示旋转</a></li>
-      <li><a href="#33-姿态四元数">3.3. 姿态四元数</a></li>
-    </ul>
-  </li>
-  <li><a href="#4-向量的坐标变换">4. 向量的坐标变换</a></li>
-  <li><a href="#5-姿态变换与四元数乘法">5. 姿态变换与四元数乘法</a></li>
-  <li><a href="#6-参考文献">6. 参考文献</a></li>
+  <li><a href="#3-参考文献">3. 参考文献</a></li>
 </ul>
 
-<h2 id="1-基础"><span class="me-2">1. 基础</span><a href="#1-基础" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="1-回顾"><span class="me-2">1. 回顾</span><a href="#1-回顾" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h3 id="11-矢量的正交分解"><span class="me-2">1.1. 矢量的正交分解</span><a href="#11-矢量的正交分解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>基于价值函数的强化学习方法</p>
 
-<p>对一个矢量​ $\boldsymbol{v}$ 进行沿单位参考轴 $\boldsymbol{e}$ ​正交分解为两个分量，分别为平行于 $\boldsymbol{e}$ ​的轴向分量和垂直于 $\boldsymbol{e}$ ​的垂直分量。如下图所示。</p>
-
-<p><a href="/assets/img/postsimg/20230602/orthogonal_decomposition.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230602/orthogonal_decomposition.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
-
-<p>有</p>
-
-\[\begin{aligned}
-\boldsymbol{v}_{\parallel} &amp;= (\boldsymbol{e}^\top\boldsymbol{v})\boldsymbol{e} = \boldsymbol{e}\boldsymbol{e}^\top\boldsymbol{v}\\
-\boldsymbol{v}_{\perp} &amp;= \boldsymbol{v} - \boldsymbol{v}_{\parallel} = (\boldsymbol{I} - \boldsymbol{e}\boldsymbol{e}^\top)\boldsymbol{v}\\
-\end{aligned}\]
-
-<p>若平面 $\boldsymbol{\pi}$ 的法向量为 $\boldsymbol{e}$，那么矢量 $\boldsymbol{v}$ 在平面上的投影矢量 $\boldsymbol{v}^\prime$ 即为</p>
-
-\[\boldsymbol{v}^\prime = \boldsymbol{v}_{\perp} = (\boldsymbol{I} - \boldsymbol{e}\boldsymbol{e}^\top)\boldsymbol{v}\]
-
-<p>从而正交投影变化矩阵为</p>
-
-\[\boldsymbol{R} = \boldsymbol{I}-\boldsymbol{e}\boldsymbol{e}^\top\]
-
-<h3 id="12-叉乘矩阵"><span class="me-2">1.2. 叉乘矩阵</span><a href="#12-叉乘矩阵" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
-
-<p>设 $\boldsymbol{a} = [a_1,a_2,a_3]^\top\in\mathbb{R}^3,\; \boldsymbol{b} = [b_1,b_2,b_3]^\top\in\mathbb{R}^3$，那么向量 $\boldsymbol{a}$ 叉乘向量 $\boldsymbol{b}$ 可表示为</p>
-
-\[\boldsymbol{a}\times\boldsymbol{b} = \boldsymbol{a}^\times\boldsymbol{b}\]
-
-<p>其中叉乘矩阵满足</p>
-
-\[\boldsymbol{a}^\times = \frac{\partial(\boldsymbol{a}\times\boldsymbol{b})}{\partial \boldsymbol{b}} = \begin{bmatrix}
-    0 &amp; -a_3 &amp; a_2\\
-    a_3 &amp; 0 &amp; -a_1\\
-    -a_2 &amp; a_1 &amp; 0
-\end{bmatrix}\]
-
-<blockquote>
-  <p><strong>七绝一首，速求法向量</strong>
-向量横着写两遍，
-掐头去尾留中间，
-交叉相乘再相减，
-求得向量再化简。
-<strong>或者写成行列式方便记忆</strong>
-\(\left |
-\begin{matrix}
-    i &amp; j &amp; k\\
-    a_1 &amp; a_2 &amp; a_3\\
-    b_1 &amp; b_2 &amp; b_3\\
-\end{matrix}
-\right |\)</p>
-</blockquote>
-
-<h3 id="13-坐标系定义"><span class="me-2">1.3. 坐标系定义</span><a href="#13-坐标系定义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
-
-<p>在航天器相对位姿跟踪任务中，需要明确各个坐标系，并以此来描述刚体的位姿和受力情况。通常会涉及到以下几个相关坐标系。</p>
 <ul>
-  <li>地心惯性坐标系 $I$；</li>
-  <li>追踪航天器本体坐标系 $B$；</li>
-  <li>目标航天器本体坐标系 $T$；</li>
-  <li>期望坐标系 $D$。</li>
+  <li>动态规划方法（Dynamic Programming, DP）</li>
+  <li>蒙特卡洛方法（Monte Carlo, MC）</li>
+  <li>时序差分方法（Temporal-Difference, TD）</li>
 </ul>
 
-<h2 id="2-轴角旋转"><span class="me-2">2. 轴角旋转</span><a href="#2-轴角旋转" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>这三种方法存在共同特点：</p>
 
-<blockquote>
-  <p>欧拉(Euler)转动定理：刚体绕定点的有限转动可以合成为绕经过该定点的某一直线的一次转动。因此，刚体的简单转动可以由旋转轴和旋转角唯一确定。</p>
-</blockquote>
+<ul>
+  <li>在求解强化学习任务时，最终目标是求解满足规则的最优策略 $\pi$。但以上三种方法并 <strong>没有直接求解</strong> 策略 $\pi$ 这个变量，而是先计算状态价值函数 $V_\pi(s)$ 或状态-动作价值函数 $q_\pi(s,a)$；然后再基于价值函数结果改进策略 $\pi$，是一种间接方式;</li>
+  <li>在策略改进过程中，本质上均选择<strong>最优价值函数</strong>对应的动作作为新的策略；</li>
+  <li>均为<strong>表格式</strong>强化学习的代表方法。</li>
+</ul>
 
-<p>旋转矩阵​ $\boldsymbol{R}$ 可以由旋转轴和旋转角唯一确定。假设位置矢量​ $\boldsymbol{p}$ 绕定点旋转到位置矢量 $\boldsymbol{p}^\prime$，旋转轴为 $\boldsymbol{n}$，旋转角为 $\theta$，如下图所示。可以证明，$\boldsymbol{R}$ 可由 $\boldsymbol{n},\theta$ 显示表示。</p>
+<p>特别地，对于 DQN 方法，神经网络的输入是原始的状态信息，如游戏画面，输出是在这种状态下执行各种动作的回报，即价值函数（Q函数）。训练完成之后，神经网络逼近的是最优 Q 函数 $Q(s,a)$。</p>
 
-<p><a href="/assets/img/postsimg/20230602/rotation1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230602/rotation1.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a> <a href="/assets/img/postsimg/20230602/rotation2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230602/rotation2.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;Q(s,a1)                       +----+
+  s  ---&gt; |f(x)| ----&gt;Q(s,a2)       or     s,ai ---&gt;|f(x)| ----&gt;Q(s,ai)
+          +----+ ----&gt;Q(s,a3)                       +----+
+</pre></td></tr></tbody></table></code></div></div>
 
-<p>从图中可以看出</p>
+<p>以 DQN 为代表的基于价值的强化学习方法，虽然在某些问题上取得了成功，但存在以下问题：</p>
 
-\[\boldsymbol{p}^\prime = \vec{OQ} + \vec{QP^\prime}\]
+<ul>
+  <li>
+    <p><strong>无法表示随机策略</strong>。某些问题的最优策略是随机策略，需要以不同的概率选择不同的动作。而基于价值的强化学习算法在实现时采用了贪心策略，给定一个状态 ，选择的策略是确定性的，显然无法实现这种按照概率执行各种候选动作的要求。比如石头剪刀布的最优策略是以 (1/3, 1/3, 1/3）的概率来选择石头/剪刀/布，基于价值的强化学习无法实现这种策略。</p>
+  </li>
+  <li>
+    <p><strong>无法处理高维观察空间</strong>。DQN 要求观察空间是离散的，且只能是有限个，这样才能寻找使动作值函数最大化的动作的操作。但在很多问题特别是物理控制任务中，具有连续实值和高维的观察空间，例如要控制在 x y z 方向的速度、加速度。DQN 不能直接应用。</p>
+  </li>
+  <li>
+    <p><strong>难以收敛</strong>。基于价值的强化学习方法输出的价值（如各个动作的最优 <code class="language-plaintext highlighter-rouge">Q</code> 函数值）的微小改变会导致某一动作被选中或不选中，这种不连续的变化会影响算法的收敛。这很容易理解，假设一个动作<code class="language-plaintext highlighter-rouge">a</code>的<code class="language-plaintext highlighter-rouge">Q</code>函数值本来在所有动作中是第 2 大的，把它增加 0.0001，就变成第最大的，那这种微小的变化会导致策略完全改变。因为之前它不是最优动作，现在变成最优动作了。</p>
+  </li>
+  <li>
+    <p><strong>存在徘徊</strong>。在观察受限的情况下，基于价值的强化学习方法会出现徘徊现象。即出现不同状态导致的观察相同，使得对应相同的 “最佳” 策略，但明显不符合任务实际情况的现象。</p>
+  </li>
+</ul>
 
-<p>其中 $\vec{OQ}$ 是 $\boldsymbol{p}$ 平行于轴 $\boldsymbol{n}$ 的轴向分量，由正交分解有</p>
+<h2 id="2-基于策略的强化学习"><span class="me-2">2. 基于策略的强化学习</span><a href="#2-基于策略的强化学习" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="21-策略函数"><span class="me-2">2.1. 策略函数</span><a href="#21-策略函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>相比之下，策略梯度算法是一种更为直接的方法，它让神经网络直接输出策略函数 $\pi(s)$，即在状态s下应该执行何种动作。对于非确定性策略，输出的是这种状态下执行各种动作的概率值，即如下的条件概率</p>
+
+\[\pi(a\vert s) = p(a\vert s)\]
+
+<p>所谓确定性策略，是只在某种状态下要执行的动作是确定即唯一的，而非确定性动作在每种状态下要执行的动作是随机的，可以按照一定的概率值进行选择。这种做法的原理如下图所示。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;p(a1|s)
+  s  ---&gt; |f(x)| ----&gt;p(a2|s)
+          |  θ | ----&gt;...
+          +----+ ----&gt;p(a3|s)
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>若动作 $a$ 是连续性随机变量，因此此时的策略 $\pi$ 不再是上述概率集合的形式，而是可微函数的形式——动作发生的概率受到某个概率密度函数的控制。假设动作 $a$ 服从某一概率密度函数 $P(a\vert s;\theta)$ (换种思路理解——将动作 $a$ 理解成从概率模型 $P(a\vert s;\theta)$ 产生的样本)。最终目标从求解 $P(a\vert s;\theta)$ 转换成求解策略中的参数 $\theta$。因此，将含参数 $\theta$ 的策略称为<strong>策略函数</strong>。记作 $\pi(a \vert s;\theta)$，通常情况下可简写成 $\pi_{\theta}$。</p>
+
+<h3 id="22-策略函数的分布形式"><span class="me-2">2.2. 策略函数的分布形式</span><a href="#22-策略函数的分布形式" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<ul>
+  <li>如果动作 $a$ 是<strong>离散型随机变量</strong> $\to$ 使用 $softmax$ 函数将其映射为 <strong>指数族分布</strong></li>
+</ul>
+
+<p>这里并不是一定要使用 $softmax$ 函数进行映射 $\to$ 只要能够映射为 ‘指数族分布’ 即可。</p>
+
+<p>将 $h(s,a;\theta)$ 函数定义为 ‘动作偏好值’ $\to$ 将离散型的策略 $\pi(a \vert s;\theta)$ 视为关于 $\theta$ 的一个函数，有
+\(\pi(a \vert s;\theta) \rightarrow \frac{e^{h(s,a;\theta)}}{\sum_{a'}e^{h(s,a';\theta)}}\)</p>
+
+<ul>
+  <li>如果动作 $a$ 是<strong>连续型随机变量</strong> $\to$ $a$ 服从的分布可以有很多种，不妨设 $a$ 服从 <strong>高斯分布</strong></li>
+</ul>
+
+<p>这里将高斯分布中的 $\mu,\sigma$ 看作参数 $\theta$ 的函数，若 $\theta$ 能够求解， $\mu,\sigma$ 同样也可以被求解，最终求解整个分布</p>
+
+\[\mu=\mu(s;\theta),\sigma=\sigma(s;\theta)\]
+
+<p>至此，假设 $a$ 是服从 1 维随机变量的高斯分布，策略函数 $\pi(a \vert s;\theta)$ 表示如下</p>
+
+\[\pi(a \vert s;\theta) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(a-\mu)^2}{2\sigma^2}}\]
+
+<p>为了改进策略函数，需要围绕参数 $\theta$ 构建一个目标函数 $J(\theta)$，然后通过梯度下降（上升）的方式更新参数。</p>
+
+<h3 id="23-策略梯度的概念"><span class="me-2">2.3. 策略梯度的概念</span><a href="#23-策略梯度的概念" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<ul>
+  <li><strong>回顾价值梯度</strong></li>
+</ul>
+
+<p>首先回顾 Q-Learning 的核心思想，即通过一步采样更新 Q 值（即TD方法的思想）</p>
+
+\[Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha[r_{t+1}+\gamma\max_a 𝑄(s_{t+1},a)−Q(s_t,a_t)]\]
+
+<p>上述更新过程<strong>可以收敛</strong>，意味着</p>
+
+\[r_{t+1}+\gamma\max_a 𝑄(s_{t+1},a)−Q(s_t,a_t) \rightarrow 0\]
+
+<p>那么我们可以构造一个参数为 $\theta$ 的深度神经网络，用来估计价值函数，即 DQN 方法</p>
+
+\[Q(s,a) = Q(s,a; \theta)\]
+
+<p>则训练用的损失函数可设计为</p>
+
+\[L(\theta) = \mathbb{E} \{[r_{t+1}+\gamma\max_a 𝑄(s_{t+1},a; \theta)−Q(s_t,a_t; \theta)]^2\}\]
+
+<p>然后，通过梯度下降更新神经网络的参数，使得损失函数 $L(\theta)$ 最小。
+\(\theta \leftarrow \theta - \alpha \nabla_{\theta} L(\theta)\)</p>
+
+<p>注意到损失函数中只有最后一项是关于 $\theta$ 的函数，因此损失函数的梯度可以写为</p>
+
+\[\nabla_{\theta} L(\theta) = \alpha[r_{t+1}+\gamma\max_a 𝑄(s_{t+1},a; \theta)−Q(s_t,a_t; \theta)]\nabla_{\theta}  Q(s_t,a_t; \theta)\]
+
+<p>其中，$\alpha$ 是学习率，$\theta$ 是神经网络的参数。</p>
+
+<p>可以看出，在基于价值的强化学习中，价值函数是我们的学习目标，从而定义出损失函数。通过更新式收敛保证价值函数的最优。</p>
+
+<ul>
+  <li><strong>策略梯度</strong></li>
+</ul>
+
+<p>类似地，策略梯度算法的核心思想就是通过计算策略函数的梯度，来更新神经网络的参数。对于非确定性策略，神经网络的输出的是这种状态下执行各种动作的概率值，即如下的条件概率</p>
+
+\[\pi(a\vert s) = p(a\vert s)\]
+
+<p>那么损失函数的定义必然包含输出的条件概率（这样才能衡量输出于真值之间的误差），对应的参数更新梯度计算式形如</p>
+
+\[\theta \leftarrow \theta + \nabla_\theta J(\pi(a\vert s ; \theta))\]
+
+<p>其中 $J(\pi(a\vert s;\theta))$ 可简记为 $J(\theta)$。 上式为何要用梯度上升（即加号）后文再来解释。那么问题就转化为：</p>
+<ul>
+  <li>目标函数（损失函数）是否存在？</li>
+  <li>目标函数（损失函数）的梯度（即策略梯度）是否存在？</li>
+  <li>如何计算策略梯度？</li>
+</ul>
+
+<h3 id="24-策略梯度的计算"><span class="me-2">2.4. 策略梯度的计算</span><a href="#24-策略梯度的计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="241-基于累计收益的策略梯度"><span class="me-2">2.4.1. 基于累计收益的策略梯度</span><a href="#241-基于累计收益的策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>计算策略梯度的目的，是为了更新神经网络的参数，使神经网络产生的能够得到大的奖励的动作的概率变大。回想价值学习的目标是什么？强化学习的目标是使得获得的奖励最大化。</p>
+
+<p>定义神经网络输出的策略为 $\pi:=p(a\vert s;\theta)$，其中 $\theta$ 是神经网络的参数。假设采样一条马尔科夫轨迹如下</p>
+
+\[\tau = {s_1,a_1,r_1,s_2,a_2,r_2,...,s_T,a_T,r_T}\]
+
+<p>那么该轨迹发生的概率为</p>
+
+\[p_{\theta}(\tau) = p(s_1)\prod_{t=1}^T p(a_t\vert s_t;\theta)p(s_{t+1}\vert s_t,a_t)\]
+
+<p>其中，$p(s_1)$ 为初始状态的概率；$p(s_{t+1}\vert s_t,a_t)$ 为环境转移概率，即在状态 $s_t$ 下执行动作 $a_t$ 后，进入状态 $s_{t+1}$ 的概率。注意这两个概率均与网络参数无关。</p>
+
+<p>不考虑折扣衰减，该轨迹获得的收益为累计回报</p>
+
+\[R(\tau) = \sum_{t=0}^T r_t\]
+
+<p>由于马尔科夫链是采样得到的，因此当前策略可获得的期望奖励为</p>
+
+\[\mathbb{E} [R(\tau)] = \sum_{\tau} p_{\theta}(\tau)R(\tau)\]
+
+<p>因此我们可以定义<strong>目标函数</strong>为</p>
+
+\[J(\theta) = \mathbb{E} [R(\tau)]\]
+
+<p>定义<strong>策略梯度</strong>为</p>
+
+\[\nabla_{\theta}J(\theta) = \nabla_{\theta}\mathbb{E} [R(\tau)] = \nabla_{\theta}\sum_{\tau} p_{\theta}(\tau) R(\tau) = \sum_{\tau} \nabla_{\theta}p_{\theta}(\tau) R(\tau)\]
+
+<p>注意，强化学习的目的是最大化这个期望奖励，因此需要用梯度上升来更新神经网络参数。</p>
+
+\[\theta \leftarrow \theta + \alpha \nabla_{\theta} J(\theta)\]
+
+<ul>
+  <li><strong>问题转化为</strong>：如何计算 $\nabla_{\theta}p_{\theta}(\tau)$</li>
+</ul>
+
+<p>注意到 $p_{\theta}(\tau)$ 是许多概率连乘的形式，如果直接计算其梯度，势必存在数据下溢（概率都是小于等于 1 的，多个概率连乘后数值会非常小），需要想办法避免。一种直觉思路是通过取对数把连乘转化为连加。</p>
+
+<p>对 $log(f(x))$ 函数求梯度具备如下性质</p>
+
+\[\nabla_{\theta} \ln f(x) = \frac{\nabla_{\theta} f(x)}{f(x)}\]
+
+<p>因此有</p>
+
+\[\nabla_{\theta} f(x) = f(x)\nabla_{\theta} \ln f(x)\]
+
+<p>将 $p_{\theta}(\tau)$ 带入即可得</p>
+
+\[\nabla_{\theta}p_{\theta}(\tau) = p_{\theta}(\tau)\nabla_{\theta} \ln p_{\theta}(\tau)\]
+
+<p>因此有</p>
 
 \[\begin{aligned}
-\vec{OQ} &amp;= \boldsymbol{n}\boldsymbol{n}^\top\boldsymbol{p}\\
-\vec{QP^\prime} &amp;= (\cos\theta)\vec{QP} + (\sin\theta)\vec{QP^{\prime\prime}}
+\nabla_{\theta}\mathbb{E} [R(\tau)] &amp;= \sum_{\tau} \nabla_{\theta}p_{\theta}(\tau) R(\tau)\\
+&amp;= \sum_{\tau} p_{\theta}(\tau)\nabla_{\theta} \ln p_{\theta}(\tau) R(\tau) \\
+&amp;=\mathbb{E}_{\tau\sim p_{\theta(\tau)}}[\nabla_{\theta} \ln p_{\theta}(\tau) R(\tau)]
 \end{aligned}\]
 
-<p>又因为 $\vec{QP}$ 是 $\boldsymbol{p}$ 与垂直于轴 $\boldsymbol{n}$ 的垂向分量，由正交分解有</p>
+<ul>
+  <li><strong>问题转化为</strong>：如何计算 $\nabla_{\theta} \ln p_{\theta}(\tau)$</li>
+</ul>
 
-\[\vec{QP} = (\boldsymbol{I} - \boldsymbol{n}\boldsymbol{n}^\top)\boldsymbol{p}\]
+<p>首先通过蒙特卡洛方法进行 $N$ 次采样来近似估计期望，可将期望式打开得到</p>
 
-<p>根据矢量叉乘运算的几何意义，有</p>
+\[\begin{aligned}
+\nabla_{\theta}\mathbb{E} [R(\tau)] &amp;=\mathbb{E}_{\tau\sim p_{\theta(\tau)}}[\nabla_{\theta} \ln p_{\theta}(\tau) R(\tau)]\\
+&amp;=\frac{1}{N} \sum_{n=1}^N \nabla_{\theta} \ln p_{\theta}(\tau_n) R(\tau_n)
+\end{aligned}\]
 
-\[\vec{QP^{\prime\prime}} = \boldsymbol{n}\times\boldsymbol{p} = \boldsymbol{n}^\times\boldsymbol{p}\]
+<p>其中，$\tau_n$ 是第 $n$ 次采样得到的轨迹。那么对于这条具体的轨迹有</p>
 
-<p>带入可得</p>
+\[\begin{aligned}
+\nabla_{\theta} \ln p_{\theta}(\tau_n) &amp;= \nabla_{\theta} \left[\ln p(s_1) + \sum_{t=1}^T \ln p_{\theta}(a_t\vert s_t) +\sum_{t=1}^T \ln p(s_{t+1}\vert s_t,a_t)\right]_n\\
+&amp;= \nabla_{\theta}\sum_{t=1}^T\ln p_{\theta}(a_t^n\vert s_t^n)
+= \sum_{t=1}^T\nabla_{\theta}\ln p_{\theta}(a_t^n\vert s_t^n)\\
+\end{aligned}\]
 
-\[\vec{QP^\prime} = \cos{\theta}(\boldsymbol{I} - \boldsymbol{n}\boldsymbol{n}^\top)\boldsymbol{p}+\sin{\theta}\boldsymbol{n}^\times\boldsymbol{p}\]
+<p>上式可以看出，充分利用了对数函数把连乘转为连加的好处。其中第一项和第三项与网络参数 $\theta$ 无关，因此对其求梯度为 0，仅剩第二项。这里 $p_{\theta}(a_t^n\vert s_t^n) = p(a_t^n\vert s_t^n;\theta)$。</p>
 
-<p>综上</p>
+<p>最后可得到如下更新式</p>
 
-\[\boldsymbol{p}^\prime = \boldsymbol{n}\boldsymbol{n}^\top\boldsymbol{p}+\cos{\theta}(\boldsymbol{I} - \boldsymbol{n}\boldsymbol{n}^\top)\boldsymbol{p}+\sin{\theta}\boldsymbol{n}^\times\boldsymbol{p} = \boldsymbol{R}\boldsymbol{p}\]
+\[\nabla_{\theta}J(\theta) = \frac{1}{N}\sum_{n=0}^N \sum_{t=0}^T \nabla_{\theta}\ln p_{\theta}(a_t^n\vert s_t^n) R(\tau_n)\]
 
-<p>则<strong>旋转矩阵</strong>为</p>
+\[\theta \leftarrow \theta + \alpha \nabla_{\theta} J(\theta)\]
 
-\[\boldsymbol{R} = \boldsymbol{n}\boldsymbol{n}^\top+\cos{\theta}(\boldsymbol{I} - \boldsymbol{n}\boldsymbol{n}^\top)+\sin{\theta}\boldsymbol{n}^\times\]
+<p>最后，如果我们重新把策略梯度写为期望的形式，注意到之前定义的 $\pi :=p(a\vert s)$，有</p>
 
-<h2 id="3-姿态四元数"><span class="me-2">3. 姿态四元数</span><a href="#3-姿态四元数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+\[\nabla_{\theta}J(\theta)=\mathbb{E}_{\pi(\theta)} [\nabla_{\theta}\ln \pi_{\theta}(a\vert s) R]\]
 
-<h3 id="31-四元数定义"><span class="me-2">3.1. 四元数定义</span><a href="#31-四元数定义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>到后面我们可以发现，策略梯度的定义不局限于这一种形式，主要反映在期望括号内后一项的选择上。</p>
 
-<p>四元数由Hamilton在1843年提出，它可以看做是复数向 $\mathbb{R}^4$ 的推广。一个四元数定义为
-\(\mathbb{H}=\{q:q=q_0+q_1i+q_2j+q_3k,\; q_0,q_1,q_2,q_3\in\mathbb{R}\}\)</p>
+<h4 id="242-基于价值函数的策略梯度"><span class="me-2">2.4.2. 基于价值函数的策略梯度</span><a href="#242-基于价值函数的策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>四元数还可以表示为 $q=(q_0,\bar{q})$，其中 $q_0\in\mathbb{R}$ 是标量部分，$\bar{q} = [q_1, q_2, q_3]^\top\in\mathbb{R}^3$ 是矢量部分。</p>
+<h5 id="2421-策略梯度定理"><span class="me-2">2.4.2.1. 策略梯度定理</span><a href="#2421-策略梯度定理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>四元数的基本运算定义如下：</p>
+<p>之前基于累计收益的策略梯度，并没有考虑折扣因子。如果考虑包含折扣因子的情况，相当于利用初始状态回报的期望，即<strong>初始状态的状态价值函数</strong>来衡量轨迹的优劣，对应的目标函数为</p>
 
-<p><strong>共轭</strong>：$q^* = (q_0,-\bar{q})\in\mathbb{H}$</p>
+\[J(\theta) = \mathbb{E} [R(\tau)]=  \mathbb{E}[\sum_{t=0}^T \gamma^{t-1} r_t] = V_{\pi(a\vert s ; \theta)}(s_0)\]
 
-<p><strong>范数</strong>（的平方）：$\Vert q\Vert^2 = qq^* = q^*q=q\cdot q=(q_0^2+\bar{q}\cdot \bar{q},\bar{0})$</p>
+<p>简化起见，写为</p>
 
-<p>当四元数的范数限制为 1 时，就叫<strong>单位四元数</strong>，即</p>
+\[J(\theta) = \mathbb{E} [R(\tau)]= V_{\pi}(s)\]
 
-\[\mathbb{H}^u=\{q\in \mathbb{H}: q\cdot q=(1,0,0,0)\}\]
+<p>那么有</p>
 
-<h3 id="32-四元数表示旋转"><span class="me-2">3.2. 四元数表示旋转</span><a href="#32-四元数表示旋转" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+\[\nabla_{\theta}J(\theta) = \nabla_{\theta}V_{\pi}(s)\]
 
-<p>三维空间中的旋转可以被认为是一个函数 $\phi$ ，从 $\mathbb{R}^3$ 到自身的映射。函数 $\phi$ 要想表示一个旋转，必须在旋转过程中保持向量长度（lengths）、向量夹角（angles）和 handedness 不变。handedness 和左右手坐标系有关，例如左手坐标系中向量旋转后，仍要符合左手坐标系规则。</p>
+<p>策略梯度定理本质就是求解目标函数 $J(\theta)$ 的梯度。首先使用贝尔曼期望方程对 $V(s)$ 进行展开</p>
 
-<h3 id="33-姿态四元数"><span class="me-2">3.3. 姿态四元数</span><a href="#33-姿态四元数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+\[\nabla_{\theta}V_{\pi}(s) = \nabla_{\theta}\sum_{a\in \mathcal{A(s)}} \pi(a\vert s)q_{\pi}(s,a) = \sum_{a\in \mathcal{A(s)}}\nabla_{\theta}[\pi(a\vert s)q_{\pi}(s,a)]\]
 
-<p>单位四元数可以用来表示两个坐标系之间的相对姿态，此时又可称其为<strong>旋转四元数</strong>。若本体坐标系 $B$ 相对于惯性系 $I$ 的姿态用欧拉旋转轴角表示为 $(\bar{n},\theta)$，即本体坐标系 $B$ 绕着单位轴 $\bar{n}$ 旋转角度 $\theta$ 到达惯性坐标系 $I$。那么本体坐标系 $B$ 相对于惯性坐标系 $I$ 的姿态四元数为</p>
+<p>注意到求梯度是对网络参数 $\theta$ 进行的，而所有和策略 $\pi$ 有关的项均隐含 $\theta$，所以上述式子需要采用乘法求导的形式展开</p>
 
-\[q_{B/I}=(cos(\frac{\theta}{2}),\ sin(\frac{\theta}{2})\bar{n})\]
+\[\begin{aligned}
+\nabla_{\theta}V_{\pi}(s) &amp;= \sum_{a\in \mathcal{A(s)}}\nabla_{\theta} [\pi(a\vert s)q_{\pi}(s,a)]\\
+&amp;= \sum_{a\in \mathcal{A(s)}} [\nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a) + \pi(a\vert s) \nabla_{\theta}q_{\pi}(s,a)]\\
+\end{aligned}\]
 
-<p>如果旋转角度被限制在 $-180^{\circ}&lt; \theta &lt; 180^{\circ}$，那么四元数标量部分可以由下式计算</p>
+<p>其中<strong>第二项</strong></p>
 
-\[q_0 = \sqrt{(1-\vert\vert \bar{q} \vert\vert ^2)}\]
+\[\begin{aligned}
+\nabla q_{\pi} (s,a) &amp;= \nabla \sum_{s^\prime,r} P(s^\prime,r\vert s,a)[r+\gamma V_{\pi}(s^\prime)]\\
+&amp;=\nabla \sum_{s^\prime,r}^{s^\prime,r}  P(s^\prime,r|s,a)  r + \nabla \sum_{s^\prime,r} \gamma P(s^\prime,r|s,a)V_{\pi}(s^\prime)\\
+&amp;=\nabla \sum_{s^\prime,r} \gamma P(s^\prime,r|s,a)V_{\pi}(s^\prime)\\
+&amp;=\gamma \sum_r P(r\vert s,a)\sum_{s^\prime} P(s^\prime\vert s,a) \nabla V_{\pi}(s^\prime)\\
+&amp;=\gamma \sum_{s^\prime} P(s^\prime\vert s,a) \nabla V_{\pi}(s^\prime)
+\end{aligned}\]
 
-<p>注意，相对姿态轴角表示中， $(-\bar{n},-\theta)$ 和 $(\bar{n},\theta)$ 起到的旋转效果相同。带入姿态四元数定义式，可以得到惯性系相对于本体系的姿态四元数</p>
+<p>带回梯度式子，即</p>
 
-\[q_{I/B} = q_{B/I}^*\]
+\[\nabla_{\theta}V_{\pi}(s) = \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a) + \sum_{a\in \mathcal{A(s)}} \pi(a\vert s)\gamma \sum_{s^\prime} P(s^\prime\vert s,a) \nabla_{\theta} V_{\pi}(s^\prime)\]
 
-<p>即姿态四元数（单位四元数）本身与其共轭四元数互为逆变换。</p>
+<p>可以看出，上式呈现出 $\nabla_{\theta}V_{\pi}(s)$ 的迭代形式。为了更进一步确定迭代关系，再次对 $\nabla_{\theta}V_{\pi}(s^\prime)$ 展开，有</p>
 
-<h2 id="4-向量的坐标变换"><span class="me-2">4. 向量的坐标变换</span><a href="#4-向量的坐标变换" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+\[\nabla_{\theta}V_{\pi}(s^\prime) = \sum_{a^\prime\in \mathcal{A(s^\prime)}} \nabla_{\theta}\pi(a^\prime\vert s^\prime) q_{\pi}(s^\prime,a^\prime) + \sum_{a^\prime\in \mathcal{A(s^\prime)}} \pi(a^\prime\vert s^\prime)\gamma \sum_{s^{\prime\prime}} P(s^{\prime\prime}\vert s^\prime,a^\prime) \nabla_{\theta} V_{\pi}(s^{\prime\prime})\]
 
-<p>【<strong>定理1</strong>】假设坐标系 $Y$ 相对于坐标系 $X$ 的姿态四元数为 $q_{Y/X}$，矢量 $\bar{v}$ 再两个坐标系内的表示分别为 $\bar{v}^Y$ 和 $\bar{v}^X$，则有如下转换关系成立</p>
+<p>带回梯度式子并且<strong>完全展开</strong>，有</p>
 
-\[v^Y = q^*_{Y/X}\cdot v^X \cdot q_{Y/X},\quad v^X = q^*_{X/Y}\cdot v^Y \cdot q_{X/Y}\]
+<ul>
+  <li><strong>第一项</strong></li>
+</ul>
 
-<p>其中 $v^Y = [0,\bar{v}^Y],\ v^X = [0,\bar{v}^X]$。上式等价为</p>
+\[\sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\]
 
-\[v^Y = R_X^Y\cdot v^X,\quad v^X = R_Y^X\cdot v^Y\]
+<ul>
+  <li>
+    <p><strong>第二项</strong></p>
 
-<p>其中，坐标系 $Y$ 到坐标系 $X$ 的坐标旋转矩阵为</p>
+\[\begin{aligned}
+      &amp;\sum_{a\in \mathcal{A(s)}} \pi(a\vert s)\gamma \sum_{s^\prime} P(s^\prime\vert s,a)\cdot \sum_{a^\prime\in \mathcal{A(s^\prime)}} \nabla_{\theta}\pi(a^\prime\vert s^\prime) q_{\pi}(s^\prime,a^\prime) \\
+      =&amp;\gamma \sum_{s^\prime}\sum_{a\in \mathcal{A(s)}} \pi(a\vert s) P(s^\prime\vert s,a)\cdot \sum_{a^\prime\in \mathcal{A(s^\prime)}} \nabla_{\theta}\pi(a^\prime\vert s^\prime) q_{\pi}(s^\prime,a^\prime) \\
+      =&amp;\gamma \sum_{s^\prime} \mathcal{P}(s^\prime\vert s)\cdot \sum_{a^\prime\in \mathcal{A(s^\prime)}} \nabla_{\theta}\pi(a^\prime\vert s^\prime) q_{\pi}(s^\prime,a^\prime)\\
+      \end{aligned}\]
 
-\[R_Y^X = \bar{n}\bar{n}^\top+\cos\theta(I_3-\bar{n}\bar{n}^\top)+\sin\theta \bar{n}^{\times}\]
+    <p>上式仅包含前后状态的变量 $s,s^\prime$ 和转移次数常量 $k=1$（$a$ 最终会被求和吸收积分掉），因此可进一步写为通项式：</p>
 
-<h2 id="5-姿态变换与四元数乘法"><span class="me-2">5. 姿态变换与四元数乘法</span><a href="#5-姿态变换与四元数乘法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+\[\gamma \sum_{x\in S} \mathcal{P}(s\rightarrow x, k, \pi)\cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert x) q_{\pi}(x,a)\]
 
-<p>假设坐标系 $A$ 相对于坐标系 $B$ 的四元数为 $q_{A/B}$，坐标系 $B$ 相对于坐标系 $C$ 的四元数为 $q_{B/C}$，那么坐标系 $A$ 相对于坐标系 $C$ 的四元数为</p>
+    <p>同时，注意到第一项也符合上述通项式（$k=0,\gamma = 1$）</p>
+  </li>
+  <li>
+    <p><strong>第三项</strong></p>
 
-\[q_{A/C} = q_{A/B} \otimes q_{B/C}\]
+    <p>\(\sum_{a\in \mathcal{A(s)}} \pi(a\vert s)\gamma \sum_{s^\prime} P(s^\prime\vert s,a) \cdot \sum_{a^\prime\in \mathcal{A(s^\prime)}} \pi(a^\prime\vert s^\prime)\gamma \sum_{s^{\prime\prime}} P(s^{\prime\prime}\vert s^\prime,a^\prime) \nabla_{\theta} V_{\pi}(s^{\prime\prime})\)
+注意到第三项仍然是个迭代式，可以继续展开，且展开除了最后一项，前面均符合前述通项式。</p>
+  </li>
+</ul>
 
-<h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>至此， $\nabla V_\pi(s)$ 的迭代式表示如下</p>
 
-<p>[1] 皮皮夏. <a href="https://zhuanlan.zhihu.com/p/39375082">【知乎】刚体的转动和旋转变换</a></p>
+\[\nabla_{\theta}V_{\pi}(s) = \sum_{s\in S} \sum_{k=0}^{\infty} \gamma^{k} \mathcal{P}(s\rightarrow x, k, \pi)\cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert x) q_{\pi}(x,a)\]
 
-<p>[2] 皮皮夏. <a href="https://zhuanlan.zhihu.com/p/375199378">【知乎】四元数代数以及姿态动力学建模</a></p>
+<p>将公式中所有 $s$ 替换为初始状态 $s_0$，将所有 $x$ 替换为 $s$，我们得到了初始状态价值函数的梯度</p>
 
-<p>[3] lxycg. <a href="https://www.zhihu.com/tardis/zm/art/78987582">【知乎】四元数和旋转(Quaternion &amp; rotation)</a></p>
+\[\nabla_{\theta}V_{\pi}(s_0) = \sum_{s\in S} \sum_{k=0}^{\infty} \gamma^{k} \mathcal{P}(s_0\rightarrow s, k, \pi)\cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\]
+
+<p>其中，</p>
+
+<ul>
+  <li>$\mathcal{P}(s_0\rightarrow s, k, \pi)$ 表示初始状态 $s_0$ 经过 $k$ 次状态转移最终到达 $s$ 的概率；</li>
+  <li>$\sum_{k=0}^{\infty} \mathcal{P}(s_0\rightarrow s, k, \pi)$ 表示在整条轨迹序列中，状态 $s$ 出现的<strong>平均次数</strong>，将其记为 $\eta(s)$；</li>
+  <li>那么状态 $s$ 出现的<strong>概率</strong> $\mu(s)$ 可定义为其出现的平均次数除以所有状态出现的平均次数的和，即 $\mu(s) = {\eta(s)}/{\sum_{s^\prime} \eta(s^\prime)}$</li>
+</ul>
+
+<p>则</p>
+
+\[\begin{aligned}
+\nabla_{\theta}V_{\pi}(s_0) &amp;= \sum_{s\in S}  \gamma^{k} \eta(s) \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\\
+&amp;= \sum_{s\in S}  \gamma^{k} \mu(s)\sum_{s^\prime} \eta(s^\prime)  \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\\
+&amp;= \sum_{s^\prime} \eta(s^\prime) \cdot \sum_{s\in S} \gamma^{k} \mu(s)  \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\\
+\end{aligned}\]
+
+<p>其中，第一项为一个常数（归一化因子），$\gamma$ 折扣率也是一个常数，它们只影响梯度的具体数值。我们更关注梯度的方向，因此</p>
+
+\[\nabla_{\theta}V_{\pi}(s_0) \propto \sum_{s\in S} \mu(s)  \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\]
+
+<h5 id="2422-reinforce蒙特卡洛策略梯度"><span class="me-2">2.4.2.2. REINFORCE（蒙特卡洛策略梯度）</span><a href="#2422-reinforce蒙特卡洛策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>观察前面策略梯度方向的求解结果，可以发现 $\mu(s)$ 本身是状态 $s$ 出现的概率，因此我们可以其联通前面的求和符号一起表示为某种期望的形式</p>
+
+\[\nabla_{\theta}J(\theta) \propto \sum_{s\in S} \mu(s)  \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)=\mathbb{E}_{?}\left[ \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a) \right]\]
+
+<p>问题转化为，确定期望符号中的概率分布是什么（也即上式中的 <code class="language-plaintext highlighter-rouge">?</code> 部分）。既然是关于状态的概率分布，我们定义这样一个分布符号：$\rho^{\pi_{\theta}}$，使得状态 $s$ 的出现概率服从该分布。该分布不仅和策略函数 $\pi(a\vert s;\theta)$ 相关，还与环境（状态转移概率）相关。</p>
+
+\[\forall s\in S \rightarrow s\sim \rho^{\pi_{\theta}}(s)=lim_{t\rightarrow \infty} P(S_t=s\vert S_{t-1}=s\vert A_{0:t}\sim \pi)\]
+
+<p>则</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s\sim\rho^{\pi_{\theta}}}\left[ \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a) \right]\]
+
+<p>为了使公式规范化</p>
+
+<ul>
+  <li>将所有状态 $s$ 和动作 $a$ 加上特定时刻 $t$ 下标；</li>
+  <li>将策略函数的参数补充上；</li>
+</ul>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}}\left[ \sum_{a_t\in \mathcal{A(s_t)}} \nabla_{\theta}\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\]
+
+<p>继续观察，上式还存在一个求和符号，因此存在一个想法是将该部分也化为期望的形式。但 $\nabla_{\theta}\pi(a_t\vert s_t;\theta)$ 并不是策略函数，因此需要引入策略函数，借助之前 <code class="language-plaintext highlighter-rouge">log</code> 函数梯度的性质，有</p>
+
+\[\begin{aligned}
+\nabla_{\theta}J(\theta) \propto&amp; \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}}\left[ \sum_{a_t\in \mathcal{A(s_t)}} \nabla_{\theta}\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\\
+\propto&amp; \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}}\left[ \sum_{a_t\in \mathcal{A(s_t)}} \pi(a_t\vert s_t;\theta)\nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\\
+\propto&amp; \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\\
+\end{aligned}\]
+
+<p>之所以将 $\nabla_{\theta}J(\theta)$ 化简为期望形式，是因为期望形式就可以通过 <strong>蒙特卡洛方法</strong> 采样的方式来近似求解。</p>
+
+<p>根据 Q 函数的定义有</p>
+
+\[q_{\pi_{\theta}}(s_t, a_t) = \mathbb{E}_{a_t\sim\pi} [G_t\vert s_t, a_t]\]
+
+<p>带入策略梯度定理有</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
+
+<p>至此，我们可以通过采样 $\nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t$ 神经网络参数 $\theta$ 进行更新。这就是 <strong>REINFORECE</strong> 方法。REINFORCE 的本质就是用 $G_t$ 代替 $q_{\pi}(s_t, a_t)$。</p>
+
+<p>用于估计最优策略的REINFORCE算法表示如下（采用增量更新的方式）</p>
+
+<ul>
+  <li>输入：可微策略函数 $\pi(a \vert s;\theta)$，衰减因子 $\gamma$，学习率 $\alpha$</li>
+  <li>初始化：策略函数的参数 $\theta$</li>
+  <li>训练过程：
+    <ul>
+      <li>repeat 根据策略函数采样一条轨迹：$s_0, a_0, r_1, s_2, a_2, r_3, \cdots$</li>
+      <li>loop $t=T-1, T-2, \cdots, 1,0$</li>
+      <li>$\quad G\leftarrow \gamma G + R_{t+1}$</li>
+      <li>
+        <div class="table-wrapper"><table>
+          <tbody>
+            <tr>
+              <td>$\quad \theta \leftarrow \theta + \alpha G \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$</td>
+            </tr>
+          </tbody>
+        </table></div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="243-策略梯度的改进"><span class="me-2">2.4.3. 策略梯度的改进</span><a href="#243-策略梯度的改进" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>根据定义，因为 $G_t$ 是 $Q(s,a)$ 的无偏估计，所以基于蒙特卡洛采样的方式进行参数更新的 REINFORCE 算法，得到的结果就是策略梯度的无偏估计，那么其方差呢？</p>
+
+<p>结论：基于蒙特卡洛采样的方式进行参数更新的 REINFORCE 算法方差很大。通过观察策略梯度式</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
+
+<p>我们可以看出，$\nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$ 相当于 $G$ 的一个系数或者说权重，对于方差而言只起到放缩作用（根据公式 $Var(aX) = a^2Var(X)$），实际方差还是取决于 $G$ 本身。而 $G$ 的方差</p>
+
+\[Var(G_t) = Var(R_{t+1}) + Var(R_{t+2}) + \cdots\]
+
+<p>由此可以看出，方差大来源于两个原因：</p>
+
+<ul>
+  <li>若不同 $s$ 对应的 $R$ 范围相差较大，再加上 MC 的随机性，那么每一步的 $R$ 都会有较大的方差;</li>
+  <li>因为采样轨迹长度的原因，出现方差累积。</li>
+</ul>
+
+<p>相应的解决方法如下：</p>
+<ul>
+  <li>通过添加基线缓解;</li>
+  <li>使用 TD 方法代替 MC 方法，即通过Actor-Critic方法解决。</li>
+</ul>
+
+<h5 id="2431-reinforce-with-baseline"><span class="me-2">2.4.3.1. REINFORCE with baseline</span><a href="#2431-reinforce-with-baseline" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>通过添加基线（baseline）可以减小方差。具体形式如下</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\]
+
+<p>添加基线 $b(s)$ 后</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (q_{\pi}(s_t,a_t)-b(s_t)) \right]\]
+
+<p>参数更新式则变为</p>
+
+\[\theta \leftarrow \theta + \alpha (G_t - b(s_t)) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
+
+<p>基线 $b(s)$ 可为任意变量或者函数，因为它并不会改变策略梯度的期望（想想看为什么，因为它与动作 $a$ 并不相关，求梯度后为 0）。</p>
+
+<h5 id="2432-actor-critic"><span class="me-2">2.4.3.2. Actor-Critic</span><a href="#2432-actor-critic" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>虽然基线 $b(s)$ 可为任意变量或者函数，但实际情况下，一种自然而然的想法是将基线设置为状态价值的估计，即</p>
+
+\[b(s) = \hat{v}(s_t;{w})\]
+
+<p>其中 $w$ 是另一套习得的参数。因为 REINFORCE 本身是基于蒙特卡洛方法，那么自然而然可以同样使用蒙特卡洛方法来学习 $w$。到此为止，我们就可以将 REINFORCE 算法转化为 Actor-Critic 算法，其中参数 $\theta$ 对应策略梯度部分的神经网络，扮演 Actor 的角色；而 $w$ 对应价值估计部分的神经网络，扮演 Critic 的角色。</p>
+
+<p>Actor-Critic 算法的更新式为</p>
+
+\[\theta \leftarrow \theta + \alpha (G_t - \hat{v}(s_t;{w})) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
+
+<p>更进一步，类似于基于价值的强化学习方法中，MC 到 TD 方法的逻辑演变，这里我们同样不需要采样完整的一条轨迹，而是仅采样一步，后续通过自举的方式逐步估计完整的轨迹。</p>
+
+\[\theta \leftarrow \theta + \alpha (R_{t+1} + \gamma \hat{v}(s_{t+1};w) - \hat{v}(s_t;{w})) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
+
+<p>Actor-Critic 算法的训练过程如下</p>
+
+<ul>
+  <li>输入：
+    <ul>
+      <li>可微策略函数 $\pi(a \vert s;\theta)$</li>
+      <li>可微的价值函数 $\hat{v}(s;w)$</li>
+      <li>衰减因子 $\gamma$，学习率 $\alpha_\theta,\alpha_w$</li>
+    </ul>
+  </li>
+  <li>初始化：
+    <ul>
+      <li>策略函数的参数 $\theta$</li>
+      <li>价值函数的参数 $w$</li>
+    </ul>
+  </li>
+  <li>训练过程：
+    <ul>
+      <li>loop 状态 $s$ 没有结束时
+        <ul>
+          <li>根据策略采样：$a\sim \pi(\cdot, s;\theta)$</li>
+          <li>执行动作 $a$， 得到奖励 $R$，转移状态到 $s^\prime$</li>
+          <li>$\delta \leftarrow R + \gamma \hat{v}(s^\prime;w) - \hat{v}(s;w)$</li>
+          <li>$w \leftarrow w + \alpha_w \delta\nabla_{w}\hat{v}(s;w)$</li>
+          <li>$\beta \leftarrow \gamma \delta$</li>
+          <li>
+            <div class="table-wrapper"><table>
+              <tbody>
+                <tr>
+                  <td>$\theta \leftarrow \theta + \alpha \beta \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$</td>
+                </tr>
+              </tbody>
+            </table></div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>[1] 静静的喝酒. <a href="https://blog.csdn.net/qq_34758157/article/details/125886399">CSDN 策略梯度方法介绍——Value-Based强化学习方法 VS Policy-Based强化学习方法</a></p>
+
+<p>[2] 静静的喝酒. <a href="https://blog.csdn.net/qq_34758157/article/details/125929926">CSDN 策略梯度方法介绍——策略梯度定理推导过程</a></p>
+
+<p>[3] 静静的喝酒. <a href="https://blog.csdn.net/qq_34758157/article/details/125945391">策略梯度方法介绍——蒙特卡洛策略梯度方法(REINFORCE)</a></p>
+
+<p>[4] Richard S. Sutton and Andrew G. Barto. <a href="http://incompleteideas.net/book/the-book.html">Reinforcement Learning: An Introduction</a></p>
 
 </div>
 
@@ -1285,6 +1444,7 @@
   <div class="post-meta mb-3">
     <i class="far fa-folder-open fa-fw me-1"></i>
     
+      <a href='/categories/academic/'>Academic</a>,
       <a href='/categories/knowledge/'>Knowledge</a>
   </div>
   
@@ -1294,14 +1454,8 @@
   <div class="post-tags">
     <i class="fa fa-tags fa-fw me-1"></i>
       
-      <a href="/tags/space/"
-          class="post-tag no-text-decoration" >space</a>
-      
-      <a href="/tags/quaternion/"
-          class="post-tag no-text-decoration" >quaternion</a>
-      
-      <a href="/tags/attitude-kinematics/"
-          class="post-tag no-text-decoration" >attitude kinematics</a>
+      <a href="/tags/reinforcement-learning/"
+          class="post-tag no-text-decoration" >reinforcement learning</a>
       
   </div>
   
@@ -1335,7 +1489,7 @@
     
       
       <a
-        href="https://twitter.com/intent/tweet?text=%E8%88%AA%E5%A4%A9%E4%B8%AD%E7%9A%84%E5%9B%9B%E5%85%83%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%A7%BF%E6%80%81%E8%BF%90%E5%8A%A8%E5%AD%A6%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fspace-quaternion%2F"
+        href="https://twitter.com/intent/tweet?text=%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Freinforcement-learning-Policy-Gradient%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Twitter"
@@ -1348,7 +1502,7 @@
     
       
       <a
-        href="https://www.facebook.com/sharer/sharer.php?title=%E8%88%AA%E5%A4%A9%E4%B8%AD%E7%9A%84%E5%9B%9B%E5%85%83%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%A7%BF%E6%80%81%E8%BF%90%E5%8A%A8%E5%AD%A6%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fspace-quaternion%2F"
+        href="https://www.facebook.com/sharer/sharer.php?title=%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Freinforcement-learning-Policy-Gradient%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Facebook"
@@ -1361,7 +1515,7 @@
     
       
       <a
-        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fspace-quaternion%2F&text=%E8%88%AA%E5%A4%A9%E4%B8%AD%E7%9A%84%E5%9B%9B%E5%85%83%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%A7%BF%E6%80%81%E8%BF%90%E5%8A%A8%E5%AD%A6%20-%20SIRLIS"
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Freinforcement-learning-Policy-Gradient%2F&text=%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%89%20-%20SIRLIS"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Telegram"
@@ -2309,43 +2463,43 @@
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
@@ -3315,22 +3469,21 @@
 <div class="post-navigation d-flex justify-content-between">
   
     <a
-      href="/posts/c-cmake-development/"
+      href="/posts/linux-reduce-repo-size-through-git-folder/"
       class="btn btn-outline-primary"
       prompt="上一篇"
     >
-      <p>使用CMake开发C++工程</p>
+      <p>如何清理 .git 文件夹来减小 github 仓库大小</p>
     </a>
   
 
   
-    <a
-      href="/posts/linux-WSL/"
-      class="btn btn-outline-primary"
+    <div
+      class="btn btn-outline-primary disabled"
       prompt="下一篇"
     >
-      <p>在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</p>
-    </a>
+      <p>-</p>
+    </div>
   
 </div>
 
