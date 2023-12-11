@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（策略梯度法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-03T22:09:33+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-11T18:24:41+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -606,98 +606,6 @@
       
 
     
-
-    
-
-  
-
-  
-  
-
-  
-    
-    
-
-    
-      
-        
-        
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-
-    
-
-  
-
-  
-  
-
-  
-    
-    
-
-    
-      
-        
-        
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
       
 
       
@@ -786,8 +694,102 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
+
+  
+  
+
+  
+
+  
+  
 
   
 
@@ -842,13 +844,13 @@
 
 <em
   class=""
-  data-ts="1701612573"
+  data-ts="1702290281"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/12/03
+  2023/12/11
 </em>
 
     </span>
@@ -892,9 +894,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="5340 字"
+  title="6140 字"
 >
-  <em>29 分钟</em>阅读</span>
+  <em>34 分钟</em>阅读</span>
 
     </div>
 
@@ -911,31 +913,30 @@
 
 <ul>
   <li><a href="#1-回顾">1. 回顾</a></li>
-  <li><a href="#2-基于策略的强化学习">2. 基于策略的强化学习</a>
+  <li><a href="#2-策略梯度">2. 策略梯度</a>
     <ul>
       <li><a href="#21-策略函数">2.1. 策略函数</a></li>
       <li><a href="#22-策略函数的分布形式">2.2. 策略函数的分布形式</a></li>
       <li><a href="#23-策略梯度的概念">2.3. 策略梯度的概念</a></li>
-      <li><a href="#24-策略梯度的计算">2.4. 策略梯度的计算</a>
-        <ul>
-          <li><a href="#241-基于累计收益的策略梯度">2.4.1. 基于累计收益的策略梯度</a></li>
-          <li><a href="#242-基于价值函数的策略梯度">2.4.2. 基于价值函数的策略梯度</a>
-            <ul>
-              <li><a href="#2421-策略梯度定理">2.4.2.1. 策略梯度定理</a></li>
-              <li><a href="#2422-reinforce蒙特卡洛策略梯度">2.4.2.2. REINFORCE（蒙特卡洛策略梯度）</a></li>
-            </ul>
-          </li>
-          <li><a href="#243-策略梯度的改进">2.4.3. 策略梯度的改进</a>
-            <ul>
-              <li><a href="#2431-reinforce-with-baseline">2.4.3.1. REINFORCE with baseline</a></li>
-              <li><a href="#2432-actor-critic">2.4.3.2. Actor-Critic</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
     </ul>
   </li>
-  <li><a href="#3-参考文献">3. 参考文献</a></li>
+  <li><a href="#3-策略梯度的计算">3. 策略梯度的计算</a>
+    <ul>
+      <li><a href="#31-基于累计收益的策略梯度">3.1. 基于累计收益的策略梯度</a></li>
+      <li><a href="#32-基于初始状态价值的策略梯度">3.2. 基于初始状态价值的策略梯度</a></li>
+      <li><a href="#33-策略梯度定理">3.3. 策略梯度定理</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-基于策略梯度的强化学习">4. 基于策略梯度的强化学习</a>
+    <ul>
+      <li><a href="#41-reinforce">4.1. REINFORCE</a></li>
+      <li><a href="#42-reinforce-with-baseline">4.2. REINFORCE with baseline</a></li>
+      <li><a href="#43-actor-critic-related-to-v">4.3. Actor-Critic (related to V)</a></li>
+      <li><a href="#44-actor-critic-related-to-q">4.4. Actor-Critic (related to Q)</a></li>
+      <li><a href="#45-advantage-actor-critic-a2c">4.5. Advantage Actor-Critic (A2C)</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-参考文献">5. 参考文献</a></li>
 </ul>
 
 <h2 id="1-回顾"><span class="me-2">1. 回顾</span><a href="#1-回顾" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -985,7 +986,7 @@
   </li>
 </ul>
 
-<h2 id="2-基于策略的强化学习"><span class="me-2">2. 基于策略的强化学习</span><a href="#2-基于策略的强化学习" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="2-策略梯度"><span class="me-2">2. 策略梯度</span><a href="#2-策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <h3 id="21-策略函数"><span class="me-2">2.1. 策略函数</span><a href="#21-策略函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1033,6 +1034,11 @@
 \[\pi(a \vert s;\theta) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(a-\mu)^2}{2\sigma^2}}\]
 
 <p>为了改进策略函数，需要围绕参数 $\theta$ 构建一个目标函数 $J(\theta)$，然后通过梯度下降（上升）的方式更新参数。</p>
+
+<blockquote>
+  <p>在后面我们会发现，最终需要计算目标函数的梯度，相当于计算策略函数的对数的梯度
+但通常我们不会直接使用策略函数的对数的梯度，因为可以采用线程的深度学习框架（PyTorch或者TensorFlow）自动求导来完成。</p>
+</blockquote>
 
 <h3 id="23-策略梯度的概念"><span class="me-2">2.3. 策略梯度的概念</span><a href="#23-策略梯度的概念" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1086,9 +1092,9 @@
   <li>如何计算策略梯度？</li>
 </ul>
 
-<h3 id="24-策略梯度的计算"><span class="me-2">2.4. 策略梯度的计算</span><a href="#24-策略梯度的计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h2 id="3-策略梯度的计算"><span class="me-2">3. 策略梯度的计算</span><a href="#3-策略梯度的计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h4 id="241-基于累计收益的策略梯度"><span class="me-2">2.4.1. 基于累计收益的策略梯度</span><a href="#241-基于累计收益的策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h3 id="31-基于累计收益的策略梯度"><span class="me-2">3.1. 基于累计收益的策略梯度</span><a href="#31-基于累计收益的策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>计算策略梯度的目的，是为了更新神经网络的参数，使神经网络产生的能够得到大的奖励的动作的概率变大。回想价值学习的目标是什么？强化学习的目标是使得获得的奖励最大化。</p>
 
@@ -1181,9 +1187,9 @@
 
 <p>到后面我们可以发现，策略梯度的定义不局限于这一种形式，主要反映在期望括号内后一项的选择上。</p>
 
-<h4 id="242-基于价值函数的策略梯度"><span class="me-2">2.4.2. 基于价值函数的策略梯度</span><a href="#242-基于价值函数的策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h3 id="32-基于初始状态价值的策略梯度"><span class="me-2">3.2. 基于初始状态价值的策略梯度</span><a href="#32-基于初始状态价值的策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h5 id="2421-策略梯度定理"><span class="me-2">2.4.2.1. 策略梯度定理</span><a href="#2421-策略梯度定理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<p>前面基于累计收益的策略梯度方法存在一个局限，即只适用于蒙特卡洛采样能够采样到终止状态的情况，此时累计收益可以计算得到特定的值。如果采样无法达到终止状态，蒙特卡洛序列就无限延申，就无法计算累计收益了。为了解决这个问题，需要换个角度思考。</p>
 
 <p>之前基于累计收益的策略梯度，并没有考虑折扣因子。如果考虑包含折扣因子的情况，相当于利用初始状态回报的期望，即<strong>初始状态的状态价值函数</strong>来衡量轨迹的优劣，对应的目标函数为</p>
 
@@ -1196,6 +1202,8 @@
 <p>那么有</p>
 
 \[\nabla_{\theta}J(\theta) = \nabla_{\theta}V_{\pi}(s)\]
+
+<h3 id="33-策略梯度定理"><span class="me-2">3.3. 策略梯度定理</span><a href="#33-策略梯度定理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>策略梯度定理本质就是求解目标函数 $J(\theta)$ 的梯度。首先使用贝尔曼期望方程对 $V(s)$ 进行展开</p>
 
@@ -1286,8 +1294,6 @@
 
 \[\nabla_{\theta}V_{\pi}(s_0) \propto \sum_{s\in S} \mu(s)  \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)\]
 
-<h5 id="2422-reinforce蒙特卡洛策略梯度"><span class="me-2">2.4.2.2. REINFORCE（蒙特卡洛策略梯度）</span><a href="#2422-reinforce蒙特卡洛策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
-
 <p>观察前面策略梯度方向的求解结果，可以发现 $\mu(s)$ 本身是状态 $s$ 出现的概率，因此我们可以其联通前面的求和符号一起表示为某种期望的形式</p>
 
 \[\nabla_{\theta}J(\theta) \propto \sum_{s\in S} \mu(s)  \cdot \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a)=\mathbb{E}_{?}\left[ \sum_{a\in \mathcal{A(s)}} \nabla_{\theta}\pi(a\vert s) q_{\pi}(s,a) \right]\]
@@ -1317,48 +1323,53 @@
 \propto&amp; \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\\
 \end{aligned}\]
 
-<p>之所以将 $\nabla_{\theta}J(\theta)$ 化简为期望形式，是因为期望形式就可以通过 <strong>蒙特卡洛方法</strong> 采样的方式来近似求解。</p>
+<p>将期望的下标进行简化，最终我们得到了基于价值的策略梯度</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\\\]
+
+<p>那么如何计算 $q_{\pi}(s_t, a_t)$ 呢？有两种思路：</p>
+
+<ul>
+  <li>MC：使用采样的 $G_t$ 来近似估计，对应 REINFORCE 方法，或称为蒙特卡洛策略梯度方法；</li>
+  <li>TD：使用 TD 算法，对应 Actor Critic 方法。</li>
+</ul>
+
+<h2 id="4-基于策略梯度的强化学习"><span class="me-2">4. 基于策略梯度的强化学习</span><a href="#4-基于策略梯度的强化学习" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="41-reinforce"><span class="me-2">4.1. REINFORCE</span><a href="#41-reinforce" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>前面之所以将 $\nabla_{\theta}J(\theta)$ 化简为期望形式，是因为期望形式就可以通过 <strong>蒙特卡洛方法</strong> 采样的方式来近似求解。</p>
 
 <p>根据 Q 函数的定义有</p>
 
-\[q_{\pi_{\theta}}(s_t, a_t) = \mathbb{E}_{a_t\sim\pi} [G_t\vert s_t, a_t]\]
+\[q_{\pi_{\theta}}(s_t, a_t) = \mathbb{E} [G_t\vert s_t, a_t]\]
 
 <p>带入策略梯度定理有</p>
 
-\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
 
 <p>至此，我们可以通过采样 $\nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t$ 神经网络参数 $\theta$ 进行更新。这就是 <strong>REINFORECE</strong> 方法。REINFORCE 的本质就是用 $G_t$ 代替 $q_{\pi}(s_t, a_t)$。</p>
 
 <p>用于估计最优策略的REINFORCE算法表示如下（采用增量更新的方式）</p>
 
 <ul>
-  <li>输入：可微策略函数 $\pi(a \vert s;\theta)$，衰减因子 $\gamma$，学习率 $\alpha$</li>
-  <li>初始化：策略函数的参数 $\theta$</li>
-  <li>训练过程：
+  <li><strong>输入</strong>：可微策略函数 $\pi(a \vert s;\theta)$，衰减因子 $\gamma$，学习率 $\alpha$</li>
+  <li><strong>初始化</strong>：策略函数的参数 $\theta$</li>
+  <li><strong>训练过程</strong>：
     <ul>
       <li>repeat 根据策略函数采样一条轨迹：$s_0, a_0, r_1, s_2, a_2, r_3, \cdots$</li>
       <li>loop $t=T-1, T-2, \cdots, 1,0$</li>
       <li>$\quad G\leftarrow \gamma G + R_{t+1}$</li>
-      <li>
-        <div class="table-wrapper"><table>
-          <tbody>
-            <tr>
-              <td>$\quad \theta \leftarrow \theta + \alpha G \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$</td>
-            </tr>
-          </tbody>
-        </table></div>
-      </li>
+      <li>$\quad \theta \leftarrow \theta + \alpha G \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$</li>
     </ul>
   </li>
 </ul>
-
-<h4 id="243-策略梯度的改进"><span class="me-2">2.4.3. 策略梯度的改进</span><a href="#243-策略梯度的改进" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>根据定义，因为 $G_t$ 是 $Q(s,a)$ 的无偏估计，所以基于蒙特卡洛采样的方式进行参数更新的 REINFORCE 算法，得到的结果就是策略梯度的无偏估计，那么其方差呢？</p>
 
 <p>结论：基于蒙特卡洛采样的方式进行参数更新的 REINFORCE 算法方差很大。通过观察策略梯度式</p>
 
-\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
 
 <p>我们可以看出，$\nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$ 相当于 $G$ 的一个系数或者说权重，对于方差而言只起到放缩作用（根据公式 $Var(aX) = a^2Var(X)$），实际方差还是取决于 $G$ 本身。而 $G$ 的方差</p>
 
@@ -1377,79 +1388,149 @@
   <li>使用 TD 方法代替 MC 方法，即通过Actor-Critic方法解决。</li>
 </ul>
 
-<h5 id="2431-reinforce-with-baseline"><span class="me-2">2.4.3.1. REINFORCE with baseline</span><a href="#2431-reinforce-with-baseline" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h3 id="42-reinforce-with-baseline"><span class="me-2">4.2. REINFORCE with baseline</span><a href="#42-reinforce-with-baseline" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>通过添加基线（baseline）可以减小方差。具体形式如下</p>
 
-\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t) \right]\]
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
 
-<p>添加基线 $b(s)$ 后</p>
+<p>添加基线 $b(s)$ 后，目标函数的梯度变为</p>
 
-\[\nabla_{\theta}J(\theta) \propto \mathbb{E}_{s_t\sim\rho^{\pi_{\theta}}, a_t\sim \pi} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (q_{\pi}(s_t,a_t)-b(s_t)) \right]\]
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (G_t-b(s_t)) \right]\]
 
-<p>参数更新式则变为</p>
+<p>参数更新方式变为</p>
 
 \[\theta \leftarrow \theta + \alpha (G_t - b(s_t)) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
 
-<p>基线 $b(s)$ 可为任意变量或者函数，因为它并不会改变策略梯度的期望（想想看为什么，因为它与动作 $a$ 并不相关，求梯度后为 0）。</p>
+<p>基线 $b(s)$ 可为任意变量或者函数，只要不与动作 $a$ 有关。因为它并不会改变策略梯度的期望，证明如下</p>
 
-<h5 id="2432-actor-critic"><span class="me-2">2.4.3.2. Actor-Critic</span><a href="#2432-actor-critic" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+\[\begin{aligned}
+\nabla_{\theta}J(\theta) &amp;\propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (G_t-b(s_t)) \right]\\
+&amp;\propto \sum_{a}\pi(a\vert s) \nabla_{\theta}\ln \pi(a\vert s;\theta)(G_t-b(s_t))\\
+&amp;\propto \sum_{a} \nabla_{\theta}\pi(a\vert s;\theta)(G_t-b(s_t))
+\end{aligned}\]
+
+<p>因为 $b(s)$ 与动作 $a$ 无关，可以提到求和符号外面，但注意 $G_t$ 不可以提到求和符号外面</p>
+
+\[\begin{aligned}
+\nabla_{\theta}J(\theta) &amp;\propto \sum_{a} \nabla_{\theta}\pi(a\vert s;\theta)(G_t-b(s_t))\\
+&amp;\propto \sum_{a}  G_t \nabla_{\theta}\pi(a\vert s;\theta) - b(s_t) \sum_{a} \nabla_{\theta}\pi(a\vert s;\theta)\\
+\end{aligned}\]
+
+<p>对于后一项，交换梯度符号和求和符号，有</p>
+
+\[b(s_t) \sum_{a} \nabla_{\theta}\pi(a\vert s;\theta) =b(s_t)\nabla_{\theta} \sum_{a} \pi(a\vert s;\theta)  = b(s_t)\nabla_{\theta} 1 = 0\]
+
+<p>得证。</p>
+
+<blockquote>
+  <p>关于基线的更多内容参考：https://zhuanlan.zhihu.com/p/636907461</p>
+</blockquote>
+
+<h3 id="43-actor-critic-related-to-v"><span class="me-2">4.3. Actor-Critic (related to V)</span><a href="#43-actor-critic-related-to-v" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>虽然基线 $b(s)$ 可为任意变量或者函数，但实际情况下，一种自然而然的想法是将基线设置为状态价值的估计，即</p>
 
-\[b(s) = \hat{v}(s_t;{w})\]
+\[b(s) = {v}(s_t) = \mathbb{E}(G_t \vert s=s_t)\]
 
-<p>其中 $w$ 是另一套习得的参数。因为 REINFORCE 本身是基于蒙特卡洛方法，那么自然而然可以同样使用蒙特卡洛方法来学习 $w$。到此为止，我们就可以将 REINFORCE 算法转化为 Actor-Critic 算法，其中参数 $\theta$ 对应策略梯度部分的神经网络，扮演 Actor 的角色；而 $w$ 对应价值估计部分的神经网络，扮演 Critic 的角色。</p>
+<p>这样可以使得 $G_t - b(s)$ 更加稳定，随机性更少。更进一步，因为 REINFORCE 本身是基于蒙特卡洛方法，那么自然而然可以同样使用蒙特卡洛方法来学习价值函数，即</p>
 
-<p>Actor-Critic 算法的更新式为</p>
+\[b(s) = {v}(s_t;{w})\]
 
-\[\theta \leftarrow \theta + \alpha (G_t - \hat{v}(s_t;{w})) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
+<p>其中 $w$ 是另一套习得的参数。</p>
+
+<p>到此为止，我们就可以将 REINFORCE 算法转化为 Actor-Critic 算法，其中参数 $\theta$ 对应策略梯度部分的神经网络，扮演 Actor 的角色；而 $w$ 对应价值估计部分的神经网络，扮演 Critic 的角色。此时目标函数的梯度变为</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (G_t-{v}(s_t;{w})) \right]\]
 
 <p>更进一步，类似于基于价值的强化学习方法中，MC 到 TD 方法的逻辑演变，这里我们同样不需要采样完整的一条轨迹，而是仅采样一步，后续通过自举的方式逐步估计完整的轨迹。</p>
 
-\[\theta \leftarrow \theta + \alpha (R_{t+1} + \gamma \hat{v}(s_{t+1};w) - \hat{v}(s_t;{w})) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
+<p>此时价值网络的更新形式为</p>
 
-<p>Actor-Critic 算法的训练过程如下</p>
+\[\begin{aligned}
+\delta_t &amp;= R_{t+1}+\gamma v(s_t;\omega)-v(s_t;\omega)\\
+J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
+\omega &amp;\leftarrow \omega - \alpha_{\omega} \delta_t \nabla_{\omega}q(s,a;\omega)
+\end{aligned}\]
+
+<p>此时策略网络的更新形式为</p>
+
+\[\begin{aligned}
+\delta_t &amp;= R_{t+1} + \gamma {v}(s_{t+1};w)-{v}(s_t;{w})\\
+\nabla_{\theta}J(\theta) &amp;\propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) \delta_t \right]\\
+\theta &amp;\leftarrow \theta + \alpha \delta_t \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)
+\end{aligned}\]
+
+<p><strong>Actor-Critic related to V</strong> 算法的训练过程如下</p>
 
 <ul>
-  <li>输入：
+  <li><strong>输入</strong>：
     <ul>
       <li>可微策略函数 $\pi(a \vert s;\theta)$</li>
-      <li>可微的价值函数 $\hat{v}(s;w)$</li>
+      <li>可微的价值函数 ${v}(s;w)$</li>
       <li>衰减因子 $\gamma$，学习率 $\alpha_\theta,\alpha_w$</li>
     </ul>
   </li>
-  <li>初始化：
+  <li><strong>初始化</strong>：
     <ul>
       <li>策略函数的参数 $\theta$</li>
       <li>价值函数的参数 $w$</li>
     </ul>
   </li>
-  <li>训练过程：
+  <li><strong>训练过程</strong>：
     <ul>
       <li>loop 状态 $s$ 没有结束时
         <ul>
           <li>根据策略采样：$a\sim \pi(\cdot, s;\theta)$</li>
           <li>执行动作 $a$， 得到奖励 $R$，转移状态到 $s^\prime$</li>
-          <li>$\delta \leftarrow R + \gamma \hat{v}(s^\prime;w) - \hat{v}(s;w)$</li>
-          <li>$w \leftarrow w + \alpha_w \delta\nabla_{w}\hat{v}(s;w)$</li>
+          <li>$\delta \leftarrow R + \gamma {v}(s^\prime;w) - {v}(s;w)$</li>
+          <li>$w \leftarrow w + \alpha_w \delta\nabla_{w}{v}(s;w)$</li>
           <li>$\beta \leftarrow \gamma \delta$</li>
-          <li>
-            <div class="table-wrapper"><table>
-              <tbody>
-                <tr>
-                  <td>$\theta \leftarrow \theta + \alpha \beta \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$</td>
-                </tr>
-              </tbody>
-            </table></div>
-          </li>
+          <li>$\theta \leftarrow \theta + \alpha \beta \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)$</li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
 
-<h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h3 id="44-actor-critic-related-to-q"><span class="me-2">4.4. Actor-Critic (related to Q)</span><a href="#44-actor-critic-related-to-q" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>前面我们采用状态价值函数 $v(s)$ 作为基线函数，我们同样可以采用状态-动作价值函数 $q(s,a)$ 作为基线函数</p>
+
+\[b(s_t) = q(s_t, a_t;\omega)\]
+
+<p>由于对于一个状态而言，其状态-动作价值函数有多个取值，我们一般使用其最大值来计算基线，</p>
+
+<p>此时价值网络的更新形式为</p>
+
+\[\begin{aligned}
+\delta_t &amp;= R_{t+1}+\gamma \max q(s_t, a_t;\omega)-q(s_t, a_t;\omega)\\
+J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
+\omega &amp;\leftarrow \omega - \alpha_{\omega} \delta_t \nabla_{\omega}q(s,a;\omega)
+\end{aligned}\]
+
+<p><strong>注意！此时策略网络的目标函数的梯度仍为最原始的形式</strong>，但是由于我们使用了价值网络来估计其取值，因此其不再与 $\theta$ 有关，而是与 $\omega$ 有关。</p>
+
+<p>此时策略网络的更新形式为</p>
+
+\[\begin{aligned}
+\nabla_{\theta}J(\theta) &amp;\propto \mathbb{E} [ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q(s_t,a_t;\omega)]\\
+\theta &amp;\leftarrow \theta + \alpha_{\theta}\max{q(s,a;\omega)}\nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) 
+\end{aligned}\]
+
+<h3 id="45-advantage-actor-critic-a2c"><span class="me-2">4.5. Advantage Actor-Critic (A2C)</span><a href="#45-advantage-actor-critic-a2c" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>我们再次回顾策略梯度的原始目标函数梯度式</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} [ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t)]\]
+
+<p>我们直接给他添加一个状态价值函数 $v_{\pi}(s_t)$ 作为基线，有</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (q_{\pi}(s_t,a_t)-v_{\pi}(s_t)) \right]\]
+
+<p>我们称 $A(s_t, a_t) = q_{\pi}(s_t,a_t)-v_{\pi}(s_t)$ 为优势函数。</p>
+
+<h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>[1] 静静的喝酒. <a href="https://blog.csdn.net/qq_34758157/article/details/125886399">CSDN 策略梯度方法介绍——Value-Based强化学习方法 VS Policy-Based强化学习方法</a></p>
 
@@ -1602,14 +1683,14 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
         

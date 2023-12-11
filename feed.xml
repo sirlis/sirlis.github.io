@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-12-08T15:22:52+08:00</updated>
+  <updated>2023-12-11T18:31:55+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" rel="alternate" type="text/html" title="强化学习（策略梯度法）" />
     <published>2023-11-27T16:43:19+08:00</published>
   
-    <updated>2023-12-03T22:09:33+08:00</updated>
+    <updated>2023-12-11T18:24:41+08:00</updated>
   
     <id>http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/</id>
     <content src="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />
@@ -56,23 +56,27 @@
 
 
   1. 回顾
-  2. 基于策略的强化学习
+  2. 策略梯度
     
       2.1. 策略函数
       2.2. 策略函数的分布形式
       2.3. 策略梯度的概念
-      2.4. 策略梯度的计算
-        
-          2.4.1. 基于累计收益的策略梯度
-          2.4.2. 基于价值函数的策略梯度
-            
-              2.4.2.1. 策略梯度定理
-              2.4.2.2. REINFORCE（蒙特卡洛策略梯度）
-            
-          
-          2.4.3. 策略梯度的改进
-            
-              2.4.3.1. REINFORCE with b...
+    
+  
+  3. 策略梯度的计算
+    
+      3.1. 基于累计收益的策略梯度
+      3.2. 基于初始状态价值的策略梯度
+      3.3. 策略梯度定理
+    
+  
+  4. 基于策略梯度的强化学习
+    
+      4.1. REINFORCE
+      4.2. REINFORCE with baseline
+      4.3. Actor-Critic (related to V)
+      4.4. Actor-Critic (related to Q)
+      4.5. Advantage A...
     </summary>
   
 
