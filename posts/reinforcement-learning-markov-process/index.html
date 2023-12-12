@@ -1358,7 +1358,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7290 字"
+  title="7260 字"
 >
   <em>40 分钟</em>阅读</span>
 
@@ -1813,7 +1813,7 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 \[v_\pi(s) \doteq \mathbb{E}_\pi[G_t \vert S_t=s]\]
 
-<p>其中，$\mathbb{E}<em>\pi[\cdot]$ 指在给定策略 $\pi$ 时一个随机变量的期望值，$t$ 可以是任意时刻。注意，终止状态的价值始终为零。我们把函数 $v</em>\pi(s)$ 称为策略 $\pi$ 的状态价值函数。</p>
+<p>注意，终止状态的价值始终为零。我们把函数 $v_{\pi}(s)$ 称为策略 $\pi$ 的状态价值函数。</p>
 
 <h4 id="442-动作价值函数"><span class="me-2">4.4.2. 动作价值函数</span><a href="#442-动作价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1824,8 +1824,11 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 <h4 id="443-二者的意义"><span class="me-2">4.4.3. 二者的意义</span><a href="#443-二者的意义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <blockquote>
-  <p>如何理解强化学习中的Q值和V值？ https://zhuanlan.zhihu.com/p/109498587
-强化学习-1-Q_Table based Method  https://zhuanlan.zhihu.com/p/138291295</p>
+  <p>如何理解强化学习中的Q值和V值？ https://zhuanlan.zhihu.com/p/109498587</p>
+</blockquote>
+
+<blockquote>
+  <p>强化学习-1-Q_Table based Method  https://zhuanlan.zhihu.com/p/138291295</p>
 </blockquote>
 
 <p><strong>状态价值函数</strong>是对状态的价值的衡量。从某个状态出发，依据特定策略 $\pi$ 采用不同动作，在环境的影响下进行状态转移。</p>
