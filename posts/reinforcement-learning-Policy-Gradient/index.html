@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（策略梯度法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-12T00:25:37+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-12T19:58:59+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -844,7 +844,7 @@
 
 <em
   class=""
-  data-ts="1702311937"
+  data-ts="1702382339"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -894,9 +894,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6434 字"
+  title="6744 字"
 >
-  <em>35 分钟</em>阅读</span>
+  <em>37 分钟</em>阅读</span>
 
     </div>
 
@@ -1539,13 +1539,20 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 \[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (r_{t+1}+\gamma q(s_{t+1},a_{t+1};\omega) - q(s_t,a_t;\omega)) \right]\]
   </li>
   <li>
-    <p>也可以使用原始的策略网络的目标函数的梯度形式，将其中动作价值函数 $q(s,a)$ 替换为使用了价值网络来的估计值，得到
-\(\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q(s_t,a_t;\omega) \right]\)</p>
+    <p>也可以使用原始的策略网络的目标函数的梯度形式，将其中动作价值函数 $q(s,a)$ 替换为使用了价值网络来的估计值，得到</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q(s_t,a_t;\omega) \right]\]
   </li>
-  <li>注意到目标函数梯度式中，状态-动作价值函数对于特定状态而言是有多个的，因此我们需要考虑选取哪一个，前面两个式子意味着随机选取一个，其实我们还可以选择其中最大值，即
-\(\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (r_{t+1}+\gamma \max q(s_{t+1},a_{t+1};\omega) - q(s_t,a_t;\omega)) \right]\)</li>
-  <li>以及
-\(\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) \max{q(s_t,a_t;\omega)} \right]\)</li>
+  <li>
+    <p>注意到目标函数梯度式中，状态-动作价值函数对于特定状态而言是有多个的，因此我们需要考虑选取哪一个，前面两个式子意味着随机选取一个，其实我们还可以选择其中最大值，即</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (r_{t+1}+\gamma \max q(s_{t+1},a_{t+1};\omega) - q(s_t,a_t;\omega)) \right]\]
+  </li>
+  <li>
+    <p>以及</p>
+
+\[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) \max{q(s_t,a_t;\omega)} \right]\]
+  </li>
 </ul>
 
 <p>此时策略网络的更新形式为（以使用 $q(a_t,s_t;\omega)$ 为例）</p>
@@ -1557,15 +1564,17 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 
 <h3 id="45-advantage-actor-critic-a2c"><span class="me-2">4.5. Advantage Actor-Critic (A2C)</span><a href="#45-advantage-actor-critic-a2c" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>我们再次回顾策略梯度的原始目标函数梯度式</p>
-
-\[\nabla_{\theta}J(\theta) \propto \mathbb{E} [ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) q_{\pi}(s_t,a_t)]\]
-
-<p>我们直接给他添加一个状态价值函数 $v_{\pi}(s_t)$ 作为基线，有</p>
+<p>前面介绍 VAC 的时候，我们引入一个基线，即在计算期望的时候用累计奖励 $G_t$ 减去一个 baseline ，这样做的好处是可以让梯度减小，因此梯度下降的步子也就更平缓，从而使训练过程更稳定。进一步，我们讨论了将基线设置为状态价值函数是一个较优的选择。本着这种思想，我们再次回顾策略梯度的原始目标函数梯度式，同样引入状态价值函数 $v_{\pi}(s_t)$ 作为基线，有</p>
 
 \[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (q_{\pi}(s_t,a_t)-v_{\pi}(s_t)) \right]\]
 
-<p>我们称 $A(s_t, a_t) = q_{\pi}(s_t,a_t)-v_{\pi}(s_t)$ 为优势函数。</p>
+<p>我们称 $A(s_t, a_t) = q_{\pi}(s_t,a_t)-v_{\pi}(s_t)$ 为优势函数。优势函数表示在状态 $s$ 下采取动作 $a$ 相对于平均水平的优势。因此原先用 Critic 网络对 $q$ 函数的估计就可以改成对优势函数的估计，估算每个 $q(s_t,a_t)$ 对相对于平均值 $V(s_t)$ 的优势。这种算法就是 Advantage Actor Critic ，即 A2C。</p>
+
+<p>注意到，A2C 在具体实现的时候需要同时估计 $q(s_t, a_t)$ 和 $v(s_t)$，估计一个价值函数已经会存在误差了，估计两个价值函数误差会更大。但是我们知道 $q(s_t, a_t)$ 和 $v(s_t)$ 之间是存在关系的，在具体采样时，有</p>
+
+\[q(s_t, a_t) = r_{t+1} + \gamma v(s_{t+1})\]
+
+<p>此时我们发现，A2C 即前面介绍过的 VAC 算法，价值网络只用估计 $v(s_t)$ 的值就够了。</p>
 
 <h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1720,6 +1729,13 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
@@ -1735,13 +1751,6 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
         
