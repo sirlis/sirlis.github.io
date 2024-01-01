@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2023-12-24T19:34:19+08:00</updated>
+  <updated>2024-01-01T20:28:12+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -13,7 +13,7 @@
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
   <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
-  <rights> © 2023 sirlis </rights>
+  <rights> © 2024 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" rel="alternate" type="text/html" title="强化学习（策略梯度法）" />
     <published>2023-11-27T16:43:19+08:00</published>
   
-    <updated>2023-12-13T13:07:52+08:00</updated>
+    <updated>2023-12-24T19:35:33+08:00</updated>
   
     <id>http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/</id>
     <content src="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />

@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（策略梯度法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-13T13:07:52+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-24T19:35:33+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -844,13 +844,13 @@
 
 <em
   class=""
-  data-ts="1702444072"
+  data-ts="1703417733"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/12/13
+  2023/12/24
 </em>
 
     </span>
@@ -976,7 +976,7 @@
     <p><strong>无法表示随机策略</strong>。某些问题的最优策略是随机策略，需要以不同的概率选择不同的动作。而基于价值的强化学习算法在实现时采用了贪心策略，给定一个状态 ，选择的策略是确定性的，显然无法实现这种按照概率执行各种候选动作的要求。比如石头剪刀布的最优策略是以 (1/3, 1/3, 1/3）的概率来选择石头/剪刀/布，基于价值的强化学习无法实现这种策略。</p>
   </li>
   <li>
-    <p><strong>无法处理高维观察空间</strong>。DQN 要求观察空间是离散的，且只能是有限个，这样才能寻找使动作值函数最大化的动作的操作。但在很多问题特别是物理控制任务中，具有连续实值和高维的观察空间，例如要控制在 x y z 方向的速度、加速度。DQN 不能直接应用。</p>
+    <p><strong>无法处理高维动作空间</strong>。DQN 要求动作空间是离散的，且只能是有限个，这样才能寻找使动作值函数最大化的动作的操作。但在很多问题特别是物理控制任务中，具有连续实值和高维的动作空间，例如要控制在 x y z 方向的速度、加速度。DQN 不能直接应用。</p>
   </li>
   <li>
     <p><strong>难以收敛</strong>。基于价值的强化学习方法输出的价值（如各个动作的最优 <code class="language-plaintext highlighter-rouge">Q</code> 函数值）的微小改变会导致某一动作被选中或不选中，这种不连续的变化会影响算法的收敛。这很容易理解，假设一个动作<code class="language-plaintext highlighter-rouge">a</code>的<code class="language-plaintext highlighter-rouge">Q</code>函数值本来在所有动作中是第 2 大的，把它增加 0.0001，就变成第最大的，那这种微小的变化会导致策略完全改变。因为之前它不是最优动作，现在变成最优动作了。</p>
@@ -4505,7 +4505,7 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
       </p>
 
       <p>©
-        2023
+        2024
         <a href="https://github.com/sirlis">sirlis</a>.
         
           <span
