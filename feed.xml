@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2024-01-01T20:28:12+08:00</updated>
+  <updated>2024-04-09T19:53:15+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,135 @@
 
   
   <entry>
+    <title>模式识别（贝叶斯决策）</title>
+    <link href="http://localhost:4000/posts/Pattern-Recognition-Bayes/" rel="alternate" type="text/html" title="模式识别（贝叶斯决策）" />
+    <published>2024-03-12T21:22:19+08:00</published>
+  
+    <updated>2024-04-09T19:30:48+08:00</updated>
+  
+    <id>http://localhost:4000/posts/Pattern-Recognition-Bayes/</id>
+    <content src="http://localhost:4000/posts/Pattern-Recognition-Bayes/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Academic" />
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了模式识别的贝叶斯决策。
+
+
+
+
+
+
+  1. 决策理论与方法
+    
+      1.1. 基于先验概率的决策
+      1.2. 基于贝叶斯公式的决策
+    
+  
+  2. 最小错误贝叶斯决策
+  3. 最小风险贝叶斯决策
+    
+      3.1. 举例说明
+      3.2. 损失函数（风险因子）
+      3.3. 决策步骤
+    
+  
+  4. 参考文献
+
+
+1. 决策理论与方法
+
+如果每一类在空间中互不相交，有清晰的决策边界，那么就没有必要用贝叶斯决策，这种叫做确定统计分类。如果这些类相互之间有重合，新的样本的特征落到一个重合区域，那么就要判断该样本属于某一类的概率。从而通过比较某些概率的大小来进行分类，这种叫做不确定统计分类。
+
+1.1. 基于先验概率的决策
+
+记 $x$ 为观察到的样本特征，分类空间为 $A={a_1, a_2, \cdo...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>模式识别（线性分类器）</title>
+    <link href="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
+    <published>2024-03-03T14:25:19+08:00</published>
+  
+    <updated>2024-04-08T09:27:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/</id>
+    <content src="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Academic" />
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了模式识别的线性分类器。
+
+
+
+
+
+
+  1. 引言
+  2. 线性回归与最小二乘估计
+  3. Fisher 线性判别分析
+    
+      3.1. 投影
+      3.2. Fisher 投影
+    
+  
+  4. 参考文献
+
+
+1. 引言
+
+模式识别的目的是在特征空间中设法找到两类（或多类）之间的分界面。一方面，我们可以通过估计样本的概率模型，然后采用贝叶斯决策（最大后验估计）或者最大似然估计的策略来实现分类。但是很多情况下，建立样本的概率模型和准确估计样本的概率密度函数及其他模型参数并不是一件容易的事情。
+
+实际上，估计概率密度函数也不是我们的目的。贝叶斯决策的策略分为两步，首先根据样本进行概率密度函数估计，然后再根据估计的概率密度函数求分类面。如果能直接根据样本求分类面，就可以省略对概率密度函数的估计。我们知道，当样本为正态分布且各类协方差矩阵相等的条件...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>强化学习（策略梯度法）</title>
     <link href="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" rel="alternate" type="text/html" title="强化学习（策略梯度法）" />
     <published>2023-11-27T16:43:19+08:00</published>
   
-    <updated>2023-12-24T19:35:33+08:00</updated>
+    <updated>2024-01-01T20:28:20+08:00</updated>
   
     <id>http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/</id>
     <content src="http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/" />
@@ -220,140 +344,6 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
 官方文档：https://learn.microsoft.com/zh-cn/windows/wsl/
 
 适用于 Li...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>航天中的四元数以及姿态运动学</title>
-    <link href="http://localhost:4000/posts/space-quaternion/" rel="alternate" type="text/html" title="航天中的四元数以及姿态运动学" />
-    <published>2023-06-02T18:38:19+08:00</published>
-  
-    <updated>2023-10-10T15:02:18+08:00</updated>
-  
-    <id>http://localhost:4000/posts/space-quaternion/</id>
-    <content src="http://localhost:4000/posts/space-quaternion/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。
-
-
-
-
-
-
-  1. 基础
-    
-      1.1. 矢量的正交分解
-      1.2. 叉乘矩阵
-      1.3. 坐标系定义
-    
-  
-  2. 轴角旋转
-  3. 姿态四元数
-    
-      3.1. 四元数定义
-      3.2. 四元数表示旋转
-      3.3. 姿态四元数
-    
-  
-  4. 向量的坐标变换
-  5. 姿态变换与四元数乘法
-  6. 参考文献
-
-
-1. 基础
-
-1.1. 矢量的正交分解
-
-对一个矢量​ $\boldsymbol{v}$ 进行沿单位参考轴 $\boldsymbol{e}$ ​正交分解为两个分量，分别为平行于 $\boldsymbol{e}$ ​的轴向分量和垂直于 $\boldsymbol{e}$ ​的垂直分量。如下图所示。
-
-
-
-有
-
-\...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>使用CMake开发C++工程</title>
-    <link href="http://localhost:4000/posts/c-cmake-development/" rel="alternate" type="text/html" title="使用CMake开发C++工程" />
-    <published>2023-05-15T23:59:19+08:00</published>
-  
-    <updated>2023-11-06T23:23:20+08:00</updated>
-  
-    <id>http://localhost:4000/posts/c-cmake-development/</id>
-    <content src="http://localhost:4000/posts/c-cmake-development/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Tutorial" />
-    
-    <category term="Coding" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。
-
-
-
-
-
-
-  1. 引言
-    
-      1.1. 传统编译
-      1.2. Make 编译
-      1.3. CMake 编译
-    
-  
-  2. 安装 CMake
-  3. 编写 CMakeLists.txt
-    
-      3.1. 版本与编译选项配置
-      3.2. 可执行程序配置
-      3.3. 头文件搜索
-      3.4. 源文件搜索
-      3.5. 子项目（WIP）
-      3.6. others（WIP）
-      3.7. 生成（Generate）
-      3.8. 构建（Build）
-      3.9. 运行和调试（Debug）
-    
-  ...
     </summary>
   
 
