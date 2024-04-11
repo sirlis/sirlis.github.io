@@ -39,8 +39,8 @@
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="本文介绍了模式识别的线性分类器。" />
-<meta property="og:description" content="本文介绍了模式识别的线性分类器。" />
+<meta name="description" content="本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。" />
+<meta property="og:description" content="本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" />
 <meta property="og:site_name" content="SIRLIS" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-04-08T09:27:00+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-04-10T12:51:22+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -809,13 +809,13 @@
 
 <em
   class=""
-  data-ts="1712539620"
+  data-ts="1712724682"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2024/04/08
+  2024/04/10
 </em>
 
     </span>
@@ -859,7 +859,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2200 字"
+  title="2221 字"
 >
   <em>12 分钟</em>阅读</span>
 
@@ -870,7 +870,7 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>本文介绍了模式识别的线性分类器。</p>
+  <p>本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。</p>
 
 <!--more-->
 
@@ -1218,7 +1218,21 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
         
@@ -1233,20 +1247,6 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
     </ul>
@@ -2987,7 +2987,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
   2024/03/12
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>模式识别（贝叶斯决策）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（统计决策方法：贝叶斯决策）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -2996,7 +2996,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 
 
-                  本文介绍了模式识别的贝叶斯决策。
+                  本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。
 
 
 
@@ -3010,14 +3010,12 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
     
   
   2. 最小错误贝叶斯决策
-  3. 最小风险贝叶斯决策
     
-      3.1. 举例说明
-      3.2. 损失函数（风险因子）
-      3.3. 决策步骤
+      2.1. 决策规则
+      2.2. 类概率密度
+      2.3. 错误率分析
     
-  
-  4. 参考文...
+  ...
                 </p>
               </div>
             </div>
@@ -3165,7 +3163,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
       class="btn btn-outline-primary"
       prompt="下一篇"
     >
-      <p>模式识别（贝叶斯决策）</p>
+      <p>模式识别（统计决策方法：贝叶斯决策）</p>
     </a>
   
 </div>

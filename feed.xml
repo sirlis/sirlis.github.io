@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2024-04-09T19:53:15+08:00</updated>
+  <updated>2024-04-11T13:13:01+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,11 @@
 
   
   <entry>
-    <title>模式识别（贝叶斯决策）</title>
-    <link href="http://localhost:4000/posts/Pattern-Recognition-Bayes/" rel="alternate" type="text/html" title="模式识别（贝叶斯决策）" />
+    <title>模式识别（统计决策方法：贝叶斯决策）</title>
+    <link href="http://localhost:4000/posts/Pattern-Recognition-Bayes/" rel="alternate" type="text/html" title="模式识别（统计决策方法：贝叶斯决策）" />
     <published>2024-03-12T21:22:19+08:00</published>
   
-    <updated>2024-04-09T19:30:48+08:00</updated>
+    <updated>2024-04-11T13:12:36+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Bayes/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Bayes/" />
@@ -48,7 +48,7 @@
 
 
 
-      本文介绍了模式识别的贝叶斯决策。
+      本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。
 
 
 
@@ -62,6 +62,12 @@
     
   
   2. 最小错误贝叶斯决策
+    
+      2.1. 决策规则
+      2.2. 类概率密度
+      2.3. 错误率分析
+    
+  
   3. 最小风险贝叶斯决策
     
       3.1. 举例说明
@@ -69,16 +75,13 @@
       3.3. 决策步骤
     
   
-  4. 参考文献
+  4. 二分类错误率与ROC曲线
+  5. 参考文献
 
 
 1. 决策理论与方法
 
-如果每一类在空间中互不相交，有清晰的决策边界，那么就没有必要用贝叶斯决策，这种叫做确定统计分类。如果这些类相互之间有重合，新的样本的特征落到一个重合区域，那么就要判断该样本属于某一类的概率。从而通过比较某些概率的大小来进行分类，这种叫做不确定统计分类。
-
-1.1. 基于先验概率的决策
-
-记 $x$ 为观察到的样本特征，分类空间为 $A={a_1, a_2, \cdo...
+解决模式识别问题的方法可归纳为基于知识的方法和基于数据的方法两大类。基于数据的模式识别方法的基础时统计模式识别，即依据统计学原理建立分类器，这事模式识...
     </summary>
   
 
@@ -90,7 +93,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
     <published>2024-03-03T14:25:19+08:00</published>
   
-    <updated>2024-04-08T09:27:00+08:00</updated>
+    <updated>2024-04-10T12:51:22+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" />
@@ -114,7 +117,7 @@
 
 
 
-      本文介绍了模式识别的线性分类器。
+      本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。
 
 
 
@@ -136,7 +139,7 @@
 
 模式识别的目的是在特征空间中设法找到两类（或多类）之间的分界面。一方面，我们可以通过估计样本的概率模型，然后采用贝叶斯决策（最大后验估计）或者最大似然估计的策略来实现分类。但是很多情况下，建立样本的概率模型和准确估计样本的概率密度函数及其他模型参数并不是一件容易的事情。
 
-实际上，估计概率密度函数也不是我们的目的。贝叶斯决策的策略分为两步，首先根据样本进行概率密度函数估计，然后再根据估计的概率密度函数求分类面。如果能直接根据样本求分类面，就可以省略对概率密度函数的估计。我们知道，当样本为正态分布且各类协方差矩阵相等的条件...
+实际上，估计概率密度函数也不是我们的目的。贝叶斯决策的策略分为两步，首先根据样本进行概率密度函数估计，然后再根据估计的概率密度函数求分类面。如果能直接根据样本求分类面，就可以省略对概率密度函数的估...
     </summary>
   
 
@@ -212,7 +215,7 @@
     <link href="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" rel="alternate" type="text/html" title="如何清理 .git 文件夹来减小 github 仓库大小" />
     <published>2023-09-18T13:58:19+08:00</published>
   
-    <updated>2023-10-12T13:50:26+08:00</updated>
+    <updated>2024-04-10T12:51:22+08:00</updated>
   
     <id>http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/</id>
     <content src="http://localhost:4000/posts/linux-reduce-repo-size-through-git-folder/" />
@@ -234,7 +237,7 @@
 
 
 
-      本文介绍了如何在
+      本文介绍了如何清理github本地缓存文件夹来减小 github 仓库大小。
 
 
 
@@ -270,13 +273,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
 
 2. .git 文件夹清理
 
-2.1. Linux 环境命令行清理
-
-需要 Linux 环境。
-
-
-  
- ...
+2.1. Linu...
     </summary>
   
 
@@ -288,7 +285,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
     <link href="http://localhost:4000/posts/linux-WSL/" rel="alternate" type="text/html" title="在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发" />
     <published>2023-09-07T15:32:19+08:00</published>
   
-    <updated>2023-10-10T14:55:06+08:00</updated>
+    <updated>2024-04-10T12:51:22+08:00</updated>
   
     <id>http://localhost:4000/posts/linux-WSL/</id>
     <content src="http://localhost:4000/posts/linux-WSL/" />
@@ -310,7 +307,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
 
 
 
-      本文介绍了如何在
+      本文介绍了如何在 Windows 操作系统中适用微软官方提供的 WSL（Windows Subsystem for Linux） 工具部署 Linux 子系统。
 
 
 
@@ -338,12 +335,7 @@ git 是增量更新模式，所有改动都会保存在 .git 隐藏文件夹内�
   4. 跨系统文件存储和访问
   5. 参考文献
 
-
-1. 什么是 WSL
-
-官方文档：https://learn.microsoft.com/zh-cn/windows/wsl/
-
-适用于 Li...
+...
     </summary>
   
 
