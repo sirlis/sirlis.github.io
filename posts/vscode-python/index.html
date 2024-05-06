@@ -14,12 +14,8 @@
 
 
 <!-- `site.alt_lang` can specify a language different from the UI -->
-<html lang="zh-CN" 
-  
->
-  <!-- The Head -->
-
-<head>
+<html lang="zh-CN" >
+  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
@@ -28,15 +24,12 @@
   <meta
     name="viewport"
     content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
-  >
+  ><!-- Setup Open Graph image -->
 
   
 
-  
-
-  
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="VSCode部署Python开发环境" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。" />
@@ -53,7 +46,6 @@
 {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-10-10T15:02:18+08:00","datePublished":"2020-03-21T15:22:19+08:00","description":"本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。","headline":"VSCode部署Python开发环境","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/vscode-python/"},"url":"http://localhost:4000/posts/vscode-python/"}</script>
 <!-- End Jekyll SEO tag -->
 
-  
 
   <title>VSCode部署Python开发环境 | SIRLIS
   </title>
@@ -68,7 +60,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
-<link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
 <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
 <meta name="apple-mobile-web-app-title" content="SIRLIS">
 <meta name="application-name" content="SIRLIS">
@@ -91,6 +85,9 @@
       <link rel="preconnect" href="https://cdn.jsdelivr.net" >
       <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
     
+      <link rel="preconnect" href="https://cdnjs.cloudflare.com" >
+      <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" >
+    
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
   
@@ -99,15 +96,19 @@
   
 
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
 
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.21.0/dist/tocbot.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.25.0/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
   
 
   
@@ -272,78 +273,74 @@
   <body>
     <!-- The Side Bar -->
 
-<div id="sidebar" class="d-flex flex-column align-items-end">
-  <div class="profile-wrapper">
-    <a href="/" id="avatar" class="rounded-circle">
-      
-        
-        <img src="/assets/img/head.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'">
-      
-    </a>
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="/assets/img/head.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
 
-    <div class="site-title">
+    <h1 class="site-title">
       <a href="/">SIRLIS</a>
-    </div>
-    <div class="site-subtitle fst-italic">分享科研和生活的日常</div>
-  </div>
+    </h1>
+    <p class="site-subtitle fst-italic mb-0">分享科研和生活的日常</p>
+  </header>
   <!-- .profile-wrapper -->
 
-  <ul class="nav flex-column flex-grow-1 w-100 ps-0">
-    <!-- home -->
-    <li class="nav-item">
-      <a href="/" class="nav-link">
-        <i class="fa-fw fas fa-home"></i>
-        <span>首页</span>
-      </a>
-    </li>
-    <!-- the real tabs -->
-    
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
       <li class="nav-item">
-        <a href="/categories/" class="nav-link">
-          <i class="fa-fw fas fa-stream"></i>
-          
-
-          <span>分类</span>
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>首页</span>
         </a>
       </li>
-      <!-- .nav-item -->
-    
-      <li class="nav-item">
-        <a href="/tags/" class="nav-link">
-          <i class="fa-fw fas fa-tags"></i>
-          
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
 
-          <span>标签</span>
-        </a>
-      </li>
-      <!-- .nav-item -->
-    
-      <li class="nav-item">
-        <a href="/archives/" class="nav-link">
-          <i class="fa-fw fas fa-archive"></i>
-          
+            <span>分类</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
 
-          <span>归档</span>
-        </a>
-      </li>
-      <!-- .nav-item -->
-    
-      <li class="nav-item">
-        <a href="/about/" class="nav-link">
-          <i class="fa-fw fas fa-info-circle"></i>
-          
+            <span>标签</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
 
-          <span>关于</span>
-        </a>
-      </li>
-      <!-- .nav-item -->
-    
-  </ul>
-  <!-- ul.nav.flex-column -->
+            <span>归档</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>关于</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
 
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     
-      <button class="mode-toggle btn" aria-label="Switch Mode">
+      <button type="button" class="mode-toggle btn" aria-label="Switch Mode">
         <i class="fas fa-adjust"></i>
       </button>
 
@@ -437,29 +434,27 @@
     
   </div>
   <!-- .sidebar-bottom -->
-</div>
+</aside>
 <!-- #sidebar -->
 
 
     <div id="main-wrapper" class="d-flex justify-content-center">
-      <div id="main" class="container px-xxl-5">
+      <div class="container d-flex flex-column px-xxl-5">
         <!-- The Top Bar -->
 
-<div id="topbar-wrapper">
+<header id="topbar-wrapper" aria-label="Top Bar">
   <div
     id="topbar"
-    class="container d-flex align-items-center justify-content-between h-100"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
   >
-    <span id="breadcrumb">
+    <nav id="breadcrumb" aria-label="Breadcrumb">
       
 
       
         
           
             <span>
-              <a href="/">
-                首页
-              </a>
+              <a href="/">首页</a>
             </span>
 
           
@@ -474,17 +469,22 @@
           
         
       
-    </span>
+    </nav>
     <!-- endof #breadcrumb -->
 
-    <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
 
     <div id="topbar-title">
       文章
     </div>
 
-    <i id="search-trigger" class="fas fa-search fa-fw"></i>
-    <span id="search-wrapper" class="align-items-center">
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search class="align-items-center ms-3 ms-lg-0">
       <i class="fas fa-search fa-fw"></i>
       <input
         class="form-control"
@@ -494,35 +494,16 @@
         autocomplete="off"
         placeholder="搜索..."
       >
-    </span>
-    <span id="search-cancel">取消</span>
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button>
   </div>
-</div>
-
-        
+</header>
 
 
-
-
-
-
-
-
-
-
-
-<div class="row">
-  <!-- core -->
-  <div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pe-xl-4">
-    
-
-    <div class="post px-1 px-md-2">
-      
-
-      
-        
-      
-        <!-- Refactor the HTML structure -->
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
 
 
 
@@ -544,17 +525,13 @@
 <!-- Change the icon of checkbox -->
 
 
-<!-- images -->
+
+<!-- Handle images -->
+
 
 
 
   
-  
-
-  <!-- CDN URL -->
-  
-
-  <!-- Add image path -->
   
 
   
@@ -571,7 +548,6 @@
     
     
 
-    
     
     
     
@@ -598,21 +574,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -622,12 +592,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -639,7 +611,6 @@
     
     
 
-    
     
     
     
@@ -666,21 +637,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -690,12 +655,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -707,7 +674,6 @@
     
     
 
-    
     
     
     
@@ -734,21 +700,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -758,12 +718,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -775,7 +737,6 @@
     
     
 
-    
     
     
     
@@ -802,21 +763,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -826,12 +781,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -843,7 +800,6 @@
     
     
 
-    
     
     
     
@@ -870,21 +826,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -894,12 +844,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -911,7 +863,6 @@
     
     
 
-    
     
     
     
@@ -938,21 +889,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -962,12 +907,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -979,7 +926,6 @@
     
     
 
-    
     
     
     
@@ -1006,21 +952,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1030,12 +970,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1047,7 +989,6 @@
     
     
 
-    
     
     
     
@@ -1074,21 +1015,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1098,12 +1033,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1115,7 +1052,6 @@
     
     
 
-    
     
     
     
@@ -1142,21 +1078,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1166,12 +1096,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1183,7 +1115,6 @@
     
     
 
-    
     
     
     
@@ -1210,21 +1141,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1234,12 +1159,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1251,7 +1178,6 @@
     
     
 
-    
     
     
     
@@ -1278,21 +1204,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1302,12 +1222,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1319,7 +1241,6 @@
     
     
 
-    
     
     
     
@@ -1346,21 +1267,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1370,12 +1285,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1387,7 +1304,6 @@
     
     
 
-    
     
     
     
@@ -1414,21 +1330,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1438,12 +1348,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1455,7 +1367,6 @@
     
     
 
-    
     
     
     
@@ -1482,21 +1393,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1506,12 +1411,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1523,7 +1430,6 @@
     
     
 
-    
     
     
     
@@ -1550,21 +1456,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1574,12 +1474,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1591,7 +1493,6 @@
     
     
 
-    
     
     
     
@@ -1618,21 +1519,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1642,12 +1537,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1659,7 +1556,6 @@
     
     
 
-    
     
     
     
@@ -1686,21 +1582,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1710,12 +1600,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1727,7 +1619,6 @@
     
     
 
-    
     
     
     
@@ -1754,21 +1645,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1778,12 +1663,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1795,7 +1682,6 @@
     
     
 
-    
     
     
     
@@ -1822,21 +1708,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1846,12 +1726,14 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
     
 
@@ -1863,7 +1745,6 @@
     
     
 
-    
     
     
     
@@ -1890,21 +1771,15 @@
     
 
     
-
     
 
     
 
-    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
-    
-    
-
-    <!-- add image placeholder -->
     
       
     
 
-    <!-- Bypass the HTML-proofer test -->
+    <!-- lazy-load images -->
     
 
     
@@ -1914,16 +1789,17 @@
       
         <!-- create the image wrapper -->
         
+
+        
+        
       
     
 
     <!-- combine -->
     
-
   
 
   
-
 
 
 <!-- Add header for code snippets -->
@@ -1957,7 +1833,6 @@
       
 
       
-
     
       
 
@@ -1969,7 +1844,6 @@
       
 
       
-
     
       
 
@@ -1981,7 +1855,6 @@
       
 
       
-
     
       
 
@@ -1993,7 +1866,6 @@
       
 
       
-
     
       
 
@@ -2005,11 +1877,9 @@
       
 
       
-
     
 
     
-
   
 
   
@@ -2033,7 +1903,6 @@
       
 
       
-
     
       
 
@@ -2045,7 +1914,6 @@
       
 
       
-
     
       
 
@@ -2057,7 +1925,6 @@
       
 
       
-
     
       
 
@@ -2069,7 +1936,6 @@
       
 
       
-
     
       
 
@@ -2081,7 +1947,6 @@
       
 
       
-
     
       
 
@@ -2093,7 +1958,6 @@
       
 
       
-
     
       
 
@@ -2105,7 +1969,6 @@
       
 
       
-
     
       
 
@@ -2117,7 +1980,6 @@
       
 
       
-
     
       
 
@@ -2129,7 +1991,6 @@
       
 
       
-
     
       
 
@@ -2141,7 +2002,6 @@
       
 
       
-
     
       
 
@@ -2153,11 +2013,9 @@
       
 
       
-
     
 
     
-
   
 
   
@@ -2181,7 +2039,6 @@
       
 
       
-
     
       
 
@@ -2193,7 +2050,6 @@
       
 
       
-
     
       
 
@@ -2205,7 +2061,6 @@
       
 
       
-
     
       
 
@@ -2217,7 +2072,6 @@
       
 
       
-
     
       
 
@@ -2229,11 +2083,9 @@
       
 
       
-
     
 
     
-
   
 
   
@@ -2257,7 +2109,6 @@
       
 
       
-
     
       
 
@@ -2269,7 +2120,6 @@
       
 
       
-
     
       
 
@@ -2281,7 +2131,6 @@
       
 
       
-
     
       
 
@@ -2293,7 +2142,6 @@
       
 
       
-
     
       
 
@@ -2305,11 +2153,9 @@
       
 
       
-
     
 
     
-
   
 
 
@@ -2320,13 +2166,15 @@
 
 
 
-<h1 data-toc-skip>VSCode部署Python开发环境</h1>
+<article class="px-1">
+  <header>
+    <h1 data-toc-skip>VSCode部署Python开发环境</h1>
 
-<div class="post-meta text-muted">
-    <!-- published date -->
-    <span>
-      发表于
-      <!--
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        发表于
+        <!--
   Date format snippet
   See: ${JS_ROOT}/utils/locale-dateime.js
 -->
@@ -2334,9 +2182,8 @@
 
 
 
-
-<em
-  class=""
+<time
+  
   data-ts="1584775339"
   data-df="YYYY/MM/DD"
   
@@ -2344,15 +2191,15 @@
   
 >
   2020/03/21
-</em>
+</time>
 
-    </span>
+      </span>
 
-    <!-- lastmod date -->
-    
-    <span>
-      更新于
-      <!--
+      <!-- lastmod date -->
+      
+        <span>
+          更新于
+          <!--
   Date format snippet
   See: ${JS_ROOT}/utils/locale-dateime.js
 -->
@@ -2360,9 +2207,8 @@
 
 
 
-
-<em
-  class=""
+<time
+  
   data-ts="1696921338"
   data-df="YYYY/MM/DD"
   
@@ -2370,30 +2216,29 @@
   
 >
   2023/10/10
-</em>
+</time>
 
-    </span>
-    
-
-  
-
-  <div class="d-flex justify-content-between">
-    <!-- author(s) -->
-    <span>
+        </span>
       
 
-      作者
-
-      <em>
       
-        <a href="https://github.com/sirlis">sirlis</a>
-      
-      </em>
-    </span>
 
-    <div>
-      <!-- read time -->
-      <!-- Calculate the post's reading time, and display the word count in tooltip -->
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          作者
+
+          <em>
+            
+              <a href="https://github.com/sirlis">sirlis</a>
+            
+          </em>
+        </span>
+
+        <!-- read time -->
+        <!-- Calculate the post's reading time, and display the word count in tooltip -->
 
 
 
@@ -2417,14 +2262,14 @@
 >
   <em>19 分钟</em>阅读</span>
 
+      </div>
+      <!-- .d-flex -->
     </div>
+    <!-- .post-meta -->
+  </header>
 
-  </div> <!-- .d-flex -->
-
-</div> <!-- .post-meta -->
-
-<div class="post-content">
-  <p>本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。</p>
+  <div class="content">
+    <p>本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。</p>
 
 <!--more-->
 
@@ -2487,7 +2332,7 @@
 
 <p>安装完成后，点击左侧的扩展商店，搜索chinese，下载中文简体汉化包（可能需要翻墙）。</p>
 
-<p><a href="/assets/img/postsimg/20200318/01.chinese.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200318/01.chinese.png" alt="汉化" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200318/01.chinese.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200318/01.chinese.png" alt="汉化" loading="lazy"></a></p>
 
 <p>安装完成后重启VSCode，即可发现所有界面均已汉化。</p>
 
@@ -2508,7 +2353,7 @@
 
 <p>扩展商店搜索“python”，安装微软官方出品的Python扩展。然后重启VSCode。</p>
 
-<p><a href="/assets/img/postsimg/20200321/01.python.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/01.python.png" alt="汉化" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/01.python.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/01.python.png" alt="汉化" loading="lazy"></a></p>
 
 <p>然后配置Python解释器。</p>
 
@@ -2520,13 +2365,13 @@
 
 <p>Anaconda支持Windows、Linux和Mac平台，从官方网站（https://www.anaconda.com/） 选择对应平台的Anaconda3安装包下载。对于Windows 10平台，推荐下载64-Bit的Python3.8版本的安装包（466M）。</p>
 
-<p><a href="/assets/img/postsimg/20200321/02.anacondadownload.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/02.anacondadownload.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/02.anacondadownload.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/02.anacondadownload.png" alt="Anaconda" loading="lazy"></a></p>
 
 <p>采用默认配置安装Anaconda，安装路径可以自定义，但务必记住安装路径。安装无需联网，保险起见请关闭杀毒软件。</p>
 
 <p>进行到下图步骤时，均不勾选，后面我们将手动配置环境变量。</p>
 
-<p><a href="/assets/img/postsimg/20200321/03.anacondainstall.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/03.anacondainstall.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/03.anacondainstall.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/03.anacondainstall.png" alt="Anaconda" loading="lazy"></a></p>
 
 <p>将Anaconda安装路径的三个路径变量写入系统Path中</p>
 
@@ -2544,11 +2389,11 @@ D:\XXX\Anaconda3\Library\bin
 
 <p>在开始菜单中找到“Anaconda Navigator”，单击打开后，点击左侧的“Environments”，可以看到默认存在一个 <code class="language-plaintext highlighter-rouge">base(root)</code> 环境。点击下方的Create按钮新建一个环境。</p>
 
-<p><a href="/assets/img/postsimg/20200321/04.newenvironment.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/04.newenvironment.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/04.newenvironment.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/04.newenvironment.png" alt="Anaconda" loading="lazy"></a></p>
 
 <p>弹出 <code class="language-plaintext highlighter-rouge">Create new environment</code> 界面，输入 <code class="language-plaintext highlighter-rouge">Name</code> ，勾选 <code class="language-plaintext highlighter-rouge">Python</code> 并下拉选择 <code class="language-plaintext highlighter-rouge">3.7</code> 版本。然后记住 <code class="language-plaintext highlighter-rouge">Location</code> 对应的环境路径。最后点击 <code class="language-plaintext highlighter-rouge">Create</code> 完成环境配置，新建的环境会显示在环境列表中。</p>
 
-<p><a href="/assets/img/postsimg/20200321/05.configenv.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/05.configenv.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/05.configenv.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/05.configenv.png" alt="Anaconda" loading="lazy"></a></p>
 
 <p>也可在终端使用如下命令建立一个使用 python 3.9 的新环境：</p>
 
@@ -2592,11 +2437,11 @@ D:\XXX\Anaconda3\Library\bin
 
 <p>如果pip版本不是最新的，会更新到最新版本，如下图所示</p>
 
-<p><a href="/assets/img/postsimg/20200321/06.updatepip.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/06.updatepip.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/06.updatepip.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/06.updatepip.png" alt="Anaconda" loading="lazy"></a></p>
 
 <p>如果pip版本已经是最新的，会如下图提示</p>
 
-<p><a href="/assets/img/postsimg/20200321/07.piplatest.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/07.piplatest.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/07.piplatest.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/07.piplatest.png" alt="Anaconda" loading="lazy"></a></p>
 
 <h5 id="3412-conda"><span class="me-2">3.4.1.2. conda</span><a href="#3412-conda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
@@ -2612,7 +2457,7 @@ D:\XXX\Anaconda3\Library\bin
 
 <p>若返回conda的版本号，则表示环境中默认搭载了conda。</p>
 
-<p><a href="/assets/img/postsimg/20200321/08.condaversion.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/08.condaversion.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/08.condaversion.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/08.condaversion.png" alt="Anaconda" loading="lazy"></a></p>
 
 <p>输入以下命令更新conda</p>
 
@@ -2624,7 +2469,7 @@ D:\XXX\Anaconda3\Library\bin
 
 <p>期间提示是否更新包，输入y确认</p>
 
-<p><a href="/assets/img/postsimg/20200321/13.updateconda.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/13.updateconda.png" alt="Anaconda" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/13.updateconda.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/13.updateconda.png" alt="Anaconda" loading="lazy"></a></p>
 
 <h5 id="3413-说明"><span class="me-2">3.4.1.3. 说明</span><a href="#3413-说明" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
@@ -2636,7 +2481,7 @@ D:\XXX\Anaconda3\Library\bin
 
 <p>另外，conda查看环境中安装的所有包时，可以包含从Anaconda界面安装的包，而pip则只能查看到所有通过命令行安装的包。如下图所示，通过Anaconda界面安装的cudatoolkit和cudnn包，在pip中无法查到。</p>
 
-<p><a href="/assets/img/postsimg/20200322/08.different.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200322/08.different.png" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200322/08.different.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200322/08.different.png" alt="alt text" loading="lazy"></a></p>
 
 <p>对于用户而言，尽可能从一而终的采用一种包管理工具。若使用Anaconda配置的python环境，则推荐使用conda，配合Anaconda界面使用更加友好，除非某些包无法通过conda安装，则可采用pip安装。</p>
 
@@ -2672,7 +2517,7 @@ trusted-host = pypi.tuna.tsinghua.edu.cn
 
 <p>点击 “Update index…” 更新索引</p>
 
-<p><a href="/assets/img/postsimg/20200321/09.updateindex.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/09.updateindex.png" alt="更新索引" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/09.updateindex.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/09.updateindex.png" alt="更新索引" loading="lazy"></a></p>
 
 <h5 id="3422-conda镜像源"><span class="me-2">3.4.2.2. conda镜像源</span><a href="#3422-conda镜像源" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
@@ -2744,7 +2589,7 @@ custom_channels:
 
 <p>点击 “Update index…” 更新索引</p>
 
-<p><a href="/assets/img/postsimg/20200321/09.updateindex.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/09.updateindex.png" alt="更新索引" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/09.updateindex.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/09.updateindex.png" alt="更新索引" loading="lazy"></a></p>
 
 <h4 id="343-常用命令"><span class="me-2">3.4.3. 常用命令</span><a href="#343-常用命令" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2772,7 +2617,7 @@ custom_channels:
 <span class="p">[</span><span class="n">pip</span><span class="p">]</span>    <span class="n">pip</span> <span class="o">-</span><span class="n">v</span> <span class="nb">list</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p><a href="/assets/img/postsimg/20200321/10.piplist.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/10.piplist.png" alt="piplist" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/10.piplist.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/10.piplist.png" alt="piplist" loading="lazy"></a></p>
 
 <ul>
   <li>显示所有过时包</li>
@@ -2784,7 +2629,7 @@ custom_channels:
 </pre></td><td class="rouge-code"><pre><span class="n">pip</span> <span class="nb">list</span> <span class="o">--</span><span class="n">outdated</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p><a href="/assets/img/postsimg/20200321/11.pipoutdated.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/11.pipoutdated.png" alt="piplist" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/11.pipoutdated.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/11.pipoutdated.png" alt="piplist" loading="lazy"></a></p>
 
 <ul>
   <li>更新特定包</li>
@@ -2796,7 +2641,7 @@ custom_channels:
 </pre></td><td class="rouge-code"><pre><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">xxxx</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p><a href="/assets/img/postsimg/20200321/12.pipupgrade.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/12.pipupgrade.png" alt="piplist" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/12.pipupgrade.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/12.pipupgrade.png" alt="piplist" loading="lazy"></a></p>
 
 <p>或者使用</p>
 
@@ -2878,11 +2723,11 @@ custom_channels:
 
 <p>随便新建一个 <code class="language-plaintext highlighter-rouge">python</code> 文件，如 <code class="language-plaintext highlighter-rouge">printtest.py</code> 进行测试，下图可以看出具备代码智能补全功能。</p>
 
-<p><a href="/assets/img/postsimg/20200321/15.test.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/15.test.png" alt="调试运行测试" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/15.test.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/15.test.png" alt="调试运行测试" loading="lazy"></a></p>
 
 <p>按 <code class="language-plaintext highlighter-rouge">F5</code> 运行结果如下</p>
 
-<p><a href="/assets/img/postsimg/20200321/16.run.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/16.run.png" alt="调试运行测试" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/16.run.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/16.run.png" alt="调试运行测试" loading="lazy"></a></p>
 
 <h2 id="4-常见错误"><span class="me-2">4. 常见错误</span><a href="#4-常见错误" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2911,7 +2756,7 @@ X:\XXX\Anaconda3\Library\bin
 
 <p>要么打开VSCode的设置（<code class="language-plaintext highlighter-rouge">ctrl+,</code>），设置Python插件中的conda的路径</p>
 
-<p><a href="/assets/img/postsimg/20200321/14.condapath.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/14.condapath.png" alt="condapath" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/14.condapath.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/14.condapath.png" alt="condapath" loading="lazy"></a></p>
 
 <p>然后<strong>重启电脑</strong>。</p>
 
@@ -2999,7 +2844,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 <p>当打开一个 <code class="language-plaintext highlighter-rouge">.py</code> 文件，试图通过 <code class="language-plaintext highlighter-rouge">F2</code> 快捷键来修改变量名称时，会弹出 <code class="language-plaintext highlighter-rouge">Refactor failed.......</code> 一大串错误。这是因为如果该文件没有运行过，VSCode 默认的 Python 自动补齐和静态分析工具 Jedi 必须要求先运行一次 <code class="language-plaintext highlighter-rouge">.py</code> 文件才能进行改名。因此可以选择更加新的自动补齐和静态分析工具 Pylance （由微软开发）解决不运行文件而需要改名的操作。</p>
 
-<p><a href="/assets/img/postsimg/20200321/17.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20200321/17.jpg" alt="condapath" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20200321/17.jpg" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20200321/17.jpg" alt="condapath" loading="lazy"></a></p>
 
 <p>左下角齿轮打开设置，输入 jedi ，定位到 <code class="language-plaintext highlighter-rouge">Python: Language Server</code>，然后将选项改成 <code class="language-plaintext highlighter-rouge">Pylance</code> ，提示需要安装 Pylance 插件，安装后重启 VSCode 即可。</p>
 
@@ -3010,137 +2855,115 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 <p><span id="ref1">[2]</span> <a href="https://www.cnblogs.com/Eric-Young/">Eric-Young</a>. <a href="https://www.cnblogs.com/Eric-Young/p/6393513.html">python之VSCode安装</a>.</p>
 
 
-</div>
+  </div>
 
-<div class="post-tail-wrapper text-muted">
-
-  <!-- categories -->
-  
-  <div class="post-meta mb-3">
-    <i class="far fa-folder-open fa-fw me-1"></i>
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
     
-      <a href='/categories/tutorial/'>Tutorial</a>,
-      <a href='/categories/coding/'>Coding</a>
-  </div>
-  
-
-  <!-- tags -->
-  
-  <div class="post-tags">
-    <i class="fa fa-tags fa-fw me-1"></i>
-      
-      <a href="/tags/vscode/"
-          class="post-tag no-text-decoration" >vscode</a>
-      
-      <a href="/tags/python/"
-          class="post-tag no-text-decoration" >python</a>
-      
-  </div>
-  
-
-  <div class="post-tail-bottom
-    d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
-    <div class="license-wrapper">
-
-      
-
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
         
+          <a href="/categories/tutorial/">Tutorial</a>,
+          <a href="/categories/coding/">Coding</a>
+      </div>
+    
 
-        本文由作者按照 
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/vscode/"
+            class="post-tag no-text-decoration"
+          >vscode</a>
+        
+          <a
+            href="/tags/python/"
+            class="post-tag no-text-decoration"
+          >python</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          本文由作者按照 
         <a href="https://creativecommons.org/licenses/by/4.0/">
           CC BY 4.0
         </a>
          进行授权
+        
+      </div>
 
-      
-    </div>
+      <!-- Post sharing snippet -->
 
-    <!-- Post sharing snippet -->
-
-<div class="share-wrapper">
-  <span class="share-label text-muted me-1">分享</span>
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">分享</span>
   <span class="share-icons">
     
     
     
 
     
+
       
-      <a
-        href="https://twitter.com/intent/tweet?text=VSCode%E9%83%A8%E7%BD%B2Python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fvscode-python%2F"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="Twitter"
-        target="_blank"
-        rel="noopener"
-        aria-label="Twitter"
-      >
+
+      <a href="https://twitter.com/intent/tweet?text=VSCode%E9%83%A8%E7%BD%B2Python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fvscode-python%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
         <i class="fa-fw fab fa-twitter"></i>
       </a>
     
+
       
-      <a
-        href="https://www.facebook.com/sharer/sharer.php?title=VSCode%E9%83%A8%E7%BD%B2Python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fvscode-python%2F"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="Facebook"
-        target="_blank"
-        rel="noopener"
-        aria-label="Facebook"
-      >
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=VSCode%E9%83%A8%E7%BD%B2Python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fvscode-python%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
         <i class="fa-fw fab fa-facebook-square"></i>
       </a>
     
+
       
-      <a
-        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fvscode-python%2F&text=VSCode%E9%83%A8%E7%BD%B2Python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%20-%20SIRLIS"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="Telegram"
-        target="_blank"
-        rel="noopener"
-        aria-label="Telegram"
-      >
+
+      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fvscode-python%2F&text=VSCode%E9%83%A8%E7%BD%B2Python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%20-%20SIRLIS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
         <i class="fa-fw fab fa-telegram"></i>
       </a>
     
 
-    <i
+    <button
       id="copy-link"
-      class="fa-fw fas fa-link small"
+      aria-label="Copy link"
+      class="btn small"
       data-bs-toggle="tooltip"
       data-bs-placement="top"
       title="分享链接"
       data-title-succeed="链接已复制！"
     >
-    </i>
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
   </span>
 </div>
 
-
-  </div><!-- .post-tail-bottom -->
-
-</div><!-- div.post-tail-wrapper -->
-
-
-      
-    
-      
     </div>
+    <!-- .post-tail-bottom -->
   </div>
-  <!-- #core-wrapper -->
-
-  <!-- panel -->
-  <div id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
-    <div class="access">
-      <!-- Get the last 5 posts from lastmod list. -->
+  <!-- div.post-tail-wrapper -->
+</article>
 
 
+            
+          </main>
 
-
-
-
-
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
 
 
 
@@ -3148,9 +2971,16 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-  <div id="access-lastmod" class="post">
-    <div class="panel-heading">最近更新</div>
-    <ul class="post-content list-unstyled ps-0 pb-1 ms-1 mt-2">
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">最近更新</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
       
         
         
@@ -3188,11 +3018,11 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
         </li>
       
     </ul>
-  </div>
+  </section>
   <!-- #access-lastmod -->
 
 
-      <!-- The trending tags list -->
+              <!-- The trending tags list -->
 
 
 
@@ -3971,8 +3801,8 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-  <div id="access-tags">
-    <div class="panel-heading">热门标签</div>
+  <section>
+    <h2 class="panel-heading">热门标签</h2>
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
@@ -4006,37 +3836,33 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
         <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
       
     </div>
-  </div>
+  </section>
 
 
-    </div>
+            </div>
 
-    
-      
-      
+            
+              
+              
 
 
 
-  <div id="toc-wrapper" class="ps-0 pe-4 mb-5">
-    <div class="panel-heading ps-3 pt-2 mb-2">文章内容</div>
+  <section id="toc-wrapper" class="ps-0 pe-4">
+    <h2 class="panel-heading ps-3 pt-2 mb-2">文章内容</h2>
     <nav id="toc"></nav>
-  </div>
+  </section>
 
 
-    
-  </div>
-</div>
+            
+          </aside>
+        </div>
 
-<!-- tail -->
-
-  <div class="row">
-    <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-3 pe-xl-4 mt-5">
-      
-        
-        <!--
-  Recommend the other 3 posts according to the tags and categories of the current post,
-  if the number is not enough, use the other latest posts to supplement.
--->
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
 
 <!-- The total size of related posts -->
 
@@ -4053,629 +3879,11 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -4897,27 +4105,142 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
 
 
-<!-- Fill with the other newlest posts -->
 
 
 
 
 
-  <div id="related-posts" class="mb-2 mb-sm-4">
-    <h3 class="pt-2 mb-4 ms-1" data-toc-skip>
-      相关文章
-    </h3>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">相关文章</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
       
-        
-        
-        <div class="col">
-          <a href="/posts/vscode-pytorch/" class="card post-preview h-100">
+        <article class="col">
+          <a href="/posts/vscode-pytorch/" class="post-preview card h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -4927,18 +4250,17 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-
-<em
-  class="small"
+<time
+  
   data-ts="1584840139"
   data-df="YYYY/MM/DD"
   
 >
   2020/03/22
-</em>
+</time>
 
-              <h4 class="pt-0 my-2" data-toc-skip>VSCode部署Pytorch机器学习框架</h4>
-              <div class="text-muted small">
+              <h4 class="pt-0 my-2">VSCode部署Pytorch机器学习框架</h4>
+              <div class="text-muted">
                 <p>
                   
 
@@ -4967,12 +4289,10 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
               </div>
             </div>
           </a>
-        </div>
+        </article>
       
-        
-        
-        <div class="col">
-          <a href="/posts/c-cmake-development/" class="card post-preview h-100">
+        <article class="col">
+          <a href="/posts/python-basic-data-type/" class="post-preview card h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -4982,18 +4302,17 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-
-<em
-  class="small"
-  data-ts="1684166359"
+<time
+  
+  data-ts="1597497439"
   data-df="YYYY/MM/DD"
   
 >
-  2023/05/15
-</em>
+  2020/08/15
+</time>
 
-              <h4 class="pt-0 my-2" data-toc-skip>使用CMake开发C++工程</h4>
-              <div class="text-muted small">
+              <h4 class="pt-0 my-2">Python基础（数据结构）</h4>
+              <div class="text-muted">
                 <p>
                   
 
@@ -5001,32 +4320,33 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-                  本文介绍了使用 CMake（CPack） 和 NSIS 构建并打包 C/C++ 工程项目的基本流程和方法，核心在于 CMakeLists.txt 文件的编写。
+                  本文主要针对Python中数据类型和数据处理方式的介绍，包括mat、list、ndarray等。
 
 
 
 
 
 
-  1. 引言
+  1. mat
     
-      1.1. 传统编译
-      1.2. Make 编译
-      1.3. CMake 编译
+      1.1. MATLAB保存mat文件
+      1.2. Python读取mat文件
     
   
-  2. 安装 CMake
-  3. 编写 CMakeLists.tx...
+  2. list
+    
+      2.1. 复制
+      2.2. 合并
+      2.3. 插入新元素
+      2.4....
                 </p>
               </div>
             </div>
           </a>
-        </div>
+        </article>
       
-        
-        
-        <div class="col">
-          <a href="/posts/vscode-c/" class="card post-preview h-100">
+        <article class="col">
+          <a href="/posts/python-basic-plot/" class="post-preview card h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -5036,18 +4356,17 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-
-<em
-  class="small"
-  data-ts="1584505309"
+<time
+  
+  data-ts="1598083099"
   data-df="YYYY/MM/DD"
   
 >
-  2020/03/18
-</em>
+  2020/08/22
+</time>
 
-              <h4 class="pt-0 my-2" data-toc-skip>VSCode部署C/C++开发环境</h4>
-              <div class="text-muted small">
+              <h4 class="pt-0 my-2">Python基础（绘图plot）</h4>
+              <div class="text-muted">
                 <p>
                   
 
@@ -5055,45 +4374,45 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-                  本文介绍了基于 VSCode 的 C/C++ 开发环境的搭建方法。
+                  由于科研需要，早已不复年轻的我又要从头开始学习一门新的语言——Python。由于老年痴呆愈发严重，只得将各种学习笔记记录在此。本文主要针对Python中画图部分展开，包括plot、subplot等。
 
 
 
 
 
-
-  1. VSCode简介
-  2. VSCode下载与安装
-  3. 配置C/C++开发环境
+  1. plot
     
-      3.1. MinGW-W64 编译器
-        
-          3.1.1. 安装编译器
-          3.1.2. 配置 “编译-调试-运行” 链
-            
- ...
+      1.1. 颜色控制
+      1.2. 线形控制
+      1.3. 点形控制
+      1.4. 另一种设置方法
+    
+  
+  ...
                 </p>
               </div>
             </div>
           </a>
-        </div>
+        </article>
       
-    </div>
-    <!-- .card-deck -->
-  </div>
+    </nav>
+  </aside>
   <!-- #related-posts -->
 
 
-      
-        
-        <!-- Navigation buttons at the bottom of the post. -->
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
 
-<div class="post-navigation d-flex justify-content-between">
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
   
     <a
       href="/posts/vscode-c/"
       class="btn btn-outline-primary"
-      prompt="上一篇"
+      aria-label="上一篇"
     >
       <p>VSCode部署C/C++开发环境</p>
     </a>
@@ -5103,81 +4422,109 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
     <a
       href="/posts/vscode-pytorch/"
       class="btn btn-outline-primary"
-      prompt="下一篇"
+      aria-label="下一篇"
     >
       <p>VSCode部署Pytorch机器学习框架</p>
     </a>
   
-</div>
+</nav>
 
-      
-        
-        <!--  The comments switcher -->
+            
+              
+              <!--  The comments switcher -->
 
   
   <!-- https://utteranc.es/ -->
-<script src="https://utteranc.es/client.js"
-        repo="sirlis/sirlis.github.io"
-        issue-term="pathname"
-        crossorigin="anonymous"
-        async>
-</script>
+<script
+  src="https://utteranc.es/client.js"
+  repo="sirlis/sirlis.github.io"
+  issue-term="pathname"
+  crossorigin="anonymous"
+  async
+></script>
 
 <script type="text/javascript">
-  $(function() {
-    const origin = "https://utteranc.es";
-    const iframe = "iframe.utterances-frame";
-    const lightTheme = "github-light";
-    const darkTheme = "github-dark";
+  (function () {
+    const origin = 'https://utteranc.es';
+    const iframe = 'iframe.utterances-frame';
+    const lightTheme = 'github-light';
+    const darkTheme = 'github-dark';
     let initTheme = lightTheme;
+    const html = document.documentElement;
 
-    if ($("html[data-mode=dark]").length > 0
-        || ($("html[data-mode]").length == 0
-            && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+    if (
+      (html.hasAttribute('data-mode') && html.getAttribute('data-mode') === 'dark') ||
+      (!html.hasAttribute('data-mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
       initTheme = darkTheme;
     }
 
-    addEventListener("message", (event) => {
+    addEventListener('message', (event) => {
       let theme;
 
       /* credit to <https://github.com/utterance/utterances/issues/170#issuecomment-594036347> */
       if (event.origin === origin) {
         /* page initial */
         theme = initTheme;
-
-      } else if (event.source === window && event.data &&
-            event.data.direction === ModeToggle.ID) {
+      } else if (event.source === window && event.data && event.data.direction === ModeToggle.ID) {
         /* global theme mode changed */
         const mode = event.data.message;
-        theme = (mode === ModeToggle.DARK_MODE ? darkTheme : lightTheme);
-
+        theme = mode === ModeToggle.DARK_MODE ? darkTheme : lightTheme;
       } else {
         return;
       }
 
       const message = {
-        type: "set-theme",
+        type: 'set-theme',
         theme: theme
       };
 
       const utterances = document.querySelector(iframe).contentWindow;
       utterances.postMessage(message, origin);
     });
-
-  });
+  })();
 </script>
 
 
 
-      
-    </div>
-  </div>
+            
 
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>©
+    <time>2024</time>
+
+    
+      <a href="https://github.com/sirlis">sirlis</a>.
+    
+
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。"
+      >保留部分权利。</span>
+    
+  </p>
+
+  <p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>
+  </p>
+</footer>
+
+          </div>
+        </div>
 
         <!-- The Search results -->
 
 <div id="search-result-wrapper" class="d-flex justify-content-center unloaded">
-  <div class="col-11 post-content">
+  <div class="col-11 content">
     <div id="search-hints">
       <!-- The trending tags list -->
 
@@ -5958,8 +5305,8 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-  <div id="access-tags">
-    <div class="panel-heading">热门标签</div>
+  <section>
+    <h2 class="panel-heading">热门标签</h2>
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
@@ -5993,7 +5340,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
         <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
       
     </div>
-  </div>
+  </section>
 
 
     </div>
@@ -6002,64 +5349,45 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 </div>
 
       </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
     </div>
-
-    <!-- The Footer -->
-
-<footer>
-  <div class="container px-lg-4">
-    <div class="d-flex justify-content-center align-items-center text-muted mx-md-3">
-      <p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>
-      </p>
-
-      <p>©
-        2024
-        <a href="https://github.com/sirlis">sirlis</a>.
-        
-          <span
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。"
-          >保留部分权利。</span>
-        
-      </p>
-    </div>
-  </div>
-</footer>
-
 
     <div id="mask"></div>
 
-    <button id="back-to-top" aria-label="back-to-top" class="btn btn-lg btn-box-shadow">
-      <i class="fas fa-angle-up"></i>
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">发现新版本的内容。</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      更新
     </button>
+  </div>
+</aside>
 
     
-      <div
-        id="notification"
-        class="toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        data-bs-animation="true"
-        data-bs-autohide="false"
-      >
-        <div class="toast-header">
-          <button
-            type="button"
-            class="btn-close ms-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body text-center pt-0">
-          <p class="px-2 mb-3">发现新版本的内容。</p>
-          <button type="button" class="btn btn-primary" aria-label="Update">
-            更新
-          </button>
-        </div>
-      </div>
-    
+
+    <!-- JavaScripts -->
 
     <!-- JS selector for site. -->
 
@@ -6068,6 +5396,8 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 <!-- layout specified -->
+
+
 
 
   
@@ -6170,7 +5500,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 
 
-  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.1/dist/jquery.min.js,npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.10/dayjs.min.js,npm/dayjs@1.11.10/locale/zh.min.js,npm/dayjs@1.11.10/plugin/relativeTime.min.js,npm/dayjs@1.11.10/plugin/localizedFormat.min.js,npm/tocbot@4.25.0/dist/tocbot.min.js"></script>
 
 
 
@@ -6194,11 +5524,13 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
         displayMath: [
           ['$$', '$$'],
           ['\\[', '\\]']
-        ]
+        ],
+        /* equation numbering */
+        tags: 'ams'
       }
     };
   </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
 
 
@@ -6222,7 +5554,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
     searchInput: document.getElementById('search-input'),
     resultsContainer: document.getElementById('search-results'),
     json: '/assets/js/data/search.json',
-    searchResultTemplate: '<div class="px-1 px-sm-2 px-lg-4 px-xl-0">  <a href="{url}">{title}</a>  <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">    {categories}    {tags}  </div>  <p>{snippet}</p></div>',
+    searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{snippet}</p>  </article>',
     noResultsText: '<p class="mt-5"></p>',
     templateMiddleware: function(prop, value, template) {
       if (prop === 'categories') {
