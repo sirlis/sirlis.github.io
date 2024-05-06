@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-04-10T12:51:22+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-05-05T00:03:19+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -809,13 +809,13 @@
 
 <em
   class=""
-  data-ts="1712724682"
+  data-ts="1714838599"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2024/04/10
+  2024/05/05
 </em>
 
     </span>
@@ -859,9 +859,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2221 字"
+  title="2343 字"
 >
-  <em>12 分钟</em>阅读</span>
+  <em>13 分钟</em>阅读</span>
 
     </div>
 
@@ -1024,7 +1024,13 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 <p>上式被称为广义 Rayleigh 商。</p>
 
-<p>从优化目标来看，如果直接对上式（分子分母都是二次型）进行优化，有无穷个满足要求的解。为了解决多解问题，我们需要额外增加一个约束条件，限制解的个数。由于我们只关心投影的方向，对投影方向向量的模长不关心，并且上式分子分母的向量 $\boldsymbol{w}$ 数乘缩放不影响比值。因此将优化问题更改如下</p>
+<p>从优化目标来看，如果直接对上式（分子分母都是二次型）进行优化，有无穷个满足要求的解。为了解决多解问题，我们需要额外增加一个约束条件，限制解的个数。由于我们只关心投影的方向，对投影方向向量的模长不关心，并且上式分子分母的向量 $\boldsymbol{w}$ 数乘缩放不影响比值。</p>
+
+<blockquote>
+  <p>在我们求导之前，需要对分母进行归一化，因为不做归一的话，$\boldsymbol{w}$ 扩大任何倍，都成立，我们就无法确定 $\boldsymbol{w}$。这里 $\boldsymbol{w}$ 并不是唯一的，倘若 $\boldsymbol{w}$ 对应 $J(\boldsymbol{w})$ 的极大值点，则 $a\cdot \boldsymbol{w}$ 仍旧可以达到 $J(\boldsymbol{w})$ 的极大值点。</p>
+</blockquote>
+
+<p>因此将优化问题更改如下</p>
 
 \[\begin{aligned}
 \max &amp;\; \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}\\
@@ -1065,6 +1071,8 @@ L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w} 
 <p>注意到，$(\boldsymbol{m}_1-\boldsymbol{m}_2)^{T}\cdot\boldsymbol{w}^\star$ 是标量，不会改变 $\boldsymbol{w}^ \star$ 的方向，因此可以得到 $\boldsymbol{w}^{\star} $ 是由 $\boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)$ 决定的，因此 Fisher 投影准则的最优投影方向为</p>
 
 \[\boldsymbol{w}^{\star} = \boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)\]
+
+<p>至此，我们只需要求出原始样本的均值和方差（协方差矩阵？）就可以求出最佳的方向。</p>
 
 <p>需要注意的是，Fisher 投影的最优解本身只给出了一个投影方向，并没有给出我们需要的分类面。要得到分类面，需要再投影后的方向（一维空间）上确定一个分类阈值 $w_0$ 并采取决策规则</p>
 
@@ -1218,6 +1226,20 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
         </li>
       
@@ -1233,20 +1255,6 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         <li class="text-truncate lh-lg">
           <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
     </ul>
@@ -2114,6 +2122,18 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3025,7 +3045,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         
         <div class="col">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/" class="card post-preview h-100">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3038,14 +3058,14 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 <em
   class="small"
-  data-ts="1669433059"
+  data-ts="1714615399"
   data-df="YYYY/MM/DD"
   
 >
-  2022/11/26
+  2024/05/02
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>强化学习（动态规划）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（LDA和PCA）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -3054,22 +3074,19 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 
 
-                  本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。
+                  本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。
 
 
 
 
 
 
-  1. 强化学习问题的求解
-  2. 动态规划
+  1. 特征降维
+  2. 线性判别分析（LDA）
     
-      2.1. 策略迭代
-        
-          2.1.1. 策略评估
-          2.1.2. 策略改进
-          2.1.3. 策略迭代
-   ...
+      2.1. 瑞利商与广义瑞利商
+      2.2. 两类 LDA
+      2.3. 多...
                 </p>
               </div>
             </div>
