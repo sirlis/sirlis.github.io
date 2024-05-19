@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2024-05-06T14:22:53+08:00</updated>
+  <updated>2024-05-19T14:24:13+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/" rel="alternate" type="text/html" title="模式识别（LDA和PCA）" />
     <published>2024-05-02T10:03:19+08:00</published>
   
-    <updated>2024-05-05T17:33:58+08:00</updated>
+    <updated>2024-05-06T14:23:30+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/" />
