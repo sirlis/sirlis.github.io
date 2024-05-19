@@ -24,6 +24,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build the site
+          run: |  
+          gem install bundler  
+          bundle install  
+          bundle exec jekyll build  
+
+      - name: Deploy to GitHub Pages
+        uses: actions/jekyll-build-pages@v2
+        with:
+          branch: master
+
+
+
   # sync github repos to gitee (currently done when push sirlis.github.io)
   # https://github.com/Yikun/hub-mirror-action
   # private key at 'C:\Users\Administrator\.ssh\id_rsa' and saved in github/repo/settings/secrets as GITEE_PRIVATE_KEY
