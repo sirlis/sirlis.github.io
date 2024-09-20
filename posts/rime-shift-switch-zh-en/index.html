@@ -43,7 +43,7 @@
 <meta property="twitter:title" content="日常tips手册（Rime输入法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-10-30T22:06:49+08:00","datePublished":"2020-10-30T22:06:49+08:00","description":"本文记录个人科研生活中的各种小tips和遇到的问题及其解决方案，留作提醒查阅。","headline":"日常tips手册（Rime输入法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/rime-shift-switch-zh-en/"},"url":"http://localhost:4000/posts/rime-shift-switch-zh-en/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-09-20T12:07:47+08:00","datePublished":"2020-10-30T22:06:49+08:00","description":"本文记录个人科研生活中的各种小tips和遇到的问题及其解决方案，留作提醒查阅。","headline":"日常tips手册（Rime输入法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/rime-shift-switch-zh-en/"},"url":"http://localhost:4000/posts/rime-shift-switch-zh-en/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -597,6 +597,28 @@
 
       
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
 
     
   
@@ -604,6 +626,60 @@
   
   
 
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
   
 
   
@@ -655,6 +731,29 @@
 
       <!-- lastmod date -->
       
+        <span>
+          更新于
+          <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1726805267"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2024/09/20
+</time>
+
+        </span>
+      
 
       
 
@@ -693,9 +792,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1411 字"
+  title="2279 字"
 >
-  <em>7 分钟</em>阅读</span>
+  <em>12 分钟</em>阅读</span>
 
       </div>
       <!-- .d-flex -->
@@ -711,47 +810,64 @@
 <hr />
 
 <ul>
-  <li><a href="#1-rime-输入法">1. Rime 输入法</a>
+  <li><a href="#1-下载安装">1. 下载安装</a></li>
+  <li><a href="#2-方案配置">2. 方案配置</a></li>
+  <li><a href="#3-基础配置">3. 基础配置</a></li>
+  <li><a href="#4-皮肤设置">4. 皮肤设置</a></li>
+  <li><a href="#5-一些额外的自定义配置">5. 一些额外的自定义配置</a>
     <ul>
-      <li><a href="#11-基础配置">1.1. 基础配置</a></li>
-      <li><a href="#12-皮肤设置">1.2. 皮肤设置</a></li>
-      <li><a href="#13-特殊符号快速输入">1.3. 特殊符号快速输入</a></li>
-      <li><a href="#14-shift-直接上屏且切换中英文">1.4. shift 直接上屏且切换中英文</a></li>
+      <li><a href="#51-更改切换输入方案快捷键">5.1. 更改切换输入方案快捷键</a></li>
+      <li><a href="#52-更换输入方案">5.2. 更换输入方案</a></li>
+      <li><a href="#53-中英文shift切换和英文直接上屏">5.3. 中英文shift切换和英文直接上屏</a></li>
+      <li><a href="#54-希腊数学特殊符号快速输入">5.4. 希腊/数学/特殊符号快速输入</a></li>
     </ul>
   </li>
-  <li><a href="#2-参考文献">2. 参考文献</a></li>
+  <li><a href="#6-参考文献">6. 参考文献</a></li>
 </ul>
 
-<h1 id="1-rime-输入法">1. Rime 输入法</h1>
+<h2 id="1-下载安装"><span class="me-2">1. 下载安装</span><a href="#1-下载安装" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h2 id="11-基础配置"><span class="me-2">1.1. 基础配置</span><a href="#11-基础配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p><a href="https://rime.im/">Rime Imput Method Engine 中州韵输入法引擎</a> 是一个跨平台的输入法算法框架。前往官网下载安装即可。</p>
 
-<p>XNOM. <a href="https://www.jianshu.com/p/296bba666604">30分钟搞定 自由输入法RIME简明配置指南</a></p>
+<p>安装时注意可以指定用户文件夹，建议自行指定一个，不用默认路径，方便之后对输入法进行自定义。具体可参考 <a href="https://github.com/rime/home/issues/399">此处</a>。</p>
+
+<h2 id="2-方案配置"><span class="me-2">2. 方案配置</span><a href="#2-方案配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>安装完 Rime 后，一般会自动弹出【方案选单设定】界面，提示勾选所需的输入方案。一般默认勾选【朙月拼音】等等。</p>
 
 <ul>
-  <li>
-    <p>Rime 的各种配置，均是由 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件所定义。<code class="language-plaintext highlighter-rouge">yaml</code> 是一种标记语言。<code class="language-plaintext highlighter-rouge">.yaml</code> 文件实际上是文本文档。可使用记事本、或 Emeditor 等进行编辑。</p>
-  </li>
-  <li>
-    <p>对 Rime 进行自定义，是通过对 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件修改达成。不同的 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件，控制不同的功能实现。<code class="language-plaintext highlighter-rouge">.custom.yaml</code> 实际上是相当于对 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件打补丁，在重新部署后，会将 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 中的内容写入 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件中，完成自定。</p>
+  <li>用户可以取消勾选用不到的，比如繁体、注音等。</li>
+  <li>用户也可以选择字典词库维护更好的【雾凇拼音】（强烈推荐，且可以保持长期更新字典字库，具体参考 <a href="#52-更换输入方案">此章节</a>）。</li>
+</ul>
 
-    <ul>
-      <li>例一：<code class="language-plaintext highlighter-rouge">weasel.yaml</code> 是常规设置，主要控制托盘图标、候选词横竖排列、界面配色等等功能。那么，我们需要定制界面配色，只需在 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code> 中修改，重新部署后就可实现。</li>
-      <li>例二：<code class="language-plaintext highlighter-rouge">default.yaml</code> 是默认设置，主要控制快捷键、按键上屏等等。同样，作修改就编辑 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code> 文件即可。</li>
-      <li>例三：以上是全局设置，亦即不论使用何种输入方案，均起作用。<code class="language-plaintext highlighter-rouge">double_pinyin_flypy.custom.yaml</code> 这种则是输入法方案设置。主要实现特殊标点符号、词库等功能。是针对特定输入方案的配置。</li>
-    </ul>
-  </li>
+<h2 id="3-基础配置"><span class="me-2">3. 基础配置</span><a href="#3-基础配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<blockquote>
+  <p>XNOM. <a href="https://www.jianshu.com/p/296bba666604">30分钟搞定 自由输入法RIME简明配置指南</a></p>
+</blockquote>
+
+<p>Rime 的各种配置，均是由 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件所定义。<code class="language-plaintext highlighter-rouge">yaml</code> 是一种标记语言。<code class="language-plaintext highlighter-rouge">.yaml</code> 文件实际上是文本文档。可使用记事本、或 Emeditor 等进行编辑。</p>
+
+<p>对 Rime 进行自定义，是通过对 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件修改达成。不同的 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件，控制不同的功能实现。<code class="language-plaintext highlighter-rouge">.custom.yaml</code> 实际上是相当于对 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件打补丁，在重新部署后，会将 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 中的内容写入 <code class="language-plaintext highlighter-rouge">.yaml</code> 文件中，完成自定。</p>
+
+<ul>
+  <li>例一：<code class="language-plaintext highlighter-rouge">weasel.yaml</code> 是常规设置，主要控制托盘图标、候选词横竖排列、界面配色等等功能。那么，我们需要定制界面配色，只需在 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code> 中修改，重新部署后就可实现。</li>
+  <li>例二：<code class="language-plaintext highlighter-rouge">default.yaml</code> 是默认设置，主要控制快捷键、按键上屏等等。同样，作修改就编辑 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code> 文件即可。</li>
+  <li>例三：以上是全局设置，亦即不论使用何种输入方案，均起作用。<code class="language-plaintext highlighter-rouge">double_pinyin_flypy.custom.yaml</code> 这种则是输入法方案设置。主要实现特殊标点符号、词库等功能。是针对特定输入方案的配置。</li>
 </ul>
 
 <p>可见，我们绝大部分的自定，都只需修改对应的 <code class="language-plaintext highlighter-rouge">.custom.yaml</code> 文件即可。</p>
 
-<ul>
-  <li>所有自定修改，都必须重新部署。在开始菜单可以找到【小狼毫】重新部署。</li>
-</ul>
+<blockquote>
+  <p>[!IMPORTANT] 
+ 所有自定修改，都必须 <strong>重新部署</strong>。在开始菜单可以找到【小狼毫】重新部署。</p>
+</blockquote>
 
-<h2 id="12-皮肤设置"><span class="me-2">1.2. 皮肤设置</span><a href="#12-皮肤设置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="4-皮肤设置"><span class="me-2">4. 皮肤设置</span><a href="#4-皮肤设置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>XNOM. <a href="https://www.jianshu.com/p/296bba666604">30分钟搞定 自由输入法RIME简明配置指南</a></p>
+<blockquote>
+  <p>XNOM. <a href="https://www.jianshu.com/p/296bba666604">30分钟搞定 自由输入法RIME简明配置指南</a></p>
+</blockquote>
 
 <p>打开 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code> 文件，若没有，则新建。所有自定义项均在 <code class="language-plaintext highlighter-rouge">patch:</code> 下，注意缩进</p>
 
@@ -777,12 +893,12 @@
   <span class="na">modified_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Mon</span><span class="nv"> </span><span class="s">Jul</span><span class="nv"> </span><span class="s">13</span><span class="nv"> </span><span class="s">11:31:05</span><span class="nv"> </span><span class="s">2020"</span>
   <span class="na">rime_version</span><span class="pi">:</span> <span class="s">1.5.3</span>
 <span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">style/color_scheme"</span><span class="err">:</span> <span class="s">google</span> <span class="c1"># 皮肤风格</span>
-  <span class="s2">"</span><span class="s">style/layout/border_width"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/layout/border"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/horizontal"</span><span class="err">:</span> <span class="kc">true</span> <span class="c1">#横排显示候选词</span>
-  <span class="s2">"</span><span class="s">style/font_face"</span><span class="err">:</span> <span class="s">Microsoft YaHei</span> <span class="c1"># 候选词字体</span>
-  <span class="s2">"</span><span class="s">style/font_point"</span><span class="err">:</span> <span class="m">12</span> <span class="c1"># 候选词字号</span>
+  <span class="na">style/color_scheme</span><span class="pi">:</span> <span class="s">google</span> <span class="c1"># 皮肤风格</span>
+  <span class="na">style/layout/border_width</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="na">style/layout/border</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="na">style/horizontal</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1">#横排显示候选词</span>
+  <span class="na">style/font_face</span><span class="pi">:</span> <span class="s">Microsoft YaHei</span> <span class="c1"># 候选词字体</span>
+  <span class="na">style/font_point</span><span class="pi">:</span> <span class="m">12</span> <span class="c1"># 候选词字号</span>
 </pre></td></tr></tbody></table></code></div></div>
 
 <p>一个模仿 Windows 10 自带的微软拼音皮肤的设置如下，以供修改尝试参考：</p>
@@ -833,24 +949,24 @@
   <span class="na">rime_version</span><span class="pi">:</span> <span class="s">1.5.3</span>
 
 <span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">style/display_tray_icon"</span><span class="err">:</span> <span class="kc">true</span>
-  <span class="s">"style/horizontal"</span><span class="err">:</span> <span class="kc">true</span> <span class="c1">#横排显示</span>
-  <span class="s2">"</span><span class="s">style/font_face"</span><span class="err">:</span> <span class="s2">"</span><span class="s">Microsoft</span><span class="nv"> </span><span class="s">YaHei"</span> <span class="c1">#字体</span>
-  <span class="s2">"</span><span class="s">style/font_point"</span><span class="err">:</span> <span class="m">13</span> <span class="c1">#字体大小</span>
-  <span class="s2">"</span><span class="s">style/inline_preedit"</span><span class="err">:</span> <span class="kc">true</span> <span class="c1"># 嵌入式候选窗单行显示</span>
+  <span class="na">style/display_tray_icon</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">style/horizontal</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1">#横排显示</span>
+  <span class="na">style/font_face</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Microsoft</span><span class="nv"> </span><span class="s">YaHei"</span> <span class="c1">#字体</span>
+  <span class="na">style/font_point</span><span class="pi">:</span> <span class="m">13</span> <span class="c1">#字体大小</span>
+  <span class="na">style/inline_preedit</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1"># 嵌入式候选窗单行显示</span>
 
-  <span class="s2">"</span><span class="s">style/layout/border_width"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/layout/border"</span><span class="err">:</span> <span class="m">0</span>
-  <span class="s2">"</span><span class="s">style/layout/margin_x"</span><span class="err">:</span> <span class="m">12</span> <span class="c1">#候选字左右边距</span>
-  <span class="s2">"</span><span class="s">style/layout/margin_y"</span><span class="err">:</span> <span class="m">12</span> <span class="c1">#候选字上下边距</span>
-  <span class="s2">"</span><span class="s">style/layout/hilite_padding"</span><span class="err">:</span> <span class="m">12</span> <span class="c1">#候选字背景色色块高度 若想候选字背景色块无边界填充候选框，仅需其高度和候选字上下边距一致即可</span>
-  <span class="s2">"</span><span class="s">style/layout/hilite_spacing"</span><span class="err">:</span> <span class="m">3</span> <span class="c1"># 序号和候选字之间的间隔</span>
-  <span class="s2">"</span><span class="s">style/layout/spacing"</span><span class="err">:</span> <span class="m">10</span> <span class="c1">#作用不明</span>
-  <span class="s2">"</span><span class="s">style/layout/candidate_spacing"</span><span class="err">:</span> <span class="m">24</span> <span class="c1"># 候选字间隔</span>
-  <span class="s2">"</span><span class="s">style/layout/round_corner"</span><span class="err">:</span> <span class="m">0</span> <span class="c1">#候选字背景色块圆角幅度</span>
+  <span class="na">style/layout/border_width</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="na">style/layout/border</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="na">style/layout/margin_x</span><span class="pi">:</span> <span class="m">12</span> <span class="c1">#候选字左右边距</span>
+  <span class="na">style/layout/margin_y</span><span class="pi">:</span> <span class="m">12</span> <span class="c1">#候选字上下边距</span>
+  <span class="na">style/layout/hilite_padding</span><span class="pi">:</span> <span class="m">12</span> <span class="c1">#候选字背景色色块高度 若想候选字背景色块无边界填充候选框，仅需其高度和候选字上下边距一致即可</span>
+  <span class="na">style/layout/hilite_spacing</span><span class="pi">:</span> <span class="m">3</span> <span class="c1"># 序号和候选字之间的间隔</span>
+  <span class="na">style/layout/spacing</span><span class="pi">:</span> <span class="m">10</span> <span class="c1">#作用不明</span>
+  <span class="na">style/layout/candidate_spacing</span><span class="pi">:</span> <span class="m">24</span> <span class="c1"># 候选字间隔</span>
+  <span class="na">style/layout/round_corner</span><span class="pi">:</span> <span class="m">0</span> <span class="c1">#候选字背景色块圆角幅度</span>
 
-  <span class="s2">"</span><span class="s">style/color_scheme"</span><span class="err">:</span> <span class="s">Micosoft</span>
-  <span class="s">"preset_color_schemes/Micosoft"</span><span class="err">:</span>
+  <span class="na">style/color_scheme</span><span class="pi">:</span> <span class="s">Micosoft</span>
+  <span class="na">preset_color_schemes/Micosoft</span><span class="pi">:</span>
     <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Micosoft"</span>
     <span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">XNOM"</span>
     <span class="na">back_color</span><span class="pi">:</span> <span class="s">0xffffff</span> <span class="c1">#候选框 背景色</span>
@@ -863,43 +979,17 @@
     <span class="na">candidate_text_color</span><span class="pi">:</span> <span class="s">0x000000</span> <span class="c1">#未候选字颜色</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="13-特殊符号快速输入"><span class="me-2">1.3. 特殊符号快速输入</span><a href="#13-特殊符号快速输入" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="5-一些额外的自定义配置"><span class="me-2">5. 一些额外的自定义配置</span><a href="#5-一些额外的自定义配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>百度贴吧. <a href="https://tieba.baidu.com/p/3079474120">小狼毫输入法怎么输入希腊字母和数学符号</a></p>
+<h3 id="51-更改切换输入方案快捷键"><span class="me-2">5.1. 更改切换输入方案快捷键</span><a href="#51-更改切换输入方案快捷键" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>首先确定使用的拼音方案，比如如果使用 <code class="language-plaintext highlighter-rouge">luna_pinyin_simp</code> （明月拼音简化字）方案，那么新建 <code class="language-plaintext highlighter-rouge">lunar_pinyin_simp.custom.yaml</code> 配置文件，写入：</p>
-
-<div class="language-yaml highlighter-rouge"><div class="code-header">
-        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">punctuator/import_preset"</span> <span class="err">:</span> <span class="s">symbols</span>
-  <span class="s">"recognizer/patterns/punct"</span><span class="err">:</span> <span class="s2">"</span><span class="s">^/([A-Z|a-z]*|[0-9]|10)$"</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>然后小狼毫文件夹里点击 <strong>小狼毫重新部署</strong>，即可。</p>
-
-<p>通过 <code class="language-plaintext highlighter-rouge">/</code> 键配合缩写实现快速输入。注意使用键盘的 <code class="language-plaintext highlighter-rouge">?</code> 键唤起，而不是小键盘的 <code class="language-plaintext highlighter-rouge">/</code> 键。</p>
+<p>默认的输入方案切换快捷键为 <code class="language-plaintext highlighter-rouge">Ctrl+~</code> 或者 <code class="language-plaintext highlighter-rouge">F4</code>，由于 <code class="language-plaintext highlighter-rouge">F4</code> 也是很多常用应用的快捷键（比如 Word 中 <code class="language-plaintext highlighter-rouge">F4</code> 用来重复上次操作），因此我们可将该快捷键更改。</p>
 
 <ul>
-  <li>输入 <code class="language-plaintext highlighter-rouge">/xl</code> 直接给出希腊字母，如 $\alpha$ 等。</li>
-  <li>输入 <code class="language-plaintext highlighter-rouge">/sx</code> 直接给出常用数学符号，如 ±, ÷ 等。</li>
-  <li>输入 <code class="language-plaintext highlighter-rouge">/jh</code> 直接给出一些特殊符号，如 ■，□，▣，▥ 等。</li>
-</ul>
-
-<h2 id="14-shift-直接上屏且切换中英文"><span class="me-2">1.4. shift 直接上屏且切换中英文</span><a href="#14-shift-直接上屏且切换中英文" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
-
-<p>Xeon-Shao. <a href="https://blog.csdn.net/sdujava2011/article/details/84098971">小狼毫（Rime）输入法设置Shift直接上屏英文字符并切换为英文状态方法</a></p>
-
-<p>小狼毫默认输入方式下，左Shift键只切换为英文，右Shift键直接上屏中文。这对于用惯了搜狗的人来说在进行中英文混输的时候经常出错，特别影响效率，接下来提供方法解决这个问题。</p>
-
-<ul>
-  <li>开始菜单中，找到小狼毫的文件夹，打开 “<strong>用户资料文件夹</strong>”，如果有 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code>，则复制一份，复制后的文件重命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>；如果没有，则自己新建文件命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>，并将内容修改为如下：</li>
-</ul>
-
-<div class="language-yaml highlighter-rouge"><div class="code-header">
+  <li>右键输入法白色图标，打开 “<strong>用户资料文件夹</strong>”</li>
+  <li>打开 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>（如果没有该文件，但有 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code>，则复制一份，复制后的文件重命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>；如果没有，则自己新建文件命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>）</li>
+  <li>将文件内容最后的补丁部分修改如下（以<code class="language-plaintext highlighter-rouge">Ctrl+F4</code>为例）：
+    <div class="language-yaml highlighter-rouge"><div class="code-header">
         <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -909,23 +999,127 @@
 6
 7
 8
+9
 </pre></td><td class="rouge-code"><pre><span class="na">customization</span><span class="pi">:</span>
   <span class="na">distribution_code_name</span><span class="pi">:</span> <span class="s">Weasel</span>
-  <span class="na">distribution_version</span><span class="pi">:</span> <span class="s">0.12.0</span>
-  <span class="na">generator</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Weasel::UIStyleSettings"</span>
-  <span class="na">modified_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Thu</span><span class="nv"> </span><span class="s">Nov</span><span class="nv"> </span><span class="s">15</span><span class="nv"> </span><span class="s">09:43:07</span><span class="nv"> </span><span class="s">2018"</span>
-  <span class="na">rime_version</span><span class="pi">:</span> <span class="s">1.3.2</span>
+  <span class="na">distribution_version</span><span class="pi">:</span> <span class="s">x.xx.x</span>
+  <span class="na">generator</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Rime::SwitcherSettings"</span>
+  <span class="na">modified_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">xxxx"</span>
+  <span class="na">rime_version</span><span class="pi">:</span> <span class="s">x.xx.x</span>
 <span class="na">patch</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">ascii_composer/switch_key/Shift_L"</span><span class="err">:</span> <span class="s">commit_code</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<ul>
-  <li>小狼毫文件夹里点击 “<strong>小狼毫重新部署</strong>”；</li>
+  <span class="na">switcher/hotkeys</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">Control+F4</span> <span class="c1"># 表示将切换输入方案快捷键更改为 Ctrl+F4</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>最后右键输入法白色图标，选择 <strong>重新部署</strong>，即可。</li>
 </ul>
 
-<p><code class="language-plaintext highlighter-rouge">Shift_L: commit_code</code> 的意思是：其中 <code class="language-plaintext highlighter-rouge">L</code> 指 <code class="language-plaintext highlighter-rouge">Left</code>，左的意思。<code class="language-plaintext highlighter-rouge">commit-</code> 提交。<code class="language-plaintext highlighter-rouge">code－</code> 代码。 当我们输入一段文字未上屏之前，按此键后字符将被将直接上屏。</p>
+<h3 id="52-更换输入方案"><span class="me-2">5.2. 更换输入方案</span><a href="#52-更换输入方案" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h1 id="2-参考文献">2. 参考文献</h1>
+<p>以更换为【雾凇拼音】为例，雾凇拼音的github地址：https://github.com/iDvel/rime-ice。</p>
+
+<ul>
+  <li>前往 <a href="https://github.com/iDvel/rime-ice">雾凇拼音官方 github 仓库</a>，将仓库打包下载，或者整体克隆到本地</li>
+  <li>右键输入法白色图标，打开 <strong>用户文件夹</strong>，将压缩包内所有文件复制粘贴到用户文件夹</li>
+  <li>右键输入法白色图标，选择 <strong>重新部署</strong></li>
+  <li>使用切换输入方案快捷键（默认为 <code class="language-plaintext highlighter-rouge">Ctrl+~</code> 或者 <code class="language-plaintext highlighter-rouge">F4</code>），选择【雾凇拼音】即可</li>
+</ul>
+
+<p>如果要更改切换输入方案快捷键，请参考 <a href="#51-更改切换输入方案快捷键">此章节</a>。</p>
+
+<h3 id="53-中英文shift切换和英文直接上屏"><span class="me-2">5.3. 中英文shift切换和英文直接上屏</span><a href="#53-中英文shift切换和英文直接上屏" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<blockquote>
+  <p>Xeon-Shao. <a href="https://blog.csdn.net/sdujava2011/article/details/84098971">小狼毫（Rime）输入法设置Shift直接上屏英文字符并切换为英文状态方法</a></p>
+</blockquote>
+
+<p>小狼毫默认输入方式下，左Shift键只切换为英文，右Shift键直接上屏中文。这对于用惯了搜狗的人来说在进行中英文混输的时候经常出错，特别影响效率，接下来提供方法解决这个问题。</p>
+
+<ul>
+  <li>右键输入法白色图标，打开 “<strong>用户资料文件夹</strong>”</li>
+  <li>打开 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>（如果没有该文件，但有 <code class="language-plaintext highlighter-rouge">weasel.custom.yaml</code>，则复制一份，复制后的文件重命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>；如果没有，则自己新建文件命名为 <code class="language-plaintext highlighter-rouge">default.custom.yaml</code>）</li>
+  <li>
+    <p>将文件内容最后的补丁部分修改如下：</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="code-header">
+        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="na">patch</span><span class="pi">:</span>
+  <span class="na">ascii_composer/switch_key/Shift_L</span><span class="pi">:</span> <span class="s">commit_code</span> <span class="c1"># 使用左右shift键将中文输入下的英文直接上屏并切换至英文输入状态</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+    <p>或（右shift也需要的话）</p>
+    <div class="language-yaml highlighter-rouge"><div class="code-header">
+        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="na">patch</span><span class="pi">:</span>
+  <span class="na">ascii_composer</span><span class="pi">:</span>
+    <span class="na">switch_key</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">Shift_L</span><span class="pi">:</span> <span class="nv">commit_code</span><span class="pi">,</span> <span class="nv">Shift_R</span><span class="pi">:</span> <span class="nv">commit_code</span><span class="pi">}</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+    <p>或（多行显示更清晰但占地方）</p>
+    <div class="language-yaml highlighter-rouge"><div class="code-header">
+        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="na">patch</span><span class="pi">:</span>
+  <span class="na">ascii_composer</span><span class="pi">:</span>
+    <span class="na">switch_key</span><span class="pi">:</span>
+      <span class="na">Shift_L</span><span class="pi">:</span> <span class="s">commit_code</span>
+      <span class="na">Shift_R</span><span class="pi">:</span> <span class="s">commit_code</span> 
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>最后右键输入法白色图标，选择 <strong>重新部署</strong>，即可。</li>
+</ul>
+
+<h3 id="54-希腊数学特殊符号快速输入"><span class="me-2">5.4. 希腊/数学/特殊符号快速输入</span><a href="#54-希腊数学特殊符号快速输入" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<blockquote>
+  <p>百度贴吧. <a href="https://tieba.baidu.com/p/3079474120">小狼毫输入法怎么输入希腊字母和数学符号</a></p>
+</blockquote>
+
+<ul>
+  <li>首先确定使用的拼音方案，右键输入法白色图标，选择输入法设定，在弹出的界面中查看自己勾选的输入方案</li>
+  <li>打开用户文件夹，打开<code class="language-plaintext highlighter-rouge">default.yaml</code>文件，查看其中对应输入方案的英文名称
+```yaml
+schema_list:
+    <ul>
+      <li>schema: rime_ice # 雾凇拼音（全拼）</li>
+      <li>schema: xxx
+```
+第一行第一个表明使用的是雾凇拼音，同理其他如 <code class="language-plaintext highlighter-rouge">luna_pinyin_simp</code> 表明使用的是明月拼音简化字</li>
+    </ul>
+  </li>
+  <li>新建对应输入方案的自定义配置文件。比如：
+如果使用 <code class="language-plaintext highlighter-rouge">luna_pinyin_simp</code> （明月拼音简化字）方案，那么新建 <code class="language-plaintext highlighter-rouge">lunar_pinyin_simp.custom.yaml</code> 配置文件；
+如果使用 <code class="language-plaintext highlighter-rouge">rime_ice</code> （明月拼音简化字）方案，那么新建 <code class="language-plaintext highlighter-rouge">rime_ice.custom.yaml</code> 配置文件；</li>
+  <li>打开新建的配置文件，写入：
+    <div class="language-yaml highlighter-rouge"><div class="code-header">
+        <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="na">patch</span><span class="pi">:</span>
+  <span class="na">punctuator/import_preset </span><span class="pi">:</span> <span class="s">symbols</span>
+  <span class="na">recognizer/patterns/punct</span><span class="pi">:</span> <span class="s2">"</span><span class="s">^/([A-Z|a-z]*|[0-9]|10)$"</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+  <li>最后右键输入法白色图标，选择 <strong>重新部署</strong>，即可。</li>
+</ul>
+
+<p>配置完成后，可通过 <code class="language-plaintext highlighter-rouge">/</code> 键配合缩写实现快速输入。注意使用键盘主区域的 <code class="language-plaintext highlighter-rouge">?/</code> 键唤起，而不是小键盘的 <code class="language-plaintext highlighter-rouge">/</code> 键。</p>
+
+<ul>
+  <li>输入 <code class="language-plaintext highlighter-rouge">/xl</code> 直接给出希腊字母，如 $\alpha$ 等。</li>
+  <li>输入 <code class="language-plaintext highlighter-rouge">/sx</code> 直接给出常用数学符号，如 ±, ÷ 等。</li>
+  <li>输入 <code class="language-plaintext highlighter-rouge">/jh</code> 直接给出一些特殊符号，如 ■，□，▣，▥ 等。</li>
+</ul>
+
+<h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>无。</p>
 
@@ -1054,6 +1248,20 @@
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
@@ -1068,21 +1276,7 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/linux-reduce-repo-size-through-git-folder/">如何清理 .git 文件夹来减小 github 仓库大小</a>
         </li>
       
     </ul>
