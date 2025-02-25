@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2024-09-20T12:19:35+08:00</updated>
+  <updated>2025-02-25T14:10:20+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -13,7 +13,7 @@
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
   <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
-  <rights> © 2024 sirlis </rights>
+  <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/" rel="alternate" type="text/html" title="模式识别（LDA和PCA）" />
     <published>2024-05-02T10:03:19+08:00</published>
   
-    <updated>2024-05-06T14:23:30+08:00</updated>
+    <updated>2025-02-25T13:45:13+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/" />
@@ -48,7 +48,7 @@
 
 
 
-      本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。
+      本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。
 
 
 
@@ -58,24 +58,23 @@
   1. 特征降维
   2. 线性判别分析（LDA）
     
-      2.1. 瑞利商与广义瑞利商
-      2.2. 两类 LDA
-      2.3. 多类 LDA
-      2.4. LDA 的特点
+      2.1. Fisher 投影准则
+      2.2. 瑞利商与广义瑞利商
+      2.3. 二分类 LDA
+      2.4. 多分类 LDA
+      2.5. LDA 的特点
     
   
   3. 主成分分析（PCA）
     
-      3.1. 具体步骤
-      3.2. PCA 的特点
-    
-  
-  4. 参考文献
-
-
-1. 特征降维
-
-机器学习的很多算法复杂度和数据的维数有着密切关系，甚至与维数呈指数级关联。当数据的特征维度达到成千上万甚至几十万的规模时，机器学习的资源消耗是不可接受的，且有很多特...
+      3.1. 数学推导
+        
+          3.1.1. 最近重构性（K-L变换）
+          3.1.2. 最大可分性
+        
+      
+      3.2. 算法流程
+      3.3...
     </summary>
   
 
@@ -156,7 +155,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
     <published>2024-03-03T14:25:19+08:00</published>
   
-    <updated>2024-05-05T00:03:19+08:00</updated>
+    <updated>2025-02-25T13:45:13+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/" />

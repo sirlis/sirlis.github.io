@@ -43,7 +43,7 @@
 <meta property="twitter:title" content="模式识别（线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-05-05T00:03:19+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-25T13:45:13+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性回归、最小二乘估计、Fisher 线性判别分析。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LInear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -772,13 +772,13 @@
 
 <time
   
-  data-ts="1714838599"
+  data-ts="1740462313"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2024/05/05
+  2025/02/25
 </time>
 
         </span>
@@ -952,7 +952,7 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 \tilde{S}_w &amp;= \tilde{S}_1+\tilde{S}_2\\
 \end{aligned}\]
 
-<p>投影后的类内离散度为</p>
+<p>投影后的类间离散度为</p>
 
 \[\tilde{S}_b = (\tilde{m}_1-\tilde{m}_2)^2\]
 
@@ -1171,14 +1171,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         
@@ -1192,14 +1185,21 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
         </li>
       
     </ul>
@@ -2724,7 +2724,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 
 
-                  本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。
+                  本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。
 
 
 
@@ -2734,9 +2734,9 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
   1. 特征降维
   2. 线性判别分析（LDA）
     
-      2.1. 瑞利商与广义瑞利商
-      2.2. 两类 LDA
-      2.3. 多...
+      2.1. Fisher 投影准则
+      2.2. 瑞利商与广义瑞利商
+     ...
                 </p>
               </div>
             </div>
@@ -2894,7 +2894,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
   "
 >
   <p>©
-    <time>2024</time>
+    <time>2025</time>
 
     
       <a href="https://github.com/sirlis">sirlis</a>.

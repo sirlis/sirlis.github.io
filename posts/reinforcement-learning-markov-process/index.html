@@ -43,7 +43,7 @@
 <meta property="twitter:title" content="强化学习（马尔可夫决策过程）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-12T19:58:59+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-11-18T20:35:15+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1232,13 +1232,13 @@
 
 <time
   
-  data-ts="1702382339"
+  data-ts="1731933315"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/12/12
+  2024/11/18
 </time>
 
         </span>
@@ -1281,9 +1281,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7260 字"
+  title="7450 字"
 >
-  <em>40 分钟</em>阅读</span>
+  <em>41 分钟</em>阅读</span>
 
       </div>
       <!-- .d-flex -->
@@ -1913,9 +1913,11 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
 
 \[\pi_\star(a\vert s) \leftarrow \mathop{argmax}\limits_a\; q_\star(s,a)\]
 
-<p>我们可以看到我们甚至不用知道环境模型 $p$。但代价是我们需要计算所有状态-动作对的价值函数。</p>
+<p>可以看到，如果已经得到了所有状态（或状态-动作）的最优价值函数，那么最优策略是很容易得到的。然而，在实际情况中我们往往不知道最优的状态（或状态-动作）价值函数。因此，我们需要将强化学习分为两步，第一步解决一个<strong>预测问题</strong>，即给定状态、动作、奖励、状态转移概率，策略，预测出所有状态（或状态-动作）价值函数；第二步解决一个<strong>控制问题</strong>，即在预测问题的基础上，如何更新策略使得策略逐渐变得更优。</p>
 
-<p>如果不知道最优价值函数，那么就需要通过 <strong>策略迭代（policy iteration）</strong> 或者 <strong>值迭代（value iteration）</strong> 的方式来先进行价值预测，再求解最优策略。这将在下一个 post 来介绍。</p>
+<p>当状态转移概率（也即环境 $p$）已知时，预测问题可以通过 <strong>策略迭代（policy iteration）</strong> 或者 <strong>值迭代（value iteration）</strong> 的方式来先进行价值预测，再求解最优策略。这就是 <strong>动态规划方法（Dynamic Programming，DP）</strong>。</p>
+
+<p>当状态转移概率（也即环境 $p$）未知时，可以通过 <strong>蒙特卡洛方法（Monte Carlo，MC）</strong> 进行价值预测。</p>
 
 <h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2064,14 +2066,7 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         
@@ -2085,14 +2080,21 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
         </li>
       
     </ul>
@@ -3882,7 +3884,7 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
   "
 >
   <p>©
-    <time>2024</time>
+    <time>2025</time>
 
     
       <a href="https://github.com/sirlis">sirlis</a>.

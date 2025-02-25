@@ -43,7 +43,7 @@
 <meta property="twitter:title" content="强化学习（动态规划）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-08T14:50:02+08:00","datePublished":"2022-11-26T11:24:19+08:00","description":"本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。","headline":"强化学习（动态规划）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"},"url":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-11-18T20:35:15+08:00","datePublished":"2022-11-26T11:24:19+08:00","description":"本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。","headline":"强化学习（动态规划）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"},"url":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -878,13 +878,13 @@
 
 <time
   
-  data-ts="1702018202"
+  data-ts="1731933315"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/12/08
+  2024/11/18
 </time>
 
         </span>
@@ -927,7 +927,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4748 字"
+  title="4853 字"
 >
   <em>26 分钟</em>阅读</span>
 
@@ -1070,7 +1070,11 @@ v_{\color{red}{k+1}}(s)  \doteq &amp; \sum_{a\in A}\pi(a\vert s)[R_s^a+\gamma \s
 &amp; = \sum_{a\in A}\pi(a\vert s)\sum_{s\prime, r}p(s^\prime,r \vert s, a)[r+\gamma v_{\color{red}k}(s^\prime)]    
 \end{aligned}\]
 
-<p>问题转化为上式是否收敛？是否收敛到 $v_\pi$？（此处略）</p>
+<p>问题转化为上式是否收敛？是否收敛到 $v_\pi$？可参考：</p>
+
+<blockquote>
+  <p>Model-Based方法：策略迭代与价值迭代：https://zhuanlan.zhihu.com/p/699134142 ，包含收敛性证明</p>
+</blockquote>
 
 <p>为了使用顺序执行的计算机程序实现策略评估，我们需要构造两个数组：一个用于存储旧的价值函数 $v_k(s)$，一个用于存储新的价值函数 $v_{k+1}(s)$。这样，在旧的价值函数不变的情况下，新的价值函数可以一个个被计算出来。同样，也可以简单使用一个数组来进行<strong>就地更新</strong>（in-place），即每次直接使用新的价值函数替换旧的价值函数。这种就地更新的方式依然可以保证收敛到$v_\pi$，并且收敛速度更快。就地更新时的价值函数迭代式子如下：</p>
 
@@ -1125,10 +1129,11 @@ v_{\color{red}{k+1}}(s)  \doteq &amp; \sum_{a\in A}\pi(a\vert s)[R_s^a+\gamma \s
 <p>证明如下：</p>
 
 \[\begin{aligned}
-v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\ 
+v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
+&amp;=\mathbb{E}[R_{t+1}+\gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots\vert S_t=s,A_t = \pi^\prime(s)]\\
 &amp;=\mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s,A_t = \pi^\prime(s)]\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s]\quad (走1步：R_{t+1}由\pi^\prime 控制，后面由\pi控制)\\
-&amp;\leq \mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma q_\pi(S_{t+1},\pi^\prime(S_{t+1}))\vert S_t=s]\\
+&amp;\leq \mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma q_\pi(S_{t+1},\pi^\prime(S_{t+1}))\vert S_t=s]\quad （条件带入）\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \mathbb{E}_{\pi^{\prime}}[R_{t+2}+\gamma v_\pi(S_{t+2})\vert S_{t+1}]   \vert S_t=s]\quad （前式带入）\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \mathbb{E}_{\pi^{\prime}}[R_{t+2}\vert S_{t+1}]+\gamma^2 \mathbb{E}_{\pi^{\prime}} [v_\pi(S_{t+2}) \vert S_{t+1} ]  \vert S_t=s]\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+R_{t+2}+\gamma^2 v_\pi(S_{t+2})\vert S_t=s] \quad （走2步）\\
@@ -1156,9 +1161,7 @@ v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
 
 \[q_\pi(s,a)_{max} \geq v_\pi(s)\]
 
-<p>那么我们每次都选择使得 $q_\pi(s,a)$ 最大的那个动作，构成策略，就可以保证满足策略改进定理，构成的策略就是更好的策略了！这就是贪心方法。</p>
-
-<p>具体而言，在当前策略对应的<strong>状态价值函数</strong>下，智能体在每个状态都计算一下所有动作各自的<strong>状态-动作价值函数</strong>，选出值最大的执行就可以。贪心方法如下：</p>
+<p>那么我们每次都选择使得 $q_\pi(s,a)$ 最大的那个动作，构成新策略 $\pi^\prime$，就可以保证满足策略改进定理，构成的策略就是更好的策略了！这就是贪心方法。具体而言，在当前策略对应的<strong>状态价值函数</strong>下，智能体在每个状态都计算一下所有动作各自的<strong>状态-动作价值函数</strong>，选出值最大的执行就可以。贪心方法如下：</p>
 
 \[\forall s\in S,\;  \pi^\prime(s) =
 \left\{
@@ -1246,15 +1249,20 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
   </li>
 </ol>
 
-<p>线性化示意图如下（含有 $v$ 迭代和 $\pi$ 迭代两层迭代）：</p>
+<p>算法的流程示意图如下（含有 $v$ 迭代和 $\pi$ 迭代两层迭代）：</p>
 
-\[v_1 \rightarrow \cdots \rightarrow v_{\star} \rightarrow \pi_1 \rightarrow v_2 \rightarrow \cdots \rightarrow \pi_2 \rightarrow\]
+\[\begin{aligned}
+&amp; v_1 \rightarrow \cdots \rightarrow v_{1fin} \rightarrow \pi_1\\
+\rightarrow &amp; v_2 \rightarrow \cdots \rightarrow v_{2fin} \rightarrow \pi_2\\
+\rightarrow &amp; \cdots\\
+\rightarrow &amp;v_i \rightarrow \cdots \rightarrow v_\star \rightarrow \pi_\star
+\end{aligned}\]
 
 <h3 id="22-价值迭代"><span class="me-2">2.2. 价值迭代</span><a href="#22-价值迭代" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>在策略迭代中，状态价值函数在策略评估过程中时通过迭代的形式计算的，这非常耗时。而且我们在迭代计算状态价值函数的时候策略并不是最优的，用一个非最优的策略来计算完全准确的状态价值函数并没有太大意义。由于策略迭代通常在迭代几次后就可以收敛（上文中的 Grid World 例子，第三次迭代后，策略就已经达到最优），因此我们可以提前<strong>截断策略评估</strong>过程。</p>
+<p>在策略迭代中，状态价值函数在策略评估过程中时通过迭代的形式计算的，这非常耗时。而且我们在迭代计算状态价值函数的时候策略并不是最优的，用一个非最优的策略来计算完全准确的状态价值函数并没有太大意义。由于策略迭代通常在迭代几次后就可以收敛（上文中的 Grid World 例子，第三次迭代后，策略就已经达到最优），因此我们可以提前截断策略评估过程。</p>
 
-<p>一种重要的特殊的情况是，<strong>在一次遍历后即刻停止策略评估</strong>（对每一个状态进行一次更新），该算法被称为<strong>价值迭代</strong>。</p>
+<p>一种重要的特殊的情况是，<strong>在一次遍历后即刻停止策略评估</strong>（对每一个状态进行一轮迭代更新），该算法被称为<strong>价值迭代</strong>。价值迭代的本质是利用 <strong>贝尔曼最优方程</strong> 来进行价值函数的迭代优化，其能保证最终收敛到最优价值函数。</p>
 
 <p>价值迭代算法是策略评估过程只进行一次迭代的策略迭代算法，其过程为 ：对每一个当前状态 $s$ ，对每个可能的动作 $a$ 都计算一下采取这个动作后到达的下一个状态的期望价值。<strong>选择最大的期望价值函数作为当前状态的价值函数</strong> $v(s)$ ，循环执行这个步骤，直到价值函数收敛。</p>
 
@@ -1467,14 +1475,7 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         
@@ -1488,14 +1489,21 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
         </li>
       
     </ul>
@@ -3288,7 +3296,7 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
   "
 >
   <p>©
-    <time>2024</time>
+    <time>2025</time>
 
     
       <a href="https://github.com/sirlis">sirlis</a>.

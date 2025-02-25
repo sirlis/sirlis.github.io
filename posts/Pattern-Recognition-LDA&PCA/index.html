@@ -32,8 +32,8 @@
 <meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="模式识别（LDA和PCA）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。" />
-<meta property="og:description" content="本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。" />
+<meta name="description" content="本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。" />
+<meta property="og:description" content="本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/" />
 <meta property="og:site_name" content="SIRLIS" />
@@ -43,7 +43,7 @@
 <meta property="twitter:title" content="模式识别（LDA和PCA）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-05-06T14:23:30+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-25T13:45:13+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -814,6 +814,28 @@
 
       
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
 
     
   
@@ -821,6 +843,38 @@
   
   
 
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
   
 
   
@@ -879,13 +933,13 @@
 
 <time
   
-  data-ts="1714976610"
+  data-ts="1740462313"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2024/05/06
+  2025/02/25
 </time>
 
         </span>
@@ -928,9 +982,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2772 字"
+  title="3813 字"
 >
-  <em>15 分钟</em>阅读</span>
+  <em>21 分钟</em>阅读</span>
 
       </div>
       <!-- .d-flex -->
@@ -939,7 +993,7 @@
   </header>
 
   <div class="content">
-    <p>本文介绍了模式识别的特征选择与特征降维，着重介绍了线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析法（Principal Component Analysis，PCA）。</p>
+    <p>本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。</p>
 
 <!--more-->
 
@@ -949,16 +1003,23 @@
   <li><a href="#1-特征降维">1. 特征降维</a></li>
   <li><a href="#2-线性判别分析lda">2. 线性判别分析（LDA）</a>
     <ul>
-      <li><a href="#21-瑞利商与广义瑞利商">2.1. 瑞利商与广义瑞利商</a></li>
-      <li><a href="#22-两类-lda">2.2. 两类 LDA</a></li>
-      <li><a href="#23-多类-lda">2.3. 多类 LDA</a></li>
-      <li><a href="#24-lda-的特点">2.4. LDA 的特点</a></li>
+      <li><a href="#21-fisher-投影准则">2.1. Fisher 投影准则</a></li>
+      <li><a href="#22-瑞利商与广义瑞利商">2.2. 瑞利商与广义瑞利商</a></li>
+      <li><a href="#23-二分类-lda">2.3. 二分类 LDA</a></li>
+      <li><a href="#24-多分类-lda">2.4. 多分类 LDA</a></li>
+      <li><a href="#25-lda-的特点">2.5. LDA 的特点</a></li>
     </ul>
   </li>
   <li><a href="#3-主成分分析pca">3. 主成分分析（PCA）</a>
     <ul>
-      <li><a href="#31-具体步骤">3.1. 具体步骤</a></li>
-      <li><a href="#32-pca-的特点">3.2. PCA 的特点</a></li>
+      <li><a href="#31-数学推导">3.1. 数学推导</a>
+        <ul>
+          <li><a href="#311-最近重构性k-l变换">3.1.1. 最近重构性（K-L变换）</a></li>
+          <li><a href="#312-最大可分性">3.1.2. 最大可分性</a></li>
+        </ul>
+      </li>
+      <li><a href="#32-算法流程">3.2. 算法流程</a></li>
+      <li><a href="#33-pca-的特点">3.3. PCA 的特点</a></li>
     </ul>
   </li>
   <li><a href="#4-参考文献">4. 参考文献</a></li>
@@ -980,7 +1041,11 @@
 
 <p>线性判别分析（Linear Discriminant Analysis，LDA）是一种监督学习的降维技术，主要用于数据预处理中的降维、分类任务。LDA的目标是最大化类间区分度的坐标轴成分，将特征空间投影到一个维度更小的k维子空间中，同时保持区分类别的信息。简而言之，LDA投影后的数据类内方差最小，类间方差最大。</p>
 
-<h3 id="21-瑞利商与广义瑞利商"><span class="me-2">2.1. 瑞利商与广义瑞利商</span><a href="#21-瑞利商与广义瑞利商" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="21-fisher-投影准则"><span class="me-2">2.1. Fisher 投影准则</span><a href="#21-fisher-投影准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>参考前述线性分类器中的 <a href="Pattern-Recognition-LInear-Classifier/#32-fisher-投影">Fisher投影准则</a> 介绍。</p>
+
+<h3 id="22-瑞利商与广义瑞利商"><span class="me-2">2.2. 瑞利商与广义瑞利商</span><a href="#22-瑞利商与广义瑞利商" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>定义<strong>瑞利商</strong>为</p>
 
@@ -1000,9 +1065,9 @@
 
 <p>性质：广义瑞利商的最大值为矩阵 $B^{-\frac{1}{2}}AB^{-\frac{1}{2}}$ 或者说 是矩阵 $B^{-1}A$的最大特征值，最小值是其最小特征值。</p>
 
-<h3 id="22-两类-lda"><span class="me-2">2.2. 两类 LDA</span><a href="#22-两类-lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="23-二分类-lda"><span class="me-2">2.3. 二分类 LDA</span><a href="#23-二分类-lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>参考前述线性分类器中的Fisher投影准则介绍，类间离散度矩阵为</p>
+<p>参考前述线性分类器中的 <a href="Pattern-Recognition-LInear-Classifier/#32-fisher-投影">Fisher投影准则</a> 介绍，类间离散度矩阵为</p>
 
 \[\boldsymbol{S}_b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^T\]
 
@@ -1025,7 +1090,9 @@
 
 <p>目标是求使得 $J(\boldsymbol{w})$ 最大的投影方向 $\boldsymbol{w}$。</p>
 
-<p>可以看出，目标函数正好是广义瑞利商的形式，因此其最大值为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值，那么投影方向 $\boldsymbol{w}$ 即为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 对应特征值 $\lambda$ 的特征向量。</p>
+<p>根据前述 <a href="Pattern-Recognition-LInear-Classifier/#32-fisher-投影">Fisher投影准则</a> 的推导，上述优化问题最终可转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。</p>
+
+<p>这里给出另外一种推导思路，上述目标函数正好是广义瑞利商的形式，因此其最大值为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值，那么投影方向 $\boldsymbol{w}$ 即为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 对应特征值 $\lambda$ 的特征向量。</p>
 
 <p>若 $\boldsymbol{S}_w$ 不可逆，可进行如下操作进行松弛</p>
 
@@ -1037,7 +1104,7 @@
 
 \[\boldsymbol{S}_w=\boldsymbol{U}\Sigma \boldsymbol{V}^T \Rightarrow \boldsymbol{S}_w^{-1} = \boldsymbol{V}\Sigma \boldsymbol{U}^T\]
 
-<h3 id="23-多类-lda"><span class="me-2">2.3. 多类 LDA</span><a href="#23-多类-lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="24-多分类-lda"><span class="me-2">2.4. 多分类 LDA</span><a href="#24-多分类-lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>假设为 $C$ 分类，类内离散度矩阵定义保持不变，有</p>
 
@@ -1061,7 +1128,7 @@
 
 <p>所以在计算特征向量矩阵（类内散度矩阵 $\boldsymbol{S}_w$ 的逆 $\times$ 类间散度矩阵 $\boldsymbol{S}_b$）时，可以发现只有 $C-1$ 个特征值不为零的特征向量。因此，<strong>LDA 最多将特征维度降低到 $C-1$ 维</strong>。</p>
 
-<h3 id="24-lda-的特点"><span class="me-2">2.4. LDA 的特点</span><a href="#24-lda-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="25-lda-的特点"><span class="me-2">2.5. LDA 的特点</span><a href="#25-lda-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>LDA 是一个有监督的方法，具有如下特点：</p>
 
@@ -1101,7 +1168,103 @@
 
 <p>为了最大限度保留对原始数据的解释，一般会用最大方差理论或最小损失理论，使得第一主成分有着最大的方差或变异数 (就是说其能尽量多的解释原始数据的差异)；随后的每一个主成分都与前面的主成分正交，且有着仅次于前一主成分的最大方差 (正交简单的理解就是两个主成分空间夹角为90°，两者之间无线性关联，从而完成去冗余操作)。</p>
 
-<h3 id="31-具体步骤"><span class="me-2">3.1. 具体步骤</span><a href="#31-具体步骤" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>PCA 降维的原理在于，大部分方差集中在前 $k$ 个坐标轴，后续坐标轴方差接近 0，因此可忽略后者，仅保留前 $k$ 个坐标轴。这相当于保留主要特征维度，忽略方差接近 0 的特征，实现数据降维。</p>
+
+<h3 id="31-数学推导"><span class="me-2">3.1. 数学推导</span><a href="#31-数学推导" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>PCA 的推导思路在于，对于正交属性空间中的样本点，如何用一个超平面对所有样本进行恰当的表达？核心在于以下两点：</p>
+
+<ul>
+  <li>最近重构性：样本点到这个超平面的距离都足够近，也即投影<strong>前后</strong>所有样本点的总距离最小。</li>
+  <li>最大可分性：样本点在这个超平面上的投影尽可能分开，也即投影<strong>后</strong>的样本点方差最大。</li>
+</ul>
+
+<p>基于最近重构性和最大可分性，能分别得到PCA的两种<strong>等价推导</strong>，下面分别展开说明。</p>
+
+<h4 id="311-最近重构性k-l变换"><span class="me-2">3.1.1. 最近重构性（K-L变换）</span><a href="#311-最近重构性k-l变换" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>首先对 $n$ 个 $m$ 维样本进行中心化，即将所有样本变换为均值为 0，也即</p>
+
+\[\sum_{i=1}^n \boldsymbol{x}_i=0\]
+
+<p>假设将样本投影到一组完备归一化正交向量系 $\boldsymbol{w}=[w_1, w_2, \cdots]$，那么对于第 $i$ 个样本有</p>
+
+\[\boldsymbol{x}_i = \sum_{j=1}^{+\infty} z_j \boldsymbol{w}_j,\quad z_j \in \mathbb{R}\]
+
+<p>其中 $z_j$ 为投影后样本的第 $j$ 个维度分量，有</p>
+
+\[z_j = \boldsymbol{w}_j^T \boldsymbol{x}_i\]
+
+<p>则投影后的第 $i$ 个样本为</p>
+
+\[\boldsymbol{z}_i=\boldsymbol{W}^T\boldsymbol{x}_i\]
+
+<p>且有</p>
+
+\[\boldsymbol{w}^T_i\boldsymbol{w}_j=\begin{cases}
+1,i=j \\
+0,i\neq j &amp; 
+\end{cases}\]
+
+<p>我们采用 PCA 的目的是对样本（也即特征）进行降维，则我们希望用有限的 $d$ 项（$d&lt;m$）来逼近（恢复出）原始样本，则对于第 $i$ 个样本有</p>
+
+\[\hat{\boldsymbol{x}}_i = \sum_{j=1}^{d} z_j \boldsymbol{w}_j = \boldsymbol{W}\boldsymbol{z}_i\]
+
+<p>对所有 $n$ 个样本均进行投影后，带来的均方误差为</p>
+
+\[\begin{aligned}
+  \sum_{i=1}^n \Vert \hat{\boldsymbol{x}}_i - \boldsymbol{x}_i \Vert^2 &amp;= \sum_{i=1}^n \Vert \boldsymbol{W}\boldsymbol{z}_i- \boldsymbol{x}_i \Vert^2\\
+  &amp;=\sum_{i=1}^n(\boldsymbol{W}\boldsymbol{z}_i)^T(\boldsymbol{W}\boldsymbol{z}_i) - 2\sum_{i=1}^n(\boldsymbol{W}\boldsymbol{z}_i)^T\boldsymbol{x}_i + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
+  &amp;=\sum_{i=1}^n\boldsymbol{z}_i^T\boldsymbol{W}^T\boldsymbol{W}\boldsymbol{z}_i - 2\sum_{i=1}^n\boldsymbol{z}_i^T\boldsymbol{W}^T\boldsymbol{x}_i + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
+  &amp;=-\sum_{i=1}^n\boldsymbol{z}_i^T\boldsymbol{z}_i + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
+  &amp;= -\sum_{i=1}^n \text{tr}(\boldsymbol{z}_i\boldsymbol{z}_i^T) + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
+  &amp;= -\text{tr}\left(\boldsymbol{W}^T\left(\sum_{i=1}^n\boldsymbol{x}_i\boldsymbol{x}_i^T\right)\boldsymbol{W}\right) + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
+  &amp;= -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i
+\end{aligned}\]
+
+<blockquote>
+  <p>矩阵二次型可以用迹表示为 $\boldsymbol{x}^T\boldsymbol{A}\boldsymbol{x}=\text{tr}(\boldsymbol{A}\boldsymbol{x}\boldsymbol{x}^T)$</p>
+</blockquote>
+
+<p>注意到，$\boldsymbol{X}\boldsymbol{X}^T$ 是样本的协方差矩阵，$\boldsymbol{W}$ 的每个列向量是标准正交基，最后一个求和式是常量。因此最小化均方误差等价于</p>
+
+\[\begin{aligned}
+\arg\min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
+s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
+\end{aligned}\]
+
+<p>采用拉格朗日乘子法</p>
+
+\[J(\boldsymbol{W}) = -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W})+\lambda(\boldsymbol{W}^T\boldsymbol{W}-\boldsymbol{I})\]
+
+<p>对上式求导，令导数等于零，整理有</p>
+
+\[\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W} = \lambda \boldsymbol{W}\]
+
+<p>则 $\boldsymbol{W}$ 的取值应为协方差矩阵 $\boldsymbol{X}\boldsymbol{X}^T$ 最大的 $d$ 个特征值对应的特征向量组成。根据 $\boldsymbol{z}_i=\boldsymbol{W}^T\boldsymbol{x}_i$ 即可将特征降维。</p>
+
+<p>在信号处理领域，上述过程被称为 <strong>K-L变换</strong>，用于离散信号的去相关的线性变换。从数学上看，KL变换和PCA的核心步骤是相同的：都是对协方差矩阵进行特征值分解，然后选择最大的特征值对应的特征向量作为投影方向。KL变换更偏向于信号处理领域，强调信号的能量集中特性，适用于随机信号的降维和压缩。PCA更偏向于统计学和机器学习领域，强调数据的方差解释能力，适用于数据的降维和可视化。两者在数学上是等价的，但在应用背景和解释方式上有所不同。</p>
+
+<h4 id="312-最大可分性"><span class="me-2">3.1.2. 最大可分性</span><a href="#312-最大可分性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>要让投影后所有样本点能尽可能分开，则投影后样本点方差最大。已知样本点的投影为 $\boldsymbol{z}_i=\boldsymbol{W}^T\boldsymbol{x}_i$ ，则投影后样本点的方差为</p>
+
+\[\begin{aligned}
+\sum_{i}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i}-0)^{2} &amp;= \sum_{i}\text{tr}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i})^{\mathrm{T}})\\
+&amp;=\sum_{i}\mathrm{tr}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{W})\\
+&amp;=\text{tr}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{X}\boldsymbol{X}^{\mathrm{T}}\boldsymbol{W})
+\end{aligned}\]
+
+<p>最大化上述方差等价于求解如下优化问题</p>
+
+\[\begin{aligned}
+\arg\max_{\boldsymbol{W}} &amp;\quad \text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
+s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
+\end{aligned}\]
+
+<p>可以发现和最近重构性等价。</p>
+
+<h3 id="32-算法流程"><span class="me-2">3.2. 算法流程</span><a href="#32-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>假设有 $m$ 个 $n$ 维向量，想将其变换为由 $d$ 个 $n$ 维向量表示的新空间中，那么首先将 $d$ 个基按行组成矩阵 $W$，然后将向量按列组成矩阵 $X$，那么两矩阵的乘积 $WX$ 就是变换结果，其中 $WX$ 的第 $m$ 列为 $X$ 中第 $m$ 列变换后的结果。</p>
 
@@ -1135,12 +1298,6 @@
 \sum_{i=1}^m \bar x^i_2\cdot \bar x^i_1 &amp; \sum_{i=1}^m (\bar x^i_2)^2 &amp; \cdots &amp; \sum_{i=1}^m \bar x^i_2\cdot \bar x^i_n\\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 \sum_{i=1}^m \bar x^i_n\cdot \bar x^i_1 &amp; \sum_{i=1}^m \bar x^i_n\cdot \bar x^i_2 &amp; \cdots &amp; \sum_{i=1}^m (\bar x^i_n)^2\\
-\end{bmatrix}\\
-&amp;=\frac{1}{m-1} \begin{bmatrix}
-\sum_{i=1}^m (x^i_1-\mu_1)^2 &amp; \sum_{i=1}^m (x^i_1-\mu_1) (x^i_2-\mu_2) &amp; \cdots &amp; \sum_{i=1}^m (x^i_1-\mu_1) (x^i_n-\mu_n)\\
-\sum_{i=1}^m (x^i_2-\mu_2) (x^i_1-\mu_1) &amp; \sum_{i=1}^m (x^i_2-\mu_2)^2 &amp; \cdots &amp; \sum_{i=1}^m (x^i_2-\mu_2) x(^i_n-\mu_n)\\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\sum_{i=1}^m (x^i_n-\mu_n) (x^i_1-\mu_1) &amp; \sum_{i=1}^m (x^i_n-\mu_n) (x^i_2-\mu_2) &amp; \cdots &amp; \sum_{i=1}^m (x^i_n-\mu_n)^2\\
 \end{bmatrix}
 \end{aligned}\]
 
@@ -1150,9 +1307,9 @@
 
 <p>将特征向量按照对应特征值从大到小，自上而下按行排列成矩阵，取前 $d$ 行组成矩阵 $\boldsymbol{W}$。</p>
 
-<p>$\boldsymbol{Y} = \boldsymbol{W}\boldsymbol{X}$ 即为降维到 $d$ 维后的数据。</p>
+<p>$\boldsymbol{Y} = \boldsymbol{W}\boldsymbol{X}$ 即为降维到 $d$ 维后的数据。（如果按列排列特征向量，则 $\boldsymbol{W}$ 取转置）</p>
 
-<h3 id="32-pca-的特点"><span class="me-2">3.2. PCA 的特点</span><a href="#32-pca-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="33-pca-的特点"><span class="me-2">3.3. PCA 的特点</span><a href="#33-pca-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>根据上面对PCA的数学原理的解释，可以了解到一些PCA的能力和限制。PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同正交方向上没有相关性。</p>
 
@@ -1292,14 +1449,7 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（统计决策方法：贝叶斯决策）</a>
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         
@@ -1313,14 +1463,21 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/linux-WSL/">在 Windows 中部署和使用 WSL 并进行跨平台 C/C++ 开发</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
         </li>
       
     </ul>
@@ -3019,7 +3176,7 @@
   "
 >
   <p>©
-    <time>2024</time>
+    <time>2025</time>
 
     
       <a href="https://github.com/sirlis">sirlis</a>.
