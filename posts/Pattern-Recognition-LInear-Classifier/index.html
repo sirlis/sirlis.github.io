@@ -821,7 +821,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2343 字"
+  title="2347 字"
 >
   <em>13 分钟</em>阅读</span>
 
@@ -919,7 +919,11 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 <h3 id="32-fisher-投影"><span class="me-2">3.2. Fisher 投影</span><a href="#32-fisher-投影" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>假设两类样本集，其中第 $w_i$ 类样本集为 $\mathcal{X}<em>i=[\boldsymbol{x}_1^i,\cdots, x</em>{N_i}^i]\in \mathbb{R}^{d\times N_i}$，即特征维度为 $d$，样本个数为 $N_i$。</p>
+<p>假设两类样本集，其中第 $w_i$ 类样本集为</p>
+
+\[\mathcal{X}_i=[\boldsymbol{x}_1^i,\cdots, x_{N_i}^i]\in \mathbb{R}^{d\times N_i}\]
+
+<p>即特征维度为 $d$，样本个数为 $N_i$。</p>
 
 <p>投影前，原始特征空间中第 $w_i$ 类样本的均值为</p>
 
@@ -984,7 +988,7 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 \[J(\boldsymbol{w}) = \frac{\boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}}\]
 
-<p>上式被称为广义 Rayleigh 商。</p>
+<p>上式被称为广义瑞利（Rayleigh）商。</p>
 
 <p>从优化目标来看，如果直接对上式（分子分母都是二次型）进行优化，有无穷个满足要求的解。为了解决多解问题，我们需要额外增加一个约束条件，限制解的个数。由于我们只关心投影的方向，对投影方向向量的模长不关心，并且上式分子分母的向量 $\boldsymbol{w}$ 数乘缩放不影响比值。</p>
 
@@ -1038,8 +1042,10 @@ L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w} 
 
 <p>需要注意的是，Fisher 投影的最优解本身只给出了一个投影方向，并没有给出我们需要的分类面。要得到分类面，需要再投影后的方向（一维空间）上确定一个分类阈值 $w_0$ 并采取决策规则</p>
 
-\[g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &gt; 0 \Rightarrow \boldsymbol{x}\in y_1 \\
-g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \boldsymbol{x}\in y_2\]
+\[\begin{aligned}
+g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &gt; 0 \Rightarrow \boldsymbol{x}\in y_1 \\
+g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \boldsymbol{x}\in y_2
+\end{aligned}\]
 
 <h2 id="4-参考文献"><span class="me-2">4. 参考文献</span><a href="#4-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1171,14 +1177,14 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         

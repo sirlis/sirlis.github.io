@@ -43,7 +43,7 @@
 <meta property="twitter:title" content="模式识别（LDA和PCA）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-25T13:45:13+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-25T14:15:55+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -933,7 +933,7 @@
 
 <time
   
-  data-ts="1740462313"
+  data-ts="1740464155"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -1039,11 +1039,11 @@
 
 <h2 id="2-线性判别分析lda"><span class="me-2">2. 线性判别分析（LDA）</span><a href="#2-线性判别分析lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种监督学习的降维技术，主要用于数据预处理中的降维、分类任务。LDA的目标是最大化类间区分度的坐标轴成分，将特征空间投影到一个维度更小的k维子空间中，同时保持区分类别的信息。简而言之，LDA投影后的数据类内方差最小，类间方差最大。</p>
+<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种监督学习的降维技术，主要用于数据预处理中的降维、分类任务。LDA的目标是最大化类间区分度的坐标轴成分，将特征空间投影到一个维度更小的 $k$ 维子空间中，同时保持区分类别的信息。简而言之，LDA投影后的数据类内方差最小，类间方差最大。</p>
 
 <h3 id="21-fisher-投影准则"><span class="me-2">2.1. Fisher 投影准则</span><a href="#21-fisher-投影准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>参考前述线性分类器中的 <a href="Pattern-Recognition-LInear-Classifier/#32-fisher-投影">Fisher投影准则</a> 介绍。</p>
+<p>参考前述线性分类器中的 <a href="../Pattern-Recognition-Linear-Classifier/#32-fisher-投影">Fisher投影准则</a> 介绍。</p>
 
 <h3 id="22-瑞利商与广义瑞利商"><span class="me-2">2.2. 瑞利商与广义瑞利商</span><a href="#22-瑞利商与广义瑞利商" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1067,7 +1067,7 @@
 
 <h3 id="23-二分类-lda"><span class="me-2">2.3. 二分类 LDA</span><a href="#23-二分类-lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>参考前述线性分类器中的 <a href="Pattern-Recognition-LInear-Classifier/#32-fisher-投影">Fisher投影准则</a> 介绍，类间离散度矩阵为</p>
+<p>参考前述线性分类器中的 Fisher 投影准则介绍，类间离散度矩阵为</p>
 
 \[\boldsymbol{S}_b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^T\]
 
@@ -1090,7 +1090,7 @@
 
 <p>目标是求使得 $J(\boldsymbol{w})$ 最大的投影方向 $\boldsymbol{w}$。</p>
 
-<p>根据前述 <a href="Pattern-Recognition-LInear-Classifier/#32-fisher-投影">Fisher投影准则</a> 的推导，上述优化问题最终可转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。</p>
+<p>根据前述 Fisher 投影准则的推导，上述优化问题最终可转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。</p>
 
 <p>这里给出另外一种推导思路，上述目标函数正好是广义瑞利商的形式，因此其最大值为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值，那么投影方向 $\boldsymbol{w}$ 即为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 对应特征值 $\lambda$ 的特征向量。</p>
 
@@ -1449,14 +1449,14 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+          <a href="/posts/Pattern-Recognition-LInear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         
