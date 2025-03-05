@@ -14,8 +14,12 @@
 
 
 <!-- `site.alt_lang` can specify a language different from the UI -->
-<html lang="zh-CN" >
-  <head>
+<html lang="zh-CN" 
+  
+>
+  <!-- The Head -->
+
+<head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
@@ -24,12 +28,15 @@
   <meta
     name="viewport"
     content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
-  ><!-- Setup Open Graph image -->
+  >
 
   
 
-  <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+  
+
+  
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
@@ -46,6 +53,7 @@
 {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-27T16:10:55+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
+  
 
   <title>模式识别（线性分类器） | SIRLIS
   </title>
@@ -60,9 +68,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
-
-  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
-
+<link rel="manifest" href="/assets/img/favicons/site.webmanifest">
 <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
 <meta name="apple-mobile-web-app-title" content="SIRLIS">
 <meta name="application-name" content="SIRLIS">
@@ -85,9 +91,6 @@
       <link rel="preconnect" href="https://cdn.jsdelivr.net" >
       <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
     
-      <link rel="preconnect" href="https://cdnjs.cloudflare.com" >
-      <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" >
-    
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
   
@@ -96,19 +99,15 @@
   
 
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 
-  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.25.0/dist/tocbot.min.css">
-  
+  <link rel="stylesheet" href="/assets/css/style.css">
 
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.21.0/dist/tocbot.min.css">
   
 
   
@@ -273,74 +272,78 @@
   <body>
     <!-- The Side Bar -->
 
-<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
-  <header class="profile-wrapper">
-    <a href="/" id="avatar" class="rounded-circle"><img src="/assets/img/head.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+<div id="sidebar" class="d-flex flex-column align-items-end">
+  <div class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle">
+      
+        
+        <img src="/assets/img/head.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'">
+      
+    </a>
 
-    <h1 class="site-title">
+    <div class="site-title">
       <a href="/">SIRLIS</a>
-    </h1>
-    <p class="site-subtitle fst-italic mb-0">分享科研和生活的日常</p>
-  </header>
+    </div>
+    <div class="site-subtitle fst-italic">分享科研和生活的日常</div>
+  </div>
   <!-- .profile-wrapper -->
 
-  <nav class="flex-column flex-grow-1 w-100 ps-0">
-    <ul class="nav">
-      <!-- home -->
+  <ul class="nav flex-column flex-grow-1 w-100 ps-0">
+    <!-- home -->
+    <li class="nav-item">
+      <a href="/" class="nav-link">
+        <i class="fa-fw fas fa-home"></i>
+        <span>首页</span>
+      </a>
+    </li>
+    <!-- the real tabs -->
+    
       <li class="nav-item">
-        <a href="/" class="nav-link">
-          <i class="fa-fw fas fa-home"></i>
-          <span>首页</span>
+        <a href="/categories/" class="nav-link">
+          <i class="fa-fw fas fa-stream"></i>
+          
+
+          <span>分类</span>
         </a>
       </li>
-      <!-- the real tabs -->
-      
-        <li class="nav-item">
-          <a href="/categories/" class="nav-link">
-            <i class="fa-fw fas fa-stream"></i>
-            
+      <!-- .nav-item -->
+    
+      <li class="nav-item">
+        <a href="/tags/" class="nav-link">
+          <i class="fa-fw fas fa-tags"></i>
+          
 
-            <span>分类</span>
-          </a>
-        </li>
-        <!-- .nav-item -->
-      
-        <li class="nav-item">
-          <a href="/tags/" class="nav-link">
-            <i class="fa-fw fas fa-tags"></i>
-            
+          <span>标签</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+    
+      <li class="nav-item">
+        <a href="/archives/" class="nav-link">
+          <i class="fa-fw fas fa-archive"></i>
+          
 
-            <span>标签</span>
-          </a>
-        </li>
-        <!-- .nav-item -->
-      
-        <li class="nav-item">
-          <a href="/archives/" class="nav-link">
-            <i class="fa-fw fas fa-archive"></i>
-            
+          <span>归档</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+    
+      <li class="nav-item">
+        <a href="/about/" class="nav-link">
+          <i class="fa-fw fas fa-info-circle"></i>
+          
 
-            <span>归档</span>
-          </a>
-        </li>
-        <!-- .nav-item -->
-      
-        <li class="nav-item">
-          <a href="/about/" class="nav-link">
-            <i class="fa-fw fas fa-info-circle"></i>
-            
-
-            <span>关于</span>
-          </a>
-        </li>
-        <!-- .nav-item -->
-      
-    </ul>
-  </nav>
+          <span>关于</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+    
+  </ul>
+  <!-- ul.nav.flex-column -->
 
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     
-      <button type="button" class="mode-toggle btn" aria-label="Switch Mode">
+      <button class="mode-toggle btn" aria-label="Switch Mode">
         <i class="fas fa-adjust"></i>
       </button>
 
@@ -434,27 +437,29 @@
     
   </div>
   <!-- .sidebar-bottom -->
-</aside>
+</div>
 <!-- #sidebar -->
 
 
     <div id="main-wrapper" class="d-flex justify-content-center">
-      <div class="container d-flex flex-column px-xxl-5">
+      <div id="main" class="container px-xxl-5">
         <!-- The Top Bar -->
 
-<header id="topbar-wrapper" aria-label="Top Bar">
+<div id="topbar-wrapper">
   <div
     id="topbar"
-    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+    class="container d-flex align-items-center justify-content-between h-100"
   >
-    <nav id="breadcrumb" aria-label="Breadcrumb">
+    <span id="breadcrumb">
       
 
       
         
           
             <span>
-              <a href="/">首页</a>
+              <a href="/">
+                首页
+              </a>
             </span>
 
           
@@ -469,22 +474,17 @@
           
         
       
-    </nav>
+    </span>
     <!-- endof #breadcrumb -->
 
-    <button type="button" id="sidebar-trigger" class="btn btn-link">
-      <i class="fas fa-bars fa-fw"></i>
-    </button>
+    <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
 
     <div id="topbar-title">
       文章
     </div>
 
-    <button type="button" id="search-trigger" class="btn btn-link">
-      <i class="fas fa-search fa-fw"></i>
-    </button>
-
-    <search class="align-items-center ms-3 ms-lg-0">
+    <i id="search-trigger" class="fas fa-search fa-fw"></i>
+    <span id="search-wrapper" class="align-items-center">
       <i class="fas fa-search fa-fw"></i>
       <input
         class="form-control"
@@ -494,16 +494,35 @@
         autocomplete="off"
         placeholder="搜索..."
       >
-    </search>
-    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button>
+    </span>
+    <span id="search-cancel">取消</span>
   </div>
-</header>
+</div>
+
+        
 
 
-        <div class="row flex-grow-1">
-          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
-            
-              <!-- Refactor the HTML structure -->
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <!-- core -->
+  <div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pe-xl-4">
+    
+
+    <div class="post px-1 px-md-2">
+      
+
+      
+        
+      
+        <!-- Refactor the HTML structure -->
 
 
 
@@ -525,13 +544,17 @@
 <!-- Change the icon of checkbox -->
 
 
-
-<!-- Handle images -->
-
+<!-- images -->
 
 
 
   
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
   
 
   
@@ -548,6 +571,7 @@
     
     
 
+    
     
     
     
@@ -574,15 +598,21 @@
     
 
     
-    
 
     
 
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
     
       
     
 
-    <!-- lazy-load images -->
+    <!-- Bypass the HTML-proofer test -->
     
 
     
@@ -592,14 +622,12 @@
       
         <!-- create the image wrapper -->
         
-
-        
-        
       
     
 
     <!-- combine -->
     
+
   
     
 
@@ -611,6 +639,7 @@
     
     
 
+    
     
     
     
@@ -637,15 +666,21 @@
     
 
     
-    
 
     
 
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
     
       
     
 
-    <!-- lazy-load images -->
+    <!-- Bypass the HTML-proofer test -->
     
 
     
@@ -655,14 +690,12 @@
       
         <!-- create the image wrapper -->
         
-
-        
-        
       
     
 
     <!-- combine -->
     
+
   
     
 
@@ -674,6 +707,7 @@
     
     
 
+    
     
     
     
@@ -700,15 +734,21 @@
     
 
     
-    
 
     
 
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
     
       
     
 
-    <!-- lazy-load images -->
+    <!-- Bypass the HTML-proofer test -->
     
 
     
@@ -718,14 +758,12 @@
       
         <!-- create the image wrapper -->
         
-
-        
-        
       
     
 
     <!-- combine -->
     
+
   
     
 
@@ -737,6 +775,7 @@
     
     
 
+    
     
     
     
@@ -763,15 +802,21 @@
     
 
     
-    
 
     
 
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
     
       
     
 
-    <!-- lazy-load images -->
+    <!-- Bypass the HTML-proofer test -->
     
 
     
@@ -781,14 +826,12 @@
       
         <!-- create the image wrapper -->
         
-
-        
-        
       
     
 
     <!-- combine -->
     
+
   
     
 
@@ -800,6 +843,7 @@
     
     
 
+    
     
     
     
@@ -826,15 +870,21 @@
     
 
     
-    
 
     
 
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
     
       
     
 
-    <!-- lazy-load images -->
+    <!-- Bypass the HTML-proofer test -->
     
 
     
@@ -844,17 +894,16 @@
       
         <!-- create the image wrapper -->
         
-
-        
-        
       
     
 
     <!-- combine -->
     
+
   
 
   
+
 
 
 <!-- Add header for code snippets -->
@@ -888,6 +937,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -899,6 +961,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -910,6 +985,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -921,6 +1009,7 @@
       
 
       
+
     
       
 
@@ -932,42 +1021,11 @@
       
 
       
-    
-      
 
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
     
 
     
+
   
 
   
@@ -991,6 +1049,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1002,6 +1073,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1013,6 +1097,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1024,6 +1121,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1035,6 +1145,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1046,6 +1169,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1057,6 +1193,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1068,6 +1217,19 @@
       
 
       
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
     
       
 
@@ -1079,6 +1241,7 @@
       
 
       
+
     
       
 
@@ -1090,97 +1253,11 @@
       
 
       
-    
-      
 
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
     
 
     
+
   
 
   
@@ -1201,15 +1278,13 @@
 
 
 
-<article class="px-1">
-  <header>
-    <h1 data-toc-skip>模式识别（线性分类器）</h1>
+<h1 data-toc-skip>模式识别（线性分类器）</h1>
 
-    <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        发表于
-        <!--
+<div class="post-meta text-muted">
+    <!-- published date -->
+    <span>
+      发表于
+      <!--
   Date format snippet
   See: ${JS_ROOT}/utils/locale-dateime.js
 -->
@@ -1217,8 +1292,9 @@
 
 
 
-<time
-  
+
+<em
+  class=""
   data-ts="1709447119"
   data-df="YYYY/MM/DD"
   
@@ -1226,15 +1302,15 @@
   
 >
   2024/03/03
-</time>
+</em>
 
-      </span>
+    </span>
 
-      <!-- lastmod date -->
-      
-        <span>
-          更新于
-          <!--
+    <!-- lastmod date -->
+    
+    <span>
+      更新于
+      <!--
   Date format snippet
   See: ${JS_ROOT}/utils/locale-dateime.js
 -->
@@ -1242,8 +1318,9 @@
 
 
 
-<time
-  
+
+<em
+  class=""
   data-ts="1740643855"
   data-df="YYYY/MM/DD"
   
@@ -1251,29 +1328,30 @@
   
 >
   2025/02/27
-</time>
+</em>
 
-        </span>
+    </span>
+    
+
+  
+
+  <div class="d-flex justify-content-between">
+    <!-- author(s) -->
+    <span>
       
 
+      作者
+
+      <em>
       
+        <a href="https://github.com/sirlis">sirlis</a>
+      
+      </em>
+    </span>
 
-      <div class="d-flex justify-content-between">
-        <!-- author(s) -->
-        <span>
-          
-
-          作者
-
-          <em>
-            
-              <a href="https://github.com/sirlis">sirlis</a>
-            
-          </em>
-        </span>
-
-        <!-- read time -->
-        <!-- Calculate the post's reading time, and display the word count in tooltip -->
+    <div>
+      <!-- read time -->
+      <!-- Calculate the post's reading time, and display the word count in tooltip -->
 
 
 
@@ -1297,14 +1375,14 @@
 >
   <em>32 分钟</em>阅读</span>
 
-      </div>
-      <!-- .d-flex -->
     </div>
-    <!-- .post-meta -->
-  </header>
 
-  <div class="content">
-    <p>本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。</p>
+  </div> <!-- .d-flex -->
+
+</div> <!-- .post-meta -->
+
+<div class="post-content">
+  <p>本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。</p>
 
 <!--more-->
 
@@ -1447,7 +1525,7 @@
 
 <h3 id="31-设计思路"><span class="me-2">3.1. 设计思路</span><a href="#31-设计思路" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p><a href="/assets/img/postsimg/20240303/Perpendicular-Bisector-Classifier.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20240303/Perpendicular-Bisector-Classifier.png" alt="Perpendicular-Bisector-Classifier" loading="lazy"></a></p>
+<p><a href="/assets/img/postsimg/20240303/Perpendicular-Bisector-Classifier.png" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/Perpendicular-Bisector-Classifier.png" alt="Perpendicular-Bisector-Classifier" class="lazyload" data-proofer-ignore></a></p>
 
 <p>如图，在二维特征向量的二分类问题（$C=2，D=2$）中，垂直平分分类器设计思路是基于两类样本均值点作垂直平分线。根据垂直平分的特性求解其权向量和阈值权的方法如下：</p>
 
@@ -1530,7 +1608,7 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 
 <p>我们可以从下图中看出，不同的投影方向会使得两类样本的影响该方向的分类结果，左图的投影方向可以使得两类样本较好分开，而按照右图的方向投影后则两类样本混在一起。Fisher 线性判别的思想就是，<strong>选择合适的投影方向，使得投影后两类的间隔尽可能远，同时每一类内部的样本又尽可能聚集。</strong></p>
 
-<p><a href="/assets/img/postsimg/20240312/03.fisher.jpg" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20240312/03.fisher.jpg" alt="fisher" loading="lazy"></a></p>
+<p><a href="/assets/img/postsimg/20240312/03.fisher.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/03.fisher.jpg" alt="fisher" class="lazyload" data-proofer-ignore></a></p>
 
 <h3 id="41-投影"><span class="me-2">4.1. 投影</span><a href="#41-投影" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1693,7 +1771,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 <p>在二维二分类问题中，解区（$\boldsymbol{a}^{\text{T}}\boldsymbol{y}&gt;0$）如下图蓝色部分所示。</p>
 
-<p><a href="/assets/img/postsimg/20240303/region.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20240303/region.png" alt="region" loading="lazy"></a></p>
+<p><a href="/assets/img/postsimg/20240303/region.png" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/region.png" alt="region" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li><strong>余量</strong></li>
@@ -1707,7 +1785,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 <p>如下图所示。</p>
 
-<p><a href="/assets/img/postsimg/20240303/region-bias.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20240303/region-bias.png" alt="region bias" loading="lazy"></a></p>
+<p><a href="/assets/img/postsimg/20240303/region-bias.png" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/region-bias.png" alt="region bias" class="lazyload" data-proofer-ignore></a></p>
 
 <h3 id="52-感知准则函数"><span class="me-2">5.2. 感知准则函数</span><a href="#52-感知准则函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1732,7 +1810,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 <h3 id="53-感知器模型"><span class="me-2">5.3. 感知器模型</span><a href="#53-感知器模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p><a href="/assets/img/postsimg/20240303/Perceptron.png" class="popup img-link  shimmer"><img src="/assets/img/postsimg/20240303/Perceptron.png" alt="Perception" loading="lazy"></a></p>
+<p><a href="/assets/img/postsimg/20240303/Perceptron.png" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/Perceptron.png" alt="Perception" class="lazyload" data-proofer-ignore></a></p>
 
 <p>感知器是一个具有单层计算单元的神经元模型，感知器具有多输入和单输出。（如上图和下式所示）</p>
 
@@ -1890,110 +1968,127 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 <p>[1] 漆比特. <a href="https://blog.csdn.net/sinat_35907936/article/details/108894542">CSDN 机器学习十大经典算法：深入浅出聊贝叶斯决策（贝叶斯公式，最小风险贝叶斯，最小错误贝叶斯）</a></p>
 
+</div>
+
+<div class="post-tail-wrapper text-muted">
+
+  <!-- categories -->
+  
+  <div class="post-meta mb-3">
+    <i class="far fa-folder-open fa-fw me-1"></i>
+    
+      <a href='/categories/academic/'>Academic</a>,
+      <a href='/categories/knowledge/'>Knowledge</a>
   </div>
+  
 
-  <div class="post-tail-wrapper text-muted">
-    <!-- categories -->
-    
-      <div class="post-meta mb-3">
-        <i class="far fa-folder-open fa-fw me-1"></i>
-        
-          <a href="/categories/academic/">Academic</a>,
-          <a href="/categories/knowledge/">Knowledge</a>
-      </div>
-    
+  <!-- tags -->
+  
+  <div class="post-tags">
+    <i class="fa fa-tags fa-fw me-1"></i>
+      
+      <a href="/tags/pattern-recognition/"
+          class="post-tag no-text-decoration" >pattern recognition</a>
+      
+  </div>
+  
 
-    <!-- tags -->
-    
-      <div class="post-tags">
-        <i class="fa fa-tags fa-fw me-1"></i>
-        
-          <a
-            href="/tags/pattern-recognition/"
-            class="post-tag no-text-decoration"
-          >pattern recognition</a>
-        
-      </div>
-    
+  <div class="post-tail-bottom
+    d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+    <div class="license-wrapper">
 
-    <div
-      class="
-        post-tail-bottom
-        d-flex justify-content-between align-items-center mt-5 pb-2
-      "
-    >
-      <div class="license-wrapper">
-        
-          
+      
 
-          本文由作者按照 
+        
+
+        本文由作者按照 
         <a href="https://creativecommons.org/licenses/by/4.0/">
           CC BY 4.0
         </a>
          进行授权
-        
-      </div>
 
-      <!-- Post sharing snippet -->
+      
+    </div>
 
-<div class="share-wrapper d-flex align-items-center">
-  <span class="share-label text-muted">分享</span>
+    <!-- Post sharing snippet -->
+
+<div class="share-wrapper">
+  <span class="share-label text-muted me-1">分享</span>
   <span class="share-icons">
     
     
     
 
     
-
       
-
-      <a href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Linear-Classifier%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+      <a
+        href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Linear-Classifier%2F"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Twitter"
+        target="_blank"
+        rel="noopener"
+        aria-label="Twitter"
+      >
         <i class="fa-fw fab fa-twitter"></i>
       </a>
     
-
       
-
-      <a href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Linear-Classifier%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Linear-Classifier%2F"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Facebook"
+        target="_blank"
+        rel="noopener"
+        aria-label="Facebook"
+      >
         <i class="fa-fw fab fa-facebook-square"></i>
       </a>
     
-
       
-
-      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Linear-Classifier%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+      <a
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Linear-Classifier%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Telegram"
+        target="_blank"
+        rel="noopener"
+        aria-label="Telegram"
+      >
         <i class="fa-fw fab fa-telegram"></i>
       </a>
     
 
-    <button
+    <i
       id="copy-link"
-      aria-label="Copy link"
-      class="btn small"
+      class="fa-fw fas fa-link small"
       data-bs-toggle="tooltip"
       data-bs-placement="top"
       title="分享链接"
       data-title-succeed="链接已复制！"
     >
-      <i class="fa-fw fas fa-link pe-none fs-6"></i>
-    </button>
+    </i>
   </span>
 </div>
 
+
+  </div><!-- .post-tail-bottom -->
+
+</div><!-- div.post-tail-wrapper -->
+
+
+      
+    
+      
     </div>
-    <!-- .post-tail-bottom -->
   </div>
-  <!-- div.post-tail-wrapper -->
-</article>
+  <!-- #core-wrapper -->
 
-
-            
-          </main>
-
-          <!-- panel -->
-          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
-            <div class="access">
-              <!-- Get 5 last posted/updated posts -->
+  <!-- panel -->
+  <div id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+    <div class="access">
+      <!-- Get the last 5 posts from lastmod list. -->
 
 
 
@@ -2008,9 +2103,9 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-  <section id="access-lastmod">
-    <h2 class="panel-heading">最近更新</h2>
-    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+  <div id="access-lastmod" class="post">
+    <div class="panel-heading">最近更新</div>
+    <ul class="post-content list-unstyled ps-0 pb-1 ms-1 mt-2">
       
         
         
@@ -2048,11 +2143,11 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         </li>
       
     </ul>
-  </section>
+  </div>
   <!-- #access-lastmod -->
 
 
-              <!-- The trending tags list -->
+      <!-- The trending tags list -->
 
 
 
@@ -2831,8 +2926,8 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-  <section>
-    <h2 class="panel-heading">热门标签</h2>
+  <div id="access-tags">
+    <div class="panel-heading">热门标签</div>
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
@@ -2866,33 +2961,37 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
       
     </div>
-  </section>
+  </div>
 
 
-            </div>
+    </div>
 
-            
-              
-              
+    
+      
+      
 
 
 
-  <section id="toc-wrapper" class="ps-0 pe-4">
-    <h2 class="panel-heading ps-3 pt-2 mb-2">文章内容</h2>
+  <div id="toc-wrapper" class="ps-0 pe-4 mb-5">
+    <div class="panel-heading ps-3 pt-2 mb-2">文章内容</div>
     <nav id="toc"></nav>
-  </section>
+  </div>
 
 
-            
-          </aside>
-        </div>
+    
+  </div>
+</div>
 
-        <div class="row">
-          <!-- tail -->
-          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
-            
-              
-              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+<!-- tail -->
+
+  <div class="row">
+    <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-3 pe-xl-4 mt-5">
+      
+        
+        <!--
+  Recommend the other 3 posts according to the tags and categories of the current post,
+  if the number is not enough, use the other latest posts to supplement.
+-->
 
 <!-- The total size of related posts -->
 
@@ -2909,11 +3008,17 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
   
 
@@ -3471,22 +3576,315 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
 
 
 
+<!-- Fill with the other newlest posts -->
 
 
 
 
-  <aside id="related-posts" aria-labelledby="related-label">
-    <h3 class="mb-4" id="related-label">相关文章</h3>
-    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+
+  <div id="related-posts" class="mb-2 mb-sm-4">
+    <h3 class="pt-2 mb-4 ms-1" data-toc-skip>
+      相关文章
+    </h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
       
-        <article class="col">
-          <a href="/posts/Pattern-Recognition-Bayes/" class="post-preview card h-100">
+        
+        
+        <div class="col">
+          <a href="/posts/Pattern-Recognition-Bayes/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3496,17 +3894,18 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-<time
-  
+
+<em
+  class="small"
   data-ts="1710249739"
   data-df="YYYY/MM/DD"
   
 >
   2024/03/12
-</time>
+</em>
 
-              <h4 class="pt-0 my-2">模式识别（统计决策方法：贝叶斯决策）</h4>
-              <div class="text-muted">
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（统计决策方法：贝叶斯决策）</h4>
+              <div class="text-muted small">
                 <p>
                   
 
@@ -3538,10 +3937,12 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
               </div>
             </div>
           </a>
-        </article>
+        </div>
       
-        <article class="col">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/" class="post-preview card h-100">
+        
+        
+        <div class="col">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3551,17 +3952,18 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-<time
-  
+
+<em
+  class="small"
   data-ts="1714615399"
   data-df="YYYY/MM/DD"
   
 >
   2024/05/02
-</time>
+</em>
 
-              <h4 class="pt-0 my-2">模式识别（LDA和PCA）</h4>
-              <div class="text-muted">
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（LDA和PCA）</h4>
+              <div class="text-muted small">
                 <p>
                   
 
@@ -3586,10 +3988,12 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
               </div>
             </div>
           </a>
-        </article>
+        </div>
       
-        <article class="col">
-          <a href="/posts/astronomy-CDDIS/" class="post-preview card h-100">
+        
+        
+        <div class="col">
+          <a href="/posts/reinforcement-learning-Temporal-Differences/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3599,17 +4003,18 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-<time
-  
-  data-ts="1637226349"
+
+<em
+  class="small"
+  data-ts="1671346759"
   data-df="YYYY/MM/DD"
   
 >
-  2021/11/18
-</time>
+  2022/12/18
+</em>
 
-              <h4 class="pt-0 my-2">CDDIS网站下GNSS相关数据解析（卫星星历部分）</h4>
-              <div class="text-muted">
+              <h4 class="pt-0 my-2" data-toc-skip>强化学习（时序差分法）</h4>
+              <div class="text-muted small">
                 <p>
                   
 
@@ -3617,42 +4022,46 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-                  本文介绍了CDDIS网站下 GNSS 相关的数据产品下载、命名方式解读、文件格式说明和文件下载地址。
+                  本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。
 
 
 
 
 
 
-  1. 数据（data目录）
-  2. 广播星历（Broadcast ephemeris data）
+  1. 引言
+  2. 时序差分法
     
-      2.1. Daily GPS Broadcast Ephemeris Files
-      2.2. Hourly GPS Broadcast Ephe...
+      2.1. 同轨策略下的时序差分控制（SARSA）
+      2.2. 离轨策略下的时序差分控制（Q-Learning）
+      2.3. 期望SARSA
+    
+  
+  3. Deep Q-Network（DQN）
+    
+ ...
                 </p>
               </div>
             </div>
           </a>
-        </article>
+        </div>
       
-    </nav>
-  </aside>
+    </div>
+    <!-- .card-deck -->
+  </div>
   <!-- #related-posts -->
 
 
-            
-              
-              <!-- Navigation buttons at the bottom of the post. -->
+      
+        
+        <!-- Navigation buttons at the bottom of the post. -->
 
-<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
-  
-  
-
+<div class="post-navigation d-flex justify-content-between">
   
     <a
       href="/posts/reinforcement-learning-Policy-Gradient/"
       class="btn btn-outline-primary"
-      aria-label="上一篇"
+      prompt="上一篇"
     >
       <p>强化学习（策略梯度法）</p>
     </a>
@@ -3662,109 +4071,81 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
     <a
       href="/posts/Pattern-Recognition-Bayes/"
       class="btn btn-outline-primary"
-      aria-label="下一篇"
+      prompt="下一篇"
     >
       <p>模式识别（统计决策方法：贝叶斯决策）</p>
     </a>
   
-</nav>
+</div>
 
-            
-              
-              <!--  The comments switcher -->
+      
+        
+        <!--  The comments switcher -->
 
   
   <!-- https://utteranc.es/ -->
-<script
-  src="https://utteranc.es/client.js"
-  repo="sirlis/sirlis.github.io"
-  issue-term="pathname"
-  crossorigin="anonymous"
-  async
-></script>
+<script src="https://utteranc.es/client.js"
+        repo="sirlis/sirlis.github.io"
+        issue-term="pathname"
+        crossorigin="anonymous"
+        async>
+</script>
 
 <script type="text/javascript">
-  (function () {
-    const origin = 'https://utteranc.es';
-    const iframe = 'iframe.utterances-frame';
-    const lightTheme = 'github-light';
-    const darkTheme = 'github-dark';
+  $(function() {
+    const origin = "https://utteranc.es";
+    const iframe = "iframe.utterances-frame";
+    const lightTheme = "github-light";
+    const darkTheme = "github-dark";
     let initTheme = lightTheme;
-    const html = document.documentElement;
 
-    if (
-      (html.hasAttribute('data-mode') && html.getAttribute('data-mode') === 'dark') ||
-      (!html.hasAttribute('data-mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
+    if ($("html[data-mode=dark]").length > 0
+        || ($("html[data-mode]").length == 0
+            && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
       initTheme = darkTheme;
     }
 
-    addEventListener('message', (event) => {
+    addEventListener("message", (event) => {
       let theme;
 
       /* credit to <https://github.com/utterance/utterances/issues/170#issuecomment-594036347> */
       if (event.origin === origin) {
         /* page initial */
         theme = initTheme;
-      } else if (event.source === window && event.data && event.data.direction === ModeToggle.ID) {
+
+      } else if (event.source === window && event.data &&
+            event.data.direction === ModeToggle.ID) {
         /* global theme mode changed */
         const mode = event.data.message;
-        theme = mode === ModeToggle.DARK_MODE ? darkTheme : lightTheme;
+        theme = (mode === ModeToggle.DARK_MODE ? darkTheme : lightTheme);
+
       } else {
         return;
       }
 
       const message = {
-        type: 'set-theme',
+        type: "set-theme",
         theme: theme
       };
 
       const utterances = document.querySelector(iframe).contentWindow;
       utterances.postMessage(message, origin);
     });
-  })();
+
+  });
 </script>
 
 
 
-            
+      
+    </div>
+  </div>
 
-            <!-- The Footer -->
-
-<footer
-  aria-label="Site Info"
-  class="
-    d-flex flex-column justify-content-center text-muted
-    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
-  "
->
-  <p>©
-    <time>2025</time>
-
-    
-      <a href="https://github.com/sirlis">sirlis</a>.
-    
-
-    
-      <span
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。"
-      >保留部分权利。</span>
-    
-  </p>
-
-  <p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>
-  </p>
-</footer>
-
-          </div>
-        </div>
 
         <!-- The Search results -->
 
 <div id="search-result-wrapper" class="d-flex justify-content-center unloaded">
-  <div class="col-11 content">
+  <div class="col-11 post-content">
     <div id="search-hints">
       <!-- The trending tags list -->
 
@@ -4545,8 +4926,8 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-  <section>
-    <h2 class="panel-heading">热门标签</h2>
+  <div id="access-tags">
+    <div class="panel-heading">热门标签</div>
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
@@ -4580,7 +4961,7 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
       
     </div>
-  </section>
+  </div>
 
 
     </div>
@@ -4589,45 +4970,64 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 </div>
 
       </div>
-
-      <aside aria-label="Scroll to Top">
-        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
-          <i class="fas fa-angle-up"></i>
-        </button>
-      </aside>
     </div>
+
+    <!-- The Footer -->
+
+<footer>
+  <div class="container px-lg-4">
+    <div class="d-flex justify-content-center align-items-center text-muted mx-md-3">
+      <p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>
+      </p>
+
+      <p>©
+        2025
+        <a href="https://github.com/sirlis">sirlis</a>.
+        
+          <span
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。"
+          >保留部分权利。</span>
+        
+      </p>
+    </div>
+  </div>
+</footer>
+
 
     <div id="mask"></div>
 
-    
-      <aside
-  id="notification"
-  class="toast"
-  role="alert"
-  aria-live="assertive"
-  aria-atomic="true"
-  data-bs-animation="true"
-  data-bs-autohide="false"
->
-  <div class="toast-header">
-    <button
-      type="button"
-      class="btn-close ms-auto"
-      data-bs-dismiss="toast"
-      aria-label="Close"
-    ></button>
-  </div>
-  <div class="toast-body text-center pt-0">
-    <p class="px-2 mb-3">发现新版本的内容。</p>
-    <button type="button" class="btn btn-primary" aria-label="Update">
-      更新
+    <button id="back-to-top" aria-label="back-to-top" class="btn btn-lg btn-box-shadow">
+      <i class="fas fa-angle-up"></i>
     </button>
-  </div>
-</aside>
 
     
-
-    <!-- JavaScripts -->
+      <div
+        id="notification"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-animation="true"
+        data-bs-autohide="false"
+      >
+        <div class="toast-header">
+          <button
+            type="button"
+            class="btn-close ms-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body text-center pt-0">
+          <p class="px-2 mb-3">发现新版本的内容。</p>
+          <button type="button" class="btn btn-primary" aria-label="Update">
+            更新
+          </button>
+        </div>
+      </div>
+    
 
     <!-- JS selector for site. -->
 
@@ -4636,8 +5036,6 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 <!-- layout specified -->
-
-
 
 
   
@@ -4740,7 +5138,7 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
-  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.1/dist/jquery.min.js,npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.10/dayjs.min.js,npm/dayjs@1.11.10/locale/zh.min.js,npm/dayjs@1.11.10/plugin/relativeTime.min.js,npm/dayjs@1.11.10/plugin/localizedFormat.min.js,npm/tocbot@4.25.0/dist/tocbot.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js"></script>
 
 
 
@@ -4764,13 +5162,11 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         displayMath: [
           ['$$', '$$'],
           ['\\[', '\\]']
-        ],
-        /* equation numbering */
-        tags: 'ams'
+        ]
       }
     };
   </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
 
 
@@ -4794,7 +5190,7 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
     searchInput: document.getElementById('search-input'),
     resultsContainer: document.getElementById('search-results'),
     json: '/assets/js/data/search.json',
-    searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{snippet}</p>  </article>',
+    searchResultTemplate: '<div class="px-1 px-sm-2 px-lg-4 px-xl-0">  <a href="{url}">{title}</a>  <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">    {categories}    {tags}  </div>  <p>{snippet}</p></div>',
     noResultsText: '<p class="mt-5"></p>',
     templateMiddleware: function(prop, value, template) {
       if (prop === 'categories') {
