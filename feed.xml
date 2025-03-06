@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-03-06T13:15:00+08:00</updated>
+  <updated>2025-03-06T18:42:57+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -220,7 +220,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
     <published>2024-03-03T14:25:19+08:00</published>
   
-    <updated>2025-03-06T12:52:54+08:00</updated>
+    <updated>2025-03-06T18:42:52+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" />
