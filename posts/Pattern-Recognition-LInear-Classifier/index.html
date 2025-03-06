@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="模式识别（线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
@@ -1371,9 +1371,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="5936 字"
+  title="5998 字"
 >
-  <em>32 分钟</em>阅读</span>
+  <em>33 分钟</em>阅读</span>
 
     </div>
 
@@ -1476,11 +1476,12 @@
 <blockquote>
   <p>线性判别函数有如下几个几何性质：</p>
   <ul>
-    <li>法向量方向为 $\boldsymbol{w}$</li>
+    <li>法向量方向为 $\boldsymbol{w}$
+设决策面上任意两个点 $\boldsymbol{x}_1$ 和 $\boldsymbol{x}_2$，它们满足 $g(\boldsymbol{x}_1) = g(\boldsymbol{x}_2) = 0$，两式相减得 $\boldsymbol{w}^{\text{T}}(\boldsymbol{x}_1 - \boldsymbol{x}_2) = 0$，而$\boldsymbol{x}_1 - \boldsymbol{x}_2$ 构成了决策面上的任意向量，因此决策面与 $\boldsymbol{w}$ 垂直</li>
     <li>原点到决策面的欧氏距离为
-\(d=\frac{|w_0|}{\sqrt{w_1^2 + w_2^2 + \cdots + w_n^2}}=\frac{|w_0|}{\Vert \boldsymbol{w} \Vert}\)</li>
+\(d=\frac{\vert w_0\vert}{\sqrt{w_1^2 + w_2^2 + \cdots + w_n^2}}=\frac{\vert w_0\vert}{\Vert \boldsymbol{w} \Vert}\)</li>
     <li>样本 $x$ 到决策面的欧氏距离为
-\(e=\frac{\boldsymbol{w}^{\text{T}}\boldsymbol{x} + w_0}{\sqrt{w_1^2 + w_2^2 + \cdots + w_n^2}}=\frac{\boldsymbol{w}^{\text{T}}\boldsymbol{x}}{\Vert \boldsymbol{w} \Vert}\)</li>
+\(e=\frac{\vert\boldsymbol{w}^{\text{T}}\boldsymbol{x} + w_0\vert}{\sqrt{w_1^2 + w_2^2 + \cdots + w_n^2}}=\frac{\vert\boldsymbol{w}^{\text{T}}\boldsymbol{x} + w_0\vert}{\Vert \boldsymbol{w} \Vert}\)</li>
   </ul>
 </blockquote>
 
