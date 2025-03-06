@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="最优控制基础（微分方程的解法）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了最优控制的数值解法的基础知识，包括微分方程的数值解法。" />
@@ -1431,7 +1431,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7522 字"
+  title="7516 字"
 >
   <em>41 分钟</em>阅读</span>
 
@@ -2042,7 +2042,7 @@ a_2 &amp;= \frac{1}{2h}[f(p(t_0+h),t_0+h)-f(p(t_0),t_0)]\\
   <li>目标函数</li>
 </ul>
 
-\[\mathop{\rm min}\limits_{t_0,t_f,\bm x(t),\bm u(t)} \underbrace{J(t_0,t_f,\bm x(t_0),\bm x(t_f))}_{\rm Mayer\; Term} + \underbrace{\int_{t_0}^{t_f} H(\tau,\bm x(\tau),\bm u(\tau))d\tau}_{\rm Lagrange\; Term}\]
+\[\mathop{\rm min}\limits_{t_0,t_f,\boldsymbol{x}(t),\boldsymbol{u}(t)} \underbrace{J(t_0,t_f,\boldsymbol x(t_0),\boldsymbol x(t_f))}_{\rm Mayer\; Term} + \underbrace{\int_{t_0}^{t_f} H(\tau,\boldsymbol x(\tau),\boldsymbol u(\tau))d\tau}_{\rm Lagrange\; Term}\]
 
 <p>约束包括：</p>
 
@@ -2050,27 +2050,27 @@ a_2 &amp;= \frac{1}{2h}[f(p(t_0+h),t_0+h)-f(p(t_0),t_0)]\\
   <li>动力学约束</li>
 </ul>
 
-\[\dot \bm x(t)=f(\bm x(t),\bm u(t),t)\]
+\[\dot{\boldsymbol{x}}(t)=f(\boldsymbol{x}(t),\boldsymbol{u}(t),t)\]
 
 <ul>
   <li>路径约束</li>
 </ul>
 
-\[\bm h(\bm x(t),\bm u(t),t)\leq \bm 0\]
+\[\boldsymbol h(\boldsymbol x(t),\boldsymbol u(t),t)\leq \boldsymbol 0\]
 
 <ul>
   <li>边界约束</li>
 </ul>
 
-\[\bm g(\bm x(t_0),\bm x(t_f),t_0,t_f)\leq \bm 0\]
+\[\boldsymbol g(\boldsymbol x(t_0),\boldsymbol x(t_f),t_0,t_f)\leq \boldsymbol 0\]
 
 <ul>
   <li>状态量与控制量边界</li>
 </ul>
 
 \[\begin{aligned}
-\bm x_{lb}\leq\bm x(t)\leq \bm x_{ub}\\
-\bm u_{lb}\leq\bm u(t)\leq \bm u_{ub}
+\boldsymbol x_{lb}\leq\boldsymbol x(t)\leq \boldsymbol x_{ub}\\
+\boldsymbol u_{lb}\leq\boldsymbol u(t)\leq \boldsymbol u_{ub}
 \end{aligned}\]
 
 <p>由于最终我们想要求得的是控制量关于时间的具体函数形式，而非一个值或一个参数，因此轨迹优化问题也可以理解为在一定约束或大量约束下的泛函求极值问题。</p>
@@ -2130,7 +2130,7 @@ v\rightarrow v_0,\cdots,v_N\\
 u\rightarrow u_0,\cdots,u_N\\
 \end{aligned}\]
 
-<p>这些配置点实际上就是最终转化的 NLP 问题<strong>优化变量</strong>，$N$ 表示离散的细化程度，N越大则离散化误差越小，但优化单独越大。</p>
+<p>这些配置点实际上就是最终转化的 NLP 问题<strong>优化变量</strong>，$N$ 表示离散的细化程度，N越大则离散化误差越小，但优化难度越大。</p>
 
 <p><strong>其次</strong>，要把原始问题在这些配置点处进行近似表示，其核心思想是两个配置点之间的状态变化等于系统动力学的积分：</p>
 

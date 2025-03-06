@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="深度学习（基础数学知识）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。" />
@@ -548,6 +548,91 @@
 
 
 
+  
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+
+  
+
+
 
 <!-- Add header for code snippets -->
 
@@ -682,6 +767,30 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -698,6 +807,30 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -881,9 +1014,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3850 字"
+  title="5161 字"
 >
-  <em>21 分钟</em>阅读</span>
+  <em>28 分钟</em>阅读</span>
 
     </div>
 
@@ -912,22 +1045,26 @@
       <li><a href="#14-矩阵的值域零空间和秩">1.4. 矩阵的值域、零空间和秩</a>
         <ul>
           <li><a href="#141-向量的张成span">1.4.1. 向量的张成（span）</a></li>
-          <li><a href="#142-矩阵的值域range">1.4.2. 矩阵的值域（range）</a></li>
-          <li><a href="#143-矩阵的零空间nullspace">1.4.3. 矩阵的零空间（nullspace）</a></li>
-          <li><a href="#144-秩-零度定理">1.4.4. 秩-零度定理</a></li>
-          <li><a href="#145-矩阵的秩rank">1.4.5. 矩阵的秩（rank）</a></li>
+          <li><a href="#142-向量的投影">1.4.2. 向量的投影</a></li>
+          <li><a href="#143-矩阵的值域range">1.4.3. 矩阵的值域（range）</a></li>
+          <li><a href="#144-矩阵的零空间nullspace">1.4.4. 矩阵的零空间（nullspace）</a></li>
+          <li><a href="#145-秩-零度定理">1.4.5. 秩-零度定理</a></li>
+          <li><a href="#146-矩阵的秩rank">1.4.6. 矩阵的秩（rank）</a></li>
         </ul>
       </li>
-      <li><a href="#15-二次型">1.5. 二次型</a></li>
+      <li><a href="#15-二次型">1.5. 二次型</a>
+        <ul>
+          <li><a href="#151-定义">1.5.1. 定义</a></li>
+          <li><a href="#152-与投影的关系">1.5.2. 与投影的关系</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#2-矩阵的梯度和求导">2. 矩阵的梯度和求导</a>
     <ul>
-      <li><a href="#21-多元函数及其梯度">2.1. 多元函数及其梯度</a>
-        <ul>
-          <li><a href="#211-矩阵的梯度">2.1.1. 矩阵的梯度</a></li>
-        </ul>
-      </li>
+      <li><a href="#21-多元函数及其梯度">2.1. 多元函数及其梯度</a></li>
+      <li><a href="#22-矩阵的梯度">2.2. 矩阵的梯度</a></li>
+      <li><a href="#23-分子布局与分母布局">2.3. 分子布局与分母布局</a></li>
     </ul>
   </li>
 </ul>
@@ -999,7 +1136,7 @@
   <li>$l_1$范数：
 \(\Vert \boldsymbol{x} \Vert_1 = \sum_{i=1}^n |x_i|\)</li>
   <li>$l_2$范数：
-\(\Vert \boldsymbol{x} \Vert_2 = \sqrt{\sum_{i=1}^n x_i^2}\)</li>
+\(\Vert \boldsymbol{x} \Vert_2 = \sqrt{\sum_{i=1}^n x_i^2} = \sqrt{\boldsymbol{x}^\top \boldsymbol{x}}\)</li>
   <li>$l_p$范数：
 \(\Vert \boldsymbol{x} \Vert_p = \left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}}\)</li>
   <li>L$\infty$范数：
@@ -1043,15 +1180,27 @@
 \(\boldsymbol{U}^\top \boldsymbol{U} = \boldsymbol{I} = \boldsymbol{U}\boldsymbol{U}^\top\)</p>
   </li>
   <li>
-    <p>性质2:
+    <p>性质2（正交矩阵不改变向量的 $l_2$ 范数）:
 \(\Vert\boldsymbol{U} \boldsymbol{x}\Vert_2 = \Vert \boldsymbol{x}\Vert_2\)</p>
   </li>
 </ul>
 
 <blockquote>
-  <p>\(\Vert \boldsymbol{U} \boldsymbol{x}\Vert_2 = (\boldsymbol{U} \boldsymbol{x})^\top \boldsymbol{U} \boldsymbol{x} = \boldsymbol{x}^\top \boldsymbol{U}^\top\boldsymbol{U} \boldsymbol{x} = \boldsymbol{x}^\top \boldsymbol{x}=\Vert \boldsymbol{x}\Vert_2\)
-因此正交矩阵不改变向量的 $l_2$ 范数</p>
+\[\Vert \boldsymbol{U} \boldsymbol{x}\Vert_2 =\sqrt{ (\boldsymbol{U} \boldsymbol{x})^\top \boldsymbol{U} \boldsymbol{x}} = \sqrt{\boldsymbol{x}^\top \boldsymbol{U}^\top\boldsymbol{U} \boldsymbol{x}} = \sqrt{\boldsymbol{x}^\top \boldsymbol{x}}=\Vert \boldsymbol{x}\Vert_2\]
 </blockquote>
+
+<ul>
+  <li>性质3：$\boldsymbol{U}^\top = \boldsymbol{U}^{-1}$</li>
+  <li>性质4：$\det{\boldsymbol{U}} = 1\; or -1$</li>
+</ul>
+
+<p>一些重要的矩阵分解涉及到了正交矩阵，包括：</p>
+
+<ul>
+  <li>QR分解：$\boldsymbol{A} = \boldsymbol{QR}$，其中 $\boldsymbol{Q}$ 是正交矩阵，$\boldsymbol{R}$ 是上三角矩阵。</li>
+  <li>奇异值（SVD）分解：$\boldsymbol{A} = \boldsymbol{U}\boldsymbol{D}\boldsymbol{V}^\top$，其中 $\boldsymbol{U}$ 和 $\boldsymbol{V}$ 是正交矩阵，$\boldsymbol{D}$ 是对角矩阵。</li>
+  <li>谱分解：$\boldsymbol{A} = \boldsymbol{U}\boldsymbol{Λ}\boldsymbol{U}^\top$，其中 $\boldsymbol{U}$ 是正交矩阵，$\boldsymbol{Λ}$ 是对角矩阵。</li>
+</ul>
 
 <h3 id="14-矩阵的值域零空间和秩"><span class="me-2">1.4. 矩阵的值域、零空间和秩</span><a href="#14-矩阵的值域零空间和秩" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1069,7 +1218,7 @@
 
 <p>例1：二维空间中的向量</p>
 
-\[\boldsymbol{v}_1 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}，\boldsymbol{v}_2 =\begin{pmatrix} 0 \\ 1 \end{pmatrix}\]
+\[\boldsymbol{v}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}，\boldsymbol{v}_2 =\begin{bmatrix} 0 \\ 1 \end{bmatrix}\]
 
 <p>则</p>
 
@@ -1079,7 +1228,7 @@
 
 <p>例2：三维空间中的向量</p>
 
-\[\boldsymbol{v}_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} , \boldsymbol{v}_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\]
+\[\boldsymbol{v}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} , \boldsymbol{v}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}\]
 
 <p>则</p>
 
@@ -1089,11 +1238,11 @@
 
 <p>例3：线性相关的向量</p>
 
-\[\boldsymbol{v}_1 = \begin{pmatrix} 1 \\ 2 \end{pmatrix}, \boldsymbol{v}_2 = \begin{pmatrix} 2 \\ 4 \end{pmatrix}\]
+\[\boldsymbol{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \boldsymbol{v}_2 = \begin{bmatrix} 2 \\ 4 \end{bmatrix}\]
 
 <p>则</p>
 
-\[\text{span}\{\boldsymbol{v}_1, \boldsymbol{v}_2\} = \text{span}\{\boldsymbol{v}_1\} = \{ c \begin{pmatrix} 1 \\ 2 \end{pmatrix} \mid c \in \mathbb{R} \}\]
+\[\text{span}\{\boldsymbol{v}_1, \boldsymbol{v}_2\} = \text{span}\{\boldsymbol{v}_1\} = \{ c \begin{bmatrix} 1 \\ 2 \end{bmatrix} \mid c \in \mathbb{R} \}\]
 
 <p>张成的空间退化为一条直线。</p>
 
@@ -1105,49 +1254,55 @@
   <li>张成空间的维度等于向量组的秩（即最大线性无关向量组的个数）。</li>
 </ul>
 
-<p>向量 $\boldsymbol{y}\in \mathbb{R}^m$ 在向量 $\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k \in \mathbb{R}^n $ 的张成上的投影定义为：在向量张成空间中与其距离最小的向量</p>
+<h4 id="142-向量的投影"><span class="me-2">1.4.2. 向量的投影</span><a href="#142-向量的投影" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-\[\boldsymbol{p} = \text{Proj}(\boldsymbol{y}; {\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k}) = \text{argmin}_{\boldsymbol{x}\in \text{span}\{\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k\}} \Vert \boldsymbol{y} - \boldsymbol{x} \Vert_2\]
+<p>向量 $\boldsymbol{y}\in \mathbb{R}^n$ 在向量 $\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k \in \mathbb{R}^n $ 的张成上的投影定义为：在向量张成空间中与其距离最小的向量</p>
+
+\[\boldsymbol{p} = \text{Proj}(\boldsymbol{y}; {\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k}) = \mathop{\arg\min}\limits_{\boldsymbol{x}\in \text{span}\{\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k\}} \Vert \boldsymbol{y} - \boldsymbol{x} \Vert_2\]
+
+<p>上述投影将 $\boldsymbol{y}$ 分解为两个部分：一个位于该子空间内的向量（即投影向量 $\boldsymbol{p}$），另一个与子空间正交的向量 $\boldsymbol{y}-\boldsymbol{p}$。此时，投影 $\boldsymbol{p}$ 是 $\boldsymbol{y}$ 在子空间 $\mathcal{V}$ 中的最近点，即：</p>
+
+\[\Vert\boldsymbol{y}-\boldsymbol{p}\Vert_2 \leq \Vert\boldsymbol{y}-\boldsymbol{u}\Vert_2 \quad \forall \boldsymbol{u}\in \mathcal{V}\]
 
 <p>上述投影还有两个额外性质：</p>
 
-<ul>
-  <li>
-    <p>正交投影：投影 $\boldsymbol{p}$ 是 $\boldsymbol{y}$ 在空间 $V$ 上的正交投影，即 $\boldsymbol{y}-\boldsymbol{p}$ 与 $V$ 中的任意向量正交。</p>
-  </li>
-  <li>
-    <p>投影公式：如果 $\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k$ 是 $V$ 的一组基，那么 $\boldsymbol{p}$ 可以表示为</p>
-  </li>
-</ul>
+<p><strong>性质1</strong>：投影 $\boldsymbol{p}$ 是 $\boldsymbol{y}$ 在空间 $V$ 上的正交投影，即 $\boldsymbol{y}-\boldsymbol{p}$ 与 $V$ 中的任意向量正交。</p>
+
+<p><strong>性质2</strong>：如果 $\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k$ 是 $V$ 的一组基（即线性无关），构造矩阵 $\boldsymbol{A}=[\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k] $ 显然是一个满秩矩阵，那么 $\boldsymbol{p}$ 可以表示为</p>
 
 \[\boldsymbol{p} = \boldsymbol{A}(\boldsymbol{A}^\top \boldsymbol{A})^{-1} \boldsymbol{A}^\top \boldsymbol{y}\]
 
-<p>其中 $\boldsymbol{A}=[\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k] $ 是由 $ \boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_k$ 构成的矩阵。</p>
+<p>此时 $\boldsymbol{A}^+ = (\boldsymbol{A}^\top \boldsymbol{A})^{-1} \boldsymbol{A}^\top$ 为 $\boldsymbol{A}$ 的 Moore-Penrose 伪逆，有</p>
 
-<h4 id="142-矩阵的值域range"><span class="me-2">1.4.2. 矩阵的值域（range）</span><a href="#142-矩阵的值域range" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+\[\boldsymbol{p} = \boldsymbol{A}\boldsymbol{A}^+ \boldsymbol{y}\]
 
-<p>矩阵的 <strong>range</strong>（值域）是指矩阵 $\boldsymbol{A}$ 的所有列向量的线性组合构成的向量空间（<strong>即列向量的张成</strong>）。换句话说，它是矩阵 $\boldsymbol{A}$ 的列空间（column space），记作 $\text{range}(\boldsymbol{A})$ 或 $\text{col}(\boldsymbol{A})$。</p>
+<p>当 $\boldsymbol{A}$ 不满秩时，上述公式中的 $(\boldsymbol{A}^\top \boldsymbol{A})^{-1}$ 不成立，此时伪逆 $\boldsymbol{A}^+$ 需要通过其他方法计算（例如奇异值分解，SVD）。在这种情况下，投影矩阵仍然可以表示为 $\boldsymbol{A}\boldsymbol{A}^+$。</p>
 
-<p>对于矩阵 $\boldsymbol{A} \in \mathbb{R}^{m \times n}$，其值域定义为：
-\(\text{range}(\boldsymbol{A}) = \{ \boldsymbol{A}\boldsymbol{x} \mid \boldsymbol{x} \in \mathbb{R}^n \}\)
-其中 $\boldsymbol{x}$ 是任意 $n$-维向量。</p>
+<h4 id="143-矩阵的值域range"><span class="me-2">1.4.3. 矩阵的值域（range）</span><a href="#143-矩阵的值域range" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<ul>
-  <li>值域是矩阵 $\boldsymbol{A}$ 的列向量张成的子空间。</li>
-  <li>值域的维度等于矩阵 $\boldsymbol{A}$ 的秩（rank），记作（$\text{rank}(\boldsymbol{A})$）。</li>
-</ul>
+<p>矩阵的值域（range），也成为列空间（Column Space），是指矩阵 $\boldsymbol{A}$ 的所有列向量的线性组合构成的向量空间（<strong>即列向量的张成</strong>）。换句话说，它是矩阵 $\boldsymbol{A}$ 的列空间（column space），记作 $\text{range}(\boldsymbol{A})$ 或 $\text{col}(\boldsymbol{A})$。</p>
+
+<p>对于矩阵 $\boldsymbol{A} \in \mathbb{R}^{m \times n}$，其值域定义为：</p>
+
+\[\begin{aligned}
+\text{range}(\boldsymbol{A}) &amp;= \{ \boldsymbol{A}\boldsymbol{x} \mid \boldsymbol{x} \in \mathbb{R}^n \}\\
+&amp;=\{x_1\boldsymbol{a_1} + x_2\boldsymbol{a_2} + \cdots + x_n\boldsymbol{a_n}\vert x_i\in\mathbb{R}\}\\
+&amp;=span\{\boldsymbol{a_1}, \boldsymbol{a_2}, \cdots, \boldsymbol{a_n}\}
+\end{aligned}\]
+
+<p>值域的维度等于矩阵 $\boldsymbol{A}$ 的秩（rank），记作 $\text{rank}(\boldsymbol{A})$，其同时也是最大的线性无关列向量的个数。</p>
 
 <p>例：设矩阵 $A$ 为：
-\(A = \begin{pmatrix}
+\(A = \begin{bmatrix}
 1 &amp; 2 \\
 3 &amp; 4
-\end{pmatrix}\)
+\end{bmatrix}\)
 则 $\text{range}(A)$ 是 $\mathbb{R}^2$ 中的一个子空间，具体为：
-\(\text{range}(A) = \text{span}\left\{ \begin{pmatrix} 1 \\ 3 \end{pmatrix}, \begin{pmatrix} 2 \\ 4 \end{pmatrix} \right\}\)</p>
+\(\text{range}(A) = \text{span}\left\{ \begin{bmatrix} 1 \\ 3 \end{bmatrix}, \begin{bmatrix} 2 \\ 4 \end{bmatrix} \right\}\)</p>
 
-<h4 id="143-矩阵的零空间nullspace"><span class="me-2">1.4.3. 矩阵的零空间（nullspace）</span><a href="#143-矩阵的零空间nullspace" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="144-矩阵的零空间nullspace"><span class="me-2">1.4.4. 矩阵的零空间（nullspace）</span><a href="#144-矩阵的零空间nullspace" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>矩阵的 <strong>零空间</strong>（Nullspace），也称为核空间（Kernel），是指所有满足 $\boldsymbol{A}\boldsymbol{x} = \boldsymbol{0}$ 的向量 $\boldsymbol{x}$ 构成的集合。记作 $\text{null}(\boldsymbol{A})$ 或 $\text{ker}(\boldsymbol{A})$。</p>
+<p>矩阵的 <strong>零空间</strong>（Null Space），也称为核空间（Kernel），是指所有满足 $\boldsymbol{A}\boldsymbol{x} = \boldsymbol{0}$ 的向量 $\boldsymbol{x}$ 构成的集合。记作 $\text{null}(\boldsymbol{A})$ 或 $\text{ker}(\boldsymbol{A})$。</p>
 
 <p>对于矩阵 $\boldsymbol{A}\ \in \mathbb{R}^{m \times n}$，其零空间定义为：
 \(\text{null}(\boldsymbol{A}) = \{\boldsymbol{x} \in \mathbb{R}^n \mid \boldsymbol{A}\boldsymbol{x} = \boldsymbol{0}\}\)
@@ -1155,17 +1310,17 @@
 
 <ul>
   <li>零空间是矩阵 $\boldsymbol{A}$ 的齐次线性方程组的解空间，也是矩阵 $\boldsymbol{A}$ 的列空间的补集。</li>
-  <li>零空间的维度称为矩阵的零度（nullity），记作（$\text{nullity}(\boldsymbol{A})$）。</li>
+  <li>零空间的维度称为矩阵的零度（nullity），记作 $\text{nullity}(\boldsymbol{A})$。</li>
 </ul>
 
 <p>例：</p>
 
 <p>设矩阵 $A$ 为：</p>
 
-\[\boldsymbol{A} = \begin{pmatrix}
+\[\boldsymbol{A} = \begin{bmatrix}
 1 &amp; 2 \\
 3 &amp; 6
-\end{pmatrix}\]
+\end{bmatrix}\]
 
 <p>则齐次线性方程组 $\boldsymbol{A}\boldsymbol{x} = \boldsymbol{0}$ 为：</p>
 
@@ -1178,15 +1333,19 @@ x_1 + 2x_2 = 0 \\
 
 \[x_1 = -2x_2\]
 
+<p>因此，解向量为：</p>
+
+\[\boldsymbol{x} = x_3\begin{bmatrix} -2 \\ 1 \end{bmatrix}\]
+
 <p>因此，零空间为：</p>
 
-\[\text{null}(\boldsymbol{A}) = \text{span}\left\{ \begin{pmatrix} -2 \\ 1 \end{pmatrix} \right\}\]
+\[\text{null}(\boldsymbol{A}) = \text{span}\left\{ \begin{bmatrix} -2 \\ 1 \end{bmatrix} \right\}\]
 
 <p>同时，观察到 $\boldsymbol{v}_2 = 2\boldsymbol{v}_1$，因此 $\boldsymbol{v}_1$ 和 $\boldsymbol{v}_2$ 是线性相关的，因此该矩阵的值域 $\text{range}(\boldsymbol{A})$ 由 $\boldsymbol{v}_1$ 张成：</p>
 
-\[\text{range}(\boldsymbol{A}) = \text{span}\left\{ \begin{pmatrix} 1 \\ 3 \end{pmatrix} \right\}\]
+\[\text{range}(\boldsymbol{A}) = \text{span}\left\{ \begin{bmatrix} 1 \\ 3 \end{bmatrix} \right\}\]
 
-<h4 id="144-秩-零度定理"><span class="me-2">1.4.4. 秩-零度定理</span><a href="#144-秩-零度定理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="145-秩-零度定理"><span class="me-2">1.4.5. 秩-零度定理</span><a href="#145-秩-零度定理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>矩阵的 零空间（Nullspace）和 值域（Range）是矩阵的两个重要子空间，它们之间通过 秩-零度定理（Rank-Nullity Theorem）建立了紧密的联系。</p>
 
@@ -1211,10 +1370,22 @@ x_1 + 2x_2 = 0 \\
   </li>
   <li><strong>正交性</strong>：
     <ul>
-      <li>在 $\mathbb{R}^n$ 中，零空间 $\text{null}(\boldsymbol{A})$ 和值域 $\text{range}(\boldsymbol{A}^\top)$（即 $\boldsymbol{A}$ 的行空间）是正交补空间，即：
-\(\text{null}(\boldsymbol{A}) \perp \text{range}(\boldsymbol{A}^\top)\)</li>
-      <li>类似地，在 $\mathbb{R}^m$ 中，零空间 $\text{null}(\boldsymbol{A}^\top)$ 和值域 $\text{range}(\boldsymbol{A})$ 是正交补空间，即：
-\(\text{null}(\boldsymbol{A}^\top) \perp \text{range}(\boldsymbol{A})\)</li>
+      <li>
+        <p>在 $\mathbb{R}^n$ 中，零空间 $\text{null}(\boldsymbol{A})$ 和值域 $\text{range}(\boldsymbol{A}^\top)$（即 $\boldsymbol{A}$ 的行空间）是正交补空间，即：</p>
+
+\[\begin{aligned}
+&amp;\text{null}(\boldsymbol{A}) \perp \text{range}(\boldsymbol{A}^\top)\\
+&amp;\text{null}(\boldsymbol{A})\oplus\text{range}(\boldsymbol{A}^\top)=\mathbb{R}^n
+\end{aligned}\]
+      </li>
+      <li>
+        <p>类似地，在 $\mathbb{R}^m$ 中，零空间 $\text{null}(\boldsymbol{A}^\top)$ 和值域 $\text{range}(\boldsymbol{A})$ 是正交补空间，即：</p>
+
+\[\begin{aligned}
+&amp;\text{null}(\boldsymbol{A}^\top) \perp \text{range}(\boldsymbol{A})\\
+&amp;\text{null}(\boldsymbol{A}^\top)\oplus\text{range}(\boldsymbol{A})=\mathbb{R}^m
+\end{aligned}\]
+      </li>
     </ul>
   </li>
   <li><strong>维度关系</strong>：
@@ -1226,13 +1397,13 @@ x_1 + 2x_2 = 0 \\
   </li>
   <li><strong>几何意义</strong>：
     <ul>
-      <li>值域 $\text{range}(\boldsymbol{A})$ 是矩阵 $\boldsymbol{A}$ 的列向量张成的空间，表示 $A$ 的“输出空间”。</li>
-      <li>零空间 $\text{null}(\boldsymbol{A})$ 是矩阵 $\boldsymbol{A}$ 的“输入空间”中映射到零向量的部分。</li>
+      <li>值域 $\text{range}(\boldsymbol{A})$ 描述了矩阵 $\boldsymbol{A}$ 的“覆盖”程度，即矩阵的列向量能够生成的空间的维度。</li>
+      <li>零空间 $\text{null}(\boldsymbol{A})$ 描述了矩阵 $\boldsymbol{A}$ 的“压缩”程度，即有多少线性无关的向量被映射到零向量。</li>
     </ul>
   </li>
 </ol>
 
-<h4 id="145-矩阵的秩rank"><span class="me-2">1.4.5. 矩阵的秩（rank）</span><a href="#145-矩阵的秩rank" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="146-矩阵的秩rank"><span class="me-2">1.4.6. 矩阵的秩（rank）</span><a href="#146-矩阵的秩rank" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>矩阵的 <strong>秩</strong>（Rank）是线性代数中的一个重要概念，用于描述矩阵的列向量（或行向量）的线性无关性。它反映了矩阵所包含的“信息量”或“自由度”。</p>
 
@@ -1274,14 +1445,38 @@ x_1 + 2x_2 = 0 \\
 
 <h3 id="15-二次型"><span class="me-2">1.5. 二次型</span><a href="#15-二次型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>给定方阵 $\boldsymbol{A} \in \mathbb{R}^{n \times n}$ 和向量 $\boldsymbol{x} \in \mathbb{R}^n$，定义二次型为：</p>
+<h4 id="151-定义"><span class="me-2">1.5.1. 定义</span><a href="#151-定义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>向量二次型是一个关于向量的二次齐次多项式。给定方阵 $\boldsymbol{A} \in \mathbb{R}^{n \times n}$ 和向量 $\boldsymbol{x} \in \mathbb{R}^n$，定义二次型为：</p>
 
 \[Q(\boldsymbol{x}) = \boldsymbol{x}^\top \boldsymbol{A} \boldsymbol{x} = \sum_{i=1}^n x_i (\boldsymbol{Ax}_i) = \sum_{i=1}^n  x_i (\sum_{j=1}^n A_{ij} x_j) = \sum_{i=1}^n \sum_{j=1}^n x_i A_{ij} x_j\]
+
+<blockquote>
+  <p>在大多数情况下，二次型的定义中要求矩阵 $A$ 是对称矩阵（即 $A = A^\top$）。这是因为</p>
+  <ol>
+    <li><strong>唯一性</strong>：对于任意矩阵 $A$，可以将其分解为对称部分和反对称部分：
+  \(\boldsymbol{A} = \frac{\boldsymbol{A} + \boldsymbol{A}^T}{2} + \frac{\boldsymbol{A} - \boldsymbol{A}^T}{2}\)
+其中 $\frac{\boldsymbol{A} + \boldsymbol{A}^T}{2}$ 是对称矩阵，$\frac{\boldsymbol{A} - \boldsymbol{A}^T}{2}$ 是反对称矩阵。</li>
+    <li><strong>反对称部分的影响</strong>：反对称矩阵 $\boldsymbol{B} = \frac{\boldsymbol{A} - \boldsymbol{A}^T}{2}$ 满足 $\boldsymbol{x}^T \boldsymbol{B} \boldsymbol{x} = 0$ 对所有 $\boldsymbol{x}$ 成立。因此，反对称部分对二次型的值没有贡献。</li>
+    <li><strong>简化分析</strong>：对称矩阵具有许多良好的性质（如实特征值、正交对角化等），这使得二次型的分析更加简便。</li>
+  </ol>
+</blockquote>
+
+<p>由于向量二次型是一个标量，它的迹就是他本身</p>
+
+\[\text{tr}(\boldsymbol{x}^\top \boldsymbol{A} \boldsymbol{x}) = \boldsymbol{x}^\top \boldsymbol{A} \boldsymbol{x}\]
+
+<blockquote>
+  <p>扩展到矩阵形式的二次型，给定 $\boldsymbol{X}\in \mathbb{R}^{n \times m}$， 有</p>
+
+  <p>\(Q(\boldsymbol{X}) = \boldsymbol{X}^\top \boldsymbol{A} \boldsymbol{X} \in \mathbb{R}^{m \times m}\)
+且有 $Q(\boldsymbol{X})$ 的第 $(i,j)$ 元素为
+\([Q(\boldsymbol{X})]_{ij} = \boldsymbol{x_i}^\top \boldsymbol{A} \boldsymbol{x_j}\)</p>
+</blockquote>
 
 <p>二次型的性质包括：</p>
 
 <ol>
-  <li><strong>对称性</strong>：二次型的矩阵 $ A $ 是对称的，即 $ A = A^T $。</li>
   <li><strong>正定性</strong>：如果对于所有非零向量 $ x $，都有 $ Q(x) &gt; 0 $，则称二次型是正定的。</li>
   <li><strong>负定性</strong>：如果对于所有非零向量 $ x $，都有 $ Q(x) &lt; 0 $，则称二次型是负定的。</li>
   <li><strong>半正定性</strong>：如果对于所有向量 $ x $，都有 $ Q(x) \geq 0 $，则称二次型是半正定的。</li>
@@ -1289,11 +1484,54 @@ x_1 + 2x_2 = 0 \\
   <li><strong>不定性</strong>：如果二次型既不是正定的，也不是负定的，也不是半正定的，也不是半负定的，则称二次型是不定的。</li>
 </ol>
 
-<p>二次型的这些性质在优化理论、控制理论和微分几何等领域都有重要的应用。</p>
+<p>二次型在优化理论、控制理论和微分几何等领域都有重要的应用。</p>
+
+<p><strong>例：最小二乘</strong></p>
+
+<p>在最小二乘法中，目标是找到向量 $x$ 使得误差的平方和最小。目标函数可以表示为二次型：</p>
+
+\[L(\boldsymbol{w}) = \| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{w}  \|^2 = (\boldsymbol{y} -  \boldsymbol{X}\boldsymbol{w} )^T (\boldsymbol{y} -  \boldsymbol{X}\boldsymbol{w})\]
+
+<p>其中，$\boldsymbol{y}$ 是真实观测矩阵（标签）,$\boldsymbol{w}$ 是权重矩阵，$\boldsymbol{X}$ 是样本矩阵。最小化目标函数可以得到最优解 $\boldsymbol{w}^*$ 以最小化误差的平方和。</p>
+
+<p>展开后得到二次型</p>
+
+\[L(\boldsymbol{w}) = \boldsymbol{y}^T \boldsymbol{y} - 2 \boldsymbol{y}^T \boldsymbol{X} \boldsymbol{w} + \boldsymbol{w}^T \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{w}\]
+
+<p>因为第一项是一个常数项，与$\boldsymbol{w}$无关，可以忽略。第二项是一个线性项，关于 $\boldsymbol{w}$ 是线性的。第三项中 $\boldsymbol{A}^\top \boldsymbol{A}$ 是一个对称矩阵，所以第三项是一个二次型。</p>
+
+<p>虽然损失函数还包含线性项和常数项，但这些项并不改变其二次性，因为它们不会改变最优解的性质。</p>
+
+<p>如果 $\boldsymbol{A}^\top \boldsymbol{A}$ 是正定矩阵，则损失函数是凸函数，具有唯一的全局最优解，因此可以通过求导并令梯度为零 $\partial L / \partial \boldsymbol{w} = 0$，直接得到最小二乘问题的解析解 $\boldsymbol{w}^* = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y}$。</p>
+
+<h4 id="152-与投影的关系"><span class="me-2">1.5.2. 与投影的关系</span><a href="#152-与投影的关系" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>最小二乘的解析解为</p>
+
+\[\boldsymbol{w}^* = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y}\]
+
+<p>对应的投影向量为</p>
+
+\[\boldsymbol{p} = \boldsymbol{X} (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y}\]
+
+<p>有</p>
+
+\[\boldsymbol{p} = \boldsymbol{X} \boldsymbol{w}^*\]
+
+<p>讨论如下：</p>
+
+<ul>
+  <li>投影向量 $\boldsymbol{p}$ 描述了真实标签 $\boldsymbol{y}$ 在样本空间 $\boldsymbol{X}$ 中的实际投影。</li>
+  <li>二次型的解析解 $\boldsymbol{w}^*$ 描述了如何在样本空间 $\boldsymbol{X}$ 中找到最接近于真实标签 $\boldsymbol{y}$ 的向量，即描述这个“影子”如何由样本空间 $\boldsymbol{X}$ 的列向量组合而成的系数;</li>
+</ul>
 
 <h2 id="2-矩阵的梯度和求导"><span class="me-2">2. 矩阵的梯度和求导</span><a href="#2-矩阵的梯度和求导" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <h3 id="21-多元函数及其梯度"><span class="me-2">2.1. 多元函数及其梯度</span><a href="#21-多元函数及其梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<blockquote>
+  <p>https://www.cnblogs.com/bigmonkey/p/8400658.html</p>
+</blockquote>
 
 <p><strong>多元函数</strong>是指定义在多维空间上的函数，其输入是一个向量，输出是一个标量。例如，一个二元函数可以表示为 $ f(x, y) $，而一个多元函数可以表示为 $ f(x_1, x_2, \dots, x_n) $。</p>
 
@@ -1308,12 +1546,19 @@ x_1 + 2x_2 = 0 \\
 <ol>
   <li><strong>方向性</strong>：梯度的方向是函数在该点处增长最快的方向。</li>
   <li><strong>大小</strong>：梯度的模（即向量的长度）表示函数在该点的最大变化率。</li>
-  <li><strong>正交性</strong>：在等值面上（即 $ f(x) = c $ 的曲面上），梯度与等值面正交。</li>
+  <li>
+    <p><strong>正交性</strong>：在等值面上（即 $ f(x) = c $ 的曲面上），梯度与等值面正交。
+<a href="/assets/img/postsimg/20250305/gradient_vertical.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250305/gradient_vertical.png" alt="gradient_vertial" class="lazyload" data-proofer-ignore></a></p>
+  </li>
   <li><strong>线性性</strong>：梯度运算满足线性性质，即 $ \nabla (af + bg) = a \nabla f + b \nabla g $，其中 $ a $ 和 $ b $ 是常数。</li>
   <li><strong>与方向导数的关系</strong>：函数在某点沿单位向量 $ \boldsymbol{u} $ 的方向导数可以表示为 $ D_{\boldsymbol{u}} f = \nabla f \cdot \boldsymbol{u} $。</li>
 </ol>
 
-<h4 id="211-矩阵的梯度"><span class="me-2">2.1.1. 矩阵的梯度</span><a href="#211-矩阵的梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<blockquote>
+  <p>方向导数是梯度向量的重要应用。$f = f(x, y)$ 的偏导数 $\frac{\partial f}{\partial x}$ 和 $\frac{\partial f}{\partial y}$ 衡量了点在 $x$ 轴和 $y$ 轴移动时 $f$ 的变化，那么如果在其它方向移动呢？是否在任意方向上都有一个导数呢？答案是肯定的，那就是方向导数。</p>
+</blockquote>
+
+<h3 id="22-矩阵的梯度"><span class="me-2">2.2. 矩阵的梯度</span><a href="#22-矩阵的梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>矩阵梯度是多元函数梯度概念的推广，用于处理矩阵变量的函数。对于一个关于矩阵 $\boldsymbol{X}$ 的标量函数 $f(\boldsymbol{X})$，其矩阵梯度定义为一个与 $\boldsymbol{X}$ 同维度的矩阵，其每个元素为函数 $f$ 对矩阵 $\boldsymbol{X}$ 中对应元素的偏导数。</p>
 
@@ -1324,7 +1569,7 @@ x_1 + 2x_2 = 0 \\
   \frac{\partial f}{\partial X_{21}} &amp; \frac{\partial f}{\partial X_{22}} &amp; \cdots &amp; \frac{\partial f}{\partial X_{2n}}\\
   \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
   \frac{\partial f}{\partial X_{m1}} &amp; \frac{\partial f}{\partial X_{m2}} &amp; \cdots &amp; \frac{\partial f}{\partial X_{mn}}
-\end{bmatrix}\]
+\end{bmatrix}\in\mathbb{R}^{m\times n}\]
 
 <p>矩阵梯度有如下性质：</p>
 
@@ -1343,12 +1588,25 @@ x_1 + 2x_2 = 0 \\
     <p>其中，$\text{tr}(\cdot)$ 表示矩阵的迹。</p>
   </li>
   <li>
-    <p><strong>二次型的梯度</strong>：<br />
-对于二次型函数 $ f(\boldsymbol{X}) = \text{tr}(\boldsymbol{X}^T \boldsymbol{A} \boldsymbol{X}) $，其梯度为：</p>
+    <p><strong>二次型的梯度</strong>（等价于二次型迹的梯度）：<br />
+对于二次型函数 $ f(\boldsymbol{x}) = \boldsymbol{x}^T \boldsymbol{A} \boldsymbol{x} $，其梯度为：</p>
 
-\[\nabla_{\boldsymbol{X}} f(\boldsymbol{X}) = \boldsymbol{A} \boldsymbol{X} + \boldsymbol{A}^T \boldsymbol{X}\]
+\[\nabla_{\boldsymbol{x}} f(\boldsymbol{x}) = \boldsymbol{A} \boldsymbol{x} + \boldsymbol{A}^T \boldsymbol{x}\]
 
-    <p>当 $ \boldsymbol{A} $ 是对称矩阵时，梯度简化为 $ 2\boldsymbol{A} \boldsymbol{X} $。</p>
+    <p>当 $ \boldsymbol{A} $ 是对称矩阵时，梯度简化为 $ 2\boldsymbol{A} \boldsymbol{x} $。</p>
+
+    <blockquote>
+      <ol>
+        <li>展开二次型：
+\(Q(\boldsymbol{x}) = \sum_{i=1}^n \sum_{j=1}^n a_{ij} x_i x_j\)</li>
+        <li>对 $\boldsymbol{x}$ 求偏导数：
+\(\frac{\partial Q(\boldsymbol{x})}{\partial x_k} = \sum_{j=1}^n a_{kj} x_j + \sum_{i=1}^n a_{ik} x_i\)
+由于 $\boldsymbol{A}$ 是对称矩阵（$a_{ij} = a_{ji}$），上式可以简化为：
+\(\frac{\partial Q(\boldsymbol{x})}{\partial x_k} = 2 \sum_{j=1}^n a_{kj} x_j\)</li>
+        <li>将偏导数写成向量形式：
+\(\nabla Q(\boldsymbol{x}) = 2 \boldsymbol{A} \boldsymbol{x}\)</li>
+      </ol>
+    </blockquote>
   </li>
   <li>
     <p><strong>链式法则</strong>：<br />
@@ -1356,7 +1614,7 @@ x_1 + 2x_2 = 0 \\
 
 \[\nabla_{\boldsymbol{X}} g(\boldsymbol{Y}) = \nabla_{\boldsymbol{Y}} g(\boldsymbol{Y}) \cdot \frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}}\]
 
-    <p><strong>注意！</strong>，实际计算时可能需要对雅克比矩阵进行转置以确保矩阵乘法的维度匹配，如：</p>
+    <p><strong>注意！</strong> 在计算矩阵梯度时，需要特别注意矩阵的维度和导数的排列方式。不同的排列方式可能会导致不同的梯度矩阵，因此在实际应用中需要根据具体情况进行选择。实际计算时可能需要对矩阵进行转置以确保矩阵乘法的维度匹配，如：</p>
 
 \[\nabla_{\boldsymbol{X}} g(\boldsymbol{Y}) = \left(\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}}\right)^\top \cdot \nabla_{\boldsymbol{Y}} g(\boldsymbol{Y})\]
   </li>
@@ -1396,6 +1654,8 @@ f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
 <p>根据前述矩阵梯度的推广性质，矩阵梯度的排列形式是和输入矩阵的排列形式保持一致的（此例中输入矩阵是 $\boldsymbol{x}\in \mathbb{R}^n$），因此正确的链式求导如下</p>
 
 \[\nabla_{\boldsymbol{x}} f(\boldsymbol{A}\boldsymbol{x}) = \left(\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}}\right)^\top \nabla_{\boldsymbol{z}} f(\boldsymbol{z}) = \boldsymbol{A}^\top \cdot 2\boldsymbol{z}= 2\boldsymbol{A}^\top\boldsymbol{A}\boldsymbol{x}\in \mathbb{R}^n\]
+
+<h3 id="23-分子布局与分母布局"><span class="me-2">2.3. 分子布局与分母布局</span><a href="#23-分子布局与分母布局" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 </div>
 

@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-03-06T18:42:57+08:00</updated>
+  <updated>2025-03-07T01:10:59+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -68,16 +68,14 @@
       1.4. 矩阵的值域、零空间和秩
         
           1.4.1. 向量的张成（span）
-          1.4.2. 矩阵的值域（range）
-          1.4.3. 矩阵的零空间（nullspace）
-          1.4.4. 秩-零度定理
-          1.4.5. 矩阵的秩（rank）
+          1.4.2. 向量的投影
+          1.4.3. 矩阵的值域（range）
+          1.4.4. 矩阵的零空间（nullspace）
+          1.4.5. 秩-零度定理
+          1.4.6. 矩阵的秩（rank）
         
       
-      1.5. 二次型
-    
-  
-  2. 矩阵的...
+      1....
     </summary>
   
 
@@ -220,7 +218,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
     <published>2024-03-03T14:25:19+08:00</published>
   
-    <updated>2025-03-06T18:42:52+08:00</updated>
+    <updated>2025-03-06T18:43:16+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" />
