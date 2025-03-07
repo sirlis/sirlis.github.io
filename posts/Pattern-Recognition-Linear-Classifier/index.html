@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="模式识别（线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-06T18:43:16+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-07T14:31:47+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -901,6 +901,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1321,13 +1457,13 @@
 
 <em
   class=""
-  data-ts="1741257796"
+  data-ts="1741329107"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/06
+  2025/03/07
 </em>
 
     </span>
@@ -1371,9 +1507,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6082 字"
+  title="6293 字"
 >
-  <em>33 分钟</em>阅读</span>
+  <em>34 分钟</em>阅读</span>
 
     </div>
 
@@ -1439,7 +1575,7 @@
 
 <p>模式识别的目的是在特征空间中设法找到两类（或多类）之间的分界面。一方面，我们可以通过估计样本的概率模型，然后采用<strong>贝叶斯决策</strong>（最大后验估计）或者<strong>最大似然估计</strong>的策略来实现分类。但是很多情况下，建立样本的概率模型和准确估计样本的概率密度函数及其他模型参数并不是一件容易的事情。</p>
 
-<p>实际上，估计概率密度函数也不是我们的目的。贝叶斯决策的策略分为两步，首先根据样本进行概率密度函数估计，然后再根据估计的概率密度函数求分类面。如果能直接根据样本求分类面，就可以省略对概率密度函数的估计。我们知道，当样本为正态分布且各类协方差矩阵相等的条件下，贝叶斯决策的最优分类面是线性的，二分类问题的判别函数形式为 $g(x) = \boldsymbol{w}^T\boldsymbol{x} + w_0$。那么如果我们知道判别函数的形式，可以设法从数据中直接估计这种判别函数的参数，这就是基于样本直接进行分类器设计的思想。进一步，即使不知道最优的判别函数是什么形式，仍然可以根据需要或对问题的理解设定判别函数类型，从数据直接求解判别函数。</p>
+<p>实际上，估计概率密度函数也不是我们的目的。贝叶斯决策的策略分为两步，首先根据样本进行概率密度函数估计，然后再根据估计的概率密度函数求分类面。如果能直接根据样本求分类面，就可以省略对概率密度函数的估计。我们知道，当样本为正态分布且各类协方差矩阵相等的条件下，贝叶斯决策的最优分类面是线性的，二分类问题的判别函数形式为 $g(x) = \boldsymbol{w}^\top\boldsymbol{x} + w_0$。那么如果我们知道判别函数的形式，可以设法从数据中直接估计这种判别函数的参数，这就是基于样本直接进行分类器设计的思想。进一步，即使不知道最优的判别函数是什么形式，仍然可以根据需要或对问题的理解设定判别函数类型，从数据直接求解判别函数。</p>
 
 <p>线性分类器是一种基于样本直接设计的分类器。采用不同的准则及不同的寻优算法就得到不同的线性判别方法。</p>
 
@@ -1600,22 +1736,29 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 
 <h2 id="4-fisher-投影准则"><span class="me-2">4. Fisher 投影准则</span><a href="#4-fisher-投影准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>如果分类时所用的特征个数太多，将形成高维特征空间，高维空间不论对分类器的理论设计还是分类器的实际运用，都会带来“灾难性”后果。
-特征个数越多，计算量就越大，导致分类器设计困难和分类困难。</p>
+<p>Fisher 投影准则的提出有以下两方面的原因：</p>
+
+<ol>
+  <li>垂直平分分类器在面对一些样本分布情况时效果不佳（其本身是一个非最佳分类器），如下图左所示；更好的分类器如下图右所示；
+<a href="/assets/img/postsimg/20240303/fisher-advantage.png" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/fisher-advantage.png" alt="fisher-advantage" class="lazyload" data-proofer-ignore></a></li>
+  <li>如果分类时所用的特征个数太多，将形成高维特征空间，高维空间不论对分类器的理论设计还是分类器的实际运用，都会带来“灾难性”后果。特征个数越多，计算量就越大，导致分类器设计困难和分类困难。</li>
+</ol>
 
 <p>因此我们可以考虑把所有样本都投影到一个方向上，然后在这个一维空间中确定一个分类的阈值。过这个阈值点且与投影方向垂直的超平面就是两类的分类面。原始的高维空间上的分类问题被转换为一维空间上的分类问题。</p>
 
-<p>在不同方向上投影后，样本在一维坐标轴上的分布不同，有的适合分类，有的不适合分类。因此一维坐标轴的方向不是随意的，需进行优化求解。Fisher投影准则所要解决的问题就是，如何根据样本集情况，求解最佳的（最易于分类的）投影线方向。</p>
+<p>在不同方向上投影后，样本在一维坐标轴上的分布不同，有的适合分类，有的不适合分类。因此一维坐标轴的方向不是随意的，需进行优化求解。我们可以从下图中看出，不同的投影方向会使得两类样本的影响该方向的分类结果，左图的投影方向可以使得两类样本较好分开，而按照右图的方向投影后则两类样本混在一起。</p>
 
-<p>我们可以从下图中看出，不同的投影方向会使得两类样本的影响该方向的分类结果，左图的投影方向可以使得两类样本较好分开，而按照右图的方向投影后则两类样本混在一起。Fisher 线性判别的思想就是，<strong>选择合适的投影方向，使得投影后两类的间隔尽可能远，同时每一类内部的样本又尽可能聚集。</strong></p>
+<p><a href="/assets/img/postsimg/20240303/fisher_choose.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/fisher_choose.jpg" alt="fisher" class="lazyload" data-proofer-ignore></a></p>
 
-<p><a href="/assets/img/postsimg/20240312/03.fisher.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/03.fisher.jpg" alt="fisher" class="lazyload" data-proofer-ignore></a></p>
+<p>Fisher投影准则所要解决的问题就是，如何根据样本集情况，求解最佳的（最易于分类的）投影线方向。Fisher 线性判别的思想就是，<strong>选择合适的投影方向，使得投影后两类的间隔尽可能远，同时每一类内部的样本又尽可能聚集</strong>。如下图所示。</p>
+
+<p><a href="/assets/img/postsimg/20240303/fisher.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/fisher.jpg" alt="fisher" class="lazyload" data-proofer-ignore></a></p>
 
 <h3 id="41-投影"><span class="me-2">4.1. 投影</span><a href="#41-投影" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>假设二维空间的一个特征向量 $\boldsymbol{x}$，某个投影方向向量为 $\boldsymbol{w}$。假设 $\vert \boldsymbol{w} \vert = 1$（因为只关心投影的方向，不关心长度），那么投影向量为</p>
 
-\[\frac{\boldsymbol{w}^T\cdot \boldsymbol{x}}{\vert \boldsymbol{w} \vert} = \boldsymbol{w}^T\boldsymbol{x}\]
+\[\frac{\boldsymbol{w}^\top\cdot \boldsymbol{x}}{\vert \boldsymbol{w} \vert} = \boldsymbol{w}^\top\boldsymbol{x}\]
 
 <h3 id="42-fisher-投影"><span class="me-2">4.2. Fisher 投影</span><a href="#42-fisher-投影" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1631,7 +1774,7 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 
 <p>为了度量两类的间隔和每一类内部的聚集程度，可以定义各类的类内离散度矩阵（within-class scatter matrix）为</p>
 
-\[\boldsymbol{S}_i=\sum_{\boldsymbol{x}_j\in \mathcal{X}_i}(\boldsymbol{x}_j-\boldsymbol{m}_i)(\boldsymbol{x}_j-\boldsymbol{m}_i)^T \in \mathbb{R}^{d\times d},\quad i=1,2\]
+\[\boldsymbol{S}_i=\sum_{\boldsymbol{x}_j\in \mathcal{X}_i}(\boldsymbol{x}_j-\boldsymbol{m}_i)(\boldsymbol{x}_j-\boldsymbol{m}_i)^\top \in \mathbb{R}^{d\times d},\quad i=1,2\]
 
 <p>那么总类内离散度矩阵（pooled within-class scatter matrix）为</p>
 
@@ -1639,15 +1782,15 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 
 <p>类间离散度矩阵（between-class scatter matrix）为</p>
 
-\[\boldsymbol{S}_b = (\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^T \in \mathbb{R}^{d\times d}\]
+\[\boldsymbol{S}_b = (\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^\top \in \mathbb{R}^{d\times d}\]
 
 <p>将所有样本投影到一维空间，根据前一节的投影公式，投影后的特征向量为</p>
 
-\[y = \boldsymbol{w}^T\boldsymbol{x}\]
+\[y = \boldsymbol{w}^\top\boldsymbol{x}\]
 
 <p>投影后两类的均值（标量）分别为</p>
 
-\[\tilde{m}_i = \frac{1}{N_i}\sum_{y_j\in \mathcal{Y}_i}y_j=\frac{1}{N_i}\sum_{x_j\in \mathcal{X}_i}\boldsymbol{w}^T\boldsymbol{x}_i = \boldsymbol{w}^T\boldsymbol{m}_i, \quad i=1,2\]
+\[\tilde{m}_i = \frac{1}{N_i}\sum_{y_j\in \mathcal{Y}_i}y_j=\frac{1}{N_i}\sum_{x_j\in \mathcal{X}_i}\boldsymbol{w}^\top\boldsymbol{x}_i = \boldsymbol{w}^\top\boldsymbol{m}_i, \quad i=1,2\]
 
 <p>投影后的类内离散度和总类内离散度分别为</p>
 
@@ -1668,9 +1811,9 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 
 \[\begin{aligned}
 \tilde{S}_b &amp;= (\tilde{m}_1-\tilde{m}_2)^2 \\
-&amp;= (\boldsymbol{w}^T\boldsymbol{m}_1-\boldsymbol{w}^T\boldsymbol{m}_2)(\boldsymbol{w}^T\boldsymbol{m}_1-\boldsymbol{w}^T\boldsymbol{m}_2)^T\\
-&amp;= \boldsymbol{w}^T(\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^T\boldsymbol{w}\\
-&amp;= \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}
+&amp;= (\boldsymbol{w}^\top\boldsymbol{m}_1-\boldsymbol{w}^\top\boldsymbol{m}_2)(\boldsymbol{w}^\top\boldsymbol{m}_1-\boldsymbol{w}^\top\boldsymbol{m}_2)^\top\\
+&amp;= \boldsymbol{w}^\top(\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^\top\boldsymbol{w}\\
+&amp;= \boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}
 \end{aligned}\]
 
 <p>而</p>
@@ -1678,15 +1821,15 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 \[\begin{aligned}
   \tilde{S}_w &amp;= \tilde{S}_1+\tilde{S}_2\\
   &amp;=\sum_{y_1\in \mathcal{Y}_1}(y_1-\tilde{m}_1)^2+\sum_{y_2\in \mathcal{Y}_2}(y_2-\tilde{m}_2)^2\\
-  &amp;=\sum_{x_1\in \mathcal{X}_1}(\boldsymbol{w}^T\boldsymbol{x}_1-\boldsymbol{w}^T\boldsymbol{m}_1)^2+\sum_{x_2\in \mathcal{X}_2}(\boldsymbol{w}^T\boldsymbol{x}_2-\boldsymbol{w}^T\boldsymbol{m}_2)^2\\
-  &amp;=\boldsymbol{w}^T[\sum_{x_1\in \mathcal{X}_1}(\boldsymbol{x}_1-\boldsymbol{m}_1)(\boldsymbol{x}_1-\boldsymbol{m}_1)^T+\sum_{x_2\in \mathcal{X}_2}(\boldsymbol{x}_2-\boldsymbol{m}_2)(\boldsymbol{x}_2-\boldsymbol{m}_2)^T]\boldsymbol{w}\\
-  &amp;= \boldsymbol{w}^T(\boldsymbol{S}_1+\boldsymbol{S}_2)\boldsymbol{w}\\
-  &amp;= \boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}
+  &amp;=\sum_{x_1\in \mathcal{X}_1}(\boldsymbol{w}^\top\boldsymbol{x}_1-\boldsymbol{w}^\top\boldsymbol{m}_1)^2+\sum_{x_2\in \mathcal{X}_2}(\boldsymbol{w}^\top\boldsymbol{x}_2-\boldsymbol{w}^\top\boldsymbol{m}_2)^2\\
+  &amp;=\boldsymbol{w}^\top[\sum_{x_1\in \mathcal{X}_1}(\boldsymbol{x}_1-\boldsymbol{m}_1)(\boldsymbol{x}_1-\boldsymbol{m}_1)^\top+\sum_{x_2\in \mathcal{X}_2}(\boldsymbol{x}_2-\boldsymbol{m}_2)(\boldsymbol{x}_2-\boldsymbol{m}_2)^\top]\boldsymbol{w}\\
+  &amp;= \boldsymbol{w}^\top(\boldsymbol{S}_1+\boldsymbol{S}_2)\boldsymbol{w}\\
+  &amp;= \boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}
 \end{aligned}\]
 
 <p>那么优化目标函数可以写成</p>
 
-\[J(\boldsymbol{w}) = \frac{\boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}}\]
+\[J(\boldsymbol{w}) = \frac{\boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}}\]
 
 <p>上式被称为广义瑞利（Rayleigh）商。</p>
 
@@ -1699,25 +1842,25 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 <p>因此将优化问题更改如下</p>
 
 \[\begin{aligned}
-\max &amp;\; \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}\\
-s.t. &amp;\; \boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}=c\neq 0
+\max &amp;\; \boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}\\
+s.t. &amp;\; \boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}=c\neq 0
 \end{aligned}\]
 
 <p>通过额外引入一个使得分子等于常数的等式约束来限制 $\boldsymbol{w}$ 的取值，然后通过拉格朗日乘子法求解极大值，定义拉格朗日函数如下</p>
 
 \[\begin{aligned}
-L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w} - \lambda (\boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}-c)\\
+L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w} - \lambda (\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}-c)\\
 \Rightarrow \frac{\partial L(\boldsymbol{w},\lambda)}{\partial \boldsymbol{w}} &amp;= 2\boldsymbol{S}_b\boldsymbol{w} - 2\lambda \boldsymbol{S}_w\boldsymbol{w}\\
 \end{aligned}\]
 
 <blockquote>
-  <p>《the Matrix Cookbook》</p>
+  <p>《the Matrix Cookbook》二次型的导数</p>
 
-\[\frac{\partial \boldsymbol{x}^T\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = (\boldsymbol{B}+\boldsymbol{B}^T)\boldsymbol{x} \tag{81}\]
+\[\frac{\partial \boldsymbol{x}^\top\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = (\boldsymbol{B}+\boldsymbol{B}^\top)\boldsymbol{x} \tag{81}\]
 
-  <p>而类间方差矩阵根据其定义，满足 $\boldsymbol{S}_b = \boldsymbol{S}_b^T$，此时有</p>
+  <p>而类间方差矩阵根据其定义，满足 $\boldsymbol{S}_b = \boldsymbol{S}_b^\top$，此时有</p>
 
-\[\frac{\partial \boldsymbol{x}^T\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = 2\boldsymbol{B}\boldsymbol{x}\]
+\[\frac{\partial \boldsymbol{x}^\top\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = 2\boldsymbol{B}\boldsymbol{x}\]
 </blockquote>
 
 <p>令上式等于零，取到极大值 $\boldsymbol{w}^{\star}$，即</p>
@@ -1732,7 +1875,7 @@ L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w} 
 
 <p>将 $\boldsymbol{S}_b$ 的定义式代入有</p>
 
-\[\lambda \boldsymbol{w}^{\star} = \boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^T\boldsymbol{w}^{\star}\]
+\[\lambda \boldsymbol{w}^{\star} = \boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^\top\boldsymbol{w}^{\star}\]
 
 <p>注意到，$(\boldsymbol{m}_1-\boldsymbol{m}_2)^{T}\cdot\boldsymbol{w}^\star$ 是标量，不会改变 $\boldsymbol{w}^ \star$ 的方向，因此可以得到 $\boldsymbol{w}^{\star} $ 是由 $\boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)$ 决定的，因此 Fisher 投影准则的最优投影方向为</p>
 
@@ -1743,8 +1886,8 @@ L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w} 
 <p>需要注意的是，Fisher 投影的最优解本身只给出了一个投影方向，并没有给出我们需要的分类面。要得到分类面，需要再投影后的方向（一维空间）上确定一个分类阈值 $w_0$ 并采取决策规则</p>
 
 \[\begin{aligned}
-g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &gt; 0 \Rightarrow \boldsymbol{x}\in y_1 \\
-g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \boldsymbol{x}\in y_2
+g(\boldsymbol{x})=\boldsymbol{w}^\top\boldsymbol{x} + w_0 &gt; 0 \Rightarrow \boldsymbol{x}\in y_1 \\
+g(\boldsymbol{x})=\boldsymbol{w}^\top\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \boldsymbol{x}\in y_2
 \end{aligned}\]
 
 <blockquote>
@@ -1854,11 +1997,11 @@ g(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bolds
 
 <h3 id="62-最小错分样本准则二"><span class="me-2">6.2. 最小错分样本准则二</span><a href="#62-最小错分样本准则二" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-\[J_{q_1}(\boldsymbol{a})=\sum_{i=1}^n\frac{1+\text{sign}(y_i^T \boldsymbol{a})}{2}\]
+\[J_{q_1}(\boldsymbol{a})=\sum_{i=1}^n\frac{1+\text{sign}(y_i^\top \boldsymbol{a})}{2}\]
 
 <ul>
-  <li>如果样本被正确分类，则 $\text{sign}(y_i^T \boldsymbol{a})=+1$，对应的项为正。</li>
-  <li>反之，如果样本被错误分类，$\text{sign}(y_i^T \boldsymbol{a})=-1$，对应的项为 0。</li>
+  <li>如果样本被正确分类，则 $\text{sign}(y_i^\top \boldsymbol{a})=+1$，对应的项为正。</li>
+  <li>反之，如果样本被错误分类，$\text{sign}(y_i^\top \boldsymbol{a})=-1$，对应的项为 0。</li>
 </ul>
 
 <p>因此，正确分类越多，$J_{q_1}(\boldsymbol{a})$ 越大，$J_{q_1}(\boldsymbol{a})$ 取极大值求得最优解。</p>
@@ -1909,7 +2052,7 @@ y_{n 1} &amp; y_{n 2} &amp; \cdots &amp; y_{n d}
 
 <p>根据最小二乘法，最优权向量为</p>
 
-\[\boldsymbol{a}^{\star} = (\boldsymbol{Y}^T\boldsymbol{Y})^{-1}\boldsymbol{Y}^T\boldsymbol{b}\]
+\[\boldsymbol{a}^{\star} = (\boldsymbol{Y}^\top\boldsymbol{Y})^{-1}\boldsymbol{Y}^\top\boldsymbol{b}\]
 
 <p>注意，最优权向量的求取与余量 $\boldsymbol{b}$ 的选择有关。</p>
 
@@ -1917,46 +2060,63 @@ y_{n 1} &amp; y_{n 2} &amp; \cdots &amp; y_{n d}
 
 <p>多元线性回归是通过 $(\boldsymbol{x},y), \boldsymbol{x}\in \mathbb{R}^d, y\in \mathbb{R}$ 的一系列观测样本，估计他们之间的线性关系</p>
 
-\[y=w_0+w_1x_1+w_2x_2+\cdots+w_dx_d = \sum_{i=0}^d w_ix_i = \boldsymbol{w}^T\boldsymbol{x}\]
+\[y=w_0+w_1x_1+w_2x_2+\cdots+w_dx_d = \sum_{i=0}^d w_ix_i = \boldsymbol{w}^\top\boldsymbol{x}\]
 
-<p>其中， $\boldsymbol{w} = [w_0, w_1, \cdots, w_d]^T$ 是待定参数。</p>
+<p>其中， $\boldsymbol{w} = [w_0, w_1, \cdots, w_d]^\top$ 是待定参数。</p>
 
 <p>从机器学习第角度分析线性回归估计，就是用训练样本集估计模型中第参数，使得模型在最小平方误差意义下能够最好地拟合训练样本。即</p>
 
 \[\begin{aligned}
 \text{sample batch:}\quad &amp; {(\boldsymbol{x}_1, y_1),\cdots, (\boldsymbol{x}_N, y_N)}\\
-\text{regression model:}\quad &amp; f(\boldsymbol{x}) = w_0+w_1x_1+w_2x_2+\cdots+w_dx_d = \sum_{i=0}^d w_ix_i = \boldsymbol{w}^T\boldsymbol{x}\\
-\text{MSE loss function:}\quad &amp; \min_{\boldsymbol{w}} E = \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2
+\text{regression model:}\quad &amp; f(\boldsymbol{x}) = w_0+w_1x_1+w_2x_2+\cdots+w_dx_d = \sum_{i=0}^d w_ix_i = \boldsymbol{w}^\top\boldsymbol{x}\\
+\text{MSE loss function:}\quad &amp; \min_{\boldsymbol{w}} L = \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2
 \end{aligned}\]
 
-<p>目标函数可以写成以下矩阵形式</p>
+<p>目标函数可以写成以下矩阵形式（忽略系数因为其不影响最优方向）</p>
 
 \[\begin{aligned}
-E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
-&amp;=\frac{1}{N}\Vert \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} \Vert^2\\
-&amp;=\frac{1}{N}( \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} )^T ( \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} )
+L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
+&amp;=\Vert \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} \Vert^2\\
+&amp;=( \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} )^\top ( \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} )
 \end{aligned}\]
 
-<p>其中 $\boldsymbol{X}=[\boldsymbol{x}_1^T, \cdots, \boldsymbol{x}_N^T]^T\in \mathbb{R}^{d\times N}$ 是全部训练样本的特征变量组成的矩阵，$\boldsymbol{y}=[y_1, \cdots, y_N]^T$ 是全部训练样本的响应变量（分类标签）组成的向量。</p>
+<p>其中 $\boldsymbol{X}=[\boldsymbol{x}_1^\top, \cdots, \boldsymbol{x}_N^\top]^\top\in \mathbb{R}^{d\times N}$ 是全部训练样本的特征变量组成的矩阵，$\boldsymbol{y}=[y_1, \cdots, y_N]^\top$ 是全部训练样本的响应变量（分类标签）组成的向量。</p>
+
+<p>展开后得到二次型</p>
+
+\[L(\boldsymbol{w}) = \boldsymbol{y}^\top \boldsymbol{y} - 2 \boldsymbol{y}^\top \boldsymbol{X} \boldsymbol{w} + \boldsymbol{w}^\top \boldsymbol{X}^\top \boldsymbol{X} \boldsymbol{w}\]
 
 <p>使得上述目标函数最小化的参数 $\boldsymbol{w}$ 应满足</p>
 
-\[\frac{\partial{E(\boldsymbol{w})}}{\partial{\boldsymbol{w}}} = \frac{2}{N}\boldsymbol{X}^T(\boldsymbol{X}\boldsymbol{w} - \boldsymbol{y})=0\]
+\[\frac{\partial{L(\boldsymbol{w})}}{\partial{\boldsymbol{w}}} = 0\]
 
 <blockquote>
-  <p>《The Matrix Cookbook》
-\(\frac{\partial}{\partial\mathbf{s}}(\mathbf{x}-\mathbf{A}\mathbf{s})^T\mathbf{W}(\mathbf{x}-\mathbf{A}\mathbf{s})=-2\mathbf{A}^T\mathbf{W}(\mathbf{x}-\mathbf{A}\mathbf{s}) \tag{84}\)</p>
+  <p>第一项：与 $\boldsymbol{w}$ 无关，求导后为 $0$；
+第二项：</p>
+
+\[\frac{\partial}{\partial{\boldsymbol{w}}}(- 2 \boldsymbol{y}^\top \boldsymbol{X} \boldsymbol{w}) = - 2 \boldsymbol{X}^\top \boldsymbol{y}\\\]
+
+  <p>第三项：令 $\boldsymbol{B} = \boldsymbol{X}^\top\boldsymbol{X}$，参考《the Matrix Cookbook》二次型的导数</p>
+
+\[\frac{\partial \boldsymbol{x}^\top\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = (\boldsymbol{B}+\boldsymbol{B}^\top)\boldsymbol{x} \tag{81}\]
+
+  <p>若 $\boldsymbol{B}$ 满足 $\boldsymbol{B} = \boldsymbol{B}^\top$，此时有</p>
+
+\[\frac{\partial \boldsymbol{x}^\top\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = 2\boldsymbol{B}\boldsymbol{x}\]
 </blockquote>
 
 <p>那么有</p>
 
-\[\boldsymbol{X}^T\boldsymbol{X}\boldsymbol{w}=\boldsymbol{X}^T\boldsymbol{y}\]
+\[\begin{aligned}
+&amp;-2 \boldsymbol{X}^\top\boldsymbol{y} + 2 \boldsymbol{X}^\top \boldsymbol{X} \boldsymbol{w}=0\\
+&amp;\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{w}=\boldsymbol{X}^\top\boldsymbol{y} 
+\end{aligned}\]
 
-<p>当 $\boldsymbol{X}^T\boldsymbol{X}$ 可逆时，最优参数的解为</p>
+<p>当 $\boldsymbol{X}^\top\boldsymbol{X}$ 可逆时（这在大多数实际应用中是成立的），最优参数的解为</p>
 
-\[\boldsymbol{w}^{\star}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}\]
+\[\boldsymbol{w}^{\star}=(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{y}\]
 
-<p>该方法就是经典的 〖<strong>最小二乘法</strong>〗 线性回归，其中的矩阵 $(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T$ 被称作 $\boldsymbol{X}$ 的伪逆矩阵（加号逆），记作 $\boldsymbol{X}^+$。</p>
+<p>该方法就是经典的 〖<strong>最小二乘法</strong>〗 线性回归，其中的矩阵 $(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top$ 被称作 $\boldsymbol{X}$ 的伪逆矩阵（加号逆），记作 $\boldsymbol{X}^+$。</p>
 
 <p>采用上述算法，加入真实的样本是服从之前给出的线性关系的物理规律产生的，只是在观测中带有噪声或误差，则最小二乘线性回归就通过数据学习到了系统本来的模型，而在我们对数据背后的物理模型并不了解的情况下，线性回归给出了在最小平方误差意义下对解释变量与响应变量之间线性关系的最好估计。</p>
 
@@ -2123,6 +2283,20 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/optimal-control-numerical/">最优控制基础（微分方程的解法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
@@ -2131,20 +2305,6 @@ E(\boldsymbol{w}) &amp;= \frac{1}{N}\sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
         </li>
       
     </ul>

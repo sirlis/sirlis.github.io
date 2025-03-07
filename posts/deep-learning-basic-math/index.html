@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="深度学习（基础数学知识）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="深度学习（基础数学知识）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-05T18:30:19+08:00","datePublished":"2025-03-05T18:30:19+08:00","description":"本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。","headline":"深度学习（基础数学知识）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-basic-math/"},"url":"http://localhost:4000/posts/deep-learning-basic-math/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-07T14:31:47+08:00","datePublished":"2025-03-05T18:30:19+08:00","description":"本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。","headline":"深度学习（基础数学知识）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-basic-math/"},"url":"http://localhost:4000/posts/deep-learning-basic-math/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -679,6 +679,178 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -767,46 +939,6 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-
-    
-
-  
-
-  
-  
-
-  
-    
-    
-
-    
-      
-        
-        
       
 
       
@@ -975,6 +1107,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1741329107"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/03/07
+</em>
+
+    </span>
+    
 
   
 
@@ -1014,9 +1170,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="5161 字"
+  title="7369 字"
 >
-  <em>28 分钟</em>阅读</span>
+  <em>40 分钟</em>阅读</span>
 
     </div>
 
@@ -1060,11 +1216,31 @@
       </li>
     </ul>
   </li>
-  <li><a href="#2-矩阵的梯度和求导">2. 矩阵的梯度和求导</a>
+  <li><a href="#2-矩阵的梯度">2. 矩阵的梯度</a>
     <ul>
-      <li><a href="#21-多元函数及其梯度">2.1. 多元函数及其梯度</a></li>
-      <li><a href="#22-矩阵的梯度">2.2. 矩阵的梯度</a></li>
-      <li><a href="#23-分子布局与分母布局">2.3. 分子布局与分母布局</a></li>
+      <li><a href="#21-多元函数的梯度">2.1. 多元函数的梯度</a></li>
+      <li><a href="#22-向量函数的梯度雅可比矩阵">2.2. 向量函数的梯度（雅可比矩阵）</a></li>
+      <li><a href="#23-矩阵函数的梯度">2.3. 矩阵函数的梯度</a></li>
+      <li><a href="#24-分子布局与分母布局">2.4. 分子布局与分母布局</a>
+        <ul>
+          <li><a href="#241-分子布局">2.4.1. 分子布局</a></li>
+          <li><a href="#242-分母布局">2.4.2. 分母布局</a></li>
+        </ul>
+      </li>
+      <li><a href="#25-向量函数矩阵函数梯度的链式法则">2.5. 向量函数/矩阵函数梯度的链式法则</a>
+        <ul>
+          <li><a href="#251-基本形式">2.5.1. 基本形式</a></li>
+          <li><a href="#252-分子布局下的链式法则">2.5.2. 分子布局下的链式法则</a></li>
+          <li><a href="#253-分母布局下的链式法则">2.5.3. 分母布局下的链式法则</a></li>
+          <li><a href="#254-举例">2.5.4. 举例</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#3-矩阵的全微分">3. 矩阵的全微分</a>
+    <ul>
+      <li><a href="#31-多元函数的全微分">3.1. 多元函数的全微分</a></li>
+      <li><a href="#32-矩阵函数的全微分">3.2. 矩阵函数的全微分</a></li>
     </ul>
   </li>
 </ul>
@@ -1477,16 +1653,18 @@ x_1 + 2x_2 = 0 \\
 <p>二次型的性质包括：</p>
 
 <ol>
-  <li><strong>正定性</strong>：如果对于所有非零向量 $ x $，都有 $ Q(x) &gt; 0 $，则称二次型是正定的。</li>
-  <li><strong>负定性</strong>：如果对于所有非零向量 $ x $，都有 $ Q(x) &lt; 0 $，则称二次型是负定的。</li>
-  <li><strong>半正定性</strong>：如果对于所有向量 $ x $，都有 $ Q(x) \geq 0 $，则称二次型是半正定的。</li>
-  <li><strong>半负定性</strong>：如果对于所有向量 $ x $，都有 $ Q(x) \leq 0 $，则称二次型是半负定的。</li>
-  <li><strong>不定性</strong>：如果二次型既不是正定的，也不是负定的，也不是半正定的，也不是半负定的，则称二次型是不定的。</li>
+  <li>正定性：如果对于所有非零向量 $ x $，都有 $ Q(x) &gt; 0 $，则称二次型是正定的。</li>
+  <li>负定性：如果对于所有非零向量 $ x $，都有 $ Q(x) &lt; 0 $，则称二次型是负定的。</li>
+  <li>半正定性：如果对于所有向量 $ x $，都有 $ Q(x) \geq 0 $，则称二次型是半正定的。</li>
+  <li>半负定性：如果对于所有向量 $ x $，都有 $ Q(x) \leq 0 $，则称二次型是半负定的。</li>
+  <li>不定性：如果二次型既不是正定的，也不是负定的，也不是半正定的，也不是半负定的，则称二次型是不定的。</li>
 </ol>
 
 <p>二次型在优化理论、控制理论和微分几何等领域都有重要的应用。</p>
 
-<p><strong>例：最小二乘</strong></p>
+<ul>
+  <li><strong>例：最小二乘</strong></li>
+</ul>
 
 <p>在最小二乘法中，目标是找到向量 $x$ 使得误差的平方和最小。目标函数可以表示为二次型：</p>
 
@@ -1498,11 +1676,43 @@ x_1 + 2x_2 = 0 \\
 
 \[L(\boldsymbol{w}) = \boldsymbol{y}^T \boldsymbol{y} - 2 \boldsymbol{y}^T \boldsymbol{X} \boldsymbol{w} + \boldsymbol{w}^T \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{w}\]
 
-<p>因为第一项是一个常数项，与$\boldsymbol{w}$无关，可以忽略。第二项是一个线性项，关于 $\boldsymbol{w}$ 是线性的。第三项中 $\boldsymbol{A}^\top \boldsymbol{A}$ 是一个对称矩阵，所以第三项是一个二次型。</p>
+<p>因为第一项是一个常数项，与$\boldsymbol{w}$无关，可以忽略。第二项是一个线性项，关于 $\boldsymbol{w}$ 是线性的。第三项中 $\boldsymbol{A}^\top \boldsymbol{A}$ 是一个对称矩阵，所以第三项是一个二次型。虽然损失函数还包含线性项和常数项，但这些项并不改变其二次性，因为它们不会改变最优解的性质。</p>
 
-<p>虽然损失函数还包含线性项和常数项，但这些项并不改变其二次性，因为它们不会改变最优解的性质。</p>
+<blockquote>
+  <p>对于第三项，令 $\boldsymbol{B} = \boldsymbol{X}^\top\boldsymbol{X}$，参考《the Matrix Cookbook》二次型的导数</p>
 
-<p>如果 $\boldsymbol{A}^\top \boldsymbol{A}$ 是正定矩阵，则损失函数是凸函数，具有唯一的全局最优解，因此可以通过求导并令梯度为零 $\partial L / \partial \boldsymbol{w} = 0$，直接得到最小二乘问题的解析解 $\boldsymbol{w}^* = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y}$。</p>
+\[\frac{\partial \boldsymbol{x}^\top\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = (\boldsymbol{B}+\boldsymbol{B}^\top)\boldsymbol{x} \tag{81}\]
+
+  <p>若 $\boldsymbol{B}$ 满足 $\boldsymbol{B} = \boldsymbol{B}^\top$，此时有</p>
+
+\[\frac{\partial \boldsymbol{x}^\top\boldsymbol{B\boldsymbol{x}}}{\partial \boldsymbol{x}} = 2\boldsymbol{B}\boldsymbol{x}\]
+</blockquote>
+
+<p>如果 $\boldsymbol{X}^\top \boldsymbol{X}$ 是正定矩阵，则损失函数是凸函数，具有唯一的全局最优解，因此可以通过对<strong>二次型求导</strong>并令梯度为零 $\partial L / \partial \boldsymbol{w} = 0$，直接得到最小二乘问题的解析解 $\boldsymbol{w}^* = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y}$。</p>
+
+<ul>
+  <li><strong>例：Fisher 投影判别的优化目标</strong></li>
+</ul>
+
+<p>Fisher 投影判别的的优化目标函数可以写成</p>
+
+\[J(\boldsymbol{w}) = \frac{\boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}}\]
+
+<p>将优化问题更改如下</p>
+
+\[\begin{aligned}
+\max &amp;\; \boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}\\
+s.t. &amp;\; \boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}=c\neq 0
+\end{aligned}\]
+
+<p>通过额外引入一个使得分子等于常数的等式约束来限制 $\boldsymbol{w}$ 的取值，然后通过拉格朗日乘子法求解极大值，定义拉格朗日函数如下</p>
+
+\[\begin{aligned}
+L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w} - \lambda (\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}-c)\\
+\Rightarrow \frac{\partial L(\boldsymbol{w},\lambda)}{\partial \boldsymbol{w}} &amp;= 2\boldsymbol{S}_b\boldsymbol{w} - 2\lambda \boldsymbol{S}_w\boldsymbol{w}\\
+\end{aligned}\]
+
+<p>同样涉及到<strong>二次型的求导</strong>。</p>
 
 <h4 id="152-与投影的关系"><span class="me-2">1.5.2. 与投影的关系</span><a href="#152-与投影的关系" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1525,15 +1735,15 @@ x_1 + 2x_2 = 0 \\
   <li>二次型的解析解 $\boldsymbol{w}^*$ 描述了如何在样本空间 $\boldsymbol{X}$ 中找到最接近于真实标签 $\boldsymbol{y}$ 的向量，即描述这个“影子”如何由样本空间 $\boldsymbol{X}$ 的列向量组合而成的系数;</li>
 </ul>
 
-<h2 id="2-矩阵的梯度和求导"><span class="me-2">2. 矩阵的梯度和求导</span><a href="#2-矩阵的梯度和求导" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="2-矩阵的梯度"><span class="me-2">2. 矩阵的梯度</span><a href="#2-矩阵的梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h3 id="21-多元函数及其梯度"><span class="me-2">2.1. 多元函数及其梯度</span><a href="#21-多元函数及其梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="21-多元函数的梯度"><span class="me-2">2.1. 多元函数的梯度</span><a href="#21-多元函数的梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <blockquote>
   <p>https://www.cnblogs.com/bigmonkey/p/8400658.html</p>
 </blockquote>
 
-<p><strong>多元函数</strong>是指定义在多维空间上的函数，其输入是一个向量，输出是一个标量。例如，一个二元函数可以表示为 $ f(x, y) $，而一个多元函数可以表示为 $ f(x_1, x_2, \dots, x_n) $。</p>
+<p><strong>多元函数</strong>是指定义在多维空间上的标量值函数 $f: \mathbb{R}^n \rightarrow \mathbb{R}$。例如，一个二元函数可以表示为 $ f(x, y) $，而一个多元函数可以表示为 $ f(x_1, x_2, \dots, x_n) $。</p>
 
 <p><strong>梯度</strong>是多元函数的一个重要概念，它是一个向量，表示函数在某一点处的最大变化率方向和大小。对于一个多元函数 $ f(x_1, x_2, \dots, x_n) $，其梯度定义为：</p>
 
@@ -1555,12 +1765,40 @@ x_1 + 2x_2 = 0 \\
 </ol>
 
 <blockquote>
-  <p>方向导数是梯度向量的重要应用。$f = f(x, y)$ 的偏导数 $\frac{\partial f}{\partial x}$ 和 $\frac{\partial f}{\partial y}$ 衡量了点在 $x$ 轴和 $y$ 轴移动时 $f$ 的变化，那么如果在其它方向移动呢？是否在任意方向上都有一个导数呢？答案是肯定的，那就是方向导数。</p>
+  <p>方向导数是梯度向量的重要应用。$f = f(x, y)$ 的偏导数衡量了点在 $x$ 轴和 $y$ 轴移动时 $f$ 的变化率，在其它任意方向移动的变化率就是方向导数。</p>
 </blockquote>
 
-<h3 id="22-矩阵的梯度"><span class="me-2">2.2. 矩阵的梯度</span><a href="#22-矩阵的梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="22-向量函数的梯度雅可比矩阵"><span class="me-2">2.2. 向量函数的梯度（雅可比矩阵）</span><a href="#22-向量函数的梯度雅可比矩阵" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>矩阵梯度是多元函数梯度概念的推广，用于处理矩阵变量的函数。对于一个关于矩阵 $\boldsymbol{X}$ 的标量函数 $f(\boldsymbol{X})$，其矩阵梯度定义为一个与 $\boldsymbol{X}$ 同维度的矩阵，其每个元素为函数 $f$ 对矩阵 $\boldsymbol{X}$ 中对应元素的偏导数。</p>
+<p>假设有一个函数 $\boldsymbol{f}: \mathbb{R}^n\rightarrow \mathbb{R}^m$，其中 $\boldsymbol{f} = [f_1, f_2,\cdots, f_m]^\top$，每个 $f_i$ 都是关于 $n$ 个输入 $\boldsymbol{x} = [x_1, x_2,\cdots, x_n]^\top$ 的标量函数。那么函数的梯度 $\nabla f$ 就是一个 $m\times n$ 的矩阵，称为<strong>雅可比矩阵</strong>（Jacobian Matrix），其元素是 $\boldsymbol{f}$ 的各个分量对 $\boldsymbol{x}$ 的各个分量的偏导数。</p>
+
+\[J = \nabla \boldsymbol{f} = \begin{bmatrix}
+  \frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n}\\
+  \frac{\partial f_2}{\partial x_2} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_2}{\partial x_n}\\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  \frac{\partial f_m}{\partial x_1} &amp; \frac{\partial f_m}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}\]
+
+<p>例，假设有一个函数 $\boldsymbol{f}: \mathbb{R}^2\rightarrow \mathbb{R}^2$，定义为</p>
+
+\[\boldsymbol{f} = \begin{bmatrix}
+  f_1\\
+  f_2
+\end{bmatrix} = \begin{bmatrix}
+  x_1^2 + x_2^2\\
+  x_1 x_2
+\end{bmatrix}\]
+
+<p>那么雅可比矩阵 $J$ 为</p>
+
+\[J = \begin{bmatrix}
+  2x_1 &amp; 2x_2\\
+  x_2 &amp; x_1
+\end{bmatrix}\]
+
+<h3 id="23-矩阵函数的梯度"><span class="me-2">2.3. 矩阵函数的梯度</span><a href="#23-矩阵函数的梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>矩阵梯度是多元函数和向量函数梯度概念的推广，用于处理矩阵变量的函数。对于一个关于矩阵 $\boldsymbol{X}$ 的标量函数 $f(\boldsymbol{X})$，其矩阵梯度定义为一个与 $\boldsymbol{X}$ 同维度的矩阵，其每个元素为函数 $f$ 对矩阵 $\boldsymbol{X}$ 中对应元素的偏导数。</p>
 
 <p>假设函数 $f: \mathbb{R}^{m\times n}\rightarrow \mathbb{R}$ 的输入为矩阵 $\boldsymbol{X}\in\mathbb{R}^{m\times n}$，输出为一个实数，则矩阵梯度定义为：</p>
 
@@ -1596,47 +1834,160 @@ x_1 + 2x_2 = 0 \\
     <p>当 $ \boldsymbol{A} $ 是对称矩阵时，梯度简化为 $ 2\boldsymbol{A} \boldsymbol{x} $。</p>
 
     <blockquote>
-      <ol>
-        <li>展开二次型：
-\(Q(\boldsymbol{x}) = \sum_{i=1}^n \sum_{j=1}^n a_{ij} x_i x_j\)</li>
-        <li>对 $\boldsymbol{x}$ 求偏导数：
-\(\frac{\partial Q(\boldsymbol{x})}{\partial x_k} = \sum_{j=1}^n a_{kj} x_j + \sum_{i=1}^n a_{ik} x_i\)
-由于 $\boldsymbol{A}$ 是对称矩阵（$a_{ij} = a_{ji}$），上式可以简化为：
-\(\frac{\partial Q(\boldsymbol{x})}{\partial x_k} = 2 \sum_{j=1}^n a_{kj} x_j\)</li>
-        <li>将偏导数写成向量形式：
-\(\nabla Q(\boldsymbol{x}) = 2 \boldsymbol{A} \boldsymbol{x}\)</li>
-      </ol>
+      <p>展开二次型：</p>
+
+\[Q(\boldsymbol{x}) = \sum_{i=1}^n \sum_{j=1}^n a_{ij} x_i x_j\]
+
+      <p>对 $\boldsymbol{x}$ 求偏导数：</p>
+
+\[\begin{aligned}
+\frac{\partial Q(\boldsymbol{x})}{\partial x_k} &amp;= \sum_{j=1}^n a_{kj} x_j + \sum_{i=1}^n a_{ik} x_i\\
+&amp;= \boldsymbol{A} \boldsymbol{x} + \boldsymbol{A}^T \boldsymbol{x}
+\end{aligned}\]
+
+      <p>若 $\boldsymbol{A}$ 是对称矩阵（$a_{ij} = a_{ji}$），上式可以简化为：</p>
+
+\[\frac{\partial Q(\boldsymbol{x})}{\partial x_k} = 2 \sum_{j=1}^n a_{kj} x_j\]
+
+      <p>将偏导数写成向量形式：</p>
+
+\[\nabla Q(\boldsymbol{x}) = 2 \boldsymbol{A} \boldsymbol{x}\]
     </blockquote>
-  </li>
-  <li>
-    <p><strong>链式法则</strong>：<br />
-若 $ \boldsymbol{Y} = \boldsymbol{f}(\boldsymbol{X}) $ 是矩阵函数，$ g(\boldsymbol{Y}) $ 是关于 $ \boldsymbol{Y} $ 的标量函数，则：</p>
-
-\[\nabla_{\boldsymbol{X}} g(\boldsymbol{Y}) = \nabla_{\boldsymbol{Y}} g(\boldsymbol{Y}) \cdot \frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}}\]
-
-    <p><strong>注意！</strong> 在计算矩阵梯度时，需要特别注意矩阵的维度和导数的排列方式。不同的排列方式可能会导致不同的梯度矩阵，因此在实际应用中需要根据具体情况进行选择。实际计算时可能需要对矩阵进行转置以确保矩阵乘法的维度匹配，如：</p>
-
-\[\nabla_{\boldsymbol{X}} g(\boldsymbol{Y}) = \left(\frac{\partial \boldsymbol{Y}}{\partial \boldsymbol{X}}\right)^\top \cdot \nabla_{\boldsymbol{Y}} g(\boldsymbol{Y})\]
   </li>
 </ol>
 
-<p><strong>例</strong>：给定定常值矩阵 $\boldsymbol{A}\in \mathbb{R}^{m\times n}$ 和变量向量 $\boldsymbol{x}\in \mathbb{R}^n$，设函数 $f:\mathbb{R}^m\rightarrow \mathbb{R}$ 定义式为 $f(\boldsymbol{z})=\boldsymbol{z}^\top \boldsymbol{z}$，求 $\nabla f(\boldsymbol{A}\boldsymbol{x})$。</p>
+<h3 id="24-分子布局与分母布局"><span class="me-2">2.4. 分子布局与分母布局</span><a href="#24-分子布局与分母布局" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>在矩阵微积分中，分子布局（numerator layout）和分母布局（denominator layout）是两种常见的约定，用于定义向量和矩阵的导数，这两种布局的主要区别在于导数的表示形式和维度的安排。</p>
+
+<h4 id="241-分子布局"><span class="me-2">2.4.1. 分子布局</span><a href="#241-分子布局" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在分子布局中，导数的维度与分子的维度一致，以分子为列向量，分母为行向量。具体来说：</p>
+
+<ol>
+  <li><strong>标量对向量的导数</strong>：
+    <ul>
+      <li>如果 $f: \mathbb{R}^n \to \mathbb{R}$ 是一个标量函数（多元函数），$\boldsymbol{x} \in \mathbb{R}^n$ 是一个向量，那么导数 $\frac{\partial f}{\partial \boldsymbol{x}}$ 是一个行向量：
+\(\frac{\partial f}{\partial \boldsymbol{x}} = \begin{bmatrix} \frac{\partial f}{\partial x_1} &amp; \frac{\partial f}{\partial x_2} &amp; \cdots &amp; \frac{\partial f}{\partial x_n} \end{bmatrix}\)</li>
+    </ul>
+  </li>
+  <li><strong>向量对向量的导数</strong>：
+    <ul>
+      <li>如果 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$ 是一个向量函数，$\boldsymbol{x} \in \mathbb{R}^n$ 是一个向量，那么导数 $\frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}}$ 是一个 $m \times n$ 的矩阵：
+\(\frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}} = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
+\frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_2}{\partial x_n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_m}{\partial x_1} &amp; \frac{\partial f_m}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}\)</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="242-分母布局"><span class="me-2">2.4.2. 分母布局</span><a href="#242-分母布局" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在分母布局中，导数的维度与分母的维度一致，以分母为列向量，分子为行向量。具体来说：</p>
+
+<ol>
+  <li><strong>标量对向量的导数</strong>：
+    <ul>
+      <li>如果 $f: \mathbb{R}^n \to \mathbb{R}$ 是一个标量函数（多元函数），$\boldsymbol{x} \in \mathbb{R}^n$ 是一个向量，那么导数 $\frac{\partial f}{\partial \boldsymbol{x}}$ 是一个列向量：
+\(\frac{\partial f}{\partial \boldsymbol{x}} = \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \frac{\partial f}{\partial x_2} \\ \vdots \\ \frac{\partial f}{\partial x_n} \end{bmatrix}\)</li>
+    </ul>
+  </li>
+  <li><strong>向量对向量的导数</strong>：
+    <ul>
+      <li>如果 $\boldsymbol{f}: \mathbb{R}^n \to \mathbb{R}^m$ 是一个向量函数，$\boldsymbol{x} \in \mathbb{R}^n$ 是一个向量，那么导数 $\frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}}$ 是一个 $n \times m$ 的矩阵：
+\(\frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}} = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_1} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_1} \\
+\frac{\partial f_1}{\partial x_2} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_2} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_1}{\partial x_n} &amp; \frac{\partial f_2}{\partial x_n} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}\)</li>
+    </ul>
+  </li>
+</ol>
+
+<p>选择分子布局还是分母布局通常取决于具体的应用场景和习惯。在机器学习和优化领域，分子布局更为常见，因为它与雅可比矩阵的定义一致。而在一些工程和物理领域，分母布局可能更为常见。</p>
+
+<h3 id="25-向量函数矩阵函数梯度的链式法则"><span class="me-2">2.5. 向量函数/矩阵函数梯度的链式法则</span><a href="#25-向量函数矩阵函数梯度的链式法则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>分子布局和分母布局在矩阵函数或向量值函数的链式法则求导中会影响导数的表示形式和计算方式，链式法则的应用会根据布局的不同而有所调整。</p>
+
+<h4 id="251-基本形式"><span class="me-2">2.5.1. 基本形式</span><a href="#251-基本形式" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>链式法则用于计算复合函数的导数。假设有两个函数：</p>
+
+<ul>
+  <li>$\mathbf{y} = \mathbf{f}(\mathbf{u})$，其中 $\mathbf{f}: \mathbb{R}^m \to \mathbb{R}^p$</li>
+  <li>$\mathbf{u} = \mathbf{g}(\mathbf{x})$，其中 $\mathbf{g}: \mathbb{R}^n \to \mathbb{R}^m$</li>
+</ul>
+
+<p>复合函数为 $\mathbf{y} = \mathbf{f}(\mathbf{g}(\mathbf{x}))$，其导数可以通过链式法则计算：</p>
+
+\[\frac{\partial \mathbf{y}}{\partial \mathbf{x}} = \frac{\partial \mathbf{y}}{\partial \mathbf{u}} \cdot \frac{\partial \mathbf{u}}{\partial \mathbf{x}}\]
+
+<p>这里的关键是 $\frac{\partial \mathbf{y}}{\partial \mathbf{u}}$ 和 $\frac{\partial \mathbf{u}}{\partial \mathbf{x}}$ 的维度安排，这取决于使用的是分子布局还是分母布局。</p>
+
+<h4 id="252-分子布局下的链式法则"><span class="me-2">2.5.2. 分子布局下的链式法则</span><a href="#252-分子布局下的链式法则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在分子布局中，导数的维度与分子的维度一致。具体来说：</p>
+
+<ul>
+  <li>$\frac{\partial \mathbf{y}}{\partial \mathbf{u}}$ 是一个 $p \times m$ 的矩阵。</li>
+  <li>$\frac{\partial \mathbf{u}}{\partial \mathbf{x}}$ 是一个 $m \times n$ 的矩阵。</li>
+</ul>
+
+<p>因此，链式法则的矩阵乘法形式为：</p>
+
+\[\frac{\partial \mathbf{y}}{\partial \mathbf{x}} = \frac{\partial \mathbf{y}}{\partial \mathbf{u}} \cdot \frac{\partial \mathbf{u}}{\partial \mathbf{x}}\]
+
+<p>其中：</p>
+
+<ul>
+  <li>$\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$ 是一个 $p \times n$ 的矩阵。</li>
+  <li>矩阵乘法的顺序是 $p \times m$ 乘以 $m \times n$，结果维度为 $p \times n$。</li>
+</ul>
+
+<h4 id="253-分母布局下的链式法则"><span class="me-2">2.5.3. 分母布局下的链式法则</span><a href="#253-分母布局下的链式法则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在分母布局中，导数的维度与分母的维度一致。具体来说：</p>
+<ul>
+  <li>$\frac{\partial \mathbf{y}}{\partial \mathbf{u}}$ 是一个 $m \times p$ 的矩阵。</li>
+  <li>$\frac{\partial \mathbf{u}}{\partial \mathbf{x}}$ 是一个 $n \times m$ 的矩阵。</li>
+</ul>
+
+<p>因此，链式法则的矩阵乘法形式为：
+\(\frac{\partial \mathbf{y}}{\partial \mathbf{x}} = \frac{\partial \mathbf{u}}{\partial \mathbf{x}} \cdot \frac{\partial \mathbf{y}}{\partial \mathbf{u}}\)
+其中：</p>
+<ul>
+  <li>$\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$ 是一个 $n \times p$ 的矩阵。</li>
+  <li>矩阵乘法的顺序是 $n \times m$ 乘以 $m \times p$，结果维度为 $n \times p$。</li>
+</ul>
+
+<h4 id="254-举例"><span class="me-2">2.5.4. 举例</span><a href="#254-举例" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>给定定常值矩阵 $\boldsymbol{A}\in \mathbb{R}^{m\times n}$ 和变量向量 $\boldsymbol{x}\in \mathbb{R}^n$，设函数 $f:\mathbb{R}^m\rightarrow \mathbb{R}$ 定义式为 $f(\boldsymbol{z})=\boldsymbol{z}^\top \boldsymbol{z}$，求 $\nabla f(\boldsymbol{A}\boldsymbol{x})$。</p>
 
 <p>首先，题目实际要求解 $\nabla_{\boldsymbol{x}} f(\boldsymbol{A}\boldsymbol{x})$（明确梯度下标）；</p>
 
-<p>然后，计算 $\nabla_{\boldsymbol{z}} f(\boldsymbol{z})$，有</p>
+<ul>
+  <li><strong>分子布局下的计算过程</strong></li>
+</ul>
+
+<p>计算 $\nabla_{\boldsymbol{z}} f(\boldsymbol{z})$，按照分子布局有</p>
 
 \[\begin{aligned}
 f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
-\nabla_{\boldsymbol{z}} f(\boldsymbol{z}) &amp;= (\frac{\partial f}{\partial z_1}, \frac{\partial f}{\partial z_2}, \cdots, \frac{\partial f}{\partial z_m})^\top = 2\boldsymbol{z}\in \mathbb{R}^m
+\nabla_{\boldsymbol{z}} f(\boldsymbol{z}) &amp;= (\frac{\partial f}{\partial z_1}, \frac{\partial f}{\partial z_2}, \cdots, \frac{\partial f}{\partial z_m})= 2\boldsymbol{z}^\top \in \mathbb{R}^{1\times m}
 \end{aligned}\]
 
-<p>令 $\boldsymbol{z} = \boldsymbol{Ax}$，有（分子布局，也即 Jacobian 矩阵形式）</p>
+<p>令 $\boldsymbol{z} = g(\boldsymbol{x}) = \boldsymbol{Ax}$，可以看出其为向量函数，其梯度为（分子布局，也即 Jacobian 矩阵形式）</p>
 
 \[\begin{aligned}
 \frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}} &amp;= \begin{bmatrix}
-  \frac{\partial z}{\partial x_1} &amp; \frac{\partial z}{\partial x_2} &amp; \cdots &amp; \frac{\partial z}{\partial x_n}
-\end{bmatrix}^\top\\
+  \frac{\partial \boldsymbol{z}}{\partial x_1} &amp; \frac{\partial \boldsymbol{z}}{\partial x_2} &amp; \cdots &amp; \frac{\partial \boldsymbol{z}}{\partial x_n}
+\end{bmatrix}\\
 &amp;=\begin{bmatrix}
   \frac{\partial z_1}{\partial x_1} &amp; \frac{\partial z_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial z_1}{\partial x_n}\\
   \frac{\partial z_2}{\partial x_2} &amp; \frac{\partial z_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial z_2}{\partial x_n}\\
@@ -1645,17 +1996,164 @@ f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
 \end{bmatrix} = \boldsymbol{A}\in \mathbb{R}^{m\times n}\\
 \end{aligned}\]
 
-<p>若链式法则如下</p>
+<p>链式法则如下</p>
 
-\[\nabla_{\boldsymbol{x}} f(\boldsymbol{A}\boldsymbol{x}) = \nabla_{\boldsymbol{z}} f(\boldsymbol{z}) \cdot \frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}} = 2\boldsymbol{z} \cdot \boldsymbol{A}\]
+\[\nabla_{\boldsymbol{x}} f(\boldsymbol{A}\boldsymbol{x}) = \nabla_{\boldsymbol{z}} f(\boldsymbol{z}) \cdot \frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}} = 2\boldsymbol{z}^\top  \cdot \boldsymbol{A}\in \mathbb{R}^{1\times n}\]
 
-<p>出现矩阵乘法的顺序和维度不匹配。</p>
+<ul>
+  <li><strong>分母布局下的计算过程</strong></li>
+</ul>
 
-<p>根据前述矩阵梯度的推广性质，矩阵梯度的排列形式是和输入矩阵的排列形式保持一致的（此例中输入矩阵是 $\boldsymbol{x}\in \mathbb{R}^n$），因此正确的链式求导如下</p>
+<p>计算 $\nabla_{\boldsymbol{z}} f(\boldsymbol{z})$，按照分子布局有</p>
 
-\[\nabla_{\boldsymbol{x}} f(\boldsymbol{A}\boldsymbol{x}) = \left(\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}}\right)^\top \nabla_{\boldsymbol{z}} f(\boldsymbol{z}) = \boldsymbol{A}^\top \cdot 2\boldsymbol{z}= 2\boldsymbol{A}^\top\boldsymbol{A}\boldsymbol{x}\in \mathbb{R}^n\]
+\[\begin{aligned}
+f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
+\nabla_{\boldsymbol{z}} f(\boldsymbol{z}) &amp;= (\frac{\partial f}{\partial z_1}, \frac{\partial f}{\partial z_2}, \cdots, \frac{\partial f}{\partial z_m})^\top= 2\boldsymbol{z} \in \mathbb{R}^{m\times 1}
+\end{aligned}\]
 
-<h3 id="23-分子布局与分母布局"><span class="me-2">2.3. 分子布局与分母布局</span><a href="#23-分子布局与分母布局" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>令 $\boldsymbol{z} = g(\boldsymbol{x}) = \boldsymbol{Ax}$，可以看出其为向量函数，其梯度为（分母布局）</p>
+
+\[\begin{aligned}
+\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}} &amp;= \begin{bmatrix}
+  \frac{\partial \boldsymbol{z}}{\partial x_1} &amp; \frac{\partial \boldsymbol{z}}{\partial x_2} &amp; \cdots &amp; \frac{\partial \boldsymbol{z}}{\partial x_n}
+\end{bmatrix}\\
+&amp;=\begin{bmatrix}
+  \frac{\partial z_1}{\partial x_1} &amp; \frac{\partial z_2}{\partial x_1} &amp; \cdots &amp; \frac{\partial z_m}{\partial x_1}\\
+  \frac{\partial z_1}{\partial x_2} &amp; \frac{\partial z_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial z_m}{\partial x_2}\\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  \frac{\partial z_1}{\partial x_n} &amp; \frac{\partial z_2}{\partial x_n} &amp; \cdots &amp; \frac{\partial z_m}{\partial x_n}
+\end{bmatrix} = \boldsymbol{A}^\top\in \mathbb{R}^{n\times m}\\
+\end{aligned}\]
+
+<p>链式法则如下</p>
+
+\[\nabla_{\boldsymbol{x}} f(\boldsymbol{A}\boldsymbol{x}) =\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}} \cdot \nabla_{\boldsymbol{z}} f(\boldsymbol{z})  = \boldsymbol{A}^\top  \cdot 2\boldsymbol{z}\in \mathbb{R}^{n\times 1}\]
+
+<h2 id="3-矩阵的全微分"><span class="me-2">3. 矩阵的全微分</span><a href="#3-矩阵的全微分" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="31-多元函数的全微分"><span class="me-2">3.1. 多元函数的全微分</span><a href="#31-多元函数的全微分" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>全微分描述了函数 $f(\boldsymbol{x})$ 在某点 $\boldsymbol{x}$ 处的微小变化 $\text{d}f$ 与自变量微小变化 $d\boldsymbol{x}=[dx_1, dx_2, \cdots, dx_n]^T$ 的关系，定义为</p>
+
+\[\begin{aligned}
+\text{d}f &amp;= \frac{\partial f}{\partial x_1} dx_1 + \frac{\partial f}{\partial x_2} dx_2 + \cdots + \frac{\partial f}{\partial x_n} dx_n\\
+ &amp;= \nabla f(\boldsymbol{x})^\top d\boldsymbol{x}\\
+\end{aligned}\]
+
+<p>解释</p>
+
+<ul>
+  <li>梯度 $ \nabla f(\boldsymbol{x})$ 描述了函数 $f$ 在某一点 $x$ 处对各个自变量的变化率。</li>
+  <li>全微分 $\text{d}f$ 描述了函数 $f$ 在某一点 $x$ 处的微小变化，是梯度与自变量微小变化的线性组合。</li>
+</ul>
+
+<p>几何意义：</p>
+
+<ul>
+  <li>梯度 $ \nabla f(\boldsymbol{x})$ 是函数值变化最剧烈的方向。</li>
+  <li>全微分是函数值在方向 $d\boldsymbol{x}$ 上的变化量，等于梯度在该方向上的投影。</li>
+</ul>
+
+<h3 id="32-矩阵函数的全微分"><span class="me-2">3.2. 矩阵函数的全微分</span><a href="#32-矩阵函数的全微分" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>回顾矩阵函数 $f: \mathbb{R}^{m\times n}\rightarrow \mathbb{R}$，输入为矩阵 $\boldsymbol{X}\in\mathbb{R}^{m\times n}$，输出为一个实数。</p>
+
+<p>其全微分 $df$ 定义为：</p>
+
+\[\text{d}f = \sum_{i=1}^m\sum_{j=1}^n \frac{\partial f}{\partial X_{ij}} dX_{ij}\]
+
+<p>将其展开书写为</p>
+
+\[\begin{aligned}
+\text{d}f(\boldsymbol{X}) =&amp; \frac{\partial f}{\partial X_{11}} dX_{11} + \frac{\partial f}{\partial X_{12}} dX_{12} + \cdots + \frac{\partial f}{\partial X_{1n}} dX_{1n}+\\
+&amp;\frac{\partial f}{\partial X_{21}} dX_{21} + \frac{\partial f}{\partial X_{22}} dX_{22} + \cdots + \frac{\partial f}{\partial X_{2n}} dX_{2n}+\\
+&amp;\vdots\\
+&amp;\frac{\partial f}{\partial X_{m1}} dX_{m1} + \frac{\partial f}{\partial X_{m2}} dX_{m2} + \cdots + \frac{\partial f}{\partial X_{mn}} dX_{mn}+\\
+\end{aligned}\]
+
+<p>回顾矩阵函数的梯度如下</p>
+
+\[\nabla_{\boldsymbol{X}} f(\boldsymbol{X}) = \begin{bmatrix}
+  \frac{\partial f}{\partial X_{11}} &amp; \frac{\partial f}{\partial X_{12}} &amp; \cdots &amp; \frac{\partial f}{\partial X_{1n}}\\
+  \frac{\partial f}{\partial X_{21}} &amp; \frac{\partial f}{\partial X_{22}} &amp; \cdots &amp; \frac{\partial f}{\partial X_{2n}}\\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  \frac{\partial f}{\partial X_{m1}} &amp; \frac{\partial f}{\partial X_{m2}} &amp; \cdots &amp; \frac{\partial f}{\partial X_{mn}}
+\end{bmatrix}\in\mathbb{R}^{m\times n}\]
+
+<p>定义矩阵 $\boldsymbol{X}$ 的微分为</p>
+
+\[\text{d}\boldsymbol{X} = \begin{bmatrix}
+  dX_{11} &amp; dX_{12} &amp; \cdots &amp; dX_{1n}\\
+  dX_{21} &amp; dX_{22} &amp; \cdots &amp; dX_{2n}\\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+  dX_{m1} &amp; dX_{m2} &amp; \cdots &amp; dX_{mn}
+\end{bmatrix}\in\mathbb{R}^{m\times n}\]
+
+<p>可以将全微分用矩阵的形式表示为</p>
+
+\[\text{d}f(\boldsymbol{X}) = \text{tr}(\nabla_{\boldsymbol{X}} f(\boldsymbol{X})^\top d\boldsymbol{X})\]
+
+<p>利用上述等式，可以计算复杂的矩阵函数的梯度求解。基本套路如下：</p>
+
+<ul>
+  <li>首先确认 $f$ 是矩阵函数（输出为标量）</li>
+  <li>改写等式左边：$\text{d}f(\boldsymbol{X}) = \text{tr}(\text{d}f(\boldsymbol{X}))$</li>
+  <li>改写等式右边，使用迹的性质和常见的微分性质凑出 $\text{tr}([\cdot] \text{d}(\boldsymbol{X}))$</li>
+  <li>则括号内 $[\cdot]$ 部分记为矩阵函数梯度的转置（或其一项），将其再次转置迹可得到矩阵函数的梯度。</li>
+</ul>
+
+<p><strong>题目1:证明</strong></p>
+
+\[\frac{\partial{\text{tr}(\boldsymbol{X}^\top \boldsymbol{X})}}{\partial{\boldsymbol{X}}} = 2\boldsymbol{X}\]
+
+<p>证明过程</p>
+
+\[\begin{aligned}
+d \text{tr}(X^T X) &amp;= \text{tr}(d(X^T X))\\
+&amp;= \text{tr}(d(X^T)X) + \text{tr}(X^T d(X))\\
+&amp;= \text{tr}(X^T d(X)) + \text{tr}(X^T d(X))\\
+&amp;= 2\text{tr}(X^T d(X))\\
+&amp;\Rightarrow \frac{\partial \text{tr}(X^T X)}{\partial X^T} = 2X^T\\
+&amp;\Rightarrow \frac{\partial \text{tr}(X^T X)}{\partial X} = 2X
+\end{aligned}\]
+
+<p>上述推导中用到的性质有</p>
+
+\[\begin{aligned}
+&amp; d \text{tr}(X) = \text{tr}(dX)\\
+&amp; d(XY) = (dX)Y + X(dY)\\
+&amp; \text{tr}AB = \text{tr}BA
+\end{aligned}\]
+
+<p><strong>题目2：求</strong></p>
+
+\[\frac{\partial{(\boldsymbol{a}^\top\boldsymbol{X}\boldsymbol{X}^\top\boldsymbol{b})}}{\partial(\boldsymbol{X})}\]
+
+<p>解</p>
+
+\[\begin{aligned}
+d(a^T XX^T b) &amp;= \text{tr}(d(a^T XX^T b))\\
+&amp;= \text{tr}(a^T d(XX^T)b)\\
+&amp;= \text{tr}(a^T [d(X)X^T + Xd(X^T)]b)\\
+&amp;= \text{tr}(a^T d(X)X^T b) + \text{tr}(a^T Xd(X^T)b)\\
+&amp;= \text{tr}(X^T ba^T d(X)) + \text{tr}((a^T Xd(X^T)b)^T)\\
+&amp;= \text{tr}(X^T ba^T d(X)) + \text{tr}(b^T d(X)X^T a)\\
+&amp;= \text{tr}(X^T ba^T d(X)) + \text{tr}(X^T ab^T d(X))\\
+&amp;\Rightarrow \frac{\partial (a^T XX^T b)}{\partial X^T} = X^T ba^T + X^T ab^T\\
+&amp;\Rightarrow \frac{\partial (a^T XX^T b)}{\partial X} = ab^T X + ba^T X
+\end{aligned}\]
+
+<p>上述推导中用到的性质有</p>
+
+\[d \text{tr}(X) = \text{tr}(dX)\]
+
+\[X \in \mathbb{R}^{m,n}, d(A_{p,m} X B_{n,p}) = A d(X) B\]
+
+\[d(XY) = (dX)Y + X(dY)\]
+
+\[\text{tr}(A + B) = \text{tr}A + \text{tr}B\]
+
+\[\text{tr}A = \text{tr}A^T \quad \text{tr}AB = \text{tr}BA\]
 
 </div>
 
@@ -1807,6 +2305,20 @@ f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/optimal-control-numerical/">最优控制基础（微分方程的解法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
@@ -1815,20 +2327,6 @@ f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/rime-shift-switch-zh-en/">日常tips手册（Rime输入法）</a>
         </li>
       
     </ul>
