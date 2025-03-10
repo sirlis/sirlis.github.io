@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-03-07T15:37:28+08:00</updated>
+  <updated>2025-03-10T11:44:20+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/deep-learning-basic-math/" rel="alternate" type="text/html" title="深度学习（基础数学知识）" />
     <published>2025-03-05T18:30:19+08:00</published>
   
-    <updated>2025-03-07T14:31:47+08:00</updated>
+    <updated>2025-03-10T11:44:04+08:00</updated>
   
     <id>http://localhost:4000/posts/deep-learning-basic-math/</id>
     <content src="http://localhost:4000/posts/deep-learning-basic-math/" />
@@ -190,7 +190,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
     <published>2024-03-03T14:25:19+08:00</published>
   
-    <updated>2025-03-07T14:31:47+08:00</updated>
+    <updated>2025-03-10T11:44:04+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" />
@@ -218,19 +218,35 @@
 
 
 
----
 
-- [1. 引言](#1-引言)
-- [2. 线性分类器基础](#2-线性分类器基础)
-  - [2.1. 线性判别函数](#21-线性判别函数)
-  - [2.2. 广义线性判别函数](#22-广义线性判别函数)
-  - [2.3. 二分类与多分类](#23-二分类与多分类)
-  - [2.4. 线性分类器设计的基本思路](#24-线性分类器设计的基本思路)
-- [3. 垂直平分准则](#3-垂直平分准则)
-  - [3.1. 设计思路](#31-设计思路)
-  - [3.2. 最小距离等价决策](#32-最小距离等价决策)
-  - [3.3. 特点总结](#33-特点总结)
-- [4. Fi...
+
+
+  1. 引言
+  2. 线性分类器基础
+    
+      2.1. 线性判别函数
+      2.2. 广义线性判别函数
+      2.3. 二分类与多分类
+      2.4. 线性分类器设计的基本思路
+    
+  
+  3. 垂直平分准则
+    
+      3.1. 设计思路
+      3.2. 最小距离等价决策
+      3.3. 特点总结
+    
+  
+  4. Fisher 投影准则
+    
+      4.1. 投影
+      4.2. Fisher 投影
+    
+  
+  5. 感知准则
+    
+      5.1. 线性可分性
+      5.2. 感知准...
     </summary>
   
 

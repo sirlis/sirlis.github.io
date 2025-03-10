@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-07T14:31:47+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-10T11:44:04+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1457,13 +1457,13 @@
 
 <em
   class=""
-  data-ts="1741329107"
+  data-ts="1741578244"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/07
+  2025/03/10
 </em>
 
     </span>
@@ -2080,7 +2080,7 @@ L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 &amp;=( \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} )^\top ( \boldsymbol{X}\boldsymbol{w}-\boldsymbol{y} )
 \end{aligned}\]
 
-<p>其中 $\boldsymbol{X}=[\boldsymbol{x}_1^\top, \cdots, \boldsymbol{x}_N^\top]^\top\in \mathbb{R}^{d\times N}$ 是全部训练样本的特征变量组成的矩阵，$\boldsymbol{y}=[y_1, \cdots, y_N]^\top$ 是全部训练样本的响应变量（分类标签）组成的向量。</p>
+<p>其中 $\boldsymbol{X}=[\boldsymbol{x}_1^\top, \cdots, \boldsymbol{x}_N^\top]^\top\in \mathbb{R}^{d\times N}$ 是全部训练样本的特征变量组成的矩阵，$\boldsymbol{y}=[y_1, \cdots, y_N]^\top$ 是全部训练样本的观测变量（分类标签）组成的向量。</p>
 
 <p>展开后得到二次型</p>
 
@@ -2118,7 +2118,7 @@ L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 <p>该方法就是经典的 〖<strong>最小二乘法</strong>〗 线性回归，其中的矩阵 $(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top$ 被称作 $\boldsymbol{X}$ 的伪逆矩阵（加号逆），记作 $\boldsymbol{X}^+$。</p>
 
-<p>采用上述算法，加入真实的样本是服从之前给出的线性关系的物理规律产生的，只是在观测中带有噪声或误差，则最小二乘线性回归就通过数据学习到了系统本来的模型，而在我们对数据背后的物理模型并不了解的情况下，线性回归给出了在最小平方误差意义下对解释变量与响应变量之间线性关系的最好估计。</p>
+<p>采用上述算法，加入真实的样本是服从之前给出的线性关系的物理规律产生的，只是在观测中带有噪声或误差，则最小二乘线性回归就通过数据学习到了系统本来的模型，而在我们对数据背后的物理模型并不了解的情况下，线性回归给出了在最小平方误差意义下对解释变量与观测变量之间线性关系的最好估计。</p>
 
 <h3 id="73-特点总结"><span class="me-2">7.3. 特点总结</span><a href="#73-特点总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 

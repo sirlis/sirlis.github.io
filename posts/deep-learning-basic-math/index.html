@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="深度学习（基础数学知识）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-07T14:31:47+08:00","datePublished":"2025-03-05T18:30:19+08:00","description":"本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。","headline":"深度学习（基础数学知识）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-basic-math/"},"url":"http://localhost:4000/posts/deep-learning-basic-math/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-10T11:44:04+08:00","datePublished":"2025-03-05T18:30:19+08:00","description":"本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。","headline":"深度学习（基础数学知识）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-basic-math/"},"url":"http://localhost:4000/posts/deep-learning-basic-math/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1120,13 +1120,13 @@
 
 <em
   class=""
-  data-ts="1741329107"
+  data-ts="1741578244"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/07
+  2025/03/10
 </em>
 
     </span>
@@ -2109,20 +2109,20 @@ f(\boldsymbol{z}) &amp;= \sum_{i=1}^m z_i^2\\
 <p>证明过程</p>
 
 \[\begin{aligned}
-d \text{tr}(X^T X) &amp;= \text{tr}(d(X^T X))\\
-&amp;= \text{tr}(d(X^T)X) + \text{tr}(X^T d(X))\\
-&amp;= \text{tr}(X^T d(X)) + \text{tr}(X^T d(X))\\
-&amp;= 2\text{tr}(X^T d(X))\\
-&amp;\Rightarrow \frac{\partial \text{tr}(X^T X)}{\partial X^T} = 2X^T\\
-&amp;\Rightarrow \frac{\partial \text{tr}(X^T X)}{\partial X} = 2X
+\text{d} (\text{tr}(\boldsymbol{X}^\top \boldsymbol{X})) &amp;= \text{tr}(\text{d}(\boldsymbol{X}^\top \boldsymbol{X}))\\
+&amp;= \text{tr}(\text{d}(\boldsymbol{X}^\top)\boldsymbol{X}) + \text{tr}(\boldsymbol{X}^\top \text{d}(\boldsymbol{X}))\\
+&amp;= \text{tr}(\boldsymbol{X}^\top \text{d}(\boldsymbol{X})) + \text{tr}(\boldsymbol{X}^\top \text{d}(\boldsymbol{X}))\\
+&amp;= 2\text{tr}(\boldsymbol{X}^\top \text{d}(\boldsymbol{X}))\\
+\Rightarrow &amp;\frac{\partial \text{tr}(\boldsymbol{X}^\top \boldsymbol{X})}{\partial \boldsymbol{X}^\top} = 2\boldsymbol{X}^\top\\
+\Rightarrow &amp;\frac{\partial \text{tr}(\boldsymbol{X}^\top \boldsymbol{X})}{\partial \boldsymbol{X}} = 2\boldsymbol{X}
 \end{aligned}\]
 
 <p>上述推导中用到的性质有</p>
 
 \[\begin{aligned}
-&amp; d \text{tr}(X) = \text{tr}(dX)\\
-&amp; d(XY) = (dX)Y + X(dY)\\
-&amp; \text{tr}AB = \text{tr}BA
+&amp; \text{d}( \text{tr}(X)) = \text{tr}(\text{d}(X))\\
+&amp; \text{d}(XY) = \text{d}(X)Y + X\text{d}(Y)\\
+&amp; \text{tr}(AB) = \text{tr}(BA)
 \end{aligned}\]
 
 <p><strong>题目2：求</strong></p>
