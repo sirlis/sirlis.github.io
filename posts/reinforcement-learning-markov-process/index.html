@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（马尔可夫决策过程）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-11-18T20:35:15+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-13T18:28:16+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1183,6 +1183,30 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1199,6 +1223,126 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1308,13 +1452,13 @@
 
 <em
   class=""
-  data-ts="1731933315"
+  data-ts="1741861696"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2024/11/18
+  2025/03/13
 </em>
 
     </span>
@@ -1358,9 +1502,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7450 字"
+  title="8994 字"
 >
-  <em>41 分钟</em>阅读</span>
+  <em>49 分钟</em>阅读</span>
 
     </div>
 
@@ -1378,15 +1522,31 @@
 <ul>
   <li><a href="#1-强化学习">1. 强化学习</a>
     <ul>
-      <li><a href="#11-状态和观测">1.1. 状态和观测</a></li>
+      <li><a href="#11-状态空间">1.1. 状态空间</a>
+        <ul>
+          <li><a href="#111-状态">1.1.1. 状态</a></li>
+          <li><a href="#112-观测">1.1.2. 观测</a></li>
+        </ul>
+      </li>
       <li><a href="#12-动作空间">1.2. 动作空间</a></li>
       <li><a href="#13-策略">1.3. 策略</a></li>
     </ul>
   </li>
-  <li><a href="#2-马尔可夫过程mp">2. 马尔可夫过程（MP）</a></li>
+  <li><a href="#2-马尔可夫过程mp">2. 马尔可夫过程（MP）</a>
+    <ul>
+      <li><a href="#21-基本概念">2.1. 基本概念</a></li>
+      <li><a href="#22-环境">2.2. 环境</a></li>
+    </ul>
+  </li>
   <li><a href="#3-马尔可夫奖励过程mrp">3. 马尔可夫奖励过程（MRP）</a>
     <ul>
-      <li><a href="#31-奖励reward">3.1. 奖励（Reward）</a></li>
+      <li><a href="#31-奖励reward">3.1. 奖励（Reward）</a>
+        <ul>
+          <li><a href="#311-奖励的定义">3.1.1. 奖励的定义</a></li>
+          <li><a href="#312-与动作的关系">3.1.2. 与动作的关系</a></li>
+          <li><a href="#313-与下一时刻状态的关系">3.1.3. 与下一时刻状态的关系</a></li>
+        </ul>
+      </li>
       <li><a href="#32-回报return">3.2. 回报（Return）</a></li>
       <li><a href="#33-价值函数">3.3. 价值函数</a></li>
       <li><a href="#34-贝尔曼方程">3.4. 贝尔曼方程</a></li>
@@ -1396,7 +1556,12 @@
     <ul>
       <li><a href="#41-动作action">4.1. 动作（Action）</a></li>
       <li><a href="#42-策略policy">4.2. 策略（Policy）</a></li>
-      <li><a href="#43-动态特性">4.3. 动态特性</a></li>
+      <li><a href="#43-动态特性">4.3. 动态特性</a>
+        <ul>
+          <li><a href="#431-状态转移概率">4.3.1. 状态转移概率</a></li>
+          <li><a href="#432-奖励概率">4.3.2. 奖励概率</a></li>
+        </ul>
+      </li>
       <li><a href="#44-价值函数">4.4. 价值函数</a>
         <ul>
           <li><a href="#441-状态价值函数">4.4.1. 状态价值函数</a></li>
@@ -1405,7 +1570,13 @@
           <li><a href="#444-回溯图与回溯操作">4.4.4. 回溯图与回溯操作</a></li>
         </ul>
       </li>
-      <li><a href="#45-贝尔曼期望方程">4.5. 贝尔曼期望方程</a></li>
+      <li><a href="#45-贝尔曼方程">4.5. 贝尔曼方程</a>
+        <ul>
+          <li><a href="#451-状态价值函数的贝尔曼方程">4.5.1. 状态价值函数的贝尔曼方程</a></li>
+          <li><a href="#452-矩阵化表述与迭代求解">4.5.2. 矩阵化表述与迭代求解</a></li>
+          <li><a href="#453-状态-动作价值函数的贝尔曼方程">4.5.3. 状态-动作价值函数的贝尔曼方程</a></li>
+        </ul>
+      </li>
       <li><a href="#46-最优价值函数">4.6. 最优价值函数</a></li>
       <li><a href="#47-贝尔曼最优方程">4.7. 贝尔曼最优方程</a></li>
       <li><a href="#48-最优策略">4.8. 最优策略</a></li>
@@ -1426,15 +1597,19 @@
 
 <p>如此反复迭代交互，可以得到一个序列或轨迹（trajectory）。</p>
 
-<p>强化学习的目标：<strong>最大化智能体接收到的标量信号（奖励）累积和的概率期望值</strong> $G$</p>
+<p>强化学习的朴素目标：<strong>训练智能体尽可能多的收集奖励</strong>。</p>
 
-\[G = r_1+r_2+...+r_n\]
+<h3 id="11-状态空间"><span class="me-2">1.1. 状态空间</span><a href="#11-状态空间" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h3 id="11-状态和观测"><span class="me-2">1.1. 状态和观测</span><a href="#11-状态和观测" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h4 id="111-状态"><span class="me-2">1.1.1. 状态</span><a href="#111-状态" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>「状态」$s$ 是对环境当前所处环境的完整描述，对于状态来说环境的所有信息都是可知的。而「观测」$o$ 则是一个状态的部分描述，可能会忽略一些信息。</p>
+<p>「状态」$s$ 是对环境当前所处环境的完整描述，对于状态来说环境的所有信息都是可知的。在数学上，状态空间是一系列状态组成的集合 $\mathcal{S}$，其中 $s \in \mathcal{S}$。</p>
 
-<p>在深度强化学习中，我们通常会使用实值向量<code class="language-plaintext highlighter-rouge">vector</code>、矩阵 <code class="language-plaintext highlighter-rouge">matrix</code> 或者高维张量 <code class="language-plaintext highlighter-rouge">tensor</code> 来表示状态和观测。比如，视觉的观测可以表示为像素值构成的 RGB 矩阵，机器人的状态则可以表示为其关节角度和速度。</p>
+<p>在深度强化学习中，我们通常会使用实值向量<code class="language-plaintext highlighter-rouge">vector</code>、矩阵 <code class="language-plaintext highlighter-rouge">matrix</code> 或者高维张量 <code class="language-plaintext highlighter-rouge">tensor</code> 来表示状态。比如，视觉的状态可以表示为像素值构成的 RGB 矩阵，机器人的状态则可以表示为其关节角度和速度。</p>
+
+<h4 id="112-观测"><span class="me-2">1.1.2. 观测</span><a href="#112-观测" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>「观测」$o$ 则是一个状态的部分描述，可能会忽略一些信息，其同样可用实值向量<code class="language-plaintext highlighter-rouge">vector</code>、矩阵 <code class="language-plaintext highlighter-rouge">matrix</code> 或者高维张量 <code class="language-plaintext highlighter-rouge">tensor</code> 来表示。</p>
 
 <p>当智能体能够观测到环境的全部状态时，这样的环境是可完全观测的 <code class="language-plaintext highlighter-rouge">fully observed</code>；当智能体只能观测到部分状态时，这样的环境称为可部分观测 <code class="language-plaintext highlighter-rouge">partially observed</code>。</p>
 
@@ -1444,9 +1619,9 @@
 
 <h3 id="12-动作空间"><span class="me-2">1.2. 动作空间</span><a href="#12-动作空间" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>「<strong>给定的环境中有效的动作集合称为动作空间</strong>」。有些环境中（比如 Atari 和 Go），「动作空间是离散的」<code class="language-plaintext highlighter-rouge">discrete</code>，也就是说智能体的动作数量是有限的；而有些环境中（比如机器人控制），「动作空间是连续的」<code class="language-plaintext highlighter-rouge">continuous</code>，这些空间中动作通常用实值向量表示。</p>
+<p>「<strong>给定的环境中有效的动作集合称为动作空间</strong>」。动作是对状态而言的，不同的状态可能有不同的动作空间，因此动作空间是一个与状态有关的集合。动作可以表示为 $\mathcal{A}(s),\; \forall s\in \mathcal{S}$。</p>
 
-<p>「<strong>动作空间是离散的还是连续的</strong>」在强化学习问题中非常重要，有些方法只适合用于其中一个场景，所以这点需要特别关注。</p>
+<p>「<strong>动作空间是离散的还是连续的</strong>」在强化学习问题中非常重要，有些方法只适合用于其中一个场景，所以这点需要特别关注。有些环境中（比如 Atari 和 Go），「动作空间是离散的」<code class="language-plaintext highlighter-rouge">discrete</code>，也就是说智能体的动作数量是有限的；而有些环境中（比如机器人控制），「动作空间是连续的」<code class="language-plaintext highlighter-rouge">continuous</code>，这些空间中动作通常用实值向量表示。</p>
 
 <h3 id="13-策略"><span class="me-2">1.3. 策略</span><a href="#13-策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1456,34 +1631,63 @@
 
 <h2 id="2-马尔可夫过程mp"><span class="me-2">2. 马尔可夫过程（MP）</span><a href="#2-马尔可夫过程mp" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>马尔可夫过程（Markov Process）：</p>
+<h3 id="21-基本概念"><span class="me-2">2.1. 基本概念</span><a href="#21-基本概念" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>几个基本概念定义如下：</p>
 
 <ul>
   <li>
-    <p>在一个时序过程中，如果 $t＋1$ 时刻的状态仅取决于 $t$ 时刻的状态 $s_t$ 而与 $t$ 时刻之前的任何状态都无关时，则认为 $t$ 时刻的状态 $s_t$ 具有马尔可夫性(Markov property)；</p>
+    <p><strong>马尔可夫性</strong>（Markov property）：在一个时序过程中，如果 $t＋1$ 时刻的状态仅取决于 $t$ 时刻的状态 $s_t$ 而与 $t$ 时刻之前的任何状态都无关时，则认为 $t$ 时刻的状态 $s_t$ 具有马尔可夫性，数学表述为
+\(p(s_{t+1}\vert s_{t},\cdots, s_1 ) = p( s_{t+1} \vert s_t)\)</p>
   </li>
   <li>
-    <p>若过程中的每一个状态都具有马尔科夫性，则这个过程具备马尔科夫性。具备了马尔科夫性的随机过程称为马尔科夫过程，又称马尔科夫链（Markov chain）。</p>
+    <p><strong>马尔科夫过程</strong>（Markov Process）：若过程中的每一个状态都具有马尔科夫性，则这个过程具备马尔科夫性。具备了马尔科夫性的随机过程称为马尔科夫过程，</p>
+  </li>
+  <li>
+    <p><strong>马尔可夫链</strong>（Markov chain）：离散状态空间的马尔可夫过程称为马尔科夫链（Markov chain）。</p>
   </li>
 </ul>
 
-<p>表述一个马尔可夫过程，只需要二元组 $&lt;S,P&gt;$ 即可。其中，$S$ 为状态，$P$ 为不同状态间的转移概率，如状态 $s$ 到 $s^\prime$ 的状态转移概率</p>
+<p>马尔可夫过程中的三个概念：</p>
 
-\[P_{s s^\prime}=\mathbb{P}[S_{t+1}=s^\prime \vert s_{t}=s]\]
+<ul>
+  <li><strong>采样</strong>（sample）或抽样：从符合马尔科夫过程给定的状态转移概率矩阵生成一个轨迹或回合的过程</li>
+  <li><strong>轨迹</strong>（trajectory）或序列：采样得到的一条无限长的状态序列,如：$s_1-s_2-s_3-…$</li>
+  <li><strong>回合</strong>（episode）或情节：采样直至一个终止状态，形成一条完整的状态序列。如：$s_1-s_2-s_3-\cdots-s_T$</li>
+</ul>
 
-<p>从上式也可以看到，下一时刻的状态$S_{t+1}$ 仅与当前时刻的状态 $S_t$ 有关，而与 $S_1,\cdots,S_{t-1}$ 无关。注意：这里的记号非常严谨， $S_{t}, S_{t+1}$ 代表某一时刻的状态，而 $s,s^\prime$ 代表某一种具体的状态类型。</p>
+<h3 id="22-环境"><span class="me-2">2.2. 环境</span><a href="#22-环境" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>为了描述整个状态空间中不同类型状态之间的关系，用矩阵表示，即为：</p>
+<p>环境是智能体交互的对象，是智能体在某状态下采取某动作后转移到新状态的最终参与者。以自动驾驶为例，在某个雨天的行驶状态下，智驾决定在 $120$ km/h 车速下（状态 $s_1$）向左打方向盘（动作）变向超车，期望状态是变到左侧相邻车道，但由于雨天湿滑（环境）导致车子最终滑到路边（新状态 $s_2$）。但是如果换一个干燥的晴天，大概率车子会正常变到左侧相邻车道（新状态 $s_3$）。</p>
+
+<p>上述例子比较直观体现了环境在状态转移中的作用，即在状态 $s_1$ 下动作 $a_1$ 的结果并不一定是某个确定的新状态，而是与实际环境有关。一般情况下，环境可以建模为一个状态转移概率矩阵 $P$。</p>
+
+<p>在马尔可夫过程中，我们暂时还不用考虑动作的作用，因此可以假设雨天环境大概率滑到路边（$s_2$），状态转移矩阵的元素为：</p>
+
+\[\begin{aligned}
+P(s_2\vert s_1) &amp;= 0.85\\
+P(s_3\vert s_1) &amp;= 0.15
+\end{aligned}\]
+
+<p>用二元组 $&lt;S,P&gt;$ 表述马尔可夫过程。其中，$S$ 为状态，$P$ 为不同状态间的转移概率，如状态 $s$ 到 $s^\prime$ 的状态转移概率</p>
+
+\[P_{s s^\prime}=P_{s s^\prime}=\mathbb{P}[S_{t+1}=s^\prime \vert S_t = s]\]
+
+<p>从上式也可以看到，下一时刻的状态$S_{t+1}$ 仅与当前时刻的状态 $S_t$ 有关，而与 $S_1,\cdots,S_{t-1}$ 无关。注意：这里的记号非常严谨， $S_{t}, S_{t+1}$ 代表某一时刻的状态，而 $s,s^\prime$ 代表某一种具体的状态类型。而在实际情况下，人们会将其简写多种不同的形式，需要特别注意</p>
+
+\[P_{s s^\prime}=P=p(S_{t+1}=s^\prime \vert S_{t}=s)=p(s^\prime \vert s) = p(s_{t+1} \vert s_{t})\]
+
+<p>对于离散的状态空间，为了描述整个状态空间中不同类型状态之间的关系，自然用矩阵表示，即：</p>
 
 \[P=
 \begin{bmatrix}
-P(s_1\vert s_1) &amp; P(s_2\vert s_1) &amp;\dots &amp; P(s_n\vert s_1)\\
-P(s_1\vert s_2) &amp; P(s_2\vert s_2) &amp;\dots &amp; P(s_n\vert s_2)\\
+p(s_1\vert s_1) &amp; p(s_2\vert s_1) &amp;\dots &amp; p(s_n\vert s_1)\\
+p(s_1\vert s_2) &amp; p(s_2\vert s_2) &amp;\dots &amp; p(s_n\vert s_2)\\
 \vdots &amp; \vdots &amp; \ddots &amp;\vdots\\
-P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp;\dots &amp; P(s_n\vert s_n)\\
+p(s_1\vert s_n) &amp; p(s_2\vert s_n)&amp;\dots &amp; p(s_n\vert s_n)\\
 \end{bmatrix}\]
 
-<p>其中，$P(s_j\vert s_i)$ 表示状态从 $s_i$ 转移到 $s_j$ 的状态转移概率，显然状态转移概率矩阵 $P$ 的规模是所有状态类型数 $n$ 的平方。</p>
+<p>显然状态转移概率矩阵 $P$ 的规模是所有状态类型数 $n$ 的平方。且从一个状态转移到所有可能状态的概率之和为 $1$。</p>
 
 <p>以下图为例：</p>
 
@@ -1514,14 +1718,6 @@ P=
 \end{bmatrix}
 \end{aligned}\]
 
-<p>马尔可夫过程中的三个概念：</p>
-
-<ul>
-  <li><strong>状态序列</strong>（episode）：一个状态转换过程，包含很多状态。如：$s_1$-$s_2$-$s_3-…$；</li>
-  <li><strong>完整的状态序列</strong>（complete episode）：状态序列的最后一个状态是终止状态；</li>
-  <li><strong>采样</strong>（sample）：从符合马尔科夫过程给定的状态转移概率矩阵生成一个状态序列的过程。</li>
-</ul>
-
 <h2 id="3-马尔可夫奖励过程mrp"><span class="me-2">3. 马尔可夫奖励过程（MRP）</span><a href="#3-马尔可夫奖励过程mrp" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>马尔可夫奖励过程（Markov Reward Process，MRP）就是在马尔可夫过程中增加了奖励（收益） $R$ 项和奖励因子 $\gamma$。</p>
@@ -1530,9 +1726,9 @@ P=
 
 <ul>
   <li>$S$ 是一个有限状态集；</li>
-  <li>$P$ 是集合中状态转移概率矩阵：$P_{s s^\prime}=\mathbb{P}[S_{t+1}=s^\prime \vert S_t = s]$；</li>
+  <li>$P$ 是集合中状态转移概率矩阵：$P_{s s^\prime}=\mathbb{P}[S_{t+1}=s^\prime \vert S_t = s]$</li>
   <li>$R$ 是奖励（收益）函数：$R_t = \mathbb{E}[R_{t+1}\vert S_t=s]$</li>
-  <li>$\gamma$ 是折扣因子：$\gamma \in [0,1]$。</li>
+  <li>$\gamma$ 是折扣因子：$\gamma \in [0,1)$</li>
 </ul>
 
 <p>如下图所示</p>
@@ -1541,40 +1737,67 @@ P=
 
 <h3 id="31-奖励reward"><span class="me-2">3.1. 奖励（Reward）</span><a href="#31-奖励reward" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>某时刻 $t$ 的奖励 $R_t$ 定义为<strong>从该状态转移到所有可能状态的奖励的期望</strong>。</p>
+<h4 id="311-奖励的定义"><span class="me-2">3.1.1. 奖励的定义</span><a href="#311-奖励的定义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>通常约定，某一时刻 $t$ 处在状态 $s_t$ 下奖励，是在下一个时刻 $t+1$ 获得的，即离开当前状态时获得奖励</p>
+<p>某时刻 $t$ 的即时奖励（immediate reward） $R_t$ 定义为<strong>从该时刻所处状态转移到下一时刻状态后从环境获得的标量数值</strong>。它是环境直接返回的反馈值，这个值可以是确定的，也可以是随机的（从某个概率分布中采样得到），具体取决于环境的定义。如果环境是随机的，即时奖励可能是一个随机变量，但从单次交互的角度来看，它是一个具体的标量值。</p>
 
-\[R_t = \mathbb{E}[R_{t+1}\vert S_t=s_t]\]
+\[r_{t+1} = r(s_t)\]
+
+<p>关于下标为何为 $t+1$ 而不是 $t$，是因为通常约定奖励是离开当前状态后在下一时刻才获得的。</p>
 
 <blockquote>
-  <p>为什么是 $R_{t+1}$ 而不是 $R_t$？因为约定离开这个状态才能获得奖励而不是进入这个状态即获得奖励。因为奖励是智能体采取动作之后离开 $S_t$ 时获得的，同时进入下一时刻状态 $S_{t+1}$。在后面的马尔可夫决策过程中，使用 $R_{t+1}$ 来表示 $A_t$ 导致的奖励，即强调下一时刻的收益和下一时刻的状态是被环境一起决定的。</p>
+  <p>在后续马尔可夫决策过程中，其是与下一时刻状态 $s_{t+1}$ 一同被环境所返回的。</p>
 </blockquote>
 
-<p>举例说明：当学生处在第一节课（Class 1）时，之后参加第2节课（Class 2）获得的 Reward 是 $-2$，若之后上网浏览 Facebook 获得的 Reward 也是 $-2$。</p>
+<h4 id="312-与动作的关系"><span class="me-2">3.1.2. 与动作的关系</span><a href="#312-与动作的关系" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>即时奖励与动作有关，因此在后续马尔可夫决策过程中，奖励可以表述为</p>
+
+\[r_{t+1} = r(s_t,a_t)\]
+
+<h4 id="313-与下一时刻状态的关系"><span class="me-2">3.1.3. 与下一时刻状态的关系</span><a href="#313-与下一时刻状态的关系" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>奖励是环境赋予的，其与下一时刻是否有关取决于环境的定义。从正常的思维来讲，奖励当然与下一时刻的状态有关系的（比如状态转移后进入终点导致获得正奖励，或者进入陷阱导致获得负奖励）。这种情况下，奖励应表述为</p>
+
+\[r_{t+1} = r(s_t,a_t,s_{t+1})\]
+
+<p>但我们通常约定，奖励函数只依赖于当前状态和动作，与下一时刻无关。</p>
+
+<blockquote>
+  <p>在后续马尔可夫决策过程中，强调下一时刻的奖励和下一时刻的状态是被环境一起决定的。这导致离开当前状态获得的奖励是概率性的，我们需要求解它的期望</p>
+
+\[r_{t+1} = \mathbb{E}[r\vert s_t,a_t] = r\cdot p(r\vert s_t,a_t) = r\cdot \sum_{s_{t+1}}p(r\vert s_t,a_t,s_{t+1})p(s_{t+1}\vert s_t,a_t)\]
+
+  <p>可以发现，即使奖励和下一时刻状态有关，这种相关性也可以通过状态转移概率来体现。</p>
+</blockquote>
 
 <p>此时，强化学习的目标：<strong>使得智能体收到的累计奖励最大化。</strong></p>
 
-<p>奖励是即时的，是 $t$ 时刻状态转移到 $t+1$ 时刻状态时的瞬时反馈信息。但在实际过程中，$t$ 时刻状态 $s_t$ 可能对后续所有状态产生深远影响，而不是单独对 $t+1$ 时刻状态产生影响。因此需要引入后面的新概念：回报。</p>
+<p>对于无限长度的采样轨迹，奖励的期望是无限大的，所以需要做出一个折扣，以便在远期奖励的期望值有较好的收敛性。这就引入了回报和折扣因子的必要性。</p>
 
 <h3 id="32-回报return"><span class="me-2">3.2. 回报（Return）</span><a href="#32-回报return" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>某时刻 $t$ 的回报（收益）定义为<strong>从时刻 $t$ 开始的 <font color="red">采样一条</font> 状态序列得到的所有奖励的折扣和</strong>：</p>
 
-\[G_t\doteq R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^k R_{t+k+1}\]
+\[G_t\doteq r_{t+1}+\gamma r_{t+2}+...=\sum_{k=0}^\infty \gamma^k r_{t+k+1}\]
 
-<p>越往后得到的奖励，折扣得越多。设置折扣因子的原因如下：</p>
+<p>其中 $\gamma \in [0,1)$ 被称为折扣因子，通常取值为 $0.9$。设置折扣因子的原因如下：</p>
 
 <ul>
   <li>数学表达的方便，这也是最重要的</li>
-  <li>避免陷入无限循环</li>
+  <li>保证奖励的收敛性，避免陷入无限循环</li>
   <li>远期利益具有一定的不确定性</li>
   <li>符合人类更看重眼前利益的性格</li>
 </ul>
 
-<p>折扣因子可以作为强化学习的一个超参数来进行调整，折扣因子不同就会得到不同行为的智能体。折扣因子接近 $0$ 则表明趋向于“近视”性评估；接近 $1$ 则表明偏重考虑远期的利益。</p>
+<p>折扣因子可以作为强化学习的一个超参数来进行调整，折扣因子不同就会得到不同行为的智能体：</p>
 
-<p>假设从 $Class 1$ 状态开始到 $Sleep$ 状态终止，折扣因子 $\gamma = 0.5$，采样两条序列计算回报如下：</p>
+<ul>
+  <li>折扣因子接近 $0$ 则表明趋向于“近视”性评估；</li>
+  <li>折扣因子接近 $1$ 则表明偏重考虑远期的利益。</li>
+</ul>
+
+<p>前述例子中，假设从 $Class 1$ 状态开始到 $Sleep$ 状态终止，折扣因子 $\gamma = 0.5$，采样两条序列计算回报如下：</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="code-header">
         <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
@@ -1582,17 +1805,13 @@ P=
 2
 3
 4
-</pre></td><td class="rouge-code"><pre>C1 - C2 - C3 - Pass - Sleep
-G_class1 = -2 + 1/2 × (-2) + 1/4 × (-2) + 1/8 × (+10) = -2.25
-C1 - FB - FB - C1 - C2 - Sleep
-G_class1 = -2 + 1/2 × (-1) + 1/4 × (-1) + 1/8 × (-2) + 1/16 ×(-2) = -3.125
+</pre></td><td class="rouge-code"><pre>episode 1: C1 - C2 - C3 - Pass - Sleep
+G_1 = -2 + 1/2 × (-2) + 1/4 × (-2) + 1/8 × (+10) = -2.25
+episode 2: C1 - FB - FB - C1 - C2 - Sleep
+G_2 = -2 + 1/2 × (-1) + 1/4 × (-1) + 1/8 × (-2) + 1/16 ×(-2) = -3.125
 </pre></td></tr></tbody></table></code></div></div>
 
 <p>此时，强化学习的目标：<strong>使得智能体收到的回报最大化。</strong></p>
-
-<p>相邻时刻的回报可用如下递归形式联系起来，这对于强化学习的理论和算法至关重要</p>
-
-\[G_t=R_{t+1}+\gamma R_{t+2}+...\]
 
 <p>回报值是针对一次完整的采样序列的结果，存在很大的样本偏差。即 $G(s)$ 是从 $t$ 时刻的状态到终止状态的一条状态转移序列的回报值，但从 $t$ 时刻的状态到终止状态的马尔可夫链不止一条，每一条都有对应的采样概率和回报。对于复杂问题而言，要想精确的计算出 $G(s)$ 是几乎不可能的，因为无法穷举所有序列。</p>
 
@@ -1611,27 +1830,31 @@ G_class1 = -2 + 1/2 × (-1) + 1/4 × (-1) + 1/8 × (-2) + 1/16 ×(-2) = -3.125
 <div class="language-plaintext highlighter-rouge"><div class="code-header">
         <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>v(Class1) = ( (-2.25) + (-3.125))  ÷ 2 = -2.6875
+</pre></td><td class="rouge-code"><pre>v(Class1) = (G_1 + G_2) / 2 = ( (-2.25) + (-3.125)) / 2 = -2.6875
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>状态值函数的引入解决了回报 $G(s)$ 路径有很多条，不容易优化的问题，<strong>将其转化为期望，变成固定标量了</strong>。</p>
+<p>状态值函数的引入，从数学上解决了回报 $G(s)$ 计算时依赖大量采样，难以实际应用的问题。</p>
 
 <p>但状态价值函数也不好算，因为在计算某个状态时候需要使用到将来所有状态的 $G(s)$。为了便于计算，对价值函数进行展开</p>
 
 \[\begin{aligned}
 V(s_t) &amp;= \mathbb{E}[G_t \vert S_t=s_t]\\
-&amp;=\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...\vert S_t=s_t]\\
-&amp;=\mathbb{E}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...)\vert S_t=s_t]\\
-&amp;=\mathbb{E}[R_{t+1}+\gamma G_{t+1}\vert S_t=s_t]\\
-&amp;=\mathbb{E}[R_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
+&amp;=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2 r_{t+3}+...\vert S_t=s_t]\\
+&amp;=\mathbb{E}[r_{t+1}+\gamma (r_{t+2}+\gamma r_{t+3}+...)\vert S_t=s_t]\\
+&amp;=\mathbb{E}[r_{t+1}+\gamma G_{t+1}\vert S_t=s_t]\\
+&amp;=\mathbb{E}[r_{t+1}\vert S_t=s]+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
 &amp;=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]
 \end{aligned}\]
 
-<p>上式中，第一项 $R_s$ 对应即时奖励，第二项则代表了长期的潜在奖励。可以看出，长期潜在奖励的计算需要获取下一时刻状态对应回报的期望。然而，未来时刻的状态及其回报是不确定的，即</p>
+<p>上式中，第一项 $R_s$ 对应即时奖励的期望</p>
+
+\[R_s = \sum_{a}\pi(a\vert s)\sum_r(p(r\vert s,a)\cdot r)\]
+
+<p>第二项则代表了长期的潜在奖励。可以看出，长期潜在奖励的计算需要获取下一时刻状态对应回报的期望。然而，未来时刻的状态及其回报是不确定的，即</p>
 
 \[\mathbb{E}[G_{t+1}\vert S_t=s_t]\]
 
-<p>很难求解。因此直接计算价值函数是不现实的。下面介绍贝尔曼方程来计算价值函数。</p>
+<p>依然是一个很难求解的期望形式。因此直接计算价值函数是不现实的。下面介绍贝尔曼方程来计算价值函数。</p>
 
 <h3 id="34-贝尔曼方程"><span class="me-2">3.4. 贝尔曼方程</span><a href="#34-贝尔曼方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1674,7 +1897,7 @@ V(s_t)&amp;=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
 
 <p>上式即为马尔可夫奖励过程的贝尔曼方程。</p>
 
-<p><strong>[ 推导 2 ]：</strong> （可能不对？）</p>
+<p><strong>[ 推导 2 ]：</strong></p>
 
 <p>对后项进行全概率展开</p>
 
@@ -1689,7 +1912,7 @@ V(s_t)&amp;=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
 
 <p>最终得到</p>
 
-\[V(s_t) = R_{s}+\gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)\]
+\[V(s_t) = r_{s}+\gamma \sum_{s_{t+1}\in S} V(s_{t+1})P(s_{t+1}\vert s_t)\]
 
 <p>即为马尔可夫奖励过程的贝尔曼方程。</p>
 
@@ -1700,7 +1923,6 @@ V(s_t)&amp;=R_{s}+\gamma \mathbb{E}[G_{t+1}\vert S_t=s_t]\\
 <p>若将马尔可夫奖励过程的状态构成 $n$ 维状态空间，贝尔曼方程可以写成矩阵形式</p>
 
 \[\begin{aligned}
-\boldsymbol{V} &amp;= \boldsymbol{R}+\gamma \boldsymbol{P} \boldsymbol{V}\\
 \begin{bmatrix}
     V(s_1)\\
     V(s_2)\\
@@ -1725,17 +1947,18 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
     V(s_2)\\
     \vdots\\
     V(s_n)
-\end{bmatrix}
+\end{bmatrix}\\
+\boldsymbol{V} &amp;= \boldsymbol{R}+\gamma \boldsymbol{P} \boldsymbol{V}\\
 \end{aligned}\]
 
-<p>上述是个线性方程组，可直接得到解析解</p>
+<p>上述是个线性方程组，可直接得到闭式解</p>
 
 \[\boldsymbol{V} = (\boldsymbol{I}-\gamma\boldsymbol{P})^{-1}\boldsymbol{R}\]
 
-<p>需要注意的是，矩阵求逆的复杂度为 $O(n^3)$，因此直接求解仅适用于状态空间规模小的问题。状态空间规模大的问题的求解通常使用迭代法。常用的迭代方法有：动态规划(Dynamic Programming)、蒙特卡洛评估(Monte-Carlo evaluation)、时序差分(Temporal-Difference)等。</p>
+<p>需要注意的是，矩阵求逆的复杂度为 $O(n^3)$，因此直接求解仅适用于状态空间规模小的问题。状态空间规模大的问题的求解通常使用迭代法，在后续介绍马尔可夫决策过程时进行详细介绍。</p>
 
 <blockquote>
-  <p>注意到，只有当 $P$ 已知的情况下，也就是模型已知时，才可以得到解析解。</p>
+  <p>注意到，只有当 $P$ 已知的情况下，也就是模型已知时，才可以得到解析形式的闭式解。</p>
 </blockquote>
 
 <h2 id="4-马尔可夫决策过程mdp"><span class="me-2">4. 马尔可夫决策过程（MDP）</span><a href="#4-马尔可夫决策过程mdp" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -1748,8 +1971,8 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
   <li>$S$ 是有限数量的状态集</li>
   <li>$A$ 是有限数量的动作集</li>
   <li>$P$ 是状态转移概率，$P_{ss^\prime}^a=\mathbb{P}[S_{t+1} = s^\prime \vert S_t = s, A_t=a]$</li>
-  <li>$R$ 是一个奖励函数，$R_{s}^a=\mathbb{E}[R_{t+1} \vert S_t = s, A_t=a]$</li>
-  <li>$\gamma$ 是一个折扣因子，$\gamma \in [0, 1]$</li>
+  <li>$R$ 是一个奖励函数，\(R_{s}^a=\mathbb{E}[R_{t+1} \vert S_t = s, A_t=a]\)</li>
+  <li>$\gamma$ 是一个折扣因子，$\gamma \in [0,1)$</li>
 </ul>
 
 <p>从上面定义可以看出，马尔可夫决策过程的状态转移概率和奖励函数不仅取决于智能体当前状体，<strong>还取决于智能体选取的动作</strong>。而马尔可夫奖励过程仅取决于当前状态。</p>
@@ -1768,9 +1991,9 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 <h3 id="42-策略policy"><span class="me-2">4.2. 策略（Policy）</span><a href="#42-策略policy" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p><strong>策略 $\pi(a\vert s)$ 是从状态 $s$ 到每个动作 $a$ 的选择概率之间的映射</strong> ，即</p>
+<p>策略 $\pi(a\vert s)$ 是从状态 $s$ 到每个动作 $a$ 的选择概率之间的映射，即</p>
 
-\[\pi(a\vert s) = \mathbb{P}[A_t=a\vert S_t=s]\]
+\[\pi(a\vert s) = \mathbb{P}[A_t=a \vert S_t=s]\]
 
 <p>一个策略完整地定义了智能体的行为方式，即策略定义了智能体在各种状态下可能采取的动作，以及在各种状态下采取各种动作的概率。MDP的策略仅与当前的状态有关，与历史信息无关；同时某一确定的策略是静态的，与时间无关；但是个体可以随着时间更新策略。</p>
 
@@ -1793,15 +2016,23 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 <p>在 MDP 中，由 $p$ 给出的概率完全刻画了环境的动态特性，即$S_t,R_t$ 的每个可能的值出现的概率只取决于前一个状态 $S_{t-1}$ 和动作 $A_{t-1}$，且与更早时刻的状态和动作无关（马尔可夫性）。</p>
 
+<h4 id="431-状态转移概率"><span class="me-2">4.3.1. 状态转移概率</span><a href="#431-状态转移概率" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
 <p>从四参数动态函数 $p$ 中，可以计算出关于环境的任何其它信息。比如，想表达MDP的状态转移过程，可以将随机变量 $R$ 求积分得到 <strong>状态转移概率</strong></p>
 
 \[P_{ss^\prime}^a = p(s^\prime \vert s,a) \doteq \mathbb{P}\{ S_t=s^\prime \vert S_{t-1}=s, A_{t-1}=a \} = \sum_{r\in R}p(s^\prime,r \vert s,a)\]
 
 <p>所以，整个马尔可夫决策过程的全部信息包含在状态变量集合 $A$，$S$，$R$ 和函数空间 $P$ 中，每个时刻都有一个 $A_t$，$S_t$，$R_t$，每两个相邻时刻之间都有一个 $p_t$。</p>
 
+<h4 id="432-奖励概率"><span class="me-2">4.3.2. 奖励概率</span><a href="#432-奖励概率" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
 <p>类似地，状态动作 $s,a$ 对的期望奖励可以写作两个参数的函数</p>
 
 \[r(s,a) = \mathbb{E}_\pi [R_{t+1} \vert S_t = s] = \sum_{r\in R} r \sum_{s^\prime \in S} p(s^\prime, r \vert s,a)\]
+
+<p>想表达 MDP 的即时奖励获取过程，可以将对 $s^\prime$ 求积分得到 <strong>奖励概率</strong></p>
+
+\[P_{ss^\prime}^r = p(r \vert s,a) = \sum_{s^\prime \in S}p(s^\prime, r \vert s,a)\]
 
 <h3 id="44-价值函数"><span class="me-2">4.4. 价值函数</span><a href="#44-价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1815,11 +2046,15 @@ P(s_1\vert s_n) &amp; P(s_2\vert s_n)&amp; \cdots &amp; P(s_n\vert s_n)\\
 
 <p>注意，终止状态的价值始终为零。我们把函数 $v_{\pi}(s)$ 称为策略 $\pi$ 的状态价值函数。</p>
 
+<p>状态价值函数衡量了一个状态的好坏，好的状态拥有较大的状态价值函数，表明从这个状态出发，预期能获得更高的回报。</p>
+
 <h4 id="442-动作价值函数"><span class="me-2">4.4.2. 动作价值函数</span><a href="#442-动作价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>类似地，我们把策略 $\pi$ 下在状态 $s$ 时采取动作 $a$ 的价值即为 $q_\pi(s,a)$。即根据策略 $\pi$，从状态 $s$ 开始，执行动作 $a$ 之后，所有可能的决策序列的期望回报</p>
 
 \[q_\pi(s,a) \doteq \mathbb{E}_\pi[G_t \vert S_t=s, A_t=a]\]
+
+<p>状态-动作价值函数衡量了某个状态下不同动作的好坏，好的状态-动作拥有较大的状态-动作价值函数，表明从这个状态出发选择这个动作，预期能获得更高的回报。</p>
 
 <h4 id="443-二者的意义"><span class="me-2">4.4.3. 二者的意义</span><a href="#443-二者的意义" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1883,59 +2118,142 @@ q_\pi(s,a) &amp;= \mathbb{E}_\pi\left[ G_t \vert S_t=s, A_t=a \right]\\
 
 <p>上式也可以从回溯图中推导得出。</p>
 
-<h3 id="45-贝尔曼期望方程"><span class="me-2">4.5. 贝尔曼期望方程</span><a href="#45-贝尔曼期望方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="45-贝尔曼方程"><span class="me-2">4.5. 贝尔曼方程</span><a href="#45-贝尔曼方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>与 MRP 中的价值函数类似，状态价值函数也有如下贝尔曼方程成立</p>
+<h4 id="451-状态价值函数的贝尔曼方程"><span class="me-2">4.5.1. 状态价值函数的贝尔曼方程</span><a href="#451-状态价值函数的贝尔曼方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>[ <strong>等式3</strong> ]：</p>
+<p>与马尔可夫奖励过程中的价值函数类似，状态价值函数也有如下贝尔曼方程成立</p>
 
 \[\begin{aligned}
-v_\pi(s) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(s^\prime) \vert S_t = s]\\
-&amp;=\sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ]
+v_\pi(s) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1} \vert S_t = s]\\
+&amp;= \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ],\; \forall s\in \mathcal{S}
 \end{aligned}\]
 
-<p>方程推导过程如下，首先易知</p>
-
-\[\mathbb{E}_\pi[R_{t+1}\vert S_t=s] = \sum_a\pi(a\vert s)\sum_{s^\prime}\sum_r p(s^\prime, r \vert s,a) r\]
-
-<p>而</p>
+<p>方程推导过程如下，首先易知第一项为即时奖励的期望</p>
 
 \[\begin{aligned}
-\mathbb{E}_\pi[G_{t+1}\vert S_{t}=s] &amp;= \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) \mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]\\
+\mathbb{E}_\pi[R_{t+1}\vert S_t=s] &amp;= \sum_a \pi(a\vert s)\mathbb{E} [R_{t+1}\vert S_t=s, A_t=a]\\
+&amp;= \sum_a \pi(a\vert s)\sum_{s^\prime} p(r \vert s,a) r\\
+&amp;=\sum_a\pi(a\vert s)\sum_{s^\prime}\sum_r p(s^\prime, r \vert s,a) r\\
+\end{aligned}\]
+
+<p>第二项为未来奖励的折扣期望（推导中暂不关注折扣因子）</p>
+
+\[\begin{aligned}
+\mathbb{E}_\pi[G_{t+1}\vert S_{t}=s] &amp;= \sum_{s^\prime}\mathbb{E}_\pi[G_{t+1}\vert S_{t}=s, S_{t+1}=s^\prime]p(s^\prime\vert s)\\
+&amp;= \sum_{s^\prime}\mathbb{E}_\pi[G_{t+1}\vert S_{t+1}=s^\prime]p(s^\prime\vert s)\quad (\text{Markov Property})\\
+&amp;=\sum_{s^\prime}v_\pi(s^\prime)p(s^\prime\vert s)\\
+&amp;= \sum_{s^\prime}v_\pi(s^\prime) \sum_a  p(s^\prime \vert s,a) \pi(a\vert s)\\
+&amp;= \sum_{s^\prime} v_\pi(s^\prime)\sum_a\sum_r p(s^\prime,r \vert s,a)  \pi(a\vert s) \\
 &amp;= \sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r  p(s^\prime,r \vert s,a) v_\pi(s^\prime)
 \end{aligned}\]
 
-<p>则有贝尔曼方程推导如下</p>
+<p>将上述两项推导加和，则有贝尔曼（期望）方程推导如下</p>
 
 \[\begin{aligned}
 v_\pi(s) &amp;= \mathbb{E}_\pi[G_t \vert S_t=s]\\
 &amp;=\mathbb{E}_\pi[R_{t+1}+ \gamma G_{t+1}\vert S_t=s]\\
+&amp;=\sum_a \pi(a\vert s) \left[ \sum_{r} p(r \vert s,a) r+\gamma \sum_{s^\prime} p(s^\prime \vert s,a) v_\pi(s^\prime) \right]\\
 &amp;=\sum_a \pi(a\vert s) \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\pi(s^\prime)  ] \\
 &amp;=\sum_{a, s^\prime, r}\pi(a\vert s)p(s^\prime,r \vert s,a)\cdot [  r+\gamma v_\pi(s^\prime)  ]
 \end{aligned}\]
 
 <p>最后一行，通过将求和符号合并后，我们可以看出，上述状等式描述了一个关于三参数 $a\in A, s^\prime \in S, r\in R$ 在所有可能性上的求和。对于每一个三元组，我们计算出其概率 $\pi(a\vert s)p(s^\prime,r \vert s,a)$ 然后乘以方括号内的值作为权值，最后加权求和得到状态价值函数的期望。参考回溯图可以更好理解。</p>
 
-<p>类似地，动作价值函数也有如下贝尔曼方程成立</p>
+<h4 id="452-矩阵化表述与迭代求解"><span class="me-2">4.5.2. 矩阵化表述与迭代求解</span><a href="#452-矩阵化表述与迭代求解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>[ <strong>等式4</strong> ]：</p>
+<p>与马尔可夫奖励过程类似，将状态价值函数的贝尔曼方程矩阵化，首先列写贝尔曼方程如下</p>
+
+\[v_\pi(s) =\sum_a \pi(a\vert s) \left[ \sum_{r} p(r \vert s,a) r+\gamma \sum_{s^\prime} p(s^\prime \vert s,a) v_\pi(s^\prime) \right]\]
+
+<p>令</p>
 
 \[\begin{aligned}
-q_\pi(s,a) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma q_\pi(s^\prime,a^\prime) \vert S_t = s, A_t = a]\\
-&amp;=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]\
+r_\pi(s) &amp;= \sum_a \pi(a\vert s)\sum_{r} p(r \vert s,a) r\\
+p_\pi(s^\prime\vert s) &amp;= \sum_a \pi(a\vert s)\sum_{r} p(s^\prime \vert s, a)
+\end{aligned}\]
+
+<p>则对于任意状态 $s_i \in \mathcal{S}\in \mathbb{R}^n$ 和其后续状态 $s_j \in \mathcal{S}\in \mathbb{R}^n$，有</p>
+
+\[v_\pi(s_i) = r_\pi(s) + \gamma \sum_{s_j}p_\pi(s_j\vert s_i)v_\pi(s_j)\]
+
+<p>将所有状态写成矩阵形式，有</p>
+
+\[\boldsymbol{V}_\pi = \boldsymbol{R}_\pi + \gamma \boldsymbol{P}_\pi \boldsymbol{V}_\pi\]
+
+<p>其中</p>
+
+\[\begin{aligned}
+\boldsymbol{V}_\pi &amp;= [v_\pi(s_1),\cdots, v_\pi(s_n)]^\top \in \mathbb{R}^n\\
+\boldsymbol{R}_\pi &amp;= [r_\pi(s_1),\cdots, r_\pi(s_n)]^\top \in \mathbb{R}^n\\
+\boldsymbol{P}_\pi &amp;= [p_\pi(s_1\vert s_1),\cdots, p_\pi(s_1\vert s_n); \cdots; p_\pi(s_n\vert s_1),\cdots, p_\pi(s_n\vert s_n)] \in \mathbb{R}^{n\times n}
+\end{aligned}\]
+
+<p>则闭式解为</p>
+
+\[\boldsymbol{V}_\pi^* = (\boldsymbol{I}-\gamma \boldsymbol{P}_\pi)^{-1}\boldsymbol{R}_\pi\]
+
+<p>可通过迭代求解的方法规避矩阵求逆操作，即</p>
+
+\[\boldsymbol{V}_\pi^{(k+1)} = \boldsymbol{R}_\pi + \gamma \boldsymbol{P}_\pi \boldsymbol{V}_\pi^{(k)}\]
+
+<p>可证明，当 $k\rightarrow \infty$ 时，$V_\pi^{(k)}\rightarrow V_\pi^*$，证明如下：</p>
+
+<p>定义误差</p>
+
+\[\delta^k = \boldsymbol{V}_\pi^{(k)} - \boldsymbol{V}_\pi^*\]
+
+<p>我们需要证明</p>
+
+\[\delta^k \rightarrow 0\]
+
+<p>有</p>
+
+\[\begin{aligned}
+  \boldsymbol{V}_\pi^{(k)} &amp;= \delta^k + \boldsymbol{V}_\pi^*\\
+  \boldsymbol{V}_\pi^{(k+1)} &amp;= \delta^{k+1} + \boldsymbol{V}_\pi^*\\
+\end{aligned}\]
+
+<p>代入迭代形式的贝尔曼方程，有</p>
+
+\[\begin{aligned}
+\delta^{k+1} + \boldsymbol{V}_\pi^* &amp;= \boldsymbol{R}_\pi + \gamma \boldsymbol{P}_\pi (\delta^k + \boldsymbol{V}_\pi^*)\\
+\delta^{k+1} &amp;= -\boldsymbol{V}_\pi^* + \boldsymbol{R}_\pi + \gamma \boldsymbol{P}_\pi \delta^k + \gamma \boldsymbol{P}_\pi \boldsymbol{V}_\pi^*\\
+\end{aligned}\]
+
+<p>注意到 $\boldsymbol{V}_\pi^*$ 同样也满足贝尔曼方程，因此</p>
+
+\[\begin{aligned}
+\delta^{k+1} &amp;= -\boldsymbol{V}_\pi^* + (\boldsymbol{R}_\pi + \gamma \boldsymbol{P}_\pi \boldsymbol{V}_\pi^*) + \gamma \boldsymbol{P}_\pi \delta^k\\
+&amp;= \gamma \boldsymbol{P}_\pi \delta^k
+\end{aligned}\]
+
+<p>因此</p>
+
+\[\delta^{k+1} = \gamma \boldsymbol{P}_\pi \delta^k = \gamma^2 \boldsymbol{P}_\pi^2 \delta^{k-1} = \cdots = \gamma^{k+1} \boldsymbol{P}_\pi^{k+1} \delta^0\]
+
+<p>由于 $\gamma &lt; 1,\; \gamma^{k+1}\rightarrow 0$，且 $0\leq \boldsymbol{P}_\pi^{k} &lt; 1$（其每一行之和等于 $1$），所以当 $k\rightarrow \infty$ 时，$\delta^k \rightarrow 0$，证毕。</p>
+
+<h4 id="453-状态-动作价值函数的贝尔曼方程"><span class="me-2">4.5.3. 状态-动作价值函数的贝尔曼方程</span><a href="#453-状态-动作价值函数的贝尔曼方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>类似地，动作价值函数也有如下贝尔曼方程成立</p>
+
+\[\begin{aligned}
+q_\pi(s,a) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1} \vert S_t = s, A_t = a]\\
+&amp;=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]
 \end{aligned}\]
 
 <h3 id="46-最优价值函数"><span class="me-2">4.6. 最优价值函数</span><a href="#46-最优价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>强化学习中，唯一能变动的部分就是策略 $\pi$。因此我们希望能找到一个最优的策略</p>
 
-\[\pi_\star = \mathop{argmax}\limits_\pi \;v_\pi(s) = \mathop{argmax}\limits_\pi \;q_\pi(s,a)\]
+\[\pi_\star = \mathop{\text{argmax}}\limits_\pi \;v_\pi(s) = \mathop{\text{argmax}}\limits_\pi \;q_\pi(s,a)\]
 
 <p>使得价值函数最大</p>
 
 \[\begin{aligned}
-v_\star(s) &amp;\doteq \mathop{max}\limits_\pi \;v_\pi(s) = v_{\pi_\star}(s)\\
-q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,a)\\
+v_\star(s) &amp;\doteq \mathop{\text{max}}\limits_\pi \;v_\pi(s) = v_{\pi_\star}(s)\\
+q_\star(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,a)\\
 \end{aligned}\]
 
 <p>已知状态价值函数是动作价值函数的期望（加权平均）</p>
@@ -1946,7 +2264,7 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
 
 <p>[ <strong>等式5</strong> ]：</p>
 
-\[v_\star(s) = \mathop{max}\limits_a \; q_\star(s,a)\]
+\[v_\star(s) = \mathop{\text{max}}\limits_a \; q_\star(s,a)\]
 
 <p>但给定动作 $a$ 后的状态转移 $s-s^\prime$ 并不是最优策略能够决定的，而是由环境决定，因此最优动作价值函数并不能将求和符号改为 max 符号，即</p>
 
@@ -1958,11 +2276,11 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
 
 <p>改写 [ <strong>等式3</strong> ] ，最优状态价值函数对应的贝尔曼最优方程为</p>
 
-\[v_\star(s) = \mathop{max}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\star(s^\prime)  ]\]
+\[v_\star(s) = \mathop{\text{max}}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\star(s^\prime)  ]\]
 
 <p>将 [ <strong>等式5</strong> ] 带入 [ <strong>等式6</strong> ] ，最优动作价值函数对应的贝尔曼最优方程为</p>
 
-\[q_\star(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{max}\limits_a \; q_\star(s^\prime,a^\prime) \right]\]
+\[q_\star(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{\text{max}}\limits_a \; q_\star(s^\prime,a^\prime) \right]\]
 
 <h3 id="48-最优策略"><span class="me-2">4.8. 最优策略</span><a href="#48-最优策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1978,7 +2296,7 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
 
 <p>为了求解最优策略，只需要做一步搜索就行。也就是对于不同的 $a\in A$，计算</p>
 
-\[\pi_\star(a\vert s) \leftarrow \mathop{argmax}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_\star(s^\prime)]\]
+\[\pi_\star(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_\star(s^\prime)]\]
 
 <p>就是我们的最优策略。为什么只需要一步搜索就行呢？因为 $v_\star$ 已经考虑未来可能行为的回报。</p>
 
@@ -1988,7 +2306,7 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
 
 <p>已知 $q_{\star}$ 就更直接了，只要 $q_\star$ 中最大值对应的动作就是最优动作（策略）</p>
 
-\[\pi_\star(a\vert s) \leftarrow \mathop{argmax}\limits_a\; q_\star(s,a)\]
+\[\pi_\star(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a\; q_\star(s,a)\]
 
 <p>可以看到，如果已经得到了所有状态（或状态-动作）的最优价值函数，那么最优策略是很容易得到的。然而，在实际情况中我们往往不知道最优的状态（或状态-动作）价值函数。因此，我们需要将强化学习分为两步，第一步解决一个<strong>预测问题</strong>，即给定状态、动作、奖励、状态转移概率，策略，预测出所有状态（或状态-动作）价值函数；第二步解决一个<strong>控制问题</strong>，即在预测问题的基础上，如何更新策略使得策略逐渐变得更优。</p>
 
@@ -2158,6 +2476,20 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/pytorch-basic-2/">PyTorch基础（随机数种子）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
@@ -2173,20 +2505,6 @@ q_\star(s,a) &amp;\doteq \mathop{max}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,
         
         <li class="text-truncate lh-lg">
           <a href="/posts/optimal-control-numerical/">最优控制基础（微分方程的解法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
     </ul>
