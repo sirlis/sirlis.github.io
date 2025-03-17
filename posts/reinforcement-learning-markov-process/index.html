@@ -1183,30 +1183,6 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
 
     
 
@@ -1223,6 +1199,54 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1502,9 +1526,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="8994 字"
+  title="9710 字"
 >
-  <em>49 分钟</em>阅读</span>
+  <em>53 分钟</em>阅读</span>
 
     </div>
 
@@ -1577,9 +1601,14 @@
           <li><a href="#453-状态-动作价值函数的贝尔曼方程">4.5.3. 状态-动作价值函数的贝尔曼方程</a></li>
         </ul>
       </li>
-      <li><a href="#46-最优价值函数">4.6. 最优价值函数</a></li>
-      <li><a href="#47-贝尔曼最优方程">4.7. 贝尔曼最优方程</a></li>
-      <li><a href="#48-最优策略">4.8. 最优策略</a></li>
+      <li><a href="#46-贝尔曼最优方程">4.6. 贝尔曼最优方程</a>
+        <ul>
+          <li><a href="#461-最优策略">4.6.1. 最优策略</a></li>
+          <li><a href="#462-最优价值函数">4.6.2. 最优价值函数</a></li>
+          <li><a href="#463-贝尔曼最优方程">4.6.3. 贝尔曼最优方程</a></li>
+          <li><a href="#465-最优策略的求解">4.6.5. 最优策略的求解</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#5-参考文献">5. 参考文献</a></li>
@@ -2243,18 +2272,60 @@ q_\pi(s,a) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1} \vert S_t = s, A_t = a
 &amp;=\sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \sum_{a^\prime}   \pi(a^\prime \vert s^\prime) q_\pi(s^\prime, a^\prime)  \right]
 \end{aligned}\]
 
-<h3 id="46-最优价值函数"><span class="me-2">4.6. 最优价值函数</span><a href="#46-最优价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="46-贝尔曼最优方程"><span class="me-2">4.6. 贝尔曼最优方程</span><a href="#46-贝尔曼最优方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>强化学习中，唯一能变动的部分就是策略 $\pi$。因此我们希望能找到一个最优的策略</p>
+<h4 id="461-最优策略"><span class="me-2">4.6.1. 最优策略</span><a href="#461-最优策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-\[\pi_\star = \mathop{\text{argmax}}\limits_\pi \;v_\pi(s) = \mathop{\text{argmax}}\limits_\pi \;q_\pi(s,a)\]
+<p>强化学习的最终目标是寻找最优策略，<strong>最优策略是使得价值函数最大的策略</strong></p>
 
-<p>使得价值函数最大</p>
+\[\pi^* \; \text{is optimal if}\; v_{\pi^*}(s)\geq v_\pi(s),\; \forall s\in\mathcal{S},\forall\pi\in\mathcal{\Pi}\]
+
+<blockquote>
+  <p>这个定义引出了许多问题：</p>
+  <ol>
+    <li>最优策略是否存在？因为定义里的最优策略非常理想，它比其他所有策略都要好，并且在所有状态上都能打败其它策略，那么是否存在这样的情况，最优策略在某些状态上能打败其它的策略，但是在某些状态上没法打败。</li>
+    <li>最优策略是否唯一？</li>
+    <li>最优策略是随机的还是确定的？</li>
+    <li>如何获得最优策略？</li>
+  </ol>
+</blockquote>
+
+<p>由于价值函数有两种，因此可分别定义如下两种最优策略：</p>
 
 \[\begin{aligned}
-v_\star(s) &amp;\doteq \mathop{\text{max}}\limits_\pi \;v_\pi(s) = v_{\pi_\star}(s)\\
-q_\star(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi_\star}(s,a)\\
+\pi^* &amp;= \mathop{\text{argmax}}\limits_\pi \;v_\pi(s)\\
+\pi^o &amp;= \mathop{\text{argmax}}\limits_\pi \;q_\pi(s,a)\\
 \end{aligned}\]
+
+<p>其中最大状态价值函数可定义为</p>
+
+\[\begin{aligned}
+v_*(s) &amp;\doteq \mathop{\text{max}}\limits_\pi \;v_\pi(s) = v_{\pi^*}(s)\geq v_\pi(s)\quad\forall s\in\mathcal{S},\forall\pi\in\mathcal{\Pi}\\
+q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a)\geq q_\pi(s,a)\quad\forall s\in\mathcal{S},\forall\pi\in\mathcal{\Pi}\\
+\end{aligned}\]
+
+<p>首先证明，对于不同的价值函数（即 $v_\pi(s)$ 和 $q_\pi(s,a)$），上述两种最优策略是等价的。根据两个价值函数的关系有</p>
+
+\[\begin{aligned}
+  v_\pi(s) &amp;= \sum_{a}\pi(a\vert s)\cdot q_\pi(s,a)\\
+  v_{\pi^*}(s) &amp;= \max_a\sum_{a}\pi^*(a\vert s)\cdot q_\pi(s,a)\\
+  &amp;=\max_a[\pi(a_1\vert s)q_\pi(s,a_1)+\cdots+\pi(a_n\vert s)q_\pi(s,a_n)]\\
+\end{aligned}\]
+
+<p>等式右边可以看作对所有状态-动作价值函数的加权和求最大值，若其中某个状态-动作价值函数最大，其权重必然为 $1$，才能保证上式取到最大值。</p>
+
+\[\pi^*(a\vert s) = \left\{
+\begin{aligned}
+  1&amp; \quad \text{if}\quad a=\text{argmax}_a q_{\pi^*}(s,a)\\
+  0&amp; \quad \text{otherwise}
+\end{aligned}
+\right.\]
+
+<p>此时我们发现，对于不同的价值函数而言，最优策略是等价的</p>
+
+\[\pi^o = \mathop{\text{argmax}}\limits_\pi \;q_\pi(s,a) = \pi^*\]
+
+<h4 id="462-最优价值函数"><span class="me-2">4.6.2. 最优价值函数</span><a href="#462-最优价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>已知状态价值函数是动作价值函数的期望（加权平均）</p>
 
@@ -2262,33 +2333,61 @@ q_\star(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi_\s
 
 <p>那么当取最优策略时，其必然取到最大值，即</p>
 
-<p>[ <strong>等式5</strong> ]：</p>
-
-\[v_\star(s) = \mathop{\text{max}}\limits_a \; q_\star(s,a)\]
+\[v_*(s) = \mathop{\text{max}}\limits_a \; q_*(s,a)\]
 
 <p>但给定动作 $a$ 后的状态转移 $s-s^\prime$ 并不是最优策略能够决定的，而是由环境决定，因此最优动作价值函数并不能将求和符号改为 max 符号，即</p>
 
-<p>[ <strong>等式6</strong> ]：</p>
+\[q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_*(s^\prime) \right]\]
 
-\[q_\star(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_\star(s^\prime) \right]\]
+<h4 id="463-贝尔曼最优方程"><span class="me-2">4.6.3. 贝尔曼最优方程</span><a href="#463-贝尔曼最优方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h3 id="47-贝尔曼最优方程"><span class="me-2">4.7. 贝尔曼最优方程</span><a href="#47-贝尔曼最优方程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>将最优状态价值函数的代入改写贝尔曼方程，得到贝尔曼最优方程为</p>
 
-<p>改写 [ <strong>等式3</strong> ] ，最优状态价值函数对应的贝尔曼最优方程为</p>
+\[v_*(s) = \mathop{\text{max}}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_*(s^\prime)  ]\]
 
-\[v_\star(s) = \mathop{\text{max}}\limits_a \sum_{s^\prime}\sum_r p(s^\prime,r \vert s,a) [  r+\gamma v_\star(s^\prime)  ]\]
+<p>矩阵形式为</p>
 
-<p>将 [ <strong>等式5</strong> ] 带入 [ <strong>等式6</strong> ] ，最优动作价值函数对应的贝尔曼最优方程为</p>
+\[\boldsymbol{V} = \max_\pi(\boldsymbol{R}_\pi + \gamma\boldsymbol{P}_\pi\boldsymbol{V})\]
 
-\[q_\star(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{\text{max}}\limits_a \; q_\star(s^\prime,a^\prime) \right]\]
+<p>类似地 ，最优状态-动作价值函数对应的贝尔曼最优方程为</p>
 
-<h3 id="48-最优策略"><span class="me-2">4.8. 最优策略</span><a href="#48-最优策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+\[q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma \mathop{\text{max}}\limits_a \; q_*(s^\prime,a^\prime) \right]\]
 
-<p>解决强化学习问题意味着要寻找一个最优的策略让个体在与环境交互过程中获得始终比其它策略都要多的收获，这个最优策略我们可以用 $\pi_\star$ 表示。一旦找到这个最优策略，那么我们就解决了这个强化学习问题。</p>
+<p>贝尔曼最优方程给出了最优价值函数和最优策略的关系，即二者通过贝尔曼最优方程约束彼此，相互共同达到最优。但关于方程解的存在性和唯一性还有待进一步证明。</p>
 
-<p>一般来说，比较难去找到一个最优策略，但是可以通过比较若干不同策略的优劣来确定一个较好的策略，也就是局部最优解。</p>
+<p>以状态价值函数的贝尔曼最优方程为例，定义贝尔曼算子：</p>
 
-<p>如何比较策略的优劣呢？一般是通过对应的价值函数来比较的，也就是说，寻找较优策略可以通过寻找最优价值函数 $v_{<em>}(s)$ 或 $q_{</em>}(s,a)$ 来完成。</p>
+\[\mathcal{B}(\boldsymbol{V}) = \max_\pi(\boldsymbol{R}_\pi + \gamma\boldsymbol{P}_\pi\boldsymbol{V})\]
+
+<p>其解（也即最优状态价值函数）是存在且唯一的，可通过不动点定理来证明。</p>
+
+<blockquote>
+  <ul>
+    <li><strong>不动点</strong>（fix point）：若 $x\in X$ 满足 $f(x)=x$，其中 $f:X\rightarrow X$，则 $x$ 为一个不动点</li>
+    <li><strong>压缩映射</strong>（contraction mapping）：若 $f:X\rightarrow X$ 满足 $\Vert f(x)-f(y)\Vert\leq \lambda\Vert y-x\Vert$，其中 $\lambda&lt;1$，则 $f$ 为一个压缩映射，其中 $d=\Vert \cdot \Vert$ 可以是任意向量范数</li>
+    <li><strong>不动点定理</strong>：对于完备度量空间 $(X,d)$ 中任何形式的 $x=f(x)$ 方程，如果 $f$ 是压缩映射，那么满足：
+      <ul>
+        <li>存在性：存在一个不动点 $x^<em>$ 使得 $f(x^</em>)=x^*$</li>
+        <li>唯一性：不动点是唯一存在的</li>
+        <li>求解方法：考虑一个序列 $x_k$ 满足 $x_{k+1}=f(x_k)$，则 $x_k\rightarrow x^*, k\rightarrow \infty$，且收敛过程是呈指数级的</li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+
+<p>对于度量空间，我们使用 $L_\infty$ 范数</p>
+
+\[\Vert \boldsymbol{V}\Vert_{\infty} = \max_i \vert V_i \vert\]
+
+<p>根据此度量空间范数的定义，两个值函数之间的距离等于两个值函数向量各方向绝对值之差的最大值。同样，对于有限奖励的有限MDP，值函数将始终在实数空间中。因此，此有限空间是完备的。</p>
+
+<p>定理：贝尔曼算子 $\mathcal{B}$ 是有限空间 $(X, L_\infty)$ 上的压缩映射。证明过程略，可参考《Mathematical Foundation of Reinforcement Learning》第 3.3.4 节。</p>
+
+<p>上述定理保证了贝尔曼最优方程解的存在性和唯一性，并且保证可以通过迭代的形式求解得到最优价值函数（也即后文中的价值迭代（value iteration））。</p>
+
+<h4 id="465-最优策略的求解"><span class="me-2">4.6.5. 最优策略的求解</span><a href="#465-最优策略的求解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>通过迭代求解得到最优价值函数后，如何确定最优策略？</p>
 
 <ul>
   <li><strong>已知</strong> $v_{*}$</li>
@@ -2296,17 +2395,17 @@ q_\star(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi_\s
 
 <p>为了求解最优策略，只需要做一步搜索就行。也就是对于不同的 $a\in A$，计算</p>
 
-\[\pi_\star(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_\star(s^\prime)]\]
+\[\pi_*(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_*(s^\prime)]\]
 
-<p>就是我们的最优策略。为什么只需要一步搜索就行呢？因为 $v_\star$ 已经考虑未来可能行为的回报。</p>
+<p>就是我们的最优策略。为什么只需要一步搜索就行呢？因为 $v_*$ 已经考虑未来可能行为的回报。</p>
 
 <ul>
   <li><strong>已知</strong> $q_{*}$</li>
 </ul>
 
-<p>已知 $q_{\star}$ 就更直接了，只要 $q_\star$ 中最大值对应的动作就是最优动作（策略）</p>
+<p>已知 $q_*$ 就更直接了，只要取其中最大值对应的动作就是最优动作（策略）</p>
 
-\[\pi_\star(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a\; q_\star(s,a)\]
+\[\pi_*(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a\; q_*(s,a)\]
 
 <p>可以看到，如果已经得到了所有状态（或状态-动作）的最优价值函数，那么最优策略是很容易得到的。然而，在实际情况中我们往往不知道最优的状态（或状态-动作）价值函数。因此，我们需要将强化学习分为两步，第一步解决一个<strong>预测问题</strong>，即给定状态、动作、奖励、状态转移概率，策略，预测出所有状态（或状态-动作）价值函数；第二步解决一个<strong>控制问题</strong>，即在预测问题的基础上，如何更新策略使得策略逐渐变得更优。</p>
 
