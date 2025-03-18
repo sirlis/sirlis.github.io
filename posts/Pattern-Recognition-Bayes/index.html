@@ -37,7 +37,7 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.3" />
-<meta property="og:title" content="模式识别（统计决策方法：贝叶斯决策）" />
+<meta property="og:title" content="模式识别（贝叶斯决策）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。" />
 <meta property="og:description" content="本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。" />
@@ -47,15 +47,15 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-03-12T21:22:19+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="模式识别（统计决策方法：贝叶斯决策）" />
+<meta property="twitter:title" content="模式识别（贝叶斯决策）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-08-09T13:13:13+08:00","datePublished":"2024-03-12T21:22:19+08:00","description":"本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。","headline":"模式识别（统计决策方法：贝叶斯决策）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-08-09T13:13:13+08:00","datePublished":"2024-03-12T21:22:19+08:00","description":"本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。","headline":"模式识别（贝叶斯决策）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>模式识别（统计决策方法：贝叶斯决策） | SIRLIS
+  <title>模式识别（贝叶斯决策） | SIRLIS
   </title>
 
   <!--
@@ -468,7 +468,7 @@
         
           
             
-              <span>模式识别（统计决策方法：贝叶斯决策）</span>
+              <span>模式识别（贝叶斯决策）</span>
             
 
           
@@ -895,6 +895,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -918,7 +930,7 @@
 
 
 
-<h1 data-toc-skip>模式识别（统计决策方法：贝叶斯决策）</h1>
+<h1 data-toc-skip>模式识别（贝叶斯决策）</h1>
 
 <div class="post-meta text-muted">
     <!-- published date -->
@@ -1011,9 +1023,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3825 字"
+  title="4915 字"
 >
-  <em>21 分钟</em>阅读</span>
+  <em>27 分钟</em>阅读</span>
 
     </div>
 
@@ -1032,14 +1044,15 @@
   <li><a href="#1-决策理论与方法">1. 决策理论与方法</a>
     <ul>
       <li><a href="#11-基于先验概率的决策">1.1. 基于先验概率的决策</a></li>
-      <li><a href="#12-基于贝叶斯公式的决策">1.2. 基于贝叶斯公式的决策</a></li>
+      <li><a href="#12-基于贝叶斯公式后验概率的决策">1.2. 基于贝叶斯公式（后验概率）的决策</a></li>
     </ul>
   </li>
   <li><a href="#2-最小错误贝叶斯决策">2. 最小错误贝叶斯决策</a>
     <ul>
-      <li><a href="#21-决策规则">2.1. 决策规则</a></li>
+      <li><a href="#21-直观举例">2.1. 直观举例</a></li>
       <li><a href="#22-类概率密度">2.2. 类概率密度</a></li>
       <li><a href="#23-错误率分析">2.3. 错误率分析</a></li>
+      <li><a href="#24-决策规则">2.4. 决策规则</a></li>
     </ul>
   </li>
   <li><a href="#3-最小风险贝叶斯决策">3. 最小风险贝叶斯决策</a>
@@ -1055,120 +1068,218 @@
 
 <h2 id="1-决策理论与方法"><span class="me-2">1. 决策理论与方法</span><a href="#1-决策理论与方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>解决模式识别问题的方法可归纳为基于知识的方法和基于数据的方法两大类。基于数据的模式识别方法的基础时统计模式识别，即依据统计学原理建立分类器，这事模式识别学科最初的主要内容。基于人工神经网络模型的模式识别方法从最初的思路并不是从统计学开始，但其本质上与统计学有密切联系，人们也大量采用统计学思想来对他们进行研究。</p>
+<p>如果每一类在空间中互不相交，有清晰的决策边界，这种叫做<strong>确定统计分类</strong>。如果这些类相互之间有重合，新的样本的特征落到一个重合区域，那么就要判断该样本属于某一类的概率。从而通过比较某些概率的大小来进行分类，这种叫做<strong>不确定统计分类</strong>。</p>
 
-<p>如果每一类在空间中互不相交，有清晰的决策边界，那么就没有必要用贝叶斯决策，这种叫做<strong>确定统计分类</strong>。如果这些类相互之间有重合，新的样本的特征落到一个重合区域，那么就要判断该样本属于某一类的概率。从而通过比较某些概率的大小来进行分类，这种叫做<strong>不确定统计分类</strong>。</p>
+<p>确定统计分类也可以通过设计线性分类器来完成分类，而对于不确定统计分类，一方面可以继续采用线性分类的思想设计分类器，另一方面也可以采用本文将要介绍的贝叶斯决策。后面我们会看到，线性分类的最优分类器是<strong>最小错误贝叶斯决策</strong>。</p>
 
 <h3 id="11-基于先验概率的决策"><span class="me-2">1.1. 基于先验概率的决策</span><a href="#11-基于先验概率的决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>记 $x$ 为观察到的样本特征，分类空间为 $A={a_1, a_2, \cdots, a_n}$，其中 $a_i$ 为第 $i$ 类，$p(A)$ 为该空间的发生概率（先验概率分布）$。</p>
+<p>记 $x$ 为观察到的样本特征，分类空间为 $A={a_1, a_2, \cdots, a_n}$，其中 $a_i$ 为第 $i$ 类，$p(A)$ 为该空间的发生概率（先验概率分布）。</p>
+
 <ul>
   <li>$x=[x_1, x_2, \cdots, x_d]^T$ 为由 $d$ 维空间组成的特征向量。</li>
   <li>当 $p(a_j)&gt;p(a_{others})$ 时，记<strong>决策规则</strong> $x\in a_j$。</li>
   <li>当作出决策之后，<strong>单分类错误率</strong> $p(error_j) = 1-p(a_j)$，即 $x\notin a_j$ 的概率。</li>
 </ul>
 
-<p>可以看到，一般决策过程仅依靠先验概率 $p(a_j)$，使得对 $x$ 的观察（特征参考）并没有对决策过程产生影响，总体错误率仍有降低的空间。</p>
+<blockquote>
+  <p>现假设你面前有10张卷子，老师告诉你有 5 份是说没有复习实际也没有复习的学渣的，有 5 份是说没有复习却复习的很好的学霸的，你从里面任意抽了一份出来，<strong>不看分数不看名字</strong>，问你卷子是学渣还是学霸的。此时由于你只知道学渣学霸的试卷各占一半，因此你只能随便猜一个答案，那么你的单分类错误率是 $0.5$。此时就是基于先验概率的决策。</p>
+</blockquote>
 
-<h3 id="12-基于贝叶斯公式的决策"><span class="me-2">1.2. 基于贝叶斯公式的决策</span><a href="#12-基于贝叶斯公式的决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>可以看到，一般决策过程仅依靠先验概率 $p(a_j)$，使得对 $x$ 的观察（特征，也就是试卷分数）并没有对决策过程产生影响，总体错误率仍有降低的空间。</p>
+
+<h3 id="12-基于贝叶斯公式后验概率的决策"><span class="me-2">1.2. 基于贝叶斯公式（后验概率）的决策</span><a href="#12-基于贝叶斯公式后验概率的决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>贝叶斯决策（Bayes Decision） 是十大经典机器学习算法之一，是统计机器学习的典型。通过观察到样本的特征 $x$ 后，通过贝叶斯公式，可以有效降低错误率。贝叶斯决策也被称作<strong>统计决策理论</strong>。</p>
 
 <blockquote>
-  <p>贝叶斯公式旨在通过一个已知的结果，并结合一些经验性或统计性的信息来倒推出最可能产生该结果的原因，即所谓执果索因。对于一个 $n$ 分类任务，贝叶斯公式如下</p>
-
-\[p(\omega_{i}\mid x)=\frac{p(x\mid\omega_{i})p(\omega_{i})}{p(x)}=\frac{p(x\mid\omega_{i})p(\omega_{i})}{\sum_{j=1}^{n}p(x\mid\omega_{j})p(\omega_{j})},i=1,2, \cdots n\]
-
-  <p>其中，</p>
-  <ul>
-    <li>$\omega_1,\omega_2$：表示两个类别，此处分别为学渣、学霸；</li>
-    <li>$p(\omega_{i})$：表示类别 $i$ 的<strong>先验概率</strong>，即每一类样本整体出现的概率，此处 $p(\omega_{1})=0.5=p(\omega_{2})$，表示两类试卷各占一半；</li>
-    <li>$x$：表示观测/抽样数据，假设 $x=1$ 为拿到90+分的试卷，$x=0$ 则表示拿到了不超过90分的试卷；</li>
-    <li>$p(x=1\vert\omega_i)$：表示类别 $i$ 的条件概率，即第$i$类中的某样本特征出现的概率，反映了在 $w_i$类中观察到特征值 $\boldsymbol{x}$ 的可能性（likelihood），也称为<strong>似然度</strong>，一般是已知的；</li>
-    <li>$p(x=1)$：表示两类学生考 90+ 分的概率，是一个<strong>全概率</strong>；</li>
-    <li>$p(\omega_i\vert x=1)$：<strong>后验概率</strong>，同样也是一个条件概率，表示已知考试成绩为 90+ 分，那么该试卷属于第 $\omega_i$ 类的概率；后验概率也是我们需要求得的概率，通过它可以实现分类，比如选取后验概率最大者对应的类别作为分类结果。</li>
-  </ul>
+  <p>现假设你面前有10张卷子，老师告诉你有 5 份是说没有复习实际也没有复习的学渣的，有 5 份是说没有复习却复习的很好的学霸的，你从里面任意抽了一份出来，得分90+，不看名字，你多半会说这是学霸的卷子，或许你没有发现，在你做判断的一瞬间已经无意中使用了贝叶斯决策。</p>
 </blockquote>
+
+<p>贝叶斯公式旨在通过一个已知的结果，并结合一些经验性或统计性的信息来倒推出最可能产生该结果的原因，即所谓执果索因。对于一个 $c$ 分类任务，贝叶斯公式如下</p>
+
+\[p(\omega_{i}\mid x)=\frac{p(x\mid\omega_{i})p(\omega_{i})}{p(x)}=\frac{p(x\mid\omega_{i})p(\omega_{i})}{\sum_{j=1}^{c}p(x\mid\omega_{j})p(\omega_{j})},i=1,2, \cdots c\]
+
+<p>其中，举例说明（$c=2$）如下：</p>
+
+<ul>
+  <li>$\omega_1,\omega_2$：表示两个类别，此处分别为学渣、学霸；</li>
+  <li>$p(\omega_{i})$：表示类别 $i$ 的<strong>先验概率</strong>，即每一类样本整体出现的概率，此处 $p(\omega_{1})=0.5=p(\omega_{2})$，表示两类试卷各占一半；</li>
+  <li>$x$：表示观测/抽样数据，假设 $x=1$ 为拿到90+分的试卷，$x=0$ 则表示拿到了不超过90分的试卷；</li>
+  <li>$p(x=1\vert\omega_i)$：表示类别 $i$ 的条件概率，即第$i$类中的某样本特征出现的概率，反映了在 $w_i$类中观察到特征值 $\boldsymbol{x}$ 的可能性（likelihood），也称为<strong>似然度</strong>，一般是已知的；</li>
+  <li>$p(x=1)$：表示两类学生考 90+ 分的概率，是一个<strong>全概率</strong>；</li>
+  <li>$p(\omega_i\vert x=1)$：<strong>后验概率</strong>，同样也是一个条件概率，表示已知考试成绩为 90+ 分，那么该试卷属于第 $\omega_i$ 类的概率；后验概率也是我们需要求得的概率，通过它可以实现分类，比如选取后验概率最大者对应的类别作为分类结果。</li>
+</ul>
 
 <p>可以看出，后验概率即为我们需要求取的概率。后验概率其实是在衡量各组分对结果的贡献，概率大，表示所有此结果中该组分（类）占比大。在引例中不知道那张试卷分数时，卷子可能属于10个人中的任意一人，即两个组分（类别）在概率上都贡献了5个人，各占0.5。而在知道卷面成绩90+后，贡献就悄然发生了变化。</p>
 
-<p>贝叶斯分类特点：</p>
+<blockquote>
+  <p>已知学渣和学霸各占总样本的一半人数也就是5人，则先验概率为</p>
+
+\[P(w_1)=0.5, P(w_2)=0.5\]
+
+  <p>假设通过以往所有的考试信息，得出w1组得分90+的概率为0.2，w2组得分90+的概率为0.8，即条件概率（似然度）为</p>
+
+\[P(x=1|w_1)=0.2, P(x=1|w_2)=0.8\]
+
+  <p>代入贝叶斯公式即可求得后验概率</p>
+
+\[\begin{aligned}
+P(w_1|x=1)&amp;=\frac{0.2*0.5}{0.2*0.5+0.8*0.5}=0.2, \\
+P(w_2|x=1)&amp;=\frac{0.8*0.5}{0.2*0.5+0.8*0.5}=0.8
+\end{aligned}\]
+
+  <p>可以看出，成绩90+的试卷属于$w_1$ 组的概率为0.2，属于 $w_2$ 组的概率为0.8，因此这张卷子更有可能是学霸的。</p>
+</blockquote>
+
+<p>贝叶斯公式特点：</p>
 
 <ul>
-  <li>先验概率是计算后验概率的基础，是通过大量统计来得到的，这就是大数定理。</li>
-  <li>许多事件的发生不具有可重复性，所以先验概率只能根据对置信度的主管判断，然后再以新获得的信息对先验概率进行修正。</li>
+  <li>条件概率（似然度）是计算后验概率的基础，是通过大量统计来得到的，这就是大数定理。</li>
+  <li>许多事件的发生不具有可重复性，所以条件概率只能根据对置信度的主观判断，然后再以新获得的信息对条件概率进行修正。</li>
   <li>贝叶斯决策是基于概率的，所以分类决策一定存在错误率，即使错误率很低。</li>
 </ul>
 
-<p>不同的贝叶斯分类器有不同的贝叶斯决策。贝叶斯决策就是在贝叶斯公式计算出后验概率的基础上，进一步做归属的决定——分类，如上述引例中，决策就是决定90+或者不超过90分的卷子归于w1组（类）或者归于w2组（类）。其主要包括两种决策方式，即最小错误贝叶斯决策，和最小风险贝叶斯决策。</p>
+<p>贝叶斯决策就是在贝叶斯公式计算出后验概率的基础上，进一步做归属的决定——分类，如上述引例中，决策就是决定90+或者不超过90分的卷子归于 $w_1$ 组（类）或者归于 $w_2$ 组（类）。</p>
+
+<p>不同的贝叶斯分类器有不同的贝叶斯决策，其主要包括两种决策方式，即最小错误贝叶斯决策，和最小风险贝叶斯决策。</p>
 
 <h2 id="2-最小错误贝叶斯决策"><span class="me-2">2. 最小错误贝叶斯决策</span><a href="#2-最小错误贝叶斯决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h3 id="21-决策规则"><span class="me-2">2.1. 决策规则</span><a href="#21-决策规则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="21-直观举例"><span class="me-2">2.1. 直观举例</span><a href="#21-直观举例" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>最小错误贝叶斯决策就是选择后验概率最大的类作为判断的决策。对于 $c$ 分类任务</p>
+<p>最小错误贝叶斯决策就是<strong>选择后验概率最大的类作为判断</strong>的决策。</p>
 
-<p>分类规则：</p>
+<blockquote>
+  <p>上述例中，在 $x=1$ 时，由于</p>
 
-\[p(w_i \vert \boldsymbol{x}) = \max\; p(w_j \vert \boldsymbol{x}), j\in[1,c] \quad \Rightarrow \boldsymbol{x}\in w_i \tag{1}\]
+\[P(w_1|x=1)=0.2 &lt; P(w_2|x=1)=0.8\]
 
-<p>后验概率用贝叶斯公式展开后，由于分母的 $p(\boldsymbol{x})$ 相同，因此可以忽略分母直接比较分子，得到等效分类规则如下：</p>
+  <p>所以将90+的卷子归属到 $w_2$，犯错的概率会最小。犯错的概率就是90+的卷子可能属于 $w_1$ 的概率，即
+\(P(w_1|x=1)=0.2 = 1 - P(w_2|x=1)\)</p>
 
-\[p(\boldsymbol{x} \vert w_i)p(w_i) = \max\; [p(\boldsymbol{x} \vert w_j)p(w_j)], j\in[1,c] \quad \Rightarrow \boldsymbol{x}\in w_i \tag{2}\]
+  <p>同理，在 $x=0$ 时，将90或者90-的卷子归属到 $w_1$，犯错的概率会最小。犯错的概率是</p>
 
-<p>由于先验概率 $p(w_i)$ 是事先确定的，与当前样本  $\boldsymbol{x}$ 无关，因此人们经常把二分类问题的决策规则整理成下面的形式：</p>
+\[P(w_2|x=0)=0.2=1 - P(w_1|x=0)\]
+
+  <p>上述例子是符合直觉的，在数学上需要更为严谨的推导。</p>
+</blockquote>
+
+<h3 id="22-类概率密度"><span class="me-2">2.2. 类概率密度</span><a href="#22-类概率密度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>对于前述例子，会觉得它更像是一个简单的数学问题，而不是一个模式识别问题。因为在实际模式识别中，首先，待分类数据 $x$ 往往不会只有 $[0,1]$ （此处为 90+分和不足90分）两种取值，而会是一系列取值，如得分为 $[0,1,\cdots,99,100]$；对应的类的条件概率往往不是几个孤立的冲激，而是一个连续的概率密度函数（PDF），如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20240312/01.pdf.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/01.pdf.jpg" alt="pdf" class="lazyload" data-proofer-ignore></a></p>
+
+<p>类条件概率反映出样本在特征空间的分布（学渣的卷面分数分布和学霸的卷面分数分布），这个分布一般而言是需要根据样本数据统计计算得到的。正因为不同类别的类条件概率分布在特征空间会重叠，导致了判决错误的发生。</p>
+
+<h3 id="23-错误率分析"><span class="me-2">2.3. 错误率分析</span><a href="#23-错误率分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>为什么最小错误率贝叶斯决策的错误率是最小的？从定义出发：<strong>选择后验概率最大的类作为判断</strong>的决策。以一维二分类问题进行说明。对于两类问题，统计判决的基本方法是根据前述类的概率和概率密度将模式的特征空间划分为两个子区域 $\mathcal{R}_1, \mathcal{R}_2$，当 $x\in\mathcal{R}_1$ 时判断为 $x\in w_1$ 类，当 $x\in\mathcal{R}_2$ 时判断为 $x\in w_2$ 类。则错误率取决于两个子空间的划分情况，或者说两个子空间分界面 $t$ 的选择。</p>
+
+<p><a href="/assets/img/postsimg/20240312/02.pe.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/02.pe.jpg" alt="pe" class="lazyload" data-proofer-ignore></a></p>
+
+<p>显然，此时会发生两种错误：</p>
+
+<ol>
+  <li>把实际是 $w_1$ 类的样本错误判断为 $w_2$ 类。这种情况发生的原因是属于 $w_1$ 类的特征分布在 $w_2$ 的特征空间区域 $\mathcal{R}_2$ 中。这时，误判概率为（图中方格区域的面积）</li>
+</ol>
+
+\[p(e_1) = \int_{\mathcal{R}_2} p(x \vert w_1)\text{d}x\]
+
+<ol>
+  <li>另一种错误是把实际是 $w_2$ 类的样本错误判断为 $w_1$ 类。这种情况发生的原因是属于 $w_2$ 类的特征分布在 $w_1$ 的特征空间区域 $\mathcal{R}_1$ 中。这时，误判概率为（图中斜纹区域的面积）</li>
+</ol>
+
+\[p(e_2) = \int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x\]
+
+<p>考虑到两个类别发生的概率分别为 $p(w_1), p(w_2)$ ，则总的误判概率为</p>
+
+\[p(e) = p(w_1) \cdot p(e_1)+ p(w_2) \cdot p(e_2) = p(w_1)\int_{\mathcal{R}_2} p(x \vert w_1)\text{d}x + p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x\]
+
+<p>其中 $p(w_1), p(w_2)$ 对于积分来说是与 $x$ 无关的常数，因此可以在积分符号内或者外出现。</p>
+
+<p>我们希望总错误率最小，等价于希望总的正确判断的概率最大，总正确率为</p>
+
+\[p(c) = p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x \tag{1}\]
+
+<p>注意到（$w_2$ 类别在全空间要么判断正确要么判断错误）</p>
+
+\[\begin{aligned}
+1 &amp;= \int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x + \int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x \\
+\Rightarrow \quad p(w_2) &amp;= p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x + p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x\\
+\Rightarrow \textcolor{blue}{\quad p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x} &amp;= p(w_2) - p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x \\
+\end{aligned} \tag{2}\]
+
+<p>上述等式左边代入式$(1)$，有</p>
+
+\[\begin{aligned}
+p(c) &amp;= p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2) - p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x\\
+&amp;= p(w_2) + \int_{\mathcal{R}_1} [\;p(w_1)p(x \vert w_1)-p(w_2) p(x \vert w_2)\;]\text{d}x\\
+\end{aligned}\]
+
+<p>式中 $\mathcal{R}_1$ 是未知的，直接求解很困难。但考查上式可以发现，为了使其最大，$w_1$ 的决策域 $\mathcal{R}_1$ 应该是 $R$ 中所有满足条件</p>
+
+\[p(w_1)p(x \vert w_1) &gt; p(w_2)p(x \vert w_2)\]
+
+<p>的样本点组成的集合。</p>
+
+<p>同理（对式$(2)$左右同时乘以$p(w_1)$然后代入式$(1)$ 得到另一个$p(c)$ 的表达式进行分析），决策域 $\mathcal{R}_2$ 应该是 $R$ 中所有满足条件</p>
+
+\[p(w_1)p(x \vert w_1) &lt; p(w_2)p(x \vert w_2)\]
+
+<p>的样本组成的集合。</p>
+
+<p>易知，<strong>任何其他划分对应的正确率都要小于按照上述划分的正确率</strong>。所以，最小错误率贝叶斯决策（选择后验概率最大的类作为判断）的错误率是最小的。即<strong>最小错误贝叶斯决策 = 最大后验贝叶斯决策</strong>。由于概率非负，如果每一次决策错误率都最小，那么总的错误率也是最小的。</p>
+
+<p>根据前述决策规则，只需要比较类的概率密度函数乘以一个常数（先验概率，不随采样而变，是一个常数值）的结果。显然，图中 $t$ 为决策点，在 $x&lt;t$ 时，对产生数据 $x$ 的贡献 $w_1$ 大于 $w_2$，故最小错误贝叶斯决策将 $x$ 归属为 $w_1$，在 $x&gt;t$ 时，对产生数据 $x$ 的贡献 $w_2$ 大于 $w_1$，故最小错误贝叶斯决策将 $x$ 归属为 $w_2$。</p>
+
+<h3 id="24-决策规则"><span class="me-2">2.4. 决策规则</span><a href="#24-决策规则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>根据前述错误率分析，我们需要选择后验概率最大的类作为分类决策规则。对于 $c$ 分类任务，后验概率为</p>
+
+\[p(w_i \vert \boldsymbol{x}) = \frac{p(\boldsymbol{x} \vert w_i)p(w_i)}{ p(\boldsymbol{x})} = \frac{p(\boldsymbol{x} \vert w_i)p(w_i)}{\sum_{j=1}^c p(\boldsymbol{x} \vert w_j)p(w_j)},i=1,2, \cdots c\]
+
+<p>与二分类的分类规则类似，有</p>
+
+<p><strong>【决策规则1】</strong></p>
+
+\[p(w_i \vert \boldsymbol{x}) = \max\; p(w_j \vert \boldsymbol{x}), j\in[1,c] \quad \Rightarrow \boldsymbol{x}\in w_i \tag{3}\]
+
+<p>后验概率用贝叶斯公式展开后，由于分母的 $p(\boldsymbol{x})$ 相同，因此可以忽略分母直接比较分子，得到等效分类规则如下</p>
+
+<p><strong>【决策规则2】</strong></p>
+
+\[p(\boldsymbol{x} \vert w_i)p(w_i) = \max\; [p(\boldsymbol{x} \vert w_j)p(w_j)], j\in[1,c] \quad \Rightarrow \boldsymbol{x}\in w_i \tag{4}\]
+
+<p>由于先验概率 $p(w_i)$ 是事先确定的，与当前样本  $\boldsymbol{x}$ 无关，因此人们经常把二分类问题的决策规则整理成下面的形式</p>
+
+<p><strong>【决策规则3】</strong></p>
 
 \[l(\boldsymbol{x})=\frac{p(\boldsymbol{x}\vert w_1)}{p(\boldsymbol{x}\vert w_2)} \gtrless \frac{p(w_2)}{p(w_1)}=\lambda \quad \Rightarrow \boldsymbol{x} \in \left\{
   \begin{matrix}
   w_1\\
   w_2
 \end{matrix}
-\right. \tag{3}\]
+\right. \tag{5}\]
 
 <p>上式中，概率密度值 $p(\boldsymbol{x}\vert w_i)$ 即为前面贝叶斯公式介绍时提到的似然度，两类似然度的比值 $l(\boldsymbol{x})$ 被称为<strong>似然比（likelihood ratio）</strong>。这样可以事先计算出阈值 $\lambda$，对每一个样本计算似然比 $l(\boldsymbol{x})$ 并与 $\lambda$ 比较，大于阈值则决策为第一类，反之决策为第二类。</p>
 
 <p>更进一步，许多情况下，用对数形式计算可能更加方便，因此人们定义了对数似然比</p>
 
-\[\begin{aligned}
-h(\boldsymbol{x}) &amp;= -\ln[l(\boldsymbol{x})] = -\ln[p(\boldsymbol{x}\vert w_1)] + \ln[p(\boldsymbol{x}\vert w_1)]\\
-h(\boldsymbol{x})&amp;\lessgtr\ln\frac{p(w_2)}{p(w_1)} \quad \Rightarrow \boldsymbol{x} \in \left\{
+\[h(\boldsymbol{x}) = -\ln[l(\boldsymbol{x})] = -\ln[p(\boldsymbol{x}\vert w_1)] + \ln[p(\boldsymbol{x}\vert w_1)]\]
+
+<p>相应的决策规则为</p>
+
+<p><strong>【决策规则4】</strong></p>
+
+\[h(\boldsymbol{x})\lessgtr\ln\frac{p(w_2)}{p(w_1)} \quad \Rightarrow \boldsymbol{x} \in \left\{
   \begin{matrix}
   w_1\\
   w_2
 \end{matrix}
 \right.
-\end{aligned}
-\tag{3}\]
-
-<h3 id="22-类概率密度"><span class="me-2">2.2. 类概率密度</span><a href="#22-类概率密度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
-
-<p>对于引言中的例子，首先假设学渣和学霸两个类别的条件概率密度函数如下图所示，类条件概率反映出学渣的卷面分数分布和学霸的卷面分数分布，这个分布一般而言是需要根据样本数据统计计算得到的。</p>
-
-<p>类似还有比如医学图像分类任务中，假设适用细胞核总光密度作为特征，那么正常细胞光密度值概率密度和癌细胞核总光密度值概率密度，可以通过医学知识和大量正常细胞以及癌细胞的图像数据计算得到的。</p>
-
-<p><a href="/assets/img/postsimg/20240312/01.pdf.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/01.pdf.jpg" alt="pdf" class="lazyload" data-proofer-ignore></a></p>
-
-<h3 id="23-错误率分析"><span class="me-2">2.3. 错误率分析</span><a href="#23-错误率分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
-
-<p>根据前述决策规则，只需要比较类的概率密度函数乘以一个常数（先验概率，不随采样而变，是一个常数值）的结果。显然，图中 $t$ 为决策点，在 $x&lt;t$ 时，对产生数据 $x$ 的贡献 $w_1$ 大于 $w_2$，故最小错误贝叶斯决策将 $x$ 归属为 $w_1$，在 $x&gt;t$ 时，对产生数据 $x$ 的贡献 $w_2$ 大于 $w_1$，故最小错误贝叶斯决策将 $x$ 归属为 $w_2$。</p>
-
-<p><a href="/assets/img/postsimg/20240312/02.pe.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/02.pe.jpg" alt="pe" class="lazyload" data-proofer-ignore></a></p>
-
-<p>我们来分析一下错误率，决策边界 $t$ 把 $x$ 轴分割成两个区域，分别称为第一类和第二类的决策区域 $\mathcal{R}_1,\mathcal{R}_2$。其中 $\mathcal{R}_1$ 为 $(-\infty, t)$，$\mathcal{R}_2$ 为 $(t, +\infty)$。样本在$\mathcal{R}_1$ 但属于第二类的的概率和样本在 $\mathcal{R}_2$ 但属于第一类的概率就是出现错误的概率，再考虑到样本自身的分布后就是平均错误率</p>
-
-\[\begin{aligned}
-p(e) &amp;= \int_{-\infty}^{\infty}p(error, x)\text{d}x = \int_{-\infty}^{\infty}p(error \vert x)p(x)\text{d}x \\
-&amp;= \int_{-\infty}^{t}p(w_2 \vert x)p(x)\text{d}x+\int_{t}^{\infty}p(w_1 \vert x)p(x)\text{d}x\\
-&amp;= \int_{-\infty}^{t}p(x \vert w_2)p(w_2)\text{d}x+\int_{t}^{\infty}p(x \vert w_1)p(w_1)\text{d}x\\
-\end{aligned}\tag{4}\]
-
-<p>犯错的概率就是最小的，即<strong>最小错误贝叶斯决策 = 最大后验贝叶斯决策</strong>。由于概率非负，如果每一次决策错误率都最小，那么总的错误率也是最小的。</p>
-
-<p>最小错误贝叶斯决策的结果就是，落在区域 $\mathcal{R}_1$ 中的 $x$ 都被归属到 $w_1$ 中了，包括其中混合的 $w_2$ 成分，落在区域 $\mathcal{R}_2$ 中的 $x$ 都被归属到 $w_2$ 中了，包括其中混合的 $w_1$ 成分。所以对于落在区域 $\mathcal{R}_1$ 中的每一个 $x$，被判错的概率都是 $1-p(w_1\vert x)=p(w_2\vert x)$，则 $w_1$ 的平均错误率就是 $p(w_2\vert x)$ 在 $x&lt;t$ 上的期望，它是图中斜纹区域的面积，如下式所示</p>
-
-\[p(e_1) = \int_{-\infty}^t p(w_2 \vert x)p(x)\text{d} x = \int_{-\infty}^t p(w_2, x) \text{d}x = \int_{-\infty}^t p(x \vert w_2)p(w_2)\text{d}x\]
-
-<p>同理，$w_2$ 的平均错误率就是 $p(w_1\vert x)$ 在 $x&gt;t$ 上的期望，它是图中方格区域的面积。</p>
+\tag{7}\]
 
 <h2 id="3-最小风险贝叶斯决策"><span class="me-2">3. 最小风险贝叶斯决策</span><a href="#3-最小风险贝叶斯决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1238,25 +1349,11 @@ p(e) &amp;= \int_{-\infty}^{\infty}p(error, x)\text{d}x = \int_{-\infty}^{\infty
 
 <h3 id="33-决策步骤"><span class="me-2">3.3. 决策步骤</span><a href="#33-决策步骤" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<div class="table-wrapper"><table>
-  <tbody>
-    <tr>
-      <td>对于样本 $\boldsymbol{x}$ 的各状态后验概率为 $p(w_j</td>
-      <td>\boldsymbol{x}),\;j=1,\cdots,c$，对它采取决策 $a_i,\;i=1,\cdots,k$ 的<strong>期望损失</strong>（期望风险）是</td>
-    </tr>
-  </tbody>
-</table></div>
+<p>对于样本 $\boldsymbol{x}$ 的各状态后验概率为 $p(w_j \vert \boldsymbol{x}),\;j=1,\cdots,c$，对它采取决策 $a_i,\;i=1,\cdots,k$ 的<strong>期望损失</strong>（期望风险）是</p>
 
 \[R(a_i|\boldsymbol{x})=E[\lambda(a_i,w_j)|\boldsymbol{x}] = \sum_{j=1}^c p(w_j|\boldsymbol{x})\lambda(a_i,w_j)\]
 
-<div class="table-wrapper"><table>
-  <tbody>
-    <tr>
-      <td>对于特定的决策（比如 $a_1$ 即把样本分类为第 1 类），其期望风险为 $R(a_1,\boldsymbol{x}) = \sum_{j=1}^c p(w_j</td>
-      <td>\boldsymbol{x})\lambda(a_1,w_j)$。也就是说，对于特定决策，其风险是所有后验的概率与损失函数的乘积之和，即不再仅仅考虑后验概率了，还要额外考虑损失函数（风险）。</td>
-    </tr>
-  </tbody>
-</table></div>
+<p>对于特定的决策（比如 $a_1$ 即把样本分类为第 1 类），其期望风险为 $R(a_1,\boldsymbol{x}) = \sum_{j=1}^c p(w_j \vert \boldsymbol{x})\lambda(a_1,w_j)$。也就是说，对于特定决策，其风险是所有后验的概率与损失函数的乘积之和，即不再仅仅考虑后验概率了，还要额外考虑损失函数（风险）。</p>
 
 <p>因此，最小风险贝叶斯决策就是对所有决策 $a_i$ 求期望损失，然后选择<strong>期望损失最小的决策</strong>。即</p>
 
@@ -1326,7 +1423,7 @@ p(e) &amp;= \int_{-\infty}^{\infty}p(error, x)\text{d}x = \int_{-\infty}^{\infty
     
       
       <a
-        href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BB%9F%E8%AE%A1%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95%EF%BC%9A%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%86%B3%E7%AD%96%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Bayes%2F"
+        href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%86%B3%E7%AD%96%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Bayes%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Twitter"
@@ -1339,7 +1436,7 @@ p(e) &amp;= \int_{-\infty}^{\infty}p(error, x)\text{d}x = \int_{-\infty}^{\infty
     
       
       <a
-        href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BB%9F%E8%AE%A1%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95%EF%BC%9A%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%86%B3%E7%AD%96%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Bayes%2F"
+        href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%86%B3%E7%AD%96%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Bayes%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Facebook"
@@ -1352,7 +1449,7 @@ p(e) &amp;= \int_{-\infty}^{\infty}p(error, x)\text{d}x = \int_{-\infty}^{\infty
     
       
       <a
-        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Bayes%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%BB%9F%E8%AE%A1%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95%EF%BC%9A%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%86%B3%E7%AD%96%EF%BC%89%20-%20SIRLIS"
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Bayes%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%86%B3%E7%AD%96%EF%BC%89%20-%20SIRLIS"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Telegram"
