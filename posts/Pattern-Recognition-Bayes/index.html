@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（贝叶斯决策）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-18T20:36:48+08:00","datePublished":"2024-03-12T21:22:19+08:00","description":"本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。","headline":"模式识别（贝叶斯决策）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-19T18:40:53+08:00","datePublished":"2024-03-12T21:22:19+08:00","description":"本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。","headline":"模式识别（贝叶斯决策）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1149,13 +1149,13 @@
 
 <em
   class=""
-  data-ts="1742301408"
+  data-ts="1742380853"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/18
+  2025/03/19
 </em>
 
     </span>
@@ -1199,9 +1199,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7092 字"
+  title="8256 字"
 >
-  <em>39 分钟</em>阅读</span>
+  <em>45 分钟</em>阅读</span>
 
     </div>
 
@@ -1421,7 +1421,7 @@ p(c) &amp;= p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2) - p(w_2)
 
 <p>的样本组成的集合。</p>
 
-<p>易知，<strong>任何其他划分对应的正确率都要小于按照上述划分的正确率</strong>。所以，最小错误率贝叶斯决策（选择后验概率最大的类作为判断）的错误率是最小的。即<strong>最小错误贝叶斯决策 = 最大后验贝叶斯决策</strong>。由于概率非负，如果每一次决策错误率都最小，那么总的错误率也是最小的。</p>
+<p>易知，<strong>任何其他划分对应的正确率都要小于按照上述划分的正确率</strong>。所以，最小错误率贝叶斯决策（选择后验概率最大的类作为判断）的错误率是最小的。即<strong>最小错误贝叶斯决策 = 最大后验贝叶斯决策</strong>。此时决策面 $t$ 正好为两类的类条件概率密度函数的交点。由于概率非负，如果每一次决策错误率都最小，那么总的错误率也是最小的。</p>
 
 <p>根据前述决策规则，只需要比较类的概率密度函数乘以一个常数（先验概率，不随采样而变，是一个常数值）的结果。显然，图中 $t$ 为决策点，在 $x&lt;t$ 时，对产生数据 $x$ 的贡献 $w_1$ 大于 $w_2$，故最小错误贝叶斯决策将 $x$ 归属为 $w_1$，在 $x&gt;t$ 时，对产生数据 $x$ 的贡献 $w_2$ 大于 $w_1$，故最小错误贝叶斯决策将 $x$ 归属为 $w_2$。</p>
 
@@ -1456,20 +1456,31 @@ p(c) &amp;= p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2) - p(w_2)
 
 <p>上式中，概率密度值 $p(\boldsymbol{x}\vert w_i)$ 即为前面贝叶斯公式介绍时提到的似然度，两类似然度的比值 $l(\boldsymbol{x})$ 被称为<strong>似然比（likelihood ratio）</strong>。这样可以事先计算出阈值 $\lambda$，对每一个样本计算似然比 $l(\boldsymbol{x})$ 并与 $\lambda$ 比较，大于阈值则决策为第一类，反之决策为第二类。</p>
 
-<p>更进一步，许多情况下，用对数形式计算可能更加方便，因此人们定义了对数似然比</p>
+<p>更进一步，许多情况下，用对数形式计算可能更加方便，因此人们定义了负对数似然比</p>
 
-\[h(\boldsymbol{x}) = -\ln[l(\boldsymbol{x})] = -\ln[p(\boldsymbol{x}\vert w_1)] + \ln[p(\boldsymbol{x}\vert w_1)]\]
+\[h(\boldsymbol{x}) = -\ln[l(\boldsymbol{x})] = -\ln[p(\boldsymbol{x}\vert w_1)] + \ln[p(\boldsymbol{x}\vert w_2)]\]
 
 <p>相应的决策规则为</p>
 
 <p><strong>【决策规则4】</strong></p>
 
-\[h(\boldsymbol{x})\lessgtr\ln\frac{p(w_2)}{p(w_1)} \quad \Rightarrow \boldsymbol{x} \in \left\{
+\[h(\boldsymbol{x})\lessgtr\ln\frac{p(w_1)}{p(w_2)} \quad \Rightarrow \boldsymbol{x} \in \left\{
   \begin{matrix}
   w_1\\
   w_2
 \end{matrix}
 \right.\]
+
+<p>负对数似然比 $h(\boldsymbol{x})$ 是 $\boldsymbol{x}$ 的函数，由于 $\boldsymbol{x}$ 是一个随机向量，则 $h(\boldsymbol{x})$ 也是随机变量，其概率分布密度函数可定义为 $p(h\vert w_i)$。由于该函数是一维概率密度函数，易于积分，所以用它计算错误率较为方便，则二分类的错误率可表述为</p>
+
+\[\begin{aligned}
+p(e_1) &amp;= \int_{\mathcal{R}_2} p(x \vert w_1)\text{d}x = \int_{t}^{+\infty} p(h \vert w_1)\text{d}h\\
+p(e_2) &amp;= \int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x = \int_{-\infty}^{t} p(h \vert w_2)\text{d}h
+\end{aligned}\tag{4}\]
+
+<p>其中 $t = \ln\frac{p(w_1)}{p(w_2)}$。</p>
+
+<p>只要 $h(\boldsymbol{x})$ 的概率密度的解析形式已知，就可以计算出错误率。需要注意的是，当 $\boldsymbol{x}$ 是高维特征时，总错误率涉及到多重积分，计算比较困难，因此只能在一些特定简化条件下进行错误率的理论计算。比如在下一章节中，假设样本特征服从正态分布，可以对最小错误贝叶斯决策展开分析，导出分类器的解析表达式和错误率的解析形式。</p>
 
 <h2 id="3-正态分布样本的最小错误贝叶斯决策"><span class="me-2">3. 正态分布样本的最小错误贝叶斯决策</span><a href="#3-正态分布样本的最小错误贝叶斯决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1496,6 +1507,14 @@ p(c) &amp;= p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2) - p(w_2)
 \boldsymbol{\Sigma} &amp;= \mathbb{E}[(\boldsymbol{x}-\boldsymbol{\mu})(\boldsymbol{x}-\boldsymbol{\mu})^\top] = [\sigma^2_{ij}]\in\mathbb{R}^{d\times d}\\
 \end{aligned}\]
 
+<p>正态分布有几个优良性质（后面会用到）</p>
+
+<ul>
+  <li>正态分布的边缘分布仍然是正态分布</li>
+  <li>正态分布的条件分布仍然是正态分布</li>
+  <li>正态分布各分量的线性组合仍然是正态分布</li>
+</ul>
+
 <p>已知最小错误率贝叶斯决策的判别函数为</p>
 
 \[g_i(\boldsymbol{x}) = p(\boldsymbol{x}\vert w_i)p(w_i),\;i=1,2,\cdots,c\]
@@ -1519,7 +1538,7 @@ p(c) &amp;= p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2) - p(w_2)
 
 <h3 id="32-各类协方差矩阵相等且为特殊对角阵"><span class="me-2">3.2. 各类协方差矩阵相等且为特殊对角阵</span><a href="#32-各类协方差矩阵相等且为特殊对角阵" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>假设特征向量的各个分量独立且具有相同的方差 $\sigma^2$，此时有</p>
+<p>假设样本的特征向量的各个分量独立且具有相同的方差 $\sigma^2$，即 $\boldsymbol{\Sigma}_1 = \boldsymbol{\Sigma}_2 = \boldsymbol{\Sigma} = \sigma^2\boldsymbol{I}$，此时有</p>
 
 \[\boldsymbol{\Sigma}_i = \sigma^2\boldsymbol{I},\quad\vert\boldsymbol{\Sigma}_i\vert = \sigma^{2d},\quad\boldsymbol{\Sigma}_i^{-1} = \frac{1}{\sigma^2}\boldsymbol{I},\quad i=1,2,\cdots,c\\\]
 
@@ -1538,24 +1557,26 @@ g_i(\boldsymbol{x}) &amp;= -\frac{1}{2\sigma^2}(\boldsymbol{x}-\boldsymbol{\mu})
 <p>继续对判别函数进行线性化，有</p>
 
 \[\begin{aligned}
-g_i(\boldsymbol{x}) &amp;=-\frac{1}{2\sigma^2}(\boldsymbol{x}-\boldsymbol{\mu})^\top(\boldsymbol{x}-\boldsymbol{\mu}) \\
+g_i(\boldsymbol{x}) &amp;=-\frac{1}{2\sigma^2}(\boldsymbol{x}-\boldsymbol{\mu})^\top(\boldsymbol{x}-\boldsymbol{\mu}) \quad \textcolor{blue}{\text{Euclidean Distance}}\\
 &amp;= -\frac{1}{2\sigma^2}(-2\boldsymbol{\mu}_i^\top \boldsymbol{x}+\boldsymbol{\mu}_i^\top \boldsymbol{\mu}_i)\\
 &amp;= \frac{1}{\sigma^2}\boldsymbol{\mu}_i^\top\boldsymbol{x} - \frac{1}{2\sigma^2}\boldsymbol{\mu}^\top \boldsymbol{\mu}\\
-&amp;= \boldsymbol{w}_i^\top\boldsymbol{x} + w_{i0}
+&amp;= \boldsymbol{w}_i^\top\boldsymbol{x} + w_{i0}\quad \textcolor{blue}{\text{linear}}
 \end{aligned}\]
 
 <p>可以看出决策面确实是一个超平面。如果先验概率 $p(w_i)\neq p(w_j)$，则决策面向先验概率小的那一类平移。</p>
 
 <h3 id="33-各类协方差矩阵相等"><span class="me-2">3.3. 各类协方差矩阵相等</span><a href="#33-各类协方差矩阵相等" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>假设各类协方差矩阵相同（但不再满足 $\boldsymbol{\Sigma} = \sigma^2\boldsymbol{I}$），再假设各类先验概率相等，判别函数简化为</p>
+<p>假设各类协方差矩阵相等（即$\boldsymbol{\Sigma}_1 = \boldsymbol{\Sigma}_2 = \boldsymbol{\Sigma}$，但不再满足 $\boldsymbol{\Sigma} = \sigma^2\boldsymbol{I}$），再假设各类先验概率相等，判别函数简化为</p>
 
 \[\begin{aligned}
-g_i(\boldsymbol{x}) &amp;= -\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\boldsymbol{\Sigma}^{-1}(\boldsymbol{x}-\boldsymbol{\mu}_i)\\
+g_i(\boldsymbol{x}) &amp;= -\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\boldsymbol{\Sigma}^{-1}(\boldsymbol{x}-\boldsymbol{\mu}_i)\quad \textcolor{blue}{\text{Mahalanobis Distance}}\\
 &amp;= -\frac{1}{2}(\textcolor{red}{\boldsymbol{x}^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{x}}-2\boldsymbol{\mu}_i^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{x} + \boldsymbol{\mu}_i^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_i)\\
-&amp;= -\boldsymbol{\mu}_i^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{x} + \frac{1}{2}\boldsymbol{\mu}^\top\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}\quad \text{ignore constant}\\
-&amp;=\boldsymbol{w}_i^\top\boldsymbol{x} + w_{i0}\\
+&amp;= -\boldsymbol{\mu}_i^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{x} + \frac{1}{2}\boldsymbol{\mu}^\top\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}\quad \textcolor{blue}{\text{ignore constant}}\\
+&amp;=\boldsymbol{w}_i^\top\boldsymbol{x} + w_{i0}\quad \textcolor{blue}{\text{linear}}\\
 \end{aligned}\]
+
+<p>注意因为协方差矩阵相等，因此对于不同类别来说展开后第一项（标红）都是常数，因此可以忽略。</p>
 
 <p>此时决策规则为按最小马氏距离的平方进行判别。按马氏距离判别仍然是线性的。</p>
 
@@ -1564,6 +1585,87 @@ g_i(\boldsymbol{x}) &amp;= -\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\
 </blockquote>
 
 <p>类似地，如果先验概率相等，则决策面过均值向量连线的终点（但不再垂直）。如果先验概率 $p(w_i)\neq p(w_j)$，则决策面向先验概率小的那一类平移。</p>
+
+<p>继续分析该情况下的错误率，将复对数似然比展开得到</p>
+
+\[\begin{aligned}
+  h(\boldsymbol{x}) &amp;= -\ln[p(\boldsymbol{x}\vert w_1)] + \ln[p(\boldsymbol{x}\vert w_2)] \\
+  &amp;=\frac{1}{2}[(\boldsymbol{x}-\boldsymbol{\mu}_1)^\top\boldsymbol{\Sigma}_1^{-1}(\boldsymbol{x}-\boldsymbol{\mu}_1) - (\boldsymbol{x}-\boldsymbol{\mu}_2)^\top\boldsymbol{\Sigma}_2^{-1}(\boldsymbol{x}-\boldsymbol{\mu}_2)] + \frac{1}{2}\ln\frac{\vert\boldsymbol{\Sigma}_1\vert}{\vert \boldsymbol{\Sigma}_2\vert}\\
+  &amp;= (\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{x} + \frac{1}{2}(\boldsymbol{\mu}_1^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1-\boldsymbol{\mu}_2^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_2)\\
+  &amp;= \boldsymbol{a}^\top\boldsymbol{x} + \boldsymbol{b}\quad \textcolor{blue}{\text{linear}}
+\end{aligned}\]
+
+<p>可以看出，负对数似然比是关于 $\boldsymbol{x}$ 的线性函数，又已知 $\boldsymbol{x}$ 服从正态分布，则负对数似然比也是一维正态分布。对于负对数似然比的两个类条件概率密度函数 $p(h\vert w_1),p(h\vert w_2)$ 也服从正态分布，分别计算其一维正态分布的均值和方差。</p>
+
+<p>均值为</p>
+
+\[\begin{aligned}
+  \eta_1 &amp;= \mathbb{E}[h(\boldsymbol{x})\vert w_1] = h(\boldsymbol{\mu}_1)\\
+  &amp;= (\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1 + \frac{1}{2}(\boldsymbol{\mu}_1^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1-\boldsymbol{\mu}_2^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_2)\\
+  &amp;= \textcolor{red}{\boldsymbol{\mu}_2^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1} - \frac{1}{2}\boldsymbol{\mu}_1^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1 -\frac{1}{2}\boldsymbol{\mu}_2^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_2\\
+  &amp;= - \frac{1}{2}\boldsymbol{\mu}_1^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1 + \textcolor{red}{\frac{1}{2}\boldsymbol{\mu}_1^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_2+\frac{1}{2}\boldsymbol{\mu}_2^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1} - \frac{1}{2}\boldsymbol{\mu}_2^\top\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_2\quad (\Sigma\;\text{is symmetric})\\
+  &amp;= -\frac{1}{2}(\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)^\top\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)\\
+  &amp;= -\frac{1}{2}D_M(\boldsymbol{\mu_2},\boldsymbol{\mu_1})^2 = -\eta
+\end{aligned}\]
+
+<p>考虑对多元正态分布的线性变换，其方差定义为：</p>
+
+\[\begin{aligned}
+Var(h(\boldsymbol{x})\vert w_1) &amp;= \boldsymbol{a}^\top\boldsymbol{\Sigma}\boldsymbol{a}\\
+&amp;= (\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)^\top \boldsymbol{\Sigma}^{-1}\boldsymbol{\Sigma}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)\\
+&amp;= (\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)^\top\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)\\
+&amp;= D_M(\boldsymbol{\mu_2},\boldsymbol{\mu_1})^2 = 2\eta
+\end{aligned}\]
+
+<p>所以</p>
+
+\[p(h(\boldsymbol{x})\vert w_1)\sim N(-\eta, 2\eta)\]
+
+<p>同理可得</p>
+
+\[\begin{aligned}
+p(h(\boldsymbol{x})\vert w_2)\sim N(\eta, 2\eta)
+\end{aligned}\]
+
+<p>至此，我们就得到了负对数似然比（服从一维正态分布）在两个类条件概率密度函数 $p(h\vert w_1),p(h\vert w_2)$ 的均值和方差。代入式 $(4)$ 可以计算两种情况下的错误率</p>
+
+\[\begin{aligned}
+p(e_1) &amp;= \int_t^{+\infty} p(h\vert w_1)dh \\
+&amp;= \int_t^{+\infty} \frac{1}{(2\pi)^{0.5}\sigma} \text{exp}\left\{\frac{1}{2}(\frac{h+\eta}{\sigma})^2\right\} dh\\
+&amp;= \int_t^{+\infty} \frac{1}{(2\pi)^{0.5}} \text{exp}\left\{\frac{1}{2}(\frac{h+\eta}{\sigma})^2\right\} d(\frac{h+\eta}{\sigma})\\
+&amp;= \int_{\frac{t+\eta}{\sigma}}^{+\infty} \frac{1}{(2\pi)^{0.5}} \text{exp}\left\{\frac{1}{2}\varepsilon^2\right\} d\varepsilon \sim N(0,1)
+\end{aligned}\]
+
+\[\begin{aligned}
+p(e_2) &amp;= \int_{-\infty}^t p(h\vert w_2)dh \\
+&amp;= \int_{-\infty}^t \frac{1}{(2\pi)^{0.5}\sigma} \text{exp}\left\{\frac{1}{2}(\frac{h-\eta}{\sigma})^2\right\} dh\\
+&amp;= \int_{-\infty}^t \frac{1}{(2\pi)^{0.5}} \text{exp}\left\{\frac{1}{2}(\frac{h-\eta}{\sigma})^2\right\} d(\frac{h+\eta}{\sigma})\\
+&amp;= \int_{-\infty}^{\frac{t-\eta}{\sigma}} \frac{1}{(2\pi)^{0.5}} \text{exp}\left\{\frac{1}{2}\varepsilon^2\right\} d\varepsilon \sim N(0,1)
+\end{aligned}\]
+
+<p>已知 $t,\boldsymbol{\mu}_1, \boldsymbol{\mu}_2, \boldsymbol{\Sigma}_1, \boldsymbol{\Sigma}_2$ 时，查标准正态分布表就能得到两个错误率。</p>
+
+<p>实际上，贝叶斯错误率可以写为标准正态分布的累积分布函数的形式：</p>
+
+\[p(e) = \Phi(-\frac{1}{2}D_M(\boldsymbol{\mu_2},\boldsymbol{\mu_1}))\]
+
+<p>标准正态分布的累积分布函数（CDF）表示标准正态分布（均值为 0，方差为 1）在 $z$ 左侧的概率</p>
+
+\[\Phi(z) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}e^{-\frac{x^2}{2}}dx\]
+
+<p>由于标准正态分布是对称的，$\Phi(z) = 1-\Phi(-z)$，因此</p>
+
+\[p(e) = 1-\Phi(\frac{1}{2}D_M(\boldsymbol{\mu_2},\boldsymbol{\mu_1}))\]
+
+<p>可分析如下：</p>
+
+<ul>
+  <li>当马氏距离为 0 时，CDF 值为 0.5，此时错误率是 0.5（原始样本特征的概率密度函数重合，相当于随机猜测）</li>
+  <li>当马氏距离增大时，CDF 值不断减小，此时错误率单调递减；</li>
+  <li>当马氏距离为正无穷时，此时错误率趋近于 0（原始样本特征的概率密度函数几乎完全分离）</li>
+</ul>
+
+<p>但是还是要注意，以上分析的前提是类条件概率密度可以被精确估计。实际上，样本量有限，无法准确估计概率密度。另外，特征增加当然可能使错误率反而增加，除了因为估计不准确之外，还可能是高斯密度这个前提本身就是不准的。而且，样本量小而特征很多，无疑会带来很多麻烦，比如过拟合等。</p>
 
 <h3 id="34-各类协方差不等一般情况"><span class="me-2">3.4. 各类协方差不等（一般情况）</span><a href="#34-各类协方差不等一般情况" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1647,7 +1749,7 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
 <p>对于样本 $\boldsymbol{x}$ 的各状态后验概率为 $p(w_j \vert \boldsymbol{x}),\;j=1,\cdots,c$，对它采取决策 $a_i,\;i=1,\cdots,k$ 的<strong>条件期望损失</strong>（条件平均风险）是</p>
 
-\[R(a_i|\boldsymbol{x})=E[\lambda(a_i,w_j)|\boldsymbol{x}] = \sum_{j=1}^c \lambda(a_i,w_j)p(w_j|\boldsymbol{x}) \tag{4}\]
+\[R(a_i|\boldsymbol{x})=E[\lambda(a_i,w_j)|\boldsymbol{x}] = \sum_{j=1}^c \lambda(a_i,w_j)p(w_j|\boldsymbol{x}) \tag{5}\]
 
 <p>对于特定的决策（比如 $a_1$ 即把样本分类为第 1 类），其期望风险为 $R(a_1,\boldsymbol{x}) = \sum_{j=1}^c p(w_j \vert \boldsymbol{x})\lambda(a_1,w_j)$。也就是说，对于特定决策，其风险是所有后验的概率与损失函数的乘积之和，即不再仅仅考虑后验概率了，还要额外考虑损失函数（风险）。</p>
 
@@ -1655,7 +1757,7 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
 <p>最小风险贝叶斯决策就是对所有决策 $a_i$ 求期望损失，然后选择<strong>期望损失最小的决策</strong>。即首先根据先验概率和似然度（经过统计或经验得到）根据贝叶斯公式计算出后验概率（式 $(1)$）。</p>
 
-<p>然后利用后验概率和事先定义的决策表（表格的形式的损失函数），计算条件期望损失（式 $(4)$）。</p>
+<p>然后利用后验概率和事先定义的决策表（表格的形式的损失函数），计算条件期望损失（式 $(5)$）。</p>
 
 <p>最优选取其中条件期望损失最小的决策，得到最小风险贝叶斯决策：</p>
 
@@ -1694,7 +1796,7 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
 <p>将平均风险表示为</p>
 
-\[R = \lambda_{11}p(w_1)p(\mathcal{R}_1\vert w_1) + \lambda_{12}p(w_2)p(\mathcal{R}_1\vert w_2) + \lambda_{21}p(w_1)p(\mathcal{R}_2\vert w_1) + \lambda_{22}p(w_2)p(\mathcal{R}_2\vert w_2)\tag{7}\]
+\[R = \lambda_{11}p(w_1)p(\mathcal{R}_1\vert w_1) + \lambda_{12}p(w_2)p(\mathcal{R}_1\vert w_2) + \lambda_{21}p(w_1)p(\mathcal{R}_2\vert w_1) + \lambda_{22}p(w_2)p(\mathcal{R}_2\vert w_2)\tag{6}\]
 
 <p>又已知（样本要么属于 $w_1$ 类要么属于 $w_2$ 类，要么落在 $\mathcal{R}_1$ 区域要么落在 $\mathcal{R}_2$ 区域）</p>
 
@@ -1703,13 +1805,13 @@ p(w_1) + p(w_2) &amp;= 1\\
 p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
 \end{aligned}\]
 
-<p>代入式 $(7)$ 有</p>
+<p>代入式 $(6)$ 有</p>
 
 \[\begin{aligned}
   R &amp;= \lambda_{11}p(w_1)\left[\textcolor{blue}{1 - p(\mathcal{R}_2\vert w_1)}\right] + \lambda_{12}[\textcolor{blue}{1-p(w_1)}]p(\mathcal{R}_1\vert w_2) + \lambda_{21}p(w_1)p(\mathcal{R}_2\vert w_1) + \lambda_{22}[\textcolor{blue}{1-p(w_1)}]\left[\textcolor{blue}{1-p(\mathcal{R}_1\vert w_2)}\right]\\
   &amp;= \textcolor{green}{\lambda_{22} + (\lambda_{12}-\lambda_{22})p(\mathcal{R}_1\vert w_2)} + \textcolor{red}{p(w_1)}\textcolor{blue}{[ \lambda_{11}-\lambda_{22} + (\lambda_{21}-\lambda_{11})p(\mathcal{R}_2\vert w_1)+ (\lambda_{22} -\lambda_{12})p(\mathcal{R}_1\vert w_2)  ]}\\
   &amp;= \textcolor{green}{A} + \textcolor{red}{p(w_1)}\textcolor{blue}{B}
-\end{aligned} \tag{8}\]
+\end{aligned} \tag{7}\]
 
 <p>在已知类概率密度函数 $p(x\vert w_j)$ 的前提下，一旦 $\mathcal{R}_1,\mathcal{R}_2$ 确定，误判平均风险是先验概率 $p(w_1)$ 的线性函数，此时不难计算出误判平均风险的上下界（一定在直线与边界的两个交点分别取得）。</p>
 
