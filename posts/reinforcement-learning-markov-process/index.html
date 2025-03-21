@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（马尔可夫决策过程）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-17T18:38:51+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-21T11:00:54+08:00","datePublished":"2022-11-09T12:36:19+08:00","description":"本文介绍了强化学习的基本概念和模型，主要包括马尔可夫过程、马尔可夫奖励过程和马尔可夫决策过程。","headline":"强化学习（马尔可夫决策过程）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-markov-process/"},"url":"http://localhost:4000/posts/reinforcement-learning-markov-process/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1476,13 +1476,13 @@
 
 <em
   class=""
-  data-ts="1742207931"
+  data-ts="1742526054"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/17
+  2025/03/21
 </em>
 
     </span>
@@ -1526,9 +1526,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="9710 字"
+  title="9815 字"
 >
-  <em>53 分钟</em>阅读</span>
+  <em>54 分钟</em>阅读</span>
 
     </div>
 
@@ -2284,7 +2284,7 @@ q_\pi(s,a) &amp;= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1} \vert S_t = s, A_t = a
   <p>这个定义引出了许多问题：</p>
   <ol>
     <li>最优策略是否存在？因为定义里的最优策略非常理想，它比其他所有策略都要好，并且在所有状态上都能打败其它策略，那么是否存在这样的情况，最优策略在某些状态上能打败其它的策略，但是在某些状态上没法打败。</li>
-    <li>最优策略是否唯一？</li>
+    <li>最优策略是否唯一？（分别使状态价值函数最大，和使状态-动作价值函数最大，这两个策略等价么？如果等价那么唯一么？）</li>
     <li>最优策略是随机的还是确定的？</li>
     <li>如何获得最优策略？</li>
   </ol>
@@ -2304,15 +2304,20 @@ v_*(s) &amp;\doteq \mathop{\text{max}}\limits_\pi \;v_\pi(s) = v_{\pi^*}(s)\geq 
 q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a)\geq q_\pi(s,a)\quad\forall s\in\mathcal{S},\forall\pi\in\mathcal{\Pi}\\
 \end{aligned}\]
 
-<p>首先证明，对于不同的价值函数（即 $v_\pi(s)$ 和 $q_\pi(s,a)$），上述两种最优策略是等价的。根据两个价值函数的关系有</p>
+<p>首先证明，对于不同的价值函数（即 $v_\pi(s)$ 和 $q_\pi(s,a)$），上述两种最优策略是等价的。</p>
+
+<p>根据两个价值函数的关系有</p>
+
+\[v_\pi(s) = \sum_{a}\pi(a\vert s)\cdot q_\pi(s,a) = \mathbb{E}[q_\pi(s,a)]\]
+
+<p>对上式的策略统一取到令状态价值函数最大的最优策略，有</p>
 
 \[\begin{aligned}
-  v_\pi(s) &amp;= \sum_{a}\pi(a\vert s)\cdot q_\pi(s,a)\\
   v_{\pi^*}(s) &amp;= \max_a\sum_{a}\pi^*(a\vert s)\cdot q_\pi(s,a)\\
   &amp;=\max_a[\pi(a_1\vert s)q_\pi(s,a_1)+\cdots+\pi(a_n\vert s)q_\pi(s,a_n)]\\
 \end{aligned}\]
 
-<p>等式右边可以看作对所有状态-动作价值函数的加权和求最大值，若其中某个状态-动作价值函数最大，其权重必然为 $1$，才能保证上式取到最大值。</p>
+<p>等式右边可以看作对所有状态-动作价值函数的加权和求最大值，若其中某个状态-动作价值函数最大，其权重必然为 $1$，才能保证上式取到最大值。此时对应的策略可以写为</p>
 
 \[\pi^*(a\vert s) = \left\{
 \begin{aligned}
@@ -2321,9 +2326,9 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
 \end{aligned}
 \right.\]
 
-<p>此时我们发现，对于不同的价值函数而言，最优策略是等价的</p>
+<p>我们发现，这个策略就是一个 $0-1$ 策略，对于不同的价值函数而言，最优策略是等价的</p>
 
-\[\pi^o = \mathop{\text{argmax}}\limits_\pi \;q_\pi(s,a) = \pi^*\]
+\[\pi^* = \mathop{\text{argmax}}\limits_\pi \;q_\pi(s,a) = \pi^o\]
 
 <h4 id="462-最优价值函数"><span class="me-2">4.6.2. 最优价值函数</span><a href="#462-最优价值函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2335,7 +2340,7 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
 
 \[v_*(s) = \mathop{\text{max}}\limits_a \; q_*(s,a)\]
 
-<p>但给定动作 $a$ 后的状态转移 $s-s^\prime$ 并不是最优策略能够决定的，而是由环境决定，因此最优动作价值函数并不能将求和符号改为 max 符号，即</p>
+<p>将最优状态价值函数代入前述【<strong>等式2</strong>】，得到最优状态-动作价值函数的表达式</p>
 
 \[q_*(s,a) = \sum_{s^\prime,r}p(s^\prime,r \vert s,a) \left[r+\gamma v_*(s^\prime) \right]\]
 
@@ -2387,7 +2392,7 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
 
 <h4 id="465-最优策略的求解"><span class="me-2">4.6.5. 最优策略的求解</span><a href="#465-最优策略的求解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>通过迭代求解得到最优价值函数后，如何确定最优策略？</p>
+<p>通过迭代求解得到最优价值函数后，如何确定最优策略？我们根据迭代求解的价值函数的类别分别讨论：</p>
 
 <ul>
   <li><strong>已知</strong> $v_{*}$</li>
@@ -2407,7 +2412,7 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
 
 \[\pi_*(a\vert s) \leftarrow \mathop{\text{argmax}}\limits_a\; q_*(s,a)\]
 
-<p>可以看到，如果已经得到了所有状态（或状态-动作）的最优价值函数，那么最优策略是很容易得到的。然而，在实际情况中我们往往不知道最优的状态（或状态-动作）价值函数。因此，我们需要将强化学习分为两步，第一步解决一个<strong>预测问题</strong>，即给定状态、动作、奖励、状态转移概率，策略，预测出所有状态（或状态-动作）价值函数；第二步解决一个<strong>控制问题</strong>，即在预测问题的基础上，如何更新策略使得策略逐渐变得更优。</p>
+<p>可以看到，如果已经得到了所有状态（或状态-动作）的最优价值函数，那么最优策略是很容易得到的。经过前面的分析我们指导，最优的状态（或状态-动作）价值函数可以通过对贝尔曼最优方程迭代来求解。具体来说，我们需要将强化学习分为两步，第一步解决一个<strong>预测问题</strong>，即给定状态、动作、奖励、状态转移概率，策略，预测出所有状态（或状态-动作）价值函数；第二步解决一个<strong>控制问题</strong>，即在预测问题的基础上，如何更新策略使得策略逐渐变得更优。</p>
 
 <p>当状态转移概率（也即环境 $p$）已知时，预测问题可以通过 <strong>策略迭代（policy iteration）</strong> 或者 <strong>值迭代（value iteration）</strong> 的方式来先进行价值预测，再求解最优策略。这就是 <strong>动态规划方法（Dynamic Programming，DP）</strong>。</p>
 
@@ -2575,7 +2580,7 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
         
@@ -2583,6 +2588,13 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
         
@@ -2597,13 +2609,6 @@ q_*(s,a) &amp;\doteq \mathop{\text{max}}\limits_\pi \;q_\pi(s,a) = q_{\pi^o}(s,a
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
         </li>
       
     </ul>

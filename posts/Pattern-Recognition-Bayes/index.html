@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（贝叶斯决策）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-19T18:40:53+08:00","datePublished":"2024-03-12T21:22:19+08:00","description":"本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。","headline":"模式识别（贝叶斯决策）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-21T10:38:44+08:00","datePublished":"2024-03-12T21:22:19+08:00","description":"本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。","headline":"模式识别（贝叶斯决策）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Bayes/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1149,13 +1149,13 @@
 
 <em
   class=""
-  data-ts="1742380853"
+  data-ts="1742524724"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/19
+  2025/03/21
 </em>
 
     </span>
@@ -1199,9 +1199,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="8256 字"
+  title="8379 字"
 >
-  <em>45 分钟</em>阅读</span>
+  <em>46 分钟</em>阅读</span>
 
     </div>
 
@@ -1242,16 +1242,16 @@
   <li><a href="#4-最小风险贝叶斯决策">4. 最小风险贝叶斯决策</a>
     <ul>
       <li><a href="#41-举例说明">4.1. 举例说明</a></li>
-      <li><a href="#42-损失函数风险因子">4.2. 损失函数（风险因子）</a></li>
-      <li><a href="#43-条件期望损失条件平均风险">4.3. 条件期望损失（条件平均风险）</a></li>
+      <li><a href="#42-风险因子损失函数">4.2. 风险因子（损失函数）</a></li>
+      <li><a href="#43-条件期望风险条件平均损失">4.3. 条件期望风险（条件平均损失）</a></li>
       <li><a href="#44-判决准则">4.4. 判决准则</a></li>
     </ul>
   </li>
   <li><a href="#5-最小最大贝叶斯决策">5. 最小最大贝叶斯决策</a>
     <ul>
-      <li><a href="#51-平均风险">5.1. 平均风险</a></li>
-      <li><a href="#52-平均风险与先验概率的关系">5.2. 平均风险与先验概率的关系</a></li>
-      <li><a href="#53-最小化最大平均风险">5.3. 最小化最大平均风险</a></li>
+      <li><a href="#51-期望风险">5.1. 期望风险</a></li>
+      <li><a href="#52-期望风险与先验概率的关系">5.2. 期望风险与先验概率的关系</a></li>
+      <li><a href="#53-最小化最大期望风险">5.3. 最小化最大期望风险</a></li>
     </ul>
   </li>
   <li><a href="#6-参考文献">6. 参考文献</a></li>
@@ -1722,7 +1722,7 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
 <p>现在如果依旧判定为 $w_2$，那么其风险为 $R = 10 \times 0.2 + 0 \times 0.8 = 2$，而判定为 $w_1$，风险则为 $R_1 = 0* 0.2 + 0.8*1 = 0.8$。对于最小风险贝叶斯决策，判定为 $w_1$ 是最佳决策。剧情出现了 180 度大转弯，说明考虑风险后发现将学渣的卷子误判的代价更高，因此更倾向于误判学霸的卷子。</p>
 
-<h3 id="42-损失函数风险因子"><span class="me-2">4.2. 损失函数（风险因子）</span><a href="#42-损失函数风险因子" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="42-风险因子损失函数"><span class="me-2">4.2. 风险因子（损失函数）</span><a href="#42-风险因子损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>从决策论的角度，可将最小风险贝叶斯决策重新表述如下：</p>
 
@@ -1734,32 +1734,35 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
     <p>注意，这里并没有假定 $k=c$，因为可能采取的（分类）决策除了判别为某一类外，还可能做出拒绝分类的决策，即不能判别样本属于任何一类，有时也可以在决策时把几类合并为同一个大类，等等。</p>
   </li>
-  <li>
-    <p>定义对于实际状态为 $w_j$ 的向量 $\boldsymbol{x}$ 采取决策 $a_i$ 所带来的损失函数（可以理解为风险因子）为</p>
-
-\[\lambda(a_i, w_j)=\lambda_{ij},\quad i= 1,\cdots, k,\; j=1,\cdots, c\]
-  </li>
 </ul>
 
-<p><strong>通常可以用表格的形式给出损失函数，被称为决策表</strong>。决策表是人在实际应用中根据问题的背景和知识事先给定的。在实际应用中，需要认真分析研究问题的内在特点和分类目的，与应用领域的专家共同设计出适当的决策表，才能保证模式识别发挥有效的作用。</p>
+<p>定义对于实际状态为 $w_j$ 的向量 $\boldsymbol{x}$ 采取决策 $a_i$ 所带来的<strong>风险因子</strong>（损失函数）为</p>
+
+\[\lambda(a_i, w_j)=\lambda_{ij},\quad i= 1,\cdots, k,\; j=1,\cdots, c\]
+
+<p><strong>通常可以用表格的形式给出风险因子，被称为决策表</strong>。决策表是人在实际应用中根据问题的背景和知识事先给定的。在实际应用中，需要认真分析研究问题的内在特点和分类目的，与应用领域的专家共同设计出适当的决策表，才能保证模式识别发挥有效的作用。</p>
 
 <p>需要注意的是，通常正确分类决策的损失函数 $\lambda(a_i, w_i)=0$，即分类正确的情况下是没有损失的。</p>
 
-<h3 id="43-条件期望损失条件平均风险"><span class="me-2">4.3. 条件期望损失（条件平均风险）</span><a href="#43-条件期望损失条件平均风险" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="43-条件期望风险条件平均损失"><span class="me-2">4.3. 条件期望风险（条件平均损失）</span><a href="#43-条件期望风险条件平均损失" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>对于样本 $\boldsymbol{x}$ 的各状态后验概率为 $p(w_j \vert \boldsymbol{x}),\;j=1,\cdots,c$，对它采取决策 $a_i,\;i=1,\cdots,k$ 的<strong>条件期望损失</strong>（条件平均风险）是</p>
+<p>条件期望风险是指在给定观测数据 $\boldsymbol{x}$ 的条件下，采取某个决策 $a_i$（将其划分为类别 $i$）所产生的期望风险，又称为条件平均损失。</p>
+
+<p>对于样本 $\boldsymbol{x}$ 的各状态后验概率为 $p(w_j \vert \boldsymbol{x}),\;j=1,\cdots,c$，对它采取决策 $a_i,\;i=1,\cdots,k$ 的<strong>条件期望风险</strong>是</p>
 
 \[R(a_i|\boldsymbol{x})=E[\lambda(a_i,w_j)|\boldsymbol{x}] = \sum_{j=1}^c \lambda(a_i,w_j)p(w_j|\boldsymbol{x}) \tag{5}\]
 
-<p>对于特定的决策（比如 $a_1$ 即把样本分类为第 1 类），其期望风险为 $R(a_1,\boldsymbol{x}) = \sum_{j=1}^c p(w_j \vert \boldsymbol{x})\lambda(a_1,w_j)$。也就是说，对于特定决策，其风险是所有后验的概率与损失函数的乘积之和，即不再仅仅考虑后验概率了，还要额外考虑损失函数（风险）。</p>
+<p>对于特定的决策，其风险是所有后验的概率与风险因子的乘积之和，即不再仅仅考虑后验概率了，还要额外考虑风险因子。</p>
 
 <h3 id="44-判决准则"><span class="me-2">4.4. 判决准则</span><a href="#44-判决准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>最小风险贝叶斯决策就是对所有决策 $a_i$ 求期望损失，然后选择<strong>期望损失最小的决策</strong>。即首先根据先验概率和似然度（经过统计或经验得到）根据贝叶斯公式计算出后验概率（式 $(1)$）。</p>
+<p>最小风险贝叶斯决策就是对所有决策 $a_i$ 都分别求出条件期望风险，然后选择<strong>条件期望风险最小的决策</strong>。具体步骤如下：</p>
 
-<p>然后利用后验概率和事先定义的决策表（表格的形式的损失函数），计算条件期望损失（式 $(5)$）。</p>
-
-<p>最优选取其中条件期望损失最小的决策，得到最小风险贝叶斯决策：</p>
+<ul>
+  <li>首先，将先验概率和似然度（经过统计或经验得到）代入贝叶斯公式计算出后验概率（式 $(1)$）。</li>
+  <li>然后，利用后验概率和事先定义的决策表（表格的形式的风险因子），计算条件期望损失（式 $(5)$）。</li>
+  <li>最后，选取其中条件期望损失最小的决策，得到最小风险贝叶斯决策：</li>
+</ul>
 
 \[a = \arg \min_{i} R(a_i|\boldsymbol{x}),\; i=1,2,\cdots,c\]
 
@@ -1767,26 +1770,26 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
 <h2 id="5-最小最大贝叶斯决策"><span class="me-2">5. 最小最大贝叶斯决策</span><a href="#5-最小最大贝叶斯决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>在最小风险贝叶斯决策中，先验概率 $p(w_i)$ 被认为是确定的。然而在实际应用中，各类的先验概率有时不能精确确定，或在分析过程中各类的先验概率是变动的。此时，若再用固定先验概率条件下的某个最小风险贝叶斯分类器来进行决策，其结果实际上不是最小风险的。</p>
+<p>在最小风险贝叶斯决策中，先验概率 $p(w_i)$ 被认为是确定的。然而在实际应用中，各类的先验概率有时不能精确确定（如从黑箱中拿彩色小球，采样次数不够可能导致对小球颜色估计的先验概率有偏差），或在分析过程中各类的先验概率是变动的。此时，若再用固定先验概率条件下的某个最小风险贝叶斯分类器来进行决策，其结果实际上不是最小风险的。随着先验概率的变化，这个按照之前经验确定的某个具体先验概率取值后得到的最小风险贝叶斯决策，其实际风险可能会变大。</p>
 
 <p>最小最大决策就是在各类的先验概率变化的情况下，取最大风险为最小的某个最小风险贝叶斯分类器作为实际使用的分类器。</p>
 
-<h3 id="51-平均风险"><span class="me-2">5.1. 平均风险</span><a href="#51-平均风险" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="51-期望风险"><span class="me-2">5.1. 期望风险</span><a href="#51-期望风险" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>设特征空间 $R$ 中判决域为 $\mathcal{R}_i(i=1,2,\cdots,c)$，于是求得条件平均风险关于 $\boldsymbol{x}$ 的数学期望为</p>
+<p>设特征空间 $R$ 中判决域为 $\mathcal{R}_i(i=1,2,\cdots,c)$，于是求得条件期望风险关于 $\boldsymbol{x}$ 的数学期望为</p>
 
 \[R = \sum_{i=1}^c\int_{\mathcal{R}_i} R(\alpha_i \vert \boldsymbol{x})p(\boldsymbol{x}) \text{d}x\]
 
-<p>条件风险只反映对某 $x$ 取值的决策行动 $\alpha_i$ 所带来的风险。期望风险 $R$ 则反映在整个特征空间不同的 $x$ 取值 $\alpha(x)$ (决策可看成是随机向量 $x$ 的函数）的决策行动所带来的平均风险。</p>
+<p>期望风险 $R$ 反映在整个特征空间不同的 $x$ 取值 采取决策 $\alpha(x)$ （决策可看成是随机向量 $x$ 的函数）所带来的平均风险。与之相比，条件期望风险只反映对某 $x$ 取值的决策行动 $\alpha_i$ 所带来的风险。</p>
 
-<h3 id="52-平均风险与先验概率的关系"><span class="me-2">5.2. 平均风险与先验概率的关系</span><a href="#52-平均风险与先验概率的关系" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="52-期望风险与先验概率的关系"><span class="me-2">5.2. 期望风险与先验概率的关系</span><a href="#52-期望风险与先验概率的关系" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>对于二分类问题，设某个最小风险贝叶斯分类器将特征空间 $R$ 划分为两个子区域，记 $\lambda_{ij}$ 为将实属 $w_j$ 类的样本判为 $w_i$ 的损失函数，则误判的平均风险为</p>
+<p>对于二分类问题，设某个最小风险贝叶斯分类器将特征空间 $R$ 划分为两个子区域，记 $\lambda_{ij}$ 为将实属 $w_j$ 类的样本判为 $w_i$ 的风险因子，则误判的期望风险为</p>
 
 \[\begin{aligned}
   R &amp;= \int_R R(\alpha \vert \boldsymbol{x})p(\boldsymbol{x}) \text{d}x\\
   &amp;= \int_{\mathcal{R}_1} R(\alpha_1 \vert \boldsymbol{x})p(\boldsymbol{x}) \text{d}x + \int_{\mathcal{R}_2} R(\alpha_2 \vert \boldsymbol{x})p(\boldsymbol{x}) \text{d}x\\
-  &amp;= \int_{\mathcal{R}_1} \sum_{j=1}^2\lambda_{1j} p(\boldsymbol{x}\vert w_j)p(w_j) \text{d}x + \int_{\mathcal{R}_2} \sum_{j=1}^2\lambda_{2j} p(\boldsymbol{x}\vert w_j)p(w_j) \text{d}x\\
+  &amp;= \int_{\mathcal{R}_1} \sum_{j=1}^2\lambda_{1j} p(\boldsymbol{x}\vert w_j)p(w_j) \text{d}x + \int_{\mathcal{R}_2} \sum_{j=1}^2\lambda_{2j} p(\boldsymbol{x}\vert w_j)p(w_j) \text{d}\quad\textcolor{blue}{\text{using Bayes and definition of}\; R(\alpha\vert x)}\\
   &amp;= \lambda_{11}p(w_1)\int_{\mathcal{R}_1} p(\boldsymbol{x}\vert w_1)\text{d}x + \lambda_{12}p(w_2)\int_{\mathcal{R}_1} p(\boldsymbol{x}\vert w_2)\text{d}x + \lambda_{21}p(w_1)\int_{\mathcal{R}_2} p(\boldsymbol{x}\vert w_1)\text{d}x + \lambda_{22}p(w_2)\int_{\mathcal{R}_2} p(\boldsymbol{x}\vert w_2)\text{d}x\\
 \end{aligned}\]
 
@@ -1794,7 +1797,7 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 
 \[p(\mathcal{R}_i\vert w_j) = \int_{\mathcal{R}_i} p(\boldsymbol{x}\vert w_j)\text{d}x\]
 
-<p>将平均风险表示为</p>
+<p>将期望风险表示为</p>
 
 \[R = \lambda_{11}p(w_1)p(\mathcal{R}_1\vert w_1) + \lambda_{12}p(w_2)p(\mathcal{R}_1\vert w_2) + \lambda_{21}p(w_1)p(\mathcal{R}_2\vert w_1) + \lambda_{22}p(w_2)p(\mathcal{R}_2\vert w_2)\tag{6}\]
 
@@ -1813,27 +1816,27 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
   &amp;= \textcolor{green}{A} + \textcolor{red}{p(w_1)}\textcolor{blue}{B}
 \end{aligned} \tag{7}\]
 
-<p>在已知类概率密度函数 $p(x\vert w_j)$ 的前提下，一旦 $\mathcal{R}_1,\mathcal{R}_2$ 确定，误判平均风险是先验概率 $p(w_1)$ 的线性函数，此时不难计算出误判平均风险的上下界（一定在直线与边界的两个交点分别取得）。</p>
+<p>在已知类概率密度函数 $p(x\vert w_j)$ 的前提下，一旦 $\mathcal{R}_1,\mathcal{R}_2$ 确定，误判的期望风险是先验概率 $p(w_1)$ 的线性函数，此时不难计算出期望风险的上下界（一定在直线与边界的两个交点分别取得）。</p>
 
-<h3 id="53-最小化最大平均风险"><span class="me-2">5.3. 最小化最大平均风险</span><a href="#53-最小化最大平均风险" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="53-最小化最大期望风险"><span class="me-2">5.3. 最小化最大期望风险</span><a href="#53-最小化最大期望风险" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>下面结合图例介绍最小最大贝叶斯决策的具体分析过程</p>
+<p>根据我们前述目标，需要最小化前面确定的期望风险的最大值，下面结合图例进行分析</p>
 
 <p><a href="/assets/img/postsimg/20240312/minimun%20average%20risk.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/minimun%20average%20risk.jpg" alt="minimum average risk" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li><strong>外层循环</strong></li>
   <li>
-    <p>考虑到先验概率不确定性，遍历其取值区间 $[0,1]$，对于第 $i$ 个具体的取值，可以按照最小风险贝叶斯决策的原理设计出最佳的决策域 $\mathcal{R}_1,\mathcal{R}_2$，同时计算出平均风险为 $R^{\star}$（遍历后可得平均风险如图中曲线所示）。</p>
+    <p>考虑到先验概率不确定性，遍历其取值区间 $[0,1]$，对于第 $i$ 个具体的取值，可以按照最小风险贝叶斯决策的原理设计出最佳的决策域 $\mathcal{R}_1,\mathcal{R}_2$，同时计算出此时的期望风险为 $R^{\star}$</p>
 
     <ul>
       <li><strong>内层计算</strong>：</li>
-      <li>对 $p(w_1)$ 的第 $i$ 个具体的取值和对应的 $\mathcal{R}_1,\mathcal{R}_2$，考虑 $p(w_1)$ 偏离这个具体取值时的情况。</li>
-      <li>根据前述，最小风险贝叶斯分类器确定后，其平均风险和先验概率 $p(w_1)$ 呈线性关系，那么根据其取值区间 $[0,1]$，代入式 $(8)$ 容易找到其上界（某个端点），记为 $R^{\star}_{i\max}$</li>
+      <li>对 $p(w_1)$ 的第 $i$ 个具体的取值和对应的 $\mathcal{R}_1,\mathcal{R}_2$，考虑 $p(w_1)$ 偏离这个具体取值时的情况。极端情况下，先验概率可能在 $[0,1]$ 区间随意偏离。</li>
+      <li>前面式 $(8)$ 已知期望风险和先验概率 $p(w_1)$ 呈线性关系，那么根据其取值区间 $[0,1]$，代入式 $(8)$ 容易找到其上界（某个端点），记为 $R^{\star}_{i\max}$</li>
       <li>比较 $R^{\star}_{i\max}$ 和 $R^{\star}$ 的关系
         <ul>
-          <li>如果不满足 $R^{\star}_{i\max}=R^{\star}$ 则表示没有找到最大误判平均风险的极小值（图中蓝线），返回外层循环。</li>
-          <li>若满足，则找到最大误判平均风险的极小值（图中红线），终止循环。</li>
+          <li>如果 $R^{\star}_{i\max}&gt;R^{\star}$ 则表示没有找到最大误判平均风险的极小值（图中蓝线），continue。</li>
+          <li>若满足，则找到最大误判平均风险的极小值（图中红线），break。</li>
         </ul>
       </li>
     </ul>
@@ -1841,7 +1844,7 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
   <li>$i = i+1$ 确定下一个先验概率的具体取值，回到第一步。</li>
 </ul>
 
-<p>可以发现，最大的误判平均风险，其极小值情况是最小风险贝叶斯决策域 $\mathcal{R}_1,\mathcal{R}_2$ 使得式 $(8)$ 中的系数 $B=0$，此时无论先验概率 $p(w_1)$ 如何变化，平均风险 $R$ 与先验概率无关（因为系数 $B=0$），从而使的平均损失 $R$ 恒等于常数，最大误判平均风险值是所有最想风险贝叶斯决策中最小的，称为<strong>最小最大贝叶斯决策</strong>。</p>
+<p>可以发现，最大的误判期望风险，其极小值情况是最小风险贝叶斯决策域 $\mathcal{R}_1,\mathcal{R}_2$ 使得式 $(8)$ 中的系数 $B=0$，此时无论先验概率 $p(w_1)$ 如何变化，期望风险 $R$ 与先验概率无关（因为系数 $B=0$），从而使的期望风险 $R$ 恒等于常数，最大的期望风险值是所有最小风险贝叶斯决策中最小的，对应的最小风险贝叶斯决策称为<strong>最小最大贝叶斯决策</strong>。</p>
 
 <h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1990,7 +1993,7 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
         
@@ -1998,6 +2001,13 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
         
@@ -2012,13 +2022,6 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
         </li>
       
     </ul>

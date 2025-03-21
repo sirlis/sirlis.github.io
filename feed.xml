@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-03-20T18:31:25+08:00</updated>
+  <updated>2025-03-21T12:57:16+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -126,7 +126,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Bayes/" rel="alternate" type="text/html" title="模式识别（贝叶斯决策）" />
     <published>2024-03-12T21:22:19+08:00</published>
   
-    <updated>2025-03-19T18:40:53+08:00</updated>
+    <updated>2025-03-21T10:38:44+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Bayes/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Bayes/" />
@@ -182,7 +182,7 @@
   4. 最小风险贝叶斯决策
     
       4.1. 举例说明
-      4.2. 损失函...
+      4.2. 风险因...
     </summary>
   
 
