@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（动态规划）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-21T12:57:05+08:00","datePublished":"2022-11-26T11:24:19+08:00","description":"本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。","headline":"强化学习（动态规划）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"},"url":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-24T12:50:58+08:00","datePublished":"2022-11-26T11:24:19+08:00","description":"本文介绍了强化学习的动态规划法（Dynamic Programming，DP），采用动态规划的思想，分别介绍策略迭代和价值迭代方法。","headline":"强化学习（动态规划）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"},"url":"http://localhost:4000/posts/reinforcement-learning-Dynamic-Programming/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -697,6 +697,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -811,6 +947,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -827,6 +975,42 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -924,13 +1108,13 @@
 
 <em
   class=""
-  data-ts="1742533025"
+  data-ts="1742791858"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/21
+  2025/03/24
 </em>
 
     </span>
@@ -974,9 +1158,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4986 字"
+  title="5633 字"
 >
-  <em>27 分钟</em>阅读</span>
+  <em>31 分钟</em>阅读</span>
 
     </div>
 
@@ -999,11 +1183,18 @@
         <ul>
           <li><a href="#211-策略评估">2.1.1. 策略评估</a></li>
           <li><a href="#212-策略改进">2.1.2. 策略改进</a></li>
-          <li><a href="#213-策略迭代">2.1.3. 策略迭代</a></li>
+          <li><a href="#213-算法流程">2.1.3. 算法流程</a></li>
         </ul>
       </li>
-      <li><a href="#22-价值迭代">2.2. 价值迭代</a></li>
-      <li><a href="#23-异步动态规划">2.3. 异步动态规划</a></li>
+      <li><a href="#22-价值迭代">2.2. 价值迭代</a>
+        <ul>
+          <li><a href="#221-算法流程">2.2.1. 算法流程</a></li>
+          <li><a href="#222-策略提升">2.2.2. 策略提升</a></li>
+          <li><a href="#223-价值提升">2.2.3. 价值提升</a></li>
+        </ul>
+      </li>
+      <li><a href="#23-截断策略迭代">2.3. 截断策略迭代</a></li>
+      <li><a href="#24-对动态规划过程进行改进">2.4. 对动态规划过程进行改进</a></li>
     </ul>
   </li>
   <li><a href="#3-参考文献">3. 参考文献</a></li>
@@ -1118,7 +1309,7 @@ v_{\color{red}{k+1}}(s)  \doteq &amp; \sum_{a\in A}\pi(a\vert s)[R_s^a+\gamma \s
 &amp; = \sum_{a\in A}\pi(a\vert s)\sum_{s\prime, r}p(s^\prime,r \vert s, a)[r+\gamma v_{\color{red}k}(s^\prime)]    
 \end{aligned}\]
 
-<p>问题转化为上式是否收敛？是否收敛到 $v_\pi$？前面的章节我们已经介绍了，使用<strong>不动点定理</strong>可以证明，可参考：</p>
+<p>问题转化为上式是否收敛？是否收敛到 $v_\pi$？前面的章节我们已经介绍了，使用<strong>不动点定理</strong>可以证明其解的唯一性和收敛性，另可参考：</p>
 
 <blockquote>
   <p>知乎：Model-Based方法：策略迭代与价值迭代：https://zhuanlan.zhihu.com/p/699134142 ，包含收敛性证明</p>
@@ -1181,11 +1372,11 @@ v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
 &amp;=\mathbb{E}[R_{t+1}+\gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots\vert S_t=s,A_t = \pi^\prime(s)]\\
 &amp;=\mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s,A_t = \pi^\prime(s)]\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma v_\pi(S_{t+1})\vert S_t=s]\quad (走1步：R_{t+1}由\pi^\prime 控制，后面由\pi控制)\\
-&amp;\leq \mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma q_\pi(S_{t+1},\pi^\prime(S_{t+1}))\vert S_t=s]\quad （条件带入）\\
-&amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \mathbb{E}_{\pi^{\prime}}[R_{t+2}+\gamma v_\pi(S_{t+2})\vert S_{t+1}]   \vert S_t=s]\quad （前式带入）\\
+&amp;\textcolor{red}{\leq} \mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \textcolor{red}{q_\pi(S_{t+1},\pi^\prime(S_{t+1}))}\vert S_t=s]\quad （条件带入）\\
+&amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \textcolor{blue}{\mathbb{E}_{\pi^{\prime}}[R_{t+2}+\gamma v_\pi(S_{t+2})\vert S_{t+1}]}   \vert S_t=s]\quad （前式带入）\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+\gamma \mathbb{E}_{\pi^{\prime}}[R_{t+2}\vert S_{t+1}]+\gamma^2 \mathbb{E}_{\pi^{\prime}} [v_\pi(S_{t+2}) \vert S_{t+1} ]  \vert S_t=s]\\
 &amp;=\mathbb{E}_{\pi^\prime}[R_{t+1}+R_{t+2}+\gamma^2 v_\pi(S_{t+2})\vert S_t=s] \quad （走2步）\\
-&amp;=\cdots\\
+&amp;\leq\cdots\\
 &amp;=\mathbb{E}_\pi^\prime[R_{t+1}+\gamma R_{t+2}+\cdots \vert S_t=s] \\
 &amp;= v_{\pi^\prime}(s)
 \end{aligned}\]
@@ -1214,14 +1405,14 @@ v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
 \[\forall s\in S,\;  \pi^\prime(s) =
 \left\{
 \begin{aligned}
-1, \quad &amp; a=\mathop{argmax}\limits_a\; q_\pi(s,a) \\
-0, \quad &amp; otherwise
+1, \quad &amp; a=\mathop{\text{argmax}}\limits_a\; q_\pi(s,a) \\
+0, \quad &amp; \text{otherwise}
 \end{aligned}
 \right.\]
 
-<p>证明：</p>
+<p>此时</p>
 
-\[\forall s\in S,\; v_\pi(s) = \mathbb{E}_a[q_\pi(s,a)] \leq max_a q_\pi(s,a) = max_a q_\pi(s,\pi^\prime(s))\]
+\[\forall s\in S,\; v_\pi(s) = \mathbb{E}_a[q_\pi(s,a)] \leq \max_a q_\pi(s,a) = \max_a q_\pi(s,\pi^\prime(s))\]
 
 <p>满足策略改进定理条件，因此有</p>
 
@@ -1229,7 +1420,7 @@ v_\pi(s) &amp;\leq q_\pi(s,\pi^\prime(s))\\
 
 <p>得证。</p>
 
-<p>因此，策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{argmax}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有 $\pi^\prime \geq \pi$ 。</p>
+<p>因此，策略改进定理提供了一种更新策略的方式：对每个状态 $s$ ，寻找贪婪动作 $\mathop{\text{argmax}}\limits_a q_\pi(s,a)$ ，以贪婪动作作为新的策略 $\pi^\prime$ ，根据策略改进定理必然有 $\pi^\prime \geq \pi$ 。</p>
 
 <hr />
 
@@ -1252,7 +1443,7 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
 
 <p><strong>总结</strong>，策略迭代就是在循环进行两部分工作，第一步是使用当前策略 $\pi$ 评估计算当前策略的最终状态价值 $v$，第二步是根据状态价值 $v$ 根据一定的方法（比如贪婪法）更新策略 $\pi$，接着回到第一步，一直迭代下去，最终得到收敛的策略 $\pi_{\star}$ 和状态价值 $v_∗$。</p>
 
-<h4 id="213-策略迭代"><span class="me-2">2.1.3. 策略迭代</span><a href="#213-策略迭代" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="213-算法流程"><span class="me-2">2.1.3. 算法流程</span><a href="#213-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>最终的策略迭代的算法表述如下：</p>
 
@@ -1272,8 +1463,8 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
           <li>对于每个 $s\in S$：
             <ul>
               <li>$v \leftarrow v_k(s)$</li>
-              <li>$v_{k+1}(s) =\sum_a \pi(a\vert s) \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k}(s^\prime)]$</li>
-              <li>$\Delta = max(\Delta, v-v_{k+1}(s))$</li>
+              <li>$v_{k+1}(s) =\sum_a \pi(a\vert s) \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k}(s^\prime)]\qquad\textcolor{red}{贝尔曼方程}$</li>
+              <li>$\Delta = \max(\Delta, v-v_{k+1}(s))$</li>
             </ul>
           </li>
         </ul>
@@ -1288,7 +1479,7 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
         <ul>
           <li>$a_{old} = \pi(s)$</li>
           <li>$q_\pi(s,a) = \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v(s^\prime)]$</li>
-          <li>$\pi(s)\leftarrow \mathop{argmax}\limits_a\; q_\pi(s,a) $ （贪婪法）</li>
+          <li>$\pi(s)\leftarrow \mathop{\text{argmax}}\limits_a\; q_\pi(s,a) $ （贪婪法）</li>
           <li>如果 $a_{old} \neq \pi(s)$ 那么 $policy\;stable \leftarrow false$</li>
         </ul>
       </li>
@@ -1300,19 +1491,21 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
 <p>算法的流程示意图如下（含有 $v$ 迭代和 $\pi$ 迭代两层迭代）：</p>
 
 \[\begin{aligned}
-&amp; v_1 \rightarrow \cdots \rightarrow v_{1fin} \rightarrow \pi_1\\
-\rightarrow &amp; v_2 \rightarrow \cdots \rightarrow v_{2fin} \rightarrow \pi_2\\
-\rightarrow &amp; \cdots\\
-\rightarrow &amp;v_i \rightarrow \cdots \rightarrow v_\star \rightarrow \pi_\star
+&amp; v_1 \rightarrow \cdots \rightarrow v_{1fin} \rightarrow \pi_1 &amp;\text{第1次策略迭代}\\
+\rightarrow &amp; v_2 \rightarrow \cdots \rightarrow v_{2fin} \rightarrow \pi_2 &amp;\text{第2次策略迭代}\\\
+\rightarrow &amp; \cdots &amp;\\
+\rightarrow &amp;v_i \rightarrow \cdots \rightarrow v_\star \rightarrow \pi_\star &amp;\text{第n次策略迭代}\
 \end{aligned}\]
 
 <h3 id="22-价值迭代"><span class="me-2">2.2. 价值迭代</span><a href="#22-价值迭代" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>在策略迭代中，状态价值函数在策略评估过程中时通过迭代的形式计算的，这非常耗时。而且我们在迭代计算状态价值函数的时候策略并不是最优的，用一个非最优的策略来计算完全准确的状态价值函数并没有太大意义。由于策略迭代通常在迭代几次后就可以收敛（上文中的 Grid World 例子，第三次迭代后，策略就已经达到最优），因此我们可以提前截断策略评估过程。</p>
+<p>在策略迭代中，状态价值函数在策略评估过程中时通过迭代的形式计算的，收敛后再通过策略改进更新策略，策略发生变化后需要再次迭代状态价值函数，如此往复迭代非常耗时。注意到，在迭代计算状态价值函数的时候策略并不是最优的，用一个非最优的策略来计算完全准确的状态价值函数并没有太大意义。另外，整个策略迭代通常在迭代几次后就可以收敛（如上文中的 Grid World 例子，第三次迭代（$k=3$）后，策略就已经达到最优），因此我们可以提前截断迭代过程。</p>
 
-<p>一种重要的特殊的情况是，<strong>在一次遍历后即刻停止策略评估</strong>（对每一个状态进行一轮迭代更新），该算法被称为<strong>价值迭代</strong>。价值迭代的本质是利用 <strong>贝尔曼最优方程</strong> 来进行价值函数的迭代优化，其能保证最终收敛到最优价值函数。</p>
+<p>一种重要的特殊的情况是，<strong>只进行一次策略迭代后即刻停止</strong>（对每一个状态进行一轮迭代更新），该算法被称为<strong>价值迭代</strong>。价值迭代的本质是利用 <strong>贝尔曼最优方程</strong> 来进行价值函数的迭代优化，其能保证最终收敛到最优价值函数，此时对应的策略也是<strong>最优</strong>的。</p>
 
 <p>价值迭代算法是策略评估过程只进行一次迭代的策略迭代算法，其过程为 ：对每一个当前状态 $s$ ，对每个可能的动作 $a$ 都计算一下采取这个动作后到达的下一个状态的期望价值。<strong>选择最大的期望价值函数作为当前状态的价值函数</strong> $v(s)$ ，循环执行这个步骤，直到价值函数收敛。</p>
+
+<h4 id="221-算法流程"><span class="me-2">2.2.1. 算法流程</span><a href="#221-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>价值迭代的算法表述如下：</p>
 
@@ -1332,8 +1525,8 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
           <li>对于每个 $s\in S$：
             <ul>
               <li>$v \leftarrow v_k(s)$</li>
-              <li>$v_{k+1}(s) \leftarrow {\color{red}max_a} \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k}(s^\prime)]\qquad$  贝尔曼最优方程</li>
-              <li>$\Delta = max(\Delta, v-v_{k+1}(s))$</li>
+              <li>$v_{k+1}(s) \leftarrow {\color{red}\max_a} \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v_{k}(s^\prime)]\qquad\textcolor{red}{贝尔曼最优方程}$</li>
+              <li>$\Delta = \max(\Delta, v-v_{k+1}(s))$</li>
             </ul>
           </li>
         </ul>
@@ -1344,7 +1537,7 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
   <li><strong>策略改进</strong>
     <ul>
       <li>$q_\pi(s,a) = \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v(s^\prime)]$</li>
-      <li>$\pi(s)\leftarrow \mathop{argmax}\limits_a\; q_\pi(s,a) $</li>
+      <li>$\pi(s)\leftarrow \mathop{\text{argmax}}\limits_a\; q_\pi(s,a) $</li>
     </ul>
   </li>
 </ol>
@@ -1361,23 +1554,59 @@ $q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma v_\pi(s^\prime) ]$
 
 <p>可以看出，价值迭代是极端情况下的策略迭代。</p>
 
-<p>价值迭代中同样需要存储两份状态价值函数 $v_{k+1}(s),\; v_k(s)$，实际上也可以只保存一份，即采用就地更新方法，此时迭代式变为</p>
+<p>重新回顾价值迭代中的策略评估部分，如果从更加常用的状态-动作价值函数的角度考虑，可以拆分成两步：</p>
 
-\[{\color{red}v(s)} \leftarrow max_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma {\color{red}v(s^\prime)}]\]
+<h4 id="222-策略提升"><span class="me-2">2.2.2. 策略提升</span><a href="#222-策略提升" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h3 id="23-异步动态规划"><span class="me-2">2.3. 异步动态规划</span><a href="#23-异步动态规划" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>首先根据初始化或者上一步迭代得到的状态价值函数 $v_k(s), v_k(s^\prime)$，确定新的贪婪策略</p>
 
-<p>每次进行价值估计和更新时都要对全部的状态进行一次遍历，这未免太过繁琐，尤其是当状态空间足够大时，消耗在遍历上的资源就不尽人意了。那能不能一次更新只针对部分状态进行呢？只更新部分状态还能保证价值更新的收敛吗？</p>
+\[\pi_{k+1}(a\vert s) = \arg\max_\pi \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v(s_k^\prime)] = \arg\max_a q_k(s,a)\]
 
-<p>可以的。</p>
+<h4 id="223-价值提升"><span class="me-2">2.2.3. 价值提升</span><a href="#223-价值提升" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>在异步动态规划算法中，每一次迭代并不对所有状态的价值进行更新，而是依据一定的原则有选择性地更新部分状态的价值，这种算法能显著节约计算资源，并且只要所有状态能够得到持续的访问更新，那么也能确保算法收敛至最优解。
-下面分别介绍比较常用的异步动态规划思想：</p>
+<p>然后根据新的贪婪策略确定新的状态价值函数，由于策略是贪婪的，相当于选择最大的状态-动作价值函数作为状态价值函数</p>
+
+\[v_{k+1}(s) = \max_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma v(s_k^\prime)] = \max_a q_k(s,a)\]
+
+<h3 id="23-截断策略迭代"><span class="me-2">2.3. 截断策略迭代</span><a href="#23-截断策略迭代" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>对于价值迭代而言，前述策略提升和策略改进合并简化后，即为前述价值迭代的算法流程中的一行（贝尔曼最优方程）迭代表示。</p>
+
+<p>注意到，从算法流程的角度，二者存在两种解读视角，如下图所示</p>
+
+<p><a href="/assets/img/postsimg/20221126/policy%20and%20value%20iteration.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221126/policy%20and%20value%20iteration.jpg" alt="policy and value iteration" class="lazyload" data-proofer-ignore></a></p>
+
+<font color="red">此时，【价值迭代】可以看作是策略评估【只进行一步计算的特殊策略迭代】。</font>
+
+<p>那么，有没有一种中间方式，既不会只算一次这么极端，又不要一直计算到收敛那么极端呢？有，即<strong>截断策略迭代</strong>。截断策略迭代的初衷是理论的策略评估过程需要计算无穷步，这在实际计算中代价太大。因此，在传统的策略迭代（贝尔曼方程）的基础上，对策略评估过程进行人为截断，比如设置 $n=3$ 进行截断，从而在保证依然可以收敛的前提下加速计算。</p>
+
+<p>收敛性证明比较复杂，可参考赵世钰老师的《Mathematical Foundation of Reinforcement Learning》。</p>
+
+<p>几种不同算法收敛结果如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20221126/truncated%20policy%20iteration.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221126/truncated%20policy%20iteration.jpg" alt="convergence" class="lazyload" data-proofer-ignore></a></p>
+
+<h3 id="24-对动态规划过程进行改进"><span class="me-2">2.4. 对动态规划过程进行改进</span><a href="#24-对动态规划过程进行改进" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <ul>
-  <li>原位动态规划 (in-place dynamic programming)：直接利用当前状态的后续状态的价值来更新当前状态的价值。</li>
-  <li>优先级动态规划 (prioritised sweeping)：对每一个状态进行优先级分级，优先级越高的状态其状态价值优先得到更新。</li>
-  <li>实时动态规划 (real-time dynamic programming)：直接使用个体与环境交互产生的实际经历来更新状态价值，对于那些个体实际经历过的状态进行价值更新。</li>
+  <li>
+    <p><strong>异步动态规划</strong>：每次进行价值估计和更新时都要对全部的状态进行一次遍历，这未免太过繁琐，尤其是当状态空间足够大时，消耗在遍历上的资源就不尽人意了。那能不能一次更新只针对部分状态进行呢？只更新部分状态还能保证价值更新的收敛吗？可以的，在异步动态规划算法中，每一次迭代并不对所有状态的价值进行更新，而是依据一定的原则有选择性地更新部分状态的价值，这种算法能显著节约计算资源，并且只要所有状态能够得到持续的访问更新，那么也能确保算法收敛至最优解。</p>
+
+    <ul>
+      <li>
+        <font color="Blue">优先级动态规划</font>
+        <p>(prioritised sweeping)：对每一个状态进行优先级分级，优先级越高的状态其状态价值优先得到更新。</p>
+      </li>
+      <li>
+        <font color="Blue">实时动态规划</font>
+        <p>(real-time dynamic programming)：直接使用个体与环境交互产生的实际经历来更新状态价值，对于那些个体实际经历过的状态进行价值更新。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>原位动态规划</strong> (in-place dynamic programming)：直接利用当前状态的后续状态的价值来更新当前状态的价值，可以大幅降低动态规划过程中的资源消耗，同样也可以收敛至最优解。比如，价值迭代中同样需要存储两份状态价值函数 $v_{k+1}(s),\; v_k(s)$，实际上也可以只保存一份，即采用就地更新方法，此时迭代式变为
+ \({\color{red}v(s)} \leftarrow \max_a \sum_{s^\prime,r}p(s^\prime,r\vert s,a)[r+\gamma {\color{red}v(s^\prime)}]\)</p>
+  </li>
 </ul>
 
 <h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
