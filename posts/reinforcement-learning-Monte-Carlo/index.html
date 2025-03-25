@@ -548,6 +548,227 @@
 
 
 
+  
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+
+  
+
+
 
 <!-- Add header for code snippets -->
 
@@ -782,6 +1003,42 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -893,9 +1150,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4011 字"
+  title="5142 字"
 >
-  <em>22 分钟</em>阅读</span>
+  <em>28 分钟</em>阅读</span>
 
     </div>
 
@@ -930,7 +1187,13 @@
           <li><a href="#234-增量更新incremental-update">2.3.4. 增量更新（incremental update）</a></li>
         </ul>
       </li>
-      <li><a href="#24-蒙特卡洛改进算法mc-e-greedy">2.4. 蒙特卡洛改进算法（MC e-greedy）</a></li>
+      <li><a href="#24-蒙特卡洛改进算法mc-e-greedy">2.4. 蒙特卡洛改进算法（MC e-greedy）</a>
+        <ul>
+          <li><a href="#241-探索和利用">2.4.1. 探索和利用</a></li>
+          <li><a href="#242-探索性分析">2.4.2. 探索性分析</a></li>
+          <li><a href="#243-最优性分析">2.4.3. 最优性分析</a></li>
+        </ul>
+      </li>
       <li><a href="#25-蒙特卡洛的局限性">2.5. 蒙特卡洛的局限性</a></li>
     </ul>
   </li>
@@ -1137,6 +1400,8 @@ v(S_t) &amp;\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
 
 <h3 id="24-蒙特卡洛改进算法mc-e-greedy"><span class="me-2">2.4. 蒙特卡洛改进算法（MC e-greedy）</span><a href="#24-蒙特卡洛改进算法mc-e-greedy" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<h4 id="241-探索和利用"><span class="me-2">2.4.1. 探索和利用</span><a href="#241-探索和利用" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
 <p>虽然探索起点（Exploring Starts）理论上可以保证每个状态动作对都有概率被采样到，但实际中很难实现，特别在一些需要与物理系统进行交互的应用中，有些状态动作可能很难作为初始状态进行设置。</p>
 
 <p>前面在探索起点的章节中我们介绍过，通过每次访问仍然无法保证所有状态动作对都有概率被采样到，因为他本质上还是遵循贪婪策略，所以无法保证所有状态动作对都能被采样到。那如果我们不采用贪婪策略这么极端的呢？</p>
@@ -1160,6 +1425,41 @@ v(S_t) &amp;\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
 </ul>
 
 <p>采用 $\varepsilon$-greedy 策略的蒙特卡洛方法，称为 <strong>MC e-greedy</strong>。该方法不要求对起点进行探索了，只要在每次访问时，按照 $\varepsilon$-greedy 策略随机选择一个动作，就可以保证所有状态动作对都有概率被采样到。</p>
+
+<h4 id="242-探索性分析"><span class="me-2">2.4.2. 探索性分析</span><a href="#242-探索性分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>下面给出一个 $\varepsilon$-greedy 策略的探索能力与参数 $\varepsilon$ 的关系的极端案例，即设置智能体遇到终点不停止，而是继续前进，这样我们可以一直采样 1 个 episode。其他参数设置为：$r_{\text{boundary}}=-1，r_{\text{forbidden}}=-10,r_{\text{target}}=1,\gamma=0.9$。</p>
+
+<p>设置 $\varepsilon = 1$，即完全随机选择动作，此时策略的探索能力最大，我们给出探索 100 步（图(a)）、探索 1000步（图(b)）、探索 10000 步（图(c)）的探索结果，可以看出在 1000 步时智能体已经采样到了绝大部分状态动作对。同时，图(d)展示了探索 100 万步后，所有 125 个状态动作对中每个状态动作对被访问的次数，可以看出比较符合均匀随机选择动作的结果。</p>
+
+<p><a href="/assets/img/postsimg/20221129/e-greedy=1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221129/e-greedy=1.jpg" alt="e=1" class="lazyload" data-proofer-ignore></a></p>
+
+<p>设置 $\varepsilon = 0.1$，相应结果如下图所示。可以对比看出：
+（1）同样采样至第 100/1000 步，智能体探索到的状态动作对远没有前面 $\varepsilon = 1$ 时的多（对比图(a)和图(b)）；
+（2）探索足够多的次数后，二者均能探索到所有状态动作对，只不过 $\varepsilon = 0.1$ 需要的步数更长，探索速度更慢；
+（3）设置比较小的 $\varepsilon$，策略的探索能力会下降，有些较优的状态动作对可能会大量重复地被访问（图(d)中较高的红点）。即便如此，其在步数足够长的时候，依然能够探索到所有状态动作对，相比贪婪策略，其探索能力依然更强。</p>
+
+<p><a href="/assets/img/postsimg/20221129/e-greedy=0.1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221129/e-greedy=0.1.jpg" alt="e=0.1" class="lazyload" data-proofer-ignore></a></p>
+
+<p>从以上结果可以看出，采用 $\varepsilon$-greedy 策略，的确可以不用采取探索起点（Exploring Starts）的方式，也能保证所有状态动作对都可以被采样到。这在实际使用时非常有意义，因为他可以避免设置一些在与实际物理系统交互过程中难以稳定保持的状态（或状态动作对）作为起点，降低了对探索起点设置的门槛。</p>
+
+<h4 id="243-最优性分析"><span class="me-2">2.4.3. 最优性分析</span><a href="#243-最优性分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在实际应用中，我们会在采用 $\varepsilon$-greedy 策略训练完毕得到策略后，将其转为贪婪策略使用。因此有必要分析上述转换得到的贪婪策略是否为理论上的最优策略。或者换句话说，设置的 $\varepsilon$ 对策略的最优性有什么影响。</p>
+
+<p>针对上述同样的 Grid world 场景，在其他参数相同的条件下（$r_{\text{boundary}}=-1，r_{\text{forbidden}}=-10,r_{\text{target}}=1,\gamma=0.9$），分别设置$ \varepsilon = 0, 0.1, 0.2, 0.3$，分析计算得到的策略与最优策略的关系，如下图所示。图中一共有四组参数取值对应的子图，每组子图的左侧为策略，右侧为对应的状态价值函数。</p>
+
+<p><a href="/assets/img/postsimg/20221129/comparison.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221129/comparison.jpg" alt="comparison of greedy and e-greedy" class="lazyload" data-proofer-ignore></a></p>
+
+<ul>
+  <li>当 $\varepsilon = 0$ 时（左上图），其退化为贪婪策略，其价值函数和策略都是最优策略，最优性是由策略迭代的收敛性保证的；</li>
+  <li>当 $\varepsilon = 0.1$ 时（右上图），得到的策略和最优策略的依然是一致的，但状态价值函数已经偏离了最优值；</li>
+  <li>随着 $\varepsilon$ 的增加，得到的策略逐渐变差，价值函数也急剧偏离最优价值函数。</li>
+</ul>
+
+<p>当 $\varepsilon$ 较大时，一个典型的情形是，终点的价值函数居然是一个十分大的负数，这显然违背逻辑（在贝尔曼方程中终点价值函数肯定是最大的），这是因为在抵达终点后，其上方和左右都是陷阱区域，采用较大 $\varepsilon$ 取值的 $\varepsilon$-greedy 策略会频繁进入到这些区域（选择了较差的动作），导致获得较多负奖励，这使得策略评估该状态的价值很低。</p>
+
+<p>这给我们以下启示：$\varepsilon$-greedy 策略通过牺牲最优性来提高探索性，策略中的参数 $\varepsilon$ 参数选择在算法训练的早期阶段可以设置的较大以提高探索快速性，随着算法的训练，可以逐渐减小 $\varepsilon$ 以保证近似最优性。</p>
 
 <h3 id="25-蒙特卡洛的局限性"><span class="me-2">2.5. 蒙特卡洛的局限性</span><a href="#25-蒙特卡洛的局限性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
