@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（蒙特卡洛法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-29T17:07:19+08:00","datePublished":"2022-11-29T17:07:19+08:00","description":"本文介绍了强化学习的 model-free 方法——蒙特卡洛法。","headline":"强化学习（蒙特卡洛法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/"},"url":"http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-25T11:59:08+08:00","datePublished":"2022-11-29T17:07:19+08:00","description":"本文介绍了强化学习的 model-free 方法——蒙特卡洛法。","headline":"强化学习（蒙特卡洛法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/"},"url":"http://localhost:4000/posts/reinforcement-learning-Monte-Carlo/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -670,6 +670,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -677,6 +689,101 @@
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -723,6 +830,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1742875148"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/03/25
+</em>
+
+    </span>
+    
 
   
 
@@ -762,9 +893,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1530 字"
+  title="4011 字"
 >
-  <em>8 分钟</em>阅读</span>
+  <em>22 分钟</em>阅读</span>
 
     </div>
 
@@ -783,10 +914,24 @@
   <li><a href="#1-引言">1. 引言</a></li>
   <li><a href="#2-蒙特卡洛法">2. 蒙特卡洛法</a>
     <ul>
-      <li><a href="#21-大数定律">2.1. 大数定律</a></li>
-      <li><a href="#22-蒙特卡洛法">2.2. 蒙特卡洛法</a></li>
-      <li><a href="#23-蒙特卡洛价值估计">2.3. 蒙特卡洛价值估计</a></li>
-      <li><a href="#24-增量更新方法">2.4. 增量更新方法</a></li>
+      <li><a href="#21-大数定律与蒙特卡洛思想">2.1. 大数定律与蒙特卡洛思想</a></li>
+      <li><a href="#22-蒙特卡洛基础算法">2.2. 蒙特卡洛基础算法</a>
+        <ul>
+          <li><a href="#221-蒙特卡洛采样">2.2.1. 蒙特卡洛采样</a></li>
+          <li><a href="#222-蒙特卡洛价值估计">2.2.2. 蒙特卡洛价值估计</a></li>
+          <li><a href="#223-算法流程">2.2.3. 算法流程</a></li>
+        </ul>
+      </li>
+      <li><a href="#23-蒙特卡洛改进算法mc-exploring-starts">2.3. 蒙特卡洛改进算法（MC Exploring Starts）</a>
+        <ul>
+          <li><a href="#231-首次访问与每次访问">2.3.1. 首次访问与每次访问</a></li>
+          <li><a href="#232-序列拆分与重复利用">2.3.2. 序列拆分与重复利用</a></li>
+          <li><a href="#233-探索起点exploring-starts">2.3.3. 探索起点（Exploring Starts）</a></li>
+          <li><a href="#234-增量更新incremental-update">2.3.4. 增量更新（incremental update）</a></li>
+        </ul>
+      </li>
+      <li><a href="#24-蒙特卡洛改进算法mc-e-greedy">2.4. 蒙特卡洛改进算法（MC e-greedy）</a></li>
+      <li><a href="#25-蒙特卡洛的局限性">2.5. 蒙特卡洛的局限性</a></li>
     </ul>
   </li>
   <li><a href="#3-参考文献">3. 参考文献</a></li>
@@ -794,82 +939,192 @@
 
 <h2 id="1-引言"><span class="me-2">1. 引言</span><a href="#1-引言" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>在前面的 model-based 动态规划方法中，我们假设已知模型的动态特性 $p(s^\prime,r \vert s,a)$，此时可以对下一步的状态和回报做出预测。而在很多实际案例中，我们无法得知模型的动态特性，此时动态规划方法就不适用了。</p>
+<p>在前面介绍的动态规划方法中，我们假设已知模型的动态特性 $p(s^\prime,r \vert s,a)$，此时可以对下一步的状态和回报做出预测。而在很多实际案例中，我们无法得知模型的动态特性，此时动态规划方法就不适用了。注意到动态规划方法中的核心是对两类最优价值函数的估计，而当模型的动态特性未知时，我们不能通过迭代的形式计算最优价值函数，只能回归至价值函数原本的定义（期望），那么有什么办法对期望进行估计呢？这就是本章介绍的蒙特卡洛法，其通过大数定律保证在经过足够次数的采样后，可以通过求取价值函数的均值来逼近其期望。</p>
 
 <h2 id="2-蒙特卡洛法"><span class="me-2">2. 蒙特卡洛法</span><a href="#2-蒙特卡洛法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h3 id="21-大数定律"><span class="me-2">2.1. 大数定律</span><a href="#21-大数定律" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="21-大数定律与蒙特卡洛思想"><span class="me-2">2.1. 大数定律与蒙特卡洛思想</span><a href="#21-大数定律与蒙特卡洛思想" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>大数定律的定义是，当随机事件发生的次数足够多时，随机事件发生的频率趋近于预期的概率。可以简单理解为样本数量越多，其平概率越接近于期望值。大数定律的条件：1、独立重复事件；2、重复次数足够多。</p>
+<p>大数定律：对于随机样本 $X$，假设 ${x_j}_{j=1}^N$ 是独立同分布（independent and identically distributed, iid）随机变量样本集，定义</p>
 
-<h3 id="22-蒙特卡洛法"><span class="me-2">2.2. 蒙特卡洛法</span><a href="#22-蒙特卡洛法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+\[\bar{x} = \frac{1}{N}\sum_{j=1}^N x_j\]
 
-<p>蒙特卡洛方法的主要思想是“当所求解问题是某种随机事件出现的概率，或者是某个随机变量的期望值时，通过某种“实验”的方法，以这种事件出现的频率估计这一随机事件的概率，或者得到这个随机变量的某些数字特征，并将其作为问题的解。是一种基于大数定律的统计方法。</p>
+<p>为样本集的均值，那么</p>
+
+\[\begin{aligned}
+\mathbb{E}[\bar{x}] &amp;= \mathbb{E}[X]\\
+Var[\bar{x}] &amp;= \frac{1}{N}Var[X]
+\end{aligned}\]
+
+<p>当 $N\rightarrow \infty$ 时，方差趋于零，此时样本均值收敛至期望值。</p>
+
+<p>大数定律表明，当随机事件发生的次数足够多时，随机事件发生的频率趋近于预期的概率。可以简单理解为样本数量越多，其平概率越接近于期望值。大数定律生效的前提条件是：1、独立重复事件；2、重复次数足够多。</p>
+
+<p>蒙特卡洛法（Monte Carlo）方法，又称随机抽样或统计试验方法，思想是“当所求解问题是某种随机事件出现的概率，或者是某个随机变量的期望值时，通过某种“实验”的方法，以这种事件出现的频率估计这一随机事件的概率，或者得到这个随机变量的某些数字特征，并将其作为问题的解。是一种基于大数定律的统计方法。</p>
+
+<blockquote>
+  <p>这一方法诞生于上世纪40年代美国的”曼哈顿计划”，名字来源于赌城蒙特卡罗(Monte Carlo)——位于法国的国中之国摩纳哥的一个以赌博业闻名的城市。而赌博象征概率；蒙特卡罗方法正是以概率为基础的方法，属于非确定性算法。</p>
+</blockquote>
 
 <p>蒙特卡洛方法解决强化问题的本质，是基于通过采样大量数据来进行学习的经验方法实现的，因此，即便是在环境模型 $p(s^\prime,r \vert s,a)$ 未知/未完全可知的情况下，采用时间步骤有限的、完整序列(episode)中进行采样，并通过平均采样回报来解决强化学习问题。</p>
 
-<h3 id="23-蒙特卡洛价值估计"><span class="me-2">2.3. 蒙特卡洛价值估计</span><a href="#23-蒙特卡洛价值估计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="22-蒙特卡洛基础算法"><span class="me-2">2.2. 蒙特卡洛基础算法</span><a href="#22-蒙特卡洛基础算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>在一次交互过程中，可采样得到一条序列</p>
+<h4 id="221-蒙特卡洛采样"><span class="me-2">2.2.1. 蒙特卡洛采样</span><a href="#221-蒙特卡洛采样" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在一次交互过程中，从特定的状态-动作（$s_0, a_0$）出发，可采样得到一条序列</p>
 
 \[s_0, a_0, r_1, s_1, a_1, r_2, s_2,\cdots\]
 
-<p>采集 $N$ 条序列，对于其中每条序列，找寻期望的状态起点 $s$ 并计算对应的 $G_t$</p>
+<p>计算对应的回报</p>
 
 \[G_t = \sum_{k=0} \gamma^k R^{t+k+1}\]
 
-<p>由于序列中期望状态起点可能不存在，也可能出现1次，也可能出现多次，因此期望的状态起点 $s$ 的找寻方式分为两种：</p>
+<h4 id="222-蒙特卡洛价值估计"><span class="me-2">2.2.2. 蒙特卡洛价值估计</span><a href="#222-蒙特卡洛价值估计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>采集 $N$ 条序列，对于其中每条序列都算出回报后，对于首次或每次命中给定状态 $s_0$ 的轨迹，根据大数定律计算状态价值函数为</p>
+
+\[v_\pi(s_0) \doteq \mathbb{E}_\pi[G_t \vert S_t = s] =\frac{1}{N}\sum_{i=1}^N G_t^{(i)}\]
+
+<p>同理，对于首次或每次命中（$s_0,a_0$）的轨迹，根据大数定律计算状态-动作价值函数为</p>
+
+\[q_\pi(s_0, a_0) \doteq \mathbb{E}_\pi[G_t \vert S_t = s_0, A_t = a_0] =\frac{1}{N}\sum_{i=1}^N G_t^{(i)}\]
+
+<p>在实际中，计算状态-动作价值函数的意义更大，方便策略改进。但注意，状态序列采样时需要同时命中 $S_t=s,A_t = a$ 条件时才能采集对应的 $G_t$，这对样本量需求更大，操作难度更高。</p>
+
+<h4 id="223-算法流程"><span class="me-2">2.2.3. 算法流程</span><a href="#223-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在策略迭代的基础上，给定出示策略 $\pi_0$，对于第 $k$ 次迭代，蒙特卡洛基础算法如下：</p>
+
 <ul>
-  <li>首次访问型（first visit）：只采集第一个出现 $s$ 时对应的 $G_t$</li>
-  <li>每次访问型（every visit）：采集每次出现 $s$ 时对应的 $G_t$</li>
+  <li><strong>策略评估</strong>：对于所有的 $(s, a)$ 都需要进行足够多次的采样（二重循环遍历），采样得到足够多次的回合后计算首次或每次命中对应的 $G_t$，根据大数定律，$G_t$ 的均值可用来近似状态-动作价值函数 $q_{\pi_k}(s,a)$；</li>
+  <li><strong>策略迭代</strong>：求解 $\pi_{k+1}(s) = \arg\max_{\pi}\sum_a \pi(a \vert s) q_{\pi_k}(s,a)$，最优策略是贪心策略，即只有当 $a_k^\star = \arg\max q_{\pi_k}(s \vert a)$ 时 $\pi_{k+1}(a_k^\star\vert s) = 1$。</li>
 </ul>
 
-<p>首次访问型和每次访问型相比之下各有利弊。首次访问型的优势与每次访问型的劣势：</p>
+<p>可以看出，与策略迭代方法相比，蒙特卡洛基础算法直接估计状态-动作价值函数 $q_\pi(s,a)$ 并用于改进策略，而不依赖于（也没办法）先迭代求解 $v_\pi(s)$ 再计算 $q_\pi(s,a)$。</p>
+
+<p>最后，蒙特卡洛方法的收敛性保证依赖于策略评估的收敛性的，因为蒙特卡洛方法仅仅将其中策略评估部分中价值函数的计算改为大数定律保证的采样估计。</p>
+
+<p><strong>蒙特卡洛基础算法的局限性</strong>：</p>
+
 <ul>
-  <li>由于序列与序列之间相互独立，若从每个相互独立的序列中取出唯一一个状态 $s$ 的回报，那么首次访问型产生的回报样本同样也是经过独立试验产生的相互独立的样本；</li>
-  <li>相比之下，若将相同序列下的状态 $s$ 的回报均作为样本，根据回报的计算过程，回报之间可能存在关联关系；</li>
+  <li>
+    <p>对 $G_t$ 采样的过程中，样本必须在一幕（从 $t$ 时刻开始，$T$ 时刻结束）全部执行结束的状态下，才能获取 $R_{t+1},R_{t+2},…,R_{t+T}$ 的具体结果，并最终获得1个 $G_t$ 结果，采样数据利用率低。</p>
+  </li>
+  <li>
+    <p>最终需要获取足够量的（$N$ 个） $G_t$ 结果才能够执行均值操作，整个过程绝大部分时间浪费在了采样过程，时间利用率低。</p>
+  </li>
+</ul>
+
+<h3 id="23-蒙特卡洛改进算法mc-exploring-starts"><span class="me-2">2.3. 蒙特卡洛改进算法（MC Exploring Starts）</span><a href="#23-蒙特卡洛改进算法mc-exploring-starts" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="231-首次访问与每次访问"><span class="me-2">2.3.1. 首次访问与每次访问</span><a href="#231-首次访问与每次访问" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在蒙特卡洛基础算法中，我们假设序列是由给定的状态动作对 $(s_0, a_0)$ 开始采样得到的。注意到，同样的状态动作对除了首次出现外，也可能在后续采样过程中出现多次。以下面的一次采样序列为例，其中 $(s_0, a_0)$ 命中了两次</p>
+
+\[\textcolor{red}{s_0 \mathop{\rightarrow}\limits^{a_0}} s_1\mathop{\rightarrow}\limits^{a_4} \textcolor{red}{s_0 \mathop{\rightarrow}\limits^{a_0}} s_1 \mathop{\rightarrow}\limits^{a_2} s_5\mathop{\rightarrow}\limits^{a_3}\cdots\]
+
+<p>因此计算回报的方式也分为以下两种：</p>
+
+<ul>
+  <li>
+    <p><strong>首次访问型</strong>（first visit）：只采集第一个出现（$s_0,a_0$）时对应的 $G_t$（蒙特卡洛基础算法）</p>
+  </li>
+  <li>
+    <p><strong>每次访问型</strong>（every visit）：采集每次出现（$s_0, a_0$）时对应的 $G_t$</p>
+  </li>
+</ul>
+
+<p>首次访问型的优势与每次访问型的劣势：</p>
+<ul>
+  <li>采样序列与序列之间相互独立，首次访问型产生的回报样本同样也是经过独立试验产生的相互独立的样本；</li>
+  <li>相比之下，每次访问型中，后续回报计算只是首次回报的子集，回报计算之间是存在依赖的（非独立），当然如果两次访问之间距离很远则依赖也很弱；</li>
 </ul>
 
 <p>首次访问型的劣势与每次访问型的优势：</p>
 <ul>
-  <li>由于首次访问型只从一个序列中获取一个样本(在序列中存在状态 $s$ 的条件下)，因此获取样本集需要的序列数量大于样本集数量（因为可能存在某个序列中不含状态 $s$）。</li>
-  <li>相比之下，每次访问型可能仅需要更少的序列数量就可以得到足够多的样本。因此，从收集样本花费代价的角度观察，每次访问型优于首次访问型。</li>
+  <li>首次访问型只能从一个采样序列中获取一个回报，数据利用率很低；</li>
+  <li>相比之下，每次访问型可能仅需要更少的序列数量就可以得到足够多的样本，数据利用率高；</li>
 </ul>
 
-<p>最后，根据大数定律</p>
+<h4 id="232-序列拆分与重复利用"><span class="me-2">2.3.2. 序列拆分与重复利用</span><a href="#232-序列拆分与重复利用" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>更进一步，观察分析上述采样序列</p>
 
 \[\begin{aligned}
-v_\pi(s) &amp;\doteq \mathbb{E}_\pi[G_t \vert S_t = s] = \sum_a\pi(a\vert s)\sum_{s^\prime,r}p(s^\prime, r \vert s,a)(r+\gamma v_\pi(s^\prime))\\
-&amp;=\frac{1}{N}\sum_{i=1}^N G_t^{(i)}
+\textcolor{red}{s_0 \mathop{\rightarrow}\limits^{a_0}} s_1\mathop{\rightarrow}\limits^{a_4} \textcolor{red}{s_0 \mathop{\rightarrow}\limits^{a_0}} s_1 \mathop{\rightarrow}\limits^{a_2} s_5\mathop{\rightarrow}\limits^{a_3}\cdots &amp;\Rightarrow G_t(s_0, a_0) \times 2\\
+\textcolor{blue}{s_1\mathop{\rightarrow}\limits^{a_4}} s_0 \mathop{\rightarrow}\limits^{a_0} s_1 \mathop{\rightarrow}\limits^{a_2} s_5\mathop{\rightarrow}\limits^{a_3}\cdots &amp;\Rightarrow G_t(s_1, a_4)\\
+\textcolor{blue}{s_1 \mathop{\rightarrow}\limits^{a_2}} s_5\mathop{\rightarrow}\limits^{a_3}\cdots &amp;\Rightarrow G_t(s_1, a_2)\\
+\textcolor{blue}{s_5\mathop{\rightarrow}\limits^{a_3}} \cdots &amp;\Rightarrow G_t(s_5, a_3)\\
 \end{aligned}\]
 
-<p>同理可计算 $q_\pi(s,a)$，且实际计算动作价值函数的意义更大，方便策略改进。但注意，状态序列采样时需要同时命中 $S_t=s,A_t = a$ 条件时才能采集对应的 $G_t$，这对样本量需求更大，操作难度更高。</p>
+<p>可以发现，除了状态动作对 $(s_0, a_0)$ 可以计算其对应的回报外，同一条采样序列还可以用来计算很多其他状态动作对的回报，这种操作可以极大提高数据的利用效率。</p>
 
-<p><strong>局限性</strong>：</p>
+<h4 id="233-探索起点exploring-starts"><span class="me-2">2.3.3. 探索起点（Exploring Starts）</span><a href="#233-探索起点exploring-starts" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<ul>
-  <li>
-    <p>对 $G_t$ 采样的过程中，样本必须在一幕（从 $t$ 时刻开始，$T$ 时刻结束）全部执行结束的状态下，才能获取 $R_{t+1},R_{t+2},…,R_{t+T}$ 的具体结果，并最终获得1个 $G_t$ 结果。</p>
-  </li>
-  <li>
-    <p>最终需要获取足够量的（$N$ 个） $G_t$ 结果才能够执行均值操作，整个过程绝大部分时间浪费在了采样过程，时间利用率极低。</p>
-  </li>
-</ul>
+<p>即使用到了序列拆分，上述过程依然存在某种弊端。注意到序列依然是指定特定的状态动作对作为起始点的，且随着迭代进进行，中间会有一些状态动作对的价值函数 $q(s,a)$ 取值变低。又因为因为策略迭代算法的策略改进过程是采取贪婪策略来选取动作的，这样会导致某些状态 $s$ 对应的低价值动作 $a$ 永远无法被采样选中，最终使得其状态-动作价值函数 $q(s,a)$ 无法得到更新，不利于策略改进。</p>
 
-<h3 id="24-增量更新方法"><span class="me-2">2.4. 增量更新方法</span><a href="#24-增量更新方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>因此，每次采样前不指定特定状态动作，而是以相同的概率随机选择初始的状态动作，可以保证每一个状态-动作对都能得到更新。再结合前述两项改进（每次访问、序列拆分），最终得到改进的蒙特卡洛方法，又被统称为 <strong>MC Exploring Starts</strong>。</p>
 
-<p>为了客服上述缺点，计算均值时，可采用增量更新方法，更新时间更短，更容易观察到收敛结果，有效提高了时间的利用率。</p>
+<blockquote>
+  <p>为何方法命名为 Exploring Starts 而不提 Visit？以下为猜测分析：
+首先明确，理论上能够保证寻找到最优策略的前提是所有的状态动作对都要能够被探索到，这可以通过两种方式实现</p>
 
-<p>以取均值为例，已知一个数列中包含3个数值 $[3,4,5]$，增量更新方法如下：</p>
+  <ul>
+    <li>探索起点（随机初始化）：每次采样时，随机选择一个状态动作对作为起始点，可保证所有状态动作对都有概率被选中；</li>
+    <li>每次访问：在采样序列中提高数据利用率，只能寄希望于当前策略下能够采样到所有状态动作对；</li>
+  </ul>
+
+  <p>很显然，第二种方式在遍历状态动作对上是更加不确定的，因为其本质是提高数据利用效率，采样过程还是遵循贪婪策略，无法保证状态动作对一定有概率被采样到。因此，只能采取更加直接的第一种方式来命名，而只把第二种方式作为提高数据使用效率的技巧。</p>
+</blockquote>
+
+<p>实际算法流程中，我们采用 <strong>从后往前的倒序</strong> 进行迭代计算，并引入<strong>增量更新</strong>（下一节介绍）的技巧，进一步提高计算效率，即</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>Sample an episode of length T by randomly select a starting state-action pair as the starting point
+Initialize Gt = 0
+for each step of episode, t = T-1, ..., 0, do:
+    (=== policy evaluation ===)
+    Gt = γ*Gt + r
+    N(st,at) = N(st,at) + 1
+    Q(st,at) = Q(st,at) + (Gt - Q(st,at)) / N(st,at)
+    (=== policy improvement ===)
+    π(a|st) = 1 if a = argmax Q(st,a), π(a|st) = 0 otherwise
+</pre></td></tr></tbody></table></code></div></div>
+
+<h4 id="234-增量更新incremental-update"><span class="me-2">2.3.4. 增量更新（incremental update）</span><a href="#234-增量更新incremental-update" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>不论是蒙特卡洛基础算法还是其改进算法（MC Exploring Starts），计算回报 $G_t$ 时都需要采样足够多次数（$N$ 次）后才能保证计算得到的均值比较接近价值函数的期望。在实际计算中，我们可以使用增量更新技巧提高计算均值的效率。</p>
+
+<blockquote>
+  <p>计算均值的增量更新示例：
+已知一个数列中包含3个数值 $[3,4,5]$，当采样两次，第一次采到3、第二次采到4时，前后两次计算的均值为</p>
 
 \[\begin{aligned}
-u_1 &amp;= \frac{1}{1}\sum_{i=1}^1 x_i = 3\\
-u_2 &amp;= \frac{1}{2}\sum_{i=1}^2 x_i = \frac{3+4}{2} = 3.5\\
-\Rightarrow u_2 &amp;= u_1+\frac{1}{2}(x_2-u_1) = 3+\frac{1}{2} = 3.5\\
-\Rightarrow u_3 &amp;= u_2+\frac{1}{3}(x_3-u_2) = 3.5+\frac{1}{2} = 4
+\text{(use 1{st} sample)}\; u_1 &amp;= \frac{1}{1}\sum_{i=1}^1 x_i = 3\\
+\text{(use 1st+2nd sample)}\; u_2 &amp;= \frac{1}{2}\sum_{i=1}^2 x_i = \frac{3+4}{2} = 3.5\\
+\text{(use 1st+2nd+3rd sample)}\; u_3 &amp;= \frac{1}{3}\sum_{i=1}^3 x_i = \frac{3+4+5}{2} = 3.5\\
 \end{aligned}\]
 
-<p>则蒙特卡洛增量更新方法如下</p>
+  <p>可以将均计算式改写成如下形式的迭代形式，每一次迭代只需要用到上次计算的均值，而不需要用到所有历史样本值</p>
+
+\[\begin{aligned}
+\text{(use last average(u1) + current(x2))}\;u_2 &amp;= u_1+\frac{1}{2}(x_2-u_1) = 3+\frac{1}{2} = 3.5\\
+\text{(use last average(u2) + current(x3))}\;u_3 &amp;= u_2+\frac{1}{3}(x_3-u_2) = 3.5+\frac{1}{2} = 4
+\end{aligned}\]
+</blockquote>
+
+<p>蒙特卡洛增量更新方法如下</p>
 
 \[\left\{
 \begin{aligned}
@@ -880,13 +1135,35 @@ v(S_t) &amp;\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
 
 <p>这样只需要每次得到 <strong>1个</strong> 新的 $G_t$ 即可更新一次价值函数，即便和真正的均值存在差异，但更新时间更短，更容易观察到收敛结果，且可以随着时间的推移逐步接近均值。</p>
 
-<p><strong>局限性</strong>：</p>
+<h3 id="24-蒙特卡洛改进算法mc-e-greedy"><span class="me-2">2.4. 蒙特卡洛改进算法（MC e-greedy）</span><a href="#24-蒙特卡洛改进算法mc-e-greedy" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>然而，仍然要求采样一条完整的序列直到结束时刻 $T$ 才能计算出 <strong>1个</strong> $G_t$。因为</p>
+<p>虽然探索起点（Exploring Starts）理论上可以保证每个状态动作对都有概率被采样到，但实际中很难实现，特别在一些需要与物理系统进行交互的应用中，有些状态动作可能很难作为初始状态进行设置。</p>
 
-\[G_t = \sum_{k=0} \gamma^k R^{t+k+1}\]
+<p>前面在探索起点的章节中我们介绍过，通过每次访问仍然无法保证所有状态动作对都有概率被采样到，因为他本质上还是遵循贪婪策略，所以无法保证所有状态动作对都能被采样到。那如果我们不采用贪婪策略这么极端的呢？</p>
 
-<p>后面介绍时序差分法克服该局限。</p>
+<p>事实上，我们可以设计一种 $\varepsilon$-greedy 策略，即在每次访问时，在大概率选到贪婪动作的同时，以某个较小概率随机选择一个动作。在这个策略下，随着采样序列的变长和采样次数的增多，所有状态动作对都有概率被采样到，也就达到了我们的目标。</p>
+
+<p>$\varepsilon$-greedy 策略可数学表示如下</p>
+
+\[\pi(a|s) = \begin{cases}
+1-\frac{\varepsilon}{\vert A \vert}(\vert A \vert-1)= \frac{\varepsilon}{\vert A \vert} + 1-\varepsilon &amp; \text{if } a = \arg\max_a Q(s,a)\\
+\frac{\varepsilon}{\vert A \vert} &amp; \text{other }\vert A \vert-1\text{ actions}
+\end{cases}\]
+
+<p>其中 $\varepsilon\in[0,1]$，$\vert A \vert$ 表示当前状态下可选动作的个数。</p>
+
+<p>上述策略平衡了<strong>探索</strong>（exploration）和<strong>利用</strong>（exploitation）：</p>
+
+<ul>
+  <li>当 $\varepsilon = 0$ 时，策略完全贪婪，只选择当前价值函数下最优的动作，这样可以最大化利用已有的价值函数，但可能会错过一些未知的最优动作；</li>
+  <li>当 $\varepsilon = 1$ 时，策略完全随机（策略变成均匀分布，即每个动作的概率相同），这样可以最大化探索未知的动作，但可能会错过已知的最优动作。</li>
+</ul>
+
+<p>采用 $\varepsilon$-greedy 策略的蒙特卡洛方法，称为 <strong>MC e-greedy</strong>。该方法不要求对起点进行探索了，只要在每次访问时，按照 $\varepsilon$-greedy 策略随机选择一个动作，就可以保证所有状态动作对都有概率被采样到。</p>
+
+<h3 id="25-蒙特卡洛的局限性"><span class="me-2">2.5. 蒙特卡洛的局限性</span><a href="#25-蒙特卡洛的局限性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>虽然蒙特卡洛方法及其各种改进方法已经能够较好克服各种缺点，实现在无模型条件下的强化学习，但其仍然要求采样一条完整的序列直到结束时刻 $T$ 才能以 <strong>倒序</strong> 的形式计算出回报 $G_t$。如果采样可以无限进行下去而无法停止，就根本无法计算出回报，更别提策略改进了。因此，我们还需要继续寻找可行的方法实现无模型强化学习，这就是后面介绍时序差分法（Temporal Difference，TD）。</p>
 
 <h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1042,7 +1319,14 @@ v(S_t) &amp;\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
+          <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
         
@@ -1056,21 +1340,14 @@ v(S_t) &amp;\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/pytorch-basic-2/">PyTorch基础（随机数种子）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
         </li>
       
     </ul>
@@ -2972,7 +3249,7 @@ v(S_t) &amp;\leftarrow v(S_t) + \frac{1}{N(S_t)} (G_t - v(S_t))
         
           2.1.1. 策略评估
           2.1.2. 策略改进
-          2.1.3. 策略迭代
+          2.1.3. 算法流程
    ...
                 </p>
               </div>
