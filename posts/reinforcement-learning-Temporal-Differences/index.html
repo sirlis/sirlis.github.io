@@ -39,8 +39,8 @@
 <meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="强化学习（时序差分法）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。" />
-<meta property="og:description" content="本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。" />
+<meta name="description" content="本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。" />
+<meta property="og:description" content="本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。" />
 <link rel="canonical" href="http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/" />
 <meta property="og:url" content="http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/" />
 <meta property="og:site_name" content="SIRLIS" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（时序差分法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-27T22:05:52+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-26T21:03:24+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -548,6 +548,499 @@
 
 
 
+  
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+
+  
+
+
 
 <!-- Add header for code snippets -->
 
@@ -706,6 +1199,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -713,6 +1218,233 @@
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -772,13 +1504,13 @@
 
 <em
   class=""
-  data-ts="1701093952"
+  data-ts="1742994204"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/11/27
+  2025/03/26
 </em>
 
     </span>
@@ -822,9 +1554,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3124 字"
+  title="9476 字"
 >
-  <em>17 分钟</em>阅读</span>
+  <em>52 分钟</em>阅读</span>
 
     </div>
 
@@ -833,7 +1565,7 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>本文介绍了强化学习的时序差分法（Temporal-Difference, TD）。</p>
+  <p>本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。</p>
 
 <!--more-->
 
@@ -841,18 +1573,52 @@
 
 <ul>
   <li><a href="#1-引言">1. 引言</a></li>
-  <li><a href="#2-时序差分法">2. 时序差分法</a>
+  <li><a href="#2-随机近似理论">2. 随机近似理论</a>
     <ul>
-      <li><a href="#21-同轨策略下的时序差分控制sarsa">2.1. 同轨策略下的时序差分控制（SARSA）</a></li>
-      <li><a href="#22-离轨策略下的时序差分控制q-learning">2.2. 离轨策略下的时序差分控制（Q-Learning）</a></li>
-      <li><a href="#23-期望sarsa">2.3. 期望SARSA</a></li>
+      <li><a href="#21-求期望的增量更新式">2.1. 求期望的增量更新式</a></li>
+      <li><a href="#22-robbins-monrorm-算法">2.2. Robbins-Monro（RM） 算法</a>
+        <ul>
+          <li><a href="#221-算法推导">2.2.1. 算法推导</a></li>
+          <li><a href="#222-收敛性分析">2.2.2. 收敛性分析</a></li>
+          <li><a href="#223-回顾增量更新">2.2.3. 回顾增量更新</a></li>
+        </ul>
+      </li>
+      <li><a href="#23-随机梯度下降sgd">2.3. 随机梯度下降（SGD）</a>
+        <ul>
+          <li><a href="#231-sgd-算法推导">2.3.1. SGD 算法推导</a></li>
+          <li><a href="#232-sgd-收敛性分析">2.3.2. SGD 收敛性分析</a></li>
+          <li><a href="#233-回顾增量更新">2.3.3. 回顾增量更新</a></li>
+          <li><a href="#234-sgd-的确定性形式">2.3.4. SGD 的确定性形式</a></li>
+          <li><a href="#235-bgdmbgd-和-sgd">2.3.5. BGD、MBGD 和 SGD</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
-  <li><a href="#3-deep-q-networkdqn">3. Deep Q-Network（DQN）</a>
+  <li><a href="#3-时序差分法">3. 时序差分法</a>
     <ul>
-      <li><a href="#31-经验回放replay-buffer">3.1. 经验回放（Replay Buffer）</a></li>
-      <li><a href="#32-分离拷贝">3.2. 分离拷贝</a></li>
-      <li><a href="#33-过高估计double-dqn">3.3. 过高估计（Double DQN）</a></li>
+      <li><a href="#31-时序差分思想temporal-difference">3.1. 时序差分思想（Temporal Difference）</a>
+        <ul>
+          <li><a href="#311-从蒙特卡洛的角度分析">3.1.1. 从蒙特卡洛的角度分析</a></li>
+          <li><a href="#312-从-rm-算法的角度分析">3.1.2. 从 RM 算法的角度分析</a></li>
+          <li><a href="#313-从贝尔曼期望方程的角度分析">3.1.3. 从贝尔曼期望方程的角度分析</a></li>
+          <li><a href="#314-td-与-mc-的比较">3.1.4. TD 与 MC 的比较</a></li>
+        </ul>
+      </li>
+      <li><a href="#32-同策略时序差分sarsa">3.2. 同策略时序差分（SARSA）</a>
+        <ul>
+          <li><a href="#321-sarsa">3.2.1. SARSA</a></li>
+          <li><a href="#322-expected-sarsa">3.2.2. Expected SARSA</a></li>
+          <li><a href="#323-n-step-sarsa">3.2.3. n-step SARSA</a></li>
+        </ul>
+      </li>
+      <li><a href="#33-异策略时序差分q-learning">3.3. 异策略时序差分（Q-Learning）</a>
+        <ul>
+          <li><a href="#331-q-learning">3.3.1. Q-Learning</a></li>
+          <li><a href="#332-同策略与异策略">3.3.2. 同策略与异策略</a></li>
+          <li><a href="#333-不同行为策略的探索性">3.3.3. 不同行为策略的探索性</a></li>
+        </ul>
+      </li>
+      <li><a href="#34-总结">3.4. 总结</a></li>
     </ul>
   </li>
   <li><a href="#4-参考文献">4. 参考文献</a></li>
@@ -863,8 +1629,8 @@
 <p>回顾强化学习的目标：价值估计（预测问题）和策略寻优（控制问题）。在前面的的介绍中，我们分别介绍了两种基于价值的方法，动态规划法和蒙特卡洛法：</p>
 
 <ul>
-  <li><strong>动态规划法</strong>（DP）：是 model-based 方法，包含策略评估和策略改进两步，策略评估用来进行价值估计（即预测问题），策略改进用来进行策略寻优（控制问题）。</li>
-  <li><strong>蒙特卡洛法</strong>（MC）：是 model-free 方法，因为一般情况下我们无法得到具体模型（状态转移概率），因此通过采样完整序列后，通过 $G_t$ 来进行策略评估（价值估计）。</li>
+  <li><strong>动态规划法</strong>（DP）：是基于模型的方法，包含策略评估和策略改进两步，策略评估用来进行价值估计（即预测问题），策略改进用来进行策略优化（控制问题）。</li>
+  <li><strong>蒙特卡洛法</strong>（MC）：是无模型的方法，我们无法得到具体模型（动态特性）时，通过采样完整序列后，通过计算 $G_t$ 的均值来近似价值函数。</li>
 </ul>
 
 <p>本节介绍第三种基于价值的方法：时序差分法（TD）。首先回顾一下价值函数的等式：</p>
@@ -878,11 +1644,376 @@ v_\pi(s) &amp;= \mathbb{E}_\pi[G_t\vert S_t=s] &amp; {MC}\\
 <p>可以看出，基于价值的方法可以根据价值函数的等式不同来划分，其中：</p>
 <ul>
   <li>动态规划（DP）：是一种自举的方法。更新 $v_{k+1}$ 时采用上一步的 $v_k$ 进行组装，<strong>缺点：环境动态特性必须已知</strong>；</li>
-  <li>蒙特卡洛（MC）：是一种采样的方法。依据大数定律，让样本均值逼近期望，<strong>缺点：必须完整采集一幕</strong>；</li>
+  <li>蒙特卡洛（MC）：是一种采样的方法。依据大数定律，让样本均值逼近期望，<strong>缺点：必须完整采集一回合</strong>；</li>
   <li>时序差分（TD）：本章节介绍的方法。</li>
 </ul>
 
-<p>蒙特卡洛方法必须要等整个序列结束之后才能计算得到这一次的回报 $G_{t}$，而时序差分（Temporal Difference, TD）只需要当前步结束即可进行计算。具体而言，是将 $G_t$ 根据其定义进行一步展开</p>
+<h2 id="2-随机近似理论"><span class="me-2">2. 随机近似理论</span><a href="#2-随机近似理论" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="21-求期望的增量更新式"><span class="me-2">2.1. 求期望的增量更新式</span><a href="#21-求期望的增量更新式" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>在蒙特卡洛中介绍增量更新时，我们给出了根据每次采样得到的新 $G_t$ 求取 $G(S_t)$ 均值的增量更新形式如下：</p>
+
+\[\begin{cases}
+N &amp;\leftarrow N+1\\
+G(S_t) &amp;\leftarrow G(S_t) - \frac{1}{N} (G(S_t) - G_t)
+\end{cases}\]
+
+<p>将 $\frac{1}{N(S_t)}$ 替换为 $\alpha$，将待求量 $G(S_t)$ 写为 $w$，将即时获取的量记作 $x_k$，我们可以将其写为更加简洁的一般的形式</p>
+
+\[w_{k+1} \leftarrow w_k - \textcolor{red}{\alpha} (w_k - x_k)\]
+
+<p>其中，$\alpha$ 为步长参数，用来控制更新的速度。随着迭代次数 $k$ 的增加，$w_k$ 逐渐逼近 $x_k$ 的期望 $\mathbb{E}[X]$。</p>
+
+<p>这种算法的优势在于它是渐进式的。一旦收到一个样本，就可以立即获得平均值估计值。然后，平均估算值就可以立即用于后续其他计算。在第 $k$ 步的时候，我不需要把前面所有的样本全部加起来再求平均，只需要通过上式一步的计算就可以得到一个新的平均数。</p>
+
+<p>但是，在更新开始的时候因为数据量比较小，$w_k$ 难以非常精确的逼近 $\mathbb{E}[X]$。即由于样本不足，平均值估计在开始时并不准确。不过，有总比没有好，总比一直等到最后才能有一个数来得到一个平均数要强。在这个过程中就算不精确，也可以先凑合用着。随着样本的增多，数据越来越大，只要保证逐渐能够逼近期望就行。</p>
+
+<p>随之而来的问题是：</p>
+
+<ul>
+  <li>上述计算是否仍能保证收敛至 $\mathbb{E}[X]$？；</li>
+  <li>上述计算属于什么类型的算法？</li>
+</ul>
+
+<p>这里可以告诉大家，上述计算是 <strong>随机近似理论</strong>（Stochastic Approximation, SA） 的一个特殊形式，也是 <strong>随机梯度下降</strong>（Stochastic Gradient Descent, SGD） 的一个特殊形式。我们将在分别后面详细介绍。</p>
+
+<h3 id="22-robbins-monrorm-算法"><span class="me-2">2.2. Robbins-Monro（RM） 算法</span><a href="#22-robbins-monrorm-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="221-算法推导"><span class="me-2">2.2.1. 算法推导</span><a href="#221-算法推导" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>随机近似理论是解决寻根（方程求解）或优化问题的一大类随机迭代算法的总称。与许多其他寻根（方程求解）算法（如基于梯度的方法，梯度下降或梯度上升）相比，其的强大之处在于它不需要知道目标函数的表达式，也不需要知道目标函数梯度的表达式。</p>
+
+<p>其中，<strong>Robbins-Monro（RM）算法</strong>，是随机近似理论中的先驱性工作，它由 John Robbins 和 Paul Monro 在 1951 年提出。著名的随机梯度下降算法则是 RM 算法的一个特殊形式。该算法也可用来分析上述提到的均值估计的收敛性。</p>
+
+<p><strong>【问题描述】</strong>：假设需要求解 $g(w) = 0$ 的根，其中 $w\in\mathbb{R}, g:\mathbb{R}\rightarrow \mathbb{R}$。注意到：</p>
+
+<ul>
+  <li>这个简单的寻根问题是许多其他复杂问题的最终形式，如假设 $J(w)$ 是一个待优化的目标函数，我们需要求解 $J(w)$ 的极值，问题就转化为 $g(w) = \nabla_w J(w)=0$（必要条件）；</li>
+  <li>对于 $g(w)=c$ 这类问题的寻根也可转化为 $g(w) - c = 0$ 的寻根问题。</li>
+</ul>
+
+<p>如果函数 $g$ 的表达式已知，那么采取很多数值方法就可以求解。但如果函数表达式未知，比如是一个神经网络，那么问题就变成我输入什么样的 $w$ 能够使神经网络的输出为 0 ？</p>
+
+<p><strong>【RM 算法】</strong>：是一种迭代式算法，的求解方法为</p>
+
+\[w_{k+1} = w_k-\alpha \tilde{g}(w_k,\eta_k), \quad k=1,2,\ldots\]
+
+<p>其中</p>
+
+<ul>
+  <li>$w_k$ 是第 $k$ 步的根的估计值；</li>
+  <li>$\tilde{g}(w_k,\eta_k) = g(w_k) + \eta_k$ 为第 $k$ 步的含噪观测；</li>
+  <li>$\alpha$ 为正的步长参数。</li>
+</ul>
+
+<p>注意，上述求解过程不涉及 $g(w)$ 的表达式，他是一个黑箱。与之相对，算法的求解依赖数据，即</p>
+
+<ul>
+  <li>输入序列：${w_k}$</li>
+  <li>测量到的含噪输出序列：${\tilde{g}(w_k,\eta_k)}$</li>
+</ul>
+
+<blockquote>
+  <p>例：求解 $g(w) = \tanh(w-1)$
+真实根易知为 $w=1$
+采用 RM 算法，假设 $w_1=3,a_k=\frac{1}{k},\eta_k=0$，不含噪便于简化分析。那么迭代式如下</p>
+
+\[w_{k+1} = w_k-\frac{1}{k} g(w_k)\]
+
+  <p>迭代结果如图所示，可以发现确实能收敛到真实根</p>
+
+  <p><a href="/assets/img/postsimg/20221210/rm-example.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/rm-example.jpg" alt="RM算法迭代结果" class="lazyload" data-proofer-ignore></a></p>
+</blockquote>
+
+<h4 id="222-收敛性分析"><span class="me-2">2.2.2. 收敛性分析</span><a href="#222-收敛性分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>下面给出收敛性证明的严格数学推导。如果满足以下三条约束，那么，RM 算法中 $w_k$ 可依概率（with probability 1, w.p.1）收敛至方程 $g(w^\star) = 0$ 的根 $w^\star$。</p>
+
+<p>（1）梯度约束：</p>
+
+\[0&lt;c_1\leq \nabla_w g(w)\leq c_2\]
+
+<ul>
+  <li>
+    <p>对于梯度约束，其要求梯度为某一个正值区间内，此时 $g(w)$ <strong>单调递增</strong>， $g(w)=0$ 的根存在且唯一（注意，类似 $g(w) = e^w$ 是不满足此条件的，因为其导数在 $w\rightarrow -\infty$ 时趋于零，对于任意 $c_1&gt;0$ 总能找到其导数小于 $c_1$ 的情况）；</p>
+  </li>
+  <li>
+    <p>单调递增是一个严格约束，对于神经网络而言，假设 $J(w)$ 是一个待优化的目标函数，我们需要求解 $J(w)$ 的极值，问题就转化为 $g(w) = \nabla_w J(w)=0$，则梯度要求为 $\nabla_w^2 J(w) &gt; 0$ 即 Hessian 矩阵是正定矩阵，对应原始函数是凹函数（不同约定下也可能定义为凸函数，本质上是单调且存在极值解的）；</p>
+  </li>
+</ul>
+
+<p>（2）系数约束</p>
+
+\[\sum_{k=1}^{\infty} \alpha_k=\infty,\;\sum_{k=1}^{\infty}\alpha_k^2&lt;\infty\]
+
+<ul>
+  <li>$\sum_{k=1}^{\infty} \alpha_k^2&lt;\infty$ 要求在 $k\rightarrow \infty$ 时系数 $a_k\rightarrow 0$ 即<strong>收敛至零</strong>；
+    <ul>
+      <li>对于 RM 算法迭代式进行移项：$w_{k+1} - w_k = -\alpha_k\tilde{g}(w_k,\eta_k)$</li>
+      <li>只有 $a_k\rightarrow 0$ 才能保证 $a_k\tilde{g}(w_k,\eta_k) \rightarrow 0$</li>
+      <li>即 $w_{k+1} - w_k \rightarrow 0$</li>
+    </ul>
+  </li>
+  <li>$\sum_{k=1}^{\infty} \alpha_k = \infty$ 要求系数 $\alpha_k\rightarrow 0$ 的<strong>收敛速度不能太快</strong>；
+    <ul>
+      <li>对于 RM 算法迭代式进行移项累加后有：$w_{\infty} - w_1 = -\sum_{k=1}^\infty \alpha_k\tilde{g}(w_k,\eta_k)$</li>
+      <li>假设 $w_{\infty}=w^\star$，那么若 $\sum_{k=1}^{\infty} \alpha_k &lt; \infty$ 表明上式右项是有界的（若 $g(w)$ 恰好也有界）</li>
+      <li>如果初始猜测 $w_1$ 距离根 $w^\star$ 特别远，$w_{\infty} - w_1$ 就会超出上面的界限，产生矛盾</li>
+      <li>因此要求 $\sum_{k=1}^{\infty} \alpha_k = \infty$，保证我们可以任意选取 $w_1$</li>
+    </ul>
+  </li>
+  <li>最常见的可选系数序列是<strong>调和级数</strong>：$\alpha_k = \frac{1}{k}$</li>
+</ul>
+
+<p>（3）误差约束：</p>
+
+\[\mathbb{E}[\eta_k\vert\mathcal{H}_k]=0,\;\mathbb{E}[\eta_k^2\vert\mathcal{H}_k]&lt; \infty,\quad \mathcal{H}_k=\{w_k, w_{k-1},\cdots\}\]
+
+<ul>
+  <li>
+    <p>要求误差的均值是0，且方差是有界的；</p>
+  </li>
+  <li>
+    <p>常见的观测误差是一系列独立同分布（iid）的随机噪声序列中进行采样，但不要求噪声是高斯的。</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>即使不满足上述三条约束中的某一条，RM 算法也可能有效，但是不能保证一定收敛，如：</p>
+  <ul>
+    <li>对于 $g(w) = w^3-5$ 不满足第一条梯度约束，但如果初始猜测比较好，算法依然能够（局部）收敛；</li>
+    <li>在强化学习算法中经常令 $a_k$ 等于一个很小的值（学习率）而不是调和级数，显然不满足第二条系数约束，但是算法依然有效。</li>
+  </ul>
+</blockquote>
+
+<p>RM 算法收敛性证明需要用到更加古老的 Dvoretzky 收敛定理。其表述如下：</p>
+
+<p>考虑一个随机过程 $w_{k+1} = (1-\alpha_k)w_k+\beta_k\eta_k$，其中</p>
+
+\[\{\alpha_k\}_{k=1}^{\infty},\{\beta_k\}_{k=1}^{\infty},\{\eta\}_{k=1}^{\infty}\]
+
+<p>都是随机序列，且 $\alpha_k\geq 0, \beta_k \geq 0$，那么当满足以下约束时，$w_k$ 依概率收敛至 0。</p>
+
+<p>（1）系数约束：</p>
+
+\[\sum_{k=1}^{\infty} \alpha_k = \infty,\; \sum_{k=1}^{\infty} \alpha_k^2 &lt; \infty,\; \text{and} \sum_{k=1}^{\infty} \beta_k^2 &lt; \infty\; \text{uniformly w.p.1}\]
+
+<p>（2）误差约束：</p>
+
+\[\mathbb{E}[\eta_k\vert \mathcal{H}_k]=0,\;\mathbb{E}[\eta_k^2\vert \mathcal{H}_k] \leq C\; \text{w.p.1},\quad \mathcal{H}_k=\{w_k, w_{k-1},\cdots, \eta_{k-1},\cdots, \alpha_{k-1},\cdots,\eta_{k-1}\}\]
+
+<p>证明略，可参考如下链接。</p>
+
+<blockquote>
+  <p>Stochastic Approximation 随机近似方法的详解之（三）Dvoretzky’s convergence theorem
+网页链接：https://blog.csdn.net/weixin_37726222/article/details/129306871</p>
+</blockquote>
+
+<h4 id="223-回顾增量更新"><span class="me-2">2.2.3. 回顾增量更新</span><a href="#223-回顾增量更新" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>考虑一个简单的均值估计问题，我们想要从一组独立统分不采样得到的样本 ${x}_i\in X$ 中计算均值</p>
+
+\[w = \mathbb{E}[X]\]
+
+<p>将原始问题转变为如下寻根问题，定义函数</p>
+
+\[g(w) \doteq w - \mathbb{E}[X]\]
+
+<p>我们的目标是求解 $g(w) = 0$，如果可以求解，相当于变相求出了期望。</p>
+
+<p>由于期望是未知的，我们只能够获取到状态量的具体测量 $x$，那么定义对函数 $g(w)$ 的含噪观测为</p>
+
+\[\tilde g(w,x) \doteq w - x\]
+
+<p>注意到，上式可以进行如下变换</p>
+
+\[\begin{aligned}
+\tilde g(w,x) &amp;\doteq w - x \\
+&amp;= w-x+\mathbb{E}[X]-\mathbb{E}[X]\\
+&amp;= (w-\mathbb{E}[X])+(\mathbb{E}[X]-x)\\
+&amp;= g(w) + \eta\\
+&amp;= \tilde{g}(w,\eta)
+\end{aligned}\]
+
+<p>根据 RM 算法，求解方程 $g(w)=0$ 的根可以通过如下迭代式进行</p>
+
+\[w_{k+1} = w_k - \alpha \tilde g(w_k,\eta_k) = w_k - \alpha_k (w_k - x_k)\]
+
+<p>观察发现其正好就是均值估计的增量更新算法迭代式。所以<strong>均值估计的增量更新算法是一种 RM 算法的特殊形式</strong>，自然收敛。</p>
+
+<h3 id="23-随机梯度下降sgd"><span class="me-2">2.3. 随机梯度下降（SGD）</span><a href="#23-随机梯度下降sgd" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="231-sgd-算法推导"><span class="me-2">2.3.1. SGD 算法推导</span><a href="#231-sgd-算法推导" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>考虑一个如下的一般优化问题</p>
+
+\[\min_w J(w) = \mathbb{E}[f(w,X)]\]
+
+<p>其中 $f(w,X)$ 的输出为标量，$X$ 是输入随机变量，$w$ 是待优化参数。求期望符号是针对 $X$ 的，即希望找到某个参数使得期望最小。</p>
+
+<p>使用 <strong>梯度下降法</strong>（Gradient Descent, <strong>GD</strong>）进行求解</p>
+
+\[w_{k+1} = w_k - \alpha \nabla_w \mathbb{E}[f(w,X)] = w_k - \alpha \mathbb{E}{[\nabla_w f(w,X)]}\]
+
+<p>其中 $\alpha$ 是控制步长的参数。注意到求期望的本质就是求和，因此求梯度符号可以移到期望符号内。</p>
+
+<p>上述求解过程的难点在于对梯度求期望，如果我们没有映射函数的显示表达式，那么我们无法直接求解。因此我们需要借助数据，采用批量梯度下降法或随机梯度下降法进行求解。</p>
+
+<p>使用 <strong>批量梯度下降法</strong>（Batch Gradient Descent, <strong>BGD</strong>），梯度的期望可以近似表示如下</p>
+
+\[\begin{aligned}
+\mathbb{E}{[\nabla_w f(w,X)]} &amp;\approx \frac{1}{N}\sum_{i=1}^N \nabla_w f(w_k,x_i)\\
+w_{k+1} &amp;= w_k-\alpha_k \frac{1}{N}\sum_{i=1}^N \nabla_w f(w_k,x_i)
+\end{aligned}\]
+
+<p>上述求解过程仍然唇在一个不足，即需要采样 $N$ 次获得梯度数据才能迭代计算一步。我们进一步采用随机梯度下降法解决这个不足。</p>
+
+<p>使用 <strong>随机梯度下降法</strong>（Stochastic Gradient Descent, <strong>SGD</strong>），直接移除 $N$ 个梯度样本的求和，直接使用单个样本的梯度进行迭代</p>
+
+\[w_{k+1} = w_k-\alpha_k  \nabla_w f(w_k,x_k)\]
+
+<p>可以看出，随机梯度下降是批量梯度下降取 $N=1$ 的一种特殊情况，相当于将真实梯度的期望替换为单个样本（随机）梯度。</p>
+
+<h4 id="232-sgd-收敛性分析"><span class="me-2">2.3.2. SGD 收敛性分析</span><a href="#232-sgd-收敛性分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>对于如下的一般优化问题</p>
+
+\[\min_w J(w) = \mathbb{E}[f(w,X)]\]
+
+<p>我们称 $g(w) = \mathbb{E}[\nabla_w f(w,X)]$ 为 true gradient，称其某次采样 $\nabla_w f(w_k,x_k)$ 为 stochastic gradient。易知，原始<strong>优化问题</strong>可以转化为一个<strong>梯度等于零</strong> $g(w) = 0$ 这个方程求根问题，因为后者是前者能取到最优解的必要条件。</p>
+
+<p>由于我们不知道 $\nabla_w f(w,X)$ 的表达式，我们可以测量到其含噪近似（本质就是 stochastic gradient）</p>
+
+\[\begin{aligned}
+  \tilde{g}(w,\eta) &amp;= \nabla_w f(w,x)\\
+  &amp;=\textcolor{blue}{\mathbb{E}[\nabla_w f(w,X)]} + \textcolor{red}{\nabla_w f(w,x) - \mathbb{E}[\nabla_w f(w,X)]}\\
+&amp;= \textcolor{blue}{g(w)} + \textcolor{red}{\eta}
+\end{aligned}\]
+
+<p>根据 RM 算法，求根问题的迭代解法如下</p>
+
+\[w_{k+1} = w_k - \alpha_k \tilde{g}(w_k,\eta_k)\]
+
+<p>而前面说了 $\tilde{g}(w,\eta)$ 就是随机梯度，那么上式就是 SGD 的迭代表达式，<strong>因此 SGD 是一个特殊的 RM 算法，当满足三条约束时可收敛。</strong></p>
+
+<p>定义其第 $k$ 步迭代时的相对误差为</p>
+
+\[\delta_k = \frac{\vert \nabla_w f(w_k,x_k) - \mathbb{E}[\nabla_w f(w_k,X)]\vert}{\vert \mathbb{E}[\nabla_w f(w_k,X)] \vert}\]
+
+<p>又因为 $\mathbb{E}[\nabla_w f(w^\star,X)]=0$，代入得到</p>
+
+\[\delta_k = \frac{\vert\nabla_w f(w_k,x_k) - \mathbb{E}[\nabla_w f(w_k,X)]\vert}{\vert\mathbb{E}[\nabla_w f(w_k,X)]-\mathbb{E}[\nabla_w f(w^\star,X)] \vert} = \frac{\vert\nabla_w f(w_k,x_k) - \mathbb{E}[\nabla_w f(w_k,X)]\vert}{\vert\mathbb{E}[\nabla_w^2 f(\tilde{w}_k,X)(w_k-w^\star)] \vert}\]
+
+<p>其中，分母部分的变换利用了中值定理，使得 $w_k-w^\star$ 项出现。</p>
+
+<blockquote>
+  <p>中值定理：$f(x_1) - f(x_2) = f^\prime(x_3)(x_1 - x_2)$ 其中 $x_3\in[x_1, x_2]$</p>
+</blockquote>
+
+<p>假设分母的二阶梯度 $\nabla_w^2f(w_k,X)\geq c &gt;0$，其中 $c$ 是一个正的常值。那么分母可进一步化简得</p>
+
+\[\begin{aligned}
+  \vert\mathbb{E}[\nabla_w^2 f(\tilde{w}_k,X)(w_k-w^\star)] \vert &amp;= \vert\mathbb{E}[\nabla_w^2 f(\tilde{w}_k,X)]\cdot (w_k-w^\star) \vert\\
+  &amp;= \vert\mathbb{E}[\nabla_w^2 f(\tilde{w}_k,X)]\vert \cdot \vert w_k-w^\star \vert\\
+  &amp;\geq c \cdot \vert w_k-w^\star \vert
+\end{aligned}\]
+
+<p>带如相对误差的表达式有</p>
+
+\[\delta_k \leq \frac{\overbrace{\vert\nabla_w f(w_k,x_k)}^{\text{stochastic gradient}} - \overbrace{\mathbb{E}[\nabla_w f(w_k,X)]\vert}^{\text{true gradient}}}{\underbrace{c \cdot \vert w_k-w^\star \vert}_{\text{distance to optimal solutiion}}}\]
+
+<p>上式给出了 SGD 算法有趣的收敛模式：</p>
+
+<ul>
+  <li>如果 $w_k$ 距离最优解 $w^\star$ 越远，那么相对误差 $\delta_k$ 越小，即 SGD 算法的收敛速度越快；</li>
+  <li>如果 $w_k$ 距离最优解越近，那么相对误差 $\delta_k$ 越大，即 SGD 算法的收敛速度越慢。</li>
+</ul>
+
+<p>这意味着，初始时刻 SGD 算法与 GD 算法很类似，随机梯度与真实梯度之间的相对误差较小，SGD 算法会快速收敛到最优解附近；随着迭代次数的增加，$w_k$ 收敛至最优解 $w^\star$ 时 SGD 的收敛速度反而变慢，收敛过程的随机性增加。</p>
+
+<h4 id="233-回顾增量更新"><span class="me-2">2.3.3. 回顾增量更新</span><a href="#233-回顾增量更新" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>考虑如下优化问题</p>
+
+\[\min_w J(w) = \mathbb{E}[f(w,X)]=\mathbb{E}\left[\frac{1}{2}\vert\vert w-X \vert\vert^2\right]\]
+
+<p>令梯度 $\nabla_w J(w)$ 等于零，考虑到 $w$ 不是随机变量，显然有 $\mathbb{E}[w-x]=0 \Rightarrow w^\star = \mathbb{E}[X]$。</p>
+
+<p>如果假设不知道函数的显示表达式，使用 GD 和 SGD 来求解，有</p>
+
+\[\begin{aligned}
+GD: \quad &amp;w_{k+1} = w_k - \alpha \nabla_w \mathbb{E}[f(w,X)] = w_k - \alpha \mathbb{E}[w_k-X]\\
+SGD: \quad &amp;w_{k+1} = w_k - \alpha \nabla_w f(w,x_i) = w_k - \alpha [w_k-x_k]
+\end{aligned}\]
+
+<p>观察发现第二式其正好就是均值估计的增量更新迭代式，所以<strong>均值估计的增量更新算法是 SGD 算法的特殊形式</strong>，自然收敛。</p>
+
+<h4 id="234-sgd-的确定性形式"><span class="me-2">2.3.4. SGD 的确定性形式</span><a href="#234-sgd-的确定性形式" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在前述 SGD 定义中，我们涉及到随机变量 $X$ 及其期望 $\mathbb{E}[X]$，而我们在实际任务中会经常遇到另一种很类似但是不涉及随机变量的确定形式。考虑如下一般的优化问题</p>
+
+\[\min_w J(w) = \frac{1}{N}\sum_{i=1}^N f(w,x_i),\quad x_i\in\{x_i\}_{i=1}^N\]
+
+<p>其中，$x_i$ 是一组确定的样本，不再是随机变量的采样。</p>
+
+<p>又假设样本数据集中没取出一个数代价很大（很慢或者很耗费成本），我们每次只能取出一个数进行计算，那么我们可以将迭代求解的形式写为</p>
+
+\[w_{k+1} = w_k - \alpha \nabla_w f(w_k,x_k)\]
+
+<p>上述过程和 SGD 形式几乎完全一样，只是 $x_i$ 从随机变量变为了确定的样本。此时有如下几个问题思考：</p>
+
+<ul>
+  <li>上面的迭代式是否是 SGD？</li>
+  <li>每次采样一个样本时需要对其进行大小排列后采样，还是随机采样？</li>
+</ul>
+
+<p>实际上，我们可以人为引入一个定义在样本数据集 ${x_i}_{i=1}^N$ 上的随机变量 $X$ 且其概率分布为均匀分布（$p(X=x_i)=\frac{1}{N}$），此时确定性优化问题就转变为一个随机优化问题</p>
+
+\[\min_w J(w) =\frac{1}{N}\sum_{i=1}^N f(w,x_i) =  \mathbb{E}[f(w,X)]\]
+
+<p>其中，</p>
+
+<ul>
+  <li>后一个等式是严格成立的而不是近似，因此上述确定性形式的问题就是 SGD 算法；</li>
+  <li>随机变量 $X$ 需要从样本集中均匀随机抽取。</li>
+</ul>
+
+<h4 id="235-bgdmbgd-和-sgd"><span class="me-2">2.3.5. BGD、MBGD 和 SGD</span><a href="#235-bgdmbgd-和-sgd" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在 SGD 的算法推导中我们按照 GD、BGD 到 SGD 的过程逐步推导。现在我们进一步分析其中 BGD 与 SGD 和一种新的 Mini-batch Gradient Descent（MBGD）算法的关系。</p>
+
+<p>考虑如下一般形式的优化问题</p>
+
+\[\min_w J(w) = \mathbb{E}[f(w,X)]\]
+
+<p>使用 BGD、SGD 和 MBGD 算法求解上述问题的迭代式分别如下：</p>
+
+\[\begin{aligned}
+\text{BGD}:\quad w_{k+1} &amp;= w_k - \alpha \nabla_w \frac{1}{n} \sum_{i=1}^n f(w_k,x_i)\\
+\text{MBGD}:\quad w_{k+1} &amp;= w_k - \alpha \nabla_w \frac{1}{m} \sum_{j\in\mathcal{I}_k} f(w_k,x_k)\\
+\text{SGD}:\quad w_{k+1} &amp;= w_k - \alpha \nabla_w f(w_k,x_k)
+\end{aligned}\]
+
+<p>其中，MBGD 中的 $\mathcal{I}_k$ 是样本空间的一个子集，是从样本空间中独立随机采样 $m$ 次得到的样本集合。</p>
+
+<ul>
+  <li>相比 SGD，MBGD 因为用到了更多的样本数据，从而使其随机性更小。当 $m=1$ 时 MBGD 就退化成了 SGD；</li>
+  <li>相比 BGD，MBGD 由于采样的样本数目更少，因此其效率更高；</li>
+  <li>注意，当 $m=n$ 时 MBGD 并不等同于 BGD，因为 MBGD 的数据是从原始样本集中均匀随机采样的（某样本可能没被采样到也可能被使用多次），而 BGD 是对所有样本数据都仅使用一次。</li>
+</ul>
+
+<p>下面分别采用上述三种方法，给出对 $ x,y\in [-10, +10] $ 区间的 100 个样本（均值为 $(0,0)$ 的随机撒点）求均值的结果示意图。其中左图是三种方法的迭代收敛路径，有图为三种方法迭代过程中预测值与真实均值的距离变化情况。需要关注的是不同方法的收敛速度。</p>
+
+<p><a href="/assets/img/postsimg/20221210/bgd-mbgd-sgd-comparison.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/bgd-mbgd-sgd-comparison.jpg" alt="bgd-mbgd-sgd-comparison.jpg" class="lazyload" data-proofer-ignore></a></p>
+
+<h2 id="3-时序差分法"><span class="me-2">3. 时序差分法</span><a href="#3-时序差分法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="31-时序差分思想temporal-difference"><span class="me-2">3.1. 时序差分思想（Temporal Difference）</span><a href="#31-时序差分思想temporal-difference" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="311-从蒙特卡洛的角度分析"><span class="me-2">3.1.1. 从蒙特卡洛的角度分析</span><a href="#311-从蒙特卡洛的角度分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>根据前面的章节我们知道，即使采用增量更新技巧，蒙特卡洛方法也必须要等整个回合采样结束之后才能计算得到这一次的回报 $G_{t}$。那么有没有一种方法能够无须完整采样一个回合就能更新价值函数呢？我们以状态价值函数为例，观察回报的定义式：</p>
 
 \[\begin{aligned}
 G_t \doteq \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} &amp;= R_{t+1}+\sum_{k=0}^{\infty} \gamma^{k} R_{t+k+2}\\
@@ -892,170 +2023,422 @@ G_t \doteq \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} &amp;= R_{t+1}+\sum_{k=0}^{\in
 <p>然后带入蒙特卡洛的价值函数增量更新策略，即</p>
 
 \[\begin{aligned}
-MC:\quad &amp; v(S_t) \leftarrow v(S_t)+\alpha({\color{red}G_t}-v(S_t)) \\
-TD:\quad &amp; v(S_t) \leftarrow v(S_t)+\alpha({\color{red}R_{t+1}+\gamma v(S_{t+1})}-v(S_t))
+\text{MC}:\quad &amp; v(S_t) \leftarrow v(S_t)+\alpha({\color{red}G_t}-v(S_t)) \\
+\text{TD}:\quad &amp; v(S_t) \leftarrow v(S_t)+\alpha({\color{red}R_{t+1}+\gamma v(S_{t+1})}-v(S_t))
 \end{aligned}\]
 
-<p>也就是说，时序差分算法用当前获得的奖励加上下一个状态的价值估计来作为在当前状态会获得的回报。这里我们将动态路径规划节的$\frac{1}{N(s)}$替换成了 $\alpha$ ，表示对价值估计更新的步长。可以将 $\alpha$ 取为一个常数，此时更新方式不再像蒙特卡洛方法那样严格地取期望。</p>
+<p>上述第二行递推式就是本章所要介绍的 <strong>时序差分法</strong>（Temporal Difference Learning, <strong>TD</strong>）。</p>
 
-<p>时序差分算法用到了 $V(s_{t+1})$ 的估计值，可以证明它最终收敛到策略 $\pi$ 的价值函数，我们在此不对此进行展开说明。</p>
+<p>可以发现，时序差分法只需要采样一次，即可利用下一时刻下一状态的状态价值函数，来更新我们当前时刻当前状态的状态价值函数，注意这里涉及到了两种关于时间的概念（当前时刻 vs 下一时刻、当前状态 vs 下一状态），为避免混淆，详细展开如下：</p>
 
-<h2 id="2-时序差分法"><span class="me-2">2. 时序差分法</span><a href="#2-时序差分法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<ul>
+  <li>当前时刻 $t$，每一个当前状态 $S_t$ 对应状态价值函数 $V(s_t)$；</li>
+  <li>下一时刻 $t+1$，每一个下一时刻状态 $S_{t+1}$ 对应状态价值函数 $V(s_{t+1})$；</li>
+  <li>在当前时刻从某个具体状态 $S_t=s_t$ 出发，下一时刻转移至 $S_{t+1}=s_{t+1}$ 后，使用 $v_{\textcolor{red}{t}}(\textcolor{blue}{s_{t+1}})$ 来计算 $v_{\textcolor{red}{t+1}}(\textcolor{blue}{s_t})$；</li>
+  <li>其他不涉及状态转移的状态，他们的价值函数保持不变，即 $v_{t+1}(s)=v_{t}(s),\; s\neq s_t$</li>
+</ul>
 
-<h3 id="21-同轨策略下的时序差分控制sarsa"><span class="me-2">2.1. 同轨策略下的时序差分控制（SARSA）</span><a href="#21-同轨策略下的时序差分控制sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>综上，经过一些移项，时序差分法的迭代公式为</p>
+
+\[\begin{cases}
+v_{t+1}(s_t) = v_t(s_t)-\alpha_t(s_t)\big[v_t(s_t)-[r_{t+1}+\gamma v_t(s_{t+1})]\big]\\
+v_{t+1}(s) = v_t(s),\; s\neq s_t
+\end{cases}\tag{1}\]
+
+<p>我们将时序差分法迭代式的各个部分做如下标注</p>
+
+\[\underbrace{v_{t+1}(s_t)}_{\text{new estimate}} = \underbrace{v_t(s_t)}_{\text{old estimate}}-\alpha_t(s_t)\big[\overbrace{v_t(s_t)-[\underbrace{r_{t+1}+\gamma v_t(s_{t+1})}_{\text{TD target }\bar{v}_t}}^{\text{TD error }\delta_t}]\big]\]
+
+<ul>
+  <li><strong>TD Target</strong></li>
+</ul>
+
+<p>时序差分法的迭代式中，迭代目的就是将 $v(s_t)$ 朝着 $\bar{v}_t$ 的方向改进，所以称其为 <strong>TD Target</strong>。</p>
+
+<p>将迭代式改写如下</p>
 
 \[\begin{aligned}
-V(S_t) &amp; \leftarrow V(S_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{V(S_{t+1})}_{自举}-V(S_t))\\
-Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)+\alpha(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{Q(S_{t+1},A_{t+1})}_{自举}-Q(S_t,A_t))\\
+  &amp;v_{t+1}(s_t) = v_t(s_t)-\alpha_t(s_t)[v_t(s_t) - \bar{v}_t]\\
+  \Rightarrow \; &amp;v_{t+1}(s_t) - \textcolor{red}{\bar{v}_t} = v_t(s_t)-\textcolor{red}{\bar{v}_t}-\alpha_t(s_t)[v_t(s_t) - \bar{v}_t]\\
+  \Rightarrow \; &amp;v_{t+1}(s_t) - \textcolor{red}{\bar{v}_t}= [1-\alpha_t(s_t)] \cdot [v_t(s_t) - \textcolor{red}{\bar{v}_t}]\\
+  \Rightarrow \; &amp;\vert v_{t+1}(s_t) - \textcolor{red}{\bar{v}_t}\vert = \vert 1-\alpha_t(s_t)\vert\cdot \vert v_t(s_t) - \textcolor{red}{\bar{v}_t}\vert\\
 \end{aligned}\]
 
-<p>上述更新方式即为 <strong>SARSA。</strong></p>
+<p>由于 $0&lt;1-\alpha_t(s_t)&lt;1$，所以有</p>
 
-<p>伪代码如下：</p>
+\[\vert v_{t+1}(s_t) - \textcolor{red}{\bar{v}_t}\vert \leq \vert v_t(s_t) - \textcolor{red}{\bar{v}_t}\vert\]
+
+<p>也即 $v_{t+1}(s_t)$ 距离 TD Target 更近！</p>
+
+<ul>
+  <li><strong>TD Error</strong></li>
+</ul>
+
+<p>TD Error 定义为</p>
+
+\[\delta_t = v_t(s_t)-[r_{t+1}+\gamma v_t(s_{t+1})]\]
+
+<p>其反应了两个连续时刻前后状态的价值函数的差分（difference）。</p>
+
+<p>更进一步，我们需要分析该差分随着迭代的变化。假设在当前策略 $\pi$ 下我们已经迭代收敛，价值函数已经收敛至 $v_\pi(s)$，将 TD Error 定义式的下标进行改写，有</p>
+
+\[\delta_{\pi,t} = v_\pi(s_t) - [r_{t+1}+\gamma v_\pi(s_{t+1})]\]
+
+<p>分别对上式左右两边求期望，有</p>
+
+\[\mathbb{E}[\delta_{\pi,t}] = v_\pi(s_t) - \mathbb{E}[r_{t+1} + \gamma v_\pi(s_{t+1})] = 0\]
+
+<p>右侧等号成立的原因是因为，对于收敛的状态价值函数，其定义式就是</p>
+
+\[v_{\pi}(s_t) = \mathbb{E}[r_{t+1} + \gamma v_\pi(s_{t+1})]\]
+
+<p>因此，TD Error 衡量了 $v_t$ 和 $v_\pi$ 的偏差，同时其也反应了一步采样后从序列 $(s_t, r_{t+1}, s_{t+1})$ 中得到的新的信息，这个新的信息与当前旧的估计之间存在偏差，就可以利用这个偏差来更新 $v_t$。</p>
+
+<h4 id="312-从-rm-算法的角度分析"><span class="me-2">3.1.2. 从 RM 算法的角度分析</span><a href="#312-从-rm-算法的角度分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>可以证明时序差分算法迭代计算的状态价值函数 $v(s)$ 最终收敛至 $v_{\pi}(s)$，这需要用到我们前述介绍的 RM 算法，具体分析如下：</p>
+
+<p>考虑如下的期望估计问题</p>
+
+\[w = \mathbb{E}[R+\gamma v(X)]\]
+
+<p>其中 $R,X$ 都是随机变量，$\gamma$ 是一个常数（折扣因子），$v(\cdot)$ 是一个函数（状态价值函数）。</p>
+
+<p>假设我们能够采样得到样本 ${x}\in X,{r}\in R$，可定义函数 $g(w)$ 和其含噪观测 $g(w,\eta)$ 如下</p>
+
+\[\begin{aligned}
+g(w) &amp;= w-\mathbb{E}[R+\gamma v(X)]\\
+\tilde{g}(w,\eta) &amp;= w-[r+\gamma v(x)]\\
+&amp;=(w-\mathbb{E}[R+\gamma v(x)])+(\mathbb{E}[R+\gamma v(x)])-[r+\gamma v(x)]\\
+&amp;\doteq g(w) + \eta
+\end{aligned}\]
+
+<p>上述问题变为方程 $g(w)=0$ 的寻根问题，对应的 RM 算法求解如下</p>
+
+\[w_{k+1} = w_{k} - \alpha_k \tilde{g}(w_k,\eta_k) = w_k - \alpha_k[w_k-(r_k+\gamma v(x_k))]\tag{2}\]
+
+<p>对比式（1）与式（2）可以发现形式完全一样，因此 TD 算法是收敛的。</p>
+
+<h4 id="313-从贝尔曼期望方程的角度分析"><span class="me-2">3.1.3. 从贝尔曼期望方程的角度分析</span><a href="#313-从贝尔曼期望方程的角度分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>虽然前面我们通过一个特殊形式的期望估计问题推导出 TD 算法是一种特殊形式的 RM 算法，并得到了收敛性保证，但我们并没有明确其一定能够收敛至 $v_\pi(s)$。下面我们从贝尔曼期望方程的角度分析 TD 算法的收敛性，只有通过贝尔曼期望方程才能严格证明这一点。</p>
+
+<p>对于状态价值函数，贝尔曼期望方程如下</p>
+
+\[v_\pi(s) = \mathbb{E}[R+\gamma v_\pi(S^\prime)\vert s], \;s\in S\]
+
+<p>使用 RM 算法求解贝尔曼期望方程，需要转化为 $g(v(s))=0$ 的求根问题 ，其中函数 $g(v(s))$ 如下</p>
+
+\[g(v(s)) = v(s) - \mathbb{E}[R+\gamma v_\pi(S^\prime)\vert s]\]
+
+<p>我们仅能采样得到 $s,r, s^\prime$，则含噪观测 $g(v(s),\eta)$ 如下</p>
+
+\[\begin{aligned}
+\tilde{g}(v(s),\eta) &amp;= v(s) - [r+\gamma v_\pi(s^\prime)]\\
+&amp;= v(s) - \mathbb{E}[R+\gamma v_\pi(s^\prime)\vert s] + \mathbb{E}[R+\gamma v_\pi(s^\prime)\vert s] - [r+\gamma v_\pi(s^\prime)]\\
+&amp;= g(v(s)) + \eta
+\end{aligned}\]
+
+<p>那么 RM 算法的迭代式如下</p>
+
+\[\begin{aligned}
+v_{k+1}(s) &amp;= v_k(s) - \alpha_k \tilde{g}(v_k(s),\eta_k)\\
+&amp;= v_k(s) - \alpha_k [v_k(s) - [\textcolor{blue}{r_k}+\gamma \textcolor{blue}{v}_{\textcolor{red}{\pi}}(\textcolor{blue}{s^\prime_k})]]
+\end{aligned}\]
+
+<p>虽然上述迭代式已经和 TD 算法的迭代式很相似，但是需要注意以下两点不同：</p>
+
+<ul>
+  <li>在每一步迭代中，我们需要频繁<strong>采样多次同样</strong>的序列 $(s,r, s^\prime)$ 才能完成对状态 $v(s)$ 的更新（蓝色标记）；</li>
+  <li>在每一步迭代中，注意式中要求 $v_\pi(s^\prime)$ 是<strong>已知的</strong>，但实际上是不知道的！（红色标记）。</li>
+</ul>
+
+<p>对于第一个假设，我们实际采样一个回合后，对于其中每一个片段 $(r_t, r_{t+1},s_{t+1})$ 替代 $(s,r, s^\prime)$，采到谁我们就更新谁的价值函数。</p>
+
+<p>对于第二个假设，我们就用当前时刻的 $v_k(s^\prime_k)$ 替换掉 $v_\pi(s^\prime)$（开放式思考，替换后能保证收敛么？）。</p>
+
+<p>TD 算法的严格收敛证明依赖 RM 算法，此处略。</p>
+
+<p>最后我们可以发现，TD 算法就是用于求解贝尔曼期望方程的一种特殊的 RM 算法。</p>
+
+<h4 id="314-td-与-mc-的比较"><span class="me-2">3.1.4. TD 与 MC 的比较</span><a href="#314-td-与-mc-的比较" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<ul>
+  <li><strong>在线与离线</strong>：
+    <ul>
+      <li>TD 方法：在线；</li>
+      <li>MC 方法：离线；</li>
+    </ul>
+  </li>
+  <li><strong>无限采样与有限采样</strong>：
+    <ul>
+      <li>TD 方法：支持无限采样；</li>
+      <li>MC 方法：仅支持有限采样；</li>
+    </ul>
+  </li>
+  <li><strong>自举与否</strong>：
+    <ul>
+      <li>TD 方法：自举；</li>
+      <li>MC 方法：非自举；</li>
+    </ul>
+  </li>
+  <li><strong>方差与偏差</strong>：
+    <ul>
+      <li>TD 方法：高偏差，低方差。因为 TD 方法只需要一次采样，其中涉及到的随机变量少，随机性少，因此方差小。但是由于其依赖初值估计，如果估计不准会带来很大的偏差，虽然最终随着采样次数的增多也能收敛到正确的值。</li>
+      <li>MC 方法：低偏差，高方差。因为 MC 方法不涉及任何初值估计，其均值的估计是对期望的无偏估计，因此在迭代过程中偏差比较小，但因为他每一次采样都是“天马行空”的，因此不同的采样可能差距非常大，方差就会很大。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="32-同策略时序差分sarsa"><span class="me-2">3.2. 同策略时序差分（SARSA）</span><a href="#32-同策略时序差分sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="321-sarsa"><span class="me-2">3.2.1. SARSA</span><a href="#321-sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>前述 TD 算法针对状态价值函数进行估计，将其推广至状态-动作价值函数估计后，得到</p>
+
+\[\begin{aligned}
+V(S_t) &amp; \leftarrow V(S_t)-\alpha[V(S_t)-(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{V(S_{t+1})}_{自举})]\\
+\Rightarrow \quad Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)-\alpha[Q(S_t,A_t)-(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{Q(S_{t+1},A_{t+1})}_{自举})]\\
+\end{aligned}\]
+
+<p>上述更新方式即为 <strong>SARSA</strong>，因为观察其迭代式需要到采样数据 $(S_t,A_t, R_{t+1}, S_{t+1}, A_{t+1})$ 故得此命名。</p>
+
+<p>与前述 TD 算法类似，SARSA 也可以用来求解贝尔曼期望方程（表达为状态动作价值函数）。其收敛性与前面介绍类似，当其系数 $\alpha_t(s,a)$ 满足一定条件时收敛，此处不再展开。</p>
+
+<p>截止目前 SARSA 仍然是一个策略评估过程，在给定策略 $\pi$ 的条件下，SARSA 给出当前策略下 $q_\pi(s,a)$ 的估计值。将其与 $\varepsilon$-greedy 策略进行结合，得到的完整算法仍然被称为 SARSA，其伪代码如下：</p>
 
 <hr />
 <ul>
-  <li>Initialize $Q(s,a)$ arbitrarily</li>
+  <li>Initialize $Q(s,a)$ arbitrarily, choose start state $s$, given an $\varepsilon$-greedy policy $\pi_t$</li>
   <li>Repeat (for each episode):
     <ul>
-      <li>Initialize $s$</li>
-      <li>Repeat (for each step of episode):
+      <li>Repeat (if $s$ is not terminal state):
         <ul>
-          <li>Choose $a$ from $s$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</li>
-          <li>Take action $a$, observe $r$, $s^\prime$</li>
-          <li>
-            <font color="red">Choose $a^\prime$ from $s^\prime$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</font>
+          <li><em>collect experience</em>:
+            <ul>
+              <li>Choose $a$ from $s$ using policy $\pi_t$ derived from $Q$</li>
+              <li>Take action $a$, observe $r$, $s^\prime$</li>
+              <li>
+                <font color="red">Choose $a^\prime$ from $s^\prime$ using policy $\pi_t$ derived from $Q$</font>
+              </li>
+            </ul>
           </li>
-          <li>$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s^\prime,a^\prime)-Q(s,a)]}$</li>
-          <li>$\color{red}{s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
+          <li><em>policy evaluation</em>:
+            <ul>
+              <li>${Q(s,a)\leftarrow Q(s,a)-\alpha[Q(s,a) - (r+\gamma Q(s^\prime,a^\prime))]}$</li>
+              <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
+            </ul>
+          </li>
+          <li><em>policy improvement</em>:
+            <ul>
+              <li>(using $\varepsilon$-greedy as target policy)</li>
+              <li>$\pi_{t+1}(a\vert s) = 1-\frac{\varepsilon}{\vert \mathcal{A} \vert}(\mathcal{A}-1)$ if $a=\arg\max_a Q(s,a)$</li>
+              <li>$\pi_{t+1}(a\vert s) = \frac{\varepsilon}{\vert \mathcal{A} \vert}$ otherwise</li>
+              <li>$t \leftarrow t+1$</li>
+            </ul>
+          </li>
         </ul>
       </li>
-      <li>until $s$ is terminal</li>
     </ul>
   </li>
 </ul>
 
 <hr />
 
-<p>上述更新方式又被称为同轨策略（on-policy），因为其采样和更新的均为同一个策略。这个策略可以是任何策略，如 $greedy$ 贪婪策略、$\epsilon-greedy$ 贪婪策略，随机策略等。</p>
+<p>SARSA 的更新方式是 <strong>在线（online）</strong> 的，因为其只要采样一步，立刻可以更新对应的价值函数。与之相对，MC 方法是一个典型的离线（offline）方法，因为他必须等到一个完整的回合采样完毕后才能更新对应的价值函数。</p>
 
-<p>从上面的伪代码可以看出，每次执行动作时，都是从<strong>一个策略</strong>中得到的。而更新 $Q(s,a)$ 的值时，也是使用的<strong>同一个策略</strong>得到的动作计算出的 $Q(s^\prime,a^\prime)$ 。此时，由于这个策略不一定是最优策略（一般肯定不是最优策略），那么对应的 $a^\prime$ 未必是$s^\prime$ 状态下的最优选择。如果策略采用 $\epsilon-greedy$ 贪婪策略，它需要兼顾探索和利用，因此训练的时候会显得有点“胆小”。所以说 SARSA 是一个偏向保守的方法，训练过程慢慢摸索会比较慢。</p>
+<p>使用 SARSA 方法在 Grid World 中进行实验。需要注意的是，这里的 Grid World 场景不再是之前课程中为了找寻所有状态的最优策略，而是为了找到从初始状态出发抵达终点的最优策略。设定初始状态为左上角格子，我们的目的是找到一条从初始状态出发抵达终点的最优路径，相关参数设置为 $r_{target}=0, r_{forbidden}=r_{boundary} = -10, r_{other}=-1,\gamma = 0.9,\alpha = 0.1$，迭代 500 步如下图所示：</p>
 
-<h3 id="22-离轨策略下的时序差分控制q-learning"><span class="me-2">2.2. 离轨策略下的时序差分控制（Q-Learning）</span><a href="#22-离轨策略下的时序差分控制q-learning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p><a href="/assets/img/postsimg/20221210/sarsa-result.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/sarsa-result.jpg" alt="sarsa-result" class="lazyload" data-proofer-ignore></a></p>
 
-<p>实际上，在 $s^\prime$ 状态下，存在一个确定性策略（也即 $greedy$ 贪婪策略）</p>
+<p>左子图表明，虽然左上角格子已经找到了相对较优的路径，但其他格子对应的策略明显不是最优的，如果想要找到其他格子的最优策略，需要依靠 $\varepsilon$-greedy 策略经过更多步骤的探索。右子图表明，随着迭代次数的增加，每个 episode 探索的步长逐渐降低，对应的总奖励逐渐升高，但总奖励依然为负数。这是因为采用 $\varepsilon$-greedy 策略引入了非最优探索，这在之前介绍蒙特卡洛改进算法的最优性分析中有过详细介绍。</p>
 
-\[a^*=\pi(s^\prime) = argmax_a\; Q(s^\prime, a)\]
+<h4 id="322-expected-sarsa"><span class="me-2">3.2.2. Expected SARSA</span><a href="#322-expected-sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>此时有</p>
+<p>我们可以对 SARSA 进行改进，不再进行采样得到动作 $a^\prime$，而是使用 $Q$ 的期望，此时的迭代式即为 <strong>期望 SARSA</strong></p>
 
-\[max_{a^\prime}\; Q(s^\prime,a^\prime) = Q(s^\prime, a^*)\]
+\[\begin{aligned}
+Q(s,a) &amp;\leftarrow Q(s,a)-\alpha\{Q(s,a)-(r+\gamma \mathbb{E}_\pi[Q(s^\prime,A)])\}\\
+Q(s,a) &amp;\leftarrow Q(s,a)-\alpha[Q(s,a)-(r+\gamma V(s^\prime))]\\
+\end{aligned}\]
 
-<p>更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是直接查阅已有的 Q table 找到当前状态下已知的最大 $Q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $Q(s,a)$。这种更新方式即为 <strong>Q-Learning</strong>。</p>
+<ul>
+  <li>期望的 SARSA 的好处在于偏差更小（因为不需要做第二次动作采样了，只需要 $(s,a,r,s^\prime)$，随机性更小）</li>
+  <li>但是代价是计算量增大（因为需要计算多个 Q 值后取平均）。</li>
+</ul>
+
+<p>期望 SARSA 本质上是求解如下贝尔曼期望方程</p>
+
+\[q_\pi(s,a) = \mathbb{E}[R+\gamma v_\pi(s^\prime)\vert s,a]\]
+
+<h4 id="323-n-step-sarsa"><span class="me-2">3.2.3. n-step SARSA</span><a href="#323-n-step-sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>SARSA 是一种一步更新的方法，即每次更新只使用一步的采样数据。我们可以将 SARSA 泛化到 $n$ 步更新，即每次更新使用 $n$ 步的采样数据。这本质上是将 SARSA 和 MC 方法进行融合。考虑回报的不同展开形式</p>
+
+\[\begin{aligned}
+  \text{SARSA} \; \leftarrow \; G_t^{(1)} &amp;= R_{t+1}+\gamma Q(S_{t+1},A_{t+1})\\
+  G_t^{(2)} &amp;= R_{t+1}+\gamma R_{t+2}+\gamma^2 Q(S_{t+2},A_{t+2})\\
+  \vdots\\
+  \text{n-step SARSA} \; \leftarrow \; G_t^{(n)} &amp;= R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{n-1} R_{t+n}+\gamma^n Q(S_{t+n},A_{t+n})\\
+  \vdots\\
+  \text{MC} \; \leftarrow \; G_t^{(\infty)} &amp;= R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{n-1} R_{t+n}+\cdots
+\end{aligned}\]
+
+<p>将上述不同的回报展开形式代入 $Q(s,a)$ 关于回报的定义式，然后再代入期望 SARSAR 迭代式，可以得到 $\boldsymbol{n}$<strong>-step SARSA</strong> 这种介于 SARSA 和 MC 方法之间的迭代式</p>
+
+\[Q_\pi(s,a)\leftarrow Q_\pi(s,a)-\alpha[Q_\pi(s,a) - G_t^{(n)}]\]
+
+<ul>
+  <li>当 $n=1$ 时，$n$-step SARSA 等价于 SARSA（很显然）；</li>
+  <li>当 $n=\infty$ 时，$n$-step SARSA 等价于 MC 方法（请自行尝试推导）。</li>
+</ul>
+
+<h3 id="33-异策略时序差分q-learning"><span class="me-2">3.3. 异策略时序差分（Q-Learning）</span><a href="#33-异策略时序差分q-learning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="331-q-learning"><span class="me-2">3.3.1. Q-Learning</span><a href="#331-q-learning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在 SARSAR 算法中，我们通过 $\epsilon$-greedy 策略得到下一时刻状态所选取的动作 $a^\prime$，从而更新 $Q(s,a)$。但实际上，在 $s^\prime$ 状态下，存在一个确定性策略（也即贪婪策略）可供我们选择动作</p>
+
+\[a^*=\pi(s^\prime) = \arg\max_a\; Q(s^\prime, a)\]
+
+<p>更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是直接查阅已有的 Q table 找到当前状态下已知的最大 $Q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $Q(s,a)$。这种更新方式即为 <strong>Q-Learning</strong>。对应的迭代式如下</p>
+
+\[Q(s,a) \leftarrow Q(s,a)-\alpha\{Q(s,a)-(r+\gamma \arg\max_a Q(s^\prime,a))\}\\\]
+
+<p>Q-Learning 本质上是求解如下方程</p>
+
+\[q(s,a)=\mathbb{E}[R+\gamma \max_{a} q(s^\prime,a)\vert s,a], \forall s,a\]
+
+<p>注意到，其在形式上和前面介绍过的贝尔曼最优方程很类似，但有两点不同：</p>
+
+<ul>
+  <li>贝尔曼最优方程是一个关于状态价值函数的方程，而 Q-Learning 是一个关于状态-动作价值函数的方程；</li>
+  <li>贝尔曼最优方程不含期望，而 Q-Learning 含有期望。</li>
+</ul>
+
+<p>但实际上 Q-Learning 求解的方程也是一种贝尔曼最优方程（证明略）。</p>
 
 <p>伪代码如下：</p>
 
 <hr />
 <ul>
-  <li>Initialize $Q(s,a)$ arbitrarily</li>
+  <li>Initialize $Q(s,a)$ arbitrarily, choose start state $s$, given a policy  $\pi_t$ (e.g., $\varepsilon$-greedy)</li>
   <li>Repeat (for each episode):
     <ul>
-      <li>Initialize $s$</li>
-      <li>Repeat (for each step of episode):
+      <li>Repeat (if $s$ is not terminal state):
         <ul>
-          <li>Choose $a$ from $s$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)</li>
-          <li>Take action $a$, observe $r$, $s^\prime$</li>
-          <li>$\color{red}{Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathop{\text{max}}\limits_{a^\prime}
-  Q(s^\prime,a^\prime)-Q(s,a)]}$</li>
-          <li>$\color{red}{s\leftarrow}s^\prime$</li>
+          <li><em>collect experience</em>:
+            <ul>
+              <li>Choose $a$ from $s$ using policy $\pi_t$  derived from $Q$</li>
+              <li>Take action $a$, observe $r$, $s^\prime$</li>
+              <li>
+                <font color="red">Choose $a^\prime= \arg\max_a Q(s^\prime, a)$, i.e., greedy policy</font>
+              </li>
+            </ul>
+          </li>
+          <li><em>policy evaluation</em>:
+            <ul>
+              <li>${Q(s,a)\leftarrow Q(s,a)-\alpha[Q(s,a) - (r+\gamma Q(s^\prime,a^\prime))]}$</li>
+              <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
+            </ul>
+          </li>
+          <li>$t \leftarrow t+1$</li>
         </ul>
       </li>
-      <li>until $s$ is terminal</li>
+    </ul>
+  </li>
+  <li><em>policy improvement</em> <font color="red">(after iteration)</font>:
+    <ul>
+      <li>(using greedy policy as target policy)</li>
+      <li>$\pi_{t+1}(a\vert s) = 1$ if $a=\arg\max_a Q(s,a)$</li>
+      <li>$\pi_{t+1}(a\vert s) = 0$ otherwise</li>
     </ul>
   </li>
 </ul>
 
 <hr />
 
-<p>Q-Learning 分离了目标策略与行为策略。一方面，在更新 $Q(s,a)$ 时，Q-Learning 采用 $greedy$ 更新策略作为行为策略探索得到的经验轨迹来优化目标策略，从而更有可能探索到最佳策略。而在实际执行时，采用 $\epsilon-greedy$ 行为策略来选取动作。</p>
+<p>标红的部分即为 Q-Learning 与 SARSA 算法伪代码中唯一的区别所在，这使得二者分属不同的时序差分方法，这将在下一节详细分析。</p>
 
-<p>因此，Q-Learning 又被被称为离轨策略（off-policy）。</p>
+<h4 id="332-同策略与异策略"><span class="me-2">3.3.2. 同策略与异策略</span><a href="#332-同策略与异策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h3 id="23-期望sarsa"><span class="me-2">2.3. 期望SARSA</span><a href="#23-期望sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>TD 算法中存在两种重要的策略，前面的内容都有涉及，这里明确提出如下：</p>
 
-<p>我们可以对 SARSA 进行改进，不再进行采样得到动作 $a^\prime$，而是对 $Q$ 进行加权平均，此时</p>
+<ul>
+  <li>行为策略：用于和环境交互产生样本的策略；</li>
+  <li>目标策略：一直更新直至最优的策略。</li>
+</ul>
 
-\[Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma \mathbb{E}_\pi[Q(s^\prime,a^\prime)\vert s^\prime]-Q(s,a)]\]
+<p>当行为策略和目标策略相同时，称其为 <strong>同策略（on-policy）</strong> 时序差分方法，不论是和环境交互还是被持续改进，都是同一个策略。当行为策略和目标策略不同时，就称其为 <strong>异策略（off-policy）</strong> 时序差分方法。</p>
 
-<p>增加采样操作的好处在于可以提高计算的稳定性（因为期望更能反应当前状态的价值），但是代价是计算量增大（因为需要计算多个Q值后取平均）。</p>
+<p>按照上述定义，我们可以看出，SARSA 是一种同策略（on-policy）时序差分方法，因为其采样和更新的均为同一个策略（都是 $\varepsilon$-greedy 策略），而 Q-Learning 是一种异策略（off-policy）时序差分方法，因为其行为策略是 $\varepsilon$-greedy 策略，但更新的策略是 greedy（贪婪）策略，二者不同。</p>
 
-<h2 id="3-deep-q-networkdqn"><span class="me-2">3. Deep Q-Network（DQN）</span><a href="#3-deep-q-networkdqn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>使用 off-policy 的好处在于，我们可以使用与目标策略不同的更加激进更加具备探索性的行为策略来与环境交互获得经验。行为策略越激进，那么能够探索到的状态动作对就越多，相应价值函数更新的频次就更高，探索效率就自然更高。注意，<strong>在 off-policy中，只要求行为策略与目标策略不同。行为策略本身可以随意选取</strong>，比如当目标策略是贪婪策略时，行为策略可以是 $\varepsilon$-greedy 策略，也可以是均匀随机策略（探索性更强）。</p>
 
-<p>前面介绍的 Q-Learning 只能用于状态和动作的集合是有限的离散基且状态和动作数量较少的情况，状态和动作需要人工预先设计，Q函数值需要存储在一个二维表格中。实际应用中的场景可能会很复杂，很难定义出离散的状态；即使能够定义，数量也非常大，无法用数组存储。</p>
+<p>最后给出两个延伸问题供大家思考：</p>
 
-<p>对于强化学习来说，很多实际应用问题的输入数据是高维的，如图像，声音，算法要根据它们来选择一个动作执行以达到某一预期的目标。比如，对于自动驾驶算法，要根据当前的画面决定汽车的行驶方向和速度。经典的强化学习算法如 Q-Learning 需要列举出所有可能的情况（称为状态，这是对当前所处环境的抽象），然后进行迭代。 Q-Learning 的经典实现是列举出所有的状态和动作，构建 Q-Table，这是一个二维的表，然后迭代计算各种状态下执行各种动作的预期回报的最大值。对于高维的输入数据，显然是不现实的，因为如果直接以原始数据作为状态，维数太高，而且状态数量太多。</p>
+<ul>
+  <li>思考1：MC 方法是同策略还是异策略？<font color="blue">（同策略）</font></li>
+  <li>思考2：怎么把 Q-Learning 改造成 on-policy 方法？<font color="blue">（强行将策略改进放到每次迭代中，并使用与行为策略相同的目标策略，如 $\varepsilon$-greedy）</font></li>
+</ul>
 
-<p>一种解决方案是从高维数据中抽象出特征，作为状态，然后用强化学习建模，但这种做法很大程度上依赖于人工特征的设计。如从画面中提取出目标的位置、速度等信息，也非常困难，这也是一个难题。</p>
+<h4 id="333-不同行为策略的探索性"><span class="me-2">3.3.3. 不同行为策略的探索性</span><a href="#333-不同行为策略的探索性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>另一种方案是用一个函数来逼近价值函数，函数的输入是原始的状态数据，函数的输出是价值函数值。在有监督学习中，我们用神经网络来拟合分类或回归函数，同样的，也可以用神经网络可来拟合强化学习中的价值函数，这就是 DQN 的基本思想。</p>
+<p>下面给出两种不同行为策略下 Q-Learning 探索 Grid World 的示例，场景设置与前述介绍 SARSA 时相同，唯一区别在于此处我们想找到所有状态下的最优策略，而不是某个初始状态的最优轨迹。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="code-header">
-        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;Q(s,a1)                       +----+
-  s  ---&gt; |f(x)| ----&gt;Q(s,a2)       or     s,ai ---&gt;|f(x)| ----&gt;Q(s,ai)
-          +----+ ----&gt;Q(s,a3)                       +----+
-</pre></td></tr></tbody></table></code></div></div>
+<p>首先给出最优策略和其对应的状态价值函数作为参考，如下图所示</p>
 
-<p>基于价值函数的深度强化学习的典型代表是DQN（深度Q网络），由DeepMind公司在2013年提出，2015年其改进型发表在Nature上。这种方法用卷积神经网络拟合价值函数，一般是Q函数。网络的输入为原始场景数据，如游戏的画面图像，输出为在这种场景下执行各种动作时所能得到的Q函数的极大值。</p>
+<p><a href="/assets/img/postsimg/20221210/q-learning-results-1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/q-learning-results-1.jpg" alt="q-learning-result-optimal" class="lazyload" data-proofer-ignore></a></p>
 
-<p>损失函数用神经网络的输出值与Q学习每次迭代时的更新值构造，是神经网络的输出值与Q函数估计值之间的误差，与Q学习中的更新项相同</p>
+<ul>
+  <li><strong>行为策略是均匀随机策略</strong></li>
+</ul>
 
-\[L(\theta) = \mathbb{E}[(r+\gamma \mathop{\text{max}}\limits_{a^\prime} Q(s^\prime,a^\prime;\theta)-Q(s,a,\theta))^2]\]
+<p>设置行为策略是均匀随机策略，每个状态的五个动作 <strong>选取概率为 25%</strong>，采用异策略的 Q-Learning 方法迭代 100 万步，得到的结果如下图所示</p>
 
-<h3 id="31-经验回放replay-buffer"><span class="me-2">3.1. 经验回放（Replay Buffer）</span><a href="#31-经验回放replay-buffer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p><a href="/assets/img/postsimg/20221210/q-learning-results-2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/q-learning-results-2.jpg" alt="q-learning-result-2" class="lazyload" data-proofer-ignore></a></p>
 
-<p>和 Q-Learning 类似，DQN 可以通过执行动作来生成样本。具体而言，给定一个状态，用当前的神经网络进行预测，得到所有动作的 Q 函数，然后按照策略选择一个动作执行，得到下一个状态以及回报值，以此构造训练样本。但与普通的有监督学习不同，这里的训练样本是通过不停的执行动作而动态生成的。</p>
+<p>可以看出，均匀随机策略的探索性比较强，100 万步迭代后每个状态动作对都被多次采样到了。最终得到的最优策略估计（贪婪策略）如下图所示，下图右侧给出了状态价值函数与最优状态价值函数的差随迭代次数变化的曲线</p>
 
-<p>监督学习一般要求训练样本之间是相互独立的，在强化学习中，经常遇到的是前后高度相关的状态序列。在某个状态下执行一个动作之后进入下一个状态，前后两个状态之间存在着明显的概率关系。</p>
+<p><a href="/assets/img/postsimg/20221210/q-learning-results-3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/q-learning-results-3.jpg" alt="q-learning-result-random" class="lazyload" data-proofer-ignore></a></p>
 
-<p>为了解决训练样本之间存在相关性，以及样本的概率分布不固定的问题，采用了经验回放机制，具体做法是，先把执行动作构造的训练样本存储到一个大的集合（replay-buffer，回放缓冲）中，在训练Q网络时每次从这个集合（replay-buffer，回放缓冲）中随机抽取出部分样本作为训练样本，以此打破样本之间的相关性。</p>
+<p>可以看出，最终得到的最优策略估计与真实的最优策略非常接近。</p>
 
-<p>随之而来的问题是，每个样本都是由不同的Q函数值对应的策略产生的。在回放缓冲中早期的样本中，由于Q值估计不准，对应的策略还比较幼稚；反之，样本越新对应的策略越优。因此，还需要额外设计样本选取的权重。</p>
+<ul>
+  <li><strong>行为策略是有倾向的随机策略</strong></li>
+</ul>
 
-<h3 id="32-分离拷贝"><span class="me-2">3.2. 分离拷贝</span><a href="#32-分离拷贝" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>接着，我们采用另外一个行为策略，设置所有状态下 <strong>向右走的概率提高至 50%</strong>，剩下 50% 概率由其他动作平分。很明显，这个策略的探索性不如上一个全部动作都均匀随机选择的策略，因为他多了一个向右的倾向性。得到的结果如下图所示</p>
 
-<p>DQN 在随机尝试执行动作，生成训练样本的过程中，需要用当前的 Q 函数来计算训练样本的标签值，这存在着自身依赖。也即损失函数的前半部分</p>
+<p><a href="/assets/img/postsimg/20221210/q-learning-results-4.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/q-learning-results-4.jpg" alt="q-learning-result-special" class="lazyload" data-proofer-ignore></a></p>
 
-\[Y^Q = r+\gamma \mathop{\text{max}}\limits_{a^\prime} Q(s^\prime,a^\prime;\theta)\]
+<p>可以看出，经过 100 万步迭代，仍然有很多状态动作对从没有被探索到，得到的状态价值函数估计与真实的最优值相差较大。继续提高向右走的概率，探索性会变得更弱，Q-Learning 方法的收敛速度更慢。</p>
 
-<p>与当前的 $Q(s,a,\theta)$ 有关系的。为了降低这种依赖关系，可以采用两个 DQN 代替原先的一个 DQN。对应的损失函数为</p>
+<h3 id="34-总结"><span class="me-2">3.4. 总结</span><a href="#34-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-\[L(\theta) = \mathbb{E}[(r+\gamma \mathop{\text{max}}\limits_{a^\prime} Q(s^\prime,a^\prime;\theta_i^{-})-Q(s,a,\theta_i))^2]\]
+<p>所有的 TD 算法可以表述为一个统一的形式</p>
 
-<p>其中，$\theta_i^{-}$ 为第 $i$ 次迭代时用于计算目标 Q 函数值的 DQN 参数值，这个神经网络因此也称为目标网络；$\theta_i$ 则为当前网络的参数值。将目标网络与当前网络分离开来，当前网络的值在训练时每次都迭代更新，而目标网络则周期性的从当前Q网络同步过来，每多次迭代执行一次拷贝。</p>
+\[q_{t+1}(s_t,a_t) = q_t(s_t,a_t) - \alpha [q_t(s_t,a_t) - \textcolor{red}{\bar{q}_t}]\]
 
-<div class="language-plaintext highlighter-rouge"><div class="code-header">
-        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre>      Q-Network                              Target Q-Network
-        +----+ ----&gt;Q(s,a1)                       +----+ ----&gt;Q(s',a1)
-s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a2)
-        |  θ | ----&gt;...                           | θ- | ----&gt;...
-        +----+ ----&gt;Q(s,an)                       +----+ ----&gt;Q(s',an)   
-</pre></td></tr></tbody></table></code></div></div>
+<p>不同 TD 算法的差异都可以体现在对 TD Target（$\bar{q}_t$）的不同选择上</p>
 
-<h3 id="33-过高估计double-dqn"><span class="me-2">3.3. 过高估计（Double DQN）</span><a href="#33-过高估计double-dqn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+\[\begin{aligned}
+\text{SARSA:}\quad\bar{q}_t &amp;= r_{t+1}+\gamma q_t(s_{t+1},a_{t+1})\\
+n\text{-step SARSA:}\quad \bar{q}_t &amp;= r_{t+1} + r_{t+2}+\cdots +\gamma^n q_t(s_{t+n},a_{t+n})\\
+\text{Expected SARSA:}\quad\bar{q}_t &amp;= r_{t+1}+\gamma \sum_a \pi(a\vert s_{t+1})q(s_{t+1},a)\\
+\text{Q-Learning:}\quad\bar{q}_t &amp;= r_{t+1}+\gamma \max_a q(s_{t+1},a)\\
+\text{MC:}\quad\bar{q}_t &amp;= r_{t+1} + \gamma r_{t+2} + \cdots + \gamma^{T-t-1} r_T,\text{ where }\alpha = 1
+\end{aligned}\]
 
-<p>DQN中均使用了 <code class="language-plaintext highlighter-rouge">max</code> 操作，使得选择和评估一个动作值都会过高估计，为了解决这个问题，Double Q-learning 率先使用了两个值函数进行解耦，其互相随机的更新两个值函数，并利用彼此的经验去更新网络权重 $\theta$ 和 $\theta^{-}$。对应的损失函数为</p>
+<p>从求解贝尔曼公式的角度也可总结如下</p>
 
-\[L(\theta) = \mathbb{E}[(r+\gamma Q(s^\prime,\mathop{\text{argmax}}\limits_{a^\prime}Q(s^\prime,a^\prime,\theta);\theta_i^{-})-Q(s,a,\theta_i))^2]\]
+\[\begin{aligned}
+\text{SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma q_\pi(S_{t+1},A_{t+1})\vert St+s, A_t=a]\\
+n\text{-step SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma^2R_{t+2}+\cdots+\gamma^n q_\pi(S_{t+n},A_{t+n})\vert St+s, A_t=a]\\
+\text{Expected SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma \mathbb{E}_{A_{t+1}}[q_\pi(S_{t+1},A_{t+1})]\vert St=s, A_t=a]\\
+\text{Q-Learning:}\quad \textcolor{red}{\text{BOE:}} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma \max_a q_\pi(S_{t+1},a)\vert St=s, A_t=a]\\
+\text{MC:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{T-t-1} R_T\vert St=s, A_t=a]
+\end{aligned}\]
 
 <h2 id="4-参考文献"><span class="me-2">4. 参考文献</span><a href="#4-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1209,13 +2592,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
@@ -1223,21 +2599,28 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/pytorch-basic-2/">PyTorch基础（随机数种子）</a>
+          <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
     </ul>
@@ -1296,120 +2679,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1423,87 +2692,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1669,6 +2857,117 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -1828,7 +3127,119 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -1874,22 +3285,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1899,13 +3294,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
 
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -1932,6 +3320,49 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
 
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
   
     
     
@@ -2041,10 +3472,10 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
@@ -2105,6 +3536,18 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3083,7 +4526,7 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
           2.1.1. 策略评估
           2.1.2. 策略改进
-          2.1.3. 策略迭代
+          2.1.3. 算法流程
    ...
                 </p>
               </div>
@@ -3133,18 +4576,14 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
   1. 引言
   2. 蒙特卡洛法
     
-      2.1. 大数定律
-      2.2. 蒙特卡洛法
-      2.3. 蒙特卡洛价值估计
-      2.4. 增量更新方法
-    
-  
-  3. 参考文献
-
-
-1. 引言
-
-在前面的 model-based 动态规划方法中，我们假设已知模型的动态...
+      2.1. 大数定律与蒙特卡洛思想
+      2.2. 蒙特卡洛基础算法
+        
+          2.2.1. 蒙特卡洛采样
+          2.2.2. 蒙特卡洛价值估计
+          2.2.3. 算法流程
+        
+ ...
                 </p>
               </div>
             </div>
@@ -3174,11 +4613,11 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
 
   
     <a
-      href="/posts/c-cmake-development/"
+      href="/posts/reinforcement-learning-Value-Approximation/"
       class="btn btn-outline-primary"
       prompt="下一篇"
     >
-      <p>使用CMake开发C++工程</p>
+      <p>强化学习（值函数近似）</p>
     </a>
   
 </div>
@@ -3303,120 +4742,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3430,87 +4755,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -3676,6 +4920,117 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -3835,7 +5190,119 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -3881,22 +5348,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3906,13 +5357,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
 
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -3939,6 +5383,49 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
 
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
   
     
     
@@ -4048,10 +5535,10 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>

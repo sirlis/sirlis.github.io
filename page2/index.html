@@ -592,6 +592,78 @@
 
 <div id="post-list">
   
+    <a href="/posts/reinforcement-learning-Temporal-Differences/" class="card-wrapper">
+      <div class="card post-preview flex-md-row-reverse">
+        
+
+        <div class="card-body d-flex flex-column">
+          <h1 class="card-title my-2 mt-md-0">
+            强化学习（时序差分法）
+          </h1>
+
+          <div class="card-text post-content mt-0 mb-2">
+            <p>
+              
+
+
+
+
+
+              本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。
+
+
+
+
+
+
+  1. 引言
+  2. 随机近似理论
+ ...
+            </p>
+          </div>
+
+          <div class="post-meta flex-grow-1 d-flex align-items-end">
+            <div class="me-auto">
+              <!-- posted date -->
+              <i class="far fa-calendar fa-fw me-1"></i>
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1671346759"
+  data-df="YYYY/MM/DD"
+  
+>
+  2022/12/18
+</em>
+
+
+              <!-- categories -->
+              
+                <i class="far fa-folder-open fa-fw me-1"></i>
+                <span class="categories">
+                  
+                    Academic,
+                    Knowledge
+                </span>
+              
+            </div>
+
+            
+          </div>
+          <!-- .post-meta -->
+        </div>
+        <!-- .card-body -->
+      </div>
+    </a>
+  
     <a href="/posts/reinforcement-learning-Monte-Carlo/" class="card-wrapper">
       <div class="card post-preview flex-md-row-reverse">
         
@@ -619,18 +691,14 @@
   1. 引言
   2. 蒙特卡洛法
     
-      2.1. 大数定律
-      2.2. 蒙特卡洛法
-      2.3. 蒙特卡洛价值估计
-      2.4. 增量更新方法
-    
-  
-  3. 参考文献
-
-
-1. 引言
-
-在前面的 model-based 动态规划方法中，我们假设已知模型的动态...
+      2.1. 大数定律与蒙特卡洛思想
+      2.2. 蒙特卡洛基础算法
+        
+          2.2.1. 蒙特卡洛采样
+          2.2.2. 蒙特卡洛价值估计
+          2.2.3. 算法流程
+        
+ ...
             </p>
           </div>
 
@@ -707,7 +775,7 @@
         
           2.1.1. 策略评估
           2.1.2. 策略改进
-          2.1.3. 策略迭代
+          2.1.3. 算法流程
    ...
             </p>
           </div>
@@ -1316,90 +1384,6 @@
       </div>
     </a>
   
-    <a href="/posts/CV-object-detection-2stage/" class="card-wrapper">
-      <div class="card post-preview flex-md-row-reverse">
-        
-
-        <div class="card-body d-flex flex-column">
-          <h1 class="card-title my-2 mt-md-0">
-            计算机视觉（Two-Stage 目标检测）
-          </h1>
-
-          <div class="card-text post-content mt-0 mb-2">
-            <p>
-              
-
-
-
-
-
-              本文介绍了计算机视觉中目标检测问题的基础研究和历史。
-
-
-
-
-
-
-  1. 前言
-    
-      1.1. AlexNet
-      1.2. VGG16
-    
-  
-  2. R-CNN
-  3. Fast R-CNN
-  4. Faster R-CNN
-  5. 参考文献
-
-
-1. 前言
-
-图片分类任务我们已经熟悉了，就是算法对其中的对象进行分类。而今天我们要了解构建神经网络...
-            </p>
-          </div>
-
-          <div class="post-meta flex-grow-1 d-flex align-items-end">
-            <div class="me-auto">
-              <!-- posted date -->
-              <i class="far fa-calendar fa-fw me-1"></i>
-              <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em
-  class=""
-  data-ts="1623114529"
-  data-df="YYYY/MM/DD"
-  
->
-  2021/06/08
-</em>
-
-
-              <!-- categories -->
-              
-                <i class="far fa-folder-open fa-fw me-1"></i>
-                <span class="categories">
-                  
-                    Academic,
-                    Knowledge
-                </span>
-              
-            </div>
-
-            
-          </div>
-          <!-- .post-meta -->
-        </div>
-        <!-- .card-body -->
-      </div>
-    </a>
-  
 </div>
 <!-- #post-list -->
 
@@ -1604,13 +1588,6 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
@@ -1618,21 +1595,28 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/pytorch-basic-2/">PyTorch基础（随机数种子）</a>
+          <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
     </ul>
@@ -1691,120 +1675,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1818,87 +1688,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2064,6 +1853,117 @@
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -2223,7 +2123,119 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -2269,22 +2281,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2294,13 +2290,6 @@
         
         
 
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -2327,6 +2316,49 @@
         
         
 
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
   
     
     
@@ -2436,10 +2468,10 @@
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
@@ -2522,120 +2554,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2649,87 +2567,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2895,6 +2732,117 @@
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -3054,7 +3002,119 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -3100,22 +3160,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3125,13 +3169,6 @@
         
         
 
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -3158,6 +3195,49 @@
         
         
 
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
   
     
     
@@ -3267,10 +3347,10 @@
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
