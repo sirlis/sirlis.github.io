@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="VSCode部署C/C++开发环境" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-11-02T13:49:10+08:00","datePublished":"2020-03-18T12:21:49+08:00","description":"本文介绍了基于 VSCode 的 C/C++ 开发环境的搭建方法。","headline":"VSCode部署C/C++开发环境","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/vscode-c/"},"url":"http://localhost:4000/posts/vscode-c/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-28T01:09:53+08:00","datePublished":"2020-03-18T12:21:49+08:00","description":"本文介绍了基于 VSCode 的 C/C++ 开发环境的搭建方法。","headline":"VSCode部署C/C++开发环境","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/vscode-c/"},"url":"http://localhost:4000/posts/vscode-c/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1751,13 +1751,13 @@
 
 <em
   class=""
-  data-ts="1698904150"
+  data-ts="1743095393"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2023/11/02
+  2025/03/28
 </em>
 
     </span>
@@ -1801,7 +1801,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6119 字"
+  title="6106 字"
 >
   <em>33 分钟</em>阅读</span>
 
@@ -1994,11 +1994,12 @@
 
 <h4 id="231-下载和部署"><span class="me-2">2.3.1. 下载和部署</span><a href="#231-下载和部署" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>前往 MinGW-w64 官方 GitHub（https://github.com/niXman/mingw-builds-binaries/releases ）选择下载并安装编译器（<strong>需要FQ</strong>）。</p>
-
 <ul>
-  <li>下载：建议选择 <code class="language-plaintext highlighter-rouge">x86_64-xx.x.0-release-posix-seh-ucrt-rt_v10-rev2.7z</code> <strong>版本</strong>；</li>
+  <li>前往官方 GitHub（https://github.com/niXman/mingw-builds-binaries/releases ）下载编译器（<strong>需要FQ</strong>）。</li>
+  <li>版本：建议选择 <code class="language-plaintext highlighter-rouge">x86_64-xx.x.0-release-posix-seh-ucrt-rt_v10-rev2.7z</code> <strong>版本</strong>；</li>
   <li>部署：编译器以 <code class="language-plaintext highlighter-rouge">.7z</code> 压缩包的形式提供下载，下载完毕后 <strong>解压至全英文路径</strong>；</li>
+  <li>将解压路径的 <code class="language-plaintext highlighter-rouge">./bin</code> 文件夹所在路径添加至系统环境变量 PATH 路径中；</li>
+  <li>典型路径如 <code class="language-plaintext highlighter-rouge">C:/Program Files/mingw64/bin</code>，根据实际情况修改。</li>
 </ul>
 
 <blockquote>
@@ -2030,19 +2031,25 @@
 
 <p>完成编译器部署后，在命令提示符（CMD）或 Windows PowerShell 中输入以下命令 <strong>查看编译器是否部署成功</strong></p>
 
-<div class="language-powershell highlighter-rouge"><div class="code-header">
-        <span data-label-text="Powershell"><i class="fas fa-code fa-fw small"></i></span>
+<div class="language-shell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">gcc</span><span class="w"> </span><span class="nt">--version</span><span class="w">
-</span></pre></td></tr></tbody></table></code></div></div>
+</pre></td><td class="rouge-code"><pre>gcc <span class="nt">--version</span>
+</pre></td></tr></tbody></table></code></div></div>
 
 <p>若返回如下信息则表明编译器安装成功</p>
 
-<pre><code class="language-cmd">gcc.exe (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 13.1.0
-Copyright (C) 2023 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-</code></pre>
+<div class="language-shell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>gcc.exe <span class="o">(</span>x86_64-posix-seh-rev1, Built by MinGW-Builds project<span class="o">)</span> 13.1.0
+Copyright <span class="o">(</span>C<span class="o">)</span> 2023 Free Software Foundation, Inc.
+This is free software<span class="p">;</span> see the <span class="nb">source </span><span class="k">for </span>copying conditions.  There is NO
+warranty<span class="p">;</span> not even <span class="k">for </span>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre></td></tr></tbody></table></code></div></div>
 
 <p>上面的命令是用来检测 C编译器是否部署成功的，一般很少出现 C 编译器部署成功但是 C++ 编译器部署失败的情况。如果不放心可通过 <code class="language-plaintext highlighter-rouge">g++ --version</code> 检查 C++ 编译器是否安装成功。</p>
 
@@ -2072,12 +2079,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <p>推荐使用 CMake 进行工具链配置。根据个人选择，跳转至对应章节查看。</p>
 
 <ul>
-  <li>
-    <p><a href="#234-vscode-工具链配置">2.3.4. VSCode 工具链配置</a></p>
-  </li>
-  <li>
-    <p><a href="#235-cmake-工具链配置">2.3.5. CMake 工具链配置</a></p>
-  </li>
+  <li><a href="#234-vscode-工具链配置">2.3.4. VSCode 工具链配置</a></li>
+  <li><a href="#235-cmake-工具链配置">2.3.5. CMake 工具链配置</a></li>
 </ul>
 
 <h4 id="234-vscode-工具链配置"><span class="me-2">2.3.4. VSCode 工具链配置</span><a href="#234-vscode-工具链配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
@@ -2093,8 +2096,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 <h5 id="2341-配置-taskjson"><span class="me-2">2.3.4.1. 配置 task.json</span><a href="#2341-配置-taskjson" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<div class="language-plaintext highlighter-rouge"><div class="code-header">
-        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+<div class="language-json highlighter-rouge"><div class="code-header">
+        <span data-label-text="JSON"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -2127,39 +2130,39 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 30
 31
 32
-</pre></td><td class="rouge-code"><pre>{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe build", // &lt;-- user defined task name, show beside `run` button
-            "command": "g++.exe",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-std=c++11", // &lt;-- user defined according to project
-                "-g",
-                "${workspaceFolder}/*.c", // &lt;-- c source files, remove if not necessary
-                "${workspaceFolder}/xx/*.c", // &lt;-- sources files in `xx` folder
-                "${workspaceFolder}/*.cpp", // &lt;-- c++ source files, remove if not necessary
-                "${workspaceFolder}/xx/*.cpp",
-                "-I${workspaceFolder}/include", // &lt;-- include header files in `include` folder
-                "-I${workspaceFolder}/xx/xx", // &lt;-- include header files in `xx/xx` folder
-                "-o",
-                "${workspaceFolder}/XXXX.exe", // user defined compiled executable file name
-                "-lws2_32" // &lt;-- link lib when using windows socket, remove if not necessary
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-            "detail": "C/C++: g++.exe build" // user defined detail infomation
-        }
-    ]
-}
-</pre></td></tr></tbody></table></code></div></div>
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cppbuild"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C/C++: g++.exe build"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"g++.exe"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"-fdiagnostics-color=always"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-std=c++11"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-g"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"${workspaceFolder}/*.c"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"${workspaceFolder}/xx/*.c"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"${workspaceFolder}/*.cpp"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"${workspaceFolder}/xx/*.cpp"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-I${workspaceFolder}/include"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-I${workspaceFolder}/xx/xx"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-o"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"${workspaceFolder}/XXXX.exe"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-lws2_32"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${fileDirname}"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"problemMatcher"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"$gcc"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"build"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C/C++: g++.exe build"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div></div>
 
 <p>其中</p>
 
@@ -2174,8 +2177,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 <h5 id="2342-配置-launchjson"><span class="me-2">2.3.4.2. 配置 launch.json</span><a href="#2342-配置-launchjson" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<div class="language-plaintext highlighter-rouge"><div class="code-header">
-        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+<div class="language-json highlighter-rouge"><div class="code-header">
+        <span data-label-text="JSON"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -2200,31 +2203,31 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 22
 23
 24
-</pre></td><td class="rouge-code"><pre>{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "GCC: Debug and Run",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/XXXX.exe", // excutable file name
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
-            "preLaunchTask": "C/C++: g++.exe build" // pre-launch task
-        },
-        { // used for python, can be deleted
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        }
-    ]
-}
-</pre></td></tr></tbody></table></code></div></div>
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"configurations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GCC: Debug and Run"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cppvsdbg"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"program"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${workspaceFolder}/XXXX.exe"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"stopAtEntry"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${workspaceFolder}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"environment"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"externalConsole"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"preLaunchTask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C/C++: g++.exe build"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Python: Current File"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"program"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${file}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"console"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integratedTerminal"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></div></div>
 
 <p>其中</p>
 
@@ -2256,9 +2259,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 <ul>
   <li>在 Windows 环境下，直接前往官网（https://cmake.org/ ）下载最新的安装包安装；</li>
+  <li>安装过程中，注意勾选【Add Cmake to the system PATH for all users】;</li>
+  <li>如果忘记勾选，需手动将 <code class="language-plaintext highlighter-rouge">./cmake/bin</code> 文件夹添加至系统环境变量 PATH 路径中；</li>
   <li>安装完成后，通过命令 <code class="language-plaintext highlighter-rouge">cmake --version</code> 查看版本来确认安装是否成功；</li>
   <li>在 VScode 中，安装 <code class="language-plaintext highlighter-rouge">CMake Tools</code> 插件；</li>
-  <li>在 Cmake Tools 插件设置中将 Cmake 的 <code class="language-plaintext highlighter-rouge">make.exe</code> 可执行程序完整路径设置到 <code class="language-plaintext highlighter-rouge">cmake.cmakePath</code>。同时将 <code class="language-plaintext highlighter-rouge">make.exe</code> 所在的路径添加到系统的环境变量中。</li>
+  <li>将 <code class="language-plaintext highlighter-rouge">Cmake Tools</code> 插件设置中的 <code class="language-plaintext highlighter-rouge">cmake.cmakePath</code> 设置为 <code class="language-plaintext highlighter-rouge">make.exe</code> 的完整路径；</li>
+  <li>完整路径如 <code class="language-plaintext highlighter-rouge">C:/Program Files/cmake/bin/cmake.exe</code>，根据实际情况修改。</li>
 </ul>
 
 <h5 id="2352-配置-cmakeliststxt"><span class="me-2">2.3.5.2. 配置 CMakeLists.txt</span><a href="#2352-配置-cmakeliststxt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
@@ -2270,11 +2276,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <p>使用 CMake 插件创建 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件（文件名一个字都不能错）。两种创建方式，推荐后者：</p>
 
 <ul>
-  <li>
-    <p><strong>手动创建</strong>，直接在工程项目的根目录下新建一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，然后开始手动撰写；</p>
-  </li>
-  <li>
-    <p><strong>自动创建</strong>，通过 VSCode 的 <code class="language-plaintext highlighter-rouge">CMake Tools</code> 插件辅助撰写：</p>
+  <li><strong>手动创建</strong>，直接在工程项目的根目录下新建一个 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件，然后开始手动撰写；</li>
+  <li><strong>自动创建</strong>，通过 VSCode 的 <code class="language-plaintext highlighter-rouge">CMake Tools</code> 插件辅助撰写：
     <ul>
       <li>按下快捷键组合 <code class="language-plaintext highlighter-rouge">Ctrl</code> + <code class="language-plaintext highlighter-rouge">Shift</code> + <code class="language-plaintext highlighter-rouge">P</code>，然后输入 <code class="language-plaintext highlighter-rouge">cmake: quick start</code> 进行快速设置；</li>
       <li>首次设置会弹出 <code class="language-plaintext highlighter-rouge">Select a Kit</code> 需要选择一个编译器，选择安装的类似 <code class="language-plaintext highlighter-rouge">GCC XX.X.X x86-64-w64-mingw32</code> 编译器；</li>
@@ -2287,8 +2290,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 <p>一个简单的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件如下：</p>
 
-<div class="language-c++ highlighter-rouge"><div class="code-header">
-        <span data-label-text="C++"><i class="fas fa-code fa-fw small"></i></span>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -2300,17 +2303,17 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 9
 10
 11
-</pre></td><td class="rouge-code"><pre><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.5.0</span><span class="p">)</span>
-<span class="n">project</span><span class="p">(</span><span class="n">test</span> <span class="n">VERSION</span> <span class="mf">0.1.0</span> <span class="n">LANGUAGES</span> <span class="n">C</span> <span class="n">CXX</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre>cmake_minimum_required(VERSION 3.5.0)
+project(test VERSION 0.1.0 LANGUAGES C CXX)
 
-<span class="n">include</span><span class="p">(</span><span class="n">CTest</span><span class="p">)</span>
-<span class="n">enable_testing</span><span class="p">()</span>
+include(CTest)
+enable_testing()
 
-<span class="n">add_executable</span><span class="p">(</span><span class="n">main</span><span class="p">.</span><span class="n">cpp</span> <span class="n">Normal_Bayes_Classifier</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+add_executable(main.cpp Normal_Bayes_Classifier.cpp)
 
-<span class="n">set</span><span class="p">(</span><span class="n">CPACK_PROJECT_NAME</span> <span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">})</span>
-<span class="n">set</span><span class="p">(</span><span class="n">CPACK_PROJECT_VERSION</span> <span class="err">$</span><span class="p">{</span><span class="n">PROJECT_VERSION</span><span class="p">})</span>
-<span class="n">include</span><span class="p">(</span><span class="n">CPack</span><span class="p">)</span>
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
 </pre></td></tr></tbody></table></code></div></div>
 <p>其中：</p>
 
@@ -2326,8 +2329,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <p>CMake默认采用 out-of-source 构建方式，即会在 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 所在的目录下（一般也就是工程项目的根目录）新建一个 <code class="language-plaintext highlighter-rouge">build</code> 文件夹，用于存储 CMake 构建的中间文件和生成的目标文件。这种方法可以保证生成中间产物与源代码分离（即生成的所有目标文件都存储在 <code class="language-plaintext highlighter-rouge">build</code> 文件夹中，因此不会干扰源代码中的任何文件）。</p>
 
 <ul>
-  <li><strong>手动构建</strong>
-  采用命令行的方式可操作如下
+  <li>
+    <p><strong>手动构建</strong></p>
+
+    <p>采用命令行的方式可操作如下</p>
+
     <div class="language-shell highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -2341,11 +2347,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   <li>
     <p><strong>自动构建</strong></p>
 
-    <p>若安装有 CMake Tools 插件并设置保存时自动构建，那么在使用快捷键 <code class="language-plaintext highlighter-rouge">Ctrl+S</code> 保存 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 时，会自动生成项目构建的中间文件。</p>
+    <p>若安装有 CMake Tools 插件并设置保存时自动构建，那么在使用快捷键 <code class="language-plaintext highlighter-rouge">Ctrl</code> + <code class="language-plaintext highlighter-rouge">S</code> 保存 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 时，会自动生成项目构建的中间文件。</p>
   </li>
   <li>
-    <p><strong>构建结果</strong>
-  构建过程如下图所示。
+    <p><strong>构建结果</strong></p>
+
+    <p>构建过程如下图所示。
   <a href="/assets/img/postsimg/20230515/cmake-configure.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230515/cmake-configure.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
     <p>构建完毕得到的中间文件如下图所示。</p>
@@ -2359,7 +2366,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
       <li>
         <p><strong>编译</strong></p>
 
-        <p>打开命令板（<code class="language-plaintext highlighter-rouge">Ctrl+Shift+P</code>）并运行 <code class="language-plaintext highlighter-rouge">CMake：Build</code>；或从底部状态栏中点击【build】按钮；
+        <p>按下 <code class="language-plaintext highlighter-rouge">Ctrl</code> + <code class="language-plaintext highlighter-rouge">Shift</code> + <code class="language-plaintext highlighter-rouge">P</code> 并运行 <code class="language-plaintext highlighter-rouge">CMake：Build</code>；或从底部状态栏中点击【build】按钮；
 下图是编译的示意图，编译后得到名为 <code class="language-plaintext highlighter-rouge">exer</code> 的可执行文件（文件位于 <code class="language-plaintext highlighter-rouge">build</code> 文件夹内）。</p>
 
         <p><a href="/assets/img/postsimg/20230515/build.png" class="popup img-link "><img data-src="/assets/img/postsimg/20230515/build.png" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
@@ -2771,6 +2778,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
@@ -2793,13 +2807,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
     </ul>
