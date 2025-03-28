@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="强化学习（值函数近似）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（值函数近似）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-01-02T18:12:19+08:00","datePublished":"2023-01-02T18:12:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（值函数近似）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"},"url":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-28T15:34:59+08:00","datePublished":"2023-01-02T18:12:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（值函数近似）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"},"url":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -658,6 +658,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -665,6 +677,53 @@
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -711,6 +770,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1743147299"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/03/28
+</em>
+
+    </span>
+    
 
   
 
@@ -750,9 +833,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2269 字"
+  title="2825 字"
 >
-  <em>12 分钟</em>阅读</span>
+  <em>15 分钟</em>阅读</span>
 
     </div>
 
@@ -768,21 +851,28 @@
 <hr />
 
 <ul>
-  <li><a href="#2-值函数近似">2. 值函数近似</a>
+  <li><a href="#1-值函数近似">1. 值函数近似</a>
     <ul>
-      <li><a href="#21-状态价值函数近似">2.1. 状态价值函数近似</a></li>
+      <li><a href="#11-v-函数近似">1.1. V 函数近似</a>
+        <ul>
+          <li><a href="#111-目标函数">1.1.1. 目标函数</a></li>
+          <li><a href="#112-优化算法">1.1.2. 优化算法</a></li>
+          <li><a href="#113-估计函数设计">1.1.3. 估计函数设计</a></li>
+        </ul>
+      </li>
+      <li><a href="#12-q-函数估计">1.2. Q 函数估计</a></li>
     </ul>
   </li>
-  <li><a href="#3-deep-q-networkdqn">3. Deep Q-Network（DQN）</a>
+  <li><a href="#2-deep-q-networkdqn">2. Deep Q-Network（DQN）</a>
     <ul>
-      <li><a href="#31-经验回放replay-buffer">3.1. 经验回放（Replay Buffer）</a></li>
-      <li><a href="#32-分离拷贝">3.2. 分离拷贝</a></li>
-      <li><a href="#33-过高估计double-dqn">3.3. 过高估计（Double DQN）</a></li>
+      <li><a href="#21-经验回放replay-buffer">2.1. 经验回放（Replay Buffer）</a></li>
+      <li><a href="#22-分离拷贝">2.2. 分离拷贝</a></li>
+      <li><a href="#23-过高估计double-dqn">2.3. 过高估计（Double DQN）</a></li>
     </ul>
   </li>
 </ul>
 
-<h2 id="2-值函数近似"><span class="me-2">2. 值函数近似</span><a href="#2-值函数近似" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="1-值函数近似"><span class="me-2">1. 值函数近似</span><a href="#1-值函数近似" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>前面介绍的 TD 算法都仅针对对离散的（表格形式的）状态和动作进行研究，但实际应用中的场景可能会很复杂，很难定义出离散的状态；即使能够定义，数量也非常大，无法用数组存储。</p>
 
@@ -790,7 +880,7 @@
 
 <p>另一种方案是用一个函数来逼近价值函数，函数的输入是原始的状态数据，函数的输出是价值函数值。在有监督学习中，我们用神经网络来拟合分类或回归函数，因此当然也可以用神经网络可来拟合强化学习中的价值函数。</p>
 
-<h3 id="21-状态价值函数近似"><span class="me-2">2.1. 状态价值函数近似</span><a href="#21-状态价值函数近似" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="11-v-函数近似"><span class="me-2">1.1. V 函数近似</span><a href="#11-v-函数近似" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>给定策略 $\pi$，假设 $v_\pi(s)$ 和 $v_\pi(s,w)$ 分别为状态 $s$ 的价值函数与其函数估计。我们的目标是找到最优的参数 $w$，使得在任意状态 $s$ 下，状态价值函数的估计 $\hat{v}(s,w)$ 都接近其真实值。</p>
 
@@ -798,8 +888,11 @@
 
 <ul>
   <li>定义一个目标函数；</li>
-  <li>找到一个合适的算法优化这个目标函数。</li>
+  <li>找到一个合适的算法优化这个目标函数；</li>
+  <li>确定一个值函数估计方式（线性？非线性？神经网络？）。</li>
 </ul>
+
+<h4 id="111-目标函数"><span class="me-2">1.1.1. 目标函数</span><a href="#111-目标函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>很显然，我们希望状态价值函数的估计 $\hat{v}(s,w)$ 接近其真实值，那么目标函数设计为</p>
 
@@ -816,16 +909,90 @@
 <p>其中，</p>
 
 <ul>
-  <li>$d_\pi(s)$ 为策略 $\pi$ 下马尔可夫过程的平稳分布，其描述了马尔可夫过程的长期行为 （long-run behaviour），其定义为 $d_\pi(s)\geq 0,\; \sum_{s\in\mathcal{S}}d_\pi(s) = 1$；
-    <blockquote>
-      <p>平稳分布刻画了马尔可夫过程长期迭代后，各个状态的出现概率。
-马尔可夫链可能存在唯一平稳分布，无穷多个平稳分布，或不存在平稳分布 (当离散状态马尔可夫链有无穷多个状态时，有可能没有平稳分布)。但 如果马尔可夫链的转移矩阵为随机矩阵，则一定存在平稳分布</p>
-    </blockquote>
+  <li>$d_\pi(s)$ 为策略 $\pi$ 下马尔可夫过程的平稳分布，其定义为 $d_\pi(s)\geq 0,\; \sum_{s\in\mathcal{S}}d_\pi(s) = 1$；
+    <ul>
+      <li>平稳分布描述了马尔可夫过程的长期行为（long-run behaviour）；</li>
+      <li>平稳分布刻画了马尔可夫过程长期迭代后，各个状态出现的（被访问的）概率；</li>
+      <li>马尔可夫链可能存在唯一平稳分布，无穷多个平稳分布，或不存在平稳分布；</li>
+    </ul>
   </li>
-  <li>上述目标函数是一个带权重的均方误差。</li>
+  <li>上述目标函数是一个带权重的均方误差，某个状态的出现概率越大，其误差的权重越大。</li>
 </ul>
 
-<h2 id="3-deep-q-networkdqn"><span class="me-2">3. Deep Q-Network（DQN）</span><a href="#3-deep-q-networkdqn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>根据上述定义，策略 $\pi$ 下经过长马尔可夫采样回合后，假设状态 $s$ 被采样到了 $n_\pi(s)$ 次，平稳分布可由下式估计</p>
+
+\[d_\pi(s) \approx \frac{n_\pi(s)}{\sum_{s^\prime\in\mathcal{S}}n_\pi(s^\prime)}\]
+
+<p>从其稳态不变性的角度考虑，已知状态转移矩阵 $P_\pi = p(s^\prime \vert s, a)$，平稳分布必然满足如下等式</p>
+
+\[d_\pi^T = d_\pi^T P_\pi\]
+
+<p>也就是说，平稳分布就是状态转移矩阵特征值为 1 的特征向量。</p>
+
+<h4 id="112-优化算法"><span class="me-2">1.1.2. 优化算法</span><a href="#112-优化算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>由于我们希望最小化上述目标函数，很自然想到使用梯度下降法</p>
+
+\[w_{k+1} = w_k - \alpha_w \nabla J(w_k)\]
+
+<p>其中梯度为</p>
+
+\[\begin{aligned}
+\nabla_w J(w) &amp;= \nabla_w\mathbb{E}[(v_\pi(s)-\hat{v}(s,w))^2]\\
+&amp;= \mathbb{E}[\nabla_w(v_\pi(s)-\hat{v}(s,w))^2]\\
+&amp;= -2\mathbb{E}[(v_\pi(s)-\hat{v}(s,w))\nabla_w\hat{v}(s,w)]
+\end{aligned}\]
+
+<p>为了避免在梯度计算中计算期望，很自然想到采用 随机梯度 代替 真实梯度，即</p>
+
+\[w_{t+1} = w_t + 2\alpha_t(v_\pi(s_t)-\hat{v}(s_t,w_t))\nabla_w\hat{v}(s_t,w_t)\]
+
+<p>注意到，实际使用中，上述梯度下降迭代式要求状态价值函数 $v_\pi(s_t)$ 已知，但我们本身就是在做状态价值函数估计，所以肯定不可能提前知道其真值。因此，我们需要将其替换为某种估算形式，具体方式包括：</p>
+
+<ul>
+  <li>
+    <p>采用 MC 的方式迭代优化：</p>
+
+\[w_{t+1} = w_t + 2\alpha_t(G_t-\hat{v}(s_t,w_t))\nabla_w\hat{v}(s_t,w_t)\]
+  </li>
+  <li>
+    <p>采用 TD 的方式迭代优化：</p>
+
+\[w_{t+1} = w_t + 2\alpha_t(r_{t+1}+\gamma \hat{v}_\pi(s_{t+1},w_t)-\hat{v}(s_t,w_t))\nabla_w\hat{v}(s_t,w_t)\]
+  </li>
+</ul>
+
+<h4 id="113-估计函数设计"><span class="me-2">1.1.3. 估计函数设计</span><a href="#113-估计函数设计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<ul>
+  <li><strong>线性估计函数</strong></li>
+</ul>
+
+<p>早期广泛使用线性函数作为状态值函数的估计方法</p>
+
+\[\hat{v}(s,w) = as+b = \underbrace{[s,1]}_{\phi^\top(s)}
+\underbrace{\begin{bmatrix}
+  a\\b
+\end{bmatrix}}_{w}=
+\phi^\top(s)w\]
+
+<p>将线性函数代入迭代优化式中有</p>
+
+\[v_{k+1} = w_k + \alpha_k(r_{t+1}+\gamma \phi^\top(s_{t+1})w_t-\hat{v}(s_k,w_k)) \phi(s_t)\]
+
+<p>上述迭代式可被称为 TD-Linear。</p>
+
+<p>可以看出，$\hat{v}(s,w)$ 是关于 $w$ 的线性函数，$\phi(s)$ 是特征向量，可以是一组多项式基、傅里叶基、…等等，但合适的基比较难选择。但线性函数的优点在于，其理论性质的研究比较透彻。</p>
+
+<ul>
+  <li><strong>神经网络估计函数</strong></li>
+</ul>
+
+<p>目前被广泛使用的是神经网络作为一个非线性估计函数，其输入为状态 $s$，输出为 $\hat{v}(s,w)$。</p>
+
+<h3 id="12-q-函数估计"><span class="me-2">1.2. Q 函数估计</span><a href="#12-q-函数估计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h2 id="2-deep-q-networkdqn"><span class="me-2">2. Deep Q-Network（DQN）</span><a href="#2-deep-q-networkdqn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>一种解决方案是从高维数据中抽象出特征，作为状态，然后用强化学习建模，但这种做法很大程度上依赖于人工特征的设计。如从画面中提取出目标的位置、速度等信息，也非常困难，这也是一个难题。</p>
 
@@ -847,7 +1014,7 @@
 
 \[L(\theta) = \mathbb{E}[(r+\gamma \mathop{\text{max}}\limits_{a^\prime} Q(s^\prime,a^\prime;\theta)-Q(s,a,\theta))^2]\]
 
-<h3 id="31-经验回放replay-buffer"><span class="me-2">3.1. 经验回放（Replay Buffer）</span><a href="#31-经验回放replay-buffer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="21-经验回放replay-buffer"><span class="me-2">2.1. 经验回放（Replay Buffer）</span><a href="#21-经验回放replay-buffer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>和 Q-Learning 类似，DQN 可以通过执行动作来生成样本。具体而言，给定一个状态，用当前的神经网络进行预测，得到所有动作的 Q 函数，然后按照策略选择一个动作执行，得到下一个状态以及回报值，以此构造训练样本。但与普通的有监督学习不同，这里的训练样本是通过不停的执行动作而动态生成的。</p>
 
@@ -857,7 +1024,7 @@
 
 <p>随之而来的问题是，每个样本都是由不同的Q函数值对应的策略产生的。在回放缓冲中早期的样本中，由于Q值估计不准，对应的策略还比较幼稚；反之，样本越新对应的策略越优。因此，还需要额外设计样本选取的权重。</p>
 
-<h3 id="32-分离拷贝"><span class="me-2">3.2. 分离拷贝</span><a href="#32-分离拷贝" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="22-分离拷贝"><span class="me-2">2.2. 分离拷贝</span><a href="#22-分离拷贝" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>DQN 在随机尝试执行动作，生成训练样本的过程中，需要用当前的 Q 函数来计算训练样本的标签值，这存在着自身依赖。也即损失函数的前半部分</p>
 
@@ -883,7 +1050,7 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         +----+ ----&gt;Q(s,an)                       +----+ ----&gt;Q(s',an)   
 </pre></td></tr></tbody></table></code></div></div>
 
-<h3 id="33-过高估计double-dqn"><span class="me-2">3.3. 过高估计（Double DQN）</span><a href="#33-过高估计double-dqn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="23-过高估计double-dqn"><span class="me-2">2.3. 过高估计（Double DQN）</span><a href="#23-过高估计double-dqn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>DQN中均使用了 <code class="language-plaintext highlighter-rouge">max</code> 操作，使得选择和评估一个动作值都会过高估计，为了解决这个问题，Double Q-learning 率先使用了两个值函数进行解耦，其互相随机的更新两个值函数，并利用彼此的经验去更新网络权重 $\theta$ 和 $\theta^{-}$。对应的损失函数为</p>
 
@@ -1035,6 +1202,13 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
         </li>
       
@@ -1057,13 +1231,6 @@ s  ---&gt; |f(x)| ----&gt;Q(s,a2)               s' ---&gt; |f(x)| ----&gt;Q(s',a
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
     </ul>
