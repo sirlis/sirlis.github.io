@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（时序差分法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-27T18:47:53+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-29T17:49:13+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1540,13 +1540,13 @@
 
 <em
   class=""
-  data-ts="1743072473"
+  data-ts="1743241753"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/27
+  2025/03/29
 </em>
 
     </span>
@@ -2321,10 +2321,11 @@ v_{k+1}(s) &amp;= v_k(s) - \alpha_k \tilde{g}(v_k(s),\eta_k)\\
             <ul>
               <li>(update same $\varepsilon$-greedy as <u>target</u> policy)</li>
               <li>
-                <font color="red">$\pi_{t+1}(a\vert s) = 1-\frac{\varepsilon}{\vert \mathcal{A} \vert}(\mathcal{A}-1)$ if $a=\arg\max_a q(s,a)$
-</font>
+                <font color="red">$\pi_{t+1}(a\vert s) = 1-\frac{\varepsilon}{\vert \mathcal{A} \vert}(\mathcal{A}-1)$ if $a=\arg\max_a q(s,a)$</font>
               </li>
-              <li>$\pi_{t+1}(a\vert s) = \frac{\varepsilon}{\vert \mathcal{A} \vert}$ otherwise&lt;/font&gt;</li>
+              <li>
+                <font color="red">$\pi_{t+1}(a\vert s) = \frac{\varepsilon}{\vert \mathcal{A} \vert}$ otherwise</font>
+              </li>
               <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
             </ul>
           </li>
@@ -2449,10 +2450,11 @@ q(s,a) &amp;\leftarrow q(s,a)-\alpha[q(s,a)-(r+\gamma V(s^\prime))]\\
             <ul>
               <li>(update greedy policy as <u>target</u> policy)</li>
               <li>
-                <font color="red">$\pi_{t+1}(a\vert s) = 1$ if $a=\arg\max_a q(s,a)$
-</font>
+                <font color="red">$\pi_{t+1}(a\vert s) = 1$ if $a=\arg\max_a q(s,a)$</font>
               </li>
-              <li>$\pi_{t+1}(a\vert s) = 0$ otherwise&lt;/font&gt;</li>
+              <li>
+                <font color="red">$\pi_{t+1}(a\vert s) = 0$ otherwise</font>
+              </li>
               <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
             </ul>
           </li>
@@ -2723,14 +2725,14 @@ n\text{-step SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
+          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
+          <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
         </li>
       
         
@@ -2744,7 +2746,7 @@ n\text{-step SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
+          <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
         </li>
       
     </ul>
