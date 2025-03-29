@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="强化学习（策略梯度法）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了强化学习的策略梯度法（Policy Gradient）。" />
@@ -3570,16 +3570,17 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 
 
 
-                  本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。
+                  本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。
 
 
 
 
 
 
-  1. 值函数近似
+  1. 引言
+  2. 状态价值函数近似
     
-     ...
+      2.1...
                 </p>
               </div>
             </div>

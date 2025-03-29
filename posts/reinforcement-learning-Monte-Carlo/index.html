@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="强化学习（蒙特卡洛法）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了强化学习的 model-free 方法——蒙特卡洛法。" />
@@ -1150,9 +1150,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="5250 字"
+  title="5488 字"
 >
-  <em>29 分钟</em>阅读</span>
+  <em>30 分钟</em>阅读</span>
 
     </div>
 
@@ -1421,31 +1421,46 @@ G(S_t) &amp;\leftarrow G(S_t) - \frac{1}{N} (G(S_t) - G_t)
 
 <p>其中 $\varepsilon\in[0,1]$，$\vert A \vert$ 表示当前状态下可选动作的个数。</p>
 
-<p>上述策略平衡了<strong>探索</strong>（exploration）和<strong>利用</strong>（exploitation）：</p>
+<p>上述策略平衡了 <u>探索</u>（exploration）和 <u>利用</u>（exploitation）：</p>
 
 <ul>
   <li>当 $\varepsilon = 0$ 时，策略完全贪婪，只选择当前价值函数下最优的动作，这样可以最大化利用已有的价值函数，但可能会错过一些未知的最优动作；</li>
   <li>当 $\varepsilon = 1$ 时，策略完全随机（策略变成均匀分布，即每个动作的概率相同），这样可以最大化探索未知的动作，但可能会错过已知的最优动作。</li>
 </ul>
 
-<p>采用 $\varepsilon$-greedy 策略的蒙特卡洛方法，称为 <strong>MC e-greedy</strong>。该方法不要求对起点进行探索了，只要在每次访问时，按照 $\varepsilon$-greedy 策略随机选择一个动作，就可以保证所有状态动作对都有概率被采样到。</p>
+<p>采用 $\varepsilon$-greedy 策略的蒙特卡洛方法，称为 <strong>MC e-greedy</strong>。该方法不要求对起点进行探索了，只要在每次访问时，按照 $\varepsilon$-greedy 策略随机选择一个动作，就可以保证所有状态动作对都有概率被采样到，后面的探索性分析章节可以进一步佐证此结论。</p>
 
 <h4 id="242-探索性分析"><span class="me-2">2.4.2. 探索性分析</span><a href="#242-探索性分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>下面给出一个 $\varepsilon$-greedy 策略的探索能力与参数 $\varepsilon$ 的关系的极端案例，即设置智能体遇到终点不停止，而是继续前进，这样我们可以一直采样 1 个 episode。其他参数设置为：$r_{\text{boundary}}=-1，r_{\text{forbidden}}=-10,r_{\text{target}}=1,\gamma=0.9$。</p>
+<p>下面给出一个 $\varepsilon$-greedy 策略的探索能力与参数 $\varepsilon$ 的关系的极端案例。设置场景如下：</p>
 
-<p>设置 $\varepsilon = 1$，即完全随机选择动作，此时策略的探索能力最大，我们给出探索 100 步（图(a)）、探索 1000步（图(b)）、探索 10000 步（图(c)）的探索结果，可以看出在 1000 步时智能体已经采样到了绝大部分状态动作对。同时，图(d)展示了探索 100 万步后，所有 125 个状态动作对中每个状态动作对被访问的次数，可以看出比较符合均匀随机选择动作的结果。</p>
+<ul>
+  <li>智能体从左上角状态采取特定动作出发；</li>
+  <li>智能体遇到终点不停止，而是继续前进，意味着持续采样 1 个 episode；</li>
+  <li>其他参数设置为：$r_{\text{boundary}}=-1，r_{\text{forbidden}}=-10,r_{\text{target}}=1,\gamma=0.9$。</li>
+</ul>
+
+<p><strong>设置</strong> $\varepsilon = 1$，即均匀随机选择动作，此时策略的探索能力最大。下图展示了探索 100 步（图(a)）、探索 1000步（图(b)）、探索 10000 步（图(c)）的探索结果，可以看出在 1000 步时智能体已经采样到了绝大部分状态动作对。同时，图(d)展示了探索 100 万步后，所有 125 个状态动作对中每个状态动作对被访问的次数，次数相差不大，表明符合均匀随机选择动作的结果。</p>
 
 <p><a href="/assets/img/postsimg/20221129/e-greedy=1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221129/e-greedy=1.jpg" alt="e=1" class="lazyload" data-proofer-ignore></a></p>
 
-<p>设置 $\varepsilon = 0.1$，相应结果如下图所示。可以对比看出：
-（1）同样采样至第 100/1000 步，智能体探索到的状态动作对远没有前面 $\varepsilon = 1$ 时的多（对比图(a)和图(b)）；
-（2）探索足够多的次数后，二者均能探索到所有状态动作对，只不过 $\varepsilon = 0.1$ 需要的步数更长，探索速度更慢；
-（3）设置比较小的 $\varepsilon$，策略的探索能力会下降，有些较优的状态动作对可能会大量重复地被访问（图(d)中较高的红点）。即便如此，其在步数足够长的时候，依然能够探索到所有状态动作对，相比贪婪策略，其探索能力依然更强。</p>
+<p><strong>设置</strong> $\varepsilon = 0.1$，相应结果如下图所示。上下对比可以看出：
+（1）对比图 (a) 和图 (b) 发现：同样采样至第 100/1000 步，智能体探索到的状态动作对远没有前面 $\varepsilon = 1$ 时的多；
+（2）对比图 (c) 发现：探索足够多的次数后，二者均能逐渐探索到所有状态动作对，只不过 $\varepsilon = 0.1$ 需要的步数更长，探索速度更慢；
+（3）对比图 (d) 发现：设置比较小的 $\varepsilon$，策略的探索能力会下降，有些较优的状态动作对可能会大量重复地被访问。
+（4）虽然探索能力不如均匀随机选择动作（$\varepsilon=1$），但其在步数足够长的时候，依然能够探索到所有状态动作对，相比贪婪策略，其探索能力依然更强。
+（5）虽然（$\varepsilon=1$）探索性更强，但也存在弊端，在后续最优性分析章节详细阐述。</p>
 
 <p><a href="/assets/img/postsimg/20221129/e-greedy=0.1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221129/e-greedy=0.1.jpg" alt="e=0.1" class="lazyload" data-proofer-ignore></a></p>
 
-<p>从以上结果可以看出，采用 $\varepsilon$-greedy 策略，的确可以不用采取探索起点（Exploring Starts）的方式，也能保证所有状态动作对都可以被采样到。这在实际使用时非常有意义，因为他可以避免设置一些在与实际物理系统交互过程中难以稳定保持的状态（或状态动作对）作为起点，降低了对探索起点设置的门槛。</p>
+<p><u>至此可以给出一个**重要结论**，采用 $\varepsilon$-greedy 策略，不用随意初始化起点，也能保证所有状态动作对都可以被采样到。这在实际使用时非常有意义，因为他可以避免设置一些在与实际物理系统交互过程中难以稳定保持的状态（或状态动作对）作为起点，降低了对探索起点设置的门槛</u>。比如：</p>
+
+<ul>
+  <li>复杂游戏的关卡开头是固定的，而中间状态千差万别，难以随意设置中间状态作为起点；</li>
+  <li>某些被控系统都是以相同的状态开机，但中间运行过程根本无法暂停用于初始化；</li>
+</ul>
+
+<p>$\varepsilon$-greedy 策略不但影响着 MC 方法，后续还进一步用于时序差分法（TD）和策略梯度法（PG）、乃至二者结合的 Actor-Critic 方法，影响十分深远。</p>
 
 <h4 id="243-最优性分析"><span class="me-2">2.4.3. 最优性分析</span><a href="#243-最优性分析" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1461,9 +1476,14 @@ G(S_t) &amp;\leftarrow G(S_t) - \frac{1}{N} (G(S_t) - G_t)
   <li>随着 $\varepsilon$ 的增加，得到的策略逐渐变差，价值函数也急剧偏离最优价值函数。</li>
 </ul>
 
-<p>当 $\varepsilon$ 较大时，一个典型的情形是，终点的价值函数居然是一个十分大的负数，这显然违背逻辑（在贝尔曼方程中终点价值函数肯定是最大的），这是因为在抵达终点后，其上方和左右都是陷阱区域，采用较大 $\varepsilon$ 取值的 $\varepsilon$-greedy 策略会频繁进入到这些区域（选择了较差的动作），导致获得较多负奖励，这使得策略评估该状态的价值很低。</p>
+<p>当 $\varepsilon$ 较大时，一个典型的情形是，终点的价值函数居然是一个十分大的负数，这显然违背逻辑（在贝尔曼方程中终点价值函数肯定是最大的），这是因为在抵达终点后，其上方和左右都是陷阱区域，采用较大 $\varepsilon$ 取值的 $\varepsilon$-greedy 策略会频繁进入到这些区域（选择了较差的动作），导致获得较多负奖励，这使得策略评估该状态的价值很低。因此，$\varepsilon$-greedy 策略通过牺牲最优性来提高探索性。</p>
 
-<p>这给我们以下启示：$\varepsilon$-greedy 策略通过牺牲最优性来提高探索性，策略中的参数 $\varepsilon$ 参数选择在算法训练的早期阶段可以设置的较大以提高探索快速性，随着算法的训练，可以逐渐减小 $\varepsilon$ 以保证近似最优性。</p>
+<p><u>上述分析给了我们设置参数 $\varepsilon$ 的重要启示</u>：</p>
+
+<ul>
+  <li>在算法训练的早期阶段，可以设置较大的 $\varepsilon$ 以提高探索快速性；</li>
+  <li>随着算法训练过程的持续，应当逐渐减小 $\varepsilon$ 的取值以保证近似最优性。</li>
+</ul>
 
 <h3 id="25-蒙特卡洛的局限性"><span class="me-2">2.5. 蒙特卡洛的局限性</span><a href="#25-蒙特卡洛的局限性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 

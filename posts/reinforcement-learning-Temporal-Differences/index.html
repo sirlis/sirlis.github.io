@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="强化学习（时序差分法）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。" />
@@ -1443,6 +1443,42 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1554,9 +1590,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="9476 字"
+  title="10312 字"
 >
-  <em>52 分钟</em>阅读</span>
+  <em>57 分钟</em>阅读</span>
 
     </div>
 
@@ -1618,7 +1654,13 @@
           <li><a href="#333-不同行为策略的探索性">3.3.3. 不同行为策略的探索性</a></li>
         </ul>
       </li>
-      <li><a href="#34-总结">3.4. 总结</a></li>
+      <li><a href="#34-总结">3.4. 总结</a>
+        <ul>
+          <li><a href="#341-表述形式总结">3.4.1. 表述形式总结</a></li>
+          <li><a href="#342-求解方程总结">3.4.2. 求解方程总结</a></li>
+          <li><a href="#343-行为表现总结">3.4.3. 行为表现总结</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#4-参考文献">4. 参考文献</a></li>
@@ -2194,49 +2236,99 @@ v_{k+1}(s) &amp;= v_k(s) - \alpha_k \tilde{g}(v_k(s),\eta_k)\\
 
 <h4 id="321-sarsa"><span class="me-2">3.2.1. SARSA</span><a href="#321-sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>前述 TD 算法针对状态价值函数进行估计，将其推广至状态-动作价值函数估计后，得到</p>
+<p>前述 TD 算法针对状态价值函数进行估计，将其推广至状态-动作价值函数估计后，得到本节介绍的时序差分方法的一个具体算法，即 <strong>SARSA</strong> 算法：</p>
 
-\[\begin{aligned}
-V(S_t) &amp; \leftarrow V(S_t)-\alpha[V(S_t)-(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{V(S_{t+1})}_{自举})]\\
-\Rightarrow \quad Q(S_t,A_t) &amp; \leftarrow Q(S_t,A_t)-\alpha[Q(S_t,A_t)-(\underbrace{R_{t+1}}_{采样}+\gamma \underbrace{Q(S_{t+1},A_{t+1})}_{自举})]\\
-\end{aligned}\]
+\[q(s_t,a_t)  \leftarrow q(s_t,a_t)-\alpha\{q(s_t,a_t)-[r_{t+1}+\gamma q(s_{t+1},a_{t+1})]\}\\\]
 
-<p>上述更新方式即为 <strong>SARSA</strong>，因为观察其迭代式需要到采样数据 $(S_t,A_t, R_{t+1}, S_{t+1}, A_{t+1})$ 故得此命名。</p>
+<p>注意到，上述迭代式需要与进行两次动作采样才能得到足够的经验数据进行一步迭代：</p>
 
-<p>与前述 TD 算法类似，SARSA 也可以用来求解贝尔曼期望方程（表达为状态动作价值函数）。其收敛性与前面介绍类似，当其系数 $\alpha_t(s,a)$ 满足一定条件时收敛，此处不再展开。</p>
+\[s_t\mathop{\longrightarrow}\limits^{\pi}a_t\mathop{\longrightarrow}\limits^{\text{model}}r_t,s_{t+1}\mathop{\longrightarrow}\limits^{\pi}a_{t+1}\]
 
-<p>截止目前 SARSA 仍然是一个策略评估过程，在给定策略 $\pi$ 的条件下，SARSA 给出当前策略下 $q_\pi(s,a)$ 的估计值。将其与 $\varepsilon$-greedy 策略进行结合，得到的完整算法仍然被称为 SARSA，其伪代码如下：</p>
+<p>观察经验数据的一般形式 $(S_t,A_t, R_{t+1}, S_{t+1}, A_{t+1})$，取首字母放在一起命名本方法。</p>
+
+<ul>
+  <li><strong>行为策略</strong></li>
+</ul>
+
+<p>经验获取过程需要进行两次动作采样，对于 SARSA 而言，两次动作采样时使用的策略是相同的。延续我们之前在 Monte Carlo 方法中讨论的结果，策略一般选取为 $\varepsilon$-greedy 策略，兼顾探索和利用。由于这个策略的第一次采样需要实际执行产生环境交互，因此称其为 <strong>行为策略</strong>。具体而言：</p>
+
+<ul>
+  <li>只在第一步策略采样后实际执行动作，即 $s_t\mathop{\longrightarrow}\limits^{\pi}a_t\mathop{\longrightarrow}\limits^{\text{model}}r_t,s_{t+1}$ 过程；</li>
+  <li>第二步策略采样只是为了能够得到具体的 $Q(S_{t+1},A_{t+1})$ 用于迭代式的求解，并不实际执行采样得到的 $A_{t+1}$。</li>
+</ul>
+
+<p>上述迭代式仍然是一个策略评估过程，即在 <strong>给定策略 $\pi$ 的条件下，给出当前策略下 $q_\pi(s,a)$ 的估计</strong>。将其与特定的策略改进方法结合可以得到完整的 TD 形式的方法。</p>
+
+<ul>
+  <li><strong>目标策略</strong></li>
+</ul>
+
+<p>我们定义策略改进时被改进的策略叫 <strong>目标策略</strong>，那么对于 SARSA 而言，目标策略和行为策略是同一个策略。也就是说，SARSA 算法的自然流程表明，策略改进是针对前面的 $\varepsilon$-greedy 行为策略进行改进。</p>
+
+<blockquote>
+  <p>有人可能会问，为什么目标策略和行为策略是相同的？能不同么？
+大家可以尝试脑补一下：</p>
+  <ul>
+    <li>上一轮迭代已有旧的 $Q$ 函数；</li>
+    <li>在策略评估阶段，基于 $\varepsilon$-greedy 行为策略采集经验更新 $Q$ 函数；</li>
+    <li>在策略改进阶段，如果更新一个新的目标策略，可选的无非就是 greedy 策略；</li>
+    <li>在下一时刻策略评估阶段，再次基于 $\varepsilon$-greedy 行为策略采集经验，这时需要用到新的 $Q$ 函数按照 $\varepsilon$ 概率来选择动作，不就相当于隐式更新了 $\varepsilon$-greedy 行为策略自身么？额外更新的 greedy 策略没有任何意义；</li>
+  </ul>
+
+  <p>所以，并不是人们强行设定 SARSA 在策略改进时，必须针对 行为策略=目标策略 来改进，而是整个算法自然的流程导致的结果如此。</p>
+</blockquote>
+
+<p>总结如下：</p>
+
+<ul>
+  <li>行为策略：
+    <ul>
+      <li>第一次动作采样： $\varepsilon$-greedy 策略</li>
+      <li>第二次动作采样： 相同的 $\varepsilon$-greedy 策略</li>
+    </ul>
+  </li>
+  <li>目标策略：
+    <ul>
+      <li>相同的 $\varepsilon$-greedy 策略</li>
+    </ul>
+  </li>
+</ul>
+
+<p>最终形成 SARSA 方法的伪代码如下：</p>
 
 <hr />
 <ul>
-  <li>Initialize $Q(s,a)$ arbitrarily, choose start state $s$, given an $\varepsilon$-greedy policy $\pi_t$</li>
+  <li>Initialize $q(s,a)$ arbitrarily, choose start state $s$, given a <u>behaviour</u> policy $\pi_t$ <font color="red">(e.g., $\varepsilon$-greedy)</font></li>
   <li>Repeat (for each episode):
     <ul>
       <li>Repeat (if $s$ is not terminal state):
         <ul>
           <li><em>collect experience</em>:
             <ul>
-              <li>Choose $a$ from $s$ using policy $\pi_t$ derived from $Q$</li>
-              <li>Take action $a$, observe $r$, $s^\prime$</li>
+              <li>choose $a$ at $s$ following $\pi_t$</li>
+              <li>take action $a$, get $r$, transfer to $s^\prime$</li>
               <li>
-                <font color="red">Choose $a^\prime$ from $s^\prime$ using policy $\pi_t$ derived from $Q$</font>
+                <font color="red">choose $a^\prime$ at $s^\prime$ following $\pi_t$</font>
               </li>
             </ul>
           </li>
           <li><em>policy evaluation</em>:
             <ul>
-              <li>${Q(s,a)\leftarrow Q(s,a)-\alpha[Q(s,a) - (r+\gamma Q(s^\prime,a^\prime))]}$</li>
-              <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
+              <li>${q(s,a)\leftarrow q(s,a)-\alpha[q(s,a) - (r+\gamma q(s^\prime,a^\prime))]}$</li>
             </ul>
           </li>
           <li><em>policy improvement</em>:
             <ul>
-              <li>(using $\varepsilon$-greedy as target policy)</li>
-              <li>$\pi_{t+1}(a\vert s) = 1-\frac{\varepsilon}{\vert \mathcal{A} \vert}(\mathcal{A}-1)$ if $a=\arg\max_a Q(s,a)$</li>
-              <li>$\pi_{t+1}(a\vert s) = \frac{\varepsilon}{\vert \mathcal{A} \vert}$ otherwise</li>
-              <li>$t \leftarrow t+1$</li>
+              <li>(update same $\varepsilon$-greedy as <u>target</u> policy)</li>
+              <li>
+                <font color="red">$\pi_{t+1}(a\vert s) = 1-\frac{\varepsilon}{\vert \mathcal{A} \vert}(\mathcal{A}-1)$ if $a=\arg\max_a q(s,a)$
+</font>
+              </li>
+              <li>$\pi_{t+1}(a\vert s) = \frac{\varepsilon}{\vert \mathcal{A} \vert}$ otherwise&lt;/font&gt;</li>
+              <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
             </ul>
           </li>
+          <li>$t \leftarrow t+1$</li>
         </ul>
       </li>
     </ul>
@@ -2245,26 +2337,37 @@ V(S_t) &amp; \leftarrow V(S_t)-\alpha[V(S_t)-(\underbrace{R_{t+1}}_{采样}+\gam
 
 <hr />
 
-<p>SARSA 的更新方式是 <strong>在线（online）</strong> 的，因为其只要采样一步，立刻可以更新对应的价值函数。与之相对，MC 方法是一个典型的离线（offline）方法，因为他必须等到一个完整的回合采样完毕后才能更新对应的价值函数。</p>
-
-<p>使用 SARSA 方法在 Grid World 中进行实验。需要注意的是，这里的 Grid World 场景不再是之前课程中为了找寻所有状态的最优策略，而是为了找到从初始状态出发抵达终点的最优策略。设定初始状态为左上角格子，我们的目的是找到一条从初始状态出发抵达终点的最优路径，相关参数设置为 $r_{target}=0, r_{forbidden}=r_{boundary} = -10, r_{other}=-1,\gamma = 0.9,\alpha = 0.1$，迭代 500 步如下图所示：</p>
+<p>使用 SARSA 方法在 Grid World 中进行实验。设定初始状态为左上角格子，相关参数设置为 $r_{target}=0, r_{forbidden}=r_{boundary} = -10, r_{other}=-1,\gamma = 0.9,\alpha = 0.1$，迭代 500 步如下图所示：</p>
 
 <p><a href="/assets/img/postsimg/20221210/sarsa-result.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20221210/sarsa-result.jpg" alt="sarsa-result" class="lazyload" data-proofer-ignore></a></p>
 
-<p>左子图表明，虽然左上角格子已经找到了相对较优的路径，但其他格子对应的策略明显不是最优的，如果想要找到其他格子的最优策略，需要依靠 $\varepsilon$-greedy 策略经过更多步骤的探索。右子图表明，随着迭代次数的增加，每个 episode 探索的步长逐渐降低，对应的总奖励逐渐升高，但总奖励依然为负数。这是因为采用 $\varepsilon$-greedy 策略引入了非最优探索，这在之前介绍蒙特卡洛改进算法的最优性分析中有过详细介绍。</p>
+<ul>
+  <li>左子图表明，
+    <ul>
+      <li>经过 500 步迭代，从左上角格子出发已经找到了对应的较优的路径；</li>
+      <li>除了左上角格子外，其他格子对应的策略明显不是最优的，需要经过更多步探索才能收敛到最优策略。</li>
+    </ul>
+  </li>
+  <li>右子图表明，
+    <ul>
+      <li>随着迭代次数的增加，每个 episode 探索的步长逐渐降低，对应的总奖励逐渐升高；</li>
+      <li>总奖励值依然为负数，因为采用 $\varepsilon$-greedy 策略会引入大量非最优探索，导致状态价值的估计偏低。</li>
+    </ul>
+  </li>
+</ul>
 
 <h4 id="322-expected-sarsa"><span class="me-2">3.2.2. Expected SARSA</span><a href="#322-expected-sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>我们可以对 SARSA 进行改进，不再进行采样得到动作 $a^\prime$，而是使用 $Q$ 的期望，此时的迭代式即为 <strong>期望 SARSA</strong></p>
+<p>我们可以对 SARSA 的策略评估部分进行改进，不再进行采样得到动作 $a^\prime$，而是使用 $q$ 的期望（也就是 $v$），此时的迭代式即为 <strong>期望 SARSA</strong></p>
 
 \[\begin{aligned}
-Q(s,a) &amp;\leftarrow Q(s,a)-\alpha\{Q(s,a)-(r+\gamma \mathbb{E}_\pi[Q(s^\prime,A)])\}\\
-Q(s,a) &amp;\leftarrow Q(s,a)-\alpha[Q(s,a)-(r+\gamma V(s^\prime))]\\
+q(s,a) &amp;\leftarrow q(s,a)-\alpha\{q(s,a)-(r+\gamma \mathbb{E}_\pi[q(s^\prime,A)])\}\\
+q(s,a) &amp;\leftarrow q(s,a)-\alpha[q(s,a)-(r+\gamma V(s^\prime))]\\
 \end{aligned}\]
 
 <ul>
-  <li>期望的 SARSA 的好处在于偏差更小（因为不需要做第二次动作采样了，只需要 $(s,a,r,s^\prime)$，随机性更小）</li>
-  <li>但是代价是计算量增大（因为需要计算多个 Q 值后取平均）。</li>
+  <li>优势：偏差更小（因为只需要 $(s,a,r,s^\prime)$，不需要做第二次动作采样得到 $a^\prime$，随机性更小）</li>
+  <li>劣势：计算量大幅增加（因为需要计算多个 $q$ 值后取平均）。</li>
 </ul>
 
 <p>期望 SARSA 本质上是求解如下贝尔曼期望方程</p>
@@ -2273,7 +2376,7 @@ Q(s,a) &amp;\leftarrow Q(s,a)-\alpha[Q(s,a)-(r+\gamma V(s^\prime))]\\
 
 <h4 id="323-n-step-sarsa"><span class="me-2">3.2.3. n-step SARSA</span><a href="#323-n-step-sarsa" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>SARSA 是一种一步更新的方法，即每次更新只使用一步的采样数据。我们可以将 SARSA 泛化到 $n$ 步更新，即每次更新使用 $n$ 步的采样数据。这本质上是将 SARSA 和 MC 方法进行融合。考虑回报的不同展开形式</p>
+<p>SARSA 的策略评估部分是一种一步更新的方法，即每次更新只使用一步的采样数据。我们可以将 SARSA 的策略评估部分泛化到 $n$ 步更新，即每次更新使用 $n$ 步的采样数据。这本质上是将 SARSA 和 MC 方法进行融合。考虑回报的不同展开形式</p>
 
 \[\begin{aligned}
   \text{SARSA} \; \leftarrow \; G_t^{(1)} &amp;= R_{t+1}+\gamma Q(S_{t+1},A_{t+1})\\
@@ -2284,61 +2387,72 @@ Q(s,a) &amp;\leftarrow Q(s,a)-\alpha[Q(s,a)-(r+\gamma V(s^\prime))]\\
   \text{MC} \; \leftarrow \; G_t^{(\infty)} &amp;= R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{n-1} R_{t+n}+\cdots
 \end{aligned}\]
 
-<p>将上述不同的回报展开形式代入 $Q(s,a)$ 关于回报的定义式，然后再代入期望 SARSAR 迭代式，可以得到 $\boldsymbol{n}$<strong>-step SARSA</strong> 这种介于 SARSA 和 MC 方法之间的迭代式</p>
+<p>将上述不同的回报展开形式代入 $q(s,a)$ 关于回报的定义式，然后再代入期望 SARSAR 迭代式，可以得到 $\boldsymbol{n}$<strong>-step SARSA</strong> 这种介于 SARSA 和 MC 方法之间的迭代式</p>
 
-\[Q_\pi(s,a)\leftarrow Q_\pi(s,a)-\alpha[Q_\pi(s,a) - G_t^{(n)}]\]
+\[q_\pi(s,a)\leftarrow q_\pi(s,a)-\alpha[q_\pi(s,a) - G_t^{(n)}]\]
 
 <ul>
   <li>当 $n=1$ 时，$n$-step SARSA 等价于 SARSA（很显然）；</li>
-  <li>当 $n=\infty$ 时，$n$-step SARSA 等价于 MC 方法（请自行尝试推导）。</li>
+  <li>当 $n=\infty$ 时，$n$-step SARSA 等价于 MC 方法（请尝试推导，需要额外定义 $\alpha=1$）。</li>
 </ul>
 
 <h3 id="33-异策略时序差分q-learning"><span class="me-2">3.3. 异策略时序差分（Q-Learning）</span><a href="#33-异策略时序差分q-learning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <h4 id="331-q-learning"><span class="me-2">3.3.1. Q-Learning</span><a href="#331-q-learning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>在 SARSAR 算法中，我们通过 $\epsilon$-greedy 策略得到下一时刻状态所选取的动作 $a^\prime$，从而更新 $Q(s,a)$。但实际上，在 $s^\prime$ 状态下，存在一个确定性策略（也即贪婪策略）可供我们选择动作</p>
+<p>在 SARSAR 算法的行为策略是 $\varepsilon$-greedy 策略，但在第二次动作采样时，我们只是为了计算后续 $Q$ 值而并不需要与环境进行交互。此时继续采用 $\varepsilon$-greedy 策略并不会对探索产生影响。</p>
 
-\[a^*=\pi(s^\prime) = \arg\max_a\; Q(s^\prime, a)\]
+<p>实际上，在下一时刻状态 $s^\prime$ 下，<u>明显存在一个理论更优的确定性策略</u>（也即贪婪策略）可供我们选择动作</p>
 
-<p>更新 $Q(s,a)$ 时，不再根据当前策略进行采样，而是直接查阅已有的 Q table 找到当前状态下已知的最大 $Q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $Q(s,a)$。这种更新方式即为 <strong>Q-Learning</strong>。对应的迭代式如下</p>
+\[a^*=\pi(s^\prime) = \arg\max_a\; q(s^\prime, a)\]
 
-\[Q(s,a) \leftarrow Q(s,a)-\alpha\{Q(s,a)-(r+\gamma \arg\max_a Q(s^\prime,a))\}\\\]
+<p>此时我们不需要进行第二次动作采样，而是直接找到下一时刻状态下已知的最大 $q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $q(s,a)$。这种方法即为 <strong>Q-Learning</strong>。对应的策略评估迭代式如下</p>
 
-<p>Q-Learning 本质上是求解如下方程</p>
+\[q(s,a) \leftarrow q(s,a)-\alpha\{q(s,a)-[r+\gamma \arg\max_a q(s^\prime,a)]\}\\\]
 
-\[q(s,a)=\mathbb{E}[R+\gamma \max_{a} q(s^\prime,a)\vert s,a], \forall s,a\]
+<p>经过上述操作，迭代式就不再是求关于某个策略 $\pi$ 的状态-动作价值函数值 $q_\pi(s,a)$，而是直接求 <strong>状态-动作价值函数的最优值 $q_\star(s,a)$ 的估计</strong>，直接对应全局最优策略（贪婪策略）。因此，Q-Learning 在策略改进时更新的 <strong>目标策略</strong> 自然就是 贪婪策略。</p>
 
-<p>注意到，其在形式上和前面介绍过的贝尔曼最优方程很类似，但有两点不同：</p>
+<p>注意到，上述内容只是围绕第二次动作采样展开的，并没有对第一次动作采样使用的 <strong>行为策略</strong> 做出任何约束，我们可以沿用 SARSA 的 $\varepsilon$-greedy 策略，也可以使用一些别的策略，如均匀随机采样策略，甚至直接使用人类决策来进行采样都可以。</p>
+
+<p>总结如下：</p>
 
 <ul>
-  <li>贝尔曼最优方程是一个关于状态价值函数的方程，而 Q-Learning 是一个关于状态-动作价值函数的方程；</li>
-  <li>贝尔曼最优方程不含期望，而 Q-Learning 含有期望。</li>
+  <li>行为策略（第一次动作采样）：$\varepsilon$-greedy 策略、uniform 策略、人类等；</li>
+  <li>第二次动作选取：greedy 策略</li>
+  <li>目标策略：greedy 策略</li>
 </ul>
 
-<p>但实际上 Q-Learning 求解的方程也是一种贝尔曼最优方程（证明略）。</p>
-
-<p>伪代码如下：</p>
+<p>Q-Learning 的伪代码如下：</p>
 
 <hr />
 <ul>
-  <li>Initialize $Q(s,a)$ arbitrarily, choose start state $s$, given a policy  $\pi_t$ (e.g., $\varepsilon$-greedy)</li>
+  <li>Initialize $Q(s,a)$ arbitrarily, choose start state $s$, given a <u>behaviour</u> policy $\textcolor{red}{\pi_b}$ <font color="red">(e.g., $\varepsilon$-greedy, uniform, human, etc)</font></li>
   <li>Repeat (for each episode):
     <ul>
       <li>Repeat (if $s$ is not terminal state):
         <ul>
           <li><em>collect experience</em>:
             <ul>
-              <li>Choose $a$ from $s$ using policy $\pi_t$  derived from $Q$</li>
-              <li>Take action $a$, observe $r$, $s^\prime$</li>
+              <li>choose $a$ at $s$ following $\textcolor{red}{\pi_b}$</li>
+              <li>take action $a$, get $r$, transfer to $s^\prime$</li>
               <li>
-                <font color="red">Choose $a^\prime= \arg\max_a Q(s^\prime, a)$, i.e., greedy policy</font>
+                <font color="red">choose $a^\prime= \arg\max_a q(s^\prime, a)$</font>
               </li>
             </ul>
           </li>
           <li><em>policy evaluation</em>:
             <ul>
-              <li>${Q(s,a)\leftarrow Q(s,a)-\alpha[Q(s,a) - (r+\gamma Q(s^\prime,a^\prime))]}$</li>
+              <li>${q(s,a)\leftarrow q(s,a)-\alpha[q(s,a) - (r+\gamma q(s^\prime,a^\prime))]}$</li>
+            </ul>
+          </li>
+          <li><em>policy improvement</em>:
+            <ul>
+              <li>(update greedy policy as <u>target</u> policy)</li>
+              <li>
+                <font color="red">$\pi_{t+1}(a\vert s) = 1$ if $a=\arg\max_a q(s,a)$
+</font>
+              </li>
+              <li>$\pi_{t+1}(a\vert s) = 0$ otherwise&lt;/font&gt;</li>
               <li>${s\leftarrow}s^\prime; a\leftarrow a^\prime$</li>
             </ul>
           </li>
@@ -2347,39 +2461,34 @@ Q(s,a) &amp;\leftarrow Q(s,a)-\alpha[Q(s,a)-(r+\gamma V(s^\prime))]\\
       </li>
     </ul>
   </li>
-  <li><em>policy improvement</em> <font color="red">(after iteration)</font>:
-    <ul>
-      <li>(using greedy policy as target policy)</li>
-      <li>$\pi_{t+1}(a\vert s) = 1$ if $a=\arg\max_a Q(s,a)$</li>
-      <li>$\pi_{t+1}(a\vert s) = 0$ otherwise</li>
-    </ul>
-  </li>
 </ul>
 
 <hr />
 
-<p>标红的部分即为 Q-Learning 与 SARSA 算法伪代码中唯一的区别所在，这使得二者分属不同的时序差分方法，这将在下一节详细分析。</p>
+<p>标红的部分即为 Q-Learning 与 SARSA 算法伪代码中的区别所在，这使得二者分属不同的时序差分方法，这将在下一节详细分析。</p>
+
+<p>注意到，Q-Learning 是 off-policy 方法，因此伪代码中 policy improvement 实际上是不必要的，其目标策略是贪婪策略，当 $q(s,a)$更新时自然会被更新，不需要进行额外的策略改进。</p>
 
 <h4 id="332-同策略与异策略"><span class="me-2">3.3.2. 同策略与异策略</span><a href="#332-同策略与异策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>TD 算法中存在两种重要的策略，前面的内容都有涉及，这里明确提出如下：</p>
+<p>为了更加清晰地区分 SARSA 和 Q-learning，我们对这两种典型的 TD 算法中提到的目标策略和行为策略再次明确定义如下：</p>
 
 <ul>
   <li>行为策略：用于和环境交互产生样本的策略；</li>
-  <li>目标策略：一直更新直至最优的策略。</li>
+  <li>目标策略：基于价值函数一直保持更新直至最优的策略。</li>
 </ul>
 
-<p>当行为策略和目标策略相同时，称其为 <strong>同策略（on-policy）</strong> 时序差分方法，不论是和环境交互还是被持续改进，都是同一个策略。当行为策略和目标策略不同时，就称其为 <strong>异策略（off-policy）</strong> 时序差分方法。</p>
+<p>当行为策略和目标策略相同时，称其为 <strong>同策略（on-policy）时序差分方法</strong>，不论是和环境交互还是被持续改进，都是同一个策略。当行为策略和目标策略不同时，就称其为 <strong>异策略（off-policy）时序差分方法</strong>。</p>
 
 <p>按照上述定义，我们可以看出，SARSA 是一种同策略（on-policy）时序差分方法，因为其采样和更新的均为同一个策略（都是 $\varepsilon$-greedy 策略），而 Q-Learning 是一种异策略（off-policy）时序差分方法，因为其行为策略是 $\varepsilon$-greedy 策略，但更新的策略是 greedy（贪婪）策略，二者不同。</p>
 
-<p>使用 off-policy 的好处在于，我们可以使用与目标策略不同的更加激进更加具备探索性的行为策略来与环境交互获得经验。行为策略越激进，那么能够探索到的状态动作对就越多，相应价值函数更新的频次就更高，探索效率就自然更高。注意，<strong>在 off-policy中，只要求行为策略与目标策略不同。行为策略本身可以随意选取</strong>，比如当目标策略是贪婪策略时，行为策略可以是 $\varepsilon$-greedy 策略，也可以是均匀随机策略（探索性更强）。</p>
+<p>使用 off-policy 的好处在于，我们可以使用与目标策略不同的更加激进更加具备探索性的行为策略来与环境交互获得经验。行为策略越激进，那么能够探索到的状态动作对就越多，相应价值函数更新的频次就更高，探索效率就自然更高。注意，<strong>在 off-policy中，只要求行为策略与目标策略不同。行为策略本身可以随意选取</strong>，比如当目标策略是贪婪策略时，行为策略可以是 $\varepsilon$-greedy 策略，也可以是均匀随机策略（探索性更强），甚至是人在回路决策策略。</p>
 
 <p>最后给出两个延伸问题供大家思考：</p>
 
 <ul>
   <li>思考1：MC 方法是同策略还是异策略？<font color="blue">（同策略）</font></li>
-  <li>思考2：怎么把 Q-Learning 改造成 on-policy 方法？<font color="blue">（强行将策略改进放到每次迭代中，并使用与行为策略相同的目标策略，如 $\varepsilon$-greedy）</font></li>
+  <li>思考2：怎么把 Q-Learning 改造成 on-policy 方法？<font color="blue">（第一次动作采样使用$\varepsilon$-greedy，第二次动作选取使用greedy，目标策略使用 $\varepsilon$-greedy）</font></li>
 </ul>
 
 <h4 id="333-不同行为策略的探索性"><span class="me-2">3.3.3. 不同行为策略的探索性</span><a href="#333-不同行为策略的探索性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
@@ -2416,6 +2525,8 @@ Q(s,a) &amp;\leftarrow Q(s,a)-\alpha[Q(s,a)-(r+\gamma V(s^\prime))]\\
 
 <h3 id="34-总结"><span class="me-2">3.4. 总结</span><a href="#34-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<h4 id="341-表述形式总结"><span class="me-2">3.4.1. 表述形式总结</span><a href="#341-表述形式总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
 <p>所有的 TD 算法可以表述为一个统一的形式</p>
 
 \[q_{t+1}(s_t,a_t) = q_t(s_t,a_t) - \alpha [q_t(s_t,a_t) - \textcolor{red}{\bar{q}_t}]\]
@@ -2430,7 +2541,9 @@ n\text{-step SARSA:}\quad \bar{q}_t &amp;= r_{t+1} + r_{t+2}+\cdots +\gamma^n q_
 \text{MC:}\quad\bar{q}_t &amp;= r_{t+1} + \gamma r_{t+2} + \cdots + \gamma^{T-t-1} r_T,\text{ where }\alpha = 1
 \end{aligned}\]
 
-<p>从求解贝尔曼公式的角度也可总结如下</p>
+<h4 id="342-求解方程总结"><span class="me-2">3.4.2. 求解方程总结</span><a href="#342-求解方程总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>从求解贝尔曼方程的角度也可总结如下</p>
 
 \[\begin{aligned}
 \text{SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma q_\pi(S_{t+1},A_{t+1})\vert St+s, A_t=a]\\
@@ -2439,6 +2552,17 @@ n\text{-step SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\
 \text{Q-Learning:}\quad \textcolor{red}{\text{BOE:}} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma \max_a q_\pi(S_{t+1},a)\vert St=s, A_t=a]\\
 \text{MC:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{T-t-1} R_T\vert St=s, A_t=a]
 \end{aligned}\]
+
+<h4 id="343-行为表现总结"><span class="me-2">3.4.3. 行为表现总结</span><a href="#343-行为表现总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<ul>
+  <li>
+    <p><strong>Q-Learning</strong>：包含 greedy 策略中取 max 操作，也就是不考虑可能走到很大负奖励的状态-动作，只考虑会不会最终获得最大奖励的状态-动作。如果某状态下某动作可以获得很大的奖励，那这条路就牛逼，所以 Q-Learning更勇猛，不害怕错，更激进;</p>
+  </li>
+  <li>
+    <p><strong>SARSA</strong>：只要某状态周围有错（很大的负奖励），那么就有机会（$\varepsilon/\vert\mathcal{A}\vert$）获得这个不好的奖励，那么整条路反馈都会评分很差，之后会尽量避开。最终导致Sarsa会对犯错更敏感，会远离犯错的状态-动作，更保守。</p>
+  </li>
+</ul>
 
 <h2 id="4-参考文献"><span class="me-2">4. 参考文献</span><a href="#4-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
