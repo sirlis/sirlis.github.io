@@ -1199,7 +1199,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="8379 字"
+  title="8401 字"
 >
   <em>46 分钟</em>阅读</span>
 
@@ -1424,6 +1424,12 @@ p(c) &amp;= p(w_1)\int_{\mathcal{R}_1} p(x \vert w_1)\text{d}x + p(w_2) - p(w_2)
 <p>易知，<strong>任何其他划分对应的正确率都要小于按照上述划分的正确率</strong>。所以，最小错误率贝叶斯决策（选择后验概率最大的类作为判断）的错误率是最小的。即<strong>最小错误贝叶斯决策 = 最大后验贝叶斯决策</strong>。此时决策面 $t$ 正好为两类的类条件概率密度函数的交点。由于概率非负，如果每一次决策错误率都最小，那么总的错误率也是最小的。</p>
 
 <p>根据前述决策规则，只需要比较类的概率密度函数乘以一个常数（先验概率，不随采样而变，是一个常数值）的结果。显然，图中 $t$ 为决策点，在 $x&lt;t$ 时，对产生数据 $x$ 的贡献 $w_1$ 大于 $w_2$，故最小错误贝叶斯决策将 $x$ 归属为 $w_1$，在 $x&gt;t$ 时，对产生数据 $x$ 的贡献 $w_2$ 大于 $w_1$，故最小错误贝叶斯决策将 $x$ 归属为 $w_2$。</p>
+
+<blockquote>
+  <p>若为 $c$ 分类问题，贝叶斯错误率为</p>
+
+\[p(e) = \int[1- \max_i p(w_i \vert x)]p(x)\text{d}x\]
+</blockquote>
 
 <h3 id="24-决策规则"><span class="me-2">2.4. 决策规则</span><a href="#24-决策规则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1993,7 +1999,7 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
         </li>
       
         
@@ -2014,7 +2020,7 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
+          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
         </li>
       
         
@@ -2937,6 +2943,18 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3929,7 +3947,7 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         
         <div class="col">
-          <a href="/posts/reinforcement-learning-Value-Approximation/" class="card post-preview h-100">
+          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3942,14 +3960,14 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
 
 <em
   class="small"
-  data-ts="1672654339"
+  data-ts="1743341659"
   data-df="YYYY/MM/DD"
   
 >
-  2023/01/02
+  2025/03/30
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>强化学习（值函数近似）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（非线性分类器）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -3958,7 +3976,7 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
 
 
 
-                  本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。
+                  本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。
 
 
 
@@ -3966,9 +3984,17 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
 
 
   1. 引言
-  2. 状态价值函数近似
+  2. 近邻法分类器
     
-      2.1...
+      2.1. 最近邻法
+      2.2. K 近邻法
+      2.3. KD 树
+      2.4. 构造 KD 树
+    
+  
+  3. 支持向量机（SVM）
+    
+      3.1. 线性支...
                 </p>
               </div>
             </div>
