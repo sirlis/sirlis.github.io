@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-03-31T03:53:35+08:00</updated>
+  <updated>2025-03-31T21:23:52+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" rel="alternate" type="text/html" title="模式识别（非线性分类器）" />
     <published>2025-03-30T21:34:19+08:00</published>
   
-    <updated>2025-03-30T21:34:19+08:00</updated>
+    <updated>2025-03-31T21:22:32+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" />
@@ -217,7 +217,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Bayes/" rel="alternate" type="text/html" title="模式识别（贝叶斯决策）" />
     <published>2024-03-12T21:22:19+08:00</published>
   
-    <updated>2025-03-21T10:38:44+08:00</updated>
+    <updated>2025-03-31T03:54:08+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Bayes/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Bayes/" />

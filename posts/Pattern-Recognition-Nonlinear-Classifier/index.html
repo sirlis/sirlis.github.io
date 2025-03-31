@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-30T21:34:19+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-31T21:22:32+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1107,6 +1107,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1743427352"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/03/31
+</em>
+
+    </span>
+    
 
   
 
@@ -1146,9 +1170,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="5335 字"
+  title="6561 字"
 >
-  <em>29 分钟</em>阅读</span>
+  <em>36 分钟</em>阅读</span>
 
     </div>
 
@@ -1459,8 +1483,8 @@ P(w_m\vert x) - \sum_{i=1}^c P(w_i\vert x)^2 &amp;= P(w_m\vert x) -P(w_m\vert x)
 <p>那么判别函数可写为</p>
 
 \[\begin{cases}
-  \boldsymbol{w}x_i + b &gt; 0, y = 1\\
-  \boldsymbol{w}x_i + b &lt; 0, y= -1
+  \boldsymbol{w}^\top x_i + b &gt; 0, y = 1\\
+  \boldsymbol{w}^\top x_i + b &lt; 0, y= -1
 \end{cases}\]
 
 <p>合并为简单形式，有</p>
@@ -1471,7 +1495,7 @@ P(w_m\vert x) - \sum_{i=1}^c P(w_i\vert x)^2 &amp;= P(w_m\vert x) -P(w_m\vert x)
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b} &amp;\quad \text{margin} (\boldsymbol{w},b)\\
-  s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) &gt; 0, \forall i=1,2,\cdots,N
+  s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) &gt; 0, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <p>上述优化问题中唯一不确定的地方就是间隔（margin）的定义。间隔被定义为样本中离决策面最近的那些样本到决策面的距离。设 $d_i$ 为样本 $x_i$ 到超平面的距离（标量），则有：</p>
@@ -1486,39 +1510,47 @@ P(w_m\vert x) - \sum_{i=1}^c P(w_i\vert x)^2 &amp;= P(w_m\vert x) -P(w_m\vert x)
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b}  \min_{i} &amp;\quad\frac{\vert \boldsymbol{w}^\top x_i + b\vert}{\Vert \boldsymbol{w} \Vert}\\
-  s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) &gt; 0, \forall i=1,2,\cdots,N
+  s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) &gt; 0, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <p>注意到，约束条件表明 $y_i$ 和 $\boldsymbol{w}x_i+b$ 同号且二者相乘恒大于零，那么可安全地将优化目标函数的绝对值打开，得到</p>
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b} \min_{i} &amp;\quad\frac{\textcolor{green}{y_i(\boldsymbol{w}^\top x_i + b)}}{\Vert \boldsymbol{w} \Vert}\\
-  s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) &gt; 0, \forall i=1,2,\cdots,N
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) &gt; 0, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <p>观察优化目标函数中，不同优化方向的作用对象，可移项如下</p>
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b}&amp;\; \textcolor{blue}{\frac{1}{\Vert \boldsymbol{w} \Vert}} \; \min_{i} \; y_i(\boldsymbol{w}^\top x_i + b)\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) &gt; 0, \forall i=1,2,\cdots,N
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) &gt; 0, \forall i=1,2,\cdots,N\\
 \end{aligned}\]
 
-<p>既然约束条件要求 $y_i(\boldsymbol{w}x_i+b) &gt; 0$，那么一定有</p>
+<p>既然约束条件要求 $y_i(\boldsymbol{w}^\top x_i+b) &gt; 0$，那么一定有</p>
 
 \[\exists \gamma &gt; 0,\; \min_i y_i(\boldsymbol{w}x_i+b) =\gamma\]
 
 <p>此处 $\gamma$ 被称为 <strong>函数间隔</strong>。引入函数间隔后，优化问题变为如下形式</p>
 
 \[\begin{aligned}
+\max_{\boldsymbol{w},b}&amp;\; \textcolor{blue}{\frac{1}{\Vert \boldsymbol{w} \Vert}} \; \min_{i} \; y_i(\boldsymbol{w}^\top x_i + b)\\
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \textcolor{red}{\geq \gamma}, \forall i=1,2,\cdots,N\\
+\text{or}\quad s.t.\quad \textcolor{green}{\min_i}&amp;\quad  \textcolor{green}{y_i(\boldsymbol{w}^\top x_i+b) = \gamma}, \forall i=1,2,\cdots,N
+\end{aligned}\]
+
+<p>将条件代入目标函数，消去 $\min_i$ 项，有</p>
+
+\[\begin{aligned}
 \max_{\boldsymbol{w},b}&amp;\quad \frac{\textcolor{red}{\gamma}}{\Vert \boldsymbol{w} \Vert}\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) \textcolor{red}{\geq 1}, \forall i=1,2,\cdots,N
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \textcolor{red}{\geq \gamma}, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <p>注意到当 $\boldsymbol{w},b$ 发生变化（如分别扩大 2 倍）也会导致函数间隔发生变化（同样扩大两倍）。虽然这种操作不会改变最优解，但会产生一个等价的优化问题。为了避免这种情况，不妨令 $\gamma = 1$，优化问题变为</p>
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b}&amp;\quad \frac{1}{\Vert \boldsymbol{w} \Vert}\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) \geq 1, \forall i=1,2,\cdots,N
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq 1, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <blockquote>
@@ -1533,7 +1565,7 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) \geq 1, \forall i=1,2,\cdots,N
 
 \[\begin{aligned}
 \min_{\boldsymbol{w},b} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w}\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) \geq 1, \forall i=1,2,\cdots,N
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq 1, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <p>上述优化问题是一个包含 $N$ 个不等式约束的二次凸优化问题。</p>
@@ -1550,8 +1582,155 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}x_i+b) \geq 1, \forall i=1,2,\cdots,N
 
 \[\begin{aligned}
 \min_{w,b}\quad &amp; \max_\lambda L(w,b,\lambda)\\
-s.t.\quad &amp; \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
+s.t. &amp; \quad \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
 \end{aligned}\]
+
+<blockquote>
+  <p>拉格朗日乘子法变换后的优化问题与原始优化问题的等价性可如下简单说明：</p>
+
+  <p>定义 $\delta = 1-y_i(w^\top x_i+b)$ SVM 优化问题的约束条件变为</p>
+
+\[\delta_i \leq 0\]
+
+  <p>整个 $(w,b)$ 空间可划分为两个部分，$\delta &gt; 0$ 和 $\delta \leq 0$。
+对于 $\delta &gt; 0$，可以取 $\lambda \to \infty$ 使得优化目标</p>
+
+\[\max_\lambda L(w,b,\lambda) =  \frac{1}{2}w^\top w + \infty = +\infty\]
+
+  <p>对于 $\delta \leq 0$，可以取$\lambda = 0$ 使得优化目标取到最大值</p>
+
+\[\max_\lambda L(w,b,\lambda) =  \frac{1}{2}w^\top w + 0 = \frac{1}{2}w^\top w\]
+
+  <p>综上，拉格朗日乘子法的优化问题</p>
+
+\[\min_{w,b}\max_\lambda L(w,b,\lambda) = \min_{w,b} [+\infty,\;\frac{1}{2}w^\top w] = \min_{w,b} \frac{1}{2}w^\top w\]
+
+  <p>与原始优化问题等价，且将 $\delta &gt; 0$ 的情况忽略。</p>
+</blockquote>
+
+<p>上述优化问题的对偶问题为（交换 $\max$ 与 $\min$）</p>
+
+\[\begin{aligned}
+\max_\lambda \min_{w,b} &amp;\quad L(w,b,\lambda)\\
+s.t. &amp;\quad \lambda_i \geq 0, \forall i=1,2,\cdots,N
+\end{aligned}\]
+
+<blockquote>
+  <p>关于为何 SVM 要引入原问题的对偶问题，是因为：</p>
+
+  <ul>
+    <li>支持向量的稀疏性：</li>
+  </ul>
+
+  <p>在对偶问题中，拉格朗日乘子 $\lambda_i$ 只有在支持向量上才会非零，而支持向量的数量通常远小于总样本数。这意味着在分类时，只需要计算支持向量与查询点的内积，大大减少了计算量。</p>
+
+  <ul>
+    <li>高维空间的计算效率：</li>
+  </ul>
+
+  <p>如果直接求解原问题，分类时需要计算 $w^\top x$，其中 $w$ 是一个高维向量（维度为 $d$）。而在对偶问题中，分类只需要计算支持向量与查询点的内积 $\sum \lambda_i y_i \langle x_i, x \rangle$，这可以通过核函数高效完成，避免直接处理高维向量。</p>
+
+  <ul>
+    <li>核函数的引入：</li>
+  </ul>
+
+  <p>对偶问题的形式天然适合引入核函数，将数据映射到高维空间进行非线性分类，而无需显式计算高维空间中的坐标。这是 SVM 能够处理非线性问题的关键。</p>
+</blockquote>
+
+<p>注意原问题和对偶问题存在如下关系（证明略，俗话说瘦死的骆驼比马大，即对最小的最大值也比最大的最小值要大）</p>
+
+\[\min_{w,b}\max_\lambda L(w,b,\lambda) \geq \max_\lambda \min_{w,b} L(w,b,\lambda)\]
+
+<p>当优化问题满足 <strong>KKT 条件</strong> 时，上述等号成立，又称二者为强对偶关系。SVM 的优化问题满足这个条件，因此为强对偶问题（证明略）。</p>
+
+<blockquote>
+  <p>KKT 条件</p>
+
+\[\begin{aligned}
+\frac{\partial L}{\partial w} = 0,\frac{\partial L}{\partial b} = 0, \frac{\partial L}{\partial b} = 0\\
+\lambda_i(1-y_i(w^\top x_i+b))=0\\
+\lambda_i \geq 0\\
+1-y_i(w^\top x + b)\leq 0\\
+\forall i=1,2,\cdots,N
+\end{aligned}\]
+</blockquote>
+
+<p>求解此对偶问题，即求目标函数偏导，令其为零。首先对 $b$ 求偏导有</p>
+
+\[\frac{\partial L}{\partial b} = 0\Rightarrow \sum_{i=1}^N\lambda_i y_i = 0\\\]
+
+<p>代入目标函数有</p>
+
+\[\begin{aligned}
+L(w,b,\lambda) &amp;= \frac{1}{2}w^\top w + \sum_{i=1}^N\lambda_i(1-y_i(w^\top x_i+b))\\
+&amp;= \frac{1}{2}w^\top w + \sum_{i=1}^N \lambda_i - \sum_{i=1}^N \lambda_i y_i w^\top x_i
+\end{aligned}\]
+
+<p>简化后的目标函数对 $w$ 求偏导令其为零，有</p>
+
+\[\frac{\partial L}{\partial w} = w - \sum_{i=1}^N \lambda_i y_i x_i = 0\Rightarrow w= \sum_{i=1}^N \lambda_i y_i x_i\]
+
+<p>再次代入目标函数有</p>
+
+\[\begin{aligned}
+L(w,b,\lambda) =&amp; \frac{1}{2}(\sum_{i=1}^N\lambda_i y_i x_i)^\top (\sum_{i=j}^N\lambda_j y_j x_j)+ \sum_{i=1}^N \lambda_i\\
+&amp; - \sum_{i=1}^N \lambda_i y_i (\sum_{i=j}^N \lambda_j y_j x_j)^\top x_i\\
+=&amp;\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_i^\top x_j + \sum_{i=1}^N \lambda_i\\
+&amp; - \sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_j^\top x_i\\
+=&amp; -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_i^\top x_j + \sum_{i=1}^N \lambda_i
+\end{aligned}\]
+
+<p>最后得到 <strong>SVM 的对偶问题</strong></p>
+
+\[\begin{aligned}
+\max_\lambda &amp;\quad -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_i^\top x_j + \sum_{i=1}^N \lambda_i\\
+s.t. &amp;\quad \lambda_i \geq 0,\;\sum_{i=1}^N\lambda_i y_i = 0,\; \forall i=1,2,\cdots,N
+\end{aligned}\]
+
+<p>这个问题的最优解我们前面已经求出了一部分，即</p>
+
+\[w^\star = \sum_{i=1}^N \lambda_i y_i x_i\]
+
+<blockquote>
+  <p>可以看出，$w^\star$ 是样本 $x_i\in X$ 的线性组合</p>
+</blockquote>
+
+<p>根据 KKT 条件中的互补松弛条件</p>
+
+\[\begin{aligned}
+\lambda_i(1-y_i(w^\top x_i+b))=0\\
+\lambda_i \geq 0\\
+1-y_i(w^\top x + b)\leq 0\\
+\end{aligned}\]
+
+<p>对第一条等式进一步讨论，</p>
+
+<ul>
+  <li>
+    <p>第一种情况，肯定存在某些样本点 $(x_k, y_k)$ 使得 $y_i(w^\top x + b) = 1$，此时对 $\lambda_i$ 没有额外约束，那么有</p>
+
+\[\begin{aligned}
+y_k(w^\top x_k + b) &amp;= 1\\
+y_k^2(w^\top x_k + b) &amp;= y_k\\
+(y_k^2 = 1)\Rightarrow b^\star &amp;= y_k-w^\top x_k\\
+&amp;= y_k-(\sum_{i=1}^N \lambda_i y_i x_i)^\top x_k\\
+&amp;= y_k-\sum_{i=1}^N \lambda_i y_i x_i^\top x_k\\
+\end{aligned}\]
+
+    <blockquote>
+      <p>使得 $y_i(w^\top x + b) = 1$ 成立的样本点就是距离分类面最近的那些样本点，被称为 <strong>支撑向量（Support Vector）</strong>。</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>第二种情况，其他样本距离分类面更远，因此 $y_i(w^\top x + b) &gt; 1$，那么第一条等式的充要条件必须要求$\lambda_i = 0$。也就是说，只有当样本是支撑向量时对应的 $\lambda_i \neq 0$，否则 $\lambda = 0$。这将极大简化最优解中 $w^\star$ 的形式。</p>
+  </li>
+</ul>
+
+<p>至此，我们可以得到 <strong>SVM 的判别函数</strong></p>
+
+\[f(x) = \text{sign}({w^\star}^\top x + b^\star)\]
+
+<p>并且知道函数的法线方向 $w^\star$ 是<strong>支撑向量</strong> $x_i\in X_s$ 的线性组合。</p>
 
 <h4 id="313-软间隔-svm-优化问题"><span class="me-2">3.1.3. 软间隔 SVM 优化问题</span><a href="#313-软间隔-svm-优化问题" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1570,6 +1749,8 @@ s.t.\quad &amp; \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
 <p>[2] T. M. Cover and P. E. Hart. Nearest neighbor pattern classification. IEEE Transactions on Information Theory, 13:21–27, January 1967.</p>
 
 <p>[3] <a href="https://zhuanlan.zhihu.com/p/335017540">知乎. 机器学习-白板推导系列(六)-支持向量机SVM（Support Vector Machine）笔记</a>.</p>
+
+<p>[4] <a href="https://www.bilibili.com/video/BV1Hs411w7ci?p=2">blilbili. SVM白板推导</a>.</p>
 
 </div>
 
@@ -1714,6 +1895,20 @@ s.t.\quad &amp; \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
         </li>
       
@@ -1729,20 +1924,6 @@ s.t.\quad &amp; \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-c/">VSCode部署C/C++开发环境</a>
         </li>
       
     </ul>
