@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-31T21:22:32+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-01T23:38:44+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1120,13 +1120,13 @@
 
 <em
   class=""
-  data-ts="1743427352"
+  data-ts="1743521924"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/31
+  2025/04/01
 </em>
 
     </span>
@@ -1170,9 +1170,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6561 字"
+  title="7484 字"
 >
-  <em>36 分钟</em>阅读</span>
+  <em>41 分钟</em>阅读</span>
 
     </div>
 
@@ -1588,16 +1588,21 @@ s.t. &amp; \quad \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
 <blockquote>
   <p>拉格朗日乘子法变换后的优化问题与原始优化问题的等价性可如下简单说明：</p>
 
-  <p>定义 $\delta = 1-y_i(w^\top x_i+b)$ SVM 优化问题的约束条件变为</p>
+  <p>定义 $\delta = 1-y_i(w^\top x_i+b)$，SVM 优化问题的约束条件变为</p>
 
 \[\delta_i \leq 0\]
 
-  <p>整个 $(w,b)$ 空间可划分为两个部分，$\delta &gt; 0$ 和 $\delta \leq 0$。
-对于 $\delta &gt; 0$，可以取 $\lambda \to \infty$ 使得优化目标</p>
+  <p>整个 $(w,b)$ 空间可划分为两个部分，不满足约束 （$\delta &gt; 0$） 和 满足约束 （$\delta \leq 0$）。</p>
+
+  <ul>
+    <li>对于 $\delta &gt; 0$，约束被违反，可以取 $\lambda \to \infty$ 使得优化目标</li>
+  </ul>
 
 \[\max_\lambda L(w,b,\lambda) =  \frac{1}{2}w^\top w + \infty = +\infty\]
 
-  <p>对于 $\delta \leq 0$，可以取$\lambda = 0$ 使得优化目标取到最大值</p>
+  <ul>
+    <li>对于 $\delta \leq 0$，约束被满足，可以取$\lambda = 0$ 使得优化目标取到最大值</li>
+  </ul>
 
 \[\max_\lambda L(w,b,\lambda) =  \frac{1}{2}w^\top w + 0 = \frac{1}{2}w^\top w\]
 
@@ -1605,10 +1610,10 @@ s.t. &amp; \quad \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
 
 \[\min_{w,b}\max_\lambda L(w,b,\lambda) = \min_{w,b} [+\infty,\;\frac{1}{2}w^\top w] = \min_{w,b} \frac{1}{2}w^\top w\]
 
-  <p>与原始优化问题等价，且将 $\delta &gt; 0$ 的情况忽略。</p>
+  <p>与原始优化问题等价，其中外层 $\min_{w,b}$ 会自动忽略不满足约束的解。</p>
 </blockquote>
 
-<p>上述优化问题的对偶问题为（交换 $\max$ 与 $\min$）</p>
+<p>上述优化问题的<strong>对偶问题</strong>为（交换 $\max$ 与 $\min$）</p>
 
 \[\begin{aligned}
 \max_\lambda \min_{w,b} &amp;\quad L(w,b,\lambda)\\
@@ -1637,40 +1642,39 @@ s.t. &amp;\quad \lambda_i \geq 0, \forall i=1,2,\cdots,N
   <p>对偶问题的形式天然适合引入核函数，将数据映射到高维空间进行非线性分类，而无需显式计算高维空间中的坐标。这是 SVM 能够处理非线性问题的关键。</p>
 </blockquote>
 
-<p>注意原问题和对偶问题存在如下关系（证明略，俗话说瘦死的骆驼比马大，即对最小的最大值也比最大的最小值要大）</p>
+<p>注意原问题和对偶问题存在如下关系</p>
 
 \[\min_{w,b}\max_\lambda L(w,b,\lambda) \geq \max_\lambda \min_{w,b} L(w,b,\lambda)\]
 
-<p>当优化问题满足 <strong>KKT 条件</strong> 时，上述等号成立，又称二者为强对偶关系。SVM 的优化问题满足这个条件，因此为强对偶问题（证明略）。</p>
+<p>在优化理论中，原始问题（Primal Problem）和对偶问题（Dual Problem）之间存在一定的关系，而 KKT（Karush-Kuhn-Tucker）条件 是连接两者的桥梁。对于支持向量机（SVM）的优化问题，原始问题和对偶问题之间满足 <u>弱对偶性（Weak Duality）</u>，而在一定条件下（如凸优化+Slater条件），它们还满足 <u>强对偶性（Strong Duality）</u>，即原始问题的最优值等于对偶问题的最优值。此时，KKT条件成为取等号的充要条件。</p>
 
 <blockquote>
-  <p>KKT 条件</p>
+  <p>KKT 条件，$\forall i=1,2,\cdots,N$，有</p>
 
 \[\begin{aligned}
-\frac{\partial L}{\partial w} = 0,\frac{\partial L}{\partial b} = 0, \frac{\partial L}{\partial b} = 0\\
-\lambda_i(1-y_i(w^\top x_i+b))=0\\
-\lambda_i \geq 0\\
-1-y_i(w^\top x + b)\leq 0\\
-\forall i=1,2,\cdots,N
+\frac{\partial L}{\partial w} = 0,\frac{\partial L}{\partial b} = 0,\frac{\partial L}{\partial \lambda} = 0\quad \text{梯度可行性}\\
+\lambda_i(1-y_i(w^\top x_i+b))=0\quad \text{互补松弛性}\\
+\lambda_i \geq 0\quad \text{对偶可行性}\\
+1-y_i(w^\top x + b)\leq 0\quad \text{原始可行性}\\
 \end{aligned}\]
 </blockquote>
 
-<p>求解此对偶问题，即求目标函数偏导，令其为零。首先对 $b$ 求偏导有</p>
+<p>求解此对偶问题，根据梯度可行性条件，<strong>目标函数首先对 $b$ 求偏导令其为零</strong>，有</p>
 
 \[\frac{\partial L}{\partial b} = 0\Rightarrow \sum_{i=1}^N\lambda_i y_i = 0\\\]
 
-<p>代入目标函数有</p>
+<p>将其代入目标函数进行化简，有</p>
 
 \[\begin{aligned}
 L(w,b,\lambda) &amp;= \frac{1}{2}w^\top w + \sum_{i=1}^N\lambda_i(1-y_i(w^\top x_i+b))\\
 &amp;= \frac{1}{2}w^\top w + \sum_{i=1}^N \lambda_i - \sum_{i=1}^N \lambda_i y_i w^\top x_i
 \end{aligned}\]
 
-<p>简化后的目标函数对 $w$ 求偏导令其为零，有</p>
+<p>简化后的<strong>目标函数对 $w$ 求偏导令其为零</strong>，得到最优参数 $w^\star$ 的形式</p>
 
 \[\frac{\partial L}{\partial w} = w - \sum_{i=1}^N \lambda_i y_i x_i = 0\Rightarrow w= \sum_{i=1}^N \lambda_i y_i x_i\]
 
-<p>再次代入目标函数有</p>
+<p>将其代入目标函数进行进一步化简，有</p>
 
 \[\begin{aligned}
 L(w,b,\lambda) =&amp; \frac{1}{2}(\sum_{i=1}^N\lambda_i y_i x_i)^\top (\sum_{i=j}^N\lambda_j y_j x_j)+ \sum_{i=1}^N \lambda_i\\
@@ -1680,22 +1684,7 @@ L(w,b,\lambda) =&amp; \frac{1}{2}(\sum_{i=1}^N\lambda_i y_i x_i)^\top (\sum_{i=j
 =&amp; -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_i^\top x_j + \sum_{i=1}^N \lambda_i
 \end{aligned}\]
 
-<p>最后得到 <strong>SVM 的对偶问题</strong></p>
-
-\[\begin{aligned}
-\max_\lambda &amp;\quad -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_i^\top x_j + \sum_{i=1}^N \lambda_i\\
-s.t. &amp;\quad \lambda_i \geq 0,\;\sum_{i=1}^N\lambda_i y_i = 0,\; \forall i=1,2,\cdots,N
-\end{aligned}\]
-
-<p>这个问题的最优解我们前面已经求出了一部分，即</p>
-
-\[w^\star = \sum_{i=1}^N \lambda_i y_i x_i\]
-
-<blockquote>
-  <p>可以看出，$w^\star$ 是样本 $x_i\in X$ 的线性组合</p>
-</blockquote>
-
-<p>根据 KKT 条件中的互补松弛条件</p>
+<p>下面继续确定最优参数 $b^\star$ 的形式。根据 KKT 条件中的互补松弛条件、对偶可行条件、原始可行条件进行分析</p>
 
 \[\begin{aligned}
 \lambda_i(1-y_i(w^\top x_i+b))=0\\
@@ -1707,32 +1696,103 @@ s.t. &amp;\quad \lambda_i \geq 0,\;\sum_{i=1}^N\lambda_i y_i = 0,\; \forall i=1,
 
 <ul>
   <li>
-    <p>第一种情况，肯定存在某些样本点 $(x_k, y_k)$ 使得 $y_i(w^\top x + b) = 1$，此时对 $\lambda_i$ 没有额外约束，那么有</p>
+    <p>第一种情况，肯定存在某些样本点 $(x_k, y_k)$ 使得 $y_i(w^\top x + b) = 1$，这些样本点就是距离分类面最近的那些样本点，被称为 <strong>支持向量（Support Vector）</strong>。此时对 $\lambda_i$ 没有额外约束。对于任意一个支持向量，有</p>
 
 \[\begin{aligned}
 y_k(w^\top x_k + b) &amp;= 1\\
-y_k^2(w^\top x_k + b) &amp;= y_k\\
-(y_k^2 = 1)\Rightarrow b^\star &amp;= y_k-w^\top x_k\\
-&amp;= y_k-(\sum_{i=1}^N \lambda_i y_i x_i)^\top x_k\\
-&amp;= y_k-\sum_{i=1}^N \lambda_i y_i x_i^\top x_k\\
+y_k^2(w^\top x_k + b) &amp;= y_k
 \end{aligned}\]
 
-    <blockquote>
-      <p>使得 $y_i(w^\top x + b) = 1$ 成立的样本点就是距离分类面最近的那些样本点，被称为 <strong>支撑向量（Support Vector）</strong>。</p>
-    </blockquote>
+    <p>考虑到 $y_k^2 = 1$，则可以得到最优参数 $b^\star$ 的形式</p>
+
+\[b^\star = y_k-w^\top x_k= y_k-\sum_{i=1}^N \lambda_i y_i x_i^\top x_k\]
   </li>
   <li>
-    <p>第二种情况，其他样本距离分类面更远，因此 $y_i(w^\top x + b) &gt; 1$，那么第一条等式的充要条件必须要求$\lambda_i = 0$。也就是说，只有当样本是支撑向量时对应的 $\lambda_i \neq 0$，否则 $\lambda = 0$。这将极大简化最优解中 $w^\star$ 的形式。</p>
+    <p>第二种情况，其他样本距离分类面更远，因此 $y_i(w^\top x + b) &gt; 1$，那么第一条等式的充要条件必须要求$\lambda_i = 0$。也就是说，只有当样本是支撑向量时对应的 $\lambda_i \neq 0$，否则 $\lambda = 0$。这将极大简化 $w^\star,b^\star$ 的计算。</p>
   </li>
 </ul>
 
-<p>至此，我们可以得到 <strong>SVM 的判别函数</strong></p>
+<p>至此，我们已经确定了内层优化 $\min_{w,b}$ 的最优解，剩余的优化问题如下</p>
+
+\[\begin{aligned}
+\max_\lambda &amp;\quad -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j x_i^\top x_j + \sum_{i=1}^N \lambda_i\\
+s.t. &amp;\quad \lambda_i \geq 0,\;\sum_{i=1}^N\lambda_i y_i = 0,\; \forall i=1,2,\cdots,N
+\end{aligned}\]
+
+<p>这个问题是针对拉格朗日乘子 $\lambda$ 进行优化，我们需要求一个 $N$ 元函数的受不等式约束的极值问题。当 $N$ 很大的时候，这个问题就很难求解。我们需要借助 <strong>序列最小化算法（Sequential Minimal Optimization，SMO）</strong>，将问题简化为，每次只变动两个参数，记作 $\alpha_i,\alpha_j$，与此同时固定其余所有的参数，问题就能转变为一个一元二次函数求极值问题，最终可以求解得到所有的 $\lambda_i$，具体求解略。</p>
+
+<blockquote>
+  <p>之所以选择变动两个参数，是因为我们有限制条件</p>
+
+\[\sum_{i=1}^N\lambda_i y_i = 0\]
+
+  <p>如果仅变动一个参数，那么这个参数实际上可以由其他参数唯一确定。</p>
+
+  <p>关于 SMO 算法的详细讨论，可以参考：https://zhuanlan.zhihu.com/p/367578887</p>
+</blockquote>
+
+<p>最后将优化问题的解列写如下</p>
+
+\[\begin{aligned}
+w^\star &amp;= \sum_{i=1}^N \lambda_i y_i x_i\\
+b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i x_i^\top x_k
+\end{aligned}\]
+
+<p>得到 <strong>SVM 的判别函数</strong> 如下</p>
 
 \[f(x) = \text{sign}({w^\star}^\top x + b^\star)\]
 
-<p>并且知道函数的法线方向 $w^\star$ 是<strong>支撑向量</strong> $x_i\in X_s$ 的线性组合。</p>
+<p>并且知道 $w^\star,b^\star$ 仅是 <strong>支持向量</strong> 的线性组合（因为 $\lambda_i$ 已只有在样本为支持向量时才不为零）。所以 SVM 训练完成后，大部分的训练样本都不需要保留，最终的分类模型仅与支持向量有关。</p>
 
 <h4 id="313-软间隔-svm-优化问题"><span class="me-2">3.1.3. 软间隔 SVM 优化问题</span><a href="#313-软间隔-svm-优化问题" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>前面一直假定训练样本在样本空间或特征空间线性可分，即存在一个超平面将不同类的样本完全划分开。但现实中，很难确定使得训练样本在特征空间中线性可分。缓解该问题的办法是允许支持向量机出错。其优化问题如下</p>
+
+\[\begin{aligned}
+\min_{\boldsymbol{w},b} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w} + \text{loss}\\
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq 1, \;\forall i=1,2,\cdots,N
+\end{aligned}\]
+
+<p>$\text{loss}$ 选取可以有以下几种形式，第一种是引入 $0/1$ 计数函数作为惩罚项，每当有一个样本不满足约束则计数加 $1$，最后寻找参数 $(w,b)$ 使得包含计数的损失函数最小</p>
+
+\[\begin{aligned}
+  \text{loss} &amp;= \sum_{i=1}^N \text{I}\{1-y_i(\boldsymbol{w}^\top x_i+b),0\}, \;\forall i=1,2,\cdots,N\\
+  \text{where I} &amp;= \begin{cases}
+    0,\;\text{if}\;1-y_i(\boldsymbol{w}^\top x_i+b) \leq 0 \\
+    1,\;\text{if}\;1-y_i(\boldsymbol{w}^\top x_i+b) &gt; 0 \;\text{违背约束}
+  \end{cases}
+\end{aligned}\]
+
+<p>但该项对参数 $w$ 不连续，不便于优化计算。</p>
+
+<p>第二种是引入距离作为惩罚项，该连续函数被称为 <strong>hinge loss</strong>，同时引入 $C$ 作为正则参数</p>
+
+\[\text{loss} = C\sum_{i=1}^N\max\{ 0, 1-y_i(\boldsymbol{w}^\top x_i+b) \}\]
+
+<p>注意到 hinge loss 包含了 $\max$ 操作。更进一步，令 $\xi_i$ 为第 $i$ 个样本点到约束面的距离，并且要求 $\xi_i \geq 0$，那么有</p>
+
+\[\xi_i =  1-y_i(\boldsymbol{w}^\top x_i+b)\]
+
+<p>此时惩罚项可以移除 $\max$ 写成</p>
+
+\[\text{loss} = C\sum_{i=1}^N\xi_i\]
+
+<p>注意到，</p>
+
+<ul>
+  <li>当 $\xi_i = 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top x_i+b) \geq 1$；</li>
+  <li>当 $\xi_i &gt; 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top x_i+b) = 1 - \xi_i$；</li>
+</ul>
+
+<p>将二者写成统一的表达式，则优化问题可以写成如下的 <strong>软间隔 SVM 优化问题</strong></p>
+
+\[\begin{aligned}
+\min_{\boldsymbol{w},b} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w} \textcolor{red}{+ C\sum_{i=1}^N\xi_i}\\
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq \textcolor{red}{1-\xi_i}\\
+&amp;\quad \xi_i \geq 0,\; \forall i=1,2,\cdots,N
+\end{aligned}\]
+
+<p>后续求解与硬间隔 SVM 的优化问题一致，将其转为对偶问题然后利用 KKT 条件和 SMO 算法求解，此处不在赘述。</p>
 
 <h3 id="32-非线性支持向量机"><span class="me-2">3.2. 非线性支持向量机</span><a href="#32-非线性支持向量机" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1748,9 +1808,9 @@ y_k^2(w^\top x_k + b) &amp;= y_k\\
 
 <p>[2] T. M. Cover and P. E. Hart. Nearest neighbor pattern classification. IEEE Transactions on Information Theory, 13:21–27, January 1967.</p>
 
-<p>[3] <a href="https://zhuanlan.zhihu.com/p/335017540">知乎. 机器学习-白板推导系列(六)-支持向量机SVM（Support Vector Machine）笔记</a>.</p>
+<p>[3] <a href="https://www.bilibili.com/video/BV1Hs411w7ci/">blilbili. SVM白板推导(六)-支持向量机SVM（Support Vector Machine）</a>.</p>
 
-<p>[4] <a href="https://www.bilibili.com/video/BV1Hs411w7ci?p=2">blilbili. SVM白板推导</a>.</p>
+<p>[4] <a href="https://zhuanlan.zhihu.com/p/335017540">知乎. 机器学习-白板推导系列(六)-支持向量机SVM（Support Vector Machine）笔记</a>.</p>
 
 </div>
 
