@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-04-01T23:44:37+08:00</updated>
+  <updated>2025-04-02T11:32:06+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" rel="alternate" type="text/html" title="模式识别（非线性分类器）" />
     <published>2025-03-30T21:34:19+08:00</published>
   
-    <updated>2025-04-01T23:38:44+08:00</updated>
+    <updated>2025-04-02T11:31:24+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" />

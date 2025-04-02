@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="模式识别（非线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-01T23:38:44+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-02T11:31:24+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"本文介绍了模式识别的非线性分类器，主要包括近邻法分类器、支持向量机（SVM）、决策树，最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -833,6 +833,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1120,13 +1256,13 @@
 
 <em
   class=""
-  data-ts="1743521924"
+  data-ts="1743564684"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/01
+  2025/04/02
 </em>
 
     </span>
@@ -1170,9 +1306,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7484 字"
+  title="7763 字"
 >
-  <em>41 分钟</em>阅读</span>
+  <em>43 分钟</em>阅读</span>
 
     </div>
 
@@ -1487,7 +1623,7 @@ P(w_m\vert x) - \sum_{i=1}^c P(w_i\vert x)^2 &amp;= P(w_m\vert x) -P(w_m\vert x)
   \boldsymbol{w}^\top x_i + b &lt; 0, y= -1
 \end{cases}\]
 
-<p>合并为简单形式，有</p>
+<p>合并为简单形式，则线性可分的条件为</p>
 
 \[y_i(\boldsymbol{w}x_i+b) \geq 0, \forall i=1,2,\cdots,N\]
 
@@ -1570,7 +1706,9 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq 1, \forall i=1,2,\cdots,N
 
 <p>上述优化问题是一个包含 $N$ 个不等式约束的二次凸优化问题。</p>
 
-<p>对于线性可分的样本，均能够满足该约束，也即所有样本都可以位于间隔的两侧，不存在错分的情况。因此上述问题求解得到的分类器又被称为 <strong>硬间隔 SVM</strong>。</p>
+<p>对于线性可分的样本，所有样本一定能够满足上面的不等式约束，也即所有样本都可以位于间隔的两侧，不存在错分的情况，所以上述优化问题一定有解。我们称上述优化问题为 <strong>硬间隔 SVM 优化问题</strong>。对应的图示如下</p>
+
+<p><a href="/assets/img/postsimg/20250330/hard-margin-svm.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250330/hard-margin-svm.jpg" alt="hard-margin-svm" class="lazyload" data-proofer-ignore></a></p>
 
 <h4 id="312-svm-优化对偶问题"><span class="me-2">3.1.2. SVM 优化对偶问题</span><a href="#312-svm-优化对偶问题" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1763,34 +1901,34 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq 1, \;\forall i=1,2,\cdots,N
   \end{cases}
 \end{aligned}\]
 
-<p>但该项对参数 $w$ 不连续，不便于优化计算。</p>
-
-<p>第二种是引入距离作为惩罚项，该连续函数被称为 <strong>hinge loss</strong>，同时引入 $C$ 作为正则参数</p>
+<p>但 $0/1$ 计数函数对参数 $w$ 而言是不连续的，不便于优化计算，所以我们一般不采用上述方法。我们希望能找到一个连续函数来刻画出错的情况。一种可选的函数称为 <strong>hinge loss</strong>，同时引入 $C$ 作为惩罚参数</p>
 
 \[\text{loss} = C\sum_{i=1}^N\max\{ 0, 1-y_i(\boldsymbol{w}^\top x_i+b) \}\]
 
-<p>注意到 hinge loss 包含了 $\max$ 操作。更进一步，令 $\xi_i$ 为第 $i$ 个样本点到约束面的距离，并且要求 $\xi_i \geq 0$，那么有</p>
+<p>可以看出，hinge loss 在约束满足时取值为0，在约束不满足时取值即为约束的正值，两个区间的边界处的函数值是连续的。引入这个惩罚项后，假设有样本不满足约束，我们通过优化带上述惩罚项的目标函数，也希望尽可能使得不满足约束的样本带来的影响（对约束的违背程度）尽可能小。</p>
 
-\[\xi_i =  1-y_i(\boldsymbol{w}^\top x_i+b)\]
+<p>虽然函数取值已经连续了，但由于存在 $\max$ 算符，在实际使用时仍然不太方便。这里把 hinge loss 单独定义为一个变量 $\xi_i$，并且要求 $\xi_i \geq 0$，即</p>
 
-<p>此时惩罚项可以移除 $\max$ 写成</p>
+\[\xi_i =  \max\{0,1-y_i(\boldsymbol{w}^\top x_i+b)\}\]
 
-\[\text{loss} = C\sum_{i=1}^N\xi_i\]
-
-<p>注意到，</p>
+<p>可进行如下讨论</p>
 
 <ul>
   <li>当 $\xi_i = 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top x_i+b) \geq 1$；</li>
   <li>当 $\xi_i &gt; 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top x_i+b) = 1 - \xi_i$；</li>
 </ul>
 
-<p>将二者写成统一的表达式，则优化问题可以写成如下的 <strong>软间隔 SVM 优化问题</strong></p>
+<p>因此惩罚项可以移除 $\max$ 写成统一的形式，约束不等式也可以写为统一的形式。则优化问题可以写成如下的 <strong>软间隔 SVM 优化问题</strong></p>
 
 \[\begin{aligned}
 \min_{\boldsymbol{w},b} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w} \textcolor{red}{+ C\sum_{i=1}^N\xi_i}\\
 s.t. &amp;\quad  y_i(\boldsymbol{w}^\top x_i+b) \geq \textcolor{red}{1-\xi_i}\\
 &amp;\quad \xi_i \geq 0,\; \forall i=1,2,\cdots,N
 \end{aligned}\]
+
+<p>其中 $\xi_i$ 又称为<strong>松弛变量</strong>，引入松弛变量相当于我们放宽了对样本点的约束，原本要求其必须在硬间隔之外，现在只要都保证在软间隔之外即可，如图所示</p>
+
+<p><a href="/assets/img/postsimg/20250330/soft-margin-svm.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250330/soft-margin-svm.jpg" alt="s oft-margin-svm" class="lazyload" data-proofer-ignore></a></p>
 
 <p>后续求解与硬间隔 SVM 的优化问题一致，将其转为对偶问题然后利用 KKT 条件和 SMO 算法求解，此处不在赘述。</p>
 
