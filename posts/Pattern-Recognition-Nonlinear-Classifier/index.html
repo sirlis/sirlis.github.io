@@ -2676,7 +2676,7 @@ RBF(\boldsymbol{x}_i, \boldsymbol{x}_j) &amp;= \exp\left(-\frac{\Vert \boldsymbo
 \[RBF(\boldsymbol{x}_i,\boldsymbol{x}_j) = C\cdot\sum_{n=0}^{\infty}\frac{1}{n!}\left(\boldsymbol{x}_i^\top\boldsymbol{x}_j\right)^n = C\cdot\sum_{n=0}^{\infty}\frac{1}{n!}\left(\mathcal{K}_{poly}^{(0,n)}\right)\]
 
 <blockquote>
-\[exp(x) = \sum_{n=0}^{\infty}\frac{1}{n!}x^n\]
+\[\exp(x) = \sum_{n=0}^{\infty}\frac{1}{n!}x^n\]
 </blockquote>
 
 <p>因此，<u>RBF 核函数可以看作无数个不带常数 $c$ 的多项式核函数从低次到高次的加权和</u>，<strong>可以表达高低次项的无限多样性</strong>。这样，我们就实现了在不实质踏入无限维度的情况下，得到无限维度下向量相似度的结果。</p>
