@@ -39,8 +39,8 @@
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（非线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。" />
-<meta property="og:description" content="很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。" />
+<meta name="description" content="很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。" />
+<meta property="og:description" content="很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" />
 <meta property="og:site_name" content="SIRLIS" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-02T21:23:17+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T17:26:51+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1427,6 +1427,54 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1443,6 +1491,78 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1671,13 +1791,13 @@
 
 <em
   class=""
-  data-ts="1743600197"
+  data-ts="1743672411"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/02
+  2025/04/03
 </em>
 
     </span>
@@ -1721,9 +1841,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10847 字"
+  title="13587 字"
 >
-  <em>60 分钟</em>阅读</span>
+  <em>75 分钟</em>阅读</span>
 
     </div>
 
@@ -1732,7 +1852,7 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。</p>
+  <p>很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。</p>
 
 <!--more-->
 
@@ -1782,7 +1902,29 @@
       </li>
     </ul>
   </li>
-  <li><a href="#4-决策树dt">4. 决策树（DT）</a></li>
+  <li><a href="#4-决策树dt">4. 决策树（DT）</a>
+    <ul>
+      <li><a href="#41-id3-算法">4.1. ID3 算法</a>
+        <ul>
+          <li><a href="#411-信息熵">4.1.1. 信息熵</a></li>
+          <li><a href="#412-条件熵">4.1.2. 条件熵</a></li>
+          <li><a href="#413-信息增益">4.1.3. 信息增益</a></li>
+        </ul>
+      </li>
+      <li><a href="#42-c45-算法">4.2. C4.5 算法</a>
+        <ul>
+          <li><a href="#421-信息增益的局限">4.2.1. 信息增益的局限</a></li>
+          <li><a href="#422-信息增益比增益率">4.2.2. 信息增益比（增益率）</a></li>
+        </ul>
+      </li>
+      <li><a href="#43-cart-算法">4.3. CART 算法</a>
+        <ul>
+          <li><a href="#431-基尼指数">4.3.1. 基尼指数</a></li>
+        </ul>
+      </li>
+      <li><a href="#432-算法区别">4.3.2. 算法区别</a></li>
+    </ul>
+  </li>
   <li><a href="#5-分类器集成">5. 分类器集成</a></li>
   <li><a href="#6-参考文献">6. 参考文献</a></li>
 </ul>
@@ -2684,6 +2826,343 @@ RBF(\boldsymbol{x}_i, \boldsymbol{x}_j) &amp;= \exp\left(-\frac{\Vert \boldsymbo
 <p>RBF 核函数是最常用的非线性核函数之一，尤其适用于高维、复杂非线性数据。其参数 $\gamma = \frac{1}{2\sigma^2}$ 决定了核函数的宽度，对模型的复杂度和分类效果有显著影响。RBF核因其局部性、平滑性和无限维映射等特性，常能在保持较低模型复杂度的同时获得良好的分类性能。</p>
 
 <h2 id="4-决策树dt"><span class="me-2">4. 决策树（DT）</span><a href="#4-决策树dt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>‌决策树（Decision Tree）‌是一种用于分类和回归的监督学习方法。它通过构建树形结构来模拟决策过程，每个内部节点表示一个特征属性上的选择，每个分支代表一个选择结果，每个叶子节点代表一个类别或预测结果。决策树通过递归地划分数据集，将数据集分割成更小的子集，直到满足停止条件为止‌。</p>
+
+<p>二叉树是最简单的决策树模型，每个非终止节点上采用线性分类器进行决策，每个非终止节点有两个分支，故称为二叉树。二叉树将多峰问题或多类问题转换为多级的线性问题。</p>
+
+<h3 id="41-id3-算法"><span class="me-2">4.1. ID3 算法</span><a href="#41-id3-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>构建决策树的一般步骤如下：</p>
+
+<ul>
+  <li>特征选择：从众多的特征中选择（属性）一个特征作为当前节点分裂的标准；</li>
+  <li>决策树生成：根据选择的特征评估标准，从上至下递归地生成子节点，直到数据集不可分则停止决策树生长；</li>
+  <li>剪枝：缩小树结构规模、缓解过拟合。</li>
+</ul>
+
+<p>随之而来的第一个问题是，如何从众多特征中选择一个特征作为当前节点分裂的标准呢？这里介绍 ID3（Interactive Dichotomizer-3）算法，其采用信息熵和信息增益来衡量不同特征的优先级。对于信息增益大的特征，优先选择该特征作为当前节点分裂的标准。</p>
+
+<p>以下表为例，根据苹果颜色特征和形状特征来对苹果甜不甜进行分类，假设数据如下：</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th style="text-align: center">苹果编号</th>
+      <th style="text-align: center">红不红H</th>
+      <th style="text-align: center">圆不圆Y</th>
+      <th style="text-align: center">甜不甜T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h4 id="411-信息熵"><span class="me-2">4.1.1. 信息熵</span><a href="#411-信息熵" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在信息论中，<strong>熵（entropy）</strong> 是随机变量不确定性的度量，熵越大，则随机变量的不确定性越大。信息熵是度量样本集合纯度最常用的一种指标。</p>
+
+<p>设 $X$ 是一个取有限个值的离散随机变量，其概率分布为</p>
+
+\[P(X=x_i) = p_i,\;i=1,2,\ldots,n\]
+
+<p>则随机变量 $X$ 的熵定义为</p>
+
+\[H(X) = -\sum_{i=1}^n p_i\log_2 p_i\]
+
+<p>且约定 $0\log_2 0 = 0$。信息熵反映了信息的纯度，信息熵越大表明信息的纯度越低（越杂乱），包含的不同类别越多。纯度越高表明同一类别的样本占比越高。</p>
+
+<p>当熵中的概率由数据估计得到时，所对应的熵称为经验熵(empirical entropy)。</p>
+
+<p>对于苹果分类的例子，我们首先计算该数据的经验熵为：</p>
+
+\[\begin{aligned}
+H(T) &amp;= -\sum_{i=0}^1 p_i\log_2 p_i\\ 
+&amp;=- P(T=1)\log_2 P(T=1)-P(T=0)\log_2 P(T=0)\\
+&amp;= -\frac{2}{5}\log_2 \frac{2}{5} -\frac{3}{5}\log_2 \frac{3}{5}\approx 0.971\; \text{bit}
+\end{aligned}\]
+
+<h4 id="412-条件熵"><span class="me-2">4.1.2. 条件熵</span><a href="#412-条件熵" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>随机变量 $X$ 给定的条件下，随机变量 $Y$ 的条件熵（conditional entropy）定义为：$X$ 给定的条件下 $Y$ 的条件概率分布的信息熵对 $X$ 的数学期望：</p>
+
+\[H(Y\vert X) = \sum_{i=1}^n p_i H(Y\vert X=x_i)\]
+
+<p>类似地，当条件熵中的概率由数据估计（特别是极大似然估计）得到时，称为经验条件熵。</p>
+
+<p>给定苹果 “红不红” 的条件，有</p>
+
+<ul>
+  <li>若为红苹果</li>
+</ul>
+
+\[\begin{aligned}
+H(T\vert H=1)&amp;= -\sum_{i=0}^1 P(T=i\vert H=1) \log_2 P(T=i\vert H=1)\\
+&amp;=-(\frac{2}{3}\log_2 \frac{2}{3} + \frac{1}{3}\log_2 \frac{1}{3})\approx 0.918\; \text{bit}
+\end{aligned}\]
+
+<ul>
+  <li>若为不红苹果</li>
+</ul>
+
+\[\begin{aligned}
+  H(T\vert H=0) &amp;= -\sum_{i=0}^1 P(T=i\vert H=0) \log_2 P(T=i\vert H=0)\\
+  &amp;=-(\frac{0}{2}\log_2 \frac{0}{2} + \frac{2}{2}\log_2 \frac{2}{2})=0\; \text{bit}
+\end{aligned}\]
+
+<p>则条件熵为：</p>
+
+\[\begin{aligned}
+H(T\vert H) &amp;= P(H=1)H(T\vert H=1) + P(H=0)H(T\vert H=0)\\
+&amp;=\frac{3}{5}\cdot 0.918 + \frac{2}{5}\cdot 0 =0.551\; \text{bit}
+\end{aligned}\]
+
+<p>类似给定苹果 “圆不圆” 的条件，有</p>
+
+<ul>
+  <li>圆苹果条件下的条件熵为：</li>
+</ul>
+
+\[\begin{aligned}
+&amp;H(T\vert Y=1) = -\sum_{i=0}^{1}P(T=i\vert Y=1)\log_2 P(T=i\vert Y=1)\\
+&amp;=-\left(\frac{2}{4}\log_2 \frac{2}{4} + \frac{2}{4}\log_2 \frac{2}{4}\right)=1\; \text{bit}
+\end{aligned}\]
+
+<ul>
+  <li>不圆苹果条件下的条件熵为：</li>
+</ul>
+
+\[\begin{aligned}
+H(T\vert Y=0) &amp;= -\sum_{i=0}^{1}P(T=i\vert Y=0)\log_2 P(T=i\vert Y=0)\\
+&amp;=-\left(\frac{1}{1}\log_2 \frac{1}{1} + \frac{0}{1}\log_2 \frac{1}{0}\right)=0\; \text{bit}
+\end{aligned}\]
+
+<p>则条件熵为：</p>
+
+\[\begin{aligned}
+H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
+&amp;= \frac{4}{5}\cdot 1 + \frac{1}{5}\cdot 0 = 0.8\; \text{bit}
+\end{aligned}\]
+
+<h4 id="413-信息增益"><span class="me-2">4.1.3. 信息增益</span><a href="#413-信息增益" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>计算出原始样本的经验熵，以及给定不同特征的经验条件熵，那么衡量特征的优先级，就可以使用信息增益来判断。信息增益（Information Gain，IG）为在已知某个特征的情况下，对总体的信息（不确定性）减少程度。计算公式为</p>
+
+\[\text{IG}(Y,X) = H(Y) - H(Y|X)\]
+
+<p>给定上述苹果数据集后，我们分别计算不同特征的信息增益，可以得到如下结果：</p>
+
+\[\begin{aligned}
+\text{IG}(T,H) &amp;= H(T) - H(T|H) = 0.971 - 0.551 = 0.420 \; \text{bit}\\
+\text{IG}(T,Y) &amp;= H(T) - H(T|Y) = 0.971 - 0.800 = 0.171\; \text{bit}\\
+\end{aligned}\]
+
+<p>可以看出 “红不红”（H）这个特征的信息增益比较大，意味着按照该特征进行划分能够更好的降低信息的不确定性，提高信息的纯度，有利于分类。所以应该首先选 “红不红” 这个特征来进行划分，因此构建决策树如下：</p>
+
+<pre><code class="language-mermaid">graph LR
+    A[红不红] --不红--&gt; D[不甜]
+    A[红不红] --红--&gt; B[圆不圆]
+    B[圆不圆] --不圆--&gt; C[不甜]
+    B[圆不圆] --圆--&gt; E[甜]
+</code></pre>
+
+<p>信息增益又被称为互信息（mutual information），等价于训练数据集中类别与特征的互信息。</p>
+
+<h3 id="42-c45-算法"><span class="me-2">4.2. C4.5 算法</span><a href="#42-c45-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="421-信息增益的局限"><span class="me-2">4.2.1. 信息增益的局限</span><a href="#421-信息增益的局限" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>ID3 算法有个缺点，当某个特征的取值非常多时，对该特征计算条件熵几乎为0，带来的信息增益几乎等于原始数据本身的信息熵，此时因为其信息增益最大，ID3 算法会使用该特征进行决策树划分，这种情况下会造成过拟合。</p>
+
+<p>比如，对上述苹果数据集进行扩充，引入价格特征如下：</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th style="text-align: center">苹果编号</th>
+      <th style="text-align: center"><font color="red">价格P</font></th>
+      <th style="text-align: center">红不红H</th>
+      <th style="text-align: center">圆不圆Y</th>
+      <th style="text-align: center">甜不甜T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">5.7</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">6.5</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">5.1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">5.2</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">6.0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>每一个价格唯一对应一个样本，因此每组仅含有1个样本，纯度为100%。对价格计算条件熵为</p>
+
+\[H(T \vert P=5.7) = H(T \vert P=6.5) = \cdots = 0\;\text{bit}\]
+
+\[H(T\vert P) = -\sum_{i=1}^5 P_i\log_2 H(T\vert P_i) = -\sum_{i=1}^5 \frac{1}{5}\cdot 0 = 0\;\text{bit}\]
+
+<p>信息增益为</p>
+
+\[\text{IG}(T,P) = H(T) - H(T\vert P) = 0.971 - 0 = 0.971\;\text{bit}\]
+
+<p>则价格特征的信息增益最大，应该按照该特征进行划分。因此我们需要对 ID3 算法进行改进。</p>
+
+<h4 id="422-信息增益比增益率"><span class="me-2">4.2.2. 信息增益比（增益率）</span><a href="#422-信息增益比增益率" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>采用信息增益比来代替信息增益进行特征选择，该方法称为 C4.5 算法。特征 $X$ 对训练数据集 $D$ 的信息增益比定义为：信息增益与特征 $X$ 对数据集划分的信息熵 之比，即</p>
+
+\[\text{Gain Ratio} = \frac{\text{IG}(D,X)}{H_X(D)} = \frac{\text{IG}(D,X)}{\text{SplitInfo}(X)}\]
+
+<p>特征 $X$ 对数据集划分的信息熵 又称为 分裂信息（Split Information），其衡量该特征的分布均匀程度。其定义为</p>
+
+\[\text{SplitInfo}(X) = -\sum_{i=1}^n \frac{D_i}{D} \log_2 \frac{D_i}{D}\]
+
+<p>其中 $n$ 为特征 $X$ 的不同取值个数，$D_i$ 表示特征 $X$ 的第 $i$ 个取值对应的数据集的个数，$D$ 表示训练数据集 $D$ 的个数。</p>
+
+<p>对上述苹果数据集，三个特征的分裂信息为：</p>
+
+\[\begin{aligned}
+  \text{SplitInfo}(H) &amp;= - \sum_{i=0}^1 P(H=i) \log_2 P(H=i) \approx 0.971\; \text{bit} \\
+  \text{SplitInfo}(Y) &amp;= - \sum_{i=0}^1 P(Y=i) \log_2 PY=i) \approx 0.722\; \text{bit}\\
+  \text{SplitInfo}(P) &amp;= - \sum_{i=\textcolor{red}{1}}^{\textcolor{red}{5}} P(P=i) \log_2 P(P=i) \approx 2.321\; \text{bit}
+\end{aligned}\]
+
+<p>则三个特征的信息增益比为：</p>
+
+\[\begin{aligned}
+  \text{Gain Ratio}(T,H) &amp;= \frac{0.420}{0.971} = 0.433 \;\text{bit}\\
+  \text{Gain Ratio}(T,Y) &amp;= \frac{0.171}{0.722} = 0.237 \;\text{bit}\\
+  \text{Gain Ratio}(T,P) &amp;= \frac{0.971}{2.321} = 0.418 \;\text{bit}
+\end{aligned}\]
+
+<p>可以发现，“红不红” 特征的信息增益比最大。因此 4.5 算法可以有效客服高基数特征（取值多的特征）带来的影响。</p>
+
+<h3 id="43-cart-算法"><span class="me-2">4.3. CART 算法</span><a href="#43-cart-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="431-基尼指数"><span class="me-2">4.3.1. 基尼指数</span><a href="#431-基尼指数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>基尼指数是决策树（如CART算法）中用于衡量数据不纯度的指标，类似于信息熵（Entropy），但计算更高效（不用计算 $\log_2$）。</p>
+
+<p>假设数据集 $D$ 中的目标变量 $Y$ 有 $c$ 个类别，则基尼指数定义为：</p>
+
+\[\text{Gini}(D) = 1 - \sum_{i=1}^{c} p_i^2 = 1- \sum_{i=1}^{c} (\frac{D_i}{D})^2\]
+
+<p>对于特征 $X$，假设其有 $k$ 个取值，则特征 $X$ 条件（分裂）下的基尼指数定义为：</p>
+
+\[\text{Gini}_X(D) = \sum_{i=1}^k \frac{D_i}{D} \text{Gini}(D_i)\]
+
+<p>基尼指数反应数据集 $D$ 的不确定性，特征 $X$ 条件下（分裂后）的基尼指数反应了特征 $X$ 条件下（分裂后）数据集 $D$ 的不确定性。与信息增益类似，分裂前后的基尼指数的变化反映了特征的好坏，我们可以直接选择特征条件下基尼指数小的特征作为分裂特征。</p>
+
+<p>使用基尼系数作为决策树特征划分的指标的方法称为 CART 算法（Classification and Regression Trees）。</p>
+
+<h3 id="432-算法区别"><span class="me-2">4.3.2. 算法区别</span><a href="#432-算法区别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<ul>
+  <li><strong>CART 算法</strong>：
+    <ul>
+      <li>【树结构】：二叉树（严格二叉树，每个节点只有左右两个分支）；</li>
+      <li>【分裂规则】：
+        <ul>
+          <li>对分类问题：使用 基尼指数（Gini Index） 选择最优特征和分割点；</li>
+          <li>对回归问题：使用 均方误差（MSE）；</li>
+        </ul>
+      </li>
+      <li>【分裂方式】：
+        <ul>
+          <li>对于连续特征：通过阈值二分（如”红程度 ≥ 0.5”）；</li>
+          <li>对于类别特征：通过”是/否”二分（如”颜色=红色?”）。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>C4.5 算法</strong>：
+    <ul>
+      <li>【树结构】：多叉树（一个节点可以有多个子节点，取决于特征取值数量）；</li>
+      <li>【分裂规则】：使用信息增益比（Gain Ratio）；</li>
+      <li>【分裂方式】：直接按特征的所有可能取值划分（如“颜色$\in${红,黄,绿}”生成3个子节点）；</li>
+    </ul>
+  </li>
+  <li><strong>ID3 算法</strong>：
+    <ul>
+      <li>【树结构】：多叉树（类似C4.5，但无连续特征处理能力）；</li>
+      <li>【分裂规则】：使用信息增益（Information Gain）；</li>
+      <li>【局限性】：
+        <ul>
+          <li>只能处理离散特征，不能直接处理连续特征或缺失值；</li>
+          <li>对多值特征敏感（可能生成过深的树）。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>为什么CART必须是二叉树？</p>
+
+<ul>
+  <li>计算效率：二分法简化了特征选择和分割点搜索（尤其对连续特征）。</li>
+  <li>泛化能力：避免多值特征导致过拟合（如“用户ID”若多叉划分会完全拟合数据）。</li>
+  <li>统一性：回归和分类问题均可使用相同的二分框架。</li>
+</ul>
 
 <h2 id="5-分类器集成"><span class="me-2">5. 分类器集成</span><a href="#5-分类器集成" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
