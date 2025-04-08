@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-04-03T17:41:12+08:00</updated>
+  <updated>2025-04-08T19:46:28+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -20,11 +20,75 @@
 
   
   <entry>
+    <title>日常tips手册（Zotero文献管理）</title>
+    <link href="http://localhost:4000/posts/tips-zotero/" rel="alternate" type="text/html" title="日常tips手册（Zotero文献管理）" />
+    <published>2025-04-08T14:22:49+08:00</published>
+  
+    <updated>2025-04-08T14:22:49+08:00</updated>
+  
+    <id>http://localhost:4000/posts/tips-zotero/</id>
+    <content src="http://localhost:4000/posts/tips-zotero/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Diary" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。
+
+
+
+
+
+
+  1. 引言
+  2. 添加条目
+  3. 同步
+  4. 插件
+  5. 文献导出
+    
+      5.1. 英文 CSL 样式
+      5.2. 中文 CSL 样式
+      5.3. 导出格式
+    
+  
+
+
+1. 引言
+
+Zotero 是一款免费、易于使用的工具，可以帮助您收集、管理、阅读、批注、引用和共享文献。使用 Zotero 将使你的学术生产效率大增。
+
+其特点包括：
+
+
+  一键抓取文献，保存一切：当您浏览网页时，Zotero 会自动探测文献。
+  按你想要的方式管理文献：按照标签、作者、年份等，轻松管理文献。
+  用正确的样式引用文献：Zotero 可立即为任何文本编辑器创建引注和参考文献表，并内建对 Word、Latex/BibTeX 和 Google Docs 的支持。
+...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>模式识别（非线性分类器）</title>
     <link href="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" rel="alternate" type="text/html" title="模式识别（非线性分类器）" />
     <published>2025-03-30T21:34:19+08:00</published>
   
-    <updated>2025-04-03T17:26:51+08:00</updated>
+    <updated>2025-04-03T17:43:05+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/" />
@@ -265,74 +329,6 @@
     
       4.1. 举例说明
       4.2. 风险因...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>模式识别（线性分类器）</title>
-    <link href="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" rel="alternate" type="text/html" title="模式识别（线性分类器）" />
-    <published>2024-03-03T14:25:19+08:00</published>
-  
-    <updated>2025-03-10T11:44:04+08:00</updated>
-  
-    <id>http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/</id>
-    <content src="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。
-
-
-
-
-
-
-  1. 引言
-  2. 线性分类器基础
-    
-      2.1. 线性判别函数
-      2.2. 广义线性判别函数
-      2.3. 二分类与多分类
-      2.4. 线性分类器设计的基本思路
-    
-  
-  3. 垂直平分准则
-    
-      3.1. 设计思路
-      3.2. 最小距离等价决策
-      3.3. 特点总结
-    
-  
-  4. Fisher 投影准则
-    
-      4.1. 投影
-      4.2. Fisher 投影
-    
-  
-  5. 感知准则
-    
-      5.1. 线性可分性
-      5.2. 感知准...
     </summary>
   
 
