@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="强化学习（时序差分法）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（时序差分法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-29T18:17:21+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-09T00:13:33+08:00","datePublished":"2022-12-18T14:59:19+08:00","description":"本文首先引入了随机近似理论，然后通过比较动态规划和蒙特卡洛，引出结合二者优势的时序差分法。通过分析可知，时序差分法是随机近似理论的一个特例。随后详细介绍了同轨策略下的时序差分控制（SARSA）、离轨策略下的时序差分控制（Q-Learning）和期望SARSA。最后介绍了基于价值的深度强化学习方法：Deep Q-Network（DQN）。","headline":"强化学习（时序差分法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"},"url":"http://localhost:4000/posts/reinforcement-learning-Temporal-Differences/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1540,13 +1540,13 @@
 
 <em
   class=""
-  data-ts="1743243441"
+  data-ts="1744128813"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/03/29
+  2025/04/09
 </em>
 
     </span>
@@ -1590,9 +1590,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10312 字"
+  title="10510 字"
 >
-  <em>57 分钟</em>阅读</span>
+  <em>58 分钟</em>阅读</span>
 
     </div>
 
@@ -2250,20 +2250,22 @@ v_{k+1}(s) &amp;= v_k(s) - \alpha_k \tilde{g}(v_k(s),\eta_k)\\
   <li><strong>行为策略</strong></li>
 </ul>
 
-<p>经验获取过程需要进行两次动作采样，对于 SARSA 而言，两次动作采样时使用的策略是相同的。延续我们之前在 Monte Carlo 方法中讨论的结果，策略一般选取为 $\varepsilon$-greedy 策略，兼顾探索和利用。由于这个策略的第一次采样需要实际执行产生环境交互，因此称其为 <strong>行为策略</strong>。具体而言：</p>
+<p>经验获取过程需要进行两次动作采样，对于 SARSA 而言，两次动作采样时使用的策略是相同的。延续我们之前在 Monte Carlo 方法中讨论的结果，策略一般选取为 $\varepsilon$-greedy 策略，兼顾探索和利用。由于这个策略的第一次采样需要实际执行产生环境交互，因此称其为 「行为策略」。具体而言：</p>
 
 <ul>
-  <li>只在第一步策略采样后实际执行动作，即 $s_t\mathop{\longrightarrow}\limits^{\pi}a_t\mathop{\longrightarrow}\limits^{\text{model}}r_t,s_{t+1}$ 过程；</li>
-  <li>第二步策略采样只是为了能够得到具体的 $Q(S_{t+1},A_{t+1})$ 用于迭代式的求解，并不实际执行采样得到的 $A_{t+1}$。</li>
+  <li>第一步根据策略进行动作采样后实际执行动作，即 $s_t\mathop{\longrightarrow}\limits^{\pi}a_t\mathop{\longrightarrow}\limits^{\text{model}}r_t,s_{t+1}$ 过程；</li>
+  <li>第二步根据策略进行动作采样只是为了能够得到具体的 $Q(S_{t+1},A_{t+1})$ 用于迭代式的求解，并不实际执行采样得到的动作 $A_{t+1}$。</li>
 </ul>
 
-<p>上述迭代式仍然是一个策略评估过程，即在 <strong>给定策略 $\pi$ 的条件下，给出当前策略下 $q_\pi(s,a)$ 的估计</strong>。将其与特定的策略改进方法结合可以得到完整的 TD 形式的方法。</p>
+<p>所以严格来说，行为策略指的是第一次实际执行动作所采用的策略。</p>
+
+<p>上述迭代式仍然是一个<font color="red">策略评估</font>过程，即在 <strong>给定策略 $\pi$ 的条件下，给出状态-动作价值函数 $q_\pi(s,a)$ 的估计</strong>。将其与特定的策略改进方法结合可以得到完整的 TD 形式的方法。</p>
 
 <ul>
   <li><strong>目标策略</strong></li>
 </ul>
 
-<p>我们定义策略改进时被改进的策略叫 <strong>目标策略</strong>，那么对于 SARSA 而言，目标策略和行为策略是同一个策略。也就是说，SARSA 算法的自然流程表明，策略改进是针对前面的 $\varepsilon$-greedy 行为策略进行改进。</p>
+<p>我们定义策略改进时被改进的策略叫 「目标策略」，那么对于 SARSA 而言，目标策略和行为策略是同一个策略。也就是说，SARSA 算法的自然流程表明，<font color="red">策略改进</font>是针对前面的 $\varepsilon$-greedy 行为策略进行改进。</p>
 
 <blockquote>
   <p>有人可能会问，为什么目标策略和行为策略是相同的？能不同么？
@@ -2278,7 +2280,7 @@ v_{k+1}(s) &amp;= v_k(s) - \alpha_k \tilde{g}(v_k(s),\eta_k)\\
   <p>所以，并不是人们强行设定 SARSA 在策略改进时，必须针对 行为策略=目标策略 来改进，而是整个算法自然的流程导致的结果如此。</p>
 </blockquote>
 
-<p>总结如下：</p>
+<p>对 SARSA 算法的行为策略和目标策略总结如下：</p>
 
 <ul>
   <li>行为策略：
@@ -2405,22 +2407,34 @@ q(s,a) &amp;\leftarrow q(s,a)-\alpha[q(s,a)-(r+\gamma V(s^\prime))]\\
 
 <p>实际上，在下一时刻状态 $s^\prime$ 下，<u>明显存在一个理论更优的确定性策略</u>（也即贪婪策略）可供我们选择动作</p>
 
-\[a^*=\pi(s^\prime) = \arg\max_a\; q(s^\prime, a)\]
+\[a^\star=\pi(s^\prime) = \arg\max_a\; q(s^\prime, a)\]
 
-<p>此时我们不需要进行第二次动作采样，而是直接找到下一时刻状态下已知的最大 $q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $q(s,a)$。这种方法即为 <strong>Q-Learning</strong>。对应的策略评估迭代式如下</p>
+<p>此时我们不需要进行第二次动作采样，而是直接找到下一时刻状态下已知的最大 $q(s^\prime, a)$，就使用这个值对应的 $a$ 来更新 $q(s,a)$。这种方法即为 <strong>Q-Learning</strong>。对应的<font color="red">策略评估</font>迭代式如下</p>
 
-\[q(s,a) \leftarrow q(s,a)-\alpha\{q(s,a)-[r+\gamma \arg\max_a q(s^\prime,a)]\}\\\]
+\[q(s,a) \leftarrow q(s,a)-\alpha\{q(s,a)-[r+\gamma q(s^\prime,a^\star)]\}\]
 
-<p>经过上述操作，迭代式就不再是求关于某个策略 $\pi$ 的状态-动作价值函数值 $q_\pi(s,a)$，而是直接求 <strong>状态-动作价值函数的最优值 $q_\star(s,a)$ 的估计</strong>，直接对应全局最优策略（贪婪策略）。因此，Q-Learning 在策略改进时更新的 <strong>目标策略</strong> 自然就是 贪婪策略。</p>
+<p>当然我们也可以避免定义中间的 $a^\star$，直接使用 $\max_a q(s^\prime,a)$ 来简化策略评估迭代式</p>
 
-<p>注意到，上述内容只是围绕第二次动作采样展开的，并没有对第一次动作采样使用的 <strong>行为策略</strong> 做出任何约束，我们可以沿用 SARSA 的 $\varepsilon$-greedy 策略，也可以使用一些别的策略，如均匀随机采样策略，甚至直接使用人类决策来进行采样都可以。</p>
+\[q(s,a) \leftarrow q(s,a)-\alpha\{q(s,a)-[r+\gamma \max_a q(s^\prime,a)]\}\]
 
-<p>总结如下：</p>
+<p>经过上述操作，迭代式就不再是求关于某个策略 $\pi$ 的状态-动作价值函数值 $q_\pi(s,a)$，而是直接求 <strong><font color="green">最优</font>状态-动作价值函数 $q_\star(s,a)$ 的的估计</strong>，最终收敛后直接对应的贪婪策略就是最优策略。因此，Q-Learning 在<font color="red">策略改进</font>时更新的 「目标策略」 自然就是 贪婪策略。</p>
+
+<p>注意到，上述内容只是围绕第二次动作采样展开的，并没有对第一次动作采样使用的 「行为策略」 做出任何约束，我们可以沿用 SARSA 的 $\varepsilon$-greedy 策略，也可以使用一些别的策略，如均匀随机采样策略，甚至直接使用人类决策来进行采样都可以。</p>
+
+<p>为便于与 SARSA 算法对比，将 Q-Learning 的目标策略和行为策略总结如下：</p>
 
 <ul>
-  <li>行为策略（第一次动作采样）：$\varepsilon$-greedy 策略、uniform 策略、人类等；</li>
-  <li>第二次动作选取：greedy 策略</li>
-  <li>目标策略：greedy 策略</li>
+  <li>行为策略：
+    <ul>
+      <li>第一次动作采样： $\varepsilon$-greedy 策略、uniform 策略、人类等；</li>
+      <li>第二次动作选取： greedy 策略</li>
+    </ul>
+  </li>
+  <li>目标策略：
+    <ul>
+      <li>greedy 策略</li>
+    </ul>
+  </li>
 </ul>
 
 <p>Q-Learning 的伪代码如下：</p>
@@ -2467,9 +2481,7 @@ q(s,a) &amp;\leftarrow q(s,a)-\alpha[q(s,a)-(r+\gamma V(s^\prime))]\\
 
 <hr />
 
-<p>标红的部分即为 Q-Learning 与 SARSA 算法伪代码中的区别所在，这使得二者分属不同的时序差分方法，这将在下一节详细分析。</p>
-
-<p>注意到，Q-Learning 是 off-policy 方法，因此伪代码中 policy improvement 实际上是不必要的，其目标策略是贪婪策略，当 $q(s,a)$更新时自然会被更新，不需要进行额外的策略改进。</p>
+<p>标红的部分即为 Q-Learning 与 SARSA 算法伪代码中的区别所在。注意到，伪代码中 policy improvement 实际上是不用写出来的，因为其目标策略是贪婪策略，当 $q(s,a)$更新时自然会按照最大的 Q 值进行策略更新，不需要额外显式说明。</p>
 
 <h4 id="332-同策略与异策略"><span class="me-2">3.3.2. 同策略与异策略</span><a href="#332-同策略与异策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2482,7 +2494,40 @@ q(s,a) &amp;\leftarrow q(s,a)-\alpha[q(s,a)-(r+\gamma V(s^\prime))]\\
 
 <p>当行为策略和目标策略相同时，称其为 <strong>同策略（on-policy）时序差分方法</strong>，不论是和环境交互还是被持续改进，都是同一个策略。当行为策略和目标策略不同时，就称其为 <strong>异策略（off-policy）时序差分方法</strong>。</p>
 
-<p>按照上述定义，我们可以看出，SARSA 是一种同策略（on-policy）时序差分方法，因为其采样和更新的均为同一个策略（都是 $\varepsilon$-greedy 策略），而 Q-Learning 是一种异策略（off-policy）时序差分方法，因为其行为策略是 $\varepsilon$-greedy 策略，但更新的策略是 greedy（贪婪）策略，二者不同。</p>
+<p>为了便于比较，我们再次将 SARSA 和 Q-Learning 的策略列表对比如下：</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th style="text-align: center">SARSA</th>
+      <th style="text-align: center">Q-Learning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><font color="blue">行为策略</font></td>
+      <td style="text-align: center"><font color="blue">行为策略</font></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">第一次动作采样： $\varepsilon$-greedy 策略</td>
+      <td style="text-align: center">第一次动作采样： $\varepsilon$-greedy 策略、uniform 策略、人类等</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">第二次动作采样： $\varepsilon$-greedy 策略</td>
+      <td style="text-align: center">第二次动作采样： greedy 策略</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><font color="red">目标策略</font></td>
+      <td style="text-align: center"><font color="red">目标策略</font></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$\varepsilon$-greedy 策略</td>
+      <td style="text-align: center">greedy 策略</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>可以看出，SARSA 是一种同策略（on-policy）时序差分方法，因为其采样和更新的均为同一个策略（都是 $\varepsilon$-greedy 策略），而 Q-Learning 是一种异策略（off-policy）时序差分方法，因为其行为策略不是 greedy 策略，但更新的策略是 greedy（贪婪）策略，二者不同。</p>
 
 <p>使用 off-policy 的好处在于，我们可以使用与目标策略不同的更加激进更加具备探索性的行为策略来与环境交互获得经验。行为策略越激进，那么能够探索到的状态动作对就越多，相应价值函数更新的频次就更高，探索效率就自然更高。注意，<strong>在 off-policy中，只要求行为策略与目标策略不同。行为策略本身可以随意选取</strong>，比如当目标策略是贪婪策略时，行为策略可以是 $\varepsilon$-greedy 策略，也可以是均匀随机策略（探索性更强），甚至是人在回路决策策略。</p>
 
@@ -2718,6 +2763,20 @@ n\text{-step SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
@@ -2732,21 +2791,7 @@ n\text{-step SARSA:}\quad \text{BE:} \quad&amp;q_\pi(s,a) = \mathbb{E}[R_{t+1}+\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-markov-process/">强化学习（马尔可夫决策过程）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Monte-Carlo/">强化学习（蒙特卡洛法）</a>
         </li>
       
     </ul>
