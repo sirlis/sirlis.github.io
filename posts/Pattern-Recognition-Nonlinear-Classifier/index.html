@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.3.3" />
 <meta property="og:title" content="模式识别（非线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。" />
@@ -1241,6 +1241,74 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1499,6 +1567,30 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1515,6 +1607,42 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1901,9 +2029,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="16955 字"
+  title="19723 字"
 >
-  <em>94 分钟</em>阅读</span>
+  <em>109 分钟</em>阅读</span>
 
     </div>
 
@@ -1990,8 +2118,19 @@
   </li>
   <li><a href="#5-分类器集成">5. 分类器集成</a>
     <ul>
-      <li><a href="#51-bagging">5.1. Bagging</a></li>
-      <li><a href="#52-boosting">5.2. Boosting</a></li>
+      <li><a href="#51-bagging">5.1. Bagging</a>
+        <ul>
+          <li><a href="#511-随机森林">5.1.1. 随机森林</a></li>
+        </ul>
+      </li>
+      <li><a href="#52-boosting">5.2. Boosting</a>
+        <ul>
+          <li><a href="#521-adaboost">5.2.1. AdaBoost</a></li>
+          <li><a href="#522-加性模型与指数损失函数">5.2.2. 加性模型与指数损失函数</a></li>
+        </ul>
+      </li>
+      <li><a href="#53-集成表决策略">5.3. 集成表决策略</a></li>
+      <li><a href="#54-stacking">5.4. Stacking</a></li>
     </ul>
   </li>
   <li><a href="#6-参考文献">6. 参考文献</a></li>
@@ -3074,11 +3213,11 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 <p>可以看出 “红不红”（H）这个特征的信息增益比较大，意味着按照该特征进行划分能够更好的降低信息的不确定性，提高信息的纯度，有利于分类。所以应该首先选 “红不红” 这个特征来进行划分，因此构建决策树如下：</p>
 
-<pre><code class="language-mermaid">graph LR
-    A[红不红] --不红--&gt; D[不甜]
-    A[红不红] --红--&gt; B[圆不圆]
-    B[圆不圆] --不圆--&gt; C[不甜]
-    B[圆不圆] --圆--&gt; E[甜]
+<pre><code class="language-mermaid">flowchart TD;
+    A[红不红] --不红--&gt; D[不甜];
+    A[红不红] --红--&gt; B[圆不圆];
+    B[圆不圆] --不圆--&gt; C[不甜];
+    B[圆不圆] --圆--&gt; E[甜];
 </code></pre>
 
 <p>信息增益又被称为互信息（mutual information），等价于训练数据集中类别与特征的互信息。</p>
@@ -3375,6 +3514,22 @@ $，则分裂后的均方误差为：</p>
   <li>对于多个异构的特征集的时候，很难进行融合，那么可以考虑每个数据集构建一个分模型，然后将多个模型融合。</li>
 </ul>
 
+<p>关于多个弱分类器集成能提高分类效果降低错误率的分析如下：考虑一种简单的情况，对于一个二分类问题 $y\in{-1,+1}$，最简单直接的集成策略就是少数服从多数的投票，即对于 $T$（不妨设为奇数）个基分类器 $h_i(\boldsymbol{x}),\; i=1,\ldots,T$ 的投票结果为</p>
+
+\[H(\boldsymbol{x}) = \text{sign}\left[ \sum_{i=1}^T h_i(\boldsymbol{x}) \right]\]
+
+<p>集成分类器若分类错误，相当于假设有 $k=[0,(T-1)/2]$ 个基分类器分类正确，此时分类正确的基分类器占少数，所以总分类器实际上是错分的。因此，计算集成分类器的错误率需要对 $k$ 进行遍历，然后计算不同 $k$ 取值下的概率和。假设基分类器的错误率相互独立，且错误率均为 $\varepsilon$，则集成分类器的错误率为</p>
+
+\[E = \sum _{k=0}^{(T-1)/2} C_T^k (1-\varepsilon)^k\varepsilon^{T-k}\]
+
+<p>上式根据一个很复杂的变换可以转化为下面的格式</p>
+
+\[E \leq \exp (-\frac{1}{2} T(1-2\varepsilon)^2)\]
+
+<p>即集成学习其分类错误的概率存在一个上限值，这个值在 $\varepsilon = 0.5$ 时达到最大值 1。当 $\varepsilon$ 保持不变的情况下，集成分类器的错误率随着分类器数目 $T$ 的增大呈现指数级的缩小。</p>
+
+<p>上述分析有一个关键假设，基分类器的误差相互独立。现实任务中，基分类器是为了解决同一个问题（甚至基于同一个数据集）而训练出来的，显然不可能相互独立。事实上，基分类器的 “准确性” 和 “多样性” 本身就存在冲突，如何产生 “好而不同” 的基分类器是集成学习研究的核心。</p>
+
 <p>根据集成学习的思想不同，分为 Bagging、Boosting、Stacking 等。</p>
 
 <h3 id="51-bagging"><span class="me-2">5.1. Bagging</span><a href="#51-bagging" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
@@ -3392,26 +3547,185 @@ $，则分裂后的均方误差为：</p>
 
 <p>由于 Bagging 算法每次都进行采样来训练模型，因此泛化能力很强，对于降低模型的方差很有作用。当然对于训练集的拟合程度就会差一些，也就是模型的偏差会大一些。</p>
 
-<p>Bagging 方法的弱学习器可以是前面介绍过的基本算法模型，比如 Linear、ID3、C4.5、CART、SVM、KNN 等。如果 Bagging 中每一个若分类器都是一个决策树，那么称该方法为 「随机森林」。</p>
+<p>Bagging 方法的弱学习器可以是前面介绍过的基本算法模型，比如 Linear、ID3、C4.5、CART、SVM、KNN 等。如果 Bagging 中每一个弱分类器都是一个决策树，那么称该方法为 「随机森林」。</p>
+
+<h4 id="511-随机森林"><span class="me-2">5.1.1. 随机森林</span><a href="#511-随机森林" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>在 Bagging 集成策略的基础上，通过构建决策树作为弱分类器，可以得到随机森林（Random Forest），具体步骤如下：</p>
 
 <ul>
-  <li><strong>随机森林</strong></li>
-</ul>
-
-<p>在 Bagging 集成策略的基础上，通过构建决策树作为弱分类器，可以得到随机森林，具体步骤如下：</p>
-
-<ul>
-  <li>从样本集中用Bootstrap采样选出 $n$ 个样本；</li>
-  <li>从所有属性中随机选择 $k$ 个属性，选择出最佳分割属性作为节点创建决策树；</li>
+  <li>从样本集 $N$ 中用 Bootstrap 采样选出 $n$ 个样本；</li>
+  <li>从所有属性 $K$ 中随机选择 $k\ll K$ 个属性，选择出最佳分割属性作为节点创建决策树；</li>
   <li>重复以上两步 $m$ 次，即建立 $m$ 棵决策树；</li>
   <li>这 $m$ 个决策树形成随机森林，通过投票表决结果决定数据属于那一类。</li>
 </ul>
 
-<p>随机森林中「随机」二字的内涵之一就是源于 Bagging 思想中对样本的随机抽样和放回操作。抽样数据在一定程度上体现了全体样本数据的特性，所以可以用样本数据训练模型来预测其他的全体数据。但是，抽样数据与全体样本数据之间仍然是存在差异性的，弱分类器（决策树）在拟合各自抽样得到的数据集时，有可能出现不拟合生产环境中数据的情况，这就是过拟合。</p>
+<p><u>随机森林中「随机」二字的内涵之一就是源于 Bagging 思想中对样本的随机抽样和放回操作</u>。抽样数据在一定程度上体现了全体样本数据的特性，所以可以用样本数据训练模型来预测其他的全体数据。但是，抽样数据与全体样本数据之间仍然是存在差异性的，弱分类器（决策树）在拟合各自抽样得到的数据集时，有可能出现不拟合生产环境中数据的情况，这就是过拟合。</p>
 
-<p>在决策树中，进行特征属性划分选择的时候，如果选择最优，表示这个划分在当前数据集上一定是最优的，但是不一定在全体数据中最优；在随机森林中，如果每个决策树都是选择最优的进行划分，就会导致所有弱分类器模型（决策树）很大概率上会使用相同的特征属性进行数据的划分，容易导致过拟合，所以在随机森林中一般使用随机的方式选择特征属性划分，这也是随机森林中「随机」二字的内涵之一。</p>
+<p>在决策树中，进行特征属性划分选择的时候，如果选择最优，表示这个划分在当前数据集上一定是最优的，但是不一定在全体数据中最优；在随机森林中，如果每个决策树都是选择最优的进行划分，就会导致所有弱分类器模型（决策树）很大概率上会使用相同的特征属性进行数据的划分，容易导致过拟合，所以在随机森林中一般使用随机的方式选择特征属性划分，<u>这也是随机森林中「随机」二字的内涵之一</u>。</p>
+
+<p>影响随机森林的分类效果因素包括：</p>
+
+<ul>
+  <li>随机森林中任意两棵树的相关性，相关性越强错误率越大；</li>
+  <li>森林中每棵树的分类能力，越强则整棵树的错误率越小；</li>
+  <li>特征 $k$ 的个数，减少特征个数，树的相关性和分类能力都会下降；反之二者也会随之增大。</li>
+</ul>
+
+<p>特征个数 $k$ 和树的个数 $m$ 是随机森林的两个参数，其中 $k$ 的选择是随机森林的一个重要参数，因为其对随机森林的性能影响很大。</p>
 
 <h3 id="52-boosting"><span class="me-2">5.2. Boosting</span><a href="#52-boosting" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>在正式介绍Boosting思想之前，先介绍一个例子：将每次测验的错的题目记录在错题本上，不停的翻阅，直到我们完全掌握。这个例子都说明 Boosting 的道理，也就是不断重复学习达到最终的要求。</p>
+
+<blockquote>
+  <p>Boosting 的思想源于计算学习理论中的概率计算正确理论 PAC（Probably Approximately Correct）。某个模型如果称为 PAC 可学习的（learnable ），则存在一种算法能够以很大的概率，学到一个很高的精确度，并且在多项式时间内完成。实际上，由于需要对任意高的概率和精确度都可学习，只有很少的模型是属于 PAC 可学习范畴的 “强” 可学习模型。“弱” 可学习模型只能保证以任意高的概率学到比随机猜测好一点。</p>
+
+  <p>Valiant 和 Kearns 首次提出了 PAC 学习模型中弱学习算法和强学习算法的等价性问题，即任意给定仅比随机猜测略好的弱学习算法，是否可以将其提升为强学习算法。</p>
+
+  <p>Schapire 于 1990 年构造性地证明了：“弱”可学习模型与“强”可学习模型这两个概念是等价的。说明，任何弱学习算法都可以被组合成一个强学习算法。这个证明就是最初实际可用的 Boosting 算法（即 AdaBoost）。</p>
+</blockquote>
+
+<p>Boosting 方法是按照一定的顺序来训练不同的基模型，每个模型都针对前序模型的错误进行专门训练,从而增加不同基模型之间的差异性。 Boosting 方法是一种非常强大的集成方法，只要基模型的准确率比随机猜测高，就可以通过集成方法来显著地提高集成模型的准确率。</p>
+
+<p>算法的步骤如下：</p>
+
+<ul>
+  <li>首先从初始训练集训练出一个弱分类器 1，根据弱分类器 1 的表现对训练样本分布进行调整，使得之前弱分类器1识别错误的训练样本在后面得到更多的重视</li>
+  <li>然后基于调整后的训练集来训练弱分类器 2，如此重复进行，直到弱分类器数达到事先指定的数目 $T$</li>
+  <li>最终将这 $T$ 个弱分类器通过集成策略进行整合，得到最终的强分类器。</li>
+</ul>
+
+<p>Boosting 方法的示意图如下所示。</p>
+
+<p><a href="/assets/img/postsimg/20250330/boosting.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250330/boosting.png" alt="Boosting" class="lazyload" data-proofer-ignore></a></p>
+
+<p>在上述算法步骤中，有两个问题需要进一步解决：</p>
+
+<ul>
+  <li>如何调整训练集权重用于训练弱分类器？</li>
+  <li>如何将训练好的各弱分类器联合起来形成强分类器？</li>
+</ul>
+
+<p>下面介绍 AdaBoost 算法为上面两个问题提供了一种解决方案。</p>
+
+<h4 id="521-adaboost"><span class="me-2">5.2.1. AdaBoost</span><a href="#521-adaboost" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>AdaBoost（Adaptive Boosting）算法是 Boosting 方法的一种，采用了以下策略：</p>
+
+<ul>
+  <li>使用加权后选取的训练数据代替随机选取的训练样本，这样将训练的焦点集中在比较难分的训练数据样本上；</li>
+  <li>将弱分类器联合起来，使用「加权的投票机制」代替平均投票机制。让分类效果好的弱分类器具有较大的权重，而分类效果差的分类器具有较小的权重。</li>
+</ul>
+
+<p>对于一个二分类任务而言，首先对样本集中所有 $n$ 样本点的权重初始化为相同的大小，对于第 $t=1$ 次迭代时有</p>
+
+\[w_t(i) = \frac{1}{n}, i = 1, 2, \cdots, n\]
+
+<p>调用弱学习算法，产生一个基分类器 $h_t$，该分类器的「加权错误率」为 $\varepsilon_t$，可得</p>
+
+\[\varepsilon_t = \sum_{i=1}^n w_t(i) \cdot l_{0/1}\{y_i \neq h_t(x_i)\},\; y\in\{-1,+1\}-\]
+
+<p>其中 $l_{0/1}$ 为 0/1 计数函数，当括号内条件满足时为 1，否则为 0。</p>
+
+<p>定义 $\alpha_t$ 为基分类器 $h_t$ 的权重系数，其计算公式为</p>
+
+\[\alpha_t = \frac{1}{2} \ln \left( \frac{1 - \varepsilon_t}{\varepsilon_t} \right)\]
+
+<p>当 $\varepsilon = 0.5$ 时（相当于基分类器随机猜测），对应权重系数为 0。但凡基分类器是一个弱分类器，其权重系数就会大于零。基分类器性能越好，错误率越小，权重系数越大。注意，此处的权重定义并非随意指定的，而是可以通过加性模型（Additive Model）的梯度下降优化或指数损失函数的最小化严格推导得出，详见后文。</p>
+
+<p>但凡弱分类器的错误率 $\varepsilon &lt; 0.5$，即可对样本集中的所有样本更新权值分布，即</p>
+
+\[w_{t+1}(i) = \begin{cases}
+  w_t(i)\exp(-\alpha_t),\; h_i(\boldsymbol{x}) = y_i\\
+  w_t(i)\exp(\alpha_t),\; h_i(\boldsymbol{x}) \neq y_i
+\end{cases}\]
+
+<p>也即对于误分的样本其权值会乘以一个 $\exp(\alpha_t) &gt; 1$ 的系数；反之则会乘以一个 $\exp(-\alpha_t) &lt; 1$ 的系数。可将其写为一行的简化形式，并进行归一化</p>
+
+\[\begin{aligned}
+w_{t+1}(i) &amp;= w_t(i)\exp(-\alpha_t \cdot y_i h_t(\boldsymbol{x}_i))\\
+w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
+\end{aligned}\]
+
+<p>基于权重更新过后的样本集再次设计新的基分类器。如此重复经过全部 $T$ 轮迭代后，定义最终的强分类器为 $H$，其为迭代过程中所有基分类器 $h_t$ 按照一定的规则组合起来，一种加权投票的组合形式如下</p>
+
+\[H(\boldsymbol{x}) = \text{sign}\left(\sum_{t=1}^T \alpha_th_t(\boldsymbol{x})\right)\]
+
+<p>所以，与前面介绍的 Bagging 算法不同，AdaBoost 是一种「串行」的算法，通过弱学习器开始加强，它每一步产生弱预测模型（如决策树），并加权累加到总模型中。</p>
+
+<h4 id="522-加性模型与指数损失函数"><span class="me-2">5.2.2. 加性模型与指数损失函数</span><a href="#522-加性模型与指数损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>AdaBoost可视为对加性模型</p>
+
+\[H(\boldsymbol{x}) = \sum_{t=1}^T \alpha_th_t(\boldsymbol{x})\]
+
+<p>的优化，其目标是最小化指数损失函数</p>
+
+\[L(H) = \mathbb{E}_{(\boldsymbol{x},y)\sim D}[e^{-yH(\boldsymbol{x})}]\]
+
+<p>当预测正确时，$yH(\boldsymbol{x})&gt;0$，损失较小；反之损失较大。</p>
+
+<p>在第 $t$ 轮迭代中，假设已经得到前 $t-1$ 轮的模型 $H_{t+1}(x)$，当前目标是找到一个弱分类器 $h_t(\boldsymbol{x})$ 和权重 $\alpha_t$ 使得以下损失函数最小化</p>
+
+\[L(\alpha_t, h_t) = \mathbb{E}_D\left[e^{-y(H_{t-1}(\boldsymbol{x}) + \alpha_t h_t(\boldsymbol{x}))}\right]\]
+
+<p>令</p>
+
+\[w_t(i) = e^{-y_i H_{t-1}(\boldsymbol{x}_i)}\]
+
+<p>为前 $t-1$ 轮累计的权重因子，则损失函数变为</p>
+
+\[L(\alpha_t, h_t) = \sum_{i=1}^n w_t(i)e^{-y_i\alpha_t h_t(\boldsymbol{x}_i)}\]
+
+<p>损失函数可按分类结果拆分为两部分</p>
+
+\[L(\alpha_t) = \sum_{y_i=h_t(\boldsymbol{x}_i)}^n w_t(i)e^{-\alpha_t}+\sum_{y_i\neq h_t(\boldsymbol{x}_i)}^n w_t(i)e^{\alpha_t}\]
+
+<p>定义第 $t$ 轮迭代得到的基分类器 $h_t$ 的加权错误率为</p>
+
+\[\varepsilon_t = \frac{\sum_{y_i\neq h_t(\boldsymbol{x}_i)} w_t(i)}{\sum_{i=1}^n w_t(i)}\]
+
+<p>则损失函数可以表示为</p>
+
+\[L(\alpha_t) = (1-\varepsilon_t)e^{-\alpha_t} + \varepsilon_te^{\alpha_t}\]
+
+<p>对损失函数关于 $\alpha_t$ 求导并令导数为零，有</p>
+
+\[(1-\varepsilon_t)e^{-\alpha_t} = \varepsilon_te^{\alpha_t} \; \Rightarrow \; \frac{1-\varepsilon_t}{\varepsilon_t} = e^{2\alpha_t} \; \Rightarrow \; \alpha_t = \frac{1}{2}\ln \left( \frac{1 - \varepsilon_t}{\varepsilon_t} \right)\]
+
+<p>上述推导和前面基分类器系数定义是一致的。</p>
+
+<h3 id="53-集成表决策略"><span class="me-2">5.3. 集成表决策略</span><a href="#53-集成表决策略" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>将个体学习器结合为集成学习器的方法有很多种，下面简单进行介绍总结。</p>
+
+<ul>
+  <li>平均法
+    <ul>
+      <li>简单平均法：$H(x) = \frac{1}{N}\sum_{i=1}^N h_i(x)$</li>
+      <li>加权平均法:$H(x) = \sum_{i=1}^N \alpha_i h_i(x)$</li>
+    </ul>
+  </li>
+  <li>投票法
+    <ul>
+      <li>绝对多数投票：如果某个标签的的票数超过半数，则预测为该标记；否则拒绝该标记</li>
+      <li>相对多数投票：预测为得票数最多的类别，如果有多个类别的票数相同且都最高，那么从这几个类别中随机选择一个</li>
+      <li>加权投票：与前述加权平均法类似，对每个基分类器施加权重，再输出得票最多的类别。</li>
+    </ul>
+  </li>
+  <li>学习法
+    <ul>
+      <li>当训练数据过多时，使用简单的结合策略可能会导致很大的误差，这时可以采用一个更为强大的学习策略：学习法，即通过另一个学习器来进行结合。最为著名的学习法的代表就是「Stacking」方法，这里我们把个体学习器称为初级学习器，把用于结合的学习器称为次级学习器。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="54-stacking"><span class="me-2">5.4. Stacking</span><a href="#54-stacking" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>前述 Boosting 和 Bagging 通常都是使用同一种基分类器，因此我们一般称之为同质集成方法。Stacking 通常都是基于多个不同的基分类器做的集成，因此我们称之为异质集成方法。</p>
+
+<p>可参考：https://zhuanlan.zhihu.com/p/501426671</p>
 
 <h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -6728,9 +7042,16 @@ $，则分裂后的均方误差为：</p>
 
   
 
+  
+    
+
+    
+
+  
 
 
-  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js,npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
 
 
 
@@ -6764,6 +7085,66 @@ $，则分裂后的均方误差为：</p>
 
 
 
+
+    
+      <!-- mermaid-js loader -->
+<script type="text/javascript">
+  (function () {
+    function updateMermaid(event) {
+      if (event.source === window && event.data && event.data.direction === ModeToggle.ID) {
+        const mode = event.data.message;
+
+        if (typeof mermaid === 'undefined') {
+          return;
+        }
+
+        let expectedTheme = mode === ModeToggle.DARK_MODE ? 'dark' : 'default';
+        let config = { theme: expectedTheme };
+
+        /* Re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */
+        $('.mermaid').each(function () {
+          let svgCode = $(this).prev().children().html();
+          $(this).removeAttr('data-processed');
+          $(this).html(svgCode);
+        });
+
+        mermaid.initialize(config);
+        mermaid.init(undefined, '.mermaid');
+      }
+    }
+
+    let initTheme = 'default';
+    const html = document.documentElement;
+
+    if (
+      (html.hasAttribute('data-mode') && html.getAttribute('data-mode') === 'dark') ||
+      (!html.hasAttribute('data-mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      initTheme = 'dark';
+    }
+
+    let mermaidConf = {
+      theme: initTheme /* <default|dark|forest|neutral> */
+    };
+
+    /* Create mermaid tag */
+    document.querySelectorAll('pre>code.language-mermaid').forEach((elem) => {
+      const svgCode = elem.textContent;
+      const backup = elem.parentElement;
+      backup.classList.add('unloaded');
+      /* create mermaid node */
+      let mermaid = document.createElement('pre');
+      mermaid.classList.add('mermaid');
+      const text = document.createTextNode(svgCode);
+      mermaid.appendChild(text);
+      backup.after(mermaid);
+    });
+
+    mermaid.initialize(mermaidConf);
+
+    window.addEventListener('message', updateMermaid);
+  })();
+</script>
 
     
 
