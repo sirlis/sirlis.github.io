@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T17:43:05+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-09T12:25:31+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1623,6 +1623,42 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1791,13 +1827,13 @@
 
 <em
   class=""
-  data-ts="1743673385"
+  data-ts="1744172731"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/03
+  2025/04/09
 </em>
 
     </span>
@@ -1841,9 +1877,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="13587 字"
+  title="15797 字"
 >
-  <em>75 分钟</em>阅读</span>
+  <em>87 分钟</em>阅读</span>
 
     </div>
 
@@ -1920,9 +1956,12 @@
       <li><a href="#43-cart-算法">4.3. CART 算法</a>
         <ul>
           <li><a href="#431-基尼指数">4.3.1. 基尼指数</a></li>
+          <li><a href="#432-cart-分类树">4.3.2. CART 分类树</a></li>
+          <li><a href="#433-cart-回归树">4.3.3. CART 回归树</a></li>
+          <li><a href="#434-三种决策树构建算法区别">4.3.4. 三种决策树构建算法区别</a></li>
         </ul>
       </li>
-      <li><a href="#432-算法区别">4.3.2. 算法区别</a></li>
+      <li><a href="#44-局限性与剪枝">4.4. 局限性与剪枝</a></li>
     </ul>
   </li>
   <li><a href="#5-分类器集成">5. 分类器集成</a></li>
@@ -2191,7 +2230,7 @@ P(w_m\vert x) - \sum_{i=1}^c P(w_i\vert x)^2 &amp;= P(w_m\vert x) -P(w_m\vert x)
 
 <h5 id="3111-优化问题描述"><span class="me-2">3.1.1.1. 优化问题描述</span><a href="#3111-优化问题描述" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>以二分类为例，假设样本集为 $S={(\boldsymbol{x}_1,y_1),(\boldsymbol{x}_2,y_2),\cdots,(\boldsymbol{x}_N,y_N)}$，其中 $\boldsymbol{x_i}$ 是样本，$y_i$ 是样本的类别标签。假设样本集线性可分，存在一个超平面 $H$ 将两类样本完全分开。假设超平面 $H$ 的法向量为 $\boldsymbol{w}$，超平面到原点的距离为 $b$，则超平面可以表示为：</p>
+<p>以二分类为例，假设样本集为 $S={(\boldsymbol{x}_1,y_1),(\boldsymbol{x}_2,y_2),\cdots,(\boldsymbol{x}_N,y_N)}$，其中 $\boldsymbol{x_i}$ 是样本，$y_i$ 是样本的类别标签（取值为 $\pm 1$）。假设样本集线性可分，存在一个超平面 $H$ 将两类样本完全分开。假设超平面 $H$ 的法向量为 $\boldsymbol{w}$，超平面到原点的距离为 $b$，则超平面可以表示为：</p>
 
 \[\boldsymbol{w}^\top \boldsymbol{x} + b = 0\]
 
@@ -2238,7 +2277,7 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) &gt; 0, \forall i=1
 <p>观察优化目标函数中，不同优化方向的作用对象，可移项如下</p>
 
 \[\begin{aligned}
-\max_{\boldsymbol{w},b}&amp;\; \textcolor{blue}{\frac{1}{\Vert \boldsymbol{w} \Vert}} \; \min_{i} \; y_i(\boldsymbol{w}^\top \boldsymbol{x_i} + b)\\
+\max_{\boldsymbol{w},b}&amp;\; \textcolor{green}{\frac{1}{\Vert \boldsymbol{w} \Vert}} \; \min_{i} \; y_i(\boldsymbol{w}^\top \boldsymbol{x_i} + b)\\
 s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) &gt; 0, \forall i=1,2,\cdots,N\\
 \end{aligned}\]
 
@@ -2249,19 +2288,19 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) &gt; 0, \forall i=1
 <p>此处 $\gamma$ 被称为 <strong>函数间隔</strong>。引入函数间隔后，优化问题变为如下形式</p>
 
 \[\begin{aligned}
-\max_{\boldsymbol{w},b}&amp;\; \textcolor{blue}{\frac{1}{\Vert \boldsymbol{w} \Vert}} \; \min_{i} \; y_i(\boldsymbol{w}^\top \boldsymbol{x_i} + b)\\
+\max_{\boldsymbol{w},b}&amp;\; \frac{1}{\Vert \boldsymbol{w} \Vert} \; \min_{i} \; y_i(\boldsymbol{w}^\top \boldsymbol{x_i} + b)\\
 s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \textcolor{red}{\geq \gamma}, \forall i=1,2,\cdots,N\\
 \text{or}\quad s.t.\quad \textcolor{green}{\min_i}&amp;\quad  \textcolor{green}{y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) = \gamma}, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
-<p>将条件代入目标函数，消去 $\min_i$ 项，有</p>
+<p>注意到，绿色的等式约束条件和原始的不等式约束条件是等价的。将绿色的等价等式约束条件代入目标函数，消去 $\min_i$ 项，有</p>
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b}&amp;\quad \frac{\textcolor{red}{\gamma}}{\Vert \boldsymbol{w} \Vert}\\
 s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \textcolor{red}{\geq \gamma}, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
-<p>注意到当 $\boldsymbol{w},b$ 发生变化（如分别扩大 2 倍）也会导致函数间隔发生变化（同样扩大两倍）。虽然这种操作不会改变最优解，但会产生一个等价的优化问题。为了避免这种情况，不妨令 $\gamma = 1$，优化问题变为</p>
+<p>注意到当 $\boldsymbol{w},b$ 发生变化（如分别扩大两倍）也会导致函数间隔发生变化（同样扩大两倍）。虽然这种操作不会改变最优解，但会产生一个等价的优化问题。为了避免这种情况，不妨令 $\gamma = 1$，优化问题变为</p>
 
 \[\begin{aligned}
 \max_{\boldsymbol{w},b}&amp;\quad \frac{1}{\Vert \boldsymbol{w} \Vert}\\
@@ -2276,11 +2315,11 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \forall i=1
 
 \[\max_{\boldsymbol{w},b} \frac{1}{\Vert \boldsymbol{w}\Vert} = \min_{\boldsymbol{w},b} \Vert \boldsymbol{w}\Vert^2 = \frac{1}{2}\min_{\boldsymbol{w},b} \boldsymbol{w}^\top \boldsymbol{w}\]
 
-<p>得到最终优化问题的描述</p>
+<p>得到最终的 <strong>SVM 优化问题的描述</strong></p>
 
 \[\begin{aligned}
-\min_{\boldsymbol{w},b} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w}\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \forall i=1,2,\cdots,N
+\textcolor{blue}{\min_{\boldsymbol{w},b}} &amp;\quad \textcolor{blue}{\frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w}}\\
+\textcolor{blue}{s.t.} &amp;\textcolor{blue}{\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \forall i=1,2,\cdots,N}
 \end{aligned}\]
 
 <p>上述优化问题是一个包含 $N$ 个不等式约束的二次凸优化问题。</p>
@@ -2293,50 +2332,48 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \forall i=1
 
 <p>对于一个带约束的优化问题，采用拉格朗日乘子法转化为一个无约束优化问题，拉格朗日函数如下</p>
 
-\[L(\boldsymbol{w},b,\lambda) = \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w} + \sum_{i=1}^N\lambda_i(1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)),\; \lambda_i \geq 0\]
+\[\textcolor{blue}{L(\boldsymbol{w},b,\lambda) = \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w} + \sum_{i=1}^N\lambda_i(1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)),\; \lambda_i \geq 0}\]
 
 <p>优化问题变为</p>
 
 \[\begin{aligned}
-\min_{w,b}\quad &amp; \max_\lambda L(\boldsymbol{w},b,\lambda)\\
-s.t. &amp; \quad \lambda_i \geq 0, \forall i=1,2,\cdots,N\\
+\textcolor{blue}{\min_{w,b}}\quad &amp; \textcolor{blue}{\max_\lambda L(\boldsymbol{w},b,\lambda)}\\
+\textcolor{blue}{s.t.} &amp; \quad \textcolor{blue}{\lambda_i \geq 0, \forall i=1,2,\cdots,N}\\
 \end{aligned}\]
 
-<blockquote>
-  <p>拉格朗日乘子法变换后的优化问题与原始优化问题的等价性可如下简单说明：</p>
+<p>拉格朗日乘子法变换后的优化问题与原始优化问题的等价性可分析如下：</p>
 
-  <p>定义 $\delta = 1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)$，SVM 优化问题的约束条件变为</p>
+<p>定义 $\delta = 1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)$，SVM 优化问题的约束条件变为</p>
 
 \[\delta_i \leq 0\]
 
-  <p>整个 $(\boldsymbol{w},b)$ 空间可划分为两个部分，不满足约束 （$\delta &gt; 0$） 和 满足约束 （$\delta \leq 0$）。</p>
+<p>整个 $(\boldsymbol{w},b)$ 空间可划分为两个部分，不满足约束（$\delta &gt; 0$）和满足约束（$\delta \leq 0$）。</p>
 
-  <ul>
-    <li>对于 $\delta &gt; 0$，约束被违反，可以取 $\lambda \to \infty$ 使得优化目标</li>
-  </ul>
+<ul>
+  <li>对于 $\delta &gt; 0$，约束被违反，可以取 $\lambda \to \infty$ 使得优化目标</li>
+</ul>
 
 \[\max_\lambda L(\boldsymbol{w},b,\lambda) =  \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w} + \infty = +\infty\]
 
-  <ul>
-    <li>对于 $\delta \leq 0$，约束被满足，可以取$\lambda = 0$ 使得优化目标取到最大值</li>
-  </ul>
+<ul>
+  <li>对于 $\delta \leq 0$，约束被满足，可以取$\lambda = 0$ 使得优化目标取到最大值</li>
+</ul>
 
 \[\max_\lambda L(\boldsymbol{w},b,\lambda) =  \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w} + 0 = \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w}\]
 
-  <p>综上，拉格朗日乘子法的优化问题</p>
+<p>综上两种情况，拉格朗日乘子法的优化问题可以写为</p>
 
 \[\min_{w,b}\max_\lambda L(\boldsymbol{w},b,\lambda) = \min_{w,b} [+\infty,\;\frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w}] = \min_{w,b} \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w}\]
 
-  <p>与原始优化问题等价，其中外层 $\min_{w,b}$ 会自动忽略不满足约束的解。</p>
-</blockquote>
+<p>也即与原始优化问题等价，其中外层 $\min_{w,b}$ 会自动忽略不满足约束（$\delta &gt; 0$）的解。</p>
 
 <h5 id="3113-对偶问题求解"><span class="me-2">3.1.1.3. 对偶问题求解</span><a href="#3113-对偶问题求解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>上述优化问题的 <strong>对偶问题</strong> 为（交换 $\max$ 与 $\min$）</p>
 
 \[\begin{aligned}
-\max_\lambda \min_{w,b} &amp;\quad L(\boldsymbol{w},b,\lambda)\\
-s.t. &amp;\quad \lambda_i \geq 0, \forall i=1,2,\cdots,N
+\textcolor{blue}{\max_\lambda \min_{w,b}} &amp;\quad \textcolor{blue}{L(\boldsymbol{w},b,\lambda)}\\
+\textcolor{blue}{s.t.} &amp;\quad \textcolor{blue}{\lambda_i \geq 0, \forall i=1,2,\cdots,N}
 \end{aligned}\]
 
 <blockquote>
@@ -2389,9 +2426,9 @@ L(\boldsymbol{w},b,\lambda) &amp;= \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w} 
 &amp;= \frac{1}{2}\boldsymbol{w}^\top\boldsymbol{w} + \sum_{i=1}^N \lambda_i - \sum_{i=1}^N \lambda_i y_i w^\top \boldsymbol{x_i}
 \end{aligned}\]
 
-<p>简化后的<strong>目标函数对 $w$ 求偏导令其为零</strong>，得到最优参数 $w^\star$ 的形式</p>
+<p>简化后的<strong>目标函数对 $w$ 求偏导令其为零</strong>，得到最优参数 $\boldsymbol{w}^\star$ 的形式</p>
 
-\[\frac{\partial L}{\partial w} = w - \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i} = 0\Rightarrow w= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\]
+\[\frac{\partial L}{\partial \boldsymbol{w}} = \boldsymbol{w} - \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i} = 0\Rightarrow \boldsymbol{w}^\star= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\]
 
 <p>将其代入目标函数进行进一步化简，有</p>
 
@@ -2403,7 +2440,9 @@ L(\boldsymbol{w},b,\lambda) =&amp; \frac{1}{2}(\sum_{i=1}^N\lambda_i y_i \boldsy
 =&amp; -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j \boldsymbol{x_i}^\top \boldsymbol{x_j} + \sum_{i=1}^N \lambda_i
 \end{aligned}\]
 
-<p>下面继续确定最优参数 $b^\star$ 的形式。根据 KKT 条件中的互补松弛条件、对偶可行条件、原始可行条件进行分析</p>
+<p>至此我们根据 KKT 条件中的梯度可行性条件，得到了 $w^\star$ 的形式，并对目标函数进行了化简。</p>
+
+<p>下面继续根据 KKT 条件中的互补松弛条件、对偶可行条件、原始可行条件，确定最优参数 $b^\star$ 的形式</p>
 
 \[\begin{aligned}
 \lambda_i(1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b))=0\\
@@ -2411,36 +2450,49 @@ L(\boldsymbol{w},b,\lambda) =&amp; \frac{1}{2}(\sum_{i=1}^N\lambda_i y_i \boldsy
 1-y_i(\boldsymbol{w}^\top \boldsymbol{x}_i + b)\leq 0\\
 \end{aligned}\]
 
-<p>对于第 $k$ 个样本分析如下</p>
+<p>对于第 $k$ 个样本 $(\boldsymbol{x}_k, y_k)$ 的原始可行性条件分类讨论如下：</p>
 
 <ul>
   <li>
-    <p>若样本点 $(\boldsymbol{x}_k, y_k)$ 使得 $y_i(\boldsymbol{w}^\top \boldsymbol{x} + b) = 1$，这个样本点就是距离分类面最近的那些样本点，被称为 <strong>支持向量（Support Vector）</strong>。此时对 $\lambda_i$ 没有额外约束。因此我们通过 <u>选择任意一个支持向量</u> 可以求出 $b^\star$</p>
+    <p>第一种情况，样本使得 $y_i(\boldsymbol{w}^\top \boldsymbol{x} + b) = 1$</p>
+
+    <p>这个样本点就是距离分类面最近的那些样本点，被称为 <strong>支持向量（Support Vector）</strong>。此时对 $\lambda_i$ 没有额外约束。因此我们通过 <u>选择任意一个支持向量</u> 可以求出 $b^\star$</p>
 
 \[\begin{aligned}
 y_k(\boldsymbol{w}^\top \boldsymbol{x}_k + b) &amp;= 1\\
-y_k^2(\boldsymbol{w}^\top \boldsymbol{x}_k + b) &amp;= y_k
+\Rightarrow y_k^2(\boldsymbol{w}^\top \boldsymbol{x}_k + b) &amp;= y_k
 \end{aligned}\]
 
-    <p>考虑到 $y_k^2 = 1$，则可以得到最优参数 $b^\star$ 的形式</p>
+    <p>注意到类别标签取值为 $\pm 1$，因此 $y_k^2 = 1$，则可以得到最优参数 $b^\star$ 的形式</p>
 
 \[b^\star = y_k-w^\top \boldsymbol{x}_k= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_i^\top \boldsymbol{x}_k\]
 
     <p>考虑到样本带噪声的情况，我们也可以通过对所有支持向量求出 $b$ 后取均值得到 $b^\star$。</p>
   </li>
   <li>
-    <p>第二种情况，该样使得 $y_i(\boldsymbol{w}^\top x + b) &gt; 1$，那么必须要求$\lambda_i = 0$。也就是说，只有当样本是支撑向量时对应的 $\lambda_i \neq 0$，否则 $\lambda = 0$。这将极大简化 $\boldsymbol{w}^\star,b^\star$ 的计算。</p>
+    <p>第二种情况，样本使得 $y_i(\boldsymbol{w}^\top x + b) &gt; 1$</p>
+
+    <p>此时，该样本为距离分类面较远的样本，不是支持向量。根据互补松弛条件，必须要求$\lambda_i = 0$。</p>
+
+    <p>也就是说，只有当样本是支撑向量时对应的 $\lambda_i \neq 0$，否则 $\lambda_i = 0$。这极大简化 $\boldsymbol{w}^\star,b^\star$ 的计算，因为不用计算其中$\lambda_i = 0$ 项的向量内积。</p>
   </li>
 </ul>
 
-<p>至此，我们已经确定了内层优化 $\min_{w,b}$ 的最优解，剩余的优化问题如下</p>
+<p>至此，我们已经确定了内层优化 $\min_{w,b}$ 的最优解，并且得到了最优参数的表达式</p>
+
+\[\begin{aligned}
+  \boldsymbol{w}^\star &amp;= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\\
+  b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_i^\top \boldsymbol{x}_k\quad \text{support vector}\; (\boldsymbol{x}_k,y_k)
+\end{aligned}\]
+
+<p>注意到其中拉格朗日系数还是未知的，需要求解剩余的外层优化问题得到</p>
 
 \[\begin{aligned}
 \max_\lambda &amp;\quad -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j \boldsymbol{x_i}^\top \boldsymbol{x_j} + \sum_{i=1}^N \lambda_i\\
 s.t. &amp;\quad \lambda_i \geq 0,\;\sum_{i=1}^N\lambda_i y_i = 0,\; \forall i=1,2,\cdots,N
 \end{aligned}\]
 
-<p>这个问题是针对 $N$ 个拉格朗日乘子 $\lambda_i$ 进行优化，我们需要求一个 $N$ 元函数的受不等式约束的极值问题。当 $N$ 很大的时候，这个问题就很难求解。我们需要借助 <strong>序列最小化算法（Sequential Minimal Optimization，SMO）</strong>，将问题简化为，每次只变动两个参数，记作 $\alpha_i,\alpha_j$，与此同时固定其余所有的参数，问题就能转变为一个一元二次函数求极值问题，最终可以求解得到所有的 $\lambda_i$，具体求解略。</p>
+<p>这个问题是针对 $N$ 个拉格朗日乘子 $\lambda_i$ 进行优化，我们需要求一个 $N$ 元函数的受不等式约束的极值问题。当 $N$ 很大的时候，这个问题很难求解。我们需要借助 <strong>序列最小化算法（Sequential Minimal Optimization，SMO）</strong>，将问题简化为，每次只变动两个参数，记作 $\alpha_i,\alpha_j$，与此同时固定其余所有的参数，问题就能转变为一个一元二次函数求极值问题，最终可以求解得到所有的 $\lambda_i$，具体求解略。</p>
 
 <blockquote>
   <p>之所以选择变动两个参数，是因为我们有限制条件</p>
@@ -2452,24 +2504,17 @@ s.t. &amp;\quad \lambda_i \geq 0,\;\sum_{i=1}^N\lambda_i y_i = 0,\; \forall i=1,
   <p>关于 SMO 算法的详细讨论，可以参考：https://zhuanlan.zhihu.com/p/367578887</p>
 </blockquote>
 
-<p>最后将优化问题的解列写如下</p>
-
-\[\begin{aligned}
-w^\star &amp;= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\\
-b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{x}_k\quad \text{support vector}\; (\boldsymbol{x}_k,y_k)
-\end{aligned}\]
-
-<p>得到 <strong>SVM 的判别函数</strong> 如下</p>
+<p>至此解出了所有参数 $\boldsymbol{w}^\star, b^\star, \lambda_i$，得到 <strong>SVM 的判别函数</strong> 如下</p>
 
 \[f(x) = \text{sign}({\boldsymbol{w}^\star}^\top x + b^\star)\]
 
-<p>并且知道 $\boldsymbol{w}^\star,b^\star$ 仅是 <u>支持向量</u> 的线性组合（因为 $\lambda_i$ 已只有在样本为支持向量时才不为零）。所以 SVM 训练完成后，大部分的训练样本都不需要保留，最终的分类模型仅与支持向量有关。</p>
+<p>并且知道 $\boldsymbol{w}^\star,b^\star$ 仅是 <u>支持向量</u> 的线性组合（因为 $\lambda_i$ 只有在样本为支持向量时才不为零）。所以 SVM 训练完成后，大部分的训练样本都不需要保留，最终的分类模型仅与支持向量有关。</p>
 
 <h4 id="312-软间隔-svm-优化问题"><span class="me-2">3.1.2. 软间隔 SVM 优化问题</span><a href="#312-软间隔-svm-优化问题" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <h5 id="3121-优化问题描述"><span class="me-2">3.1.2.1. 优化问题描述</span><a href="#3121-优化问题描述" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>前面一直假定训练样本在样本空间或特征空间线性可分，即存在一个超平面将不同类的样本完全划分开。但现实中，很难确定使得训练样本在特征空间中线性可分。缓解该问题的办法是允许支持向量机出错，可以通过在目标函数中额外添加一项 $\text{loss}$ 来实现这一点，优化问题如下</p>
+<p>前面一直假定训练样本在样本空间或特征空间线性可分，即存在一个超平面将不同类的样本完全划分开。但现实中，很难确定使得训练样本在特征空间中线性可分。缓解该问题的办法是允许支持向量机出错，可以通过在目标函数中额外添加一项 $\text{loss}$ 来实现这一点，新的优化问题如下</p>
 
 \[\begin{aligned}
 \min_{\boldsymbol{w},b} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w} + \text{loss}\\
@@ -2486,7 +2531,9 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \;\forall i
   \end{cases}
 \end{aligned}\]
 
-<p>但 $0/1$ 损失函数非凸、非连续，不容易优化，需要采用其他替代损失。几种可行的替代损失如下图所示</p>
+<p>但 $0/1$ 损失函数非凸、非连续，不容易优化，需要采用其他替代损失。</p>
+
+<p>令 $z = y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)$，几种可行的替代损失如下图所示</p>
 
 <p><a href="/assets/img/postsimg/20250330/hinge-loss.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250330/hinge-loss.jpg" alt="hinge-loss" class="lazyload" data-proofer-ignore></a></p>
 
@@ -2496,9 +2543,16 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \;\forall i
 
 <p>上图中列出的几种常见替代损失都已被证明是一致的，可以替代 $0/1$ 损失函数。SVM 求解选取 <strong>hinge loss</strong> 作为替代损失，同时引入 $C$ 作为惩罚参数</p>
 
-\[\text{loss} = C\sum_{i=1}^N\max\{ 0, 1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \}\]
+\[\textcolor{blue}{\text{loss} = C\sum_{i=1}^N\max\{ 0, 1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \}}\]
 
-<p>可以看出，hinge loss 在约束满足时取值为 0，在约束不满足时取值即为约束的正值，两个区间的边界处的函数值是连续的。引入这个惩罚项后，假设有样本不满足约束，我们通过优化带上述惩罚项的目标函数，也希望尽可能使得不满足约束的样本带来的影响（对约束的违背程度）尽可能小。</p>
+<p>对 hinge loss 展开分析如下：</p>
+
+<ul>
+  <li>$z=y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)\geq 1, \quad\text{loss}=0$</li>
+  <li>$z=y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)&lt; 1, \quad\text{loss}=1-y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b)$</li>
+</ul>
+
+<p>可以看出，hinge loss 在约束满足时取值为 0，在约束不满足时取值即为约束的正值，两个区间的边界处（$z=1$）的函数值是连续的。引入这个惩罚项后，假设有样本不满足约束，我们通过优化带上述惩罚项的目标函数，即希望使得不满足约束的样本带来的影响（对约束的违背程度）尽可能小。</p>
 
 <p>虽然 hinge loss 函数取值已经连续了，但由于存在 $\max$ 算符，在实际使用时仍然不太方便。这里把 hinge loss 单独定义为一个变量 $\xi_i$，并且要求 $\xi_i \geq 0$，即</p>
 
@@ -2507,15 +2561,15 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \;\forall i
 <p>可进行如下讨论</p>
 
 <ul>
-  <li>当 $\xi_i = 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1$；</li>
+  <li>当 $\xi_i = 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1\textcolor{green}{=1-\xi_i}$；</li>
   <li>当 $\xi_i &gt; 0$ 时， 样本满足 $y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) = 1 - \xi_i$；</li>
 </ul>
 
 <p>因此惩罚项可以移除 $\max$ 写成统一的形式，约束不等式也可以写为统一的形式。则优化问题可以写成如下的 <strong>软间隔 SVM 优化问题</strong></p>
 
 \[\begin{aligned}
-\min_{\boldsymbol{w},b,\xi_i} &amp;\quad \frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w} \textcolor{red}{+ C\sum_{i=1}^N\xi_i}\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq \textcolor{red}{1-\xi_i},\; \xi_i \geq 0,\; \forall i=1,2,\cdots,N
+\textcolor{blue}{\min_{\boldsymbol{w},b,\xi_i}} &amp;\quad \textcolor{blue}{\frac{1}{2} \boldsymbol{w}^\top \boldsymbol{w} + C\sum_{i=1}^N\textcolor{red}{\xi_i}}\\
+\textcolor{blue}{s.t.} &amp;\quad  \textcolor{blue}{y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq \textcolor{red}{1-\xi_i},\; \xi_i \geq 0,\; \forall i=1,2,\cdots,N}
 \end{aligned}\]
 
 <p>其中 $\xi_i$ 又称为<strong>松弛变量</strong>，引入松弛变量相当于我们放宽了对样本点的约束，原本要求其必须在硬间隔之外，现在只要都保证在软间隔之外即可。</p>
@@ -2717,6 +2771,10 @@ b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{
 
 <p>可以看出其主要通过<strong>计算样本的内积来优化得到分类超平面</strong>。由于升维可以使得原本线性不可分的样本变得线性可分，其关键在于如何对样本进行升维后求内积。</p>
 
+<blockquote>
+  <p>观察线性 SVM 的判别函数可以得到同样的结论，因为其超平面方程的参数 $b^\star$ 表达式中同样包含样本内积</p>
+</blockquote>
+
 <p>假设我们用一个映射函数 $\phi(\cdot)$ 将原始样本升维，那么优化函数变为</p>
 
 \[\max_\lambda \quad -\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N \lambda_i \lambda_j y_i y_j \phi(\boldsymbol{x_i})^\top \phi(\boldsymbol{x_j}) + \sum_{i=1}^N \lambda_i\]
@@ -2748,15 +2806,15 @@ b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{
 &amp;=1+2a_1a_2+2b_1b_2+a_1^2a_2^2+b_1^2b_2^2+2a_1a_2b_1b_2
 \end{aligned}\]
 
-<p>可以发现，其结果正好等于前述映射到六维后的样本内积结果。</p>
+<p>可以发现，其结果正好等于前述映射到六维后的样本内积结果。因此，<u>在实际使用时只需要在样本低维空间先求内积，然后将内积的结果代入函数中，进行简单计算即可得到映射到高维空间后的内积结果。</u></p>
 
-<p>上述操作使用的函数被称为核函数，通过引入核函数来简化内积计算的这种操作被称为<strong>核技巧</strong>，具体而言，这里采用的是 <strong>多项式核函数</strong></p>
+<p>上述操作使用的函数被称为「核函数」，通过引入核函数来简化内积计算的这种操作被称为「核技巧」，具体而言，这里采用的是 <strong>多项式核函数</strong></p>
 
 \[\mathcal{K}_{poly}^{(c,d)}(\boldsymbol{x}_1,\boldsymbol{x}_2) = (c+\boldsymbol{x}_1^\top\cdot\boldsymbol{x}_2)^d\]
 
-<p>当 $c=1,d=2$ 时，就可以将原本的样本升至前述六维。如果换一组参数，可以将原样本升至不同的维度。因此，<u>多项式核函数确定了一组参数后，也就确定了转换后的样本特征维度。</u></p>
+<p>当 $c=1,d=2$ 时，就可以将原本的样本升至前述六维。如果换一组参数，可以将原样本升至不同的维度。因此，多项式核函数确定了一组参数后，也就确定了转换后的样本特征维度。</p>
 
-<p>多项式核函数中的常数 $c$ 十分重要，其决定了内积结果的表达始终包含了从低次项到高次项的数据组合，体现出维度的多样性。当 $c=0$ 时，点积展开式将只包含高次项。进一步，我们可以通过将多个不同次的多项式核函数相加组合，是结果同时具有高低次项，以此丰富维度的多样性</p>
+<p>多项式核函数中的常数 $c$ 十分重要，其决定了内积结果的表达始终包含了从低次项到高次项的数据组合，体现出维度的多样性。当 $c=0$ 时，点积展开式将只包含高次项。进一步，我们可以通过将多个不同次的多项式核函数相加组合，使结果同时具有高低次项，以此丰富维度的多样性</p>
 
 \[\begin{aligned}
 &amp;\textcolor{red}{c=1,d=2:}\\
@@ -2769,9 +2827,7 @@ b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{
 
 <p>多项式核函数通过构建特征的高次组合，适用于存在较明显非线性但复杂度适中的数据。多项式阶数的选择直接影响模型的复杂度和拟合能力，过高可能导致过拟合，过低可能无法捕捉数据的非线性特性。</p>
 
-<p>虽然引入核函数可以在某种程度上简化高维特征的设计问题（通过调节参数 $c$ 和 $d$ 即可直接得到不同的高维特征），并且可以降低计算量。即我们可以首先计算出特征在原始低维空间的内积，然后直接代入核函数公式中，得到其在高维特种中的内积。</p>
-
-<p>但是多项式核函数仍然存在以下局限性：</p>
+<p>虽然引入核函数可以在某种程度上简化高维特征的设计问题（通过调节参数 $c$ 和 $d$ 即可直接得到不同的高维特征），并且可以降低计算量。但是多项式核函数仍然存在以下局限性：</p>
 
 <ul>
   <li>阶数 $d$ 的选择困难：
@@ -2789,13 +2845,13 @@ b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{
   <li>灵活性不足：多项式核只能捕捉固定阶数的多项式关系，而高斯核可以近似任意复杂函数。</li>
 </ul>
 
-<p>下面介绍的 RBF 核函数能够解决上述绝大部分局限，使用更为广泛。</p>
+<p>下面介绍的 RBF （高斯）核函数能够解决上述绝大部分局限，使用更为广泛。</p>
 
 <h5 id="3222-rbf-核函数"><span class="me-2">3.2.2.2. RBF 核函数</span><a href="#3222-rbf-核函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>根据 Cover 定理，维度越高越有可能使得样本变得线性可分。极端情况下，如果希望样本特征升至无限维，那么原本的先映射再计算内积的方法就失效了，因为我们无法对映射后的无限维特征进行求内积操作。因此我们只能使用核技巧来计算。</p>
 
-<p>根据前面的介绍，多项式核函数在 $d$ 太大时有很多问题，这里我们给出另一种核函数，被称为 <strong>RBF 核函数</strong>（Radial Basis Function）、径向基核函数 或 高斯核函数。其定义如下</p>
+<p>注意到，即使使用多项式核函数也无法通过 $d=+\infty$ 实现无限升维。这里我们给出另一种核函数，被称为 <strong>RBF 核函数</strong>（Radial Basis Function）、径向基核函数 或 高斯核函数。其定义如下</p>
 
 \[\begin{aligned}
 RBF(\boldsymbol{x}_i, \boldsymbol{x}_j) &amp; = \exp\left(-\frac{\Vert \boldsymbol{x}_i-\boldsymbol{x}_j\Vert^2}{2\sigma^2}\right) \\
@@ -2813,7 +2869,7 @@ RBF(\boldsymbol{x}_i, \boldsymbol{x}_j) &amp;= \exp\left(-\frac{\Vert \boldsymbo
 &amp;=C\cdot\exp\left(\boldsymbol{x}_i^\top\boldsymbol{x}_j\right)
 \end{aligned}\]
 
-<p>可以看出，RBF 核函数是关于两向量点积的指数函数，对其进行泰勒展开可以得到</p>
+<p>可以看出，RBF 核函数是关于两向量内积的指数函数，对其进行泰勒展开可以得到</p>
 
 \[RBF(\boldsymbol{x}_i,\boldsymbol{x}_j) = C\cdot\sum_{n=0}^{\infty}\frac{1}{n!}\left(\boldsymbol{x}_i^\top\boldsymbol{x}_j\right)^n = C\cdot\sum_{n=0}^{\infty}\frac{1}{n!}\left(\mathcal{K}_{poly}^{(0,n)}\right)\]
 
@@ -2821,7 +2877,7 @@ RBF(\boldsymbol{x}_i, \boldsymbol{x}_j) &amp;= \exp\left(-\frac{\Vert \boldsymbo
 \[\exp(x) = \sum_{n=0}^{\infty}\frac{1}{n!}x^n\]
 </blockquote>
 
-<p>因此，<u>RBF 核函数可以看作无数个不带常数 $c$ 的多项式核函数从低次到高次的加权和</u>，<strong>可以表达高低次项的无限多样性</strong>。这样，我们就实现了在不实质踏入无限维度的情况下，得到无限维度下向量相似度的结果。</p>
+<p>因此，<u>RBF 核函数可以看作无数个不带常数的多项式核函数从低次到高次的加权和</u>，<strong>可以表达高低次项的无限多样性</strong>。这样，我们就实现了在不实质踏入无限维度的情况下，得到无限维度下向量相似度的结果。</p>
 
 <p>RBF 核函数是最常用的非线性核函数之一，尤其适用于高维、复杂非线性数据。其参数 $\gamma = \frac{1}{2\sigma^2}$ 决定了核函数的宽度，对模型的复杂度和分类效果有显著影响。RBF核因其局部性、平滑性和无限维映射等特性，常能在保持较低模型复杂度的同时获得良好的分类性能。</p>
 
@@ -3002,7 +3058,9 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 <h4 id="421-信息增益的局限"><span class="me-2">4.2.1. 信息增益的局限</span><a href="#421-信息增益的局限" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>ID3 算法有个缺点，当某个特征的取值非常多时，对该特征计算条件熵几乎为0，带来的信息增益几乎等于原始数据本身的信息熵，此时因为其信息增益最大，ID3 算法会使用该特征进行决策树划分，这种情况下会造成过拟合。</p>
+<p>ID3 算法使用信息增益时存在两个局限性。</p>
+
+<p>首先，当某个特征的取值非常多时，对该特征计算条件熵几乎为0，带来的信息增益几乎等于原始数据本身的信息熵，此时因为其信息增益最大，ID3 算法会使用该特征进行决策树划分，这种情况下会造成过拟合。</p>
 
 <p>比如，对上述苹果数据集进行扩充，引入价格特征如下：</p>
 
@@ -3065,7 +3123,11 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 \[\text{IG}(T,P) = H(T) - H(T\vert P) = 0.971 - 0 = 0.971\;\text{bit}\]
 
-<p>则价格特征的信息增益最大，应该按照该特征进行划分。因此我们需要对 ID3 算法进行改进。</p>
+<p>则价格特征的信息增益最大，应该按照该特征进行划分，很显然这是不对的。</p>
+
+<p>其次，信息增益的数值是相对于训练数据集而言的，观察其计算公式可以发现其计算过程和样本的个数有关，并没有绝对意义。</p>
+
+<p>因此我们需要对 ID3 算法进行改进。</p>
 
 <h4 id="422-信息增益比增益率"><span class="me-2">4.2.2. 信息增益比（增益率）</span><a href="#422-信息增益比增益率" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -3099,6 +3161,8 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 <h3 id="43-cart-算法"><span class="me-2">4.3. CART 算法</span><a href="#43-cart-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<p>ID3 和 C4.5算法，生成的决策树是多叉树（叉的个数与选取的特征的取值个数有关，每个特征只会参与一次节点建立），且只能处理分类不能处理回归。下面介绍的 CART 算法形成的决策树是二叉树，具备更好的数学性质，且既可用于分类也可用于回归。如果配合剪枝、集成等策略，基于CART 算法生成的决策树可构建出很多非常优秀的模型，比如随机森林、随机梯度上升树等。</p>
+
 <h4 id="431-基尼指数"><span class="me-2">4.3.1. 基尼指数</span><a href="#431-基尼指数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>基尼指数是决策树（如CART算法）中用于衡量数据不纯度的指标，类似于信息熵（Entropy），但计算更高效（不用计算 $\log_2$）。</p>
@@ -3107,15 +3171,71 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 \[\text{Gini}(D) = 1 - \sum_{i=1}^{c} p_i^2 = 1- \sum_{i=1}^{c} (\frac{D_i}{D})^2\]
 
-<p>对于特征 $X$，假设其有 $k$ 个取值，则特征 $X$ 条件（分裂）下的基尼指数定义为：</p>
+<p>对于所有样本的特征 $X$，假设其有 $k$ 个取值，将这些取值从小到大排列为 $x_1, x_2, \cdots, x_k$，分别取两个相邻特征值的均值作为分裂点，则一共有 $k-1$ 个分裂点，第 $i$ 个分裂点为 $t_i = ({x_i+x_{i+1}})/{2}$。</p>
 
-\[\text{Gini}_X(D) = \sum_{i=1}^k \frac{D_i}{D} \text{Gini}(D_i)\]
+<p>则特征 $X$ 条件（分裂）下的基尼指数定义为：</p>
 
-<p>基尼指数反应数据集 $D$ 的不确定性，特征 $X$ 条件下（分裂后）的基尼指数反应了特征 $X$ 条件下（分裂后）数据集 $D$ 的不确定性。与信息增益类似，分裂前后的基尼指数的变化反映了特征的好坏，我们可以直接选择特征条件下基尼指数小的特征作为分裂特征。</p>
+\[\begin{aligned}
+&amp;D_{\text{left}} = \{D\vert X\leq t_i\},\quad D_{\text{right}} = \{D\vert X&gt;t_i\}\\
+&amp;\text{Gini}_{\text{split}}(D) = \frac{D_{\text{left}}}{D} \text{Gini}(D_{\text{left}})+ \frac{D_{\text{right}}}{D} \text{Gini}(D_{\text{right}})
+\end{aligned}\]
 
-<p>使用基尼系数作为决策树特征划分的指标的方法称为 CART 算法（Classification and Regression Trees）。</p>
+<p>基尼指数反应数据集 $D$ 的不确定性，特征 $X$ 条件下（分裂后）的基尼指数反应了特征 $X$ 条件下（分裂后）数据集 $D$ 的不确定性。</p>
 
-<h3 id="432-算法区别"><span class="me-2">4.3.2. 算法区别</span><a href="#432-算法区别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>与信息增益类似，分裂前后的基尼指数的变化反映了特征的好坏。我们可以直接选择特征条件下基尼指数小的特征作为分裂特征，此时表示经由该特征分裂后，数据集的基尼指数下降的多。</p>
+
+<h4 id="432-cart-分类树"><span class="me-2">4.3.2. CART 分类树</span><a href="#432-cart-分类树" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>使用基尼系数作为决策树特征划分的指标的方法称为 「CART 算法」（Classification and Regression Trees）。下面结合算法伪代码，给出 CART 算法生成二叉树分类决策树的过程：</p>
+
+<hr />
+<ul>
+  <li><strong>输入</strong>：训练数据集 $D$，阈值；</li>
+  <li>从根节点开始，递归地对每个节点进行以下操作，构建二叉树：
+    <ul>
+      <li><strong>Step0</strong>：判断当前节点是否满足停止计算的条件，若满足则退出当前递归循环。停止计算的条件为：达到最大深度阈值、节点中的样本个数小于阈值，或样本集的基尼指数小于阈值，或者没有更多特征。</li>
+      <li><strong>Step1</strong>：计算现有特征对该数据集D的基尼指数。即对每一个特征A，对其可能取的每个值  ，根据样本是否满足 $A=a$ 将 $D$ 划分为 $D_1$和 $D_2$ 两部分，计算 $A=a$ 条件下的基尼指数 $\text{Gini}_{A=a}(D)$；</li>
+      <li><strong>Step2</strong>：在所有可能的特征 $A$ 以及他们所有可能的划分点 $a$ 中，选择基尼指数最小的特征及其对应可能的划分点作为最优特征和最优划分点。根据最优特征和最优划分点，从现节点生成两个子节点 $A\geq a, \;A &lt; a $，将训练数据集依特征分配到两个子节点中去；</li>
+      <li><strong>Step3</strong>：对两个子节点，返回 <strong>Step0</strong> 继续递归；</li>
+    </ul>
+  </li>
+  <li><strong>输出</strong>：CART 决策树 $T$。</li>
+</ul>
+
+<hr />
+
+<p>在使用决策树时，抵达叶子节点后，叶子节点负责做出最终决策。它可以输出以下几种结果：</p>
+
+<ul>
+  <li>「类别标签」：在分类任务中，叶子节点输出数据点所属的类别，由该节点中样本的多数决定；</li>
+  <li>「类别概率」：在概率分类任务中，叶子节点输出数据点属于不同类别的概率；</li>
+  <li>「标量取值」：在回归任务中，叶子节点输出一个连续的数值结果，为叶子节点所含所有样本点的均值。</li>
+</ul>
+
+<h4 id="433-cart-回归树"><span class="me-2">4.3.3. CART 回归树</span><a href="#433-cart-回归树" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>对于回归问题，CART 采用均方误差（MSE）来衡量误差</p>
+
+\[MSE(D) = \frac{1}{D}\sum_{i=1}^{D}(y_i - \bar{y})^2\]
+
+<p>其中 $\bar{y}$ 是数据集 $D$ 中所有样本的均值。</p>
+
+<p>对数据进行分裂，得到两部分$D_{\text{left}},D_{\text{right}}
+$，则分裂后的均方误差为：</p>
+
+\[MSE_{\text{split}}(D) = \frac{D_{\text{left}}}{D} MSE(D_{\text{left}})+ \frac{D_{\text{right}}}{D} MSE(D_{\text{right}})\]
+
+<p>目标是找到使得 $MSE_{\text{split}}$ 最小的分裂方式。</p>
+
+<p>与 CART 分类树类似，回归树的生成过程主要包括：</p>
+
+<ul>
+  <li>计算所有可能分裂点的 MSE，选择最优分裂点。</li>
+  <li>递归分裂，直到满足停止条件（如叶子节点的样本数小于某个阈值）。</li>
+  <li>叶子节点的输出是该节点样本的均值。</li>
+</ul>
+
+<h4 id="434-三种决策树构建算法区别"><span class="me-2">4.3.4. 三种决策树构建算法区别</span><a href="#434-三种决策树构建算法区别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <ul>
   <li><strong>CART 算法</strong>：
@@ -3164,7 +3284,58 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
   <li>统一性：回归和分类问题均可使用相同的二分框架。</li>
 </ul>
 
+<p>思考：CART 如何处理缺失值特征？</p>
+
+<ul>
+  <li>赋给所有训练样本中该属性的最常见值；</li>
+  <li>赋给它对应类别的训练样本中该属性的最常见值；</li>
+  <li>为缺失值的每个可能值赋予一个概率，而不是简单地将最常见的值赋给它。</li>
+</ul>
+
+<h3 id="44-局限性与剪枝"><span class="me-2">4.4. 局限性与剪枝</span><a href="#44-局限性与剪枝" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>对于构建（特别是 CART 算法）得到的决策树，一个很大的局限性是树存在较大的过拟合问题。因此我们需要采取剪枝来缓解过拟合问题。</p>
+
+<p>剪枝是从已经生成的树上裁掉一些子树或叶节点，并将其根节点或父节点作为新的叶子节点，从而简化决策树模型的方法。</p>
+
+<p>剪枝分为先剪枝和后剪枝：</p>
+
+<ul>
+  <li>先剪枝就是控制决策树的生长，在决策树构建过程中决定某节点是叶节点、还是继续分枝。这在前述算法伪代码中有所体现；</li>
+  <li>后剪枝是在决策树得到充分生长之后，再对其进行修剪。从叶节点开始，合并具有相同父节点的叶节点后不会导致纯度明显降低，则执行合并。</li>
+</ul>
+
 <h2 id="5-分类器集成"><span class="me-2">5. 分类器集成</span><a href="#5-分类器集成" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>分类器集成是机器学习中集成学习领域的一个子集，是针对模式识别中分类问题的应用。</p>
+
+<p>集成学习原名为 Classifier combination / ensemble learning，它是根据训练数据构造一组基分类器（base classifier），通过聚合每个基分类器的输出来进行分类。</p>
+
+<ul>
+  <li>基分类器的性能取决于它选择的分类算法和训练集；</li>
+  <li>对于单个性能比较弱的基分类器，我们称为弱分类器（错误率略优于0.5）；</li>
+  <li>对于单个性能比较强的基分类器，我们称为强分类器（准确率很高，并且能在多项式时间内完成）。</li>
+</ul>
+
+<blockquote>
+  <p>多项式时间‌是计算机科学中用于衡量算法时间复杂度的核心概念，指算法的运行时间随输入规模 $n$ 的增长可按某个多项式函数（如 $O(n^k)$）增长。‌该概念是区分 “高效” 算法与 “低效” 算法的重要标准‌</p>
+
+  <p>常见的多项式复杂度算法包括：</p>
+  <ul>
+    <li>$O(n^2)$：如冒泡排序的最差情况；</li>
+    <li>$O(n\log n)$：如快速排序的最差情况；</li>
+    <li>$O(n)$：如遍历数组的最差情况；</li>
+  </ul>
+
+  <p>多项式时间算法的效率显著高于超多项式时间（如指数时间 $O(2^n)$ 或阶乘时间 $O(n!)$）。当输入规模增大时，后者的运行时间会急剧上升，远超实际可行性。</p>
+
+  <p>根据多项式时间可以判定一些问题的求解难度：</p>
+
+  <ul>
+    <li>P类问题‌：可在多项式时间内解决的判定问题，例如排序、最短路径等；</li>
+    <li>NP类问题‌：虽不确定是否存在多项式时间解法，但可在多项式时间内验证解的正确性，例如旅行商问题（TSP）的判定版本。NP完全性理论进一步探讨了这类问题的计算难度边界。</li>
+  </ul>
+</blockquote>
 
 <h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -3319,6 +3490,13 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
         </li>
       
@@ -3327,13 +3505,6 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
         
