@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-09T12:25:31+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-09T14:10:46+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1475,6 +1475,30 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1827,7 +1851,7 @@
 
 <em
   class=""
-  data-ts="1744172731"
+  data-ts="1744179046"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -1877,9 +1901,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="15797 字"
+  title="16955 字"
 >
-  <em>87 分钟</em>阅读</span>
+  <em>94 分钟</em>阅读</span>
 
     </div>
 
@@ -1964,7 +1988,12 @@
       <li><a href="#44-局限性与剪枝">4.4. 局限性与剪枝</a></li>
     </ul>
   </li>
-  <li><a href="#5-分类器集成">5. 分类器集成</a></li>
+  <li><a href="#5-分类器集成">5. 分类器集成</a>
+    <ul>
+      <li><a href="#51-bagging">5.1. Bagging</a></li>
+      <li><a href="#52-boosting">5.2. Boosting</a></li>
+    </ul>
+  </li>
   <li><a href="#6-参考文献">6. 参考文献</a></li>
 </ul>
 
@@ -3313,8 +3342,8 @@ $，则分裂后的均方误差为：</p>
 
 <ul>
   <li>基分类器的性能取决于它选择的分类算法和训练集；</li>
-  <li>对于单个性能比较弱的基分类器，我们称为弱分类器（错误率略优于0.5）；</li>
-  <li>对于单个性能比较强的基分类器，我们称为强分类器（准确率很高，并且能在多项式时间内完成）。</li>
+  <li>对于单个性能比较弱的基分类器，称之为弱分类器（错误率略优于0.5）；</li>
+  <li>对于单个性能比较强的基分类器，称之为强分类器（准确率很高，并且能在多项式时间内完成）。</li>
 </ul>
 
 <blockquote>
@@ -3336,6 +3365,53 @@ $，则分裂后的均方误差为：</p>
     <li>NP类问题‌：虽不确定是否存在多项式时间解法，但可在多项式时间内验证解的正确性，例如旅行商问题（TSP）的判定版本。NP完全性理论进一步探讨了这类问题的计算难度边界。</li>
   </ul>
 </blockquote>
+
+<p>为什么需要集成学习?</p>
+
+<ul>
+  <li>弱分类器间存在一定的差异性 ，这会导致分类的边界不同，也就是说可能存在错误。那么将多个弱分类器合并后，就可以得到更加合理的边界，减少整体的错误率，实现更好的效果;</li>
+  <li>对于数据集过大或者过小，可以分别进行划分和有放回的操作产生不同的数据子集，然后使用数据子集训练不同的分类器，最终再合并成为一个大的分类器;</li>
+  <li>如果数据的划分边界过于复杂，使用线性模型很难描述情况，那么可以训练多个模型，然后再进行模型的融合;</li>
+  <li>对于多个异构的特征集的时候，很难进行融合，那么可以考虑每个数据集构建一个分模型，然后将多个模型融合。</li>
+</ul>
+
+<p>根据集成学习的思想不同，分为 Bagging、Boosting、Stacking 等。</p>
+
+<h3 id="51-bagging"><span class="me-2">5.1. Bagging</span><a href="#51-bagging" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>Bagging 方法又叫做自举汇聚法（Bootstrap Aggregating），是一种并行的算法。其基本思想是︰在原始数据集上通过有放回的抽样的方式，重新选择出 $T$ 个新数据集来分别训练 $T$ 个分类器的集成技术。也就是说这些模型的训练数据中允许存在重复数据。</p>
+
+<ul>
+  <li>
+    <p>Bagging 的“自举”（Bootsrap）：从训练集里面采集固定个数的样本，但是每采集一个样本后，都将样本放回。也就是说，之前采集到的样本在放回后有可能继续被采集到。</p>
+  </li>
+  <li>
+    <p>Bagging 的汇聚（Aggregating）：对于分类问题，通常使用简单投票法，得到最多票数的类别或者类别之一为最终的模型输出。对于回归问题，通常使用简单平均法，对 $T$ 个弱学习器得到的回归结果进行算术平均得到最终的模型输出。</p>
+  </li>
+</ul>
+
+<p>由于 Bagging 算法每次都进行采样来训练模型，因此泛化能力很强，对于降低模型的方差很有作用。当然对于训练集的拟合程度就会差一些，也就是模型的偏差会大一些。</p>
+
+<p>Bagging 方法的弱学习器可以是前面介绍过的基本算法模型，比如 Linear、ID3、C4.5、CART、SVM、KNN 等。如果 Bagging 中每一个若分类器都是一个决策树，那么称该方法为 「随机森林」。</p>
+
+<ul>
+  <li><strong>随机森林</strong></li>
+</ul>
+
+<p>在 Bagging 集成策略的基础上，通过构建决策树作为弱分类器，可以得到随机森林，具体步骤如下：</p>
+
+<ul>
+  <li>从样本集中用Bootstrap采样选出 $n$ 个样本；</li>
+  <li>从所有属性中随机选择 $k$ 个属性，选择出最佳分割属性作为节点创建决策树；</li>
+  <li>重复以上两步 $m$ 次，即建立 $m$ 棵决策树；</li>
+  <li>这 $m$ 个决策树形成随机森林，通过投票表决结果决定数据属于那一类。</li>
+</ul>
+
+<p>随机森林中「随机」二字的内涵之一就是源于 Bagging 思想中对样本的随机抽样和放回操作。抽样数据在一定程度上体现了全体样本数据的特性，所以可以用样本数据训练模型来预测其他的全体数据。但是，抽样数据与全体样本数据之间仍然是存在差异性的，弱分类器（决策树）在拟合各自抽样得到的数据集时，有可能出现不拟合生产环境中数据的情况，这就是过拟合。</p>
+
+<p>在决策树中，进行特征属性划分选择的时候，如果选择最优，表示这个划分在当前数据集上一定是最优的，但是不一定在全体数据中最优；在随机森林中，如果每个决策树都是选择最优的进行划分，就会导致所有弱分类器模型（决策树）很大概率上会使用相同的特征属性进行数据的划分，容易导致过拟合，所以在随机森林中一般使用随机的方式选择特征属性划分，这也是随机森林中「随机」二字的内涵之一。</p>
+
+<h3 id="52-boosting"><span class="me-2">5.2. Boosting</span><a href="#52-boosting" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
