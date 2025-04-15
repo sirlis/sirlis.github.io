@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="强化学习（值函数近似）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。" />
@@ -3205,6 +3205,122 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -3258,101 +3374,6 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -3393,6 +3414,9 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
       
         
@@ -3400,9 +3424,6 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/computer-vision/">computer vision</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
       
     </div>
   </div>
@@ -3451,6 +3472,18 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5298,6 +5331,122 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -5351,101 +5500,6 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -5486,6 +5540,9 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
       
         
@@ -5493,9 +5550,6 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/computer-vision/">computer vision</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/meta-learning/">meta learning</a>
       
     </div>
   </div>

@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-04-14T15:46:32+08:00</updated>
+  <updated>2025-04-15T21:15:59+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,11 +12,71 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>模式识别（特征选择与特征提取）</title>
+    <link href="http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/" rel="alternate" type="text/html" title="模式识别（特征选择与特征提取）" />
+    <published>2025-04-15T17:15:49+08:00</published>
+  
+    <updated>2025-04-15T17:15:49+08:00</updated>
+  
+    <id>http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/</id>
+    <content src="http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Academic" />
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。
+
+
+
+
+
+
+  1. 引言
+
+
+1. 特征
+
+模式识别中把每个样本都量化为一组特征来描述，构建特征空间是解决模式识别问题的第一步。
+
+
+  「特征」：可以用来体现类别之间相互区别的某些数学测度，也称作属性，测度的值称为特征值。
+  「特征向量」：由被识别的对象（样本）确定一组基本特征，这组特征的取值按向量形式排布，称为该样本的特征向量。
+  「特征空间」：由样本的特征构成的空间，空间的维数就是特征的个数，每个维度就是一个特征，因此每一个样本就是特征空间中的一个点。
+
+
+通过直接测量得到的特征称为原始特征。原始特征主要包括：物理特征、结构特征、数学特征
+
+
+  「物理和结构特征」：一般是由仪器直接测量出来的数值，这类特征易于为人的直觉感知，但是有时难以定量描述，因此不利于机器判别。
+  「数学特征」：则是对仪器所测量数据的进...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -261,74 +321,6 @@ Zotero 是一款免费、易于使用的工具，可以帮助您收集、管理�
       
       3.2. 算法流程
       3.3...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>模式识别（贝叶斯决策）</title>
-    <link href="http://localhost:4000/posts/Pattern-Recognition-Bayes/" rel="alternate" type="text/html" title="模式识别（贝叶斯决策）" />
-    <published>2024-03-12T21:22:19+08:00</published>
-  
-    <updated>2025-03-31T03:54:08+08:00</updated>
-  
-    <id>http://localhost:4000/posts/Pattern-Recognition-Bayes/</id>
-    <content src="http://localhost:4000/posts/Pattern-Recognition-Bayes/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。
-
-
-
-
-
-
-  1. 决策理论与方法
-    
-      1.1. 基于先验概率的决策
-      1.2. 基于贝叶斯公式（后验概率）的决策
-    
-  
-  2. 最小错误贝叶斯决策
-    
-      2.1. 直观举例
-      2.2. 类概率密度
-      2.3. 错误率分析
-      2.4. 决策规则
-    
-  
-  3. 正态分布样本的最小错误贝叶斯决策
-    
-      3.1. 多元正态分布
-      3.2. 各类协方差矩阵相等且为特殊对角阵
-      3.3. 各类协方差矩阵相等
-      3.4. 各类协方差不等（一般情况）
-    
-  
-  4. 最小风险贝叶斯决策
-    
-      4.1. 举例说明
-      4.2. 风险因...
     </summary>
   
 
