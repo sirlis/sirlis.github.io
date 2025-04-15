@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-04-15T21:15:59+08:00</updated>
+  <updated>2025-04-15T21:25:29+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -21,13 +21,13 @@
   
   <entry>
     <title>模式识别（特征选择与特征提取）</title>
-    <link href="http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/" rel="alternate" type="text/html" title="模式识别（特征选择与特征提取）" />
+    <link href="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" rel="alternate" type="text/html" title="模式识别（特征选择与特征提取）" />
     <published>2025-04-15T17:15:49+08:00</published>
   
     <updated>2025-04-15T17:15:49+08:00</updated>
   
-    <id>http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/</id>
-    <content src="http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/" />
+    <id>http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/</id>
+    <content src="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />
     <author>
       <name>sirlis</name>
     </author>
@@ -55,24 +55,34 @@
 
 
 
-  1. 引言
-
-
-1. 特征
-
-模式识别中把每个样本都量化为一组特征来描述，构建特征空间是解决模式识别问题的第一步。
-
-
-  「特征」：可以用来体现类别之间相互区别的某些数学测度，也称作属性，测度的值称为特征值。
-  「特征向量」：由被识别的对象（样本）确定一组基本特征，这组特征的取值按向量形式排布，称为该样本的特征向量。
-  「特征空间」：由样本的特征构成的空间，空间的维数就是特征的个数，每个维度就是一个特征，因此每一个样本就是特征空间中的一个点。
-
-
-通过直接测量得到的特征称为原始特征。原始特征主要包括：物理特征、结构特征、数学特征
-
-
-  「物理和结构特征」：一般是由仪器直接测量出来的数值，这类特征易于为人的直觉感知，但是有时难以定量描述，因此不利于机器判别。
-  「数学特征」：则是对仪器所测量数据的进...
+  1. 特征
+    
+      1.1. 颜色特征
+        
+          1.1.1. 颜色直方图
+          1.1.2. 颜色矩
+        
+      
+      1.2. 形状特征
+        
+          1.2.1. 霍夫变换（Hough）
+          1.2.2. 方向梯度直方图（HOG）
+          1.2.3. 傅里叶描述子（Fourier Descriptors）
+        
+      
+      1.3. 纹理特征
+      1.4. 空间关系特征
+    
+  
+  2. 特征选择
+    
+      2.1. 类别可分性准则
+    
+  
+  3. 特征提取
+    
+      3.1. 线性特征提取
+...
     </summary>
   
 

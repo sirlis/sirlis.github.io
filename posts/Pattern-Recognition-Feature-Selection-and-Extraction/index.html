@@ -41,8 +41,8 @@
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。" />
 <meta property="og:description" content="本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。" />
-<link rel="canonical" href="http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/" />
-<meta property="og:url" content="http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/" />
+<link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />
+<meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2025-04-15T17:15:49+08:00" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（特征选择与特征提取）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-15T17:15:49+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern_Recognition-Feature-Selection-and-Extraction/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-15T17:15:49+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1410,9 +1410,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3592 字"
+  title="3705 字"
 >
-  <em>19 分钟</em>阅读</span>
+  <em>20 分钟</em>阅读</span>
 
     </div>
 
@@ -1428,7 +1428,46 @@
 <hr />
 
 <ul>
-  <li><a href="#1-引言">1. 引言</a></li>
+  <li><a href="#1-特征">1. 特征</a>
+    <ul>
+      <li><a href="#11-颜色特征">1.1. 颜色特征</a>
+        <ul>
+          <li><a href="#111-颜色直方图">1.1.1. 颜色直方图</a></li>
+          <li><a href="#112-颜色矩">1.1.2. 颜色矩</a></li>
+        </ul>
+      </li>
+      <li><a href="#12-形状特征">1.2. 形状特征</a>
+        <ul>
+          <li><a href="#121-霍夫变换hough">1.2.1. 霍夫变换（Hough）</a></li>
+          <li><a href="#122-方向梯度直方图hog">1.2.2. 方向梯度直方图（HOG）</a></li>
+          <li><a href="#123-傅里叶描述子fourier-descriptors">1.2.3. 傅里叶描述子（Fourier Descriptors）</a></li>
+        </ul>
+      </li>
+      <li><a href="#13-纹理特征">1.3. 纹理特征</a></li>
+      <li><a href="#14-空间关系特征">1.4. 空间关系特征</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-特征选择">2. 特征选择</a>
+    <ul>
+      <li><a href="#21-类别可分性准则">2.1. 类别可分性准则</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-特征提取">3. 特征提取</a>
+    <ul>
+      <li><a href="#31-线性特征提取">3.1. 线性特征提取</a>
+        <ul>
+          <li><a href="#311-线性判别分析lda">3.1.1. 线性判别分析（LDA）</a></li>
+          <li><a href="#312-主成分分析pca">3.1.2. 主成分分析（PCA）</a></li>
+        </ul>
+      </li>
+      <li><a href="#32-非线性特征提取">3.2. 非线性特征提取</a>
+        <ul>
+          <li><a href="#321-核方法">3.2.1. 核方法</a></li>
+          <li><a href="#322-流形学习">3.2.2. 流形学习</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 <h2 id="1-特征"><span class="me-2">1. 特征</span><a href="#1-特征" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -1730,7 +1769,7 @@
     
       
       <a
-        href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern_Recognition-Feature-Selection-and-Extraction%2F"
+        href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Feature-Selection-and-Extraction%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Twitter"
@@ -1743,7 +1782,7 @@
     
       
       <a
-        href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern_Recognition-Feature-Selection-and-Extraction%2F"
+        href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Feature-Selection-and-Extraction%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Facebook"
@@ -1756,7 +1795,7 @@
     
       
       <a
-        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern_Recognition-Feature-Selection-and-Extraction%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%89%20-%20SIRLIS"
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Feature-Selection-and-Extraction%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%89%20-%20SIRLIS"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Telegram"
