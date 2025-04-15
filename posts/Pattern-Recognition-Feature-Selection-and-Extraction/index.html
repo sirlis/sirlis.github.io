@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（特征选择与特征提取）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。" />
@@ -1037,6 +1037,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1323,6 +1459,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1410,9 +1558,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3705 字"
+  title="5127 字"
 >
-  <em>20 分钟</em>阅读</span>
+  <em>28 分钟</em>阅读</span>
 
     </div>
 
@@ -1443,7 +1591,11 @@
           <li><a href="#123-傅里叶描述子fourier-descriptors">1.2.3. 傅里叶描述子（Fourier Descriptors）</a></li>
         </ul>
       </li>
-      <li><a href="#13-纹理特征">1.3. 纹理特征</a></li>
+      <li><a href="#13-纹理特征">1.3. 纹理特征</a>
+        <ul>
+          <li><a href="#131-灰度共生矩阵glcm">1.3.1. 灰度共生矩阵（GLCM）</a></li>
+        </ul>
+      </li>
       <li><a href="#14-空间关系特征">1.4. 空间关系特征</a></li>
     </ul>
   </li>
@@ -1687,7 +1839,147 @@
 
 <h3 id="13-纹理特征"><span class="me-2">1.3. 纹理特征</span><a href="#13-纹理特征" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<p>纹理特征也是一种<strong>全局特征</strong>，指图像中像素的某种空间排列规律，它反映了图像中局部区域的重复性模式或结构。但是，纹理特征不能完全反映出物体的本质属性，仅仅利用纹理特征是无法获得高层次图像内容的。</p>
+
+<h4 id="131-灰度共生矩阵glcm"><span class="me-2">1.3.1. 灰度共生矩阵（GLCM）</span><a href="#131-灰度共生矩阵glcm" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>灰度共生矩阵（Gray-Level Co-occurrence Matrix, GLCM）是一种用于描述图像中像素对之间灰度值关系的统计方法。它通过计算图像中每对像素在特定方向和距离上的灰度值组合的频率，来提取图像的纹理特征。
+GLCM 的计算步骤如下：</p>
+
+<ul>
+  <li>定义方向和距离
+    <ul>
+      <li>选择一个方向 $\theta$（如 $0^{\circ},45^{\circ},90^{\circ},135^{\circ}$）和一个距离 $d$（如 $1,2,3$ 等）；</li>
+      <li>方向表示像素对之间的相对位置，距离表示像素对之间的间隔。</li>
+    </ul>
+  </li>
+  <li>初始化 GLCM 矩阵
+    <ul>
+      <li>创建一个 $N\times N$ 的矩阵，其中 $N$ 是灰度值的数量，用于存储每对像素的灰度值组合的概率 $P(i,j\vert \theta,d)$；</li>
+      <li>将矩阵的每个元素初始化为 0；</li>
+    </ul>
+  </li>
+  <li>计算像素对的频率
+    <ul>
+      <li>遍历图像中的每个像素，对于每个像素，找到其在指定方向和距离上的邻域像素；</li>
+      <li>增加 GLCM 中对应于当前像素和邻域像素灰度值的元素的值。</li>
+    </ul>
+  </li>
+  <li>归一化 GLCM
+    <ul>
+      <li>将 GLCM 中的每个元素除以像素对的总数，得到归一化的 GLCM。</li>
+      <li>归一化后的 GLCM 表示了不同灰度值组合的概率分布。</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="/assets/img/postsimg/20250415/glcm.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/glcm.png" alt="GLCM" class="lazyload" data-proofer-ignore></a></p>
+
+<p>注意，定义方向时一般包含双向信息，比如 $0^{\circ}$ 与 $180^{\circ}$ 是同一方向，而 $45^{\circ}$ 与 $-135^{\circ}$ 是同一方向，因此统计概率时要考虑两种方向的组合。且注意到，灰度共生矩阵在双向定义下一定是一个对称矩阵。</p>
+
+<p>思考：有必要针对原始灰度图像计算灰度共生矩阵么？</p>
+
+<ul>
+  <li>两不同的灰度像素组合 $51\to 165$ 和 $48\to173$ 几乎无区别！</li>
+  <li>8 位灰度图像的GLCM 尺寸为 $256\times 256 = 65536$ 太大！</li>
+  <li>大量灰度像素组合不存在，概率为 0，GLCM 特别稀疏！</li>
+</ul>
+
+<p>因此，我们可以降低灰度的级别，将其拆成若干区间，如取 $N=8$ 以降低 GLCM 的大小，且有效降低矩阵的稀疏性。</p>
+
+<p><a href="/assets/img/postsimg/20250415/glcm2.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/glcm2.png" alt="GLCM" class="lazyload" data-proofer-ignore></a></p>
+
+<p>虽然我们从 GLCM 中已经能反映出原图的某些特征，我们一般会将其进一步计算某些统计学特性。</p>
+
+<ul>
+  <li><strong>对比度</strong></li>
+</ul>
+
+<p>对比度是衡量图像纹理清晰度和纹理粗细程度的指标，反映了图像中像素对之间的灰度差异程度。其计算公式为</p>
+
+\[\text{Contrast} = \sum_{i=1}^{N}\sum_{j=1}^{N}P(i,j\vert \theta,d)|i-j|^2\]
+
+<p>对比度值越大，表示图像纹理越清晰，纹理变化越明显，图像中像素对之间的灰度差异越大；对比度值越小，表示图像纹理越模糊，纹理变化越不明显。</p>
+
+<ul>
+  <li><strong>能量</strong></li>
+</ul>
+
+<p>能量是衡量图像纹理能量和纹理分布均匀度的指标，反映图像纹理的均匀程度。其计算公式为</p>
+
+\[\text{Energy} = \sum_{i=1}^{N}\sum_{j=1}^{N}P(i,j\vert \theta,d)^2\]
+
+<p>能量值越大，表示图像纹理分布越均匀，纹理变化越规则（如黑白棋盘）；能量值越小，表示图像纹理变化越丰富（如噪声图）。</p>
+
+<ul>
+  <li><strong>熵</strong></li>
+</ul>
+
+<p>熵是衡量图像纹理混乱程度的指标，反映图像纹理的随机性。其计算公式为</p>
+
+\[\text{Entropy} = -\sum_{i=1}^{N}\sum_{j=1}^{N}P(i,j\vert \theta,d)\log P(i,j\vert \theta,d)\]
+
+<p>熵值越大，表示图像纹理分布不均匀，纹理变化越随机；熵值越小，表示图像纹理分布均匀，纹理变化越规则。</p>
+
+<blockquote>
+  <p>越杂乱无序，能量越小，熵越大（熵增、热力学第二定律的体现）。</p>
+</blockquote>
+
+<ul>
+  <li><strong>相关性</strong></li>
+</ul>
+
+<p>相关性用于衡量图像中像素对之间的线性相关程度，反映了图像纹理的规则性。其计算公式为</p>
+
+\[\text{Correlation} = \frac{\sum_{i=1}^{N}\sum_{j=1}^{N}(i-\mu_i)(j-\mu_j)P(i,j\vert \theta,d)}{\sigma_i\sigma_j}\]
+
+<p>其中</p>
+
+\[\begin{aligned}
+  \mu_i &amp;= \sum_{i=1}^{N}\sum_{j=1}^{N}iP(i,j\vert \theta,d) \\
+  \mu_j &amp;= \sum_{i=1}^{N}\sum_{j=1}^{N}jP(i,j\vert \theta,d)\\
+  \sigma_i &amp;= \sqrt{\sum_{i=1}^{N}\sum_{j=1}^{N}(i-\mu_i)^2P(i,j\vert \theta,d)}\\
+  \sigma_j &amp;= \sqrt{\sum_{i=1}^{N}\sum_{j=1}^{N}(j-\mu_j)^2P(i,j\vert \theta,d)}
+\end{aligned}\]
+
+<p>相关性值通常在 $[−1,1]$ 之间。</p>
+
+<ul>
+  <li>$1$ 表示完全正相关;</li>
+  <li>$-1$ 表示完全负相关;</li>
+  <li>$0$ 表示无相关性。</li>
+</ul>
+
+<p>高相关性表示图像纹理在指定方向上变化缓慢，低相关性表示纹理变化剧烈。</p>
+
+<ul>
+  <li><strong>一致性</strong></li>
+</ul>
+
+<p>一致性是用于衡量图像纹理局部变化的大小，即灰度相似的像素对在图像中出现的频率。其计算公式为</p>
+
+\[\text{Homogeneity} = \sum_{i=1}^{N}\sum_{j=1}^{N}\frac{P(i,j\vert \theta,d)}{1+\vert i-j\vert^2}\]
+
+<p>一致性值越大，表示图像中灰度相似的像素对越多，图像纹理越均匀；一致性值越小，表示图像中灰度差异较大的像素对越多，图像纹理变化越复杂。</p>
+
 <h3 id="14-空间关系特征"><span class="me-2">1.4. 空间关系特征</span><a href="#14-空间关系特征" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>空间关系是指图像中分割出来的多个目标之间的相互空间位置，或者相对方向关系。包括</p>
+
+<ul>
+  <li>相对空间位置信息：目标之间的相对情况，如上下左右关系等；</li>
+  <li>绝对空间位置信息：目标之间的距离大小以及方位。</li>
+</ul>
+
+<p>基于空间关系可定义常见的特征如下：</p>
+
+<ul>
+  <li>连接/邻接关系。</li>
+  <li>交叠/重叠关系。</li>
+  <li>包含/包容关系。</li>
+</ul>
+
+<p>详细介绍略。</p>
 
 <h2 id="2-特征选择"><span class="me-2">2. 特征选择</span><a href="#2-特征选择" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
