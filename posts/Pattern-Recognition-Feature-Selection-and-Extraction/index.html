@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（特征选择与特征提取）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（特征选择与特征提取）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-15T17:15:49+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-17T18:52:16+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1173,6 +1173,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1471,6 +1607,66 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1519,6 +1715,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1744887136"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/04/17
+</em>
+
+    </span>
+    
 
   
 
@@ -1558,9 +1778,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="5127 字"
+  title="6427 字"
 >
-  <em>28 分钟</em>阅读</span>
+  <em>35 分钟</em>阅读</span>
 
     </div>
 
@@ -1594,6 +1814,7 @@
       <li><a href="#13-纹理特征">1.3. 纹理特征</a>
         <ul>
           <li><a href="#131-灰度共生矩阵glcm">1.3.1. 灰度共生矩阵（GLCM）</a></li>
+          <li><a href="#132-局部二值模式lbp">1.3.2. 局部二值模式（LBP）</a></li>
         </ul>
       </li>
       <li><a href="#14-空间关系特征">1.4. 空间关系特征</a></li>
@@ -1601,7 +1822,14 @@
   </li>
   <li><a href="#2-特征选择">2. 特征选择</a>
     <ul>
-      <li><a href="#21-类别可分性准则">2.1. 类别可分性准则</a></li>
+      <li><a href="#21-类别可分性准则">2.1. 类别可分性准则</a>
+        <ul>
+          <li><a href="#211-基于类内类间距离的可分性判据">2.1.1. 基于类内类间距离的可分性判据</a></li>
+          <li><a href="#212-基于信息熵的可分性判据">2.1.2. 基于信息熵的可分性判据</a></li>
+          <li><a href="#213-基于统计检验的可分性判据">2.1.3. 基于统计检验的可分性判据</a></li>
+          <li><a href="#214-基于概率分布的可分性判据">2.1.4. 基于概率分布的可分性判据</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#3-特征提取">3. 特征提取</a>
@@ -1962,6 +2190,20 @@ GLCM 的计算步骤如下：</p>
 
 <p>一致性值越大，表示图像中灰度相似的像素对越多，图像纹理越均匀；一致性值越小，表示图像中灰度差异较大的像素对越多，图像纹理变化越复杂。</p>
 
+<h4 id="132-局部二值模式lbp"><span class="me-2">1.3.2. 局部二值模式（LBP）</span><a href="#132-局部二值模式lbp" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>局部二值模式（Local Binary Pattern，LBP）是一种用于描述图像中像素邻域的纹理特征。它通过将图像中每个像素的灰度值与相邻像素的灰度值进行比较，生成一个二进制编码，以表示像素的灰度分布特征。它利用相邻像素间的关系，将0-255灰度级的像素值映射到重新定义的灰度级，然后通过统计直方图来反映图像的全局纹理信息。</p>
+
+<p>如下图所示，在 $3\times 3$ 窗口内，以窗口中心像素为阈值，将相邻 8 个像素的灰度值与其阈值进行比较，得到一个二进制编码。若周围像素值大于中心像素值，则该像素点的位置被标记为 1，否则为 0。$3\times 3$ 邻域内的 8 个点经比较可产生 8 位二进制数（通常转换为十进制数即LBP码，共256种），即得到该窗口中心像素点的LBP值，并用这个值来反映该区域的纹理信息。</p>
+
+<p><a href="/assets/img/postsimg/20250415/lbp.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/lbp.jpg" alt="LBP" class="lazyload" data-proofer-ignore></a></p>
+
+<p>经过 LBP 提取后的图像依然是一副图，图片中每个像素记录的就是改像素的 LBP 值（如下图右侧子图所示）。应用中，如纹理分类、人脸分析等，一般都不将 LBP 图谱作为特征向量用于分类识别，而是采用 LBP 特征谱的统计直方图作为特征向量用于分类识别。</p>
+
+<p><a href="/assets/img/postsimg/20250415/lbp2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/lbp2.jpg" alt="LBP" class="lazyload" data-proofer-ignore></a></p>
+
+<p>LBP 的优点是简单、快速、易于计算、具有灰度不变性，缺点是计算量较大，需要考虑邻域内的像素值，且需要考虑像素的灰度值范围、且不具有旋转不变性。</p>
+
 <h3 id="14-空间关系特征"><span class="me-2">1.4. 空间关系特征</span><a href="#14-空间关系特征" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>空间关系是指图像中分割出来的多个目标之间的相互空间位置，或者相对方向关系。包括</p>
@@ -1983,7 +2225,62 @@ GLCM 的计算步骤如下：</p>
 
 <h2 id="2-特征选择"><span class="me-2">2. 特征选择</span><a href="#2-特征选择" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
+<p>特征选择的定义为：已知给定的 $M$ 个原始特征。从中优选出 $m$ 个特征（$m&lt;M$）。即：从给定的 $M$ 个原始特征中搜索到最优的特征组合。其包含两个方面：</p>
+
+<ul>
+  <li>选择的标准：定义不同的类别可分离性准则（判据）$J_{ij}$，用来衡量在一组特征下第 $i$ 类和第 $j$ 类之间的可分程度。</li>
+  <li>搜索算法：在允许的时间内找出最优的那组特征。</li>
+</ul>
+
+<p>可分离性准则（判据）应该与错误率（或错误率的上界）有单调关系，这样才能较好地反映分类目标。</p>
+
+<p>当特征独立时，判据对特征应该具有可加性。设特征变量为 $x_k,\;k=1,2,\cdots,d$，有</p>
+
+\[J_{ij}(x_1, x_2,\cdots, x_d) = \sum_{k=1}^k J_{ij}(x_k)\]
+
+<p>判据应该对特征具有单调性，即加入新的特征不会使判据减小</p>
+
+\[J_{ij}(x_1,x_2,\cdots, x_d) \leq J_{ij}(x_1,x_2,\cdots, x_{k-1}, x_{k+1},\cdots, x_d,\textcolor{blue}{x_{d+1}})\]
+
+<p>判据还应该具有以下特性：</p>
+
+\[J_{ij}\geq 0,\; i\neq j;\quad J_{ij} = 0,\; i=j;\quad J_{ij} = J_{ji}\]
+
 <h3 id="21-类别可分性准则"><span class="me-2">2.1. 类别可分性准则</span><a href="#21-类别可分性准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="211-基于类内类间距离的可分性判据"><span class="me-2">2.1.1. 基于类内类间距离的可分性判据</span><a href="#211-基于类内类间距离的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>各类样本可以分开是因为它们位于特征空间中的不同区域，显然这些区域之间距离越大，类别可分性就越大。</p>
+
+<p>距离度量有多种，如欧氏距离、各种平均平方距离。</p>
+
+<p>假设各类特征向量间的平均距离为：$\delta(x_k,x_l)$ 是向量间的距离。那么基于类内类间距离的可分性判据定义为</p>
+
+\[J_d(\boldsymbol{x}) = \frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\frac{1}{n_in_j}\sum_{k=1}^{n_i}\sum_{l=1}^{n_j}\delta(x_k,x_l)\]
+
+<p>其中，$c$ 为类别数；$n_i,n_j$ 为类 $i$ 和 $j$ 的样本数；$P_i，P_j$ 为类 $i$ 和类 $j$ 的先验概率。</p>
+
+<h4 id="212-基于信息熵的可分性判据"><span class="me-2">2.1.2. 基于信息熵的可分性判据</span><a href="#212-基于信息熵的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>把类别 $\w_i,i=1,\cdots,c$ 看作一系列随机事件，它的发生依赖于随机向量𝒙，给定 $x$ 的后验概率 $P(w_i\vert x)$。如果根据 $x$ 能完全确定 $w$，则 $w$ 就没有不确定性，对其本身的观察就不会再提供信息量，此时熵为 0，特征最有利于分类；如果 $x$ 完全不能确定 $w$ ，则𝜔不确定性最大，对本身的观察所提供信息量最大，此时熵为最大，特征最不利于分类。</p>
+
+<p>此时香浓熵和平方熵定义为</p>
+
+\[H = -\sum_{i=1}^cP(w_i\vert x)\log P(w_i\vert x)\]
+
+\[H = 2[1-\sum_{i=1}^cP(w_i\vert x)^2]\]
+
+<p>在熵的基础上，对特征的所有取值积分，就得到基于信息熵的可分性判据，判据越小可分性越好</p>
+
+\[J_E = \int H(\boldsymbol{x})p(\boldsymbol{x})\text{d}x\]
+
+<h4 id="213-基于统计检验的可分性判据"><span class="me-2">2.1.3. 基于统计检验的可分性判据</span><a href="#213-基于统计检验的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>统计检验的基本思想是从样本计算某一能反映待检验假设的统计量,在比较两组样本(两类样本)时就是用这个统计量来衡量两组样本之间的差别，例如t-检验、秩和检验等。此处不再赘述。</p>
+
+<h4 id="214-基于概率分布的可分性判据"><span class="me-2">2.1.4. 基于概率分布的可分性判据</span><a href="#214-基于概率分布的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>略。</p>
 
 <h2 id="3-特征提取"><span class="me-2">3. 特征提取</span><a href="#3-特征提取" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2150,6 +2447,13 @@ GLCM 的计算步骤如下：</p>
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
@@ -2172,13 +2476,6 @@ GLCM 的计算步骤如下：</p>
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
     </ul>
