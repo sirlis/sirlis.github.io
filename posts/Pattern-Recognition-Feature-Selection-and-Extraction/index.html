@@ -1471,6 +1471,42 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1487,6 +1523,54 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1778,9 +1862,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6427 字"
+  title="8086 字"
 >
-  <em>35 分钟</em>阅读</span>
+  <em>44 分钟</em>阅读</span>
 
     </div>
 
@@ -1826,8 +1910,21 @@
         <ul>
           <li><a href="#211-基于类内类间距离的可分性判据">2.1.1. 基于类内类间距离的可分性判据</a></li>
           <li><a href="#212-基于信息熵的可分性判据">2.1.2. 基于信息熵的可分性判据</a></li>
-          <li><a href="#213-基于统计检验的可分性判据">2.1.3. 基于统计检验的可分性判据</a></li>
-          <li><a href="#214-基于概率分布的可分性判据">2.1.4. 基于概率分布的可分性判据</a></li>
+        </ul>
+      </li>
+      <li><a href="#22-最优搜索">2.2. 最优搜索</a></li>
+      <li><a href="#23-次优搜索">2.3. 次优搜索</a>
+        <ul>
+          <li><a href="#231-单独最优特征组合">2.3.1. 单独最优特征组合</a></li>
+          <li><a href="#232-顺序后向搜索">2.3.2. 顺序后向搜索</a></li>
+          <li><a href="#233-顺序前向搜索">2.3.3. 顺序前向搜索</a></li>
+          <li><a href="#234-浮动搜索">2.3.4. 浮动搜索</a></li>
+        </ul>
+      </li>
+      <li><a href="#24-启发式搜索">2.4. 启发式搜索</a>
+        <ul>
+          <li><a href="#241-遗传算法">2.4.1. 遗传算法</a></li>
+          <li><a href="#242-模拟退火算法">2.4.2. 模拟退火算法</a></li>
         </ul>
       </li>
     </ul>
@@ -2006,7 +2103,7 @@
 
 <p><a href="/assets/img/postsimg/20250415/hough3.gif" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/hough3.gif" alt="Hough 变换" class="lazyload" data-proofer-ignore></a>]</p>
 
-<p>可参考视频 <a href="https://www.bilibili.com/video/BV1z54y1e7YG">Hough 变换</a></p>
+<p>可参考视频 <a href="https://www.bilibili.com/video/BV1YJ411Y7c6/">Hough 变换</a></p>
 
 <h4 id="122-方向梯度直方图hog"><span class="me-2">1.2.2. 方向梯度直方图（HOG）</span><a href="#122-方向梯度直方图hog" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2234,15 +2331,15 @@ GLCM 的计算步骤如下：</p>
 
 <p>可分离性准则（判据）应该与错误率（或错误率的上界）有单调关系，这样才能较好地反映分类目标。</p>
 
-<p>当特征独立时，判据对特征应该具有可加性。设特征变量为 $x_k,\;k=1,2,\cdots,d$，有</p>
+<p>当特征独立时，判据对特征应该具有「<strong>可加性</strong>」。设特征变量为 $x_k,\;k=1,2,\cdots,d$，有</p>
 
 \[J_{ij}(x_1, x_2,\cdots, x_d) = \sum_{k=1}^k J_{ij}(x_k)\]
 
-<p>判据应该对特征具有单调性，即加入新的特征不会使判据减小</p>
+<p>判据应该对特征具有「<strong>单调性</strong>」，即加入新的特征不会使判据减小</p>
 
 \[J_{ij}(x_1,x_2,\cdots, x_d) \leq J_{ij}(x_1,x_2,\cdots, x_{k-1}, x_{k+1},\cdots, x_d,\textcolor{blue}{x_{d+1}})\]
 
-<p>判据还应该具有以下特性：</p>
+<p>判据还应该具有「<strong>以下特性</strong>」：</p>
 
 \[J_{ij}\geq 0,\; i\neq j;\quad J_{ij} = 0,\; i=j;\quad J_{ij} = J_{ji}\]
 
@@ -2250,37 +2347,179 @@ GLCM 的计算步骤如下：</p>
 
 <h4 id="211-基于类内类间距离的可分性判据"><span class="me-2">2.1.1. 基于类内类间距离的可分性判据</span><a href="#211-基于类内类间距离的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>各类样本可以分开是因为它们位于特征空间中的不同区域，显然这些区域之间距离越大，类别可分性就越大。</p>
+<p>各类样本可以分开是因为它们位于特征空间中的不同区域，显然这些区域之间距离越大，类别可分性就越大。距离度量有多种，如欧氏距离、各种平均平方距离。假设 $w_i, w_j$ 两个类别中的某两个样本特征向量间的距离定义为：$\delta(\boldsymbol{x}^{(i)}_k,\boldsymbol{x}^{(j)}_l)$，那么基于类内类间距离的可分性判据定义为</p>
 
-<p>距离度量有多种，如欧氏距离、各种平均平方距离。</p>
-
-<p>假设各类特征向量间的平均距离为：$\delta(x_k,x_l)$ 是向量间的距离。那么基于类内类间距离的可分性判据定义为</p>
-
-\[J_d(\boldsymbol{x}) = \frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\frac{1}{n_in_j}\sum_{k=1}^{n_i}\sum_{l=1}^{n_j}\delta(x_k,x_l)\]
+\[J_d(\boldsymbol{x}) = \frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\frac{1}{n_in_j}\sum_{k=1}^{n_i}\sum_{l=1}^{n_j}\delta(\boldsymbol{x}^{(i)}_k,\boldsymbol{x}^{(j)}_l)\]
 
 <p>其中，$c$ 为类别数；$n_i,n_j$ 为类 $i$ 和 $j$ 的样本数；$P_i，P_j$ 为类 $i$ 和类 $j$ 的先验概率。</p>
 
+<p>如果我们采用欧氏距离作为距离度量，定义第 $i$ 类的均值为 $\boldsymbol{m}^{(i)}$，则</p>
+
+\[\boldsymbol{m}^{(i)} = \frac{1}{n_i}\sum_{k=1}^{n_i}\boldsymbol{x}^{(i)}_k\]
+
+<p>则欧式距离可写为</p>
+
+\[\begin{aligned}
+\delta(\boldsymbol{x}^{(i)}_k,\boldsymbol{x}^{(j)}_l) =&amp; \Vert\boldsymbol{x}^{(i)}_k-\boldsymbol{x}^{(j)}_l\Vert^2\\
+=&amp;\Vert \textcolor{red}{\boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)}}+\textcolor{blue}{\boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)}}+\textcolor{green}{\boldsymbol{m}^{(j)}-\boldsymbol{x}^{(j)}_l}\Vert^2\\
+=&amp;\textcolor{red}{\Vert\boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)}}\Vert^2+ \Vert\textcolor{blue}{\boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)}}\Vert^2 + \Vert\textcolor{green}{\boldsymbol{x}^{(j)}_l-\boldsymbol{m}^{(j)}}\Vert^2\\
++&amp; 2(\textcolor{red}{\boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)}})^\top(\textcolor{blue}{\boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)}})\\
++&amp; 2(\textcolor{blue}{\boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)}})^\top(\textcolor{green}{\boldsymbol{x}^{(j)}_l-\boldsymbol{m}^{(j)}})\\
++&amp; 2(\textcolor{red}{\boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)}})^\top(\textcolor{green}{\boldsymbol{x}^{(j)}_l-\boldsymbol{m}^{(j)}})
+\end{aligned}\]
+
+<p>将上述欧式距离表达式代回可分离性判据定义式，交叉性会相互抵消</p>
+
+<blockquote>
+  <p>对于第一个平方项 $\Vert \boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)} \Vert^2$，代入分离判据后，发现其与 $j,l$ 无关，因此</p>
+
+\[\begin{aligned}
+&amp;\frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\frac{1}{n_in_j}\sum_{k=1}^{n_i}\sum_{l=1}^{n_j}\Vert \boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)} \Vert^2\\
+= &amp;\frac{1}{2}\sum_{i=1}^cP_i\underbrace{\left(\sum_{j=1}^cP_j\right)}_1\frac{1}{n_in_j}\sum_{k=1}^{n_i}\underbrace{\left(\sum_{l=1}^{n_j}1\right)}_{n_j}\Vert \boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)} \Vert^2\\
+= &amp;\frac{1}{2}\sum_{i=1}^cP_i\frac{1}{n_i}\sum_{k=1}^{n_i}\Vert \boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)} \Vert^2\\
+\end{aligned}\]
+
+  <p>对于第三个平方和项 $\Vert \boldsymbol{x}^{(j)}_l-\boldsymbol{m}^{(j)} \Vert^2$，与 $i,k$ 无关，与前述类似</p>
+
+\[\begin{aligned}
+&amp;\frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\frac{1}{n_in_j}\sum_{k=1}^{n_i}\sum_{l=1}^{n_j}\Vert \boldsymbol{x}^{(j)}_l-\boldsymbol{m}^{(j)} \Vert^2\\
+= &amp;\frac{1}{2}\sum_{j=1}^cP_j\frac{1}{n_j}\sum_{k=1}^{n_i}\Vert \boldsymbol{x}^{(j)}_l-\boldsymbol{m}^{(j)} \Vert^2\\
+\end{aligned}\]
+
+  <p>注意到，上述两项实际上是相同的（只是上下标不同），因此可以合并。</p>
+
+  <p>对均值平方和项 $\Vert \boldsymbol{m}^{(i)}_k-\boldsymbol{m}^{(j)} \Vert^2$，其余 $k,l$ 无关，简化后得到</p>
+
+\[\frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\Vert \boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)} \Vert^2\]
+
+  <p>对于交叉项，以 $2(\boldsymbol{x}^{(i)}<em>k-\boldsymbol{m}^{(i)})^\top(\boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)})$ 为例，由于 $\sum</em>{k=1}^{n_i}(\boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)})=0$（因为所有样本减去其均值的和为零），所以该项为零。同理其它两个交叉项也会因为上述对称性而取零。</p>
+</blockquote>
+
+<p>可分离性判据进行简化后得到</p>
+
+\[J_d(\boldsymbol{x}) = \sum_{i=1}^cP_i\frac{1}{n_i}\sum_{k=1}^{n_i}\Vert \boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)} \Vert^2 + \frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\Vert \boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)} \Vert^2\]
+
+<p>定义总体均值向量为 $\boldsymbol{m}$，即</p>
+
+\[\boldsymbol{m} = \frac{1}{n}\sum_{i=1}^cP_i\boldsymbol{m}_i\]
+
+<p>可以证明，对于第二项（类间散布）有如下两种等价表示</p>
+
+\[\frac{1}{2}\sum_{i=1}^cP_i\sum_{j=1}^cP_j\Vert \boldsymbol{m}^{(i)}-\boldsymbol{m}^{(j)} \Vert^2 = \sum_{i=1}^cP_i\Vert \boldsymbol{m}^{(i)}-\boldsymbol{m} \Vert^2\]
+
+<blockquote>
+  <p>可以将左右两边分别展开证明。这个等式在模式识别中非常重要，因为它将全局类间距离（所有类别两两比较）转换为中心距离（各类别与总体均值的距离），简化了计算。</p>
+</blockquote>
+
+<p>因此最终得到</p>
+
+\[J_d(\boldsymbol{x}) = \sum_{i=1}^cP_i\left[\frac{1}{n_i}\sum_{k=1}^{n_i}\Vert \boldsymbol{x}^{(i)}_k-\boldsymbol{m}^{(i)} \Vert^2 + \Vert \boldsymbol{m}^{(i)}-\boldsymbol{m} \Vert^2\right]\]
+
+<p>最终的可分离性判据衡量了类内紧致性和类间分离性的平衡。我们希望选择某些特征 $\boldsymbol{x}^\star$ 使得判据最大，即</p>
+
+\[J(\boldsymbol{x}^\star) = \max_{\boldsymbol{x}} J_d(\boldsymbol{x})\]
+
 <h4 id="212-基于信息熵的可分性判据"><span class="me-2">2.1.2. 基于信息熵的可分性判据</span><a href="#212-基于信息熵的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>把类别 $\w_i,i=1,\cdots,c$ 看作一系列随机事件，它的发生依赖于随机向量𝒙，给定 $x$ 的后验概率 $P(w_i\vert x)$。如果根据 $x$ 能完全确定 $w$，则 $w$ 就没有不确定性，对其本身的观察就不会再提供信息量，此时熵为 0，特征最有利于分类；如果 $x$ 完全不能确定 $w$ ，则𝜔不确定性最大，对本身的观察所提供信息量最大，此时熵为最大，特征最不利于分类。</p>
+<p>把类别 $w_i,i=1,\cdots,c$ 看作一系列随机事件，它的发生依赖于随机向量𝒙，给定 $x$ 的后验概率 $P(w_i\vert x)$。如果根据 $x$ 能完全确定 $w$，则 $w$ 就没有不确定性，对其本身的观察就不会再提供信息量，此时熵为 0，特征最有利于分类；如果 $x$ 完全不能确定 $w$ ，则𝜔不确定性最大，对本身的观察所提供信息量最大，此时熵为最大，特征最不利于分类。</p>
 
-<p>此时香浓熵和平方熵定义为</p>
+<p>此时香浓熵定义为</p>
 
-\[H = -\sum_{i=1}^cP(w_i\vert x)\log P(w_i\vert x)\]
+\[H = -\sum_{i=1}^cP(w_i\vert x)\log_2 P(w_i\vert x)\]
+
+<p>平方熵（基尼系数）定义为</p>
 
 \[H = 2[1-\sum_{i=1}^cP(w_i\vert x)^2]\]
 
-<p>在熵的基础上，对特征的所有取值积分，就得到基于信息熵的可分性判据，判据越小可分性越好</p>
+<p>在熵的基础上，对特征的所有取值积分，就得到基于信息熵的可分性判据</p>
 
 \[J_E = \int H(\boldsymbol{x})p(\boldsymbol{x})\text{d}x\]
 
-<h4 id="213-基于统计检验的可分性判据"><span class="me-2">2.1.3. 基于统计检验的可分性判据</span><a href="#213-基于统计检验的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<p>最后希望最小化该判据，判据越小可分性越好。</p>
 
-<p>统计检验的基本思想是从样本计算某一能反映待检验假设的统计量,在比较两组样本(两类样本)时就是用这个统计量来衡量两组样本之间的差别，例如t-检验、秩和检验等。此处不再赘述。</p>
+<h3 id="22-最优搜索"><span class="me-2">2.2. 最优搜索</span><a href="#22-最优搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h4 id="214-基于概率分布的可分性判据"><span class="me-2">2.1.4. 基于概率分布的可分性判据</span><a href="#214-基于概率分布的可分性判据" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<p>理想的特征选择方法可以从给定的 $M$ 个原始特征中根据前述最优性判据，选出 $m\leq M$ 个特征，使得判据最小。如果使用全局搜索，搜索次数为</p>
 
-<p>略。</p>
+\[C_M^m = \frac{M!}{(M-m)!m!}\]
+
+<p>为了减小搜索次数，采用<strong>分支定界算法</strong>（Branch and Bound，B&amp;B），算法将所有可能的组合构成一个树状结构，按照特定的规则对树进行搜索和回溯，尽早达到最优解，而不必遍历树的所有分支。</p>
+
+<p>注意，分支定界法使用的前提是最优性判据必须满足单调性。</p>
+
+<blockquote>
+  <p>分支定界法常在运筹学的整数线性规划中被介绍。</p>
+</blockquote>
+
+<h3 id="23-次优搜索"><span class="me-2">2.3. 次优搜索</span><a href="#23-次优搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>即使采用 B&amp;B 方法的计算量在有些情况下仍然难以接受。此时，一般会放弃最优搜索，转而使用计算量更小的次优搜索。</p>
+
+<h4 id="231-单独最优特征组合"><span class="me-2">2.3.1. 单独最优特征组合</span><a href="#231-单独最优特征组合" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>对所有 $M$ 个特征分别单独计算类别可分性判据，然后对单个特征的判据取值进行排序，选择其中前 $m$ 个单独最优的特征进行组合。</p>
+
+<p>这个方法有个前提，即假设单独使用时性能最优的特征，组合起来也是性能最优的。显然，在实际情况中这种假设不一定成立，即使特征是相互独立的，单独最优的特征组合也不一定是最优的。只有当判据是每个特征的判据的和或者积时，才能得到最优特征。</p>
+
+<h4 id="232-顺序后向搜索"><span class="me-2">2.3.2. 顺序后向搜索</span><a href="#232-顺序后向搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>顺序后向搜索（Sequential Backward Selection, SBS）是一种贪心搜索算法，属于封装式（Wrapper）特征选择方法，通过逐步剔除最不重要的特征来优化模型性能。与顺序前向搜索（SFS）相反，SBS从完整特征集开始，每次删除一个对模型贡献最小的特征，直到达到目标特征数。</p>
+
+<p>显然，上述过程也是一个次优搜索过程，因为最终得到的最优特征组合，其上一步的来源并不一定是最优的特征组合。</p>
+
+<p>案例：基于SBS的乳腺癌分类（Wisconsin数据集）</p>
+
+<ul>
+  <li>数据：30个特征，目标预测肿瘤良恶性。</li>
+  <li>模型：SVM分类器，评估函数为5折交叉验证准确率。</li>
+  <li>SBS过程：
+    <ul>
+      <li>初始：30个特征，准确率 $95\%$；</li>
+      <li>迭代剔除最不重要特征，每次保留使准确率下降最少的子集（此时判据直接选用分类准确率）；</li>
+      <li>终止：10个特征，准确率 $94.5\%$（几乎无损失，但特征数减少2/3）。</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="233-顺序前向搜索"><span class="me-2">2.3.3. 顺序前向搜索</span><a href="#233-顺序前向搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>顺序前向搜索（Sequential Forward Selection, SFS）是一种贪心搜索算法，属于封装式（Wrapper）特征选择方法。它从空特征集开始，逐步添加对模型性能提升最大的单个特征，直到达到目标特征数或性能不再显著提高。与后向搜索（SBS）相反，SFS适用于特征数较多的场景，计算效率更高。</p>
+
+<p>案例：基于SFS的文本分类（TF-IDF特征）</p>
+
+<ul>
+  <li>数据：10,000 个 TF-IDF 特征（词汇表），目标为新闻分类。</li>
+  <li>模型：逻辑回归，评估函数为 5 折交叉验证 $F1$ 分数。</li>
+  <li>SFS过程：
+    <ul>
+      <li>初始：0 个特征，$F1=0$。</li>
+      <li>迭代添加使 $F1$ 提升最大的词。</li>
+      <li>终止：100 个特征，$F1=0.89$（接近全特征集的 $0.90$，但特征数减少 $99\%$）。</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="234-浮动搜索"><span class="me-2">2.3.4. 浮动搜索</span><a href="#234-浮动搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>不论是顺序后向搜索还是顺序前向搜索，它们都存在一个弊端：</p>
+
+<ul>
+  <li>对于顺序后向搜索，某一个特征一旦被去掉就不会再被选中；</li>
+  <li>对于顺序前向搜索，某一个特征一旦被选中就不会再被去掉。</li>
+</ul>
+
+<p>他们都是根据局部最优准则来选取或去除特征的，很可能无法得到最优的特征组合。一种简单的改进思路就是将这两种方法结合起来，在去除或者选择过程中引入一个回溯步骤，允许被选择或者去除的特征正可以被重新选择或去除，这种技术被称为浮动搜索技术。</p>
+
+<ul>
+  <li>对于顺序后向搜索，若剔除某特征后性能下降过大，可在后续迭代中重新加入；</li>
+  <li>对于顺序前向搜索，若选择某特征后性能下降，可在后续迭代中重新去除。</li>
+</ul>
+
+<h3 id="24-启发式搜索"><span class="me-2">2.4. 启发式搜索</span><a href="#24-启发式搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="241-遗传算法"><span class="me-2">2.4.1. 遗传算法</span><a href="#241-遗传算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<h4 id="242-模拟退火算法"><span class="me-2">2.4.2. 模拟退火算法</span><a href="#242-模拟退火算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <h2 id="3-特征提取"><span class="me-2">3. 特征提取</span><a href="#3-特征提取" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 

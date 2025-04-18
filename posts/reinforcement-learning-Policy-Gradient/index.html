@@ -548,6 +548,91 @@
 
 
 
+  
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+
+  
+
+
 
 <!-- Add header for code snippets -->
 
@@ -630,6 +715,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -806,6 +903,30 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -965,9 +1086,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7259 字"
+  title="8905 字"
 >
-  <em>40 分钟</em>阅读</span>
+  <em>49 分钟</em>阅读</span>
 
     </div>
 
@@ -1015,10 +1136,16 @@
           <li><a href="#452-与-vac-的关系">4.5.2. 与 VAC 的关系</a></li>
         </ul>
       </li>
-      <li><a href="#46-重要性采样">4.6. 重要性采样</a></li>
+      <li><a href="#46-重要性采样">4.6. 重要性采样</a>
+        <ul>
+          <li><a href="#461-重要性用于期望估计">4.6.1. 重要性用于期望估计</a></li>
+          <li><a href="#462-重要性用于策略梯度">4.6.2. 重要性用于策略梯度</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
-  <li><a href="#5-参考文献">5. 参考文献</a></li>
+  <li><a href="#5-确定性策略梯度dpg">5. 确定性策略梯度（DPG）</a></li>
+  <li><a href="#6-参考文献">6. 参考文献</a></li>
 </ul>
 
 <h2 id="1-回顾基于价值的强化学习"><span class="me-2">1. 回顾基于价值的强化学习</span><a href="#1-回顾基于价值的强化学习" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -1046,9 +1173,9 @@
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;Q(s,a1)                       +----+
-  s  ---&gt; |f(x)| ----&gt;Q(s,a2)       or     s,ai ---&gt;|f(x)| ----&gt;Q(s,ai)
-          +----+ ----&gt;Q(s,a3)                       +----+
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt; Q(s,a1)                       +----+
+  s  ---&gt; |f(x)| ----&gt; Q(s,a2)       or     s,ai ---&gt;|f(x)| ----&gt; Q(s,ai)
+          +----+ ----&gt; Q(s,a3)                       +----+
 </pre></td></tr></tbody></table></code></div></div>
 
 <p>以 DQN 为代表的值函数近似方法，虽然在某些问题上取得了成功，但存在以下问题：</p>
@@ -1086,10 +1213,10 @@
 2
 3
 4
-</pre></td><td class="rouge-code"><pre>          +----+ ----&gt;p(a1|s;θ)
-  s  ---&gt; |f(x)| ----&gt;p(a2|s;θ)
-          |  θ | ----&gt;...
-          +----+ ----&gt;p(a3|s;θ)
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt; p(a1|s;θ)
+  s  ---&gt; |f(x)| ----&gt; p(a2|s;θ)
+          |  θ | ----&gt; ...
+          +----+ ----&gt; p(a3|s;θ)
 </pre></td></tr></tbody></table></code></div></div>
 
 <p>此时，动作 $a$ 服从某一概率密度函数 $p(a\vert s;\theta)$ ，也即将动作 $a$ 理解成从概率模型 $p(a\vert s;\theta)$ 产生的样本。我们的目标也就从直接求解 $p(a\vert s;\theta)$ 转换成求解参数 $\theta$。</p>
@@ -1743,7 +1870,149 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 
 <h3 id="46-重要性采样"><span class="me-2">4.6. 重要性采样</span><a href="#46-重要性采样" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>前面介绍的所有策略梯度方法都是 on-policy 方法，即实际进行动作采样的行为策略与待更新的目标策略相同，都是同一个神经网络。我们可以借鉴前面课程中（Q-Learning）介绍的方法，将其转为 off-policy 方法，这样可以更加充分利用已经采样得到的历史样本数据。</p>
+
+<p>此处，我们引入重要性采样来实现上述转换。更加一般的情况下，重要性采样可以解决所有期望求解问题。</p>
+
+<h4 id="461-重要性用于期望估计"><span class="me-2">4.6.1. 重要性用于期望估计</span><a href="#461-重要性用于期望估计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>假设样本 ${x_i}$ 是由其原始分布 $p_0$ 采样得到的，其期望和方差为</p>
+
+\[\mathbb{E}[x_i] = \mathbb{E}[X],\quad var[x_i] = var[X]\]
+
+<p>通过大数定律来近似期望，有</p>
+
+\[\begin{aligned}
+&amp;\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i\to \mathbb{E}[X],\quad \text{as } n\to \infty\\
+&amp; var(\bar{x}) = \frac{1}{n}var[X]
+\end{aligned}\]
+
+<p>假设样本 ${x_i}$ 是由根据另外一个分布 $p_1$ 采样得到的，问题变为：能否用 ${x_i}\sim p_i$ 来估计 $\mathbb{E}<em>{X\sim p_0}[X]$？为什么要做上述事情？因为对于 off-policy 方法而言，样本采样来自分布行为策略 $\beta$（$p_1$），但是目标函数（使用策略梯度）中的期望是针对目标策略的，即 $\mathbb{E}</em>{A\sim \pi}[\star]$。</p>
+
+<p>重要性采样的一般流程如下：</p>
+
+\[\mathbb{E}_{X\sim p_0}[X] = \int p_0(x)x\text{d}x = \int p_1(x)\underbrace{\frac{p_0(x)}{p_1(x)}x}_{f(x)}\text{d}x = \mathbb{E}_{X\sim p_1}[f(X)]\]
+
+<p>即我可以通过 $\mathbb{E}<em>{X\sim p_1}[f(X)]$ 来估计 $\mathbb{E}</em>{X\sim p_0}[X]$。相比原始分布下的期望，新的期望更加好求</p>
+
+\[\begin{aligned}
+\mathbb{E}_{X\sim p_1}[\bar{f}(X)] &amp;= \mathbb{E}_{X\sim p_1}[f(X)]=\frac{1}{n}\sum_{i=1}^n f(x_i),\quad \text{where } x\sim p_1\\
+var_{X\sim p_1}[\bar{f}(X)] &amp;= \frac{1}{n}var_{X\sim p_1}[f(X)]
+\end{aligned}\]
+
+<p>其中 $\textcolor{red}{p_0(x)/p_1(x)}$ 被称为「重要性权重」。</p>
+
+<p>注意到，重要性权重中出现了 $p_0(x)$，这要求 $p_0$ 已知。那既然都已知了为什么不直接求期望呢？</p>
+
+<p>因为就算样本原始分布是已知的，其期望求解也可能是十分困难的。比如：</p>
+
+<ul>
+  <li>当 $p_0$ 的表达式十分复杂时，求积分（期望）难以计算；</li>
+  <li>当 $p_0$ 是一个神经网络时，求积分（期望）求不出来；</li>
+</ul>
+
+<p>对重要性采样总结如下</p>
+
+\[\begin{aligned}
+  &amp;{x_i}\sim p_1,\\
+  \bar{x} &amp;= \frac{1}{n}\sum_{i=1}^n x_i\to \mathbb{E}_{X\sim p_1}[X]\\
+  \bar{f} &amp;= \frac{1}{n}\sum_{i=1}^n \frac{p_0(x_i)}{p_1(x_i)}x_i\to \mathbb{E}_{X\sim p_0}[f(X)]\\
+\end{aligned}\]
+
+<h4 id="462-重要性用于策略梯度"><span class="me-2">4.6.2. 重要性用于策略梯度</span><a href="#462-重要性用于策略梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>回顾基于初始状态价值的策略梯度式，策略梯度为</p>
+
+\[\nabla_{\theta}J(\theta) = \mathbb{E}_{s\sim \rho_{\pi}(s), \textcolor{blue}{a\sim \pi}} \left[ \nabla_{\theta}\ln\pi(a\vert s;\theta) q_{\pi}(s,a) \right]\]
+
+<p>引入重要性采样后，假设行为策略为 $\beta$ 用于产生样本，则策略梯度为</p>
+
+\[\nabla_\theta J(\theta) = \mathbb{E}_{S\sim \rho,\textcolor{red}{A\sim \beta}}\left[ \frac{\pi(A\vert S;\theta)}{\beta(A\vert s)} \nabla_\theta \pi(A\vert S;\theta) q_\pi(S,A) \right]\]
+
+<p>重要性采样保证了我们在将策略梯度方法变为 off-policy 后，策略梯度的期望估计依然保持不变。因此，我们可以不用和环境紧密绑定在一次，每次更新都要重新采样。前面我们也提过，有时候相比梯度上升计算，与环境进行采样交互反而耗时更长。通过重要性采样，我们完全可以使用行为策略（$\theta^\prime=\theta_{\text{frozen}}$）与环境进行大批次采样后，得到样本更新目标策略，经过若干次迭代再进行硬拷贝。如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20231127/ppo.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20231127/ppo.jpg" alt="PPO" class="lazyload" data-proofer-ignore></a></p>
+
+<p>进一步，根据优势函数的定义，我们将重要性采样嵌入，则 A2C 的梯度上升式可改写为</p>
+
+\[\begin{aligned}
+\theta_{t+1} &amp;= \theta_t + \alpha \textcolor{red}{\frac{\pi(a_t\vert s_t;\theta)}{\beta(a_t\vert s_t)}} \nabla_{\theta_t} \ln\pi(a_t\vert s_t;\theta_t)\delta_t(a_t,s_t)\\
+&amp;= \theta_t + \alpha \left(\frac{\delta_t(a_t,s_t)}{\beta(a_t\vert s_t)}\right) \nabla_\theta \pi(a_t\vert s_t;\theta_t)
+\end{aligned}\]
+
+<p>此时，对于 off-policy 方法，策略梯度方法中的行为策略 $\beta$ 不再发生变化，整个式子只剩下充分利用行为策略产生的样本（当 $\delta_t$ 比较大时增加对应的采样概率）。</p>
+
+<p>相应的，价值网络的更新形式为</p>
+
+\[\begin{aligned}
+\delta_t &amp;= R_{t+1}+\gamma v(s_{t+1};\omega_t)-v(s_t;\omega_t)\\
+J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
+\omega_{t+1} &amp;= \omega_t - \alpha_{\omega} \textcolor{red}{\frac{\pi(a_t\vert s_t;\theta)}{\beta(a_t\vert s_t)}} \delta_t \nabla_{\omega}v(s_t;\omega_t)
+\end{aligned}\]
+
+<h2 id="5-确定性策略梯度dpg"><span class="me-2">5. 确定性策略梯度（DPG）</span><a href="#5-确定性策略梯度dpg" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>前面介绍的所有策略梯度都是随机策略，即要求 $\pi(a\vert s;\theta) &gt; 0,\; \forall(s,a)$，缺点在于其对动作 $a$ 的个数是有限的（回顾如下网络结构）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>          +----+ ----&gt; Q(s,a1)
+  s  ---&gt; |f(x)| ----&gt; Q(s,a2)
+          |  θ | ----&gt; ...
+          +----+ ----&gt; Q(s,a3)
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>当然，我们也可以使用确定性策略，这样做的好处是可以适应连续无限的动作空间。</p>
+
+<p>对于随机性策略和确定性策略两种情况，策略定义为 $\pi(a\vert s;\theta)\in[0,1]$，那么对于确定性策略，即给定一个状态输出一个确定的动作，其可定义为</p>
+
+\[a=\mu(s;\theta)\doteq \mu_\theta(s)\]
+
+<p>此时策略网络直接把状态映射到动作：$\mu:S\to A$，即</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>          +----+
+  s  ---&gt; |μ(x)| ----&gt; a
+          |  θ | 
+          +----+ 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>由于策略发生了变化，原来推导得到的策略梯度只适用于随机性策略，不再适用于确定性策略，需要重新推导。同样考虑基于初始状态价值的策略梯度，此时目标函数为</p>
+
+\[J(\theta) = V_{\mu}(s)\]
+
+<p>则相应的策略梯度为（推导略）</p>
+
+\[\nabla_\theta J(\theta) = \mathbb{E}_{S\sim \rho_\beta}[\nabla_\theta \mu(S)\left(\nabla_a q_\mu(S,a)\right)_{\vert a=\mu(S)}]\]
+
+<p>注意到其中并没有包含动作的分布 $A$，也就是说，确定性策略梯度是一个 off-policy 算法。并不要求我们必须按照哪个采样某个动作，因此可以使用任意行为策略 $\beta$ 进行采样。</p>
+
+<blockquote>
+  <p>DPG 的缺点很明显，对于每个状态，下一步的动作是确定的。这就导致只能做利用而不能做探索。这可能也是为什么要做 off-policy 的原因。我们可以设置行为策略为一个随机策略，采样后优化确定性的目标策略。</p>
+
+  <p>更进一步，行为策略往往被设置为 $\beta = \mu + N$ 的形式，其中 $N$ 为随机噪声。此时就可以避免周期性的硬拷贝，随着确定性目标策略 $\mu$ 得到优化，行为策略也随之得到优化。</p>
+</blockquote>
+
+<p>当价值函数用线性函数近似时，即为 DPG 论文给出的原始方法。当使用深度神经网络时，该方法就变为 DDPG。</p>
+
+<p>对于 DDPG 方法，其价值网络的更新部分不变</p>
+
+\[\omega_{t+1} = \omega_t - \alpha_{\omega} \delta_t \nabla_{\omega}q(s_t,a_t;\omega_t)\]
+
+<p>而策略网络的参数更新式为</p>
+
+\[\theta_{t+1} = \theta_t + \alpha_\theta \nabla_\theta \mu(s;\theta)\left( \nabla_a q(s_t, a; w_{t+1}) \right)_{\vert a=\mu(s_t)}\]
+
+<h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>[1] 静静的喝酒. <a href="https://blog.csdn.net/qq_34758157/article/details/125886399">CSDN 策略梯度方法介绍——Value-Based强化学习方法 VS Policy-Based强化学习方法</a></p>
 
