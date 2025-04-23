@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（特征选择与特征提取）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-18T15:32:42+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-23T18:54:33+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了使用 Zotero 进行文献管理的一些方法和技巧。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2368,13 +2368,13 @@
 
 <em
   class=""
-  data-ts="1744961562"
+  data-ts="1745405673"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/18
+  2025/04/23
 </em>
 
     </span>
@@ -2418,7 +2418,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="11941 字"
+  title="11995 字"
 >
   <em>66 分钟</em>阅读</span>
 
@@ -3288,16 +3288,26 @@ GLCM 的计算步骤如下：</p>
 <p>LLE 算法的过程如下：</p>
 
 <ul>
-  <li>设高维空间 $\mathbb{R}^D$ 中给定样本集 $\boldsymbol{X}=[\boldsymbol{x}_1,\boldsymbol{x}_2,\dots,\boldsymbol{x}_N]$，投影之后的低维流形 中的特征样本集为 $\boldsymbol{Y} = [\boldsymbol{y}_1,\boldsymbol{y}_2,\dots,\boldsymbol{y}_N]$；</li>
-  <li>求取每个特征样本 $\boldsymbol{x}<em>i\in\mathbb{R}^{D\times 1}$ 的 $k$ 个邻域点，构成领域集 $\boldsymbol{X}_i = [\boldsymbol{x}</em>{i}^{(1)},\boldsymbol{x}<em>{i}^{(2)},\dots,\boldsymbol{x}</em>{i}^{(k)}]\in\mathbb{R}^{D\times k}$；</li>
+  <li>设高维空间 $\mathbb{R}^D$ 中给定样本集 $\boldsymbol{X}=[\boldsymbol{x}_1,\boldsymbol{x}_2,\dots,\boldsymbol{x}_N],\boldsymbol{x}_i\in\mathbb{R}^{D\times 1}$，投影之后的低维流形 中的特征样本集为 $\boldsymbol{Y} = [\boldsymbol{y}_1,\boldsymbol{y}_2,\dots,\boldsymbol{y}_N]$；</li>
   <li>
-    <p>求取该特征样本 $\boldsymbol{x}<em>{i}$ 与它的各个邻域点 $\boldsymbol{x}</em>{i}^{(j)}$ 之间的权向量 $w_{ij}$，使得把 $\boldsymbol{x}_i$ 用它的 $k$ 个近邻点线性表示的「均方误差」最小。</p>
+    <p>求取每个特征样本的 $k$ 个邻域点，构成邻域集 $\boldsymbol{X}_i$</p>
+
+\[\boldsymbol{X}_i = [\boldsymbol{x}_{i}^{(1)},\boldsymbol{x}_{i}^{(2)},\dots,\boldsymbol{x}_{i}^{(k)}]\in\mathbb{R}^{D\times k}\]
+  </li>
+  <li>
+    <p>求取该特征样本与它的各个邻域点之间的权向量 $w_{ij}$，使得该特征样本用它的近邻点线性表示的「均方误差」最小。</p>
 
     <p>为了保证解的唯一性，对权向量添加一个正则化约束，则基于均方误差来优化权向量的优化问题可表示为</p>
 
 \[\min_{\boldsymbol{w}_i} \frac{1}{2}\Vert \boldsymbol{x}_i - \sum_{j=1}^k w_{ij} \boldsymbol{x}_{i}^{(j)} \Vert^2\quad s.t. \sum_{j=1}^k w_{ij} = 1\]
 
-    <p>令 $\boldsymbol{w}<em>i = [w</em>{i1},w_{i2},\dots,w_{ik}]^\top\in\mathbb{R}^{k\times 1}$。对目标函数变形如下</p>
+    <p>注意到，权重的优化求解是逐点独立进行的，而不是对所有样本的权重联合优化。这是LLE的核心思想之一：局部线性重构。</p>
+
+    <p>令</p>
+
+\[\boldsymbol{w}_i = [w_{i1},w_{i2},\dots,w_{ik}]^\top\in\mathbb{R}^{k\times 1}\]
+
+    <p>对目标函数变形如下</p>
 
 \[\begin{aligned}
   J(\boldsymbol{w}_i) &amp;= \frac{1}{2} \Vert \boldsymbol{x}_i - \sum_{j=1}^k w_{ij} \boldsymbol{x}_{i}^{(j)} \Vert^2\\
@@ -3330,7 +3340,7 @@ GLCM 的计算步骤如下：</p>
 \[\boldsymbol{w}_i^\star = \frac{\boldsymbol{C}^{-1}\boldsymbol{1}_{k\times 1}}{\boldsymbol{1}_{k\times 1}^\top \boldsymbol{C}^{-1}\boldsymbol{1}_{k\times 1}}\]
   </li>
   <li>
-    <p>映射到低维流形 $\mathbb{R}^d$ 后，保持权向量不变，求 $\boldsymbol{x}_i$ 在低维空间的映射 $\boldsymbol{y}_i\in\mathbb{R}^d$，使得低维重构误差最小。</p>
+    <p>映射到低维流形 $\mathbb{R}^d$ 后，保持权向量不变，求 $\boldsymbol{x}_i$ 在低维空间的映射 $\boldsymbol{y}_i\in\mathbb{R}^{d\times 1}$，使得低维重构误差最小。</p>
 
     <p>同时，上述优化问题还需要满足，低维特征的每个维度均值为 0， 方差为 1。因此，针对低维映射的优化问题可表示为</p>
 
@@ -3344,12 +3354,12 @@ s.t.&amp; \sum_{i=1}^N \boldsymbol{y}_i = 0, \frac{1}{N}\sum_{i=1}^N \boldsymbol
     <p>将目标函数改写为矩阵形式，有</p>
 
 \[\begin{aligned}
-J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i \Vert^2_F\\
-&amp;= \text{tr}[(\boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i)^\top(\boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i)]\\
-&amp;=\text{tr}[\boldsymbol{Y}^\top(\boldsymbol{I}-\boldsymbol{w}_i)^\top(\boldsymbol{I}-\boldsymbol{w}_i)\boldsymbol{Y}]
+J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\\
+&amp;= \text{tr}[(\boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star)^\top(\boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star)]\\
+&amp;=\text{tr}[\boldsymbol{Y}^\top(\boldsymbol{I}-\boldsymbol{w}_i^\star)^\top(\boldsymbol{I}-\boldsymbol{w}_i^\star)\boldsymbol{Y}]
 \end{aligned}\]
 
-    <p>定义矩阵 $\boldsymbol{M} = (\boldsymbol{I}-\boldsymbol{w}_i)^\top(\boldsymbol{I}-\boldsymbol{w}_i)$，则问题转化为</p>
+    <p>定义矩阵 $\boldsymbol{M} = (\boldsymbol{I}-\boldsymbol{w}_i^\star)^\top(\boldsymbol{I}-\boldsymbol{w}_i^\star)$，则问题转化为</p>
 
 \[\min_Y \;\text{tr}(\boldsymbol{Y}^\top\boldsymbol{M}\boldsymbol{Y})\quad s.t. \quad\boldsymbol{Y}\boldsymbol{Y}^\top = N\boldsymbol{I},\quad \sum_{i=1}^N \boldsymbol{y}_i = 0\]
 
@@ -3506,14 +3516,14 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i \Vert^2_F\\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
+          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
         
