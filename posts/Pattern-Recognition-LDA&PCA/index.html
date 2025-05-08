@@ -1034,9 +1034,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3814 字"
+  title="3983 字"
 >
-  <em>21 分钟</em>阅读</span>
+  <em>22 分钟</em>阅读</span>
 
     </div>
 
@@ -1281,7 +1281,7 @@
 <p>注意到，$\boldsymbol{X}\boldsymbol{X}^T$ 是样本的协方差矩阵，$\boldsymbol{W}$ 的每个列向量是标准正交基，最后一个求和式是常量。因此最小化均方误差等价于</p>
 
 \[\begin{aligned}
-\arg\min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
+\min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
 s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
 \end{aligned}\]
 
@@ -1299,22 +1299,30 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
 
 <h4 id="312-最大可分性"><span class="me-2">3.1.2. 最大可分性</span><a href="#312-最大可分性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>要让投影后所有样本点能尽可能分开，则投影后样本点方差最大。已知样本点的投影为 $\boldsymbol{z}_i=\boldsymbol{W}^T\boldsymbol{x}_i$ ，则投影后样本点的方差为</p>
+<p>要让投影后所有样本点能尽可能分开，则投影后样本点方差最大。</p>
 
-\[\begin{aligned}
-\sum_{i}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i}-0)^{2} &amp;= \sum_{i}\text{tr}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i})^{\mathrm{T}})\\
-&amp;=\sum_{i}\mathrm{tr}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{W})\\
-&amp;=\text{tr}(\boldsymbol{W}^{\mathrm{T}}\boldsymbol{X}\boldsymbol{X}^{\mathrm{T}}\boldsymbol{W})
-\end{aligned}\]
+<p>假设中心化后样本矩阵为 $\boldsymbol{X}\in\mathbb{R}^{n\times d}$，协方差矩阵为 $\boldsymbol{X}^\top\boldsymbol{X}$。给定某个投影方向 $\boldsymbol{w}$ 满足 $\Vert\boldsymbol{w}\Vert_2=1$，则投影后使样本方差最大等价于</p>
+
+\[\max_{\boldsymbol{w}} \quad Var(\boldsymbol{X}\boldsymbol{w}) = \boldsymbol{w}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{w}\]
+
+<p>推广到 $k$ 个主成分（正交方向），投影矩阵 $\boldsymbol{W}\in\mathbb{R}^{d\times k}$ 满足 $\boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}$，优化目标为</p>
+
+\[\max_{\boldsymbol{w}_i} \quad \sum_{i=1}^k\boldsymbol{w}_i^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{w}_i\]
+
+<p>注意到上式改写为矩阵后就是矩阵的对角元素（迹），则目标函数可改写为</p>
+
+\[\max_{\boldsymbol{W}} \quad \text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W})\]
 
 <p>最大化上述方差等价于求解如下优化问题</p>
 
 \[\begin{aligned}
-\arg\max_{\boldsymbol{W}} &amp;\quad \text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
+\max_{\boldsymbol{W}} &amp;\quad \text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
 s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
 \end{aligned}\]
 
 <p>可以发现和最近重构性等价。</p>
+
+<p>迹的最大化等价于方差最大化：PCA的优化目标直接转化为协方差矩阵的迹的最大化。通过对协方差矩阵进行特征分解，主成分是最大特征值对应的特征向量，就是我们需要求的投影矩阵。</p>
 
 <h3 id="32-算法流程"><span class="me-2">3.2. 算法流程</span><a href="#32-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 

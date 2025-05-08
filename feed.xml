@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-04-23T19:17:44+08:00</updated>
+  <updated>2025-05-08T18:24:00+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" rel="alternate" type="text/html" title="模式识别（特征选择与特征提取）" />
     <published>2025-04-15T17:15:49+08:00</published>
   
-    <updated>2025-04-23T18:54:33+08:00</updated>
+    <updated>2025-04-23T19:18:25+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />
@@ -52,31 +52,18 @@
 
 
 
+---
 
-
-
-  1. 特征
-    
-      1.1. 颜色特征
-        
-          1.1.1. 颜色直方图
-          1.1.2. 颜色矩
-        
-      
-      1.2. 形状特征
-        
-          1.2.1. 霍夫变换（Hough）
-          1.2.2. 方向梯度直方图（HOG）
-          1.2.3. 傅里叶描述子（Fourier Descriptors）
-        
-      
-      1.3. 纹理特征
-        
-          1.3.1. 灰度共生矩阵（GLCM）
-          1.3.2. 局部二值模式（LBP）
-        
-      
-      1.4. 空间关系特征...
+- [1. 特征](#1-特征)
+  - [1.1. 颜色特征](#11-颜色特征)
+    - [1.1.1. 颜色直方图](#111-颜色直方图)
+    - [1.1.2. 颜色矩](#112-颜色矩)
+  - [1.2. 形状特征](#12-形状特征)
+    - [1.2.1. 霍夫变换（Hough）](#121-霍夫变换hough)
+    - [1.2.2. 方向梯度直方图（HOG）](#122-方向梯度直方图hog)
+    - [1.2.3. 傅里叶描述子（Fourier Descriptors）](#123-傅里叶描述子fourier-descriptors)
+  - [1.3. 纹理特征](#13-纹理特征)
+    - [1.3.1. 灰度共生矩阵（GLCM）](#131-灰度共生矩...
     </summary>
   
 
