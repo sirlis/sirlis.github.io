@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-05-08T18:24:00+08:00</updated>
+  <updated>2025-05-09T12:41:35+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -235,7 +235,7 @@ Zotero 是一款免费、易于使用的工具，可以帮助您收集、管理�
     <link href="http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/" rel="alternate" type="text/html" title="模式识别（LDA和PCA）" />
     <published>2024-05-02T10:03:19+08:00</published>
   
-    <updated>2025-02-27T16:09:44+08:00</updated>
+    <updated>2025-05-08T18:24:41+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-LDA&amp;PCA/" />
@@ -263,17 +263,28 @@ Zotero 是一款免费、易于使用的工具，可以帮助您收集、管理�
 
 
 
----
 
-- [1. 特征降维](#1-特征降维)
-- [2. 线性判别分析（LDA）](#2-线性判别分析lda)
-  - [2.1. Fisher 投影准则](#21-fisher-投影准则)
-  - [2.2. 瑞利商与广义瑞利商](#22-瑞利商与广义瑞利商)
-  - [2.3. 二分类 LDA](#23-二分类-lda)
-  - [2.4. 多分类 LDA](#24-多分类-lda)
-  - [2.5. LDA 的特点](#25-lda-的特点)
-- [3. 主成分分析（PCA）](#3-主成分分析pca)
-  - [3.1. 数学推导](#31-数学...
+
+
+  1. 特征降维
+  2. 线性判别分析（LDA）
+    
+      2.1. Fisher 投影准则
+      2.2. 瑞利商与广义瑞利商
+      2.3. 二分类 LDA
+      2.4. 多分类 LDA
+      2.5. LDA 的特点
+    
+  
+  3. 主成分分析（PCA）
+    
+      3.1. 数学推导
+        
+          3.1.1. 最近重构性（K-L变换）
+          3.1.2. 最大可分性
+          3.1.3. 拉格朗日乘子法求解
+        
+     ...
     </summary>
   
 

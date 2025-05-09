@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（LDA和PCA）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-27T16:09:44+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-08T18:24:41+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -923,6 +923,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -984,13 +996,13 @@
 
 <em
   class=""
-  data-ts="1740643784"
+  data-ts="1746699881"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/02/27
+  2025/05/08
 </em>
 
     </span>
@@ -1034,9 +1046,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3983 字"
+  title="4186 字"
 >
-  <em>22 分钟</em>阅读</span>
+  <em>23 分钟</em>阅读</span>
 
     </div>
 
@@ -1068,6 +1080,7 @@
         <ul>
           <li><a href="#311-最近重构性k-l变换">3.1.1. 最近重构性（K-L变换）</a></li>
           <li><a href="#312-最大可分性">3.1.2. 最大可分性</a></li>
+          <li><a href="#313-拉格朗日乘子法求解">3.1.3. 拉格朗日乘子法求解</a></li>
         </ul>
       </li>
       <li><a href="#32-算法流程">3.2. 算法流程</a></li>
@@ -1095,7 +1108,7 @@
 
 <h3 id="21-fisher-投影准则"><span class="me-2">2.1. Fisher 投影准则</span><a href="#21-fisher-投影准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>参考前述线性分类器中的 <a href="../Pattern-Recognition-Linear-Classifier/#4-fisher-投影准则">Fisher投影准则</a>) 介绍。</p>
+<p>参考前述线性分类器中的 <a href="../Pattern-Recognition-Linear-Classifier/#4-fisher-投影准则">Fisher投影准则</a> 介绍。</p>
 
 <h3 id="22-瑞利商与广义瑞利商"><span class="me-2">2.2. 瑞利商与广义瑞利商</span><a href="#22-瑞利商与广义瑞利商" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1121,7 +1134,7 @@
 
 <p>参考前述线性分类器中的 Fisher 投影准则介绍，类间离散度矩阵为</p>
 
-\[\boldsymbol{S}_b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^T\]
+\[\boldsymbol{S}_b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^\top\]
 
 <p>为两向量的外积，其秩为1。</p>
 
@@ -1134,15 +1147,15 @@
 
 <p>类内离散度矩阵为</p>
 
-\[\boldsymbol{S}_w = \sum_{i=1}^2 \boldsymbol{S}_{wi}=\sum_{i=1}^2 \sum_{x\in w_i}(x-\mu_i)(x-\mu_i)^T\]
+\[\boldsymbol{S}_w = \sum_{i=1}^2 \boldsymbol{S}_{wi}=\sum_{i=1}^2 \sum_{x\in w_i}(x-\mu_i)(x-\mu_i)^\top\]
 
 <p>二分类LDA的优化目标函数可以写成</p>
 
-\[\arg\max_{\boldsymbol{w}} J(\boldsymbol{w}) = \frac{\boldsymbol{w}^T\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^T\boldsymbol{S}_w\boldsymbol{w}}\]
+\[\max_{\boldsymbol{w}} J(\boldsymbol{w}) = \frac{\boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}}\]
 
 <p>目标是求使得 $J(\boldsymbol{w})$ 最大的投影方向 $\boldsymbol{w}$。</p>
 
-<p>根据前述 Fisher 投影准则的推导，上述优化问题最终可转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。</p>
+<p>根据前述 <a href="../Pattern-Recognition-Linear-Classifier/#4-fisher-投影准则">Fisher投影准则</a> 的推导，上述优化问题最终可转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。</p>
 
 <p>这里给出另外一种推导思路，上述目标函数正好是广义瑞利商的形式，因此其最大值为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值，那么投影方向 $\boldsymbol{w}$ 即为 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 对应特征值 $\lambda$ 的特征向量。</p>
 
@@ -1154,19 +1167,21 @@
 
 <p>实际使用时为得到数值解的稳定性，通常对 $\boldsymbol{S}_w$ 进行奇异值分解得到 $\boldsymbol{S}_w^{-1}$</p>
 
-\[\boldsymbol{S}_w=\boldsymbol{U}\Sigma \boldsymbol{V}^T \Rightarrow \boldsymbol{S}_w^{-1} = \boldsymbol{V}\Sigma \boldsymbol{U}^T\]
+\[\boldsymbol{S}_w=\boldsymbol{U}\Sigma \boldsymbol{V}^\top \Rightarrow \boldsymbol{S}_w^{-1} = \boldsymbol{V}\Sigma \boldsymbol{U}^\top\]
 
 <h3 id="24-多分类-lda"><span class="me-2">2.4. 多分类 LDA</span><a href="#24-多分类-lda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>假设为 $C$ 分类，类内离散度矩阵定义保持不变，有</p>
+<p>假设为 $C$ 分类，类内离散度矩阵定义保持不变，可直接扩展至 $C$ 类的情况，有</p>
 
-\[\boldsymbol{S}_w = \sum_{i=1}^C \boldsymbol{S}_{wi}=\sum_{i=1}^C \sum_{x\in w_i}(x-\mu_i)(x-\mu_i)^T\]
+\[\boldsymbol{S}_w = \sum_{i=1}^C \boldsymbol{S}_{wi}=\sum_{i=1}^C \sum_{x\in w_i}(x-\mu_i)(x-\mu_i)^\top\]
 
-<p>对于类间离散度矩阵，无法像之前二分类那样定义（即 $\boldsymbol{S}_b=(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^T$），即原来度量的是两个均值点的散列情况，现在度量的是每类均值点相对于样本中心的散列情况。类似于将 $\boldsymbol{\mu}_i$ 看作样本点，$\boldsymbol{\mu}$ 是均值的协方差矩阵。如果某类里面的样本点较多，那么其权重稍大，权重用 $N_i/N$ 表示，但由于 $J(\boldsymbol{w})$对倍数不敏感，因此使用 $N_i$ 即可</p>
+<p>对于类间离散度矩阵，无法像之前二分类那样定义（即 $\boldsymbol{S}_b=(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^\top$，度量两类均值的散列情况），需要改为度量每类均值点相对于样本中心的散列情况，即</p>
 
-\[\boldsymbol{S}_b= \sum_{i=1}^C N_i(\boldsymbol{\mu}_i-\boldsymbol{\mu})(\boldsymbol{\mu}_i-\boldsymbol{\mu})^T\]
+\[\boldsymbol{S}_b= \sum_{i=1}^C N_i(\boldsymbol{\mu}_i-\boldsymbol{\mu})(\boldsymbol{\mu}_i-\boldsymbol{\mu})^\top\]
 
-<p>注意到，$\boldsymbol{S}_b$ 仍然是 $C$ 个秩为 1 的向量外积得到的矩阵求和，因此 $\boldsymbol{S}_b$ 的秩不会超过 $C$。</p>
+<p>类似于将 $\boldsymbol{\mu}_i$ 看作样本点，$\boldsymbol{\mu}$ 是均值的协方差矩阵，唯一的差别是多了一个权重系数。如果某类里面的样本点较多，那么其权重稍大，权重用 $N_i/N$ 表示，但由于 $J(\boldsymbol{w})$对倍数不敏感，因此使用 $N_i$ 即可。</p>
+
+<p>注意到，$\boldsymbol{S}_b$ 是 $C$ 个秩为 1 的向量外积得到的矩阵求和，因此 $\boldsymbol{S}_b$ 的秩不会超过 $C$。因此 LDA 最终只能得到 $C$ 个不为零的特征向量。</p>
 
 <blockquote>
   <p>矩阵的秩小于等于各个相加矩阵的秩的和，即 $R(A+B)\leq R(A)+R(B)$</p>
@@ -1178,7 +1193,7 @@
 
 <p>知道了前 $C-1$ 个 $(\boldsymbol{\mu}_i-\boldsymbol{\mu})$ 后，最后一个 $(\boldsymbol{\mu}_C-\boldsymbol{\mu})$ 可以有前面的 $\boldsymbol{\mu}_i$ 来线性表示，因此$\boldsymbol{S}_b$ 的秩为 $C-1$。</p>
 
-<p>所以在计算特征向量矩阵（类内散度矩阵 $\boldsymbol{S}_w$ 的逆 $\times$ 类间散度矩阵 $\boldsymbol{S}_b$）时，可以发现只有 $C-1$ 个特征值不为零的特征向量。因此，<strong>LDA 最多将特征维度降低到 $C-1$ 维</strong>。</p>
+<p>所以在计算特征向量矩阵（类内散度矩阵 $\boldsymbol{S}_w$ 的逆 $\times$ 类间散度矩阵 $\boldsymbol{S}_b$）时，可以发现只有 $C-1$ 个特征值不为零的特征向量。因此，<strong><font color="red">LDA 最多将特征维度降低到 $C-1$ 维</font></strong>。</p>
 
 <h3 id="25-lda-的特点"><span class="me-2">2.5. LDA 的特点</span><a href="#25-lda-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1235,65 +1250,87 @@
 
 <h4 id="311-最近重构性k-l变换"><span class="me-2">3.1.1. 最近重构性（K-L变换）</span><a href="#311-最近重构性k-l变换" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>首先对 $n$ 个 $m$ 维样本进行中心化，即将所有样本变换为均值为 0，也即</p>
+<p>首先对 $n$ 个 $d$ 维样本进行中心化，即将所有样本变换为均值为 0，也即</p>
 
-\[\sum_{i=1}^n \boldsymbol{x}_i=0\]
+\[\sum_{i=1}^n \boldsymbol{x}_i=0,\quad \boldsymbol{x}_i\in\mathbb{R}^{d},\; i=1,2,\cdots,n\]
 
-<p>假设将样本投影到一组完备归一化正交向量系 $\boldsymbol{w}=[w_1, w_2, \cdots]$，那么对于第 $i$ 个样本有</p>
+<ul>
+  <li><strong>单个样本的角度</strong></li>
+</ul>
 
-\[\boldsymbol{x}_i = \sum_{j=1}^{+\infty} z_j \boldsymbol{w}_j,\quad z_j \in \mathbb{R}\]
+<p>目标是找到投影矩阵 $\boldsymbol{W}\in\mathbb{R}^{d\times k}$，将样本投影到低维空间</p>
 
-<p>其中 $z_j$ 为投影后样本的第 $j$ 个维度分量，有</p>
+\[\boldsymbol{z}_i = \boldsymbol{W}^\top\boldsymbol{x}_i\quad \in\mathbb{R}^k\]
 
-\[z_j = \boldsymbol{w}_j^T \boldsymbol{x}_i\]
+<p>再重构回原始空间</p>
 
-<p>则投影后的第 $i$ 个样本为</p>
+\[\hat{\boldsymbol{x}}_i=\boldsymbol{W}\boldsymbol{z}_i=\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{x}_i\quad \in\mathbb{R}^d\]
 
-\[\boldsymbol{z}_i=\boldsymbol{W}^T\boldsymbol{x}_i\]
+<p>对所有 $n$ 个样本均进行投影后，用重构前后的均方误差衡量重构误差，有</p>
 
-<p>且有</p>
+\[J(\boldsymbol{W}) = \sum_{i=1}^n\Vert \boldsymbol{x}_i - \hat{\boldsymbol{x}}_i \Vert^2 = \sum_{i=1}^n\Vert \boldsymbol{x}_i - \boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{x}_i \Vert^2\]
 
-\[\boldsymbol{w}^T_i\boldsymbol{w}_j=\begin{cases}
-1,i=j \\
-0,i\neq j &amp; 
-\end{cases}\]
+<ul>
+  <li><strong>样本矩阵的角度</strong></li>
+</ul>
 
-<p>我们采用 PCA 的目的是对样本（也即特征）进行降维，则我们希望用有限的 $d$ 项（$d&lt;m$）来逼近（恢复出）原始样本，则对于第 $i$ 个样本有</p>
+<p>令样本矩阵（每一行是一个样本）为</p>
 
-\[\hat{\boldsymbol{x}}_i = \sum_{j=1}^{d} z_j \boldsymbol{w}_j = \boldsymbol{W}\boldsymbol{z}_i\]
+\[\boldsymbol{X}=\begin{bmatrix}
+  \boldsymbol{x}_1^\top\\
+  \boldsymbol{x}_2^\top\\
+  \vdots\\
+  \boldsymbol{x}_n^\top
+\end{bmatrix}\]
 
-<p>对所有 $n$ 个样本均进行投影后，带来的均方误差为</p>
+<p>则投影后的低维样本矩阵为</p>
 
-\[\begin{aligned}
-  \sum_{i=1}^n \Vert \hat{\boldsymbol{x}}_i - \boldsymbol{x}_i \Vert^2 &amp;= \sum_{i=1}^n \Vert \boldsymbol{W}\boldsymbol{z}_i- \boldsymbol{x}_i \Vert^2\\
-  &amp;=\sum_{i=1}^n(\boldsymbol{W}\boldsymbol{z}_i)^T(\boldsymbol{W}\boldsymbol{z}_i) - 2\sum_{i=1}^n(\boldsymbol{W}\boldsymbol{z}_i)^T\boldsymbol{x}_i + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
-  &amp;=\sum_{i=1}^n\boldsymbol{z}_i^T\boldsymbol{W}^T\boldsymbol{W}\boldsymbol{z}_i - 2\sum_{i=1}^n\boldsymbol{z}_i^T\boldsymbol{W}^T\boldsymbol{x}_i + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
-  &amp;=-\sum_{i=1}^n\boldsymbol{z}_i^T\boldsymbol{z}_i + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
-  &amp;= -\sum_{i=1}^n \text{tr}(\boldsymbol{z}_i\boldsymbol{z}_i^T) + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
-  &amp;= -\text{tr}\left(\boldsymbol{W}^T\left(\sum_{i=1}^n\boldsymbol{x}_i\boldsymbol{x}_i^T\right)\boldsymbol{W}\right) + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i\\
-  &amp;= -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) + \sum_{i=1}^n\boldsymbol{x}_i^T\boldsymbol{x}_i
-\end{aligned}\]
+\[\boldsymbol{Z}=\boldsymbol{X}\boldsymbol{W}\quad \in\mathbb{R}^{n\times k}\]
+
+<p>重构后的样本矩阵为</p>
+
+\[\hat{\boldsymbol{X}}=\boldsymbol{Z}\boldsymbol{W}^\top=\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top\quad \in\mathbb{R}^{n\times d}\]
+
+<p>将上述误差 $J(\boldsymbol{W})$ 按照矩阵逐元素展开写，有</p>
+
+\[J(\boldsymbol{W}) = \sum_{i=1}^n\sum_{j=1}^d\left(x_{ij} - \left[\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top\right]_{ij}\right)^2\]
+
+<p>注意到，上式就是矩阵的 Frobenius 范数的平方形式，即</p>
+
+\[J(\boldsymbol{W}) = \Vert\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top\Vert_F^2\]
+
+<p>根据矩阵的 Frobenius 范数的性质，有</p>
 
 <blockquote>
-  <p>矩阵二次型可以用迹表示为 $\boldsymbol{x}^T\boldsymbol{A}\boldsymbol{x}=\text{tr}(\boldsymbol{A}\boldsymbol{x}\boldsymbol{x}^T)$</p>
+\[\Vert\boldsymbol{A}\Vert_F = \sqrt{\sum_{i=1}^m\sum_{j=1}^n \boldsymbol{A}_{ij}^2} = \sqrt{\text{tr}(\boldsymbol{A}^\top \boldsymbol{A})}\]
 </blockquote>
 
-<p>注意到，$\boldsymbol{X}\boldsymbol{X}^T$ 是样本的协方差矩阵，$\boldsymbol{W}$ 的每个列向量是标准正交基，最后一个求和式是常量。因此最小化均方误差等价于</p>
-
 \[\begin{aligned}
-\min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
-s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
+\Vert\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top\Vert_F^2 &amp;= \text{tr}\left( (\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)^\top(\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) \right)\\
+&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - 2\text{tr}(\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) + \text{tr}(\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)\\
+&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})
 \end{aligned}\]
 
-<p>采用拉格朗日乘子法</p>
+<p>其中第二行展开是因为迹是线性算子，可以保证分配律。第三行展开利用了正交投影矩阵的性质和迹的循环置换性。</p>
 
-\[J(\boldsymbol{W}) = -\text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W})+\lambda(\boldsymbol{W}^T\boldsymbol{W}-\boldsymbol{I})\]
+<blockquote>
+  <p>正交投影矩阵：$\boldsymbol{W}\boldsymbol{W}^\top = \boldsymbol{I}$</p>
+
+  <p>迹的循环置换性：$\text{tr}(\boldsymbol{A}\boldsymbol{B}\boldsymbol{C}) = \text{tr}(\boldsymbol{B}\boldsymbol{C}\boldsymbol{A}) = \text{tr}(\boldsymbol{C}\boldsymbol{A}\boldsymbol{B})$</p>
+</blockquote>
+
+<p>注意到，$\boldsymbol{X}^\top\boldsymbol{X}$ 是样本的协方差矩阵，$\boldsymbol{W}$ 的每个列向量是标准正交基，最后一个求和式是常量。因此最小化均方误差等价于</p>
+
+\[\begin{aligned}
+\min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}) \\
+s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
+\end{aligned}\]
 
 <p>对上式求导，令导数等于零，整理有</p>
 
-\[\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W} = \lambda \boldsymbol{W}\]
+\[\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W} = \Lambda \boldsymbol{W}\]
 
-<p>则 $\boldsymbol{W}$ 的取值应为协方差矩阵 $\boldsymbol{X}\boldsymbol{X}^T$ 最大的 $d$ 个特征值对应的特征向量组成。根据 $\boldsymbol{z}_i=\boldsymbol{W}^T\boldsymbol{x}_i$ 即可将特征降维。</p>
+<p>则 $\boldsymbol{W}$ 的取值应为协方差矩阵 $\boldsymbol{X}^\top\boldsymbol{X}$ 最大的 $d$ 个特征值对应的特征向量组成。根据 $\boldsymbol{z}_i=\boldsymbol{W}^\top\boldsymbol{x}_i$ 即可将特征降维。</p>
 
 <p>在信号处理领域，上述过程被称为 <strong>K-L变换</strong>，用于离散信号的去相关的线性变换。从数学上看，KL变换和PCA的核心步骤是相同的：都是对协方差矩阵进行特征值分解，然后选择最大的特征值对应的特征向量作为投影方向。KL变换更偏向于信号处理领域，强调信号的能量集中特性，适用于随机信号的降维和压缩。PCA更偏向于统计学和机器学习领域，强调数据的方差解释能力，适用于数据的降维和可视化。两者在数学上是等价的，但在应用背景和解释方式上有所不同。</p>
 
@@ -1301,7 +1338,16 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
 
 <p>要让投影后所有样本点能尽可能分开，则投影后样本点方差最大。</p>
 
-<p>假设中心化后样本矩阵为 $\boldsymbol{X}\in\mathbb{R}^{n\times d}$，协方差矩阵为 $\boldsymbol{X}^\top\boldsymbol{X}$。给定某个投影方向 $\boldsymbol{w}$ 满足 $\Vert\boldsymbol{w}\Vert_2=1$，则投影后使样本方差最大等价于</p>
+<p>同样首先对 $n$ 个 $d$ 维样本进行中心化，假设中心化后样本矩阵为 $\boldsymbol{X}\in\mathbb{R}^{n\times d}$，即</p>
+
+\[\boldsymbol{X}=\begin{bmatrix}
+  \boldsymbol{x}_1^\top\\
+  \boldsymbol{x}_2^\top\\
+  \vdots\\
+  \boldsymbol{x}_n^\top
+\end{bmatrix}\]
+
+<p>协方差矩阵为 $\boldsymbol{X}^\top\boldsymbol{X}$。给定某个投影方向 $\boldsymbol{w}$ 满足 $\Vert\boldsymbol{w}\Vert_2=1$，则投影后使样本方差最大等价于</p>
 
 \[\max_{\boldsymbol{w}} \quad Var(\boldsymbol{X}\boldsymbol{w}) = \boldsymbol{w}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{w}\]
 
@@ -1311,53 +1357,65 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
 
 <p>注意到上式改写为矩阵后就是矩阵的对角元素（迹），则目标函数可改写为</p>
 
-\[\max_{\boldsymbol{W}} \quad \text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W})\]
+\[\max_{\boldsymbol{W}} \quad \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})\]
 
-<p>最大化上述方差等价于求解如下优化问题</p>
+<p>等价于求解如下优化问题</p>
 
 \[\begin{aligned}
-\max_{\boldsymbol{W}} &amp;\quad \text{tr}(\boldsymbol{W}^T\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{W}) \\
-s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
+\max_{\boldsymbol{W}} &amp;\quad \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})\\
+s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
 \end{aligned}\]
 
 <p>可以发现和最近重构性等价。</p>
 
-<p>迹的最大化等价于方差最大化：PCA的优化目标直接转化为协方差矩阵的迹的最大化。通过对协方差矩阵进行特征分解，主成分是最大特征值对应的特征向量，就是我们需要求的投影矩阵。</p>
+<h4 id="313-拉格朗日乘子法求解"><span class="me-2">3.1.3. 拉格朗日乘子法求解</span><a href="#313-拉格朗日乘子法求解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>对于最近重构性，最小化目标函数，拉格朗日乘子项使用正号</p>
+
+\[J(\boldsymbol{W}) = -\text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})+\Lambda^\top(\boldsymbol{W}^\top\boldsymbol{W}-\boldsymbol{I})\]
+
+<p>对于最大可分性，最大化目标函数，拉格朗日乘子项使用负号</p>
+
+\[J(\boldsymbol{W}) = \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})-\Lambda^\top(\boldsymbol{W}^\top\boldsymbol{W}-\boldsymbol{I})\]
+
+<p>二者等价。对上式求导（注意第一项利用迹的微分公式），令导数等于零，整理有</p>
+
+\[\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W} = \Lambda \boldsymbol{W}\]
+
+<p>该方程是特征值问题的形式，$\boldsymbol{W}$ 是协方差矩阵 $\boldsymbol{X}^\top\boldsymbol{X}$ 最大的 $d$ 个特征值对应的特征向量组成。$\Lambda$ 是对角线元素为协方差矩阵特征值的对角矩阵。根据 $\boldsymbol{z}_i=\boldsymbol{W}^\top\boldsymbol{x}_i$ 即可将特征降维。</p>
 
 <h3 id="32-算法流程"><span class="me-2">3.2. 算法流程</span><a href="#32-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>假设有 $m$ 个 $n$ 维向量，想将其变换为由 $d$ 个 $n$ 维向量表示的新空间中，那么首先将 $d$ 个基按行组成矩阵 $W$，然后将向量按列组成矩阵 $X$，那么两矩阵的乘积 $WX$ 就是变换结果，其中 $WX$ 的第 $m$ 列为 $X$ 中第 $m$ 列变换后的结果。</p>
+<p>首先将 $mn$ 个 $d$ 维数据排列成  $d$ 行 $n$ 列矩阵的形式，即每一列是一个样本数据。<strong>注意，为了方便从另一个角度推导，这里和前面算法优化问题推导时使用的样本矩阵定义不同，存在一个转置，最终不影响求解结果。</strong></p>
 
-<p>首先将 $m$ 个 $n$ 维数据排列成  $n$ 行 $m$ 列矩阵的形式，即每一列是一个样本数据</p>
-
-\[\boldsymbol{X} = [\boldsymbol{X}_1, \boldsymbol{X}_2,\cdots, \boldsymbol{X}_m] \in \mathbb{R}^{n\times m}\]
+\[\boldsymbol{X} = [\boldsymbol{x}_1, \boldsymbol{x}_2,\cdots, \boldsymbol{x}_n] \in \mathbb{R}^{d\times n}\]
 
 <p>然后对数据进行中心化，即计算所有数据的均值后，将所有数据减去均值</p>
 
 \[\begin{aligned}
-\bar{\boldsymbol{X}}&amp;=[\boldsymbol{X}_1-\boldsymbol{\mu}, \boldsymbol{X}_2-\boldsymbol{\mu},\cdots, \boldsymbol{X}_m-\boldsymbol{\mu}]\\
-&amp;=[\bar{\boldsymbol{X}}_1, \bar{\boldsymbol{X}}_2,\cdots, \bar{\boldsymbol{X}}_m]\\
+\bar{\boldsymbol{X}}&amp;=[\boldsymbol{x}_1-\boldsymbol{\mu}, \boldsymbol{x}_2-\boldsymbol{\mu},\cdots, \boldsymbol{x}_n-\boldsymbol{\mu}]\\
+&amp;=[\bar{\boldsymbol{x}}_1, \bar{\boldsymbol{x}}_2,\cdots, \bar{\boldsymbol{x}}_n]\\
 &amp;=\begin{bmatrix}
-\bar x^1_1 &amp; \bar x^2_1 &amp; \cdots &amp; \bar x^m_1\\
-\bar x^1_2 &amp; \bar x^2_2 &amp; \cdots &amp; \bar x^m_2\\
+\bar x^1_1 &amp; \bar x^2_1 &amp; \cdots &amp; \bar x^n_1\\
+\bar x^1_2 &amp; \bar x^2_2 &amp; \cdots &amp; \bar x^n_2\\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\bar x^1_n &amp; \bar x^2_n &amp; \cdots &amp; \bar x^m_n\\
+\bar x^1_d &amp; \bar x^2_d &amp; \cdots &amp; \bar x^n_d\\
 \end{bmatrix}
 \end{aligned}\]
 
 <p>此时满足</p>
 
-\[\sum_{i=0}^m \bar{\boldsymbol{X}}_i = 0\]
+\[\sum_{i=0}^m \bar{\boldsymbol{x}}_i = 0\]
 
 <p>然后计算这个矩阵的协方差矩阵，即</p>
 
 \[\begin{aligned}
-\boldsymbol{\Sigma} &amp;= \frac{1}{m-1}\bar{\boldsymbol{X}}\bar{\boldsymbol{X}}^T \in \mathbb{R}^{n \times n}\\
-&amp;=\frac{1}{m-1} \begin{bmatrix}
-\sum_{i=1}^m (\bar x^i_1)^2 &amp; \sum_{i=1}^m \bar x^i_1\cdot \bar x^i_2 &amp; \cdots &amp; \sum_{i=1}^m \bar x^i_1\cdot \bar x^i_n\\
-\sum_{i=1}^m \bar x^i_2\cdot \bar x^i_1 &amp; \sum_{i=1}^m (\bar x^i_2)^2 &amp; \cdots &amp; \sum_{i=1}^m \bar x^i_2\cdot \bar x^i_n\\
+\boldsymbol{\Sigma} &amp;= \frac{1}{n}\bar{\boldsymbol{X}}\bar{\boldsymbol{X}}^\top \in \mathbb{R}^{d \times d}\\
+&amp;=\frac{1}{n} \begin{bmatrix}
+\sum_{i=1}^n (\bar x^i_1)^2 &amp; \sum_{i=1}^n \bar x^i_1\cdot \bar x^i_2 &amp; \cdots &amp; \sum_{i=1}^n \bar x^i_1\cdot \bar x^i_d\\
+\sum_{i=1}^n \bar x^i_2\cdot \bar x^i_1 &amp; \sum_{i=1}^n (\bar x^i_2)^2 &amp; \cdots &amp; \sum_{i=1}^n \bar x^i_2\cdot \bar x^i_d\\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\sum_{i=1}^m \bar x^i_n\cdot \bar x^i_1 &amp; \sum_{i=1}^m \bar x^i_n\cdot \bar x^i_2 &amp; \cdots &amp; \sum_{i=1}^m (\bar x^i_n)^2\\
+\sum_{i=1}^n \bar x^i_d\cdot \bar x^i_1 &amp; \sum_{i=1}^n \bar x^i_d\cdot \bar x^i_2 &amp; \cdots &amp; \sum_{i=1}^n (\bar x^i_d)^2\\
 \end{bmatrix}
 \end{aligned}\]
 
@@ -1367,7 +1425,7 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
 
 <p>将特征向量按照对应特征值从大到小，自上而下按行排列成矩阵，取前 $d$ 行组成矩阵 $\boldsymbol{W}$。</p>
 
-<p>$\boldsymbol{Y} = \boldsymbol{W}\boldsymbol{X}$ 即为降维到 $d$ 维后的数据。（如果按列排列特征向量，则 $\boldsymbol{W}$ 取转置）</p>
+<p>$\boldsymbol{Z} = \boldsymbol{W}\boldsymbol{X}$ 即为降维到 $d$ 维后的数据。（如果按列排列特征向量，则 $\boldsymbol{W}$ 取转置）</p>
 
 <h3 id="33-pca-的特点"><span class="me-2">3.3. PCA 的特点</span><a href="#33-pca-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1526,6 +1584,13 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
         </li>
       
@@ -1548,13 +1613,6 @@ s.t. &amp;\quad \boldsymbol{W}^T\boldsymbol{W}=\boldsymbol{I}
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
         </li>
       
     </ul>
