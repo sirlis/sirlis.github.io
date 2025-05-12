@@ -37,25 +37,25 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Python基础（万恶的下划线）" />
+<meta property="og:title" content="模式识别（无监督分类器）" />
 <meta property="og:locale" content="zh_CN" />
-<meta name="description" content="本文介绍了 Python 一些基本的小知识，如 name = ‘main’、init、super 等等。" />
-<meta property="og:description" content="本文介绍了 Python 一些基本的小知识，如 name = ‘main’、init、super 等等。" />
-<link rel="canonical" href="http://localhost:4000/posts/python-basic-1/" />
-<meta property="og:url" content="http://localhost:4000/posts/python-basic-1/" />
+<meta name="description" content="本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。" />
+<meta property="og:description" content="本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。" />
+<link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" />
+<meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-06-14T10:40:19+08:00" />
+<meta property="article:published_time" content="2025-05-12T15:10:49+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Python基础（万恶的下划线）" />
+<meta property="twitter:title" content="模式识别（无监督分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-06-14T10:40:19+08:00","datePublished":"2020-06-14T10:40:19+08:00","description":"本文介绍了 Python 一些基本的小知识，如 name = ‘main’、init、super 等等。","headline":"Python基础（万恶的下划线）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/python-basic-1/"},"url":"http://localhost:4000/posts/python-basic-1/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-12T15:10:49+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>Python基础（万恶的下划线） | SIRLIS
+  <title>模式识别（无监督分类器） | SIRLIS
   </title>
 
   <!--
@@ -468,7 +468,7 @@
         
           
             
-              <span>Python基础（万恶的下划线）</span>
+              <span>模式识别（无监督分类器）</span>
             
 
           
@@ -548,6 +548,91 @@
 
 
 
+  
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+
+  
+
+
 
 <!-- Add header for code snippets -->
 
@@ -563,19 +648,243 @@
   
 
   
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
 
   
   
 
   
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
 
   
   
 
   
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -587,7 +896,7 @@
 
 
 
-<h1 data-toc-skip>Python基础（万恶的下划线）</h1>
+<h1 data-toc-skip>模式识别（无监督分类器）</h1>
 
 <div class="post-meta text-muted">
     <!-- published date -->
@@ -604,13 +913,13 @@
 
 <em
   class=""
-  data-ts="1592102419"
+  data-ts="1747033849"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2020/06/14
+  2025/05/12
 </em>
 
     </span>
@@ -656,9 +965,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1283 字"
+  title="2377 字"
 >
-  <em>7 分钟</em>阅读</span>
+  <em>13 分钟</em>阅读</span>
 
     </div>
 
@@ -667,200 +976,211 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>本文介绍了 Python 一些基本的小知识，如 name = ‘main’、init、super 等等。</p>
+  <p>本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。</p>
 
 <!--more-->
 
 <hr />
 
 <ul>
-  <li><a href="#1-模拟的应用程序入口">1. 模拟的应用程序入口</a></li>
-  <li><a href="#2-实例属性初使化">2. 实例属性初使化</a></li>
-  <li><a href="#3-继承自父类的属性初始化">3. 继承自父类的属性初始化</a></li>
-  <li><a href="#4-参考文献">4. 参考文献</a></li>
-</ul>
-
-<h1 id="1-模拟的应用程序入口">1. 模拟的应用程序入口</h1>
-
-<p><code class="language-plaintext highlighter-rouge">if __name__ == '__main__'</code> 为 python 提供模拟的应用程序入口。它的功能为：当.py文件被直接运行时，<code class="language-plaintext highlighter-rouge">if __name__ == '__main__':</code> 之下的代码块将被运行；当.py文件以模块形式被导入时，<code class="language-plaintext highlighter-rouge">if __name__ == '__main__':</code> 之下的代码块不被运行。</p>
-
-<p>参考：https://blog.csdn.net/anshuai_aw1/article/details/82344884</p>
-
-<p>假设我们有一个<code class="language-plaintext highlighter-rouge">const.py</code>文件，内容如下：</p>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">PI:</span><span class="sh">"</span><span class="p">,</span> <span class="n">PI</span><span class="p">)</span>
- 
-<span class="nf">main</span><span class="p">()</span>
- 
-<span class="c1"># 运行结果：PI: 3.14
-</span></pre></td></tr></tbody></table></code></div></div>
-
-<p>现在，我们写一个用于计算圆面积的<code class="language-plaintext highlighter-rouge">area.py</code>文件，area.py文件需要用到const.py文件中的PI变量。从const.py中，我们把PI变量导入<code class="language-plaintext highlighter-rouge">area.py</code>：</p>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="n">const</span> <span class="kn">import</span> <span class="n">PI</span>
- 
-<span class="k">def</span> <span class="nf">calc_round_area</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">PI</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">round area: </span><span class="sh">"</span><span class="p">,</span> <span class="nf">calc_round_area</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
- 
-<span class="nf">main</span><span class="p">()</span>
- 
-<span class="sh">'''</span><span class="s">
-运行结果：
-PI: 3.14
-round area:  12.56
-</span><span class="sh">'''</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>我们看到 const.py 中的 <code class="language-plaintext highlighter-rouge">main</code> 函数也被运行了，实际上我们不希望它被运行，因为 const.py 提供的 <code class="language-plaintext highlighter-rouge">main</code> 函数只是为了测试常量定义。这时 <code class="language-plaintext highlighter-rouge">if __name__ == '__main__'</code> 派上了用场，我们把const.py改一下：</p>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span>
- 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">PI:</span><span class="sh">"</span><span class="p">,</span> <span class="n">PI</span><span class="p">)</span>
- 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
-    <span class="nf">main</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>运行<code class="language-plaintext highlighter-rouge">const.py</code>，输出如下：</p>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">PI</span><span class="p">:</span> <span class="mf">3.14</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>运行<code class="language-plaintext highlighter-rouge">area.py</code>，输出如下：</p>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">round</span> <span class="n">area</span><span class="p">:</span>  <span class="mf">12.56</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>如上，我们可以看到 <code class="language-plaintext highlighter-rouge">if __name__ == '__main__'</code> 相当于Python模拟的程序入口，Python本身并没有这么规定，这只是一种编码习惯。由于模块之间相互引用，不同模块可能有这样的定义，而程序入口只有一个。到底哪个程序入口被选中，这取决于 <code class="language-plaintext highlighter-rouge">__name__</code> 的值。</p>
-
-<h1 id="2-实例属性初使化">2. 实例属性初使化</h1>
-
-<p>定义类的时候，若是添加 <code class="language-plaintext highlighter-rouge">__init__</code> 方法，那么在创建类的实例的时候，实例会自动调用这个方法，一般用来对实例的属性进行初使化。比如：</p>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
-    <span class="k">def</span>  <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">gender</span> <span class="o">=</span> <span class="n">gender</span>
-
-<span class="n">XiaoMing</span> <span class="o">=</span> <span class="nc">Student</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">'</span><span class="s">XiaoMing</span><span class="sh">'</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="sh">'</span><span class="s">Male</span><span class="sh">'</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">XiaoMing</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">XiaoMing</span><span class="p">.</span><span class="n">gender</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></div></div>
-
-<p>此处，类进行初始化时就会自动调用 <code class="language-plaintext highlighter-rouge">__init__</code> 中的代码，对 <code class="language-plaintext highlighter-rouge">self.name</code> 和 <code class="language-plaintext highlighter-rouge">self.gender</code> 赋值，之后可以通过 <code class="language-plaintext highlighter-rouge">XiaoMing.name</code> 等来访问。</p>
-
-<p><code class="language-plaintext highlighter-rouge">self</code> 是个对象（Object），是当前类的实例。在类的代码（函数）中，需要访问当前的实例中的变量和函数的，即：</p>
-
-<ul>
-  <li>
-    <p>访问对应变量（property)：Instance.ProperyNam，去读取之前的值和写入新的值</p>
-  </li>
-  <li>
-    <p>调用对应函数（function）：Instance.function()，即执行对应的动作</p>
+  <li><a href="#1-聚类">1. 聚类</a>
+    <ul>
+      <li><a href="#11-相似度">1.1. 相似度</a>
+        <ul>
+          <li><a href="#111-闵可夫斯基距离">1.1.1. 闵可夫斯基距离</a>
+            <ul>
+              <li><a href="#1111-曼哈顿距离">1.1.1.1. 曼哈顿距离</a></li>
+              <li><a href="#1112-欧几里得距离">1.1.1.2. 欧几里得距离</a></li>
+              <li><a href="#1113-切比雪夫距离">1.1.1.3. 切比雪夫距离</a></li>
+            </ul>
+          </li>
+          <li><a href="#112-马氏距离">1.1.2. 马氏距离</a></li>
+          <li><a href="#113-相关系数">1.1.3. 相关系数</a>
+            <ul>
+              <li><a href="#1131-角度相关系数">1.1.3.1. 角度相关系数</a></li>
+              <li><a href="#1132-皮尔逊相关系数">1.1.3.2. 皮尔逊相关系数</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#12-聚类准则函数">1.2. 聚类准则函数</a>
+        <ul>
+          <li><a href="#121-误差平方和准则">1.2.1. 误差平方和准则</a></li>
+          <li><a href="#122-离散度准则">1.2.2. 离散度准则</a></li>
+        </ul>
+      </li>
+      <li><a href="#13-聚类方法">1.3. 聚类方法</a>
+        <ul>
+          <li><a href="#131-基于划分的聚类方法k-means">1.3.1. 基于划分的聚类方法（K-means）</a></li>
+        </ul>
+      </li>
+    </ul>
   </li>
 </ul>
 
-<p>新建的实例本身，连带其中的参数，会一并传给 <code class="language-plaintext highlighter-rouge">__init__</code> 函数自动并执行它。所以 <code class="language-plaintext highlighter-rouge">__init__</code> 函数的参数列表会在开头多出一个参数，它永远指代新建的那个实例对象，Python语法要求函数的第一个参数<strong>必须</strong>是实例对象本身，而名称随意，习惯上就命为 <code class="language-plaintext highlighter-rouge">self</code>。当然，如果你非要写为别的比如 <code class="language-plaintext highlighter-rouge">me</code> ，也不是不可以，之后的 <code class="language-plaintext highlighter-rouge">self.xxx</code> 就要写成 <code class="language-plaintext highlighter-rouge">me.xxx</code> 。你开心就好。</p>
+<h2 id="1-聚类"><span class="me-2">1. 聚类</span><a href="#1-聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<p>注意以下三点</p>
+<p>聚类是一种无监督学习方法，其在没有预先指定可能的类别，事先不知道所考虑问题应该分为几类，更不知道观测到的个体的具体分类的情况下，寻找样本数据潜在的自然分组结构和内在规律。聚类的目标是将样本集中的样本划分为不同的类别或簇，使得同一类别内的样本具有较高的相似度，而不同类别样本之间具有较高的相异性。</p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">__init__</code> 具备<strong>独立的命名空间</strong>，也就是说<strong>函数内新引入的变量均为局部变量</strong>，新建的实例对象对这个函数来说也只是通过第一参数self从外部传入的，故无论设置还是使用它的属性都得利用 <code class="language-plaintext highlighter-rouge">self.&lt;属性名&gt;</code>。如果将上面的初始化语句中新增<code class="language-plaintext highlighter-rouge">myname = name</code>（ <code class="language-plaintext highlighter-rouge">myname</code> 没有用 <code class="language-plaintext highlighter-rouge">self.</code> 修饰），则只是在函数内部创建了一个 <code class="language-plaintext highlighter-rouge">myname</code> 变量，它在函数执行完就会消失，对新建的实例没有任何影响；</li>
-  <li>与此对应，<strong><code class="language-plaintext highlighter-rouge">self</code>的属性名和函数内其他名称（包括参数）也是不冲突的</strong>，所以下面的写法正确而且规范</li>
-</ul>
-
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
-    <span class="k">def</span>  <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">):</span>
-        <span class="c1"># self.name是self的属性，单独的name是函数内的局部变量，参数也是局部变量
-</span>        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-</pre></td></tr></tbody></table></code></div></div>
+<p>在执行聚类时，针对包含大量未知类别样本的样本集，采用距离或相似性度量来计算样本之间的相似性，利用聚类算法根据计算的相似性把样本集划分为若干子集或簇，并使某种表示聚类质量的准则函数达到最优。因此</p>
 
 <ul>
-  <li>返回时只能 <code class="language-plaintext highlighter-rouge">return</code>，不允许带返回值。</li>
+  <li><strong>相似度</strong></li>
+  <li><strong>聚类准则函数</strong></li>
+  <li><strong>聚类算法</strong></li>
 </ul>
 
-<h1 id="3-继承自父类的属性初始化">3. 继承自父类的属性初始化</h1>
+<p>称为聚类的三要素。</p>
 
-<p>这是对继承自父类的属性进行初始化。而且是用父类的初始化方法来初始化继承的属性。也就是说，子类继承了父类的所有属性和方法，父类属性自然会用父类方法来进行初始化。当然，如果初始化的逻辑与父类的不同，不使用父类的方法，自己重新初始化也是可以的。</p>
+<h3 id="11-相似度"><span class="me-2">1.1. 相似度</span><a href="#11-相似度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>特别是在使用 PyTorch 时，自定义网络类（比如类名为 <code class="language-plaintext highlighter-rouge">CNN</code> ）一般需要继承 PyTorch 提供的 <code class="language-plaintext highlighter-rouge">nn.Module</code> ：</p>
+<p>相似度全称为相似性度量或相似性测度，一种典型的相似性度量方式是根据不同样本在特征空间中的距离，利用「同类样本相互靠近、异类样本相互远离」的策略进行聚类。假设两个样本的特征向量为 $\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}\in\mathbb{R}^d$，可分别定义如下相似度。</p>
 
-<div class="language-python highlighter-rouge"><div class="code-header">
-        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
-      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="nf">super</span><span class="p">(</span><span class="n">CNN</span><span class="p">,</span> <span class="n">self</span><span class="p">).</span><span class="nf">__init__</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></div></div>
+<h4 id="111-闵可夫斯基距离"><span class="me-2">1.1.1. 闵可夫斯基距离</span><a href="#111-闵可夫斯基距离" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h1 id="4-参考文献">4. 参考文献</h1>
+<p>闵可夫斯基距离（Minkowski distance，明式距离）是指两个样本在特征空间中的一类距离的统称，定义如下</p>
 
-<p>无。</p>
+\[M(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(2)}) = \left(\sum_{i=1}^d |x^{(1)}_{i} - x^{(2)}_{i}|^p\right)^\frac{1}{p}\quad p\geq 1\]
+
+<h5 id="1111-曼哈顿距离"><span class="me-2">1.1.1.1. 曼哈顿距离</span><a href="#1111-曼哈顿距离" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>当明式距离中的参数 $p=1$ 时，又称为曼哈顿距离（Manhattan distance，曼哈顿距离）或 $L_1$ 范数：</p>
+
+\[M(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(2)}) = \sum_{i=1}^d |x^{(1)}_{i} - x^{(2)}_{i}| = \Vert\boldsymbol{x}^{(1)} - \boldsymbol{x}^{(2)}\Vert_1\]
+
+<p>曼哈顿距离的命名原因是从规划为方型建筑区块的城市（如曼哈顿）间，最短的行车路径而来。对于一个具有正南正北、正东正西方向规则布局的城镇街道，从一点到达另一点的距离正是在南北方向上旅行的距离加上在东西方向上旅行的距离，因此，曼哈顿距离又称为出租车距离。</p>
+
+<p>在早期的计算机图形学中，屏幕是由像素构成，是整数，点的坐标也一般是整数。当计算两个像素点之间的距离时，如果直接使用AB的欧氏距离，则必须要进行浮点运算，但浮点运算很昂贵，很慢而且有误差。如果使用曼哈顿距离，则只要计算加减法即可，这就大大提高了运算速度，而且不管累计运算多少次，都不会有误差。</p>
+
+<p>思考：二维特征空间中，采用曼哈顿距离定义「圆」的图案是什么？</p>
+
+<h5 id="1112-欧几里得距离"><span class="me-2">1.1.1.2. 欧几里得距离</span><a href="#1112-欧几里得距离" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>当明式距离中的参数 $p=2$ 时，又称为欧几里得距离（Euclidean distance，欧氏距离）或 $L_2$ 范数：</p>
+
+\[D = \sqrt{\sum_{i=1}^d (x^{(1)}_{i} - x^{(2)}_{i})^2} = \Vert\boldsymbol{x}^{(1)} - \boldsymbol{x}^{(2)}\Vert_2\]
+
+<h5 id="1113-切比雪夫距离"><span class="me-2">1.1.1.3. 切比雪夫距离</span><a href="#1113-切比雪夫距离" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>当明式距离中的参数 $p=\infty$ 时，又称为切比雪夫距离（Chebyshev distance）或 $L_\infty$ 范数：</p>
+
+\[D = \max_{i=1,\ldots,d} |x^{(1)}_{i} - x^{(2)}_{i}| = \Vert\boldsymbol{x}^{(1)} - \boldsymbol{x}^{(2)}\Vert_\infty\]
+
+<p>证明如下：</p>
+
+<p>假设两个样本的特征向量各维度的绝对差为 $d_i = \vert x^{(1)}<em>{i} - x^{(2)}</em>{i} \vert$，闵科夫斯基距离写成如下形式：</p>
+
+\[D = \left(\sum_{i=1}^d d_i^p\right)^\frac{1}{p}\]
+
+<p>假设绝对差的最大值为 $d_{\max} = \max_i d_i$，将其提到求和符号外面，有</p>
+
+\[D = \left(\sum_{i=1}^d d_i^p\right)^\frac{1}{p} = d_{\max} \left(\sum_{i=1}^d \left(\frac{d_i}{d_{\max}}\right)^p\right)^\frac{1}{p}\]
+
+<p>注意到，对于所有 $i$ 有 $\frac{d_i}{d_{\max}} \leq 1$，因此当 $p\to \infty$ 时，有</p>
+
+\[\begin{aligned}
+  \left(\frac{d_i}{d_{\max}}\right)^p\to 0,\quad d_i &lt; d_{\max}\\
+  \left(\frac{d_i}{d_{\max}}\right)^p\to 1,\quad d_i = d_{\max}
+\end{aligned}\]
+
+<p>因此，求和项中只有最大项会保留（注意最大项可能不止一个！），假设最大项有 $k$ 个，则</p>
+
+\[\sum_{i=1}^d \left(\frac{d_i}{d_{\max}}\right)^p \to k\]
+
+<p>则</p>
+
+\[D = d_{\max}\cdot k^{1/p}\]
+
+<p>对于有限常数 $k$，$p\to \infty$ 时，有 $k^{1/p}\to 1$，得证。</p>
+
+<h4 id="112-马氏距离"><span class="me-2">1.1.2. 马氏距离</span><a href="#112-马氏距离" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>马氏距离（Mahalanobis Distance）是由马哈拉诺比斯（P. C. Mahalanobis）提出的，表示数据的协方差距离。它是一种有效的计算两个未知样本集的相似度的方法。马氏距离也可以定义为两个服从同一分布并且其协方差矩阵为 $\Sigma$ 的随机变量之间的差异程度。</p>
+
+\[M = \left( (\boldsymbol{x}^{(1)}-\boldsymbol{x}^{(2)})^\top\Sigma^{-1}(\boldsymbol{x}^{(1)}-\boldsymbol{x}^{(2)}) \right)^{1/2}=\sqrt{\sum_{i=1}^d \frac{(x^{(1)}_{i} - x^{(2)}_{i})^2}{\sigma_i^2}}\]
+
+<p>如果协方差矩阵为单位矩阵，那么马氏距离就简化为欧氏距离；如果协方差矩阵为对角阵，各特征完全相互独立。</p>
+
+<p>马氏距离可以克服欧氏距离的一些缺点。欧氏距离将样品的不同特征之间的差别独立且等同看待，这一点有时不能满足实际要求，如身高和体重是有相关性的。</p>
+
+<p>马氏距离通过除以方差矩阵，将各个分量之间的方差除掉了，消除了量纲影响，如下图所示。</p>
+
+<p><a href="/assets/img/postsimg/20250512/mahalanobis-distance.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/mahalanobis-distance.jpg" alt="马氏距离" class="lazyload" data-proofer-ignore></a></p>
+
+<h4 id="113-相关系数"><span class="me-2">1.1.3. 相关系数</span><a href="#113-相关系数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<h5 id="1131-角度相关系数"><span class="me-2">1.1.3.1. 角度相关系数</span><a href="#1131-角度相关系数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>角度相关系数表征两个向量的夹角余弦，又被称为余弦相似度。两个向量越相似（正相关），该值越接近 $1$；无线性关系，值等于零；越不相似（越负相关），该值越接近 $-1$。</p>
+
+\[\cos(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}) = \frac{\boldsymbol{x}^{(1)}{}^\top \boldsymbol{x}^{(2)}}{\Vert\boldsymbol{x}^{(1)}\Vert_2\Vert\boldsymbol{x}^{(2)}\Vert_2}\]
+
+<p>余弦相似度只比较向量的夹角，与模长无关。例：文本相似性中，文档长度不影响结果。</p>
+
+<h5 id="1132-皮尔逊相关系数"><span class="me-2">1.1.3.2. 皮尔逊相关系数</span><a href="#1132-皮尔逊相关系数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>皮尔逊相关系数（Pearson’s $r$）用于衡量两个连续变量之间的线性相关性，取值范围为 $[−1,1]$ 。</p>
+
+\[\begin{aligned}
+r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\boldsymbol{x}^{(1)}} \sigma_{\boldsymbol{x}^{(2)}}} = \frac{
+    (\boldsymbol{x}^{(1)} - \bar{\boldsymbol{x}}^{(1)})^{\top}
+    (\boldsymbol{x}^{(2)} - \bar{\boldsymbol{x}}^{(2)})
+}{
+    \|\boldsymbol{x}^{(1)} - \bar{\boldsymbol{x}}^{(1)}\| 
+    \cdot 
+    \|\boldsymbol{x}^{(2)} - \bar{\boldsymbol{x}}^{(2)}\|
+}\\
+&amp;= \frac{\sum_{i=1}^n (x^{(1)}_i - \bar{x}^{(1)})(x^{(2)}_i - \bar{x}^{(2)})}{\sqrt{\sum_{i=1}^n (x^{(1)}_i - \bar{x}^{(1)})^2} \sqrt{\sum_{i=1}^n (x^{(2)}_i - \bar{x}^{(2)})^2}}\\
+\end{aligned}\]
+
+<p>皮尔逊相关系数类似余弦相似度，但数据已中心化（均值归一化）。</p>
+
+<h3 id="12-聚类准则函数"><span class="me-2">1.2. 聚类准则函数</span><a href="#12-聚类准则函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="121-误差平方和准则"><span class="me-2">1.2.1. 误差平方和准则</span><a href="#121-误差平方和准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>误差平方和（Sum of Squared Errors, SSE）是聚类分析中最常用的准则函数之一，用于衡量类内数据的紧致性。其核心思想是：最小化每个数据点与其所属簇中心（质心）的平方距离之和。</p>
+
+<p>假设将样本划分为 $k$ 个簇，每个簇的质心（均值）为 $\boldsymbol{c}_i$，则 SSE 定义为：</p>
+
+\[SSE = \sum_{i=1}^k \sum_{x\in C_i} \left(x - \boldsymbol{c}_i\right)^2\]
+
+<p>一个好的聚类方法应该能使每一个簇中的所有向量与其均值向量的 “误差” 的平方和最小。使得误差平方和最小的聚类也被称为最小方差聚类。该方法的优缺点如下：</p>
+
+<p>优点：</p>
+
+<ul>
+  <li>计算简单：仅需计算欧氏距离的平方和，易于实现和优化；</li>
+  <li>可解释性强：直接反映类内数据的聚集程度，值越小说明簇内数据越紧密；</li>
+  <li>适用于凸形簇：对球形或凸形分布的数据聚类效果良好；</li>
+</ul>
+
+<p>缺点：</p>
+
+<ul>
+  <li>适用性有限：对于非凸形状的分布，聚类效果不好；</li>
+  <li>对异常值敏感：平方项会放大离群点的影响，导致质心偏移（可改用绝对误差或中位数）；</li>
+  <li>依赖初始质心：聚类结果与初始质心位置有关，随机初始化可能导致局部最优解；</li>
+  <li>需要预先指定簇数：聚类结果与簇数有关，需要预先指定。</li>
+</ul>
+
+<h4 id="122-离散度准则"><span class="me-2">1.2.2. 离散度准则</span><a href="#122-离散度准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>离散度准则采用离散度矩阵来刻画。离散度矩阵不仅反映同类样本的聚合程度，而且也反映不同类之间的分离程度，因此可以对聚类的质量进行全面的描述和评价。</p>
+
+<p>假设聚类为 $C$ 类，类内离散度矩阵和类间离散度矩阵可参考 <a href="../Pattern-Recognition-LDA&amp;PCA/#24-多分类-lda">模式识别（LDA和PCA） - 多分类LDA</a> 定义如下：</p>
+
+<p>类内离散度矩阵：</p>
+
+\[\boldsymbol{S}_w = \sum_{i=1}^C \boldsymbol{S}_{wi}=\sum_{i=1}^C \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu}_i)(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\]
+
+<p>类间离散度矩阵，为度量每类均值点相对于样本中心的散列情况，即</p>
+
+\[\boldsymbol{S}_b= \sum_{i=1}^C N_i(\boldsymbol{\mu}_i-\boldsymbol{\mu})(\boldsymbol{\mu}_i-\boldsymbol{\mu})^\top\]
+
+<h3 id="13-聚类方法"><span class="me-2">1.3. 聚类方法</span><a href="#13-聚类方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<h4 id="131-基于划分的聚类方法k-means"><span class="me-2">1.3.1. 基于划分的聚类方法（K-means）</span><a href="#131-基于划分的聚类方法k-means" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 </div>
 
@@ -872,7 +1192,7 @@ round area:  12.56
     <i class="far fa-folder-open fa-fw me-1"></i>
     
       <a href='/categories/academic/'>Academic</a>,
-      <a href='/categories/coding/'>Coding</a>
+      <a href='/categories/knowledge/'>Knowledge</a>
   </div>
   
 
@@ -881,8 +1201,8 @@ round area:  12.56
   <div class="post-tags">
     <i class="fa fa-tags fa-fw me-1"></i>
       
-      <a href="/tags/python/"
-          class="post-tag no-text-decoration" >python</a>
+      <a href="/tags/pattern-recognition/"
+          class="post-tag no-text-decoration" >pattern recognition</a>
       
   </div>
   
@@ -916,7 +1236,7 @@ round area:  12.56
     
       
       <a
-        href="https://twitter.com/intent/tweet?text=Python%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%87%E6%81%B6%E7%9A%84%E4%B8%8B%E5%88%92%E7%BA%BF%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fpython-basic-1%2F"
+        href="https://twitter.com/intent/tweet?text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E6%97%A0%E7%9B%91%E7%9D%A3%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Unsupervised-Classifier%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Twitter"
@@ -929,7 +1249,7 @@ round area:  12.56
     
       
       <a
-        href="https://www.facebook.com/sharer/sharer.php?title=Python%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%87%E6%81%B6%E7%9A%84%E4%B8%8B%E5%88%92%E7%BA%BF%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fpython-basic-1%2F"
+        href="https://www.facebook.com/sharer/sharer.php?title=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E6%97%A0%E7%9B%91%E7%9D%A3%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Unsupervised-Classifier%2F"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Facebook"
@@ -942,7 +1262,7 @@ round area:  12.56
     
       
       <a
-        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fpython-basic-1%2F&text=Python%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%87%E6%81%B6%E7%9A%84%E4%B8%8B%E5%88%92%E7%BA%BF%EF%BC%89%20-%20SIRLIS"
+        href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2FPattern-Recognition-Unsupervised-Classifier%2F&text=%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%EF%BC%88%E6%97%A0%E7%9B%91%E7%9D%A3%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%89%20-%20SIRLIS"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="Telegram"
@@ -1940,6 +2260,11 @@ round area:  12.56
 
 
 
+  <div id="toc-wrapper" class="ps-0 pe-4 mb-5">
+    <div class="panel-heading ps-3 pt-2 mb-2">文章内容</div>
+    <nav id="toc"></nav>
+  </div>
+
 
     
   </div>
@@ -1974,811 +2299,811 @@ round area:  12.56
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
@@ -2907,7 +3232,7 @@ round area:  12.56
         
         
         <div class="col">
-          <a href="/posts/vscode-python/" class="card post-preview h-100">
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -2920,14 +3245,14 @@ round area:  12.56
 
 <em
   class="small"
-  data-ts="1584775339"
+  data-ts="1709447119"
   data-df="YYYY/MM/DD"
   
 >
-  2020/03/21
+  2024/03/03
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>VSCode部署Python开发环境</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（线性分类器）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -2936,23 +3261,20 @@ round area:  12.56
 
 
 
-                  本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。
+                  本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。
 
 
 
 
 
 
-  1. 简介
-  2. VSCode下载与安装
-  3. 配置Python开发环境
+  1. 引言
+  2. 线性分类器基础
     
-      3.1. 部署解释器
-      3.2. 安装Anaconda
-      3.3. 新建和备份环境
-      3.4. 配置依赖包
-        
-          3.4.1. 更新包管理工具...
+      2.1. 线性判别函数
+      2.2. 广义线性判别函数
+      2.3. 二分类与多分类
+      2.4. 线性分类器设计的基...
                 </p>
               </div>
             </div>
@@ -2962,7 +3284,7 @@ round area:  12.56
         
         
         <div class="col">
-          <a href="/posts/vscode-pytorch/" class="card post-preview h-100">
+          <a href="/posts/Pattern-Recognition-Bayes/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -2975,14 +3297,14 @@ round area:  12.56
 
 <em
   class="small"
-  data-ts="1584840139"
+  data-ts="1710249739"
   data-df="YYYY/MM/DD"
   
 >
-  2020/03/22
+  2024/03/12
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>VSCode部署Pytorch机器学习框架</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（贝叶斯决策）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -2991,23 +3313,25 @@ round area:  12.56
 
 
 
-                  本文介绍了 Pytorch 机器学习框架的下载和部署，以及 Pytorch 开发环境的配置。
+                  本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。
 
 
 
 
 
 
-  1. 简介
-  2. 配置Python开发环境
-  3. 配置PyTorch
+  1. 决策理论与方法
     
-      3.1. 部署PyTorch
-      3.2. 部署其它包
-        
-          3.2.1. CUDA
-          3.2.2. cuDNN
-      ...
+      1.1. 基于先验概率的决策
+      1.2. 基于贝叶斯公式（后验概率）的决策
+    
+  
+  2. 最小错误贝叶斯决策
+    
+      2.1. 直观举例
+      2.2. 类概率密度
+      2.3. 错误率分析
+ ...
                 </p>
               </div>
             </div>
@@ -3017,7 +3341,7 @@ round area:  12.56
         
         
         <div class="col">
-          <a href="/posts/deep-learning-basic-hp-and-opt/" class="card post-preview h-100">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3030,14 +3354,14 @@ round area:  12.56
 
 <em
   class="small"
-  data-ts="1592036659"
+  data-ts="1714615399"
   data-df="YYYY/MM/DD"
   
 >
-  2020/06/13
+  2024/05/02
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>深度学习基础（基本超参数和优化器）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（LDA和PCA）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -3046,21 +3370,19 @@ round area:  12.56
 
 
 
-                  本文介绍了深度学习中的基本概念，包括 batch、epoch、iteration、optimizer等，其中优化器包括 BGD、SGD、Adam等，为后深度学习提供基础。
+                  本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。
 
 
 
 
 
 
-  1. 基本超参数
+  1. 特征降维
+  2. 线性判别分析（LDA）
     
-      1.1. epoch
-      1.2. batch \&amp;amp; batch_size
-      1.3. iteration
-    
-  
-  2. 优化器...
+      2.1. Fisher 投影准则
+      2.2. 瑞利商与广义瑞利商
+     ...
                 </p>
               </div>
             </div>
@@ -3080,22 +3402,21 @@ round area:  12.56
 <div class="post-navigation d-flex justify-content-between">
   
     <a
-      href="/posts/deep-learning-basic-hp-and-opt/"
+      href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"
       class="btn btn-outline-primary"
       prompt="上一篇"
     >
-      <p>深度学习基础（基本超参数和优化器）</p>
+      <p>模式识别（特征选择与特征提取）</p>
     </a>
   
 
   
-    <a
-      href="/posts/deep-learning-basic-conv2d/"
-      class="btn btn-outline-primary"
+    <div
+      class="btn btn-outline-primary disabled"
       prompt="下一篇"
     >
-      <p>深度学习基础（PyTorch的CNN组成）</p>
-    </a>
+      <p>-</p>
+    </div>
   
 </div>
 
@@ -4224,9 +4545,16 @@ round area:  12.56
 
   
 
+  
+    
+
+    
+
+  
 
 
-  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js"></script>
 
 
 
@@ -4235,6 +4563,27 @@ round area:  12.56
 
 <script defer src="/assets/js/dist/post.min.js"></script>
 
+
+  <!-- MathJax -->
+  <script>
+    /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */
+    MathJax = {
+      tex: {
+        /* start/end delimiter pairs for in-line math */
+        inlineMath: [
+          ['$', '$'],
+          ['\\(', '\\)']
+        ],
+        /* start/end delimiter pairs for display math */
+        displayMath: [
+          ['$$', '$$'],
+          ['\\[', '\\]']
+        ]
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
 
 
 

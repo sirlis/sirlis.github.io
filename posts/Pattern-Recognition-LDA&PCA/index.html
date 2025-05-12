@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（LDA和PCA）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-08T18:24:41+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-09T13:37:57+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -996,13 +996,13 @@
 
 <em
   class=""
-  data-ts="1746699881"
+  data-ts="1746769077"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/05/08
+  2025/05/09
 </em>
 
     </span>
@@ -1046,9 +1046,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4186 字"
+  title="4134 字"
 >
-  <em>23 分钟</em>阅读</span>
+  <em>22 分钟</em>阅读</span>
 
     </div>
 
@@ -1173,7 +1173,7 @@
 
 <p>假设为 $C$ 分类，类内离散度矩阵定义保持不变，可直接扩展至 $C$ 类的情况，有</p>
 
-\[\boldsymbol{S}_w = \sum_{i=1}^C \boldsymbol{S}_{wi}=\sum_{i=1}^C \sum_{x\in w_i}(x-\mu_i)(x-\mu_i)^\top\]
+\[\boldsymbol{S}_w = \sum_{i=1}^C \boldsymbol{S}_{wi}=\sum_{i=1}^C \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu}_i)(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\]
 
 <p>对于类间离散度矩阵，无法像之前二分类那样定义（即 $\boldsymbol{S}_b=(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)^\top$，度量两类均值的散列情况），需要改为度量每类均值点相对于样本中心的散列情况，即</p>
 
@@ -1319,20 +1319,12 @@
   <p>迹的循环置换性：$\text{tr}(\boldsymbol{A}\boldsymbol{B}\boldsymbol{C}) = \text{tr}(\boldsymbol{B}\boldsymbol{C}\boldsymbol{A}) = \text{tr}(\boldsymbol{C}\boldsymbol{A}\boldsymbol{B})$</p>
 </blockquote>
 
-<p>注意到，$\boldsymbol{X}^\top\boldsymbol{X}$ 是样本的协方差矩阵，$\boldsymbol{W}$ 的每个列向量是标准正交基，最后一个求和式是常量。因此最小化均方误差等价于</p>
+<p>注意到，$\boldsymbol{X}^\top\boldsymbol{X}$ 是样本的协方差矩阵，对优化问题而言是常数，不影响优化结果，因此最近重构性推导的优化问题可描述为</p>
 
 \[\begin{aligned}
 \min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}) \\
 s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
 \end{aligned}\]
-
-<p>对上式求导，令导数等于零，整理有</p>
-
-\[\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W} = \Lambda \boldsymbol{W}\]
-
-<p>则 $\boldsymbol{W}$ 的取值应为协方差矩阵 $\boldsymbol{X}^\top\boldsymbol{X}$ 最大的 $d$ 个特征值对应的特征向量组成。根据 $\boldsymbol{z}_i=\boldsymbol{W}^\top\boldsymbol{x}_i$ 即可将特征降维。</p>
-
-<p>在信号处理领域，上述过程被称为 <strong>K-L变换</strong>，用于离散信号的去相关的线性变换。从数学上看，KL变换和PCA的核心步骤是相同的：都是对协方差矩阵进行特征值分解，然后选择最大的特征值对应的特征向量作为投影方向。KL变换更偏向于信号处理领域，强调信号的能量集中特性，适用于随机信号的降维和压缩。PCA更偏向于统计学和机器学习领域，强调数据的方差解释能力，适用于数据的降维和可视化。两者在数学上是等价的，但在应用背景和解释方式上有所不同。</p>
 
 <h4 id="312-最大可分性"><span class="me-2">3.1.2. 最大可分性</span><a href="#312-最大可分性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1384,9 +1376,11 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
 
 <p>该方程是特征值问题的形式，$\boldsymbol{W}$ 是协方差矩阵 $\boldsymbol{X}^\top\boldsymbol{X}$ 最大的 $d$ 个特征值对应的特征向量组成。$\Lambda$ 是对角线元素为协方差矩阵特征值的对角矩阵。根据 $\boldsymbol{z}_i=\boldsymbol{W}^\top\boldsymbol{x}_i$ 即可将特征降维。</p>
 
+<p>在信号处理领域，从最近重构性出发的推导过程被称为 <strong>K-L变换</strong>，用于离散信号的去相关的线性变换。从数学上看，K-L变换和PCA的核心步骤是相同的：都是对协方差矩阵进行特征值分解，然后选择最大的特征值对应的特征向量作为投影方向。K-L变换更偏向于信号处理领域，强调信号的能量集中特性，适用于随机信号的降维和压缩。PCA更偏向于统计学和机器学习领域，强调数据的方差解释能力，适用于数据的降维和可视化。两者在数学上是等价的，但在应用背景和解释方式上有所不同。</p>
+
 <h3 id="32-算法流程"><span class="me-2">3.2. 算法流程</span><a href="#32-算法流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>首先将 $mn$ 个 $d$ 维数据排列成  $d$ 行 $n$ 列矩阵的形式，即每一列是一个样本数据。<strong>注意，为了方便从另一个角度推导，这里和前面算法优化问题推导时使用的样本矩阵定义不同，存在一个转置，最终不影响求解结果。</strong></p>
+<p>首先将 $n$ 个 $d$ 维数据排列成  $d$ 行 $n$ 列矩阵的形式，即每一列是一个样本数据。<strong>注意，为了方便从另一个角度推导，这里和前面算法优化问题推导时使用的样本矩阵定义不同，存在一个转置，最终不影响求解结果。</strong></p>
 
 \[\boldsymbol{X} = [\boldsymbol{x}_1, \boldsymbol{x}_2,\cdots, \boldsymbol{x}_n] \in \mathbb{R}^{d\times n}\]
 
@@ -1423,9 +1417,9 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
 
 <p>求出协方差矩阵的特征值 $\lambda_i$ 和对应的正交化单位特征向量 $\boldsymbol{w}_i$。</p>
 
-<p>将特征向量按照对应特征值从大到小，自上而下按行排列成矩阵，取前 $d$ 行组成矩阵 $\boldsymbol{W}$。</p>
+<p>将特征向量按照对应特征值从大到小，自上而下按行排列成矩阵，取前 $k$ 行组成矩阵 $\boldsymbol{W}$。</p>
 
-<p>$\boldsymbol{Z} = \boldsymbol{W}\boldsymbol{X}$ 即为降维到 $d$ 维后的数据。（如果按列排列特征向量，则 $\boldsymbol{W}$ 取转置）</p>
+<p>$\boldsymbol{Z} = \boldsymbol{W}\boldsymbol{X}$ 即为降维到 $k$ 维后的数据。（如果按列排列特征向量，则 $\boldsymbol{W}$ 取转置）</p>
 
 <h3 id="33-pca-的特点"><span class="me-2">3.3. PCA 的特点</span><a href="#33-pca-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -2134,6 +2128,122 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
   
     
     
@@ -2267,122 +2377,6 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2490,13 +2484,13 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
@@ -2554,6 +2548,18 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -4250,6 +4256,122 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
   
     
     
@@ -4383,122 +4505,6 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -4606,13 +4612,13 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/astronomy/">astronomy</a>
