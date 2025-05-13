@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（无监督分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（无监督分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-12T15:10:49+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-13T17:38:17+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -629,6 +629,278 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -807,6 +1079,42 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -823,6 +1131,114 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -926,6 +1342,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1747129097"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/05/13
+</em>
+
+    </span>
+    
 
   
 
@@ -965,9 +1405,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2728 字"
+  title="7333 字"
 >
-  <em>15 分钟</em>阅读</span>
+  <em>40 分钟</em>阅读</span>
 
     </div>
 
@@ -985,7 +1425,7 @@
 <ul>
   <li><a href="#1-聚类">1. 聚类</a>
     <ul>
-      <li><a href="#11-相似度">1.1. 相似度</a>
+      <li><a href="#11-相似性测度">1.1. 相似性测度</a>
         <ul>
           <li><a href="#111-闵可夫斯基距离">1.1.1. 闵可夫斯基距离</a>
             <ul>
@@ -1007,11 +1447,32 @@
         <ul>
           <li><a href="#121-误差平方和准则">1.2.1. 误差平方和准则</a></li>
           <li><a href="#122-离散度准则">1.2.2. 离散度准则</a></li>
+          <li><a href="#123-sd-有效性函数">1.2.3. SD 有效性函数</a></li>
         </ul>
       </li>
       <li><a href="#13-聚类方法">1.3. 聚类方法</a>
         <ul>
-          <li><a href="#131-基于划分的聚类方法k-means">1.3.1. 基于划分的聚类方法（K-means）</a></li>
+          <li><a href="#131-基于层次的聚类">1.3.1. 基于层次的聚类</a>
+            <ul>
+              <li><a href="#1311-层次聚类方向">1.3.1.1. 层次聚类方向</a></li>
+              <li><a href="#1312-测度计算方法">1.3.1.2. 测度计算方法</a></li>
+              <li><a href="#1313-小结">1.3.1.3. 小结</a></li>
+            </ul>
+          </li>
+          <li><a href="#132-基于划分的聚类">1.3.2. 基于划分的聚类</a>
+            <ul>
+              <li><a href="#1321-k-均值聚类k-means">1.3.2.1. K-均值聚类（K-means）</a></li>
+              <li><a href="#1322-k-means-算法">1.3.2.2. K-Means++ 算法</a></li>
+              <li><a href="#1323-迭代自组织数据分析方法isodata">1.3.2.3. 迭代自组织数据分析方法（ISODATA）</a></li>
+              <li><a href="#1324-小结">1.3.2.4. 小结</a></li>
+            </ul>
+          </li>
+          <li><a href="#133-基于密度的聚类">1.3.3. 基于密度的聚类</a>
+            <ul>
+              <li><a href="#1331-dbscan">1.3.3.1. DBSCAN</a></li>
+              <li><a href="#1332-小结">1.3.3.2. 小结</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
@@ -1025,16 +1486,16 @@
 <p>在执行聚类时，针对包含大量未知类别样本的样本集，采用距离或相似性度量来计算样本之间的相似性，利用聚类算法根据计算的相似性把样本集划分为若干子集或簇，并使某种表示聚类质量的准则函数达到最优。因此</p>
 
 <ul>
-  <li><strong>相似度</strong></li>
-  <li><strong>聚类准则函数</strong></li>
+  <li><strong>相似性测度</strong>：衡量两个数据（样本）之间的相似程度；</li>
+  <li><strong>聚类准则函数</strong>：用于指导聚类算法的优化过程，或衡量不同聚类结果的优劣；</li>
   <li><strong>聚类算法</strong></li>
 </ul>
 
 <p>称为聚类的三要素。</p>
 
-<h3 id="11-相似度"><span class="me-2">1.1. 相似度</span><a href="#11-相似度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="11-相似性测度"><span class="me-2">1.1. 相似性测度</span><a href="#11-相似性测度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>相似度全称为相似性度量或相似性测度，一种典型的相似性度量方式是根据不同样本在特征空间中的距离，利用「同类样本相互靠近、异类样本相互远离」的策略进行聚类。假设两个样本的特征向量为 $\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}\in\mathbb{R}^d$，可分别定义如下相似度。</p>
+<p>「相似性测度」又被称为「相似性度量」或直接简称为「相似度」，一种典型的相似性度量方式是根据不同样本在特征空间中的距离，利用「同类样本相互靠近、异类样本相互远离」的策略进行聚类。假设两个样本的特征向量为 $\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}\in\mathbb{R}^d$，可分别定义如下相似度。</p>
 
 <h4 id="111-闵可夫斯基距离"><span class="me-2">1.1.1. 闵可夫斯基距离</span><a href="#111-闵可夫斯基距离" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1109,6 +1570,8 @@
 
 <h4 id="113-相关系数"><span class="me-2">1.1.3. 相关系数</span><a href="#113-相关系数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
+<p>「距离」衡量的是两个数据点在空间中的绝对位置差异，强调的是“远近”关系。而相关系数衡量的是两个变量之间的线性相关程度，强调的是“变化趋势”的一致性。相比于距离，相关系数从另一个角度来衡量两个变量之间的关系。</p>
+
 <h5 id="1131-角度相关系数"><span class="me-2">1.1.3.1. 角度相关系数</span><a href="#1131-角度相关系数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>角度相关系数表征两个向量的夹角余弦，又被称为余弦相似度。两个向量越相似（正相关），该值越接近 $1$；无线性关系，值等于零；越不相似（越负相关），该值越接近 $-1$。</p>
@@ -1137,15 +1600,17 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <h3 id="12-聚类准则函数"><span class="me-2">1.2. 聚类准则函数</span><a href="#12-聚类准则函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<p>聚类的准则函数用来评价聚类效果，比如采用不同的聚类方法可以计算相应的准则函数，取准则函数较优的聚类方法为最优聚类方法。又比如相同的聚类方法可以采用不同的算法参数（如 K-均值 聚类的初始类别数），然后计算相应的准则函数，取准则函数较优的算法参数为最优算法参数。</p>
+
 <h4 id="121-误差平方和准则"><span class="me-2">1.2.1. 误差平方和准则</span><a href="#121-误差平方和准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>误差平方和（Sum of Squared Errors, SSE）是聚类分析中最常用的准则函数之一，用于衡量类内数据的紧致性。其核心思想是：最小化每个数据点与其所属簇中心（质心）的平方距离之和。</p>
+<p>误差平方和（Sum of Squared Errors, SSE）是聚类分析中最常用的准则函数之一，用于衡量类内数据的紧致性。其核心思想是：最小化每个数据点与其所属簇中心（质心）的距离的平方和。一般而言，这里的距离使用的是「<strong>欧几里得距离</strong>」。</p>
 
 <p>假设将样本划分为 $k$ 个簇，每个簇的质心（均值）为 $\boldsymbol{\mu}_i$，则 SSE 定义为：</p>
 
 \[SSE = \sum_{i=1}^k \sum_{x\in w_i} \Vert x - \boldsymbol{\mu}_i\Vert^2\]
 
-<p>一个好的聚类方法应该能使每一个簇中的所有向量与其均值向量的 “误差” 的平方和最小。使得误差平方和最小的聚类也被称为最小方差聚类。该方法的优缺点如下：</p>
+<p>一个好的聚类方法应该能使每一个簇中的所有向量与其均值向量的 “误差” 的平方和 <strong>最小</strong>。使得误差平方和最小的聚类也被称为最小方差聚类。该方法的优缺点如下：</p>
 
 <p>优点：</p>
 
@@ -1174,7 +1639,7 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 \[\boldsymbol{S}_w = \sum_{i=1}^k \boldsymbol{S}_{wi}=\sum_{i=1}^k \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu}_i)(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\]
 
-<p>类间离散度矩阵，为度量每类均值点相对于样本中心的散列情况，即</p>
+<p>类间离散度矩阵，为度量每类均值点相对于样本中心的散列情况，并用每类样本个数进行加权，即</p>
 
 \[\boldsymbol{S}_b= \sum_{i=1}^k N_i(\boldsymbol{\mu}_i-\boldsymbol{\mu})(\boldsymbol{\mu}_i-\boldsymbol{\mu})^\top\]
 
@@ -1192,31 +1657,334 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
     <p>如果单独使用类内离散度矩阵的迹，注意到这与「误差平方和准则」完全一致</p>
 
-\[\text{tr}\boldsymbol{S}_w = \sum_{i=1}^C \sum_{\boldsymbol{x}_{ij}\in w_i}\Vert\boldsymbol{x}_{ij}-\boldsymbol{\mu}_i\Vert^2\]
+\[\min \; \text{tr}\boldsymbol{S}_w = \sum_{i=1}^C \sum_{\boldsymbol{x}_{ij}\in w_i}\Vert\boldsymbol{x}_{ij}-\boldsymbol{\mu}_i\Vert^2\]
 
     <p>当然也可以单独使用类间离散度矩阵的迹，即</p>
 
-\[\text{tr}\boldsymbol{S}_b = \sum_{i=1}^C N_i\Vert\boldsymbol{\mu}_i-\boldsymbol{\mu}\Vert^2\]
+\[\min \; \text{tr}\boldsymbol{S}_b = \sum_{i=1}^C N_i\Vert\boldsymbol{\mu}_i-\boldsymbol{\mu}\Vert^2\]
 
-    <p>还可以使用同时包含不同离散度矩阵的组合的迹准则</p>
+    <p>还可以同时考虑类内和类间离散度矩阵，设计迹准则</p>
 
-\[\text{tr}(\boldsymbol{S}_w^{-1}\boldsymbol{S}_b)\]
+\[\max \; \text{tr}(\boldsymbol{S}_w^{-1}\boldsymbol{S}_b)\]
 
-    <blockquote>
-      <p>实际上，这个与 Fisher 投影准则（LDA）的优化目标函数是等价的</p>
+    <p>该准则与 LDA 的优化目标函数</p>
 
-      <p>\(J(\boldsymbol{w}) = \frac{\boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}}\)
-上述最优化问题转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。对于二分类 LDA 问题，最佳投影方向是矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值对应的特征向量。对于多分类 LDA 问题，最佳投影矩阵的列是 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的前 $d$ 个最大特征值对应的特征向量。</p>
-    </blockquote>
+\[\max \; J(\boldsymbol{w}) = \frac{\boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}}\]
+
+    <p><u>等价</u>，因为 LDA 的优化问题可转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。对于二分类 LDA 问题，最佳投影方向是矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值对应的特征向量。对于多分类 LDA 问题，最佳投影矩阵的列是 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的前 $d$ 个最大特征值对应的特征向量。</p>
+
+    <p>而根据迹的定义有</p>
+
+\[\text{tr}(\boldsymbol{S}_w^{-1}\boldsymbol{S}_b) = \sum_{i=1}^d \lambda_i\]
+
+    <p>当 LDA 目标函数最优（最大）时，前 $d$ 个最大特征值的和自然也最大。</p>
   </li>
   <li>
     <p><strong>离散度矩阵行列式准则</strong></p>
   </li>
 </ul>
 
+<p>与离散度矩阵迹准则类似，可以采用行列式设计准则函数，如</p>
+
+\[\max \; \vert \boldsymbol{S}_w^{-1}\boldsymbol{S}_b \vert\]
+
+<h4 id="123-sd-有效性函数"><span class="me-2">1.2.3. SD 有效性函数</span><a href="#123-sd-有效性函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>SD有效性函数（SD Validity Function）是一种用于评估聚类结果质量的准则函数，它综合考虑了聚类的平均散布性和聚类间的总体分离性。这种方法确实是在2000年左右被提出并广泛应用于聚类分析中。</p>
+
+<ul>
+  <li>
+    <p>平均散布性（Average Scattering）</p>
+
+    <p>设样本总方差和各个聚类的方差分别为 $\sigma(\Omega)$ 和 $\sigma(\omega_i)$，则平均散布性定义为：</p>
+
+\[\text{Scat}(C)=\frac{1}{C}\sum_{i=1}^C\frac{\Vert\sigma(\omega_i)\Vert}{\Vert\sigma(\Omega)\Vert}\]
+
+    <p>一个好的聚类具备较大的样本总方差和较低的各个聚类方差，因此平均散布性越小，聚类效果越好。</p>
+  </li>
+  <li>
+    <p>总体分离性（Total Separation）</p>
+
+    <p>假设 $D_{\max}$ 和 $D_{\min}$ 分别表示聚类中心间的最大和最小距离，则总体分离性定义为：</p>
+
+\[\text{Dis}(C) = \frac{D_{\text{max}}}{D_{\text{min}}} \sum_{i=1}^{C} \left( \sum_{i=1}^{C} \|\boldsymbol{\mu}_i - \boldsymbol{\mu}_j\| \right)^{-1}\]
+
+    <p>一个好的聚类中各类别中心间的最大和最小距离应该较为接近，且不同类别的均值的差较大，此时总体分离性会较低。</p>
+  </li>
+</ul>
+
+<p>综上，我们希望最小化如下定义的 SD 有效性函数：</p>
+
+\[\min \; \text{SD}(C) = \alpha\cdot \text{Dis}(C) + \text{Var}(C)\]
+
+<p>该准则函数越小表明聚类效果越好。</p>
+
 <h3 id="13-聚类方法"><span class="me-2">1.3. 聚类方法</span><a href="#13-聚类方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h4 id="131-基于划分的聚类方法k-means"><span class="me-2">1.3.1. 基于划分的聚类方法（K-means）</span><a href="#131-基于划分的聚类方法k-means" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<p>聚类方法设计的核心大多都是围绕初始类别（或聚类中心）的选取来展开，如：</p>
+
+<ul>
+  <li>基于层次的聚类方法：假设初始每个样本都是一个类别，或者所有类别都属于一个类别；</li>
+  <li>基于划分的聚类方法：随机或凭借经验选择若干个初始聚类中心，并设计初始类别；</li>
+</ul>
+
+<h4 id="131-基于层次的聚类"><span class="me-2">1.3.1. 基于层次的聚类</span><a href="#131-基于层次的聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>层次聚类（Hierarchical Clustering）又被称为分级聚类，是最常见的聚类分析算法之一。给定 $d$ 维特征空间中由 $N$ 个数据点所构成的样本集 $D={x_1,x_2,\cdots,x_N}$，若需要将样本集聚类为 $C$ 个类别，假设类别与类别之间没有重合的数据点，那么可以选择以下两种层次聚类方向之一开始聚类。</p>
+
+<h5 id="1311-层次聚类方向"><span class="me-2">1.3.1.1. 层次聚类方向</span><a href="#1311-层次聚类方向" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<ul>
+  <li>
+    <p><strong>自下而上聚合</strong></p>
+
+    <ul>
+      <li>将所有样本点都视为一个类别，即 $C=N$，每个类别的样本点个数为 $N$；</li>
+      <li>将相似性最强的两个类别合并，得到 $C-1$ 个聚类，即 $C=N-1$。</li>
+      <li>重复第二步，直到聚类的类别数目达到预期。</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>自上而下分解</strong></p>
+
+    <ul>
+      <li>创建一个初始类别，即 $C=1$，该类别的样本点个数为 $N$；</li>
+      <li>将最不相似的两个类别分离，得到 $C+1$ 个聚类，即 $C=N+1$；</li>
+      <li>重复第二步，直到聚类的类别数目达到预期。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>可以看出，不论是自下而上还是自上而下，在聚类过程中都需要直接计算某个相似性测度，评估两个类别的相似性，进而进行类别合并或分离。</p>
+
+<h5 id="1312-测度计算方法"><span class="me-2">1.3.1.2. 测度计算方法</span><a href="#1312-测度计算方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>前述迭代聚类过程中，首先需要计算两个类别的相似性测度来决定哪两个类别进行合并或分离。根据具体任务需求，这里可以选择前面介绍过的任意相似性测度。</p>
+
+<p>其次，对于包含多个样本的类别，即使选择了特定的相似性测度，其具体计算也存在多样性。比如，选择欧氏距离作为相似性测度，那么可以采用以下三种计算方法：</p>
+
+<ul>
+  <li>最小距离法：将两类别中最「近」的两个数据点之间的欧氏距离作为测度；</li>
+  <li>最大距离法：将两类别中最「远」两个数据点之间的欧氏距离作为测度；</li>
+  <li>均值距离法：将两个类别的均值的欧式距离作为测度；</li>
+  <li>组平均距离法：将两个类别之间所有点对距离的平均值作为类别相似性测度。相比于最小距离法和最大距离法，组平均距离法可以有效避免类内特殊点带来的不利影响；</li>
+  <li>沃德距离法：将两个类别合并/拆分时带来的平方和误差（SSE）的变化量作为测度。</li>
+</ul>
+
+<h5 id="1313-小结"><span class="me-2">1.3.1.3. 小结</span><a href="#1313-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>基于层次的聚类方法是一种较为简单的聚类方法，只需要通过一轮迭代即可完成聚类，原理简单易于实现，且相似性测度采用欧氏距离，该测度是具有真实意义的，但选取不同的计算方法可能会导致聚类结果的差异。</p>
+
+<h4 id="132-基于划分的聚类"><span class="me-2">1.3.2. 基于划分的聚类</span><a href="#132-基于划分的聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>基于划分的聚类方法是一种自顶向下的方法，对于给定的由 $N$ 个样本数据组成的数据集 $X$，将该数据集划分为 $C$ 个分区，其中每个分区代表一个簇。</p>
+
+<p>给定要构建的分区数 $C$，首先创建一个初始划分，然后采用迭代重定位技术，通过把对象从一个组移动到另一个组来改进划分。一个好的划分准则是：同一个簇中的相关对象尽可能相互“接近”或相关，而不同簇中的对象尽可能地“远离”或不同。</p>
+
+<h5 id="1321-k-均值聚类k-means"><span class="me-2">1.3.2.1. K-均值聚类（K-means）</span><a href="#1321-k-均值聚类k-means" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>最经典的基于划分的聚类方法是 「<strong>K-means 聚类</strong>」。其核心思想是指定聚类中心，再通过迭代的方式更新聚类中心。</p>
+
+<ul>
+  <li><strong>第一步：样本集初始划分</strong></li>
+</ul>
+
+<p>（1）选择代表点</p>
+
+<ul>
+  <li>方式1：凭经验从数据中找出从合适的代表点；</li>
+  <li>方式2：将全部数据随机地分成 $C$ 类，计算每类均值作为每类代表点；</li>
+  <li>方式3：用前 $C$ 个样本点作为代表点。</li>
+</ul>
+
+<p>以上选择代表点的方法都是带有启发性的，不同的方法得到不同的初始代表点，它将直接影响到聚类的结果。</p>
+
+<p>（2）选择相似性测度</p>
+
+<p>不同的相似性测度选择也直接影响聚类的结果，一般而言常用的选择包括前面介绍的 欧几里得距离、闵科夫斯基距离、马氏距离、相关性测度等。</p>
+
+<ul>
+  <li><strong>第二步：相似性测度选择和迭代计算</strong></li>
+</ul>
+
+<p>确定相似性测度后，遍历所有待分类的样本 $x_i$，计算该样本与每个聚类中心（代表点）的距离，按照最小距离原则将样本划分到 $C$ 类中的某一类。这里有两种不同的遍历方式：</p>
+
+<ul>
+  <li>
+    <p>方式1：将其余样本点按照与代表点距离最近原则，划分到相应类中（代表点保持不变）；</p>
+  </li>
+  <li>
+    <p>方式2：每个代表点自成一类，将样本依顺序归入与其最近的代表点那一类，并立即重新计算该类的均值以代替原来的代表点（代表点进行动态更新）。然后再计算下一个样本的归类，直至所有的样本都归到相应的类为止。</p>
+  </li>
+</ul>
+
+<p>两种方式各有利弊，方式 1 的计算量少，但收敛速度比较慢；方式 2 的计算量大，但收敛速度快。</p>
+
+<p>如此反复迭代并更新聚类中心，直至所有类的聚类中心都不再发生变化，聚类结束。</p>
+
+<ul>
+  <li><strong>类别数的确定</strong></li>
+</ul>
+
+<p>如果初始确定的聚类类别数是凭借经验确定的，那么这一步可以不进行。</p>
+
+<p>但是，凭借经验确定的类别数不一定是最优的。除了凭借经验确定类别数外，还可以通过计算不同类别数下的聚类准则（SSE、离散度、SD有效性）来选择最合适的类别数。</p>
+
+<p>一般情况下，我们可以绘制出聚类准则函数值随类别数的变化曲线，然后选取曲线拐点的个数作为聚类类别数。</p>
+
+<p><a href="/assets/img/postsimg/20250512/K-Means-C.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/K-Means-C.jpg" alt="selection-of-Cluster-Number" class="lazyload" data-proofer-ignore></a></p>
+
+<h5 id="1322-k-means-算法"><span class="me-2">1.3.2.2. K-Means++ 算法</span><a href="#1322-k-means-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>前述 K-Means 方法中，随机的初始中心选择对计算结果和迭代次数有较大的影响，一种改进方法被称为 K-Means++。K-means++ 按照如下的思想选取 $C$ 个初始聚类中心：</p>
+
+<ul>
+  <li>第 $n=1$ 个聚类中心通过随机的方法选取；</li>
+  <li>从第 $n=2$ 初始聚类中心开始，距离当前 $n$ 个聚类中心越远的点会有更高的概率被选为第 $n+1$ 个聚类中心。</li>
+</ul>
+
+<p>K-Means++ 保证了初始聚类中心之间的相互距离要尽可能的远，可有效解决随机初始中心选择的问题。但是，对于聚类数量的预先设定，在 K-Means++ 中也没有很好的解决。</p>
+
+<h5 id="1323-迭代自组织数据分析方法isodata"><span class="me-2">1.3.2.3. 迭代自组织数据分析方法（ISODATA）</span><a href="#1323-迭代自组织数据分析方法isodata" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>迭代自组织数据分析方法（Iterative Self-Organizing Data Analysis Techniques Algorithm，ISODATA）在 K-Means 算法基础上增加对聚类结果的「合并」和「分裂」：</p>
+
+<ul>
+  <li>
+    <p><strong>聚类合并</strong>：当两个聚类中心之间距离值小于某个阈值时，将两个聚类中心合并成一个；</p>
+  </li>
+  <li>
+    <p><strong>聚类分裂</strong>：当某个聚类的类别其样本方差大于一定的阈值且该聚类内样本数量超过一定阈值时，将该聚类分裂为两个聚类。</p>
+  </li>
+</ul>
+
+<p>经过以上两个操作，可有效解决聚类数量需要设定的问题。</p>
+
+<p>ISODATA 需要指定以下几个参数：</p>
+
+<ul>
+  <li>预期的类别数目 $C$</li>
+</ul>
+
+<p>虽然在ISODATA运行过程中类别数目是可变的，但还是需要由用户指定一个参考标准。事实上，该算法的聚类中心数目变动范围也由 $C$ 决定。具体地，最终输出的聚类中心数目范围是 $[C/2, 2C]$。</p>
+
+<ul>
+  <li>每个类所包含的最少样本数目 $N_{\min}$</li>
+</ul>
+
+<p>用于判断当某个类别所包含样本分散程度较大时是否可以进行分裂操作。如果分裂后会导致某个子类别所包含样本数目小于 $N_{\min}$ ，就不会对该类别进行分裂操作。</p>
+
+<ul>
+  <li>最大方差阈值 $\Sigma$</li>
+</ul>
+
+<p>用于衡量某个类别中样本的分散程度。当样本的分散程度超过这个值时，则有可能进行分裂操作（注意同时需要满足 $N_{\min}$ 条件）;</p>
+
+<ul>
+  <li>类间最小距离阈值 $d_{\min}$</li>
+</ul>
+
+<p>如果两个类别靠得非常近（一般使用聚类中心之间的欧几里得距离衡量），则需要对这两个类别进行合并操作。是否进行合并的阈值由 $d_{\min}$ 决定。</p>
+
+<h5 id="1324-小结"><span class="me-2">1.3.2.4. 小结</span><a href="#1324-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>基于划分的聚类方法主要包括：K-Means 聚类、K-Means++ 聚类、ISODATA 聚类。三个方法是逐步递进完善的关系：</p>
+
+<ul>
+  <li>K-Means：简单快速，适用于大数据集，但需要预先指定 $K$ 值，对初始条件敏感。</li>
+  <li>K-Means++：改进了 K-Means 的初始聚类中心选择，提高了结果的稳定性，但仍需指定 K 值。</li>
+  <li>ISODATA：动态调整聚类数目，使用更多的参数来控制迭代过程，但计算复杂度较高。</li>
+</ul>
+
+<p>选择哪种算法取决于具体的应用场景和数据特性。</p>
+
+<h4 id="133-基于密度的聚类"><span class="me-2">1.3.3. 基于密度的聚类</span><a href="#133-基于密度的聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<h5 id="1331-dbscan"><span class="me-2">1.3.3.1. DBSCAN</span><a href="#1331-dbscan" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>DBSCAN（Density-Based Spatial Clustering of Applications with Noise）是比较有代表性的基于密度的聚类算法。其将簇（类）定义为「<strong>密度相连的点的最大集合</strong>」，能够把具有足够高密度的区域划分为簇，并可在噪声的空间数据库中发现任意形状的聚类。该算法不需要确定聚类的数量，而是基于数据推测聚类的数目，能够针对任意形状产生聚类。</p>
+
+<p>DBSCAN 算法涉及到以下几个定义：</p>
+
+<ul>
+  <li>
+    <p><strong>密度</strong>：以每个数据点为圆心，以 $\epsilon$ 为半径画个圈（称为 $\epsilon$-邻域），然后数有多少个点在这个圈内，这个数就是该点密度；</p>
+  </li>
+  <li>
+    <p><strong>核心点</strong>：一个点 $x$ 的密度大于等于某个阈值 $m$ 则被称为核心点；</p>
+  </li>
+  <li>
+    <p><strong>边界点</strong>：一个点 $x$ 的密度小于某个阈值 $m$，但是位于某核心点的邻域内的点，则被称为边界点；</p>
+  </li>
+  <li>
+    <p><strong>噪声点</strong>：既不是核心点也不是边界点的点。</p>
+  </li>
+</ul>
+
+<p><a href="/assets/img/postsimg/20250512/dbscan.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/dbscan.jpg" alt="DBSCAN" class="lazyload" data-proofer-ignore></a></p>
+
+<p>如图示，假设 $m=5,\epsilon$ 如图，三个点分别为：</p>
+
+<ul>
+  <li>点 $A$ 是核心点，因为 $A$ 的 $\epsilon$-邻域内包含 7 个点；</li>
+  <li>点 $B$ 是边界点，因为 $B$ 的 $\epsilon$-邻域内包含 3 个点，但位于核心点 $A$ 的邻域内；</li>
+  <li>点 $C$ 是噪声点，因为 $C$ 的 $\epsilon$-邻域内包含 3 个点，且没有任何核心点落在其邻域内。</li>
+</ul>
+
+<p>基于上述定义，我们可以进一步延伸出以下概念：</p>
+
+<ul>
+  <li><strong>密度直达</strong>（Directly Density-Reachable）：如果点 $q$ 在核心点 $p$ 的 $\epsilon$-邻域内，则称 $p$ 密度直达 $q$；注意起点必须是核心点；</li>
+  <li><strong>密度可达</strong>（Density-Reachable）：对于点链 $p_1\to p_2\to \cdots\to p_n$，若 $p_{i}$ 密度直达点 $p_{i+1}$，则称点 $p_1$ 密度可达 $p_n$，或者称点 $p_n$ 由 $p_i$ 密度可达；</li>
+  <li><strong>密度相连</strong>（Density-Connected）：如果对于样本点 $p$ 和 $q$，存在一个样本点 $k$，使得 $p$ 和 $q$ 都由 $k$ 密度可达，那么我们说 $p$ 和 $q$ 密度相连。换句话说，如果 $p$ 和 $q$ 可以通过一系列密度可达的核心点连接起来，那么它们是密度相连的；</li>
+  <li><strong>密度聚类簇</strong>（Density-Cluster）：由一个核心点和所有与其密度可达的点（包括核心点和边界点）构成的集合称为一个密度聚类簇。这意味着一个密度聚类簇可以包含核心点、边界点以及通过密度可达关系连接的所有其他点。</li>
+</ul>
+
+<p>根据上述定义和概念，对下图的三个点进行分析：</p>
+
+<p><a href="/assets/img/postsimg/20250512/dbscan-2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/dbscan-2.jpg" alt="dbscan-2" class="lazyload" data-proofer-ignore></a></p>
+
+<p>图(a)中，点 $A$ 为核心点，点 $B$ 为边界点。$A$ 密度直达 $B$，但 $B$ 不密度直达 $A$（因为 $B$ 不是一个核心点）。</p>
+
+<p>图(b)中，点 $C$ 和 $A$ 为核心点。$C$ 密度直达 $A$，$A$ 密度直达 $B$，所以 $C$ 密度可达 $B$。$A$ 密度直达 $C$，但是 $B$ 不密度直达 $A$，所以 $B$ 不密度可达 $C$（也即密度可达不具备对称性）。但是 $B$ 和 $C$ 密度相连（$A$ 密度直达 $B$，$A$ 密度直达 $C$）。</p>
+
+<p>DBSCAN 根据密度可达来进行聚类，具体流程如下：</p>
+
+<hr />
+
+<ul>
+  <li>找寻数据集中的核心点，形成集合 $\Omega_1$；</li>
+  <li>如果 $\Omega_1 \neq \text{null}$:
+    <ul>
+      <li>从 $\Omega_1$ 中任意选取核心点作为种子点，找出由该核心点密度可达的所有样本点，形成一个簇；</li>
+      <li>将在该簇中的核心点从 $\Omega_1$ 中清除；</li>
+      <li>再从更新后的  $\Omega_1$ 中随机选取一个核心点作为种子点，找出由该核心点密度可达的所有样本点，生成下一个簇；</li>
+      <li>重复以上步骤，直至 $\Omega_1$ 为空。</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p>下图展示了使用 DBSCAN 算法的一个聚类过程示意：</p>
+
+<p><a href="/assets/img/postsimg/20250512/dbscan-3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/dbscan-3.jpg" alt="dbscan-3" class="lazyload" data-proofer-ignore></a></p>
+
+<p>下面的网站链接可以通过交互设置动态展示 DBSCAN 聚类算法的过程和结果。</p>
+
+<p>https://www.naftaliharris.com/blog/visualizing-dbscan-clustering/</p>
+
+<h5 id="1332-小结"><span class="me-2">1.3.3.2. 小结</span><a href="#1332-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>以 DBSCAN 算法为代表的基于密度的聚类方法具备以下优点：</p>
+
+<ul>
+  <li>不用人为设定簇的个数；</li>
+  <li>可以在聚类的同时发现异常点，对数据集中的异常点不敏感；</li>
+  <li>能发现任意形状的空间聚类，如能识别 “非球形” 的簇，而 K-Means 算法这种基于距离的聚类方法只能找出球状的簇；</li>
+  <li>聚类结果不依赖于遍历的初值选取，而 K-Means 算法的初始值对聚类结果有很大影响。</li>
+</ul>
+
 
 </div>
 
@@ -1361,7 +2129,21 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
         </li>
       
         
@@ -1376,20 +2158,6 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Temporal-Differences/">强化学习（时序差分法）</a>
         </li>
       
     </ul>
