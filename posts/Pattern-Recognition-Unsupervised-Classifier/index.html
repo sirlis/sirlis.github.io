@@ -965,9 +965,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="2377 字"
+  title="2728 字"
 >
-  <em>13 分钟</em>阅读</span>
+  <em>15 分钟</em>阅读</span>
 
     </div>
 
@@ -1141,9 +1141,9 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p>误差平方和（Sum of Squared Errors, SSE）是聚类分析中最常用的准则函数之一，用于衡量类内数据的紧致性。其核心思想是：最小化每个数据点与其所属簇中心（质心）的平方距离之和。</p>
 
-<p>假设将样本划分为 $k$ 个簇，每个簇的质心（均值）为 $\boldsymbol{c}_i$，则 SSE 定义为：</p>
+<p>假设将样本划分为 $k$ 个簇，每个簇的质心（均值）为 $\boldsymbol{\mu}_i$，则 SSE 定义为：</p>
 
-\[SSE = \sum_{i=1}^k \sum_{x\in C_i} \left(x - \boldsymbol{c}_i\right)^2\]
+\[SSE = \sum_{i=1}^k \sum_{x\in w_i} \Vert x - \boldsymbol{\mu}_i\Vert^2\]
 
 <p>一个好的聚类方法应该能使每一个簇中的所有向量与其均值向量的 “误差” 的平方和最小。使得误差平方和最小的聚类也被称为最小方差聚类。该方法的优缺点如下：</p>
 
@@ -1168,15 +1168,51 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p>离散度准则采用离散度矩阵来刻画。离散度矩阵不仅反映同类样本的聚合程度，而且也反映不同类之间的分离程度，因此可以对聚类的质量进行全面的描述和评价。</p>
 
-<p>假设聚类为 $C$ 类，类内离散度矩阵和类间离散度矩阵可参考 <a href="../Pattern-Recognition-LDA&amp;PCA/#24-多分类-lda">模式识别（LDA和PCA） - 多分类LDA</a> 定义如下：</p>
+<p>假设聚类为 $k$ 类，类内离散度矩阵和类间离散度矩阵可参考 <a href="../Pattern-Recognition-LDA&amp;PCA/#24-多分类-lda">模式识别（LDA和PCA） - 多分类LDA</a> 定义如下：</p>
 
 <p>类内离散度矩阵：</p>
 
-\[\boldsymbol{S}_w = \sum_{i=1}^C \boldsymbol{S}_{wi}=\sum_{i=1}^C \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu}_i)(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\]
+\[\boldsymbol{S}_w = \sum_{i=1}^k \boldsymbol{S}_{wi}=\sum_{i=1}^k \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu}_i)(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\]
 
 <p>类间离散度矩阵，为度量每类均值点相对于样本中心的散列情况，即</p>
 
-\[\boldsymbol{S}_b= \sum_{i=1}^C N_i(\boldsymbol{\mu}_i-\boldsymbol{\mu})(\boldsymbol{\mu}_i-\boldsymbol{\mu})^\top\]
+\[\boldsymbol{S}_b= \sum_{i=1}^k N_i(\boldsymbol{\mu}_i-\boldsymbol{\mu})(\boldsymbol{\mu}_i-\boldsymbol{\mu})^\top\]
+
+<p>定义总离散度矩阵为</p>
+
+\[\boldsymbol{S}_t = \boldsymbol{S}_w + \boldsymbol{S}_b = \sum_{i=1}^C \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu})(\boldsymbol{x}-\boldsymbol{\mu})^\top\]
+
+<p>上述定义式可以通过展开后分析（交叉项为零）证明。</p>
+
+<p>总离散度矩阵反映数据整体的变异性，是类内和类间离散的总和。为了更准确地度量类内离散度和类间离散度，可以引入一个标量来衡量离散度矩阵的“大小”———矩阵的迹和矩阵的行列式。</p>
+
+<ul>
+  <li>
+    <p><strong>离散度矩阵迹准则</strong></p>
+
+    <p>如果单独使用类内离散度矩阵的迹，注意到这与「误差平方和准则」完全一致</p>
+
+\[\text{tr}\boldsymbol{S}_w = \sum_{i=1}^C \sum_{\boldsymbol{x}_{ij}\in w_i}\Vert\boldsymbol{x}_{ij}-\boldsymbol{\mu}_i\Vert^2\]
+
+    <p>当然也可以单独使用类间离散度矩阵的迹，即</p>
+
+\[\text{tr}\boldsymbol{S}_b = \sum_{i=1}^C N_i\Vert\boldsymbol{\mu}_i-\boldsymbol{\mu}\Vert^2\]
+
+    <p>还可以使用同时包含不同离散度矩阵的组合的迹准则</p>
+
+\[\text{tr}(\boldsymbol{S}_w^{-1}\boldsymbol{S}_b)\]
+
+    <blockquote>
+      <p>实际上，这个与 Fisher 投影准则（LDA）的优化目标函数是等价的</p>
+
+      <p>\(J(\boldsymbol{w}) = \frac{\boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{w}}{\boldsymbol{w}^\top\boldsymbol{S}_w\boldsymbol{w}}\)
+上述最优化问题转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。对于二分类 LDA 问题，最佳投影方向是矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值对应的特征向量。对于多分类 LDA 问题，最佳投影矩阵的列是 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的前 $d$ 个最大特征值对应的特征向量。</p>
+    </blockquote>
+  </li>
+  <li>
+    <p><strong>离散度矩阵行列式准则</strong></p>
+  </li>
+</ul>
 
 <h3 id="13-聚类方法"><span class="me-2">1.3. 聚类方法</span><a href="#13-聚类方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 

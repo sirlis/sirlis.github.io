@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（LDA和PCA）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-09T13:37:57+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-12T19:53:51+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -996,13 +996,13 @@
 
 <em
   class=""
-  data-ts="1746769077"
+  data-ts="1747050831"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/05/09
+  2025/05/12
 </em>
 
     </span>
@@ -1046,9 +1046,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4134 字"
+  title="4210 字"
 >
-  <em>22 分钟</em>阅读</span>
+  <em>23 分钟</em>阅读</span>
 
     </div>
 
@@ -1194,6 +1194,14 @@
 <p>知道了前 $C-1$ 个 $(\boldsymbol{\mu}_i-\boldsymbol{\mu})$ 后，最后一个 $(\boldsymbol{\mu}_C-\boldsymbol{\mu})$ 可以有前面的 $\boldsymbol{\mu}_i$ 来线性表示，因此$\boldsymbol{S}_b$ 的秩为 $C-1$。</p>
 
 <p>所以在计算特征向量矩阵（类内散度矩阵 $\boldsymbol{S}_w$ 的逆 $\times$ 类间散度矩阵 $\boldsymbol{S}_b$）时，可以发现只有 $C-1$ 个特征值不为零的特征向量。因此，<strong><font color="red">LDA 最多将特征维度降低到 $C-1$ 维</font></strong>。</p>
+
+<p>假设样本原始特征维度为 $k$，前 $d=C-1$ 个最大特征值对应的特征向量组成的投影矩阵为 $\boldsymbol{W}=[\boldsymbol{w}<em>1, \boldsymbol{w}_2,\cdots, \boldsymbol{w}</em>{d}]\in \mathbb{R}^{k\times d}$，那么多分类 LDA 的优化目标函数为</p>
+
+\[\max_{\boldsymbol{W}} J(\boldsymbol{W}) = \frac{\boldsymbol{W}^\top\boldsymbol{S}_b\boldsymbol{W}}{\boldsymbol{W}^\top\boldsymbol{S}_w\boldsymbol{W}}\]
+
+<p>最终可将 $k$ 维高维特征降维至 $d$ 维</p>
+
+\[\boldsymbol{z} = \boldsymbol{W}\boldsymbol{x}\]
 
 <h3 id="25-lda-的特点"><span class="me-2">2.5. LDA 的特点</span><a href="#25-lda-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 

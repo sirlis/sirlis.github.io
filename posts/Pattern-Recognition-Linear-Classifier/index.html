@@ -1507,7 +1507,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6293 字"
+  title="6259 字"
 >
   <em>34 分钟</em>阅读</span>
 
@@ -1871,17 +1871,7 @@ L(\boldsymbol{w},\lambda) &amp;= \boldsymbol{w}^\top\boldsymbol{S}_b\boldsymbol{
 
 \[\lambda \boldsymbol{w}^{\star} = \boldsymbol{S}_w^{-1}\boldsymbol{S}_b\boldsymbol{w}^{\star}\]
 
-<p>即上述最优化问题倍转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。</p>
-
-<p>将 $\boldsymbol{S}_b$ 的定义式代入有</p>
-
-\[\lambda \boldsymbol{w}^{\star} = \boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)(\boldsymbol{m}_1-\boldsymbol{m}_2)^\top\boldsymbol{w}^{\star}\]
-
-<p>注意到，$(\boldsymbol{m}_1-\boldsymbol{m}_2)^{T}\cdot\boldsymbol{w}^\star$ 是标量，不会改变 $\boldsymbol{w}^ \star$ 的方向，因此可以得到 $\boldsymbol{w}^{\star} $ 是由 $\boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)$ 决定的，因此 Fisher 投影准则的最优投影方向为</p>
-
-\[\boldsymbol{w}^{\star} = \boldsymbol{S}_w^{-1}(\boldsymbol{m}_1-\boldsymbol{m}_2)\]
-
-<p>至此，我们只需要求出原始样本的均值和方差（协方差矩阵？）就可以求出最佳的方向。</p>
+<p>即上述最优化问题转化为求矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征值 $\lambda$ 和特征向量 $\boldsymbol{w}^{\star}$。对于二分类 LDA 问题，最佳投影方向是矩阵 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的最大特征值对应的特征向量。对于多分类 LDA 问题，最佳投影矩阵的列是 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的前 $d$ 个最大特征值对应的特征向量。</p>
 
 <p>需要注意的是，Fisher 投影的最优解本身只给出了一个投影方向，并没有给出我们需要的分类面。要得到分类面，需要再投影后的方向（一维空间）上确定一个分类阈值 $w_0$ 并采取决策规则</p>
 
