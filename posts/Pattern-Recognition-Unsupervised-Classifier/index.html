@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（无监督分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-13T17:38:17+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-13T23:40:00+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -901,6 +901,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1299,6 +1435,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1355,7 +1503,7 @@
 
 <em
   class=""
-  data-ts="1747129097"
+  data-ts="1747150800"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -1405,9 +1553,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="7333 字"
+  title="8651 字"
 >
-  <em>40 分钟</em>阅读</span>
+  <em>48 分钟</em>阅读</span>
 
     </div>
 
@@ -1464,7 +1612,8 @@
               <li><a href="#1321-k-均值聚类k-means">1.3.2.1. K-均值聚类（K-means）</a></li>
               <li><a href="#1322-k-means-算法">1.3.2.2. K-Means++ 算法</a></li>
               <li><a href="#1323-迭代自组织数据分析方法isodata">1.3.2.3. 迭代自组织数据分析方法（ISODATA）</a></li>
-              <li><a href="#1324-小结">1.3.2.4. 小结</a></li>
+              <li><a href="#1324-模糊-c-均值-聚类">1.3.2.4. 模糊 C-均值 聚类</a></li>
+              <li><a href="#1325-小结">1.3.2.5. 小结</a></li>
             </ul>
           </li>
           <li><a href="#133-基于密度的聚类">1.3.3. 基于密度的聚类</a>
@@ -1886,7 +2035,103 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p>如果两个类别靠得非常近（一般使用聚类中心之间的欧几里得距离衡量），则需要对这两个类别进行合并操作。是否进行合并的阈值由 $d_{\min}$ 决定。</p>
 
-<h5 id="1324-小结"><span class="me-2">1.3.2.4. 小结</span><a href="#1324-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<p>ISODATA 算法流程如下：</p>
+
+<hr />
+
+<ul>
+  <li>从数据集中随机选取 $C_0$ 个样本作为初始聚类中心 $m_1, m_2, \cdots, m_{C_0}$；</li>
+  <li>针对每个样本 $x_i$，计算它到 $C_0$ 个聚类中心的距离，并将该样本分到与其距离最小的聚类中心所对应的类中；</li>
+  <li>判断上述每个类中的样本数量是否小于 $N_{min}$ 。如果是，则需要删除该类，令 $C_0=C_0−1$，并将该类中的样本重新分配到剩下与其距离最小的类中;</li>
+  <li>针对每个类别，重新计算它的聚类中心；</li>
+  <li>如果当前类别数 $C_0 \geq 2C$，表明当前类别数 $C_0$ 太多，需进行合并操作；
+    <ul>
+      <li>计算当前所有类别聚类中心两两之间的距离，用矩阵 $D$ 表示；</li>
+      <li>对于 $D(i,j) &lt; d_{\min}(i\neq j)$ 的两个类别 $w_i$ 和 $w_j$，进行合并操作，形成一个新的类，该类的聚类中心为：</li>
+    </ul>
+
+\[\boldsymbol{m}_{\text{new}}=\frac{1}{N_i+N_j}(N_i \boldsymbol{m}_i+N_j \boldsymbol{m}_j)\]
+  </li>
+  <li>如果当前类别数 $C_0 \leq C/2$，表明当前类别数 $C_0$ 太少，需进行分裂操作；
+    <ul>
+      <li>计算每个类别下所有样本在每个维度下的方差；</li>
+      <li>从每个类别的所有维度方差中挑选出最大的方差 $\sigma_{\max}$；</li>
+      <li>如果某个类别的 $\sigma_{\max}&gt;\Sigma$ 并且该类别中所包含的样本数量 $N_i\geq 2N_{\min}$，则进行分裂操作;
+选取距离最远的两个样本作为类中心，将剩余样本根据距离归入两个子类中，并令 $C_0 = C_0 +1$。</li>
+    </ul>
+  </li>
+  <li>如果达到最大迭代次数则终止，否则回到第 2 步继续执行。</li>
+</ul>
+
+<hr />
+
+<h5 id="1324-模糊-c-均值-聚类"><span class="me-2">1.3.2.4. 模糊 C-均值 聚类</span><a href="#1324-模糊-c-均值-聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>K-均值算法是一种硬聚类算法，算法的依据是类内误差平方和最小化准则，给集合中的每个样本赋予一个明确的类别。但在实际应用中，有时样本在形态和类属方面存在中介性，不存在严格的属性划分。为了更好的解决这类问题，<strong>将模糊理论引入K-均值算法</strong>（也称C-均值算法），将其从硬聚类推广到模糊聚类，即本节要介绍的模糊C均值算法（Fuzzy C-Means，FCM）。</p>
+
+<blockquote>
+  <p>模糊控制是自动化控制领域的一项经典方法。其原理则是模糊数学、模糊逻辑。1965年美国加州大学柏克莱分校的扎德教授发表模糊集合“Fuzzy Sets”的论文，首次引入隶属度函数的概念，打破了经典数学“非0即1”的局限性，用 $[0,1]$ 之间的实数来描述中间状态。</p>
+</blockquote>
+
+<ul>
+  <li><strong>隶属度</strong></li>
+</ul>
+
+<p>很多经典的集合（即：论域U内的某个元素是否属于集合A，可以用一个数值来表示。在经典集合中，要么0，要么1）不能描述很多事物的属性，需要用模糊性词语来判断。比如天气冷热程度、人的胖瘦程度等等。模糊数学和模糊逻辑把只取1或0二值（属于/不属于）的普通集合概念推广到0~1区间内的多个取值，即隶属度。用“隶属度”来描述元素和集合之间的关系。</p>
+
+<p><a href="/assets/img/postsimg/20250512/fcm.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/fcm.jpg" alt="fcm" class="lazyload" data-proofer-ignore></a></p>
+
+<p>如图所示，对于冷热程度，采取三个模糊子集：冷、暖、热。对于某一个温度，可能同时属于两个子集。要进一步具体判断，就需要提供一个描述“程度”的函数，即隶属度。</p>
+
+<p>除了折线外，还可以采用以下几种隶属度函数</p>
+
+<p><a href="/assets/img/postsimg/20250512/fcm-2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/fcm-2.jpg" alt="fcm" class="lazyload" data-proofer-ignore></a></p>
+
+<p>隶属度函数记作 $\mu_A(\boldsymbol{x})$，表示一个对象 $\boldsymbol{x}$ 隶属于集合 $A$ 的程度，取值范围是 $[0,1]$。</p>
+
+<ul>
+  <li>$\mu_A(\boldsymbol{x}) = 1$ 表示 $x$ 属于 $A$，相当于 $\boldsymbol{x}\in A$；</li>
+  <li>$\mu_A(\boldsymbol{x}) = 0$ 表示 $x$ 不属于 $A$，相当于 $\boldsymbol{x}\notin A$；</li>
+</ul>
+
+<p>基于隶属度函数的定义，对于 $N$ 个样本的 $C$ 分类问题，可以定义优化问题为</p>
+
+\[\begin{aligned}
+\min\quad &amp;J = \sum_{i=1}^{N}\sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i)^b \Vert\boldsymbol{x}_i-\boldsymbol{m}_j\Vert^2\\
+s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\ldots,N\\
+\end{aligned}\]
+
+<p>其中，$b&gt;1$ 为加权指数，又称为平滑因子，用来控制样本在模糊类间的分享程度，一般取为 2。</p>
+
+<p>可以采用拉格朗日乘子法求解上述等式约束优化问题，引入 $N$ 个拉格朗日因子得到拉格朗日函数</p>
+
+\[\min \quad \sum_{i=1}^{N}\sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) ^b\Vert\boldsymbol{x}_i-\boldsymbol{m}_j\Vert^2 + \sum_{i=1}^{N}\lambda_i \left( \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) -1\right)\]
+
+<p>对特定一个 $\mu_j(\boldsymbol{x}_i)$ 求偏导并令其为零，得到</p>
+
+\[\frac{\partial J}{\partial \mu_j(\boldsymbol{x}_i)} = b\mu_j(\boldsymbol{x}_i)^{b-1}\Vert\boldsymbol{x}_i-\boldsymbol{m}_j\Vert^2 -\lambda_i = 0\]
+
+<p>解得</p>
+
+\[\mu_j(\boldsymbol{x}_i) = \left(\frac{\lambda_i}{d\Vert\boldsymbol{x}_i-\boldsymbol{m}_j\Vert^2}\right)^{\frac{1}{b-1}}\]
+
+<p>将上述解代入约束等式可解得 $\lambda_i$，再次代回隶属度方差方程可解得 $\mu_j(\boldsymbol{x}_i)$</p>
+
+\[\mu_j(\boldsymbol{x}_i) = \frac{\left(\frac{1}{\Vert \boldsymbol{x}_i-\boldsymbol{m}_j \Vert^2}\right)^{\frac{1}{b-1}}}  {\sum_{j=1}^C\left(\frac{1}{\Vert \boldsymbol{x}_i-\boldsymbol{m}_j \Vert^2}\right)^{\frac{1}{b-1}}}\]
+
+<p>对特定聚类中心 $\boldsymbol{m}_j$ 求偏导并令其为零，得到</p>
+
+\[\frac{\partial J}{\partial \boldsymbol{m}_j} = -2\sum_{i=1}^N \mu_j(\boldsymbol{x}_i)^b (\boldsymbol{x}_i - \boldsymbol{m}_j) = 0\]
+
+<p>解得</p>
+
+\[\boldsymbol{m}_j = \frac{\sum_{i=1}^N \mu_j(\boldsymbol{x}_i)^b\boldsymbol{x}_i}{\sum_{i=1}^N \mu_j(\boldsymbol{x}_i)^b}\]
+
+<p>可以看出，虽然可以分别得到待优化参数 $\mu_j(\boldsymbol{x}_i)$ 和 $\boldsymbol{m}_j$ 的解析表达式，但是它们是相互依赖的，因此无法直接给出最优值，需要通过「<strong>迭代法</strong>」逐步求解。迭代终止条件可通过前后两次迭代的聚类中心变化量最大值小于某个阈值 $\epsilon$ 来判断：</p>
+
+\[\max \Vert \boldsymbol{m}_i^{t+1} - \boldsymbol{m}_i^{t} \Vert &lt; \epsilon\]
+
+<h5 id="1325-小结"><span class="me-2">1.3.2.5. 小结</span><a href="#1325-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>基于划分的聚类方法主要包括：K-Means 聚类、K-Means++ 聚类、ISODATA 聚类。三个方法是逐步递进完善的关系：</p>
 
@@ -1911,10 +2156,10 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
     <p><strong>密度</strong>：以每个数据点为圆心，以 $\epsilon$ 为半径画个圈（称为 $\epsilon$-邻域），然后数有多少个点在这个圈内，这个数就是该点密度；</p>
   </li>
   <li>
-    <p><strong>核心点</strong>：一个点 $x$ 的密度大于等于某个阈值 $m$ 则被称为核心点；</p>
+    <p><strong>核心点</strong>：一个点 $x$ 的密度大于等于某个阈值 MinPts 则被称为核心点；</p>
   </li>
   <li>
-    <p><strong>边界点</strong>：一个点 $x$ 的密度小于某个阈值 $m$，但是位于某核心点的邻域内的点，则被称为边界点；</p>
+    <p><strong>边界点</strong>：一个点 $x$ 的密度小于阈值 MinPts，但是位于某核心点的邻域内的点，则被称为边界点；</p>
   </li>
   <li>
     <p><strong>噪声点</strong>：既不是核心点也不是边界点的点。</p>
@@ -1923,7 +2168,7 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p><a href="/assets/img/postsimg/20250512/dbscan.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/dbscan.jpg" alt="DBSCAN" class="lazyload" data-proofer-ignore></a></p>
 
-<p>如图示，假设 $m=5,\epsilon$ 如图，三个点分别为：</p>
+<p>如图示，假设 MinPts$=5,\epsilon$ 如图，三个点分别为：</p>
 
 <ul>
   <li>点 $A$ 是核心点，因为 $A$ 的 $\epsilon$-邻域内包含 7 个点；</li>
@@ -1956,9 +2201,8 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
   <li>找寻数据集中的核心点，形成集合 $\Omega_1$；</li>
   <li>如果 $\Omega_1 \neq \text{null}$:
     <ul>
-      <li>从 $\Omega_1$ 中任意选取核心点作为种子点，找出由该核心点密度可达的所有样本点，形成一个簇；</li>
+      <li>从 $\Omega_1$ 中任意选取核心点，找出由该核心点密度可达的所有样本点，形成一个簇；</li>
       <li>将在该簇中的核心点从 $\Omega_1$ 中清除；</li>
-      <li>再从更新后的  $\Omega_1$ 中随机选取一个核心点作为种子点，找出由该核心点密度可达的所有样本点，生成下一个簇；</li>
       <li>重复以上步骤，直至 $\Omega_1$ 为空。</li>
     </ul>
   </li>
@@ -2129,6 +2373,13 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
@@ -2137,13 +2388,6 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
         </li>
       
         
