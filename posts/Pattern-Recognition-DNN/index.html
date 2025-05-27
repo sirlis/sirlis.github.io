@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（经典神经网络）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。" />
@@ -1513,6 +1513,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1703,6 +1839,42 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1719,6 +1891,30 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1837,9 +2033,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4580 字"
+  title="6274 字"
 >
-  <em>25 分钟</em>阅读</span>
+  <em>34 分钟</em>阅读</span>
 
     </div>
 
@@ -1877,7 +2073,18 @@
   <li><a href="#2-神经网络">2. 神经网络</a>
     <ul>
       <li><a href="#21-感知机">2.1. 感知机</a></li>
-      <li><a href="#22-多层感知机">2.2. 多层感知机</a></li>
+      <li><a href="#22-多层感知机">2.2. 多层感知机</a>
+        <ul>
+          <li><a href="#221-网络结构">2.2.1. 网络结构</a></li>
+          <li><a href="#222-前向推理">2.2.2. 前向推理</a></li>
+          <li><a href="#224-反向更新">2.2.4. 反向更新</a>
+            <ul>
+              <li><a href="#2241-损失函数">2.2.4.1. 损失函数</a></li>
+              <li><a href="#2242-反向传播">2.2.4.2. 反向传播</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -2171,9 +2378,167 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <h3 id="22-多层感知机"><span class="me-2">2.2. 多层感知机</span><a href="#22-多层感知机" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
+<p>在前面介绍的单层感知机中，采用误分类样本来更新参数，这种更新方法只能更新「一层」神经元的参数。</p>
+
 <p>1986 年，David Rumelhart、Geoffrey Hinton和Ronald Williams等科学家提出了误差反向传播算法，解决了具有隐藏层的多层感知机的训练问题。从此，神经网络研究掀起第二次浪潮。</p>
 
 <p>多层感知机是具有一个或多个隐藏层的神经网络模型，具有学习复杂非线性关系的能力。多层感知机包含三个层级：输入层、隐藏层、输出层。其中，输入层的节点严格来说并不是神经元，因为它们没有参数，也没有激活函数；隐藏层是多层感知机的核心组成部分，可以有一个或多个隐藏层，且每个隐藏层包含多个节点（神经元），这些节点通过权重与输入层或前一隐藏层的节点相连。隐藏层的引入使得网络深度增加，增强了网络的学习能力和非线性模式表达能力。</p>
+
+<h4 id="221-网络结构"><span class="me-2">2.2.1. 网络结构</span><a href="#221-网络结构" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>多层感知机是具有一个或多个隐藏层的神经网络模型，具有学习复杂非线性关系的能力。下图所示为多层感知机的示例，示例中的多层感知机包含三个层级：输入层、隐藏层、输出层。其中：</p>
+
+<ul>
+  <li>输入层的节点严格来说并不是神经元，因为它们没有参数，也没有激活函数；</li>
+  <li>隐藏层是多层感知机的核心组成部分，可以有一个或多个隐藏层，且每个隐藏层包含多个节点（神经元），这些节点通过权重与输入层或前一隐藏层的节点相连。隐藏层的引入使得网络深度增加，增强了网络的学习能力和非线性模式表达能力；</li>
+  <li>输出层最可以看作是最后一层隐藏层，但其输出需要与样本标签进行比较，计算损失函数并通过反向传播来更新神经网络的参数。</li>
+</ul>
+
+<p><a href="/assets/img/postsimg/20250527/DNN.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/DNN.jpg" alt="DNN" class="lazyload" data-proofer-ignore></a></p>
+
+<p>上图中，神经网络的输出 $\boldsymbol{x}_n$ 即为输出神经元的输出值组成的向量 $\boldsymbol{x}_n = [x_n^{1},x_n^{2},\cdots, x_n^k]^\top$。</p>
+
+<h4 id="222-前向推理"><span class="me-2">2.2.2. 前向推理</span><a href="#222-前向推理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>神经网络的前向推理过程就是从输入样本特征开始，逐一套用每个神经元的数学模型，一步步往前递推得到输出层的神经网络输出结果的过程。</p>
+
+<p>以第 $L_2$ 层隐层的第 $q$ 个神经元为例：</p>
+
+\[x_2^{q} = f(\sum_{i=1}^p w_2^{q,i} x_i + b_2^i)\]
+
+<p>写成矩阵形式有</p>
+
+\[\boldsymbol{x}_2 = f(\boldsymbol{W}_2 \boldsymbol{x}_1 + \boldsymbol{b}_2)\]
+
+<p>以此类推，整个神经网络的前向推理过程可以写成</p>
+
+\[\boldsymbol{x}_l = f(\boldsymbol{W}_l \boldsymbol{x}_{l-1} + \boldsymbol{b}_l)\]
+
+<p>其中，权重矩阵的维度为</p>
+
+\[\boldsymbol{W}\in \mathbb{R}^{n^l\times n^{l-1}}\]
+
+<p>其中 $n^{l}$ 表示第 $l$ 层神经元的个数，$n^l$ 表示第 $l$ 层神经元的个数。</p>
+
+<h4 id="224-反向更新"><span class="me-2">2.2.4. 反向更新</span><a href="#224-反向更新" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>对于神经网络的每一层神经元，需要采用链式求导法则得到损失函数对各层神经元权重、阈值参数的梯度。这个过程就是「<strong>反向传播</strong>」（Back Propagation，BP）。为了推导简便，约定各个符号如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20250527/dnn-1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/dnn-1.jpg" alt="neuron-model" class="lazyload" data-proofer-ignore></a></p>
+
+<h5 id="2241-损失函数"><span class="me-2">2.2.4.1. 损失函数</span><a href="#2241-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>一个多层感知机或者一个前馈神经网络可以看作是一个复杂的非线性多元函数。在进行网络参数优化前，我们需要设置一个网络性能的量化函数，该函数除了用于评判当前网络对于目标任务的性能外，其最重要的功能就是指导网络参数的优化方向及优化量，这个量化函数就是我们常说的损失函数。网络学习过程就是以当前输入数据为固定参数，以权重、偏置为自变量的，寻找函数局部极小值点的过程。这里的极小值点是指使得损失函数值取极小的网络权重、偏置参数解。</p>
+
+<ul>
+  <li>
+    <p>对于回归任务，希望在 $n$ 个样本点上的预测输出 $a^L_i$ 与真实标签 $y_i$ 尽可能接近（$i=1,2,\cdots,n$），采用 <strong>MSE</strong> （均方误差）来衡量相似性，即需要最小化</p>
+
+\[L = \frac{1}{n}\sum_{i=1}^n\Vert a^L_i - y_i \Vert_2^2\\\]
+  </li>
+  <li>
+    <p>对于 $k$ 分类任务，设第 $i$ 个样本的标签向量 $\boldsymbol{y}_i = [y_i^{1},y_i^{2},\cdots, y_i^k]^\top$（一般为独热编码），那么我们希望神经网络的输出 $\boldsymbol{a}^L_i$ 与标签 $\boldsymbol{y}_i$ 尽可能的相似，采用 <strong>CE</strong> （交叉熵）来衡量相似性，即需要最小化</p>
+
+\[L = -\frac{1}{n}\sum_{i=1}^n \sum_{j=1}^k y_i^j \ln a^{L,j}_i\]
+  </li>
+</ul>
+
+<h5 id="2242-反向传播"><span class="me-2">2.2.4.2. 反向传播</span><a href="#2242-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>由于神经网络及其损失函数构成了一个非常复杂的多元函数，求解其局部最小值点的解析解在绝大多数情况下是不可行的，需采用数值优化方法来寻找其局部极小值点，这里要介绍的误差反向传播算法（BP算法）就是其中之一。需要明确的一点是，这里的“误差”虽然可以理解为损失函数计算出的“损失结果”，但反向传播过程中的信息流并不是“误差”，而是基于当前输入数据、当前损失结果构成的复杂多元函数对各个网络权重、阈值参数的梯度，然后采用「梯度下降法」来更新网络参数，从而达到网络参数的优化。</p>
+
+<ul>
+  <li><strong>输出层误差</strong></li>
+</ul>
+
+<p>需要针对回归问题和分类问题分别讨论。</p>
+
+<p>（1）<u>回归问题</u></p>
+
+<p>若采用「MSE + 恒等函数$f$」组合的输出层 $L$，有</p>
+
+\[\boldsymbol{a}^{L} = \boldsymbol{z}^L\\\]
+
+<p>定义输出层 $L$ 的误差为损失函数关于输出层预激活值 $\boldsymbol{z}^L$ 的梯度</p>
+
+\[\delta^{L} \triangleq \frac{\partial L}{\partial \boldsymbol{z}^L} = \frac{\partial L}{\partial \boldsymbol{a}^L} = \textcolor{red}{\boldsymbol{a}^L-\boldsymbol{y}}\]
+
+<p>其中 $\odot$ 表示 Hadamard 积，即逐元素相乘。</p>
+
+<p>（2）<u>分类问题</u></p>
+
+<p>若采用「CE + softmax函数」组合的输出层，对于第 $i$ 个神经元有</p>
+
+\[a^L_i = \text{softmax}(z^L) = \frac{e^{z_i^L}}{\sum_{j=1}^k e^{z^L_j}}\]
+
+<p>误差为</p>
+
+\[\delta^{L}_i \triangleq \frac{\partial L}{\partial z_i^L} = \sum_{j=1}^n\frac{\partial L}{\partial a_j^L} \frac{\partial a_j^L}{\partial z_i^L}\]
+
+<p>第一项</p>
+
+\[\frac{\partial L}{\partial a^L_j} = -\frac{y_i}{a^L_j}\]
+
+<p>第二项（也即 softmax 函数的导数）需要分两种情况讨论</p>
+
+<p>（a）当 $j=i$ 时</p>
+
+\[\frac{\partial a^L_j}{\partial z^L_i} = a^L_j(1-a^L_j)\]
+
+<p>（b）当 $j\neq i$ 时</p>
+
+\[\frac{\partial a^L_j}{\partial z^L_i} = -a^L_j a^L_i\]
+
+<p>合并上述结果，误差为 $\delta_i^L = a_i^L-y_i$。写成矩阵形式，误差也为 $\textcolor{red}{\delta^L = \boldsymbol{a}^L-\boldsymbol{y}}$。</p>
+
+<p>则权重的梯度为</p>
+
+\[\frac{\partial L}{\partial \boldsymbol{W}^L} = \frac{\partial L}{\partial \boldsymbol{z}^L} \cdot \frac{\partial \boldsymbol{z}^L}{\partial \boldsymbol{W}^L} = \delta^{L} \cdot (a^{L-1})^\top\quad\in\mathbb{R}^{n^L\times n^{L-1}}\]
+
+<p>偏置的梯度为</p>
+
+\[\frac{\partial L}{\partial \boldsymbol{b}^L} = \frac{\partial L}{\partial \boldsymbol{z}^L} \cdot \frac{\partial \boldsymbol{z}^L}{\partial \boldsymbol{b}^L} = \delta^{L}\quad\in\mathbb{R}^{n^L\times 1}\]
+
+<ul>
+  <li><strong>隐层误差</strong></li>
+</ul>
+
+<p>对于隐层 $l$，有</p>
+
+\[\begin{aligned}
+\boldsymbol{a}^{l} &amp;= f(\boldsymbol{z}^l)\\
+\boldsymbol{z}^{l} &amp;= \boldsymbol{W}^l \boldsymbol{a}^{l-1} + \boldsymbol{b}^l
+\end{aligned}\]
+
+<p>定义隐层 $l$ 的误差为损失函数关于隐层预激活值 $\boldsymbol{z}^l$ 的梯度，根据链式法则有</p>
+
+\[\delta^l \triangleq \frac{\partial L}{\partial \boldsymbol{z}^l} = \frac{\partial L}{\partial \boldsymbol{z}^{l+1}} \cdot \frac{\partial \boldsymbol{z}^{l+1}}{\partial \boldsymbol{a}^{l}}\cdot \frac{\partial \boldsymbol{a}^{l}}{\partial \boldsymbol{z}^l}\quad\in \mathbb{R}^{n^{l}\times 1}\]
+
+<p>第一项</p>
+
+\[\frac{\partial L}{\partial \boldsymbol{z}^{l+1}} = \delta^{l+1}\quad\in\mathbb{R}^{n^{l+1}\times 1}\]
+
+<p>第二项</p>
+
+\[\boldsymbol{z}^{l+1} = \boldsymbol{W}^{l+1} \boldsymbol{a}^l + \boldsymbol{b}^{l+1}\quad\Rightarrow \quad\frac{\partial \boldsymbol{z}^{l+1}}{\partial \boldsymbol{a}^l} = \boldsymbol{W}^{l+1}\in\mathbb{R}^{n^{l+1}\times n^l}\]
+
+<p>最后项</p>
+
+\[\boldsymbol{a}^{l} = f(\boldsymbol{z}^{l}) \quad\Rightarrow \quad\frac{\partial \boldsymbol{a}^{l}}{\partial \boldsymbol{z}^{l}} = f'(\boldsymbol{z}^{l})\in\mathbb{R}^{n^{l}\times 1}\]
+
+<p>最终得到（权重矩阵转置是因为需要维度匹配）</p>
+
+\[\textcolor{red}{\delta^{l} = (\boldsymbol{W}^{l+1})^\top\delta^{l+1}  \odot f'(\boldsymbol{z}^{l})}\]
+
+<p>则权重的梯度为</p>
+
+\[\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol{W}^l} &amp;= \frac{\partial L}{\partial \boldsymbol{z}^l} \cdot \frac{\partial \boldsymbol{z}^l}{\partial \boldsymbol{W}^l}=  \delta^{l} \cdot (\boldsymbol{a}^{l-1})^\top
+\end{aligned}\]
+
+<p>偏置的梯度为</p>
+
+\[\frac{\partial L}{\partial \boldsymbol{b}^l} = \frac{\partial L}{\partial \boldsymbol{z}^l} \cdot \frac{\partial \boldsymbol{z}^l}{\partial \boldsymbol{b}^l}=  \delta^{l} \cdot 1 = \delta^{l}\]
 
 </div>
 
@@ -2318,14 +2683,14 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
         </li>
       
         
