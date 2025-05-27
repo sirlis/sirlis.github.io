@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-05-14T22:12:44+08:00</updated>
+  <updated>2025-05-27T20:55:10+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -20,11 +20,64 @@
 
   
   <entry>
+    <title>模式识别（经典神经网络）</title>
+    <link href="http://localhost:4000/posts/Pattern-Recognition-DNN/" rel="alternate" type="text/html" title="模式识别（经典神经网络）" />
+    <published>2025-05-27T14:32:49+08:00</published>
+  
+    <updated>2025-05-27T14:32:49+08:00</updated>
+  
+    <id>http://localhost:4000/posts/Pattern-Recognition-DNN/</id>
+    <content src="http://localhost:4000/posts/Pattern-Recognition-DNN/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Academic" />
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。
+
+
+
+
+
+  1. 神经元
+    
+      1.1. 人工神经元
+      1.2. 激活函数
+        
+          1.2.1. 阶跃函数
+          1.2.2. Sigmoid 函数
+          1.2.3. Tanh 函数
+          1.2.4. ReLU 系列函数
+            
+              1.2.4.1. ReLU 函数
+      ...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>模式识别（无监督分类器）</title>
     <link href="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" rel="alternate" type="text/html" title="模式识别（无监督分类器）" />
     <published>2025-05-12T15:10:49+08:00</published>
   
-    <updated>2025-05-13T23:40:00+08:00</updated>
+    <updated>2025-05-14T22:13:03+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" />
@@ -253,69 +306,6 @@ Zotero 是一款免费、易于使用的工具，可以帮助您收集、管理�
             
               3.1.1.1. 优化问题描述
               3.1.1.2. 拉格...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>深度学习（基础数学知识）</title>
-    <link href="http://localhost:4000/posts/deep-learning-basic-math/" rel="alternate" type="text/html" title="深度学习（基础数学知识）" />
-    <published>2025-03-05T18:30:19+08:00</published>
-  
-    <updated>2025-03-10T11:44:04+08:00</updated>
-  
-    <id>http://localhost:4000/posts/deep-learning-basic-math/</id>
-    <content src="http://localhost:4000/posts/deep-learning-basic-math/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。
-
-
-
-
-
-
-  1. 矩阵
-    
-      1.1. 迹（trace）
-      1.2. 范数
-        
-          1.2.1. 向量范数
-          1.2.2. 矩阵范数
-        
-      
-      1.3. 正交矩阵
-      1.4. 矩阵的值域、零空间和秩
-        
-          1.4.1. 向量的张成（span）
-          1.4.2. 向量的投影
-          1.4.3. 矩阵的值域（range）
-          1.4.4. 矩阵的零空间（nullspace）
-          1.4.5. 秩-零度定理
-          1.4.6. 矩阵的秩（rank）
-        
-      
-      1....
     </summary>
   
 

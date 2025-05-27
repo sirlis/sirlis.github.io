@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
@@ -1507,9 +1507,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6259 字"
+  title="6552 字"
 >
-  <em>34 分钟</em>阅读</span>
+  <em>36 分钟</em>阅读</span>
 
     </div>
 
@@ -1551,7 +1551,7 @@
     <ul>
       <li><a href="#51-线性可分性">5.1. 线性可分性</a></li>
       <li><a href="#52-感知准则函数">5.2. 感知准则函数</a></li>
-      <li><a href="#53-感知器模型">5.3. 感知器模型</a></li>
+      <li><a href="#53-感知机模型">5.3. 感知机模型</a></li>
     </ul>
   </li>
   <li><a href="#6-最小错分样本准则">6. 最小错分样本准则</a>
@@ -1890,6 +1890,8 @@ g(\boldsymbol{x})=\boldsymbol{w}^\top\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bo
 
 <p>前面介绍垂直平分准则和 Fisher 投影准则中，我们并没有对样本集进行任何要求。实际上，样本集是否线性可分是一个有必要讨论的问题，因此有了感知准则。样本集的线性可分性指的是，至少存在一个权向量（即决策面），能将样本集中的每个样本都正确分类，否则就是线性不可分的。</p>
 
+<p>1969年 ， Marvin Minsky 和 Seymour Papert 出版了《感知机：计算几何学导论》（Perceptrons: An Introduction to Computational Geometry），从数学上证明了单层前馈感知机的局限性，<strong>感知机只能解决「线性可分问题」</strong>，甚至不能解决简单的 “异或” 逻辑问题。此后，神经网络的研究几乎处于休眠状态，直到上世纪 80 年代才又被从历史的角落重新拾起。</p>
+
 <ul>
   <li><strong>规范化</strong></li>
 </ul>
@@ -1943,14 +1945,20 @@ g(\boldsymbol{x})=\boldsymbol{w}^\top\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bo
 
 \[\begin{aligned}
 \Delta J_p(\boldsymbol{a}) &amp;= \frac{\partial J_p(\boldsymbol{a})}{\partial\boldsymbol{a}} = -\sum_{\boldsymbol{y}\in{Y_e}}\boldsymbol{y}\\
-\Rightarrow \boldsymbol{a} &amp;= \boldsymbol{a} - \alpha\Delta J_p(\boldsymbol{a})=\boldsymbol{a}+\beta\sum_{\boldsymbol{y}\in{Y_e}}\boldsymbol{y}
+\Rightarrow \boldsymbol{a} &amp;= \boldsymbol{a} - \beta\Delta J_p(\boldsymbol{a})=\boldsymbol{a}+\beta\sum_{\boldsymbol{y}\in{Y_e}}\boldsymbol{y}
 \end{aligned}\]
 
-<h3 id="53-感知器模型"><span class="me-2">5.3. 感知器模型</span><a href="#53-感知器模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<blockquote>
+  <p>（1）如果样本集非常大，梯度下降算法每轮迭代都要计算全局梯度，这需要耗费非常大的计算资源，实际应用中通常使用随机梯度下降算法代替，即每次随机选取一个误分类点更新梯度；</p>
+
+  <p>（2）Novikoff 定理保证，若规范化增广训练数据集是线性可分的，则随机梯度下降法在规范化增广训练数据集上的误分类次数一定小于某个值，即感知机训练过程可在有限轮迭代内完成，即感知机训练算法是收敛的。</p>
+</blockquote>
+
+<h3 id="53-感知机模型"><span class="me-2">5.3. 感知机模型</span><a href="#53-感知机模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p><a href="/assets/img/postsimg/20240303/Perceptron.png" class="popup img-link "><img data-src="/assets/img/postsimg/20240303/Perceptron.png" alt="Perception" class="lazyload" data-proofer-ignore></a></p>
 
-<p>感知器是一个具有单层计算单元的神经元模型，感知器具有多输入和单输出。（如上图和下式所示）</p>
+<p>感知机是一个具有单层计算单元的神经元模型，感知机具有多输入和单输出。（如上图和下式所示）</p>
 
 \[y = f(\boldsymbol{w}^{\text{T}}\boldsymbol{x} - \theta)\]
 
@@ -1958,7 +1966,7 @@ g(\boldsymbol{x})=\boldsymbol{w}^\top\boldsymbol{x} + w_0 &lt; 0 \Rightarrow \bo
 
 \[y = f(\boldsymbol{w}^{\text{T}}\boldsymbol{x} - \theta) = \begin{cases} 1, &amp; \boldsymbol{w}^{\text{T}}\boldsymbol{x} - \theta &gt; 0 \\ -1, &amp; \text{otherwise} \end{cases}\]
 
-<p>权值向量 $\boldsymbol{w}$ 和阈值 $\theta$ 为感知器的参数，可以通过梯度下降法进行训练。当感知器用于两类模式的分类时，相当于在高维样本的特征空间中，用一个超平面把两类样本区分开，如果两类模式是线性可分的，则算法一定收敛。</p>
+<p>权值向量 $\boldsymbol{w}$ 和阈值 $\theta$ 为感知机的参数，可以通过梯度下降法进行训练。当感知机用于两类模式的分类时，相当于在高维样本的特征空间中，用一个超平面把两类样本区分开。如果两类模式是线性可分的，则算法一定收敛。</p>
 
 <h2 id="6-最小错分样本准则"><span class="me-2">6. 最小错分样本准则</span><a href="#6-最小错分样本准则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2930,8 +2938,6 @@ L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
     
     
     
-      
-    
   
     
     
@@ -3236,6 +3242,18 @@ L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5056,8 +5074,6 @@ L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
     
     
     
-    
-      
     
   
     
