@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（经典神经网络）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（经典神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-28T14:07:54+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-28T22:34:58+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2193,6 +2193,142 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -2347,6 +2483,30 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -2623,7 +2783,7 @@
 
 <em
   class=""
-  data-ts="1748412474"
+  data-ts="1748442898"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -2673,9 +2833,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="9352 字"
+  title="10078 字"
 >
-  <em>51 分钟</em>阅读</span>
+  <em>55 分钟</em>阅读</span>
 
     </div>
 
@@ -2706,6 +2866,8 @@
             </ul>
           </li>
           <li><a href="#125-swish-函数">1.2.5. Swish 函数</a></li>
+          <li><a href="#126-恒等映射函数">1.2.6. 恒等映射函数</a></li>
+          <li><a href="#127-softmax-函数">1.2.7. softmax 函数</a></li>
         </ul>
       </li>
     </ul>
@@ -2735,7 +2897,7 @@
       </li>
     </ul>
   </li>
-  <li><a href="#参考文献">参考文献</a></li>
+  <li><a href="#3-参考文献">3. 参考文献</a></li>
 </ul>
 
 <h2 id="1-神经元"><span class="me-2">1. 神经元</span><a href="#1-神经元" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -2948,6 +3110,22 @@ f^\prime(x) &amp;= \frac{e^{-x}}{(1+e^{-x})^2} = f(x)(1-f(x))
 
 <p><a href="/assets/img/postsimg/20250527/swish-derivation.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/swish-derivation.jpg" alt="Swish函数的导数" class="lazyload" data-proofer-ignore></a></p>
 
+<h4 id="126-恒等映射函数"><span class="me-2">1.2.6. 恒等映射函数</span><a href="#126-恒等映射函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>恒等映射函数作为激活函数，通常被用于回归任务中的输出层，就是没有任何非线性变换，即</p>
+
+\[f(x) = x\]
+
+<p>这意味着网络输出层的激活值直接作为预测值，预测值是最后一层的线性组合结果。该激活函数。</p>
+
+<h4 id="127-softmax-函数"><span class="me-2">1.2.7. softmax 函数</span><a href="#127-softmax-函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>softmax 函数是常用的激活函数，一般用于分类任务的输出层。表达式如下：</p>
+
+\[\text{softmax}(x)_i = \frac{e^{x_i}}{\sum_{j=1}^n e^{x_j}}\]
+
+<p>它将输入向量映射到 $[0,1]$ 区间，因此很好吻合分类任务中的概率输出。</p>
+
 <h2 id="2-神经网络"><span class="me-2">2. 神经网络</span><a href="#2-神经网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <h3 id="21-感知机"><span class="me-2">2.1. 感知机</span><a href="#21-感知机" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
@@ -3105,80 +3283,182 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <p><a href="/assets/img/postsimg/20250527/dnn-1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/dnn-1.jpg" alt="neuron-model" class="lazyload" data-proofer-ignore></a></p>
 
+<p>则前向传播过程改写为：</p>
+
+\[\begin{aligned}
+\boldsymbol{z}^l &amp;= \boldsymbol{W}^l \boldsymbol{a}^{l-1} + \boldsymbol{b}^l\\
+\boldsymbol{a}^l &amp;= f(\boldsymbol{z}^l)
+\end{aligned}\]
+
 <h5 id="2231-损失函数"><span class="me-2">2.2.3.1. 损失函数</span><a href="#2231-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>一个多层感知机或者一个前馈神经网络可以看作是一个复杂的非线性多元函数。在进行网络参数优化前，我们需要设置一个<strong>衡量误差的量化函数</strong>，该函数除了用于评判当前网络对于目标任务的性能外，其最重要的功能就是指导网络参数的优化方向及优化量，这个量化函数就是我们常说的「<strong>损失函数</strong>」。网络学习过程就是以当前输入数据为固定参数，以权重、偏置为自变量的，寻找函数局部极小值点的过程。这里的极小值点是指使得损失函数值取极小的网络权重、偏置参数解。</p>
+<p>一个多层感知机或者一个前馈神经网络可以看作是一个复杂的非线性多元函数。在进行网络参数优化前，我们需要设置一个<strong>衡量误差的量化函数</strong>，该函数除了用于评判当前网络对于目标任务的性能外，其最重要的功能就是指导网络参数的优化方向及优化量，这个量化函数就是我们常说的「损失函数」。网络学习过程就是以当前输入数据为固定参数，以权重、偏置为自变量的，寻找函数局部极小值点的过程。这里的极小值点是指使得损失函数值取极小的网络权重、偏置参数解。</p>
 
 <ul>
   <li>
-    <p>对于回归任务，希望在 $n$ 个样本点上的预测输出 $a^L_i$ 与真实标签 $y_i$ 尽可能接近（$i=1,2,\cdots,n$），采用 <strong>MSE</strong> （均方误差）来衡量相似性，即需要最小化</p>
+    <p>对于 <u>回归任务</u>，希望在 $n$ 个样本点上的预测输出 $a^L_i$ 与真实标签 $y_i$ 尽可能接近（$i=1,2,\cdots,n$），采用「均方误差」（Mean Square Error，MSE）来衡量相似性，即需要最小化</p>
 
 \[L = \frac{1}{n}\sum_{i=1}^n\Vert a^L_i - y_i \Vert_2^2\\\]
   </li>
   <li>
-    <p>对于 $k$ 分类任务，设第 $i$ 个样本的标签向量 $\boldsymbol{y}_i = [y_i^{1},y_i^{2},\cdots, y_i^k]^\top$（一般为独热编码），那么我们希望神经网络的输出 $\boldsymbol{a}^L_i$ 与标签 $\boldsymbol{y}_i$ 尽可能的相似，采用 <strong>CE</strong> （交叉熵）来衡量相似性，即需要最小化</p>
+    <p>对于 $k$ <u>分类任务</u>，设第 $i$ 个样本的标签向量 $\boldsymbol{y}_i = [y_i^{1},y_i^{2},\cdots, y_i^k]^\top$（一般为独热编码），那么我们希望神经网络的输出 $\boldsymbol{a}^L_i$ 与标签 $\boldsymbol{y}_i$ 尽可能的相似，采用 <strong>CE</strong> （交叉熵）来衡量相似性，即需要最小化</p>
 
 \[L = -\frac{1}{n}\sum_{i=1}^n \sum_{j=1}^k y_i^j \ln a^{L,j}_i\]
   </li>
 </ul>
 
+<p>上述损失函数是批量梯度下降法（BGD）或小批量梯度下降法（MBGD）的损失函数。后文为了简化起见，均采用随机梯度下降法（SGD），因此不考虑多个样本的损失函数求和。关于梯度下降法的介绍，详见 <a href="../reinforcement-learning-Temporal-Differences/#235-bgdmbgd-和-sgd">此处</a> 。</p>
+
 <h5 id="2232-反向传播"><span class="me-2">2.2.3.2. 反向传播</span><a href="#2232-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>由于神经网络及其损失函数构成了一个非常复杂的多元函数，求解其局部最小值点的解析解在绝大多数情况下是不可行的，需采用数值优化方法来寻找其局部极小值点，这里要介绍的误差「<strong>反向传播算法</strong>」（BP算法）就是其中之一。需要明确的一点是，这里的“误差”虽然可以理解为损失函数计算出的“损失结果”，但反向传播过程中的信息流并不是“误差”，而是基于当前输入数据、当前损失结果构成的复杂多元函数对各个网络权重、阈值参数的梯度，然后采用「梯度下降法」来更新网络参数，从而达到网络参数的优化。</p>
+<p>由于神经网络及其损失函数构成了一个非常复杂的多元函数，求解其局部最小值点的解析解在绝大多数情况下是不可行的，需采用数值优化方法来寻找其局部极小值点，这里要介绍的 <strong>误差</strong>「<strong>反向传播算法</strong>」（BP算法）就是其中之一，其核心是采用「梯度下降法」来更新网络参数，从而达到网络参数的优化。</p>
+
+<p>这里的「误差」是一个新的概念 $\delta$，其定义为损失函数 $L$ 关于某层神经元预激活值 ${z}^L$ 的梯度。根据误差可以将反向传播过程写成十分简洁的递推形式，这也是为什么反向传播又被称为「误差反向传播」的原因。注意该误差并不是损失函数计算中的“误差”，本质是梯度。</p>
+
+<p>根据前面关于激活函数的讨论，我们知道多层感知机的隐层和输出层的激活函数是不同的，因此反向传播过程也需要针对输出层和隐层分别讨论。</p>
+
+<p>==================== <strong>输出层误差</strong> ====================</p>
+
+<p>在计算输出层误差时，需要进一步针对回归问题和分类问题分别讨论。</p>
 
 <ul>
-  <li>==================== <strong>输出层误差</strong> ====================</li>
-</ul>
+  <li>
+    <p><u>回归问题</u></p>
 
-<p>需要针对回归问题和分类问题分别讨论。</p>
+    <p><a href="/assets/img/postsimg/20250527/output-layer-regression.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/output-layer-regression.jpg" alt="回归问题输出层结构" class="lazyload" data-proofer-ignore></a></p>
 
-<p>（1）<u>回归问题</u></p>
+    <p>采用「MSE + 恒等函数$f$」组合的输出层 $L$，有</p>
 
-<p>若采用「MSE + 恒等函数$f$」组合的输出层 $L$，有</p>
+\[{a}^{L} = {z}^L\\\]
 
-\[\boldsymbol{a}^{L} = \boldsymbol{z}^L\\\]
+    <p>损失函数为</p>
 
-<p>定义输出层 $L$ 的误差为损失函数关于输出层预激活值 $\boldsymbol{z}^L$ 的梯度（忽略常数系数）</p>
+\[L = \Vert a^L - y \Vert_2^2\]
 
-\[\delta^{L} \triangleq \frac{\partial L}{\partial \boldsymbol{z}^L} = \frac{\partial L}{\partial \boldsymbol{a}^L} = \textcolor{red}{\boldsymbol{a}^L-\boldsymbol{y}}\]
+    <p>输出层 $L$ 的误差为（忽略常数系数）</p>
 
-<p>（2）<u>分类问题</u></p>
+\[\delta^{L} \triangleq \frac{\partial L}{\partial {z}^L} = \frac{\partial L}{\partial {a}^L} = \textcolor{red}{a^L-y}\]
+  </li>
+  <li>
+    <p><u>分类问题</u></p>
 
-<p>若采用「CE + softmax函数」组合的输出层，对于第 $i$ 个神经元有</p>
+    <p><a href="/assets/img/postsimg/20250527/output-layer-classification.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/output-layer-classification.jpg" alt="分类问题输出层结构" class="lazyload" data-proofer-ignore></a></p>
 
-\[a^L_i = \text{softmax}(z^L) = \frac{e^{z_i^L}}{\sum_{j=1}^k e^{z^L_j}}\]
+    <p>采用「CE + softmax函数」组合的输出层，损失函数为</p>
 
-<p>误差为</p>
+\[L = -\sum_{j=1}^k y_j \ln a^L_j\]
 
-\[\delta^{L}_i \triangleq \frac{\partial L}{\partial z_i^L} = \sum_{j=1}^n\frac{\partial L}{\partial a_j^L} \frac{\partial a_j^L}{\partial z_i^L}\]
+    <p>对于第 $j$ 个神经元有</p>
 
-<p>第一项</p>
+\[a^L_j = \text{softmax}(z^L) = \frac{e^{z_j^L}}{\sum_{i=1}^k e^{z^L_i}}\]
 
-\[\frac{\partial L}{\partial a^L_j} = -\frac{y_i}{a^L_j}\]
+    <p>输出层 $L$ 第 $j$ 个神经元的误差为</p>
 
-<p>第二项（也即 softmax 函数的导数）需要分两种情况讨论</p>
+\[\delta^{L}_j \triangleq \frac{\partial L}{\partial z_j^L} = \sum_{i=1}^k\frac{\partial L}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_j^L}\]
 
-<p>（a）当 $j=i$ 时</p>
+    <p>注意此处需要对 $i$ 进行遍历，因为根据 softmax 函数定义，每个输出 $a_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关。</p>
 
-\[\frac{\partial a^L_j}{\partial z^L_i} = a^L_j(1-a^L_j)\]
+    <p>第一项</p>
 
-<p>（b）当 $j\neq i$ 时</p>
+\[\frac{\partial L}{\partial a^L_i} = -\frac{y_i}{a^L_i}\]
 
-\[\frac{\partial a^L_j}{\partial z^L_i} = -a^L_j a^L_i\]
+    <p>第二项（也即 softmax 函数的导数），又因为 softmax 分子和分母都含有预激活值，需要根据其下标取值分两种情况讨论：</p>
 
-<p>合并上述结果，误差为 $\delta_i^L = a_i^L-y_i$。写成矩阵形式，误差也为 $\textcolor{red}{\delta^L = \boldsymbol{a}^L-\boldsymbol{y}}$。</p>
+    <p><strong>（a）</strong> 当 $i=j$ 时</p>
 
-<p>则权重的梯度为</p>
+\[\frac{\partial a^L_i}{\partial z^L_j} = a^L_i(1-a^L_i)\]
+
+    <details>
+      <summary>
+<font color="blue">展开详细推导</font>
+</summary>
+
+      <blockquote>
+        <p>为了表述方便，省去上标 $L$</p>
+
+\[\begin{aligned}
+  \frac{\partial a_i}{\partial z_i} &amp;= \frac{\partial a_i}{\partial z_i} \\
+  &amp;= \frac{\partial}{\partial z_i} \left( \frac{e^{z_i}}{\sum_k e^{z_k}} \right) \\
+  &amp;= \frac{(e^{z_i})' (\sum_k e^{z_k}) - e^{z_i} (\sum_k e^{z_k})'}{(\sum_k e^{z_k})^2} \\
+  &amp;= \frac{e^{z_i} \cdot (\sum_k e^{z_k}) - e^{z_i} \cdot e^{z_i}}{(\sum_k e^{z_k})^2} \\
+  &amp;= \frac{e^{z_i}}{\sum_k e^{z_k}} - \frac{e^{z_i}}{\sum_k e^{z_k}} \cdot \frac{e^{z_i}}{\sum_k e^{z_k}} \\
+  &amp;= a_i - a_i \cdot a_i \\
+  &amp;= a_i (1 - a_i)
+  \end{aligned}\]
+      </blockquote>
+
+    </details>
+
+    <p><strong>（b）</strong> 当 $i\neq j$ 时</p>
+
+\[\frac{\partial a^L_i}{\partial z^L_j} = -a^L_i a^L_j\]
+
+    <details>
+      <summary>
+<font color="blue">展开详细推导</font>
+</summary>
+
+      <blockquote>
+        <p>为了表述方便，省去上标 $L$</p>
+
+\[\begin{aligned}
+  \frac{\partial a_i}{\partial z_j} &amp;= \frac{\partial}{\partial z_j} \left( \frac{e^{z_i}}{\sum_k e^{z_k}} \right) \\
+  &amp;= \frac{(e^{z_i})' (\sum_k e^{z_k}) - e^{z_i} (\sum_k e^{z_k})'}{(\sum_k e^{z_k})^2} \\
+  &amp;= \frac{0 \cdot (\sum_k e^{z_k}) - e^{z_i} \cdot e^{z_j}}{(\sum_k e^{z_k})^2} \\
+  &amp;= \frac{-e^{z_i} \cdot e^{z_j}}{(\sum_k e^{z_k})^2} \\
+  &amp;= -\frac{e^{z_i}}{\sum_k e^{z_k}} \cdot \frac{e^{z_j}}{\sum_k e^{z_k}} \\
+  &amp;= -a_i \cdot a_j
+  \end{aligned}\]
+      </blockquote>
+
+    </details>
+
+    <p>合并上述结果，误差为 $\textcolor{red}{\delta_j^L = a_j^L-y_j}$。</p>
+
+    <details>
+      <summary>
+<font color="blue">展开详细推导</font>
+</summary>
+
+      <blockquote>
+\[\begin{aligned}
+  \delta^{L}_j &amp;= -\frac{y_j}{a^L_i} \cdot a^L_i(1-a^L_i) - \sum_{i\neq j} \frac{y_i}{a^L_i} (-a^L_i a^L_j)\\
+  &amp;= - y_j+y_ja_i^L+\sum_{i\neq j} y_ia_j^L\\
+  &amp;= -y_j+\sum_{i} y_ia_j^L\\
+  &amp;=-y_j + a_j^L\sum_i y_i
+  \end{aligned}\]
+
+        <p>注意到 $y_i$ 是独热编码的概率值，其和为 $1$，因此有</p>
+
+\[\delta^{L}_i = -y_i + a_j^L\]
+
+        <p>又因为 $y_i$ 是独热编码的概率值，只有一个位置（假设是第 $i$ 个位置）是 $1$, 其他位置都是 $0$，因此对于 $k$ 分类任务，输出层误差可写为</p>
+
+\[\begin{bmatrix}
+    a_1^L\\
+    a_2^L\\
+    \vdots\\
+    a_i^L - 1\\
+    \vdots\\
+    a_k^L
+  \end{bmatrix}\]
+
+        <p>结果十分优美。</p>
+      </blockquote>
+
+    </details>
+
+    <p>则权重的梯度为</p>
 
 \[\frac{\partial L}{\partial \boldsymbol{W}^L} = \frac{\partial L}{\partial \boldsymbol{z}^L} \cdot \frac{\partial \boldsymbol{z}^L}{\partial \boldsymbol{W}^L} = \delta^{L} \cdot (a^{L-1})^\top\quad\in\mathbb{R}^{n^L\times n^{L-1}}\]
 
-<p>偏置的梯度为</p>
+    <p>偏置的梯度为</p>
 
 \[\frac{\partial L}{\partial \boldsymbol{b}^L} = \frac{\partial L}{\partial \boldsymbol{z}^L} \cdot \frac{\partial \boldsymbol{z}^L}{\partial \boldsymbol{b}^L} = \delta^{L}\quad\in\mathbb{R}^{n^L\times 1}\]
-
-<ul>
-  <li>==================== <strong>隐层误差</strong> ====================</li>
+  </li>
 </ul>
+
+<p>==================== <strong>隐层误差</strong> ====================</p>
 
 <p>对于隐层 $l$，有</p>
 
@@ -3333,7 +3613,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 <ul>
   <li>假设一个输入样本为 $x_i$ 是一个 $n$ 维向量，则输入层神经元个数为 $n$ 个；</li>
   <li>输入神经元和输出神经元也通过权值相连；</li>
-  <li>输出神经元一般以二维拓扑结构排列，神经元数量和训练集样本的类别数相关，比如要分成4类，那可以将输出层（竞争层）设计为2∗2。若不清楚类别数，尽可能地设定较多的节点数，以便较好地映射样本的拓扑结构，如果分类过细再适当减少输出节点；</li>
+  <li>输出神经元一般以二维拓扑结构排列，神经元数量和训练集样本的类别数相关，比如要分成 $4$ 类，那可以将输出层（竞争层）设计为 $2\times2$。若不清楚类别数，尽可能地设定较多的节点数，以便较好地映射样本的拓扑结构，如果分类过细再适当减少输出节点；</li>
   <li>一般而言输出层神经元个数小于样本特征维度，从而达到降维的目的。</li>
 </ul>
 
@@ -3421,7 +3701,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
   <p>答案：$4-8-\cdots$</p>
 </blockquote>
 
-<h2 id="参考文献"><span class="me-2">参考文献</span><a href="#参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>[1] <a href="https://tecdat.cn/r%e8%af%ad%e8%a8%80%e4%bd%bf%e7%94%a8%e8%87%aa%e7%bb%84%e7%bb%87%e6%98%a0%e5%b0%84%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%ef%bc%88som%ef%bc%89%e8%bf%9b%e8%a1%8c%e5%ae%a2%e6%88%b7%e7%bb%86%e5%88%86/">R语言使用自组织映射神经网络（SOM）进行客户细分</a></p>
 
