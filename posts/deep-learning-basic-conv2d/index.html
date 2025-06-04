@@ -1423,7 +1423,7 @@ W_{out} = W_{in}
 
 \[\begin{aligned}
 padding[0] = \frac{stride[0]\times (H_{out}-1) + dilation[0]\times (kernel\_size[0]-1)-H_{in}+1} {2} \\
-padding[1] = \frac{stride[1]\times (H_{out}-1) + dilation[1]\times (kernel\_size[1]-1)-H_{in}+1} {2} \\
+padding[1] = \frac{stride[1]\times (W_{out}-1) + dilation[1]\times (kernel\_size[1]-1)-W_{in}+1} {2} \\
 \end{aligned}\]
 
 <p>将默认的 <code class="language-plaintext highlighter-rouge">stride=1</code>和 <code class="language-plaintext highlighter-rouge">dilation=1</code> 参数代入，可得</p>
@@ -1539,31 +1539,15 @@ padding[1] = (kernel\_size[1]-1) / 2
 <p>我们知道指数函数 $e^x$ 的值域为 $(0,+\infty)$ ，因此 <code class="language-plaintext highlighter-rouge">softmax</code> 将 $(-\infty,+\infty)$ 的值映射到 $[0, 1]$。具体来说，<code class="language-plaintext highlighter-rouge">softmax</code> 具备下面两个作用</p>
 
 <ul>
-  <li>
-    <p>将向量的各个维度 $z_i$ 映射为映射到 $[0, 1]$ 之间的某个值，即为该分量的取值概率；</p>
-  </li>
-  <li>
-    <p>向量所有维度的取值概率之和为1。</p>
-  </li>
+  <li>将向量的各个维度 $z_i$ 映射为映射到 $[0, 1]$ 之间的某个值，即为该分量的取值概率；</li>
+  <li>向量所有维度的取值概率之和为1。</li>
 </ul>
 
-<p>通常情况下，计算softmax函数值不会出现什么问题，例如，当softmax函数表达式里的所有 zi 都是一个“一般大小”的数值 $c$ 时——也就是上图中，$z_1=z_2=z_3=c$ 时，那么，计算出来的函数值 $y_1=y_2=y_3=1$。但是，当某些情况发生时，计算函数值就出问题了：</p>
+<p>通常情况下，计算 softmax 函数值不会出现什么问题，例如，当 softmax 函数表达式里的所有 $z_i$ 都是一个 “一般大小” 的数值 $c$ 时——也就是上图中，$z_1=z_2=z_3=c$ 时，那么，计算出来的函数值 $y_1=y_2=y_3=1$。但是，当某些情况发生时，计算函数值就出问题了：</p>
 
 <ul>
-  <li>
-    <p>$c$ 极其大，导致分子计算 $e^c$ 时上溢出（超出float表示的界限，出现NaN）。</p>
-  </li>
-  <li>
-    <div class="table-wrapper"><table>
-      <tbody>
-        <tr>
-          <td>$c$ 为负数，且 $</td>
-          <td>c</td>
-          <td>$ 很大，此时分母是一个极小的正数，有可能四舍五入为0，导致下溢出。</td>
-        </tr>
-      </tbody>
-    </table></div>
-  </li>
+  <li>$c$ 极其大，导致分子计算 $e^c$ 时上溢出（超出 float 表示的界限，出现 NaN）。</li>
+  <li>$c$ 为负数，且 $\vert c\vert$ 很大，此时分母是一个极小的正数，有可能四舍五入为 $0$，导致下溢出。</li>
 </ul>
 
 <p>解决方法为，令 $M = max(z_i), i =1,2,3,….,n$，计算 $softmax(z_i - M)$ 的值，就可以解决上溢出、下溢出的问题了，并且，计算结果理论上仍然和  $softmax(z_i)$  保持一致。具体而言：</p>
@@ -1580,8 +1564,10 @@ padding[1] = (kernel\_size[1]-1) / 2
 <div class="language-python highlighter-rouge"><div class="code-header">
         <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nf">softmax</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># dim=0 makes sum of column values to be 1, dim=1 makes row ...
-</span></pre></td></tr></tbody></table></code></div></div>
+2
+</pre></td><td class="rouge-code"><pre><span class="c1"># dim=0 makes sum of column values to be 1, dim=1 makes row ...
+</span><span class="nf">softmax</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> 
+</pre></td></tr></tbody></table></code></div></div>
 
 <h2 id="23-log_softmax"><span class="me-2">2.3. log_softmax</span><a href="#23-log_softmax" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2250,6 +2236,67 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -2306,63 +2353,6 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
     
     
       
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -2770,10 +2760,10 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
         <a class="post-tag btn btn-outline-primary" href="/tags/fuzzy/">fuzzy</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
@@ -2837,6 +2827,18 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -4395,6 +4397,67 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -4451,63 +4514,6 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
     
     
       
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -4915,10 +4921,10 @@ s_i &amp;= \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}
         <a class="post-tag btn btn-outline-primary" href="/tags/fuzzy/">fuzzy</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/pattern-recognition/">pattern recognition</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
