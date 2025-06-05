@@ -1989,6 +1989,74 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -2063,6 +2131,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -2235,6 +2315,54 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -2251,6 +2379,18 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -2554,9 +2694,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="9811 字"
+  title="11211 字"
 >
-  <em>54 分钟</em>阅读</span>
+  <em>62 分钟</em>阅读</span>
 
     </div>
 
@@ -2587,6 +2727,7 @@
           <li><a href="#213-多通道卷积">2.1.3. 多通道卷积</a></li>
           <li><a href="#214-卷积计算量与参数量">2.1.4. 卷积计算量与参数量</a></li>
           <li><a href="#215-深度可分离卷积">2.1.5. 深度可分离卷积</a></li>
+          <li><a href="#216-权值共享">2.1.6. 权值共享</a></li>
         </ul>
       </li>
       <li><a href="#22-特征图">2.2. 特征图</a>
@@ -2613,27 +2754,35 @@
       <li><a href="#32-池化尺寸计算">3.2. 池化尺寸计算</a></li>
     </ul>
   </li>
-  <li><a href="#4-卷积神经网络训练">4. 卷积神经网络训练</a>
+  <li><a href="#4-批归一化层">4. 批归一化层</a>
     <ul>
-      <li><a href="#41-数据集处理">4.1. 数据集处理</a>
+      <li><a href="#41-批归一化计算">4.1. 批归一化计算</a></li>
+      <li><a href="#42-如何改善梯度">4.2. 如何改善梯度</a></li>
+      <li><a href="#43-反向传播">4.3. 反向传播</a></li>
+      <li><a href="#44-训练和测试的区别">4.4. 训练和测试的区别</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-卷积神经网络训练">5. 卷积神经网络训练</a>
+    <ul>
+      <li><a href="#51-数据集处理">5.1. 数据集处理</a>
         <ul>
-          <li><a href="#411-数据清洗">4.1.1. 数据清洗</a></li>
-          <li><a href="#412-数据增强">4.1.2. 数据增强</a></li>
+          <li><a href="#511-数据清洗">5.1.1. 数据清洗</a></li>
+          <li><a href="#512-数据增强">5.1.2. 数据增强</a></li>
         </ul>
       </li>
-      <li><a href="#42-超参数设置和参数初始化">4.2. 超参数设置和参数初始化</a>
+      <li><a href="#52-超参数设置和参数初始化">5.2. 超参数设置和参数初始化</a>
         <ul>
-          <li><a href="#421-超参数设置">4.2.1. 超参数设置</a></li>
-          <li><a href="#422-参数初始化">4.2.2. 参数初始化</a></li>
+          <li><a href="#521-超参数设置">5.2.1. 超参数设置</a></li>
+          <li><a href="#522-参数初始化">5.2.2. 参数初始化</a></li>
         </ul>
       </li>
-      <li><a href="#43-网络训练">4.3. 网络训练</a>
+      <li><a href="#53-网络训练">5.3. 网络训练</a>
         <ul>
-          <li><a href="#431-优化器">4.3.1. 优化器</a></li>
-          <li><a href="#432-正则化">4.3.2. 正则化</a></li>
+          <li><a href="#531-优化器">5.3.1. 优化器</a></li>
+          <li><a href="#532-正则化">5.3.2. 正则化</a></li>
         </ul>
       </li>
-      <li><a href="#44-从头训练和迁移学习">4.4. 从头训练和迁移学习</a></li>
+      <li><a href="#54-从头训练和迁移学习">5.4. 从头训练和迁移学习</a></li>
     </ul>
   </li>
 </ul>
@@ -2801,6 +2950,24 @@
 \[K^2\times C_{in}+ C_{in}\times C_{out}\]
 
 <p>相比标准卷积，深度可分离卷积的参数量大幅减少。</p>
+
+<h4 id="216-权值共享"><span class="me-2">2.1.6. 权值共享</span><a href="#216-权值共享" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>权值共享（Weight Sharing）是卷积神经网络的核心特性之一，它通过让同一卷积核在输入的不同位置上重复使用，大幅减少模型的参数量，同时提升计算效率和泛化能力。具体而言：</p>
+
+<ul>
+  <li>同一个卷积核（滤波器）在输入的所有位置上滑动并计算局部感受野的加权和；</li>
+  <li>不同位置使用相同的权重，而不是为每个位置学习独立的参数。</li>
+</ul>
+
+<p>在传统全连接网络中，每个输入神经元与每个输出神经元都有一个独立的权重，导致参数量巨大。假设输入是 $1000\times 1000$ 的图像，输出是 $10$ 个神经元（10分类），参数量为 $1000\times 1000\times 10=10^7$ 。如果使用 $10$ 个 $3\times 3$ 卷积核，参数量仅为 $3\times 3\times 10=27$，且与输入尺寸无关。</p>
+
+<p>权值共享可以实现：</p>
+
+<ul>
+  <li>提升泛化性：权值共享强制模型在不同位置检测相同的特征（如边缘、纹理），避免过拟合；</li>
+  <li>保持平移不变性：无论目标出现在图像的哪个位置，相同的卷积核都能检测到它（适合图像分类、目标检测等任务）。</li>
+</ul>
 
 <h3 id="22-特征图"><span class="me-2">2.2. 特征图</span><a href="#22-特征图" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -2990,9 +3157,109 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 
 <p><a href="/assets/img/postsimg/20200614/07.ceilmode.png" class="popup img-link "><img data-src="/assets/img/postsimg/20200614/07.ceilmode.png" alt="07.ceilmode" class="lazyload" data-proofer-ignore></a></p>
 
-<h2 id="4-卷积神经网络训练"><span class="me-2">4. 卷积神经网络训练</span><a href="#4-卷积神经网络训练" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="4-批归一化层"><span class="me-2">4. 批归一化层</span><a href="#4-批归一化层" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<h3 id="41-数据集处理"><span class="me-2">4.1. 数据集处理</span><a href="#41-数据集处理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>根据 <a href="../Pattern-Recognition-DNN/#2233-梯度消失">前述</a> 讨论我们知道，若参数初始化不合理，会导致梯度消失或梯度爆炸。解决方法可以通过采用更加合理的 <a href="#422-参数初始化">参数初始化</a> 方法，也可以采用本节介绍的引入批归一化层的方法。更多时候，引入批归一化层可以减少神经网络对超参数和初始化方式的敏感度，使得训练可以设置更高的学习率、采用更加粗暴的参数初始化方式，同时提升网络的深度。</p>
+
+<p>批归一化（Batch Normalization，BN）层可以用于经典的深度神经网络（多层感知机）和卷积神经网络中，但之所以在卷积神经网络部分介绍，是因为经典神经网络一版不会设置过深的层数，而卷积神经网络相较而言层数深得多，所面临的梯度消失或梯度爆炸问题也严重的多。</p>
+
+<h3 id="41-批归一化计算"><span class="me-2">4.1. 批归一化计算</span><a href="#41-批归一化计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>对于输入数据 $z$ （可以是全连接层的输入或卷积层的特征图），批归一化的计算过程为：</p>
+
+<ul>
+  <li>
+    <p>计算当前批（batch）数据的均值</p>
+
+\[\mu = \frac{1}{N}\sum_{i=1}^{N}z_i\]
+  </li>
+  <li>
+    <p>计算当前批数据的方差</p>
+
+\[\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(z_i-\mu)^2\]
+  </li>
+  <li>
+    <p>标准化（分母极小值 $\epsilon$ 防止除零）</p>
+
+\[\hat{z} = \frac{z-\mu}{\sqrt{\sigma^2+\epsilon}}\]
+  </li>
+  <li>
+    <p>缩放和平移</p>
+
+\[y = \gamma \hat{z} + \beta\]
+
+    <p>其中 $\gamma,\beta$ 是科学系的两个参数，用于缩放和平移。</p>
+  </li>
+</ul>
+
+<p>在 DNN 中，BN 通常置于线性变换和激活函数之间：<code class="language-plaintext highlighter-rouge">Dense --&gt; BN --&gt; Tanh</code>，对每一维特征（即每一列）独立计算均值和方差；</p>
+
+<p>在 CNN 中，BN 通常置于卷积层和激活函数之间：<code class="language-plaintext highlighter-rouge">Conv --&gt; BN --&gt; ReLU</code>，对每个通道（channel）独立计算均值和方差。</p>
+
+<h3 id="42-如何改善梯度"><span class="me-2">4.2. 如何改善梯度</span><a href="#42-如何改善梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>在「前向传播」中，BN 强制每层输入的分布固定（均值为 0，方差为 1），避免激活值过大或过小，这防止了梯度因输入值的极端变化而剧烈波动（如 ReLU 输入过大导致梯度爆炸，或 Sigmoid 输入过小导致梯度消失）。</p>
+
+<p>在「反向传播」中，BN 的标准化操作对梯度的影响体现在</p>
+
+<p><a href="/assets/img/postsimg/20250603/BN.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/BN.jpg" alt="BN如何改善梯度" class="lazyload" data-proofer-ignore></a></p>
+
+<ul>
+  <li>原始神经元</li>
+</ul>
+
+\[\frac{\partial L}{\partial z} = \delta\]
+
+<ul>
+  <li>增加 BN 后</li>
+</ul>
+
+\[\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial \hat{z}}\frac{\partial \hat{z}}{\partial z} = \hat{\delta} \cdot \gamma \cdot \frac{1}{\sqrt{\sigma^2+\epsilon}}\]
+
+<p>（1）由于 BN 层输出 $y$ 相比原始线性组合输出 $x$ 的分布更加稳定，因此 $\hat{\delta}$ 相较于原始误差 $\delta$ 更加可靠；</p>
+
+<p>（2）通过分母 $\sqrt{\sigma^2+\epsilon}$ 对梯度进行调控，输入方差大的梯度会被缩小，输入方差小的梯度会被放大；</p>
+
+<p>（3）通过可学习参数 $\gamma$ 跟踪损失函数，自适应调整梯度幅值。</p>
+
+<p>经过上述三步，尽可能让梯度保持在合理范围内。</p>
+
+<h3 id="43-反向传播"><span class="me-2">4.3. 反向传播</span><a href="#43-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+\[\begin{aligned}
+  \frac{\partial L}{\partial \gamma} &amp;= \sum_{i=1}^m\frac{\partial L}{\partial y_i}\cdot \hat{z}_i\quad m=\text{mini-batch size}\\
+  \gamma &amp;\leftarrow \gamma + \alpha\frac{\partial L}{\partial \gamma}\\
+  \frac{\partial L}{\partial \beta} &amp;= \sum_{i=1}^m\frac{\partial L}{\partial y_i}\\
+  \beta &amp;\leftarrow \beta + \alpha\frac{\partial L}{\partial \beta}
+\end{aligned}\]
+
+<p>可学习的参数允许网络自行决定是否保留标准化效果：</p>
+
+<ul>
+  <li>如果 $\gamma=1,\beta=0$，则完全使用标准化后的分布;</li>
+  <li>如果 $\gamma=\sigma,\beta=\mu$，则完全恢复原始分布；</li>
+  <li>通过训练学习平衡标准化与模型表达能力。</li>
+</ul>
+
+<h3 id="44-训练和测试的区别"><span class="me-2">4.4. 训练和测试的区别</span><a href="#44-训练和测试的区别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>训练时，一次输入一批（batch）样本数据：</p>
+
+<ul>
+  <li>均值和方差由当前 batch 计算；</li>
+  <li>同时维护全局的移动平均均值和方差（用于测试时）。</li>
+</ul>
+
+<p>测试时，由于一次只输入一个样本数据：</p>
+
+<ul>
+  <li>使用训练时积累的移动平均均值和方差进行归一化；</li>
+  <li>不依赖 batch，因此与 batch size 无关。</li>
+</ul>
+
+<h2 id="5-卷积神经网络训练"><span class="me-2">5. 卷积神经网络训练</span><a href="#5-卷积神经网络训练" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="51-数据集处理"><span class="me-2">5.1. 数据集处理</span><a href="#51-数据集处理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>数据在深度学习中占据着非常重要的地位，一个高质量的数据集往往能够提高模型训练的质量和预测的准确率。已有许多开源数据，比如 ImageNet、COCO、CIFAR-10、CIFAR-100、MNIST 等。但是，对于某些特殊应用，如人脸识别、手势识别、物体检测、图像分类等，没有现成的公开数据集，当公开数据不能满足要求时，需要制作面向特殊应用的数据集。</p>
 
@@ -3030,11 +3297,11 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
   </li>
 </ul>
 
-<h4 id="411-数据清洗"><span class="me-2">4.1.1. 数据清洗</span><a href="#411-数据清洗" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="511-数据清洗"><span class="me-2">5.1.1. 数据清洗</span><a href="#511-数据清洗" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>在数据集中去除掉不符合要求或者错误的数据，保留有效的数据，包括去除重复数据、去除缺失数据、去除异常值等。</p>
 
-<h4 id="412-数据增强"><span class="me-2">4.1.2. 数据增强</span><a href="#412-数据增强" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="512-数据增强"><span class="me-2">5.1.2. 数据增强</span><a href="#512-数据增强" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>深度网络参数量大，需要大样本数据库进行训练。当训练样本不足时，可采用随机裁剪、旋转、翻转、缩放、平移、裁剪、颜色变化、噪声等方式进行扩充，扩充后数据量可达原有数据量的几十倍。</p>
 
@@ -3090,9 +3357,9 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 
 <p><a href="/assets/img/postsimg/20250603/padding.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/padding.jpg" alt="不同填充方式" class="lazyload" data-proofer-ignore></a></p>
 
-<h3 id="42-超参数设置和参数初始化"><span class="me-2">4.2. 超参数设置和参数初始化</span><a href="#42-超参数设置和参数初始化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="52-超参数设置和参数初始化"><span class="me-2">5.2. 超参数设置和参数初始化</span><a href="#52-超参数设置和参数初始化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h4 id="421-超参数设置"><span class="me-2">4.2.1. 超参数设置</span><a href="#421-超参数设置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="521-超参数设置"><span class="me-2">5.2.1. 超参数设置</span><a href="#521-超参数设置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <ul>
   <li>
@@ -3109,17 +3376,18 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
   </li>
 </ul>
 
-<h4 id="422-参数初始化"><span class="me-2">4.2.2. 参数初始化</span><a href="#422-参数初始化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="522-参数初始化"><span class="me-2">5.2.2. 参数初始化</span><a href="#522-参数初始化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <ul>
   <li><strong>随机初始化</strong>
     <ul>
-      <li>最常见的参数初始化方法，它将网络参数随机初始化为一组小的随机数。这种方法通常适用于较浅的网络，如只有一层或两层的网络。随机初始化可以打破对称性，使网络参数具有不同的初始值，从而更好地探索参数空间。</li>
+      <li>最常见的参数初始化方法，它将网络参数随机初始化为一组小的随机数。这种方法通常适用于较浅的网络，如只有一层或两层的网络。随机初始化可以打破对称性，使网络参数具有不同的初始值，从而更好地探索参数空间；</li>
+      <li>对于深层网络，常用的随机正态分布初始化，可能会导致梯度消失（详见 <a href="../Pattern-Recognition-DNN/#2233-梯度消失">此处</a> ）。</li>
     </ul>
   </li>
   <li><strong>Xavier 初始化</strong>
     <ul>
-      <li>是一种针对神经网络权重的初始化方法，由 Xavier Glorot 和 Yoshua Bengio 在 2010 年提出，旨在解决深层神经网络训练中的梯度消失或爆炸问题（如果每层神经网络的权重参数W都是随机正态分布，随着神经网络层数的增加，输出的均值不变，而方差急剧变小，且直方图在 $0$ 点处收缩成一条线）。</li>
+      <li>是一种针对神经网络权重的初始化方法，由 Xavier Glorot 和 Yoshua Bengio 在 2010 年提出，旨在解决深层神经网络训练中的梯度消失或爆炸问题；</li>
       <li>其核心思想是根据输入和输出的维度自适应地调整初始权重的范围，以确保各层激活值的方差保持一致。Xavier 初始化可表示为：</li>
     </ul>
 
@@ -3128,23 +3396,40 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
     <ul>
       <li>适用于梯度在 $0$ 附近近似线性的激活函数，如 Tanh、Sigmoid；</li>
       <li>对于卷积层，$n_{in} = \text{kernel_size}^2\times \text{in_channels}$，$n_{out} = \text{out_channels}$</li>
+      <li>一些关于 xavier 初始化的额外参考：https://zhuanlan.zhihu.com/p/458373836</li>
     </ul>
   </li>
   <li><strong>He 初始化</strong>
     <ul>
-      <li>是何凯明（Kaiming He）等人于 2015 年在论文《Delving Deep into Rectifiers》中提出的一种针对 ReLU 类激活函数的权重初始化方法，是 Xavier 初始化的改进版本，专门解决 ReLU 在训练中可能导致的梯度消失或爆炸问题。</li>
+      <li>是何凯明（Kaiming He）等人于 2015 年在论文《Delving Deep into Rectifiers》中提出的一种针对 ReLU 类激活函数的权重初始化方法，是 Xavier 初始化的改进版本，专门解决 ReLU 在训练中可能导致的梯度消失或爆炸问题；</li>
       <li>ReLU 函数负半轴为零，导致方差减半，因此不可直接套用 Xavier 初始化，而是做如下改进：</li>
     </ul>
 
 \[W_{i,j}\sim N\left( 0,\frac{2}{n_{in}} \right)\]
+
+    <ul>
+      <li>在此基础上进一步改进，考虑前向传播（Fan-in）和反向传播（Fan-out） 的不同情况，得到 Kaiming 初始化。</li>
+    </ul>
+
+    <div class="language-python highlighter-rouge"><div class="code-header">
+        <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># He 正态初始化（Fan-in 模式）
+</span><span class="n">nn</span><span class="p">.</span><span class="n">init</span><span class="p">.</span><span class="nf">kaiming_normal_</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">fan_in</span><span class="sh">'</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="c1"># He 均匀初始化（Fan-out 模式）
+</span><span class="n">nn</span><span class="p">.</span><span class="n">init</span><span class="p">.</span><span class="nf">kaiming_uniform_</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">fan_out</span><span class="sh">'</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="sh">'</span><span class="s">leaky_relu</span><span class="sh">'</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div>    </div>
   </li>
 </ul>
 
-<p>一些关于 xavier 初始化的额外套路你可参考：https://zhuanlan.zhihu.com/p/458373836</p>
+<h3 id="53-网络训练"><span class="me-2">5.3. 网络训练</span><a href="#53-网络训练" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h3 id="43-网络训练"><span class="me-2">4.3. 网络训练</span><a href="#43-网络训练" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
-
-<h4 id="431-优化器"><span class="me-2">4.3.1. 优化器</span><a href="#431-优化器" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="531-优化器"><span class="me-2">5.3.1. 优化器</span><a href="#531-优化器" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <ul>
   <li>
@@ -3183,7 +3468,7 @@ W &amp;\leftarrow W - \eta v
 </pre></td><td class="rouge-code"><pre><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="p">.</span><span class="nc">Adam</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<h4 id="432-正则化"><span class="me-2">4.3.2. 正则化</span><a href="#432-正则化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="532-正则化"><span class="me-2">5.3.2. 正则化</span><a href="#532-正则化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>正则化是一种常用的减少过拟合的方法，通过在损失函数中加入一些额外的约束，使得网络参数的取值更加平滑或稀疏，从而避免过拟合。常用的正则化方法包括：</p>
 
@@ -3203,7 +3488,7 @@ W &amp;\leftarrow W - \eta v
   </li>
 </ul>
 
-<h3 id="44-从头训练和迁移学习"><span class="me-2">4.4. 从头训练和迁移学习</span><a href="#44-从头训练和迁移学习" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="54-从头训练和迁移学习"><span class="me-2">5.4. 从头训练和迁移学习</span><a href="#54-从头训练和迁移学习" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>从头训练指的是使用未经过预训练的模型，从头开始训练模型来解决特定的任务。这种方法需要大量的数据和计算资源，并且需要从零开始训练模型。当数据集与先前的任务不同，或者是需要解决一个新的问题时，通常需要从头训练网络。</p>
 
@@ -3361,6 +3646,13 @@ W &amp;\leftarrow W - \eta v
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-basic-conv2d/">深度学习基础（PyTorch的CNN组成）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
@@ -3383,13 +3675,6 @@ W &amp;\leftarrow W - \eta v
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
         </li>
       
     </ul>

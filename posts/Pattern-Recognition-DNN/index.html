@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（经典神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-03T10:57:35+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-04T20:49:12+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2397,6 +2397,74 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -2851,13 +2919,13 @@
 
 <em
   class=""
-  data-ts="1748919455"
+  data-ts="1749041352"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/03
+  2025/06/04
 </em>
 
     </span>
@@ -2901,9 +2969,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10570 字"
+  title="10750 字"
 >
-  <em>58 分钟</em>阅读</span>
+  <em>59 分钟</em>阅读</span>
 
     </div>
 
@@ -3608,8 +3676,6 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <h5 id="2233-梯度消失"><span class="me-2">2.2.3.3. 梯度消失</span><a href="#2233-梯度消失" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>梯度消失问题通常发生在使用 Sigmoid 或 Tanh 等饱和激活函数时，这些激活函数的导数本身就小于 $0$，在输入很大或很小时趋近于 $0$。</p>
-
 <p>分析权重的梯度</p>
 
 \[\begin{aligned}
@@ -3618,16 +3684,38 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 &amp;= \textcolor{red}{(\boldsymbol{W}^{l+1})^\top}
 \textcolor{blue}{(\boldsymbol{W}^{l+2})^\top\delta^{l+2}  \odot f'(\boldsymbol{z}^{l+1})}
 \textcolor{red}{\odot f'(\boldsymbol{z}^{l})}\cdot (\boldsymbol{a}^{l-1})^\top\\
-&amp;= \textcolor{red}{(\boldsymbol{W}^{l+1})^\top}
-\textcolor{blue}{(\boldsymbol{W}^{l+2})^\top }
+&amp;= \underbrace{\textcolor{red}{(\boldsymbol{W}^{l+1})^\top}
+\textcolor{blue}{(\boldsymbol{W}^{l+2})^\top \cdots}}_{\text{weights}}
+\cdot
 \underbrace{\cdots \textcolor{blue}{\odot f'(\boldsymbol{z}^{l+1})}
-\textcolor{red}{\odot f'(\boldsymbol{z}^{l})}}_{\text{sigmoid}^\prime(z)_{\max} = 0.25}
-\textcolor{red}{\cdot (\boldsymbol{a}^{l-1})^\top}
+\textcolor{red}{\odot f'(\boldsymbol{z}^{l})}}_{\text{activation derivative}}
+\cdot
+\underbrace{(\boldsymbol{a}^{l-1})^\top}_{\text{neuron output}}
 \end{aligned}\]
 
-<p>可以看出，在神经网络层数很深的情况下，当大量小于或趋近于 $0$ 的激活函数导数相乘时，会导致梯度在反向传播过程中迅速减小，从而使得网络中较早层的权重更新非常缓慢或几乎不更新。这种情况随着网络层数的增加而更加严重，被称为「梯度消失」。</p>
+<p>可以看出，导致梯度趋近于零（梯度消失）可能存在以下原因：</p>
 
-<p>另外，当权重矩阵的元素较小时，也会导致梯度消失。</p>
+<ul>
+  <li>（1）激活函数导数连乘
+    <ul>
+      <li>在使用 Sigmoid 或 Tanh 激活函数时，其导数是小于零的数。</li>
+      <li>当大量小于或趋近于 $0$ 的激活函数导数相乘时，会导致梯度在反向传播过程中迅速减小，从而使得网络中较早层的权重更新非常缓慢或几乎不更新。</li>
+      <li>这种情况随着网络层数的增加而更加严重。</li>
+    </ul>
+  </li>
+  <li>（2） 权重设置不合理
+    <ul>
+      <li>权重初始化过小时，权重连乘会导致梯度很小；</li>
+      <li>权重初始化过小（如 $W\sim N(0,0.01)$）时，会导致网络深层输出的均值不变但方差急剧缩小，$a^l$ 趋于零附近；</li>
+      <li>权重初始化过大（如 $W\sim N(0,1)$）时，会导致神经网络每层输出均值和方差虽然正常，但几乎所有的值集中在 $\pm 1$ 附近，表明神经元饱和，此时激活函数导数几乎为零，导致权重几乎不更新。</li>
+    </ul>
+  </li>
+  <li>（3） 权重初始化异常大时还会导致「梯度爆炸」。</li>
+</ul>
+
+<p>权重初始化的两种情况，对应的网络每层输出直方图如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20250527/gradient-vanish.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/gradient-vanish.png" alt="权重初始化不合理导致梯度消失" class="lazyload" data-proofer-ignore></a></p>
 
 <p>可以通过如下方式缓解梯度消失：</p>
 
@@ -3648,8 +3736,9 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 <p>与梯度消失相反，梯度爆炸指的是梯度在反向传播过程中指数级增长，导致参数更新过大，模型无法收敛。这主要是由于：</p>
 
 <ol>
-  <li>权重矩阵的范数较大：如果权重矩阵的元素较大，其转置的乘积会导致梯度迅速增大。</li>
-  <li>激活函数的导数较大：如果激活函数的导数较大，则反向传播过程中梯度会快速放大，这一般出现在使用 ReLU 函数时可能出现。</li>
+  <li>权重矩阵的范数较大：如果权重矩阵的元素较大，其转置的乘积会导致梯度迅速增大；</li>
+  <li>输入数据范围过大（如遇到野值或某一维特征远大于其它特征），会逐层累计导致爆炸；</li>
+  <li>激活函数：一般出现在使用 ReLU 函数时，因为其在 $x&gt;0$ 部分导数为 $1$，无法缓解前两个梯度爆炸的原因。</li>
 </ol>
 
 <p>可以通过如下方式缓解梯度爆炸：</p>
@@ -3948,6 +4037,13 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-basic-conv2d/">深度学习基础（PyTorch的CNN组成）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
@@ -3970,13 +4066,6 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
         </li>
       
     </ul>
