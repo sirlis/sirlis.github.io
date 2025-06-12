@@ -765,6 +765,210 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -791,6 +995,18 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1199,9 +1415,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="8401 字"
+  title="8661 字"
 >
-  <em>46 分钟</em>阅读</span>
+  <em>48 分钟</em>阅读</span>
 
     </div>
 
@@ -1254,7 +1470,8 @@
       <li><a href="#53-最小化最大期望风险">5.3. 最小化最大期望风险</a></li>
     </ul>
   </li>
-  <li><a href="#6-参考文献">6. 参考文献</a></li>
+  <li><a href="#6-朴素贝叶斯分类器">6. 朴素贝叶斯分类器</a></li>
+  <li><a href="#7-参考文献">7. 参考文献</a></li>
 </ul>
 
 <h2 id="1-决策理论与方法"><span class="me-2">1. 决策理论与方法</span><a href="#1-决策理论与方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -1358,7 +1575,7 @@ p(w_2|x=1)&amp;=\frac{0.8*0.5}{0.2*0.5+0.8*0.5}=0.8
 
 <h3 id="22-类概率密度"><span class="me-2">2.2. 类概率密度</span><a href="#22-类概率密度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>对于前述例子，会觉得它更像是一个简单的数学问题，而不是一个模式识别问题。因为在实际模式识别中，首先，待分类数据 $x$ 往往不会只有 $[0,1]$ （此处为 90+分和不足90分）两种取值，而会是一系列取值，如得分为 $[0,1,\cdots,99,100]$；对应的类的条件概率往往不是几个孤立的冲激，而是一个连续的概率密度函数（PDF），如下图所示：</p>
+<p>对于前述例子，会觉得它更像是一个简单的数学问题，而不是一个模式识别问题。因为在实际模式识别中，首先，待分类数据 $x$ 往往不会只有 $[0,1]$ （此处为 90+分和不足90分）两种取值，而会是一系列取值，如得分为 $[0,1,\cdots,99,100]$；对应的类的条件概率往往不是几个孤立的脉冲，而是一个连续的概率密度函数（PDF），如下图所示：</p>
 
 <p><a href="/assets/img/postsimg/20240312/01.pdf.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/01.pdf.jpg" alt="pdf" class="lazyload" data-proofer-ignore></a></p>
 
@@ -1386,7 +1603,10 @@ p(w_2|x=1)&amp;=\frac{0.8*0.5}{0.2*0.5+0.8*0.5}=0.8
 
 <p>考虑到两个类别发生的概率分别为 $p(w_1), p(w_2)$ ，则总的误判概率为</p>
 
-\[p(e) = p(w_1) \cdot p(e_1)+ p(w_2) \cdot p(e_2) = p(w_1)\int_{\mathcal{R}_2} p(x \vert w_1)\text{d}x + p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x\]
+\[\begin{aligned}
+p(e) &amp;= p(w_1) \cdot p(e_1)+ p(w_2) \cdot p(e_2)\\
+&amp; = p(w_1)\int_{\mathcal{R}_2} p(x \vert w_1)\text{d}x + p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x
+\end{aligned}\]
 
 <p>其中 $p(w_1), p(w_2)$ 对于积分来说是与 $x$ 无关的常数，因此可以在积分符号内或者外出现。</p>
 
@@ -1398,8 +1618,8 @@ p(w_2|x=1)&amp;=\frac{0.8*0.5}{0.2*0.5+0.8*0.5}=0.8
 
 \[\begin{aligned}
 1 &amp;= \int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x + \int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x \\
-\Rightarrow \quad p(w_2) &amp;= p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x + p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x\\
-\Rightarrow \textcolor{blue}{\quad p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x} &amp;= p(w_2) - p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x \\
+\Rightarrow \; p(w_2) &amp;= p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x + p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x\\
+\Rightarrow \textcolor{blue}{\; p(w_2)\int_{\mathcal{R}_2} p(x \vert w_2)\text{d}x} &amp;= p(w_2) - p(w_2)\int_{\mathcal{R}_1} p(x \vert w_2)\text{d}x \\
 \end{aligned} \tag{3}\]
 
 <p>上述等式左边代入式 $(2)$，有</p>
@@ -1560,6 +1780,8 @@ g_i(\boldsymbol{x}) &amp;= -\frac{1}{2\sigma^2}(\boldsymbol{x}-\boldsymbol{\mu})
 
 <p>可以看出，若要对位置样本进行分类，只需要计算该样本特征特征向量到各类均值的欧式距离，然后把样本归类到距离最近的类别即可，说明<strong>此时的最小错误率贝叶斯分类器等价于最小距离分类器或垂直平分分类器</strong>。</p>
 
+<p><a href="/assets/img/postsimg/20240312/gaussian-bayes-classifier-1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/gaussian-bayes-classifier-1.jpg" alt="协方差相等且为对角阵的正态分布贝叶斯分类" class="lazyload" data-proofer-ignore></a></p>
+
 <p>继续对判别函数进行线性化，有</p>
 
 \[\begin{aligned}
@@ -1592,6 +1814,8 @@ g_i(\boldsymbol{x}) &amp;= -\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu}_i)^\top\
 
 <p>类似地，如果先验概率相等，则决策面过均值向量连线的终点（但不再垂直）。如果先验概率 $p(w_i)\neq p(w_j)$，则决策面向先验概率小的那一类平移。</p>
 
+<p><a href="/assets/img/postsimg/20240312/gaussian-bayes-classifier-2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/gaussian-bayes-classifier-2.jpg" alt="协方差相等正态分布贝叶斯分类" class="lazyload" data-proofer-ignore></a></p>
+
 <p>继续分析该情况下的错误率，将复对数似然比展开得到</p>
 
 \[\begin{aligned}
@@ -1622,6 +1846,10 @@ Var(h(\boldsymbol{x})\vert w_1) &amp;= \boldsymbol{a}^\top\boldsymbol{\Sigma}\bo
 &amp;= (\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)^\top\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}_2 - \boldsymbol{\mu}_1)\\
 &amp;= D_M(\boldsymbol{\mu_2},\boldsymbol{\mu_1})^2 = 2\eta
 \end{aligned}\]
+
+<blockquote>
+  <p>注意到上述就是马氏距离的平方。</p>
+</blockquote>
 
 <p>所以</p>
 
@@ -1684,6 +1912,8 @@ g_i(\boldsymbol{x}) &amp;= - \frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^\top\b
 \end{aligned}\]
 
 <p>这类判别函数为 $\boldsymbol{x}$ 的<strong>二次型</strong>，决策面为二次超曲面，当 $\boldsymbol{\Sigma}_i,\boldsymbol{\mu},p(w_i)$的的取值不同时，形成的曲面形状也不一样，有超球面、超椭球面、超抛物面、超双曲面等。</p>
+
+<p><a href="/assets/img/postsimg/20240312/gaussian-bayes-classifier-3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20240312/gaussian-bayes-classifier-3.jpg" alt="一般情况正态分布贝叶斯分类" class="lazyload" data-proofer-ignore></a></p>
 
 <h2 id="4-最小风险贝叶斯决策"><span class="me-2">4. 最小风险贝叶斯决策</span><a href="#4-最小风险贝叶斯决策" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1852,7 +2082,19 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
 
 <p>可以发现，最大的误判期望风险，其极小值情况是最小风险贝叶斯决策域 $\mathcal{R}_1,\mathcal{R}_2$ 使得式 $(8)$ 中的系数 $B=0$，此时无论先验概率 $p(w_1)$ 如何变化，期望风险 $R$ 与先验概率无关（因为系数 $B=0$），从而使的期望风险 $R$ 恒等于常数，最大的期望风险值是所有最小风险贝叶斯决策中最小的，对应的最小风险贝叶斯决策称为<strong>最小最大贝叶斯决策</strong>。</p>
 
-<h2 id="6-参考文献"><span class="me-2">6. 参考文献</span><a href="#6-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="6-朴素贝叶斯分类器"><span class="me-2">6. 朴素贝叶斯分类器</span><a href="#6-朴素贝叶斯分类器" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>基于贝叶斯公式估计后验概率 $P(w_i\vert \boldsymbol{x})$ 的主要困难在于，难以从有限的训练样本中估计得到类条件概率密度（似然）$P(\boldsymbol{x}\vert w_i)$。为了规避这个问题，朴素贝叶斯分类器（naive Bayes classifier）采用了「属性条件独立性假设」，对于已知类别，假设所有属性相互独立，且独立对分类结果产生影响，此时</p>
+
+\[P(w_i\vert \boldsymbol{x}) = \frac{P(\boldsymbol{x}\vert w_i)P(w_i)}{P(\boldsymbol{x})} = \frac{P(w_i)}{P(x_1)P(x_2)\cdots P(x_d)}\prod_{i=0}^d P(x_i\vert w_i)\]
+
+<p>其中 $d$ 为特征属性的个数。对于所有类别来说，分母相同，因此朴素贝叶斯分类器的决策规则（最小错误率意义下）为</p>
+
+\[\arg\max_{w_i} P(w_i)\prod_{i=0}^d P(x_i\vert w_i)\]
+
+<p>因此，朴素贝叶斯分类器的训练过程，就是根据训练集的样本来估计类先验概率 $P(w_i)$ 和似然 $P(x_i\vert w_i)$。</p>
+
+<h2 id="7-参考文献"><span class="me-2">7. 参考文献</span><a href="#7-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>[1] 漆比特. <a href="https://bln.csdn.net/sinat_35907936/article/details/108894542">CSDN 机器学习十大经典算法：深入浅出聊贝叶斯决策（贝叶斯公式，最小风险贝叶斯，最小错误贝叶斯）</a></p>
 
@@ -1999,14 +2241,21 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-conv2d/">深度学习基础（PyTorch的CNN组成）</a>
+          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-basic-conv2d/">深度学习基础（PyTorch的CNN组成）</a>
         </li>
       
         
@@ -2021,13 +2270,6 @@ p(\mathcal{R}_1\vert w_j) + p(\mathcal{R}_2\vert w_j) &amp;= 1\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
     </ul>
