@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-09T20:57:32+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-20T10:03:01+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1979,13 +1979,13 @@
 
 <em
   class=""
-  data-ts="1744203452"
+  data-ts="1750384981"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/09
+  2025/06/20
 </em>
 
     </span>
@@ -2029,7 +2029,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="19731 字"
+  title="19735 字"
 >
   <em>109 分钟</em>阅读</span>
 
@@ -2982,18 +2982,23 @@ b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{
 
 <p>当 $c=1,d=2$ 时，就可以将原本的样本升至前述六维。如果换一组参数，可以将原样本升至不同的维度。因此，多项式核函数确定了一组参数后，也就确定了转换后的样本特征维度。</p>
 
-<p>多项式核函数中的常数 $c$ 十分重要，其决定了内积结果的表达始终包含了从低次项到高次项的数据组合，体现出维度的多样性。当 $c=0$ 时，点积展开式将只包含高次项。进一步，我们可以通过将多个不同次的多项式核函数相加组合，使结果同时具有高低次项，以此丰富维度的多样性</p>
+<p>多项式核函数中的常数 $c$ 十分重要，其决定了内积结果的表达始终包含了从低阶项到高阶项的数据组合，体现出维度的多样性。当 $c=0$ 时，点积展开式将只包含高阶项。</p>
+
+\[\begin{aligned}
+&amp;\textcolor{red}{c=0,d=2:}\\
+&amp;\mathcal{K}(\boldsymbol{x}_1,\boldsymbol{x}_2) =a_1^2a_2^2+b_1^2b_2^2+2a_1a_2b_1b_2\\
+\end{aligned}\]
+
+<p>进一步，我们可以通过将多个不同阶的多项式核函数相加组合（如 $d=1,d=2$），使结果同时具有高低阶项，以此丰富维度的多样性</p>
 
 \[\begin{aligned}
 &amp;\textcolor{red}{c=1,d=2:}\\
 &amp;\mathcal{K}(\boldsymbol{x}_1,\boldsymbol{x}_2) =\textcolor{green}{1+2a_1a_2+2b_1b_2}+a_1^2a_2^2+b_1^2b_2^2+2a_1a_2b_1b_2\\
-&amp;\textcolor{red}{c=0,d=2:}\\
-&amp;\mathcal{K}(\boldsymbol{x}_1,\boldsymbol{x}_2) =a_1^2a_2^2+b_1^2b_2^2+2a_1a_2b_1b_2\\
-&amp;\textcolor{red}{(c=0,d=2)+(c=0,d=2):}\\
+&amp;\textcolor{red}{2\times(c=0,d=1)+(c=0,d=2):}\\
 &amp;\mathcal{K}(\boldsymbol{x}_1,\boldsymbol{x}_2) =\textcolor{green}{2a_1a_2+2b_1b_2}+a_1^2a_2^2+b_1^2b_2^2+2a_1a_2b_1b_2\\
 \end{aligned}\]
 
-<p>多项式核函数通过构建特征的高次组合，适用于存在较明显非线性但复杂度适中的数据。多项式阶数的选择直接影响模型的复杂度和拟合能力，过高可能导致过拟合，过低可能无法捕捉数据的非线性特性。</p>
+<p>多项式核函数通过构建特征的高阶组合，适用于存在较明显非线性但复杂度适中的数据。多项式阶数的选择直接影响模型的复杂度和拟合能力，过高可能导致过拟合，过低可能无法捕捉数据的非线性特性。</p>
 
 <p>虽然引入核函数可以在某种程度上简化高维特征的设计问题（通过调节参数 $c$ 和 $d$ 即可直接得到不同的高维特征），并且可以降低计算量。但是多项式核函数仍然存在以下局限性：</p>
 
@@ -3045,7 +3050,7 @@ RBF(\boldsymbol{x}_i, \boldsymbol{x}_j) &amp;= \exp\left(-\frac{\Vert \boldsymbo
 \[\exp(x) = \sum_{n=0}^{\infty}\frac{1}{n!}x^n\]
 </blockquote>
 
-<p>因此，<u>RBF 核函数可以看作无数个不带常数的多项式核函数从低次到高次的加权和</u>，<strong>可以表达高低次项的无限多样性</strong>。这样，我们就实现了在不实质踏入无限维度的情况下，得到无限维度下向量相似度的结果。</p>
+<p>因此，<u>RBF 核函数可以看作无数个不带常数的多项式核函数从低阶到高阶的加权和</u>，<strong>可以表达高低阶项的无限多样性</strong>。这样，我们就实现了在不实质踏入无限维度的情况下，得到无限维度下向量相似度的结果。</p>
 
 <p>RBF 核函数是最常用的非线性核函数之一，尤其适用于高维、复杂非线性数据。其参数 $\gamma = \frac{1}{2\sigma^2}$ 决定了核函数的宽度，对模型的复杂度和分类效果有显著影响。RBF核因其局部性、平滑性和无限维映射等特性，常能在保持较低模型复杂度的同时获得良好的分类性能。</p>
 
@@ -3880,7 +3885,7 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
         
@@ -3894,21 +3899,21 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
     </ul>
