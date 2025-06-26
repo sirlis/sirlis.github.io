@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-06-20T10:03:06+08:00</updated>
+  <updated>2025-06-26T18:16:55+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -197,7 +197,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" rel="alternate" type="text/html" title="模式识别（特征选择与特征提取）" />
     <published>2025-04-15T17:15:49+08:00</published>
   
-    <updated>2025-05-12T19:53:51+08:00</updated>
+    <updated>2025-06-26T18:16:36+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />

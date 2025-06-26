@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-20T10:03:01+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-26T18:16:36+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1979,13 +1979,13 @@
 
 <em
   class=""
-  data-ts="1750384981"
+  data-ts="1750932996"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/20
+  2025/06/26
 </em>
 
     </span>
@@ -2029,7 +2029,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="19735 字"
+  title="19769 字"
 >
   <em>109 分钟</em>阅读</span>
 
@@ -3416,7 +3416,7 @@ $，则分裂后的均方误差为：</p>
       <li>【树结构】：二叉树（严格二叉树，每个节点只有左右两个分支）；</li>
       <li>【分裂规则】：
         <ul>
-          <li>对分类问题：使用 基尼指数（Gini Index） 选择最优特征和分割点；</li>
+          <li>对分类问题：使用 <strong>基尼指数</strong>（Gini Index） 选择最优特征和分割点；</li>
           <li>对回归问题：使用 均方误差（MSE）；</li>
         </ul>
       </li>
@@ -3431,14 +3431,14 @@ $，则分裂后的均方误差为：</p>
   <li><strong>C4.5 算法</strong>：
     <ul>
       <li>【树结构】：多叉树（一个节点可以有多个子节点，取决于特征取值数量）；</li>
-      <li>【分裂规则】：使用信息增益比（Gain Ratio）；</li>
+      <li>【分裂规则】：使用 <strong>信息增益比</strong>（Gain Ratio）；</li>
       <li>【分裂方式】：直接按特征的所有可能取值划分（如“颜色$\in${红,黄,绿}”生成3个子节点）；</li>
     </ul>
   </li>
   <li><strong>ID3 算法</strong>：
     <ul>
       <li>【树结构】：多叉树（类似C4.5，但无连续特征处理能力）；</li>
-      <li>【分裂规则】：使用信息增益（Information Gain）；</li>
+      <li>【分裂规则】：使用 <strong>信息增益</strong>（Information Gain）；</li>
       <li>【局限性】：
         <ul>
           <li>只能处理离散特征，不能直接处理连续特征或缺失值；</li>
@@ -3539,7 +3539,7 @@ $，则分裂后的均方误差为：</p>
 
 <h3 id="51-bagging"><span class="me-2">5.1. Bagging</span><a href="#51-bagging" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>Bagging 方法又叫做自举汇聚法（Bootstrap Aggregating），是一种并行的算法。其基本思想是︰在原始数据集上通过有放回的抽样的方式，重新选择出 $T$ 个新数据集来分别训练 $T$ 个分类器的集成技术。也就是说这些模型的训练数据中允许存在重复数据。</p>
+<p>Bagging 方法又叫做自举汇聚法（Bootstrap Aggregating），是一种并行的算法。其基本思想是︰在原始数据集上通过 <b><font color="red">有放回</font></b> 的抽样的方式，重新选择出 $T$ 个新数据集来分别训练 $T$ 个分类器的集成技术。也就是说这些模型的训练数据中允许存在重复数据。</p>
 
 <ul>
   <li>
@@ -3565,9 +3565,11 @@ $，则分裂后的均方误差为：</p>
   <li>这 $m$ 个决策树形成随机森林，通过投票表决结果决定数据属于那一类。</li>
 </ul>
 
+<p>相比 Bagging 集成策略，随机森林的特点如下：</p>
+
 <p><u>随机森林中「随机」二字的内涵之一就是源于 Bagging 思想中对样本的随机抽样和放回操作</u>。抽样数据在一定程度上体现了全体样本数据的特性，所以可以用样本数据训练模型来预测其他的全体数据。但是，抽样数据与全体样本数据之间仍然是存在差异性的，弱分类器（决策树）在拟合各自抽样得到的数据集时，有可能出现不拟合生产环境中数据的情况，这就是过拟合。</p>
 
-<p>在决策树中，进行特征属性划分选择的时候，如果选择最优，表示这个划分在当前数据集上一定是最优的，但是不一定在全体数据中最优；在随机森林中，如果每个决策树都是选择最优的进行划分，就会导致所有弱分类器模型（决策树）很大概率上会使用相同的特征属性进行数据的划分，容易导致过拟合，所以在随机森林中一般使用随机的方式选择特征属性划分，<u>这也是随机森林中「随机」二字的内涵之一</u>。</p>
+<p>在决策树中，进行特征属性划分选择的时候，如果选择最优，表示这个划分在当前数据集上一定是最优的，但是不一定在全体数据中最优；在随机森林中，如果每个决策树都是选择最优的进行划分，就会导致所有弱分类器模型（决策树）很大概率上会使用相同的特征属性进行数据的划分，容易导致过拟合，所以在随机森林中一般使用 <b><strong><font color="red">随机</font></strong></b> 的方式选择特征属性划分，进一步提高泛化性减少过拟合。<u>这也是随机森林中「随机」二字的内涵之一</u>。</p>
 
 <p>影响随机森林的分类效果因素包括：</p>
 
@@ -3619,8 +3621,8 @@ $，则分裂后的均方误差为：</p>
 <p>AdaBoost（Adaptive Boosting）算法是 Boosting 方法的一种，采用了以下策略：</p>
 
 <ul>
-  <li>使用加权后选取的训练数据代替随机选取的训练样本，这样将训练的焦点集中在比较难分的训练数据样本上；</li>
-  <li>将弱分类器联合起来，使用「加权的投票机制」代替平均投票机制。让分类效果好的弱分类器具有较大的权重，而分类效果差的分类器具有较小的权重。</li>
+  <li>使用「<strong>加权后选取的训练数据</strong>」代替随机选取的训练样本，这样将训练的焦点集中在比较难分的训练数据样本上；</li>
+  <li>将弱分类器联合起来，使用「<strong>加权的投票机制</strong>」代替平均投票机制。让分类效果好的弱分类器具有较大的权重，而分类效果差的分类器具有较小的权重。</li>
 </ul>
 
 <p>对于一个二分类任务而言，首先对样本集中所有 $n$ 样本点的权重初始化为相同的大小，对于第 $t=1$ 次迭代时有</p>
@@ -3892,6 +3894,13 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
         </li>
       
@@ -3907,13 +3916,6 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
     </ul>
