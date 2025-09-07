@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="航天中的四元数以及姿态运动学" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了航天器姿态描述、姿态变换和姿态运动学中涉及的四元数表示法。" />
@@ -1424,6 +1424,27 @@
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示、推理与知识图谱）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
@@ -1432,27 +1453,6 @@
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Bayes/">模式识别（贝叶斯决策）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Dynamic-Programming/">强化学习（动态规划）</a>
         </li>
       
     </ul>
@@ -2556,6 +2556,30 @@
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
   
 
@@ -3357,7 +3381,7 @@
         
         
         <div class="col">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/" class="card post-preview h-100">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3370,14 +3394,14 @@
 
 <em
   class="small"
-  data-ts="1709447119"
+  data-ts="1714615399"
   data-df="YYYY/MM/DD"
   
 >
-  2024/03/03
+  2024/05/02
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>模式识别（线性分类器）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（LDA和PCA）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -3386,20 +3410,19 @@
 
 
 
-                  本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。
+                  本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。
 
 
 
 
 
 
-  1. 引言
-  2. 线性分类器基础
+  1. 特征降维
+  2. 线性判别分析（LDA）
     
-      2.1. 线性判别函数
-      2.2. 广义线性判别函数
-      2.3. 二分类与多分类
-      2.4. 线性分类器设计的基...
+      2.1. Fisher 投影准则
+      2.2. 瑞利商与广义瑞利商
+     ...
                 </p>
               </div>
             </div>
@@ -3409,7 +3432,7 @@
         
         
         <div class="col">
-          <a href="/posts/Pattern-Recognition-Bayes/" class="card post-preview h-100">
+          <a href="/posts/deep-learning-basic-math/" class="card post-preview h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3422,14 +3445,14 @@
 
 <em
   class="small"
-  data-ts="1710249739"
+  data-ts="1741170619"
   data-df="YYYY/MM/DD"
   
 >
-  2024/03/12
+  2025/03/05
 </em>
 
-              <h4 class="pt-0 my-2" data-toc-skip>模式识别（贝叶斯决策）</h4>
+              <h4 class="pt-0 my-2" data-toc-skip>深度学习（基础数学知识）</h4>
               <div class="text-muted small">
                 <p>
                   
@@ -3438,24 +3461,25 @@
 
 
 
-                  本文介绍了模式识别的贝叶斯决策，包括贝叶斯公式、最小错误贝叶斯决策、最小风险贝叶斯决策。
+                  本文介绍了机器（深度）学习的基础数学知识，作为后续深入学习的基础。
 
 
 
 
 
 
-  1. 决策理论与方法
+  1. 矩阵
     
-      1.1. 生成式模型与判别式模型
-      1.2. 基于先验概率的决策
-      1.3. 基于贝叶斯公式（后验概率）的决策
-    
-  
-  2. 最小错误贝叶斯决策
-    
-      2.1. 直观举例
-      2.2. 类...
+      1.1. 迹（trace）
+      1.2. 范数
+        
+          1.2.1. 向量范数
+          1.2.2. 矩阵范数
+        
+      
+      1.3. 正交矩阵
+      1.4. 矩阵的值域、零空间和秩
+  ...
                 </p>
               </div>
             </div>
