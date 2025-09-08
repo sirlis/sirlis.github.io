@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-09-07T22:59:50+08:00</updated>
+  <updated>2025-09-08T22:53:22+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" rel="alternate" type="text/html" title="人工智能（知识表示、推理与知识图谱）" />
     <published>2025-08-24T11:03:49+08:00</published>
   
-    <updated>2025-08-26T23:24:03+08:00</updated>
+    <updated>2025-09-07T23:13:22+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-knowledge-etc/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" />
@@ -82,7 +82,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-introduction/" rel="alternate" type="text/html" title="人工智能（绪论）" />
     <published>2025-07-31T18:57:49+08:00</published>
   
-    <updated>2025-09-01T22:23:09+08:00</updated>
+    <updated>2025-09-07T23:13:22+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-introduction/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-introduction/" />
