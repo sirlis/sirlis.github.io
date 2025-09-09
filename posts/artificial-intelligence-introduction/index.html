@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="人工智能（绪论）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="绪论。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（绪论）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-07T23:13:22+08:00","datePublished":"2025-07-31T18:57:49+08:00","description":"绪论。","headline":"人工智能（绪论）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-introduction/"},"url":"http://localhost:4000/posts/artificial-intelligence-introduction/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-08T23:01:57+08:00","datePublished":"2025-07-31T18:57:49+08:00","description":"绪论。","headline":"人工智能（绪论）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-introduction/"},"url":"http://localhost:4000/posts/artificial-intelligence-introduction/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1239,54 +1239,6 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
 
     
 
@@ -1591,54 +1543,6 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
 
     
 
@@ -1646,6 +1550,113 @@
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -1700,13 +1711,13 @@
 
 <em
   class=""
-  data-ts="1757258002"
+  data-ts="1757343717"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/09/07
+  2025/09/08
 </em>
 
     </span>
@@ -1750,9 +1761,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="15799 字"
+  title="15849 字"
 >
-  <em>87 分钟</em>阅读</span>
+  <em>88 分钟</em>阅读</span>
 
     </div>
 
@@ -1829,32 +1840,35 @@
   <li><a href="#3-人工智能的组成和结构">3. 人工智能的组成和结构</a></li>
   <li><a href="#4-人工智能的标志性成果">4. 人工智能的标志性成果</a>
     <ul>
-      <li><a href="#41-alphago-等">4.1. AlphaGo 等</a></li>
-      <li><a href="#42-核心组件">4.2. 核心组件</a>
+      <li><a href="#41-alphago-等">4.1. AlphaGo 等</a>
         <ul>
-          <li><a href="#421-策略网络">4.2.1. 策略网络</a></li>
-          <li><a href="#422-价值网络">4.2.2. 价值网络</a></li>
-          <li><a href="#423-蒙特卡洛树搜索">4.2.3. 蒙特卡洛树搜索</a></li>
+          <li><a href="#411-核心组件">4.1.1. 核心组件</a>
+            <ul>
+              <li><a href="#4111-策略网络">4.1.1.1. 策略网络</a></li>
+              <li><a href="#4112-价值网络">4.1.1.2. 价值网络</a></li>
+              <li><a href="#4113-蒙特卡洛树搜索">4.1.1.3. 蒙特卡洛树搜索</a></li>
+            </ul>
+          </li>
+          <li><a href="#412-训练流程">4.1.2. 训练流程</a>
+            <ul>
+              <li><a href="#4121-监督学习阶段">4.1.2.1. 监督学习阶段</a></li>
+              <li><a href="#4122-强化学习阶段">4.1.2.2. 强化学习阶段</a></li>
+              <li><a href="#4123-自我对弈与价值网络训练">4.1.2.3. 自我对弈与价值网络训练</a></li>
+            </ul>
+          </li>
+          <li><a href="#413-演进与后续模型">4.1.3. 演进与后续模型</a>
+            <ul>
+              <li><a href="#4131-alphago-master">4.1.3.1. AlphAGo Master</a></li>
+              <li><a href="#4132-alphgo-zero">4.1.3.2. AlphGo Zero</a></li>
+            </ul>
+          </li>
+          <li><a href="#414-讨论与挑战">4.1.4. 讨论与挑战</a></li>
         </ul>
       </li>
-      <li><a href="#43-训练流程">4.3. 训练流程</a>
+      <li><a href="#42-chatgpt-等">4.2. ChatGPT 等</a>
         <ul>
-          <li><a href="#431-监督学习阶段">4.3.1. 监督学习阶段</a></li>
-          <li><a href="#432-强化学习阶段">4.3.2. 强化学习阶段</a></li>
-          <li><a href="#433-自我对弈与价值网络训练">4.3.3. 自我对弈与价值网络训练</a></li>
-        </ul>
-      </li>
-      <li><a href="#44-演进与后续模型">4.4. 演进与后续模型</a>
-        <ul>
-          <li><a href="#441-alphago-master">4.4.1. AlphAGo Master</a></li>
-          <li><a href="#442-alphgo-zero">4.4.2. AlphGo Zero</a></li>
-        </ul>
-      </li>
-      <li><a href="#45-讨论与挑战">4.5. 讨论与挑战</a></li>
-      <li><a href="#46-chatgpt-等">4.6. ChatGPT 等</a>
-        <ul>
-          <li><a href="#47-自注意力机制与-transformer">4.7. 自注意力机制与 Transformer</a></li>
-          <li><a href="#48-gpt">4.8. GPT</a></li>
+          <li><a href="#421-自注意力机制与-transformer">4.2.1. 自注意力机制与 Transformer</a></li>
+          <li><a href="#422-gpt">4.2.2. GPT</a></li>
         </ul>
       </li>
     </ul>
@@ -1997,8 +2011,6 @@
   </li>
 </ul>
 
-<hr />
-
 <h4 id="211-图灵测试"><span class="me-2">2.1.1. 图灵测试</span><a href="#211-图灵测试" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p><strong>图灵测试</strong>（Turing Test），原名 “模仿游戏”（The Imitation Game），是由英国计算机科学家、密码学家、逻辑学家阿兰·图灵（Alan Turing）在1950年的哲学论文《计算机器与智能》（Computing Machinery and Intelligence）中提出的一个关于机器能否思考的思想实验。其核心目的并非直接回答「机器能否思考」这个复杂的哲学问题，而是提供一个基于行为的、可操作的替代方案：如果一台机器的行为表现得和一个思考者完全无法区分，那么我们就应当承认它在 “思考”。</p>
@@ -2070,8 +2082,6 @@
   </li>
 </ul>
 
-<hr />
-
 <p>达特茅斯会议于 1956 年 6 月 18 日至 8 月 17 日在美国汉诺斯小镇的达特茅斯学院举行，麦卡锡、明斯基、香农等学者<strong>首次正式提出 “人工智能”（Artificial Intelligence） 术语</strong>，标志着该学科的诞生。会议聚集了来自数学、计算机科学等领域的 30 余位研究者，纽厄尔与西蒙展示了首个可工作的 AI 程序 “逻辑理论家”，塞缪尔开发的跳棋程序则开创了机器学习先例。符号主义、连接主义与行为主义三大学派的技术路线在此次会议中初现雏形。</p>
 
 <ul>
@@ -2123,8 +2133,6 @@
   </tbody>
 </table></div>
 
-<hr />
-
 <h4 id="222-连接主义connectionism"><span class="me-2">2.2.2. 连接主义（Connectionism）</span><a href="#222-连接主义connectionism" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <div class="table-wrapper"><table>
@@ -2166,7 +2174,9 @@
   </tbody>
 </table></div>
 
-<hr />
+<blockquote>
+  <p>典型应用：DeepSeek 等</p>
+</blockquote>
 
 <h4 id="223-行为主义behaviorism--emergentism"><span class="me-2">2.2.3. 行为主义（Behaviorism / Emergentism）</span><a href="#223-行为主义behaviorism--emergentism" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2192,7 +2202,7 @@
     </tr>
     <tr>
       <td><strong>经典系统</strong></td>
-      <td>• 1990 Brooks 六足机器人 Genghis：无地图导航，基于“包容架构”<br />• 1997 Floreano 进化神经网络无人机：在线进化飞行控制<br />• 2016 DeepMind AlphaGo：蒙特卡洛树搜索 + 深度强化学习<br />• 2023 Boston Dynamics Atlas：跑酷、空翻等复杂运动技能</td>
+      <td>• 1990 Brooks 六足机器人 Genghis：无地图导航，基于“包容架构”<br />• 1997 Floreano 进化神经网络无人机：在线进化飞行控制<br />• 2016 DeepMind AlphaGo：蒙特卡洛树搜索 + 深度强化学习<br />• 2023 Boston Dynamics Atlas：跑酷、空翻等复杂运动技能<br />• 2025 宇树科技：机器人集群协同 + 机器人运动会</td>
     </tr>
     <tr>
       <td><strong>优势</strong></td>
@@ -2209,7 +2219,9 @@
   </tbody>
 </table></div>
 
-<hr />
+<blockquote>
+  <p>行为主义的代表方法 强化学习 的典型应用（走楼梯）：https://www.bilibili.com/video/BV1Cy421e71b</p>
+</blockquote>
 
 <h4 id="224-三主义对比一览"><span class="me-2">2.2.4. 三主义对比一览</span><a href="#224-三主义对比一览" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2907,41 +2919,41 @@
 
 <p>AlphaGo 的系统功能由三个核心组件协同实现：策略网络（Policy Network）、价值网络（Value Network）和蒙特卡洛树搜索（Monte Carlo Tree Search, MCTS）。这三个组件共同构成了一个动态决策系统，能够在有限时间内做出近乎最优的决策。</p>
 
-<h3 id="42-核心组件"><span class="me-2">4.2. 核心组件</span><a href="#42-核心组件" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h4 id="411-核心组件"><span class="me-2">4.1.1. 核心组件</span><a href="#411-核心组件" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h4 id="421-策略网络"><span class="me-2">4.2.1. 策略网络</span><a href="#421-策略网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4111-策略网络"><span class="me-2">4.1.1.1. 策略网络</span><a href="#4111-策略网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>策略网络是一个深度卷积神经网络（CNN），其作用是模拟人类棋手的”直觉”，根据当前棋盘状态预测下一步的最佳落子位置。该网络接收 $19\times 19$ 的棋盘状态作为输入（包括黑子、白子位置及历史信息），输出棋盘上每个合法落子点的概率分布。</p>
 
 <p>AlphaGo 的策略网络实际上包含两个版本：监督学习策略网络（SL Policy Network）和强化学习策略网络（RL Policy Network）。监督学习版本通过分析约3000万个人类职业棋手棋谱数据进行训练，预测准确率达到57%。强化学习版本则通过自我对弈进一步优化，目标是最大化获胜概率而非模仿人类落子。</p>
 
-<h4 id="422-价值网络"><span class="me-2">4.2.2. 价值网络</span><a href="#422-价值网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4112-价值网络"><span class="me-2">4.1.1.2. 价值网络</span><a href="#4112-价值网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>价值网络是另一个深度卷积神经网络，用于评估给定棋盘状态的胜率概率，输出一个介于 $-1$（绝对失败）到 $1$（绝对胜利）之间的标量值。与策略网络不同，价值网络的任务不是选择具体着法，而是预测当前玩家最终获胜的总体概率。</p>
 
 <p>价值网络的训练数据来源于策略网络自我对弈产生的3000万局棋局。每个棋局的最终结果（胜/负）作为标签，训练价值网络预测棋局胜率。这种方法的挑战在于围棋局面极为复杂，需要避免过拟合，因为相似的局面可能导致完全不同的结果。</p>
 
-<h4 id="423-蒙特卡洛树搜索"><span class="me-2">4.2.3. 蒙特卡洛树搜索</span><a href="#423-蒙特卡洛树搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4113-蒙特卡洛树搜索"><span class="me-2">4.1.1.3. 蒙特卡洛树搜索</span><a href="#4113-蒙特卡洛树搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>蒙特卡洛树搜索是 AlphaGo 的决策引擎，负责整合策略网络和价值网络的输出，进行前瞻性搜索以选择最优着法。传统 MCTS 在围棋中的应用受限于巨大的搜索空间，而 AlphaGo 通过神经网络引导的 MCTS 大幅提高了搜索效率。</p>
 
-<h3 id="43-训练流程"><span class="me-2">4.3. 训练流程</span><a href="#43-训练流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h4 id="412-训练流程"><span class="me-2">4.1.2. 训练流程</span><a href="#412-训练流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h4 id="431-监督学习阶段"><span class="me-2">4.3.1. 监督学习阶段</span><a href="#431-监督学习阶段" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4121-监督学习阶段"><span class="me-2">4.1.2.1. 监督学习阶段</span><a href="#4121-监督学习阶段" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>在监督学习阶段，AlphaGo 使用人类专家棋谱（KGS 棋服务器上的3000 万步着法）训练初始策略网络。该阶段的目标是让系统学习人类棋手的基本模式与直觉，快速建立基础棋力。通过监督学习训练的策略网络已经达到了业余棋手的水平，与之前最强的围棋AI相当。</p>
 
-<h4 id="432-强化学习阶段"><span class="me-2">4.3.2. 强化学习阶段</span><a href="#432-强化学习阶段" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4122-强化学习阶段"><span class="me-2">4.1.2.2. 强化学习阶段</span><a href="#4122-强化学习阶段" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>在强化学习阶段，AlphaGo 通过自我对弈进一步优化策略网络。系统使用策略梯度方法（如 REINFORCE 算法）调整网络参数，最大化预期胜率。在这个阶段，AlphaGo 与自身的不同版本对弈，生成大量训练数据，并不断改进策略。</p>
 
-<h4 id="433-自我对弈与价值网络训练"><span class="me-2">4.3.3. 自我对弈与价值网络训练</span><a href="#433-自我对弈与价值网络训练" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4123-自我对弈与价值网络训练"><span class="me-2">4.1.2.3. 自我对弈与价值网络训练</span><a href="#4123-自我对弈与价值网络训练" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>在第三阶段，AlphaGo 通过自我对弈生成大量棋局数据（约 3000 万局），用于训练价值网络。这些数据涵盖了各种可能的局面类型，使价值网络能够准确预测不同局面的胜率。训练过程中，系统会精心挑选随机样本，以减少过拟合风险。</p>
 
-<h3 id="44-演进与后续模型"><span class="me-2">4.4. 演进与后续模型</span><a href="#44-演进与后续模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h4 id="413-演进与后续模型"><span class="me-2">4.1.3. 演进与后续模型</span><a href="#413-演进与后续模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<h4 id="441-alphago-master"><span class="me-2">4.4.1. AlphAGo Master</span><a href="#441-alphago-master" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4131-alphago-master"><span class="me-2">4.1.3.1. AlphAGo Master</span><a href="#4131-alphago-master" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>AlphaGo Master 是 AlphaGo 的升级版本，在 2017 年以 3:0 击败世界排名第一的柯洁九段，展示了更强大的棋力。该版本主要在前代基础上优化了网络结构和MCTS效率。</p>
 
@@ -2961,13 +2973,13 @@
 
 <p>AlphaGo Master 的开发过程中，团队还发现了一个有趣现象：监督学习的策略网络表现优于强化学习的策略网络，这可能是因为人类棋手的着法更加多样化，而强化学习策略过于专注于最优着法。这一发现对后续研究提供了重要启示。</p>
 
-<h4 id="442-alphgo-zero"><span class="me-2">4.4.2. AlphGo Zero</span><a href="#442-alphgo-zero" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="4132-alphgo-zero"><span class="me-2">4.1.3.2. AlphGo Zero</span><a href="#4132-alphgo-zero" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>AlphaGo Zero 是 AlphaGo 系列的重大飞跃，于2017年发布。与前辈不同，AlphaGo Zero 完全无需人类棋谱，仅通过自我对弈从随机参数开始学习，在 3 天内达到了超越 AlphaGo 的棋力。AlphaGo Zero 的棋风也与人类接受训练的版本有所不同，发现了许多新颖的着法和策略，这些着法后来被人类棋手研究和采用。这表明人工智能不仅可以模仿人类，还可以创造新知识。</p>
 
 <p>AlphaGo Zero 的核心创新在于将策略网络和价值网络整合为一个双头神经网络（dual-headed network），共享大部分的卷积层。这种设计不仅减少了计算资源需求，还提高了训练效率。该统一网络接收当前棋盘状态作为输入，同时输出策略（概率分布）和价值（标量评估）。这种设计反映了围棋的一个基本特性：位置评估与最佳着法选择密切相关。</p>
 
-<h3 id="45-讨论与挑战"><span class="me-2">4.5. 讨论与挑战</span><a href="#45-讨论与挑战" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h4 id="414-讨论与挑战"><span class="me-2">4.1.4. 讨论与挑战</span><a href="#414-讨论与挑战" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <ul>
   <li>
@@ -2987,7 +2999,7 @@
   </li>
 </ul>
 
-<h3 id="46-chatgpt-等"><span class="me-2">4.6. ChatGPT 等</span><a href="#46-chatgpt-等" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="42-chatgpt-等"><span class="me-2">4.2. ChatGPT 等</span><a href="#42-chatgpt-等" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>ChatGPT 通过融合大规模预训练语言模型与人类反馈强化学习（RLHF）技术，实现了自然、安全且有用的对话能力。</p>
 
@@ -3001,13 +3013,13 @@
   <p>相关科普：https://www.bilibili.com/video/BV1yV4y1k7Tc/</p>
 </blockquote>
 
-<h4 id="47-自注意力机制与-transformer"><span class="me-2">4.7. 自注意力机制与 Transformer</span><a href="#47-自注意力机制与-transformer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="421-自注意力机制与-transformer"><span class="me-2">4.2.1. 自注意力机制与 Transformer</span><a href="#421-自注意力机制与-transformer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>自注意力机制（self-attention）是一种重要的模型组件，它允许模型在处理序列数据时，根据当前位置的输入信息，计算与当前位置相关的所有位置的权重，并生成一个表示当前位置的向量。</p>
 
 <p>Transformer 是一种基于注意力机制的模型，它通过引入自注意力机制来处理序列数据。Transformer 模型在自然语言处理、计算机视觉、语音识别等领域都取得了显著进展。</p>
 
-<h4 id="48-gpt"><span class="me-2">4.8. GPT</span><a href="#48-gpt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="422-gpt"><span class="me-2">4.2.2. GPT</span><a href="#422-gpt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>GPT（Generative Pre-trained Transformer）是一个基于 Transformer 的模型，它被用于生成文本。</p>
 

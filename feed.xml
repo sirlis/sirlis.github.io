@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-09-08T22:53:22+08:00</updated>
+  <updated>2025-09-09T09:21:46+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -82,7 +82,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-introduction/" rel="alternate" type="text/html" title="人工智能（绪论）" />
     <published>2025-07-31T18:57:49+08:00</published>
   
-    <updated>2025-09-07T23:13:22+08:00</updated>
+    <updated>2025-09-08T23:01:57+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-introduction/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-introduction/" />
