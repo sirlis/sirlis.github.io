@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-09-09T09:21:46+08:00</updated>
+  <updated>2025-09-13T17:26:18+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -20,8 +20,8 @@
 
   
   <entry>
-    <title>人工智能（知识表示、推理与知识图谱）</title>
-    <link href="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" rel="alternate" type="text/html" title="人工智能（知识表示、推理与知识图谱）" />
+    <title>人工智能（知识表示与推理）</title>
+    <link href="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" rel="alternate" type="text/html" title="人工智能（知识表示与推理）" />
     <published>2025-08-24T11:03:49+08:00</published>
   
     <updated>2025-09-07T23:13:22+08:00</updated>
@@ -48,7 +48,7 @@
 
 
 
-      卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。
+      在人工智能与知识管理领域，对知识的系统性认知与高效表示是实现智能推理和决策的基础。本文将从知识的本质出发，首先剖析知识的基本概念，明确其定义与分类，为后续探讨知识的表示与推理奠定理论基石；继而深入解析基于符号逻辑的多种知识表示方法，包括一阶谓词逻辑、产生式规则、框架式表示等经典范式，揭示逻辑推理的内在机制；同时，结合语义网技术，阐述以 RDF 为核心的知识表示体系及其在语义建模中的应用。通过理论与方法的结合，帮助读者构建对知识表示与推理的完整认知框架，为进一步探索智能系统的知识处理技术提供方向指引。
 
 
 
@@ -59,18 +59,12 @@
       1.2. 知识的分类
     
   
-  2. 知识表示
+  2. 知识表示与推理
     
       2.1. 基于符号逻辑的表示
         
           2.1.1. 一阶谓词逻辑表示法
-            
-              2.1.1.1. 命题逻辑
-              2.1.1.2. 个体与谓词
-              2.1.1.3. 一阶谓词
-              2.1.1.4. 连接词与量词
-              2.1.1.5. 论域与特征谓词
-              2.1.1.6. ...
+     ...
     </summary>
   
 
@@ -82,7 +76,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-introduction/" rel="alternate" type="text/html" title="人工智能（绪论）" />
     <published>2025-07-31T18:57:49+08:00</published>
   
-    <updated>2025-09-08T23:01:57+08:00</updated>
+    <updated>2025-09-09T09:24:12+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-introduction/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-introduction/" />
