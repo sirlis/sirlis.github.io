@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-09-13T17:26:18+08:00</updated>
+  <updated>2025-09-22T00:26:09+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -20,11 +20,56 @@
 
   
   <entry>
+    <title>人工智能（搜索策略）</title>
+    <link href="http://localhost:4000/posts/artificial-intelligence-search-strategy/" rel="alternate" type="text/html" title="人工智能（搜索策略）" />
+    <published>2025-09-17T09:29:49+08:00</published>
+  
+    <updated>2025-09-22T00:26:10+08:00</updated>
+  
+    <id>http://localhost:4000/posts/artificial-intelligence-search-strategy/</id>
+    <content src="http://localhost:4000/posts/artificial-intelligence-search-strategy/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Academic" />
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      搜索算法是人工智能领域的核心基础，为智能系统提供了在复杂问题空间中寻找可行解或最优解的能力。从简单的迷宫寻路到复杂的游戏决策，搜索算法构成了许多人工智能应用的基石。
+
+本文系统性地介绍了人工智能中四大类搜索算法：无信息搜索、有信息搜索、$A^\star$ 搜索和蒙特卡罗树搜索。无信息搜索包括枚举搜索、广度优先搜索和深度优先搜索，它们不利用任何领域知识，通过系统性的空间探索来寻找解。有信息搜索则引入启发式函数来引导搜索方向，显著提高搜索效率，其中贪婪最佳优先搜索和A算法是典型代表。$A^\star$ 算法结合了 Dijkstra 算法的最优性保证和贪婪搜索的高效性，成为路径规划等领域的黄金标准。最后，蒙特卡罗树搜索通过随机模拟和树形搜索的结合，在复杂决策问题中展现出强大能力，特别是在 AlphaGo 等突破性 AI 系统中发挥了关键作用。
+
+
+
+
+  1. 概述
+  2. 无信息搜索
+...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>人工智能（知识表示与推理）</title>
     <link href="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" rel="alternate" type="text/html" title="人工智能（知识表示与推理）" />
     <published>2025-08-24T11:03:49+08:00</published>
   
-    <updated>2025-09-07T23:13:22+08:00</updated>
+    <updated>2025-09-13T17:28:13+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-knowledge-etc/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" />
@@ -246,63 +291,6 @@
             
               1.2.4.1. ReLU 函数
       ...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>模式识别（无监督分类器）</title>
-    <link href="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" rel="alternate" type="text/html" title="模式识别（无监督分类器）" />
-    <published>2025-05-12T15:10:49+08:00</published>
-  
-    <updated>2025-06-12T14:12:28+08:00</updated>
-  
-    <id>http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/</id>
-    <content src="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。
-
-
-
-
-
-
-  1. 聚类
-    
-      1.1. 相似性测度
-        
-          1.1.1. 闵可夫斯基距离
-            
-              1.1.1.1. 曼哈顿距离
-              1.1.1.2. 欧几里得距离
-              1.1.1.3. 切比雪夫距离
-            
-          
-          1.1.2. 马氏距离
-          1.1.3. 相关系数
-            
-        ...
     </summary>
   
 
