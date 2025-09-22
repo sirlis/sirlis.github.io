@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（搜索策略）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-22T00:26:10+08:00","datePublished":"2025-09-17T09:29:49+08:00","description":"搜索算法是人工智能领域的核心基础，为智能系统提供了在复杂问题空间中寻找可行解或最优解的能力。从简单的迷宫寻路到复杂的游戏决策，搜索算法构成了许多人工智能应用的基石。","headline":"人工智能（搜索策略）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"},"url":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-22T20:27:56+08:00","datePublished":"2025-09-17T09:29:49+08:00","description":"搜索算法是人工智能领域的核心基础，为智能系统提供了在复杂问题空间中寻找可行解或最优解的能力。从简单的迷宫寻路到复杂的游戏决策，搜索算法构成了许多人工智能应用的基石。","headline":"人工智能（搜索策略）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"},"url":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -3464,7 +3464,7 @@
 
 <em
   class=""
-  data-ts="1758471970"
+  data-ts="1758544076"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -3514,9 +3514,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10990 字"
+  title="11282 字"
 >
-  <em>61 分钟</em>阅读</span>
+  <em>62 分钟</em>阅读</span>
 
     </div>
 
@@ -4491,15 +4491,13 @@ B -- 1 --&gt; C
     <ul>
       <li>一致性条件实际上就是数学中的三角不等式（可代入走迷宫等场景想象）；</li>
       <li>或者换个角度理解：启发函数的变化量（即坡度）应该小于真实代价（真实边权）；</li>
-      <li>或者换个角度理解：估计变化不能超过实际变化；</li>
       <li>
-        <p>一致性保证了评估函数 $f$ 的值单调不减，保证搜索过程是平稳的：</p>
+        <p>或者换个角度理解：估计变化不能超过实际变化；</p>
+      </li>
+      <li>
+        <p>举例：想象一下实际的地理位置。从北京到上海的直线距离（$h(北京)$），一定小于或等于从北京到南京的实际距离（$c(北京, 南京)$）加上从南京到上海的直线距离（$h(南京)$）。</p>
 
-\[\begin{aligned}
-f(n^\prime) &amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
-    &amp;= [g(n) + h(n)] + [c(n, n^\prime) + h(n^\prime) - h(n)]\\
-    &amp;= f(n) + [c(n, n^\prime) - (h(n) - h(n^\prime))]
-\end{aligned}\]
+\[h(北京) \leq c(北京, 南京) + h(南京)\]
       </li>
       <li>思考下面三个例子，判断是否满足一致性条件：
         <ul>
@@ -4545,7 +4543,39 @@ f(n^\prime) &amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
           </li>
         </ul>
       </li>
-      <li>一致性比可采纳性更强。</li>
+      <li><u>性质 1</u>：如果一个启发式函数是一致的，那么它一定是可采纳的。一致性比可采纳性更强。
+        <ul>
+          <li>
+            <details>
+              <summary>
+<font color="blue">思考：如何证明？</font>
+</summary>
+
+              <font color="blue">假设我们要证明从任意节点 $n$ 到目标 $G$ 的估计 $h(n)$ 不大于实际代价 $h^\star(n)$。根据一致性，我们可以写出一系列不等式</font>
+
+\[\begin{aligned}
+h(n) &amp;\leq c(n, n_1) + h(n_1)\\
+&amp; \leq c(n, n_1) + c(n_1, n_2) + h(n_2)\\
+&amp; \leq\cdots\\
+&amp; \leq c(n, n_1) + c(n_1, n_2) + c(n_2, n_3) + \cdots + h(G)\\
+&amp; =h^\star(n)
+\end{aligned}\]
+
+            </details>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p><u>性质 2</u>：一致性保证了评估函数 $f$ 的值单调不减，保证搜索过程是平稳的：</p>
+
+\[\begin{aligned}
+f(n^\prime) &amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
+    &amp;= [g(n) + h(n)] + [c(n, n^\prime) + h(n^\prime) - h(n)]\\
+    &amp;= f(n) + [c(n, n^\prime) - (h(n) - h(n^\prime))] \leq f(n)
+\end{aligned}\]
+
+        <p>这意味着 $A^\star$ 算法在扩展节点时，是沿着一个 $f(n)$ 值的等值面（或非递减前沿）进行扩展的。它第一次访问到一个节点时，所使用的路径就是到达该节点的最短路径（即 $g(n)$ 已经是最小的）。</p>
+      </li>
     </ul>
   </li>
 </ul>
