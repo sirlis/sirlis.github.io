@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-26T18:16:36+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-29T23:55:21+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1979,13 +1979,13 @@
 
 <em
   class=""
-  data-ts="1750932996"
+  data-ts="1759161321"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/26
+  2025/09/29
 </em>
 
     </span>
@@ -2029,9 +2029,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="20045 字"
+  title="20332 字"
 >
-  <em>111 分钟</em>阅读</span>
+  <em>112 分钟</em>阅读</span>
 
     </div>
 
@@ -2479,9 +2479,9 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) &gt; 0, \forall i=1
 <p>引入函数间隔后，优化问题变为如下形式</p>
 
 \[\begin{aligned}
-\max_{\boldsymbol{w},b}&amp;\; \frac{1}{\Vert \boldsymbol{w} \Vert} \; \min_{i} \; y_i(\boldsymbol{w}^\top \boldsymbol{x_i} + b)\\
-s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \textcolor{red}{\geq \gamma}, \forall i=1,2,\cdots,N\\
-\text{or}\quad s.t.\quad \textcolor{green}{\min_i}&amp;\quad  \textcolor{green}{y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) = \gamma}, \forall i=1,2,\cdots,N
+\max_{\boldsymbol{w},b}&amp;\; \frac{1}{\Vert \boldsymbol{w} \Vert} \; \min_{i} \; y_i(\boldsymbol{w}^\top \boldsymbol{x}_i + b)\\
+s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x}_i+b) \textcolor{red}{\geq \gamma}, \forall i=1,2,\cdots,N\\
+\text{or}\quad s.t.\quad \textcolor{green}{\min_i}&amp;\quad  \textcolor{green}{y_i(\boldsymbol{w}^\top \boldsymbol{x}_i+b) = \gamma}, \forall i=1,2,\cdots,N
 \end{aligned}\]
 
 <p>注意到，绿色的等式约束条件和原始的不等式约束条件是等价的。将绿色的等价等式约束条件代入目标函数，消去 $\min_i$ 项，有</p>
@@ -2499,7 +2499,27 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \forall i=1
 \end{aligned}\]
 
 <blockquote>
+  <p>为什么令 $\gamma = 1$ 不改变优化问题的求解？假设我们找到某个解 $\boldsymbol{w}, b$ 对应函数间隔 $\gamma = \min_i y_i(\boldsymbol{w}^\top \boldsymbol{x}_i+b) &gt; 0$；</p>
+
+  <p>定义一组新解：</p>
+
+\[\boldsymbol{w}^\prime = \boldsymbol{w} / \gamma, \; b^\prime = b / \gamma\]
+
+  <p>那么有：</p>
+
+\[y_i({\boldsymbol{w}^\prime}^\top \boldsymbol{x}_i+b^\prime) = \frac{1}{\gamma} y_i(\boldsymbol{w}^\top \boldsymbol{x}_i+b)\]
+
+  <p>那么新的函数间隔为：</p>
+
+\[\min_i y_i({\boldsymbol{w}^\prime}^\top \boldsymbol{x}_i+b^\prime) = \frac{1}{\gamma} \min_i y_i(\boldsymbol{w}^\top \boldsymbol{x}_i+b) = \frac{\gamma}{\gamma} = 1\]
+
+  <p>并且超平面 ${\boldsymbol{w}^\prime}^\top \boldsymbol{x}_i+b^\prime =0$ 与 $\boldsymbol{w}^\top \boldsymbol{x}_i+b = 0$ 相同（两边同时除以 $\gamma$ 不影响）</p>
+
   <p>这一事实给了我们另一个启示，我们应该对法向量 $\boldsymbol{w}$ 加一个约束，使得间隔固定不变，此时的间隔为 <strong>几何间隔</strong>，也即实际的欧氏距离 $\vert \boldsymbol{w}^\top \boldsymbol{x}_i+b \vert / \Vert \boldsymbol{w} \Vert$</p>
+
+  <p>后面我们会知道，实际上几何间隔只与支撑向量有关，此时函数间隔取到最小值为 $1$，几何间隔为 $\frac{1}{\Vert \boldsymbol{w} \Vert}$。</p>
+
+  <p>令 $\gamma = 1$ 本质上是利用函数间隔的缩放自由度，将函数间隔规范化到一个固定的值（这里取 $1$），从而简化目标函数，同时不改变最优超平面。这样得到的优化问题与原问题在求分离超平面上是等价的，只是去掉了目标函数中与 $\gamma$ 相关的部分，变成了只依赖于几何间隔 $\frac{1}{\Vert \boldsymbol{w} \Vert}$ 的形式。</p>
 </blockquote>
 
 <p>最后，利用如下等价性</p>
@@ -3910,6 +3930,13 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-search-strategy/">人工智能（搜索策略）</a>
         </li>
       
@@ -3932,13 +3959,6 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         <li class="text-truncate lh-lg">
           <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
     </ul>
