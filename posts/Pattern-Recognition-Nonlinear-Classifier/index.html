@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（非线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-29T23:55:21+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-12T13:50:05+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1979,13 +1979,13 @@
 
 <em
   class=""
-  data-ts="1759161321"
+  data-ts="1760248205"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/09/29
+  2025/10/12
 </em>
 
     </span>
@@ -2029,9 +2029,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="20332 字"
+  title="20965 字"
 >
-  <em>112 分钟</em>阅读</span>
+  <em>116 分钟</em>阅读</span>
 
     </div>
 
@@ -3373,7 +3373,7 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
   \text{Gain Ratio}(T,P) &amp;= \frac{0.971}{2.321} = 0.418 \;\text{bit}
 \end{aligned}\]
 
-<p>可以发现，“红不红” 特征的信息增益比最大。因此 4.5 算法可以有效客服高基数特征（取值多的特征）带来的影响。</p>
+<p>可以发现，“红不红” 特征的信息增益比最大。因此 4.5 算法可以有效克服高基数特征（取值多的特征）带来的影响。</p>
 
 <h3 id="43-cart-算法"><span class="me-2">4.3. CART 算法</span><a href="#43-cart-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -3387,6 +3387,8 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 \[\text{Gini}(D) = 1 - \sum_{i=1}^{c} p_i^2 = 1- \sum_{i=1}^{c} (\frac{D_i}{D})^2\]
 
+<p>基尼指数表示从数据集中随机抽取两个样本，它们类别不一致的概率。值越小，数据越「纯」。</p>
+
 <p>对于所有样本的特征 $X$，假设其有 $k$ 个取值，将这些取值从小到大排列为 $x_1, x_2, \cdots, x_k$，分别取两个相邻特征值的均值作为分裂点，则一共有 $k-1$ 个分裂点，第 $i$ 个分裂点为 $t_i = ({x_i+x_{i+1}})/{2}$。</p>
 
 <p>则特征 $X$ 条件（分裂）下的基尼指数定义为：</p>
@@ -3398,7 +3400,147 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 
 <p>基尼指数反应数据集 $D$ 的不确定性，特征 $X$ 条件下（分裂后）的基尼指数反应了特征 $X$ 条件下（分裂后）数据集 $D$ 的不确定性。</p>
 
-<p>与信息增益类似，分裂前后的基尼指数的变化反映了特征的好坏。我们可以直接选择特征条件下基尼指数小的特征作为分裂特征，此时表示经由该特征分裂后，数据集的基尼指数下降的多。</p>
+<p>与信息增益类似，分裂前后的基尼指数的变化反映了特征的好坏。我们可以直接选择特征条件下基尼指数小的特征作为分裂特征，此时表示经由该特征分裂后，数据集的基尼指数下降的多。也即，决策树在选择分裂时，会遍历所有可能的分裂点（对连续特征取中点），选择使 $\text{Gini}_{\text{split}}(D)$ 最小的那个分裂点。</p>
+
+<p>还是用上面购买苹果的场景举例：</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th style="text-align: center">苹果编号</th>
+      <th style="text-align: center"><font color="red">价格P</font></th>
+      <th style="text-align: center">红不红H</th>
+      <th style="text-align: center">圆不圆Y</th>
+      <th style="text-align: center">甜不甜T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">5.7</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">6.5</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">5.1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">5.2</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">6.0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>目标变量是 甜不甜 $T$（$1=$甜，$0=$不甜）。总样本 $\vert D \vert=5$，则数据的基尼指数为：</p>
+
+\[\text{Gini}(D) = 1 - [(\frac{2}{5})^2 + (\frac{3}{5})^2] = 0.48\]
+
+<p>然后对每个特征计算条件（分裂）基尼指数，以 「红不红」特征为例：</p>
+
+<p>对于「红」的情况，一共 3 个样本，其中 2 个样本是甜的，1 个样本是不甜的，则：</p>
+
+\[\text{Gini}(D_{\text{left}}) = 1 - [(\frac{2}{3})^2 + (\frac{1}{3})^2] = \frac{4}{9}\]
+
+<p>对于「非红」的情况，一共 2 个样本，其中 0 个样本是甜的，2 个样本是不甜的，则：</p>
+
+\[\text{Gini}(D_{\text{right}}) = 1 - [(\frac{0}{2})^2 + (\frac{2}{2})^2] = 0\]
+
+<p>则分裂后的基尼指数为</p>
+
+\[G = \frac{3}{5} \times \frac{4}{9} + \frac{2}{5} \times 0 \approx 0.2667\]
+
+<details>
+  <summary>
+<font color="blue">尝试针对价格特征中的 5.45 作为分裂点，计算基尼指数。</font>
+</summary>
+
+  <font color="blue">重新排列价格和甜不甜特征如下：</font>
+
+  <div class="table-wrapper"><table>
+    <thead>
+      <tr>
+        <th style="text-align: center">苹果编号</th>
+        <th style="text-align: center"><font color="red">价格P</font></th>
+        <th style="text-align: center">甜不甜T</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center">3</td>
+        <td style="text-align: center">5.1</td>
+        <td style="text-align: center">0</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">4</td>
+        <td style="text-align: center">5.2</td>
+        <td style="text-align: center">0</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">1</td>
+        <td style="text-align: center">5.7</td>
+        <td style="text-align: center">1</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">5</td>
+        <td style="text-align: center">6.0</td>
+        <td style="text-align: center">0</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">2</td>
+        <td style="text-align: center">6.5</td>
+        <td style="text-align: center">1</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <font color="blue">在分裂点 $5.45$ 时，数据集被分为两个子集，分别有 3 个样本和 2 个样本。</font>
+
+  <font color="blue">对于「$&lt;5.45$」的情况，一共 2 个样本，其中 0 个样本是甜的，2 个样本是不甜的，则：</font>
+
+\[\text{Gini}(D_{\text{left}}) = 1 - [(\frac{0}{2})^2 + (\frac{2}{2})^2] = 0\]
+
+  <font color="blue">对于「$&gt;5.45$」的情况，一共 3 个样本，其中 2 个样本是甜的，1 个样本是不甜的，则：</font>
+
+\[\text{Gini}(D_{\text{right}}) = 1 - [(\frac{1}{3})^2 + (\frac{2}{3})^2] \approx 0.444\]
+
+  <font color="blue">则</font>
+
+\[G = \frac{2}{5} \times 0 + \frac{3}{5} \times 0.444 \approx 0.2667\]
+
+  <font color="blue">当基尼指数减少量相同时，可以：</font>
+
+  <ul>
+    <li>
+      <font color="blue">选择更简单的特征（二元 vs 连续）</font>
+    </li>
+    <li>
+      <font color="blue">或者随机选一个</font>
+    </li>
+  </ul>
+
+</details>
 
 <h4 id="432-cart-分类树"><span class="me-2">4.3.2. CART 分类树</span><a href="#432-cart-分类树" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -3425,7 +3567,6 @@ H(T\vert Y) &amp;= P(Y=1)H(T\vert Y=1) + P(Y=0)H(T\vert Y=0)\\
 <ul>
   <li>「类别标签」：在分类任务中，叶子节点输出数据点所属的类别，由该节点中样本的多数决定；</li>
   <li>「类别概率」：在概率分类任务中，叶子节点输出数据点属于不同类别的概率；</li>
-  <li>「标量取值」：在回归任务中，叶子节点输出一个连续的数值结果，为叶子节点所含所有样本点的均值。</li>
 </ul>
 
 <h4 id="433-cart-回归树"><span class="me-2">4.3.3. CART 回归树</span><a href="#433-cart-回归树" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
@@ -3448,12 +3589,31 @@ $，则分裂后的均方误差为：</p>
 <ul>
   <li>计算所有可能分裂点的 MSE，选择最优分裂点。</li>
   <li>递归分裂，直到满足停止条件（如叶子节点的样本数小于某个阈值）。</li>
-  <li>叶子节点的输出是该节点样本的均值。</li>
+  <li>叶子节点的输出是该节点样本的「均值」。</li>
 </ul>
 
 <h4 id="434-三种决策树构建算法区别"><span class="me-2">4.3.4. 三种决策树构建算法区别</span><a href="#434-三种决策树构建算法区别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <ul>
+  <li><strong>ID3 算法</strong>：
+    <ul>
+      <li>【树结构】：多叉树（类似C4.5，但无连续特征处理能力）；</li>
+      <li>【分裂规则】：使用 <strong>信息增益</strong>（Information Gain）；</li>
+      <li>【局限性】：
+        <ul>
+          <li>只能处理离散特征，不能直接处理连续特征或缺失值；</li>
+          <li>对多值特征敏感（可能生成过深的树）。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>C4.5 算法</strong>：
+    <ul>
+      <li>【树结构】：多叉树（一个节点可以有多个子节点，取决于特征取值数量）；</li>
+      <li>【分裂规则】：使用 <strong>信息增益比</strong>（Gain Ratio）；</li>
+      <li>【分裂方式】：直接按特征的所有可能取值划分（如“颜色$\in${红,黄,绿}”生成3个子节点）；</li>
+    </ul>
+  </li>
   <li><strong>CART 算法</strong>：
     <ul>
       <li>【树结构】：二叉树（严格二叉树，每个节点只有左右两个分支）；</li>
@@ -3467,25 +3627,6 @@ $，则分裂后的均方误差为：</p>
         <ul>
           <li>对于连续特征：通过阈值二分（如”红程度 ≥ 0.5”）；</li>
           <li>对于类别特征：通过”是/否”二分（如”颜色=红色?”）。</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><strong>C4.5 算法</strong>：
-    <ul>
-      <li>【树结构】：多叉树（一个节点可以有多个子节点，取决于特征取值数量）；</li>
-      <li>【分裂规则】：使用 <strong>信息增益比</strong>（Gain Ratio）；</li>
-      <li>【分裂方式】：直接按特征的所有可能取值划分（如“颜色$\in${红,黄,绿}”生成3个子节点）；</li>
-    </ul>
-  </li>
-  <li><strong>ID3 算法</strong>：
-    <ul>
-      <li>【树结构】：多叉树（类似C4.5，但无连续特征处理能力）；</li>
-      <li>【分裂规则】：使用 <strong>信息增益</strong>（Information Gain）；</li>
-      <li>【局限性】：
-        <ul>
-          <li>只能处理离散特征，不能直接处理连续特征或缺失值；</li>
-          <li>对多值特征敏感（可能生成过深的树）。</li>
         </ul>
       </li>
     </ul>
@@ -3664,8 +3805,8 @@ $，则分裂后的均方误差为：</p>
 <p>AdaBoost（Adaptive Boosting）算法是 Boosting 方法的一种，采用了以下策略：</p>
 
 <ul>
-  <li>使用「<strong>加权后选取的训练数据</strong>」代替随机选取的训练样本，这样将训练的焦点集中在比较难分的训练数据样本上；</li>
-  <li>将弱分类器联合起来，使用「<strong>加权的投票机制</strong>」代替平均投票机制。让分类效果好的弱分类器具有较大的权重，而分类效果差的分类器具有较小的权重。</li>
+  <li>使用「<strong>加权（$w_t(i)$）后选取的训练数据</strong>」代替随机选取的训练样本，这样将训练的焦点集中在比较难分的训练数据样本上；</li>
+  <li>将弱分类器联合起来，使用「<strong>加权（$\alpha_t$）的投票机制</strong>」代替平均投票机制。让分类效果好的弱分类器具有较大的权重，而分类效果差的分类器具有较小的权重。</li>
 </ul>
 
 <p>对于一个二分类任务而言，首先对样本集中所有 $n$ 样本点的权重初始化为相同的大小，对于第 $t=1$ 次迭代时有</p>
@@ -3674,7 +3815,11 @@ $，则分裂后的均方误差为：</p>
 
 <p>调用弱学习算法，产生一个基分类器 $h_t$，该分类器的「加权错误率」为 $\varepsilon_t$，可得</p>
 
-\[\varepsilon_t = \sum_{i=1}^n w_t(i) \cdot l_{0/1}\{y_i \neq h_t(x_i)\},\; y\in\{-1,+1\}-\]
+\[\varepsilon_t = \sum_{i=1}^n w_t(i) \cdot l_{0/1}\{y_i \neq h_t(x_i)\},\; y\in\{-1,+1\}\]
+
+<blockquote>
+  <p>注意到，此处为第一轮迭代，因此分类器加权错误率天然处于 $[0,1]$ 之间。在后续迭代中，基分类器的加权错误率需要分母除以所有权重总和，也即进行归一化。或者，可以在每次迭代时对样本权重 $w_t(i)$ 进行归一化，再直接计算 $\varepsilon_t$。</p>
+</blockquote>
 
 <p>其中 $l_{0/1}$ 为 0/1 计数函数，当括号内条件满足时为 1，否则为 0。</p>
 
@@ -3682,7 +3827,9 @@ $，则分裂后的均方误差为：</p>
 
 \[\alpha_t = \frac{1}{2} \ln \left( \frac{1 - \varepsilon_t}{\varepsilon_t} \right)\]
 
-<p>当 $\varepsilon = 0.5$ 时（相当于基分类器随机猜测），对应权重系数为 0。但凡基分类器是一个弱分类器，其权重系数就会大于零。基分类器性能越好，错误率越小，权重系数越大。注意，此处的权重定义并非随意指定的，而是可以通过加性模型（Additive Model）的梯度下降优化或指数损失函数的最小化严格推导得出，详见后文。</p>
+<blockquote>
+  <p>当 $\varepsilon = 0.5$ 时（相当于基分类器随机猜测），对应权重系数为 0。但凡基分类器是一个弱分类器，其权重系数就会大于零。基分类器性能越好，错误率越小，权重系数越大。注意，此处的权重定义并非随意指定的，而是可以通过加性模型（Additive Model）的梯度下降优化或指数损失函数的最小化严格推导得出，详见后文。</p>
+</blockquote>
 
 <p>但凡弱分类器的错误率 $\varepsilon &lt; 0.5$，即可对样本集中的所有样本更新权值分布，即</p>
 
@@ -3691,7 +3838,7 @@ $，则分裂后的均方误差为：</p>
   w_t(i)\exp(\alpha_t),\; h_i(\boldsymbol{x}) \neq y_i
 \end{cases}\]
 
-<p>也即对于误分的样本其权值会乘以一个 $\exp(\alpha_t) &gt; 1$ 的系数；反之则会乘以一个 $\exp(-\alpha_t) &lt; 1$ 的系数。可将其写为一行的简化形式，并进行归一化</p>
+<p>也即对于误分的样本其权值会乘以一个 $\exp(\alpha_t) &gt; 1$ 的系数；反之则会乘以一个 $\exp(-\alpha_t) &lt; 1$ 的系数。可将其写为一行的简化形式，并进行<strong>归一化</strong></p>
 
 \[\begin{aligned}
 w_{t+1}(i) &amp;= w_t(i)\exp(-\alpha_t \cdot y_i h_t(\boldsymbol{x}_i))\\
@@ -3732,7 +3879,7 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
 
 \[L(\alpha_t) = \sum_{y_i=h_t(\boldsymbol{x}_i)}^n w_t(i)e^{-\alpha_t}+\sum_{y_i\neq h_t(\boldsymbol{x}_i)}^n w_t(i)e^{\alpha_t}\]
 
-<p>定义第 $t$ 轮迭代得到的基分类器 $h_t$ 的加权错误率为</p>
+<p>定义第 $t$ 轮迭代得到的基分类器 $h_t$ 的加权错误率（考虑样本权重未归一化的一般形式）为</p>
 
 \[\varepsilon_t = \frac{\sum_{y_i\neq h_t(\boldsymbol{x}_i)} w_t(i)}{\sum_{i=1}^n w_t(i)}\]
 
@@ -3930,6 +4077,13 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
@@ -3952,13 +4106,6 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
         </li>
       
     </ul>

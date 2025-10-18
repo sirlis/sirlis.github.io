@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（经典神经网络）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（经典神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-05T17:58:26+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-18T10:35:05+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2919,13 +2919,13 @@
 
 <em
   class=""
-  data-ts="1749117506"
+  data-ts="1760754905"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/05
+  2025/10/18
 </em>
 
     </span>
@@ -2969,7 +2969,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10750 字"
+  title="10798 字"
 >
   <em>59 分钟</em>阅读</span>
 
@@ -3187,9 +3187,11 @@ f^\prime(x) &amp;= \frac{e^{-x}}{(1+e^{-x})^2} = f(x)(1-f(x))
   <li>梯度不发散。当输入值为正的时候，梯度恒为 $1$，没有梯度发散的现象，收敛速度快；</li>
   <li>增大了网络的稀疏性。当输入值 $x &lt; 0$ 的时候，该层的输出为 $0$，训练完成后为 $0$ 的神经元越来越多，稀疏性会变大，网络的协同性会被破坏，更够迫使网络学习到更一般性的特征，泛化能力会变强。这也正是 dropout 的原理；</li>
   <li>计算量变小。ReLU 函数和 Sigmoid 函数相比少了复杂的幂运算，且计算量变小；</li>
-  <li>
-    <p>缺点：</p>
-  </li>
+</ul>
+
+<p>缺点：</p>
+
+<ul>
   <li>输出均值非 $0$；</li>
   <li>ReLU 死亡。若遇到异常输入导致输出和真实标签差距很大，此时误差反向传播更新参数（如偏置 $b$）使得 $b &lt; 0$，这使得后续正常输入经过该神经元后的输出值小于 $0$，此时神经元输出恒为 $0$, 对输出没有任何贡献，梯度反向传播时参数也得不到更新，那么此时该神经元就会 “死亡”。并且随着网络的训练，该层前面的神经元参数的更新幅度会随着模型的收敛而趋缓，输出变动会逐渐降低，这使得从概率上来说当前神经元完全复活的可能性极小, 也就可以称之为不可逆的死亡。</li>
 </ul>
@@ -3252,7 +3254,7 @@ f^\prime(x) &amp;= \frac{e^{-x}}{(1+e^{-x})^2} = f(x)(1-f(x))
 
 \[f(x) = x\]
 
-<p>这意味着网络输出层的激活值直接作为预测值，预测值是最后一层的线性组合结果。该激活函数。</p>
+<p>这意味着网络输出层的激活值直接作为预测值，预测值是最后一层的线性组合结果。</p>
 
 <h4 id="127-softmax-函数"><span class="me-2">1.2.7. softmax 函数</span><a href="#127-softmax-函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -3367,7 +3369,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <h3 id="22-多层感知机"><span class="me-2">2.2. 多层感知机</span><a href="#22-多层感知机" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>在前面介绍的单层感知机中，采用阶跃函数只能更新「一层」神经元的参数，因为多层感知机的权重梯度需要依赖链式法则求解，其中涉及到激活函数的导数，而阶跃函数的激活函数几乎处处为零，度无法通过隐藏层传播到更早的层（梯度消失），导致前面的层参数无法更新。</p>
+<p>在前面介绍的单层感知机中，采用阶跃函数只能更新「一层」神经元的参数，因为多层感知机的权重梯度需要依赖链式法则求解，其中涉及到激活函数的导数，而阶跃函数的激活函数几乎处处为零，梯度无法通过隐藏层传播到更早的层（梯度消失），导致前面的层参数无法更新。</p>
 
 \[f(z) = 
 \begin{cases} 
@@ -3393,7 +3395,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
   <li>输出层最可以看作是最后一层隐藏层，但其输出需要与样本标签进行比较，计算损失函数并通过反向传播来更新神经网络的参数。</li>
 </ul>
 
-<p><a href="/assets/img/postsimg/20250527/DNN.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/DNN.jpg" alt="DNN" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20250527/dnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/dnn.jpg" alt="DNN" class="lazyload" data-proofer-ignore></a></p>
 
 <p>注意到，多层感知机的每一层神经元均与前一层所有神经元都进行连接，因此多层感知机又被称为「<strong>全连接神经网络</strong>」。又因为多层感知机得以实现的前提是采用反向传播（BP）算法，因此又被称为「<strong>BP 神经网络</strong>」。</p>
 
@@ -3504,7 +3506,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 \[\delta^{L}_j \triangleq \frac{\partial L}{\partial z_j^L} = \sum_{i=1}^k\frac{\partial L}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_j^L}\]
 
-    <p>注意此处需要对 $i$ 进行遍历，因为根据 softmax 函数定义，每个输出 $a_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关。</p>
+    <p>注意此处需要对 $i$ 进行<strong>遍历</strong>，因为根据 softmax 函数定义，每个输出 $a_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关（分母求和部分）。</p>
 
     <p>第一项</p>
 
@@ -3525,7 +3527,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
         <p>为了表述方便，省去上标 $L$</p>
 
 \[\begin{aligned}
-  \frac{\partial a_i}{\partial z_i} &amp;= \frac{\partial a_i}{\partial z_i} \\
+  \frac{\partial a_i}{\partial z_j} &amp;= \frac{\partial a_i}{\partial z_i} \\
   &amp;= \frac{\partial}{\partial z_i} \left( \frac{e^{z_i}}{\sum_k e^{z_k}} \right) \\
   &amp;= \frac{(e^{z_i})' (\sum_k e^{z_k}) - e^{z_i} (\sum_k e^{z_k})'}{(\sum_k e^{z_k})^2} \\
   &amp;= \frac{e^{z_i} \cdot (\sum_k e^{z_k}) - e^{z_i} \cdot e^{z_i}}{(\sum_k e^{z_k})^2} \\
@@ -3789,7 +3791,14 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <p>WTA竞争学习是许多自组织神经网络的基础，通过这种简单的竞争机制，网络能够自动发现数据中的主要模式。</p>
 
-<p><strong>思考：最终权重收敛到什么位置？</strong></p>
+<details>
+  <summary>
+<font color="blue">思考：最终竞争层权重收敛到什么位置？</font>
+</summary>
+
+  <p>在反复的竞争学习中，竞争层的各神经元所对应的权向量被逐渐调整为输入样本控件的<strong>聚类中心</strong>。</p>
+
+</details>
 
 <h4 id="232-自组织映射神经网络"><span class="me-2">2.3.2. 自组织映射神经网络</span><a href="#232-自组织映射神经网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -4037,6 +4046,13 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
@@ -4059,13 +4075,6 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/astronomy-basic-coordinate/">天文学基础（坐标系统）</a>
         </li>
       
     </ul>
