@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（经典神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-18T10:35:05+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-21T13:50:47+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2919,13 +2919,13 @@
 
 <em
   class=""
-  data-ts="1760754905"
+  data-ts="1761025847"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/10/18
+  2025/10/21
 </em>
 
     </span>
@@ -2969,9 +2969,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10798 字"
+  title="10938 字"
 >
-  <em>59 分钟</em>阅读</span>
+  <em>60 分钟</em>阅读</span>
 
     </div>
 
@@ -3125,7 +3125,7 @@ f^\prime(x) &amp;= \frac{e^{-x}}{(1+e^{-x})^2} = f(x)(1-f(x))
 
 <ul>
   <li>包含指数项，计算量较大；</li>
-  <li>函数输出不是以 $0$ 为中心正负分布的，导致网络权重都往正或都往负的方向更新，使得权重更新效率低；</li>
+  <li>函数输出 $y$ 不是以 $0$ 为中心正负分布的，导致网络权重都往正或都往负的方向更新，使得权重更新效率低；</li>
   <li>当输入远离原点时，函数的梯度趋近于0，导致梯度消失问题。</li>
 </ul>
 
@@ -3289,16 +3289,18 @@ f^\prime(x) &amp;= \frac{e^{-x}}{(1+e^{-x})^2} = f(x)(1-f(x))
   <p>1969年 ， Marvin Minsky 和 Seymour Papert 出版了《感知机：计算几何学导论》（Perceptrons: An Introduction to Computational Geometry），从数学上证明了单层前馈感知机的局限性，<strong>感知机只能解决「线性可分问题」</strong>，甚至不能解决简单的 “异或” 逻辑问题。此后，神经网络的研究几乎处于休眠状态，直到上世纪 80 年代才又被从历史的角落重新拾起。</p>
 </blockquote>
 
-<p>假设分离超平面的误分类点集合为 $Y_e$，则所有误分类点到超平面的总距离为：</p>
-
-\[\frac{1}{\Vert\boldsymbol{W}\Vert}\sum_{\boldsymbol{x}_i\in Y_e}\vert \boldsymbol{W}^\top\boldsymbol{x}_i+b\vert\]
-
-<p>如果不考虑系数，感知机学习的算法是通过学习找到一组参数 $(\boldsymbol{W}^\star,b^\star)$ ，使得以下损失函数最小：</p>
+<p>感知机采用误分类驱动的学习方法，假设分离超平面的误分类点集合为 $Y_e$，则感知机学习的算法是通过学习找到一组参数 $(\boldsymbol{W}^\star,b^\star)$ ，使得以下损失函数最小：</p>
 
 \[\min L(\boldsymbol{W},b) = -\sum_{\boldsymbol{x}_i\in Y_e} y_i(\boldsymbol{W}^\top\boldsymbol{x}_i+b)\]
 
 <blockquote>
-  <p>（1）当误分类时，满足 $-y_i(\boldsymbol{W}^\top\boldsymbol{x}_i+b) \geq 0$，因此可设计上述损失函数（思考：为什么？）</p>
+  <p>（1）为什么上述损失函数成立？</p>
+
+  <p>当正确分类时，满足 $y_i(\boldsymbol{W}^\top\boldsymbol{x}_i+b) &gt; 0$</p>
+
+  <p>当误分类时，满足 $y_i(\boldsymbol{W}^\top\boldsymbol{x}_i+b) \leq 0$</p>
+
+  <p>如果希望误分类程度最小，那么设计如上损失函数即可满足要求。</p>
 
   <p>（2）感知机的一般推导会使用增广变换（消除偏置）和规范化（负样本取反），但此处没有使用；</p>
 </blockquote>
@@ -3307,7 +3309,14 @@ f^\prime(x) &amp;= \frac{e^{-x}}{(1+e^{-x})^2} = f(x)(1-f(x))
 
 \[\min L(\boldsymbol{W},b) = -y_i(\boldsymbol{W}^\top\boldsymbol{x}_i+b),\quad \boldsymbol{x}_i\in Y_e\]
 
-<p>对应的参数更新式为</p>
+<p>求梯度</p>
+
+\[\begin{aligned}
+\frac{\partial L}{\partial \boldsymbol{W}} &amp;= -y_i \boldsymbol{x}_i\\
+\frac{\partial L}{\partial b} &amp;= -y_i
+\end{aligned}\]
+
+<p>对应的梯度下降参数更新式为</p>
 
 \[\begin{aligned}
 \boldsymbol{W} &amp;\leftarrow \boldsymbol{W} + \eta y_i \boldsymbol{x}_i\\
@@ -3365,6 +3374,8 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <p><a href="/assets/img/postsimg/20250527/Perceptron-classifier-4.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/Perceptron-classifier-4.jpg" alt="Perception_classifier-result" class="lazyload" data-proofer-ignore></a></p>
 
+<p>可见，感知机更新规则就是每次遇到误分类点时，把权重向量的方向往该样本的方向（按标签正负）调整一点，使得该点更可能被正确分类。</p>
+
 <hr />
 
 <h3 id="22-多层感知机"><span class="me-2">2.2. 多层感知机</span><a href="#22-多层感知机" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
@@ -3417,7 +3428,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 \[\boldsymbol{W}\in \mathbb{R}^{n^l\times n^{l-1}}\]
 
-<p>其中 $n^{l}$ 表示第 $l$ 层神经元的个数，$n^l$ 表示第 $l$ 层神经元的个数。</p>
+<p>其中 $n^{l}$ 表示第 $l$ 层神经元的个数，$n^{l-1}$ 表示第 $l-1$ 层神经元的个数。</p>
 
 <h4 id="223-误差反向传播"><span class="me-2">2.2.3. 误差反向传播</span><a href="#223-误差反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -3500,13 +3511,13 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
     <p>其中第 $j$ 个神经元的输出为</p>
 
-\[a^L_j = \text{softmax}(z^L) = \frac{e^{z_j^L}}{\sum_{i=1}^k e^{z^L_i}}\]
+\[a^L_j = \text{softmax}(z^L) = \frac{e^{z_j^L}}{\sum_{i=1}^k e^{z^L_i}} = \frac{e^{z_j^L}}{e^{z_1^L}+e^{z_2^L}+\cdots+e^{z_k^L}}\]
 
     <p>则第 $j$ 个神经元的误差为</p>
 
 \[\delta^{L}_j \triangleq \frac{\partial L}{\partial z_j^L} = \sum_{i=1}^k\frac{\partial L}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_j^L}\]
 
-    <p>注意此处需要对 $i$ 进行<strong>遍历</strong>，因为根据 softmax 函数定义，每个输出 $a_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关（分母求和部分）。</p>
+    <p>注意此处需要对 $i$ 进行 <strong>遍历</strong> 然后求和，因为根据 softmax 函数定义，每个输出 $a_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关（分母求和部分），此外，$a_j$ 比较特殊，其分子分母都和 $z_j$ 有关。</p>
 
     <p>第一项</p>
 
@@ -3573,7 +3584,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
       <blockquote>
 \[\begin{aligned}
   \delta^{L}_j &amp;= -\frac{y_j}{a^L_i} \cdot a^L_i(1-a^L_i) - \sum_{i\neq j} \frac{y_i}{a^L_i} (-a^L_i a^L_j)\\
-  &amp;= - y_j+y_ja_i^L+\sum_{i\neq j} y_ia_j^L\\
+  &amp;= - y_j+y_ja_{i=j}^L+\sum_{i\neq j} y_ia_j^L\\
   &amp;= -y_j+\sum_{i} y_ia_j^L\\
   &amp;=-y_j + a_j^L\sum_i y_i
   \end{aligned}\]
@@ -3641,7 +3652,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 \[\boldsymbol{a}^{l} = f(\boldsymbol{z}^{l}) \quad\Rightarrow \quad\frac{\partial \boldsymbol{a}^{l}}{\partial \boldsymbol{z}^{l}} = f'(\boldsymbol{z}^{l})\in\mathbb{R}^{n^{l}\times 1}\]
 
-<p>最终得到（权重矩阵转置是因为需要维度匹配）</p>
+<p>最终得到误差的迭代计算公式（权重矩阵转置是因为需要维度匹配）</p>
 
 \[\textcolor{red}{\boldsymbol{\delta}^{l} = (\boldsymbol{W}^{l+1})^\top\boldsymbol{\delta}^{l+1}  \odot f'(\boldsymbol{z}^{l})}\]
 
@@ -3796,7 +3807,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 <font color="blue">思考：最终竞争层权重收敛到什么位置？</font>
 </summary>
 
-  <p>在反复的竞争学习中，竞争层的各神经元所对应的权向量被逐渐调整为输入样本控件的<strong>聚类中心</strong>。</p>
+  <p>在反复的竞争学习中，竞争层的各神经元所对应的权向量被逐渐调整为输入样本空间的<strong>聚类中心</strong>。</p>
 
 </details>
 
