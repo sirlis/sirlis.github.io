@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（值函数近似）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-09T00:13:33+08:00","datePublished":"2023-01-02T18:12:19+08:00","description":"本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。","headline":"强化学习（值函数近似）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"},"url":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-11-17T23:46:31+08:00","datePublished":"2023-01-02T18:12:19+08:00","description":"本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。","headline":"强化学习（值函数近似）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"},"url":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1724,13 +1724,13 @@
 
 <em
   class=""
-  data-ts="1744128813"
+  data-ts="1763394391"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/09
+  2025/11/17
 </em>
 
     </span>
@@ -1774,9 +1774,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6101 字"
+  title="6125 字"
 >
-  <em>33 分钟</em>阅读</span>
+  <em>34 分钟</em>阅读</span>
 
     </div>
 
@@ -2110,7 +2110,7 @@ w_{t+1} &amp;= w_t + 2\alpha_t\mathbb{E}[(v_\pi(s)-\hat{v}(s,w))\nabla_w\hat{v}(
 
 <h3 id="32-q-learning-值函数近似"><span class="me-2">3.2. Q-Learning 值函数近似</span><a href="#32-q-learning-值函数近似" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>同样直接将状态价值函数近似的梯度下降迭代式中的 $v$ 替换为 $q$ 我们就得到</p>
+<p>在 SARSA 值函数近似中的参数更新部分，为下一个采样得到的状态动作价值函数增加 $\max$ 可得到</p>
 
 \[w_{t+1} = w_t + \alpha_t[r_{t+1}+\gamma \textcolor{red}{\max_{a\in\mathcal{A}(s_{t+1})}}\hat{q}(s_{t+1},a;w_t)-\hat{q}(s_t,a_t;w_t)]\nabla_w\hat{q}(s_t,a_t;w_t)\]
 
@@ -2126,7 +2126,7 @@ w_{t+1} &amp;= w_t + 2\alpha_t\mathbb{E}[(v_\pi(s)-\hat{v}(s,w))\nabla_w\hat{v}(
         <ul>
           <li><em>collect experience</em>:
             <ul>
-              <li>choose action $a_t$ at $s_t$ following $\pi_t(s_t)$</li>
+              <li>choose action $a_t$ at $s_t$ following $\textcolor{red}{\pi_b}(s_t)$</li>
               <li>Take action $a$, get $r$, transfer to $s_{t+1}$</li>
               <li>choose $a_{t+1}= \arg\max_a \textcolor{red}{\hat{q}(s_{t+1}, a;w_t)}$</li>
             </ul>
@@ -2155,7 +2155,7 @@ w_{t+1} &amp;= w_t + 2\alpha_t\mathbb{E}[(v_\pi(s)-\hat{v}(s,w))\nabla_w\hat{v}(
 
 <p>上述伪代码中标红部分即为 Q-Learning 值函数近似方法，与传统 Q-Learning 方法不同的地方。</p>
 
-<p>设计一个采用 5 阶傅里叶基函数的 Q-Learning 值函数近似方法（采样 <strong>on-policy</strong> 而不是上面介绍的 off-policy 版本），在 Grid World 实例下的训练结果。其中实例设置为： $r_{\text{boundary}}=r_{\text{forbidden}}=-10,r_{\text{target}}=1,\alpha=0.001,\gamma=0.9$。从左上角初始状态出发，迭代500步，结果如下图所示</p>
+<p>设计一个采用 5 阶傅里叶基函数的 Q-Learning 值函数近似方法（采用 <strong>on-policy</strong> 而不是上面介绍的 off-policy 版本），在 Grid World 实例下的训练结果。其中实例设置为： $r_{\text{boundary}}=r_{\text{forbidden}}=-10,r_{\text{target}}=1,\alpha=0.001,\gamma=0.9$。从左上角初始状态出发，迭代500步，结果如下图所示</p>
 
 <p><a href="/assets/img/postsimg/20230102/Q-Learning-linear.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230102/Q-Learning-linear.jpg" alt="Q-Learning-linear-result" class="lazyload" data-proofer-ignore></a></p>
 
@@ -2217,7 +2217,7 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
 
 \[q(s,a) = \mathbb{E}[R_{t+1}+\gamma \max_a q(s_{t+1},a)\vert s,a], \forall s,a\]
 
-<p>那么在期望形势下，上面的损失函数自然应该趋向于零。</p>
+<p>那么在期望形式下，上面的损失函数自然应该趋向于零。</p>
 
 <h3 id="42-优化方法"><span class="me-2">4.2. 优化方法</span><a href="#42-优化方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -2252,7 +2252,7 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
   <li>目标网络：$\hat{q}(s,a;\theta_T)$</li>
 </ul>
 
-<p>初始时刻二者相等。每隔一段时间，直接将主网络较新的网络参数，直接拷贝给目标网络参数，然后再次冻结目标网络，继续更新主网络，如此循环直至训练结束。示意图如下：</p>
+<p>初始时刻二者相等。每隔一段时间，直接将主网络较新的网络参数，直接拷贝给目标网络参数，然后再次冻结目标网络，继续更新主网络，如此循环直至训练结束。假设当前时刻状态 $s_t$ 下选取的动作是 $a_1$, 示意图如下：</p>
 
 <p><a href="/assets/img/postsimg/20230102/separate-copy.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20230102/separate-copy.jpg" alt="separate-copy" class="lazyload" data-proofer-ignore></a></p>
 
@@ -2300,7 +2300,7 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
 <ul>
   <li>只采样 1 个episode，智能体达到目标状态后继续采样；</li>
   <li>该 episode 设置为 1000 步，采样 1000 步后停止；</li>
-  <li>行为策略采用 $\pi(a\vert s) = 0.2,\forall s,a$ 策略；</li>
+  <li>行为策略采用 <strong>随机</strong> 策略：$\pi(a\vert s) = 0.2,\forall s,a$；</li>
   <li>使用单隐层的浅层网络作为非线性近似器来估计 $\hat{q}(s,a;\theta)$，隐层有 100 个神经元。</li>
 </ul>
 
@@ -2502,6 +2502,27 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-RNN/">深度学习基础（RNN）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
@@ -2510,27 +2531,6 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-search-strategy/">人工智能（搜索策略）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
         </li>
       
     </ul>
