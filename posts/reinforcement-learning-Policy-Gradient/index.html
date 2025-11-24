@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="强化学习（策略梯度法）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了强化学习的策略梯度法（Policy Gradient）。" />
@@ -1086,9 +1086,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="8920 字"
+  title="9335 字"
 >
-  <em>49 分钟</em>阅读</span>
+  <em>51 分钟</em>阅读</span>
 
     </div>
 
@@ -1554,7 +1554,7 @@
 <p>期望符号包含了对 $S,A$ 的采样，其中</p>
 
 <ul>
-  <li>$S \sim d $ 或 $S \sim \rho$ 是策略 $\pi$ 下的长期分布，但实际上我们有样本就不错了，所以实际应用中不考虑；</li>
+  <li>$S \sim d$ 或 $S \sim \rho$ 是策略 $\pi$ 下的长期分布，但实际上我们有样本就不错了，所以实际应用中不考虑；</li>
   <li>$A \sim \pi(A\vert S;\theta)$ 需要实际采样才能得到，因此策略梯度法是个 on-policy 方法。</li>
 </ul>
 
@@ -1617,13 +1617,13 @@
 
 <p>相应的解决方法如下：</p>
 <ul>
-  <li>通过添加基线缓解;</li>
+  <li>通过添加基线（baseline）缓解;</li>
   <li>使用 TD 方法代替 MC 方法，即通过Actor-Critic方法解决。</li>
 </ul>
 
 <h3 id="42-reinforce-with-baseline"><span class="me-2">4.2. REINFORCE with baseline</span><a href="#42-reinforce-with-baseline" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>通过添加基线（baseline）可以减小方差。具体形式如下</p>
+<p>添加基线（baseline）的操作如下，首先列写原始的目标函数梯度式</p>
 
 \[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G_t \right]\]
 
@@ -1635,7 +1635,13 @@
 
 \[\theta \leftarrow \theta + \alpha (G_t - b(s_t)) \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta)\]
 
-<p>基线 $b(s)$ 可为不与动作 $a$ 有关的任意变量或者函数，因为它并不会改变策略梯度的期望，证明如下</p>
+<p>基线 $b(s)$ 可为不与动作 $a$ 有关的任意变量或者函数，这可以保证它并不会改变策略梯度的期望。</p>
+
+<blockquote>
+  <p>关于基线的更多内容参考：https://zhuanlan.zhihu.com/p/636907461</p>
+</blockquote>
+
+<font color="blue">添加基线不会改变策略梯度的期望，证明如下：</font>
 
 \[\begin{aligned}
 \nabla_{\theta}J(\theta) &amp;\propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (G_t-b(s_t)) \right]\\
@@ -1656,11 +1662,7 @@
 
 <p>得证。</p>
 
-<blockquote>
-  <p>关于基线的更多内容参考：https://zhuanlan.zhihu.com/p/636907461</p>
-</blockquote>
-
-<p>为什么引入基线可以减小方差？证明如下：</p>
+<font color="blue">引入基线可以减小策略梯度的方差，证明如下：</font>
 
 <p>首先根据方差的定义</p>
 
@@ -1723,8 +1725,24 @@ Var \nabla_{\theta}J(\theta)^2 &amp;= E[\nabla_{\theta}\ln\pi_{\theta}(a_t\vert 
 \[\begin{aligned}
 \delta_t &amp;= R_{t+1}+\gamma v(s_{t+1};\omega)-v(s_t;\omega)\\
 J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
-\omega &amp;\leftarrow \omega - \alpha_{\omega} \delta_t \nabla_{\omega}v(s;\omega)
+\omega &amp;\leftarrow \omega - \alpha_{\omega} \delta_t [\gamma \nabla_{\omega}v(s_{t+1};w)-\nabla_{\omega}v(s;\omega)]\\
+\text{or} \quad \omega &amp;\leftarrow \omega + \alpha_{\omega} \delta_t \nabla_{\omega}v(s;\omega)\quad \text{in practice}
 \end{aligned}\]
+
+<details>
+  <summary>
+<font color="blue">展开阅读：工程应用中为何使用最后一个式子进行参数更新。</font>
+</summary>
+
+  <blockquote>
+    <p>在实际工程应用中，通常近似忽略 $\nabla_{\omega}v(s_{t+1};w)$ 项，这种操作叫做 <strong>半梯度</strong>（semi-gradient）方法，虽然因为没有完全遵循梯度的数学推导，所以是有偏估计，但在实践中，它的计算复杂度更低、数值稳定性更好，因此在强化学习的工程应用中被广泛采用。</p>
+
+    <p>回顾前面介绍的 DQN 方法时，价值估计部分我们采取了分离拷贝的思想，也隐含了类似的思想。</p>
+
+    <p>两者都源于同一个问题：bootstrapping 中的目标值依赖当前估计值。半梯度是第一步简化：通过 “忽略目标值的梯度项” 来降低计算复杂度和不稳定性；DQN 目标网络是第二步扩展：在半梯度的基础上，通过 “冻结目标网络参数” 进一步强化目标值的稳定性，属于 “半梯度思想的工程化延伸”。</p>
+  </blockquote>
+
+</details>
 
 <p>此时策略网络的更新形式为</p>
 
@@ -1784,7 +1802,7 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 \[\begin{aligned}
 \delta_t &amp;= R_{t+1}+\gamma q(s_{t+1}, a_{t+1};\omega)-q(s_t, a_t;\omega)\\
 J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
-\omega &amp;\leftarrow \omega - \alpha_{\omega} \delta_t \nabla_{\omega}q(s,a;\omega)
+\omega &amp;\leftarrow \omega + \alpha_{\omega} \delta_t \nabla_{\omega}q(s,a;\omega)
 \end{aligned}\]
 
 <blockquote>
@@ -1831,16 +1849,20 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 &amp;= \theta_t + \alpha \textcolor{red}{\beta_t} \nabla_\theta \pi(a_t\vert s_t;\theta_t)
 \end{aligned}\]
 
-<p>这个式子其实在优化 $\pi(a_t\vert s_t;\theta_t)$。因为根据微分的性质，当 $\theta_{t+1}-\theta_t$ 足够小时，下面的式子成立</p>
+<p>这个式子其实在优化 $\pi(a_t\vert s_t;\theta_t)$。因为根据微分的性质（用一阶导数对函数进行局部线性近似），当 $\theta_{t+1}-\theta_t$ 足够小时，下面的式子成立</p>
 
 \[\pi(a_t\vert s_t;\theta_{t+1}) \approx \pi(a_t \vert s_t;\theta_t)+(\nabla_\theta \pi(a_t\vert s_t;\theta_t))^\top (\theta_{t+1}-\theta_t)\]
 
-<p>把前面的梯度上升式带进去，得</p>
+<p>根据前面的推导有</p>
+
+\[\theta_{t+1} - \theta_{t} = \alpha \beta_t \nabla_\theta \pi(a_t\vert s_t;\theta_t)\]
+
+<p>代入一阶导数局部线性近似式，得</p>
 
 \[\begin{aligned}
-\pi(a_t\vert s_t;\theta_{t+1}) &amp;\approx \pi(a_t \vert s_t;\theta_t)+(\nabla_\theta \pi(a_t\vert s_t;\theta_t))^\top (\theta_{t+1}-\theta_t)\\
-&amp;=\pi(a_t \vert s_t;\theta_t)+(\nabla_\theta \pi(a_t\vert s_t;\theta_t))^\top \alpha \beta_t \nabla_\theta \pi(a_t\vert s_t;\theta_t)\\
-&amp;=\pi(a_t \vert s_t;\theta_t)+ \alpha \beta_t \Vert \nabla_\theta \pi  a_t\vert s_t;\theta_t\Vert^2
+\pi(a_t\vert s_t;\theta_{t+1}) &amp;\approx \pi(a_t \vert s_t;\theta_t)+(\nabla_\theta \pi(a_t\vert s_t;\theta_t))^\top \textcolor{red}{(\theta_{t+1}-\theta_t)}\\
+&amp;=\pi(a_t \vert s_t;\theta_t)+\textcolor{blue}{(\nabla_\theta \pi(a_t\vert s_t;\theta_t))^\top} \textcolor{orange}{\alpha \beta_t} \textcolor{red}{\nabla_\theta \pi(a_t\vert s_t;\theta_t)}\\
+&amp;=\pi(a_t \vert s_t;\theta_t)+ \alpha \beta_t \Vert \nabla_\theta \pi (a_t\vert s_t;\theta_t)\Vert^2
 \end{aligned}\]
 
 <p>当 $\alpha_t\beta_t&gt;0$ 但值比较小时，有</p>
@@ -1851,7 +1873,7 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 
 \[\pi(a_t\vert s_t;\theta_{t+1}) &lt; \pi(a_t\vert s_t;\theta_t)\]
 
-<p>注意到，$\beta_t$ 和 $\textcolor{red}{\delta_t(a_t,s_t)}$ 成正比，和 $\pi(a_t\vert s_t;\theta_t)$ 成反比，因此</p>
+<p>注意到，$\beta_t$ 和 $\textcolor{red}{\delta_t(a_t,s_t)}$ 同号且成正比，和 $\pi(a_t\vert s_t;\theta_t)$ 成反比，因此</p>
 
 <ul>
   <li>当 $\delta_t(a_t,s_t)$ 较大时，$\beta_t$ 较大，新策略会更加倾向于选择该动作，即「利用」；</li>
@@ -1887,7 +1909,24 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 &amp; var(\bar{x}) = \frac{1}{n}var[X]
 \end{aligned}\]
 
-<p>假设样本 $x_i$ 是由根据另外一个分布 $p_1$ 采样得到的，问题变为：能否用 $x_i\sim p_i$ 来估计样本的原始分布？为什么要做上述事情？因为对于 off-policy 方法而言，样本采样来自分布行为策略 $\beta$（$p_1$），但是目标函数（使用策略梯度）中的期望是针对目标策略的，即 $\mathbb{E}_{A\sim \pi}[\star]$。</p>
+<p>假设样本 $x_i$ 是由根据另外一个分布 $p_1$ 采样得到的，问题变为：能否用 $x_i\sim p_1$ 来估计样本的原始分布 $p_0$？</p>
+
+<font color="red">为什么要考虑上述问题？</font>
+
+<p>对于 on-policy 方法（如 REINFORCE, A2C，SARSA），策略梯度的目标函数形式为</p>
+
+\[J(\theta) = \mathbb{E}_{\textcolor{red}{S\sim d^\pi, A\sim \pi}}[\star]\]
+
+<p>这里采样分布和期望分布完全一致。</p>
+
+<p>但对于 off-policy 方法（如 VAC）：</p>
+
+<ul>
+  <li>行为策略 $\beta(a\vert s)$ 是用来在环境中采取动作、收集经验的策略；</li>
+  <li>目标策略 $\pi(a\vert s)$ 是用来更新策略的策略；</li>
+</ul>
+
+<p>二者不一致。</p>
 
 <p>重要性采样的一般流程如下：</p>
 
