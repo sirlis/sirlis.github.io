@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="强化学习（策略梯度法）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-18T18:59:14+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-11-24T19:56:12+08:00","datePublished":"2023-11-27T16:43:19+08:00","description":"本文介绍了强化学习的策略梯度法（Policy Gradient）。","headline":"强化学习（策略梯度法）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"},"url":"http://localhost:4000/posts/reinforcement-learning-Policy-Gradient/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1036,13 +1036,13 @@
 
 <em
   class=""
-  data-ts="1744973954"
+  data-ts="1763985372"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/04/18
+  2025/11/24
 </em>
 
     </span>
@@ -1086,7 +1086,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="9335 字"
+  title="9345 字"
 >
   <em>51 分钟</em>阅读</span>
 
@@ -1589,7 +1589,7 @@
       <li>loop $t=T-1, T-2, \cdots, 1,0$
         <ul>
           <li>$\quad G\leftarrow \gamma G + r_{t+1}$</li>
-          <li>$\quad \theta \leftarrow \theta + \alpha \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G $</li>
+          <li>$\quad \theta \leftarrow \theta + \alpha \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) G$</li>
         </ul>
       </li>
     </ul>
@@ -1826,7 +1826,7 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 
 \[\nabla_{\theta}J(\theta) \propto \mathbb{E} \left[ \nabla_{\theta}\ln\pi(a_t\vert s_t;\theta) (q_{\pi}(s_t,a_t)-v_{\pi}(s_t)) \right]\]
 
-<p>我们称 $\textcolor{red}{\delta_t(s_t,a_t) = q_{\pi}(s_t,a_t)-v_{\pi}(s_t)}$ 为 <strong>优势函数</strong>。优势函数表示在状态 $s$ 下采取动作 $a$ 相对于平均水平的优势。</p>
+<p>我们称 $\textcolor{red}{A_t(s_t,a_t) = q_{\pi}(s_t,a_t)-v_{\pi}(s_t)}$ 为 <strong>优势函数</strong>。优势函数表示在状态 $s$ 下采取动作 $a$ 相对于平均水平的优势。</p>
 
 <ul>
   <li>如果优势函数大于零，则说明该动作比平均动作好</li>
@@ -1844,8 +1844,8 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 <p>则 A2C 的梯度上升式可改写为</p>
 
 \[\begin{aligned}
-\theta_{t+1} &amp;= \theta_t + \alpha \nabla_{\theta_t} \ln\pi(a_t\vert s_t;\theta_t)\delta_t(a_t,s_t)\\
-&amp;= \theta_t + \alpha \left(\frac{\delta_t(a_t,s_t)}{\pi(a_t\vert s_t;\theta_t)}\right) \nabla_\theta \pi(a_t\vert s_t;\theta_t)\\
+\theta_{t+1} &amp;= \theta_t + \alpha \nabla_{\theta_t} \ln\pi(a_t\vert s_t;\theta_t)A_t(a_t,s_t)\\
+&amp;= \theta_t + \alpha \left(\frac{A_t(a_t,s_t)}{\pi(a_t\vert s_t;\theta_t)}\right) \nabla_\theta \pi(a_t\vert s_t;\theta_t)\\
 &amp;= \theta_t + \alpha \textcolor{red}{\beta_t} \nabla_\theta \pi(a_t\vert s_t;\theta_t)
 \end{aligned}\]
 
@@ -1986,7 +1986,7 @@ var_{X\sim p_1}[\bar{f}(X)] &amp;= \frac{1}{n}var_{X\sim p_1}[f(X)]
 \[\begin{aligned}
 \delta_t &amp;= R_{t+1}+\gamma v(s_{t+1};\omega_t)-v(s_t;\omega_t)\\
 J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
-\omega_{t+1} &amp;= \omega_t - \alpha_{\omega} \textcolor{red}{\frac{\pi(a_t\vert s_t;\theta)}{\beta(a_t\vert s_t)}} \delta_t \nabla_{\omega}v(s_t;\omega_t)
+\omega_{t+1} &amp;= \omega_t + \alpha_{\omega} \textcolor{red}{\frac{\pi(a_t\vert s_t;\theta)}{\beta(a_t\vert s_t)}} \delta_t \nabla_{\omega}v(s_t;\omega_t)
 \end{aligned}\]
 
 <h2 id="5-确定性策略梯度dpg"><span class="me-2">5. 确定性策略梯度（DPG）</span><a href="#5-确定性策略梯度dpg" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -2045,7 +2045,11 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
 
 <p>对于 DDPG 方法，其价值网络的更新部分不变</p>
 
-\[\omega_{t+1} = \omega_t - \alpha_{\omega} \delta_t \nabla_{\omega}q(s_t,a_t;\omega_t)\]
+\[\begin{aligned}
+y_t &amp;= r_{t+1}+\gamma q(s_{t+1},\mu_{target}(s_{t+1});\omega_{target})\\
+\delta_t &amp;= y_t - q(s_t,a_t;\omega_t)\\
+\omega_{t+1} &amp;= \omega_t + \alpha_{\omega} \delta_t \nabla_{\omega}q(s_t,a_t;\omega_t)
+\end{aligned}\]
 
 <p>而策略网络的参数更新式为</p>
 
@@ -2204,6 +2208,13 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
         </li>
       
@@ -2226,13 +2237,6 @@ J(\omega) &amp;= \frac{1}{2} \delta_t^2\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
     </ul>
