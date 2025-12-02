@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（卷积神经网络）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（卷积神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-05T17:58:26+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-02T13:36:58+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -3095,18 +3095,6 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
 
     
 
@@ -3123,6 +3111,18 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -3251,13 +3251,13 @@
 
 <em
   class=""
-  data-ts="1749117506"
+  data-ts="1764653818"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/05
+  2025/12/02
 </em>
 
     </span>
@@ -3336,18 +3336,15 @@
               <li><a href="#2122-高斯平滑高斯滤波">2.1.2.2. 高斯平滑（高斯滤波）</a></li>
               <li><a href="#2123-非线性平滑中值滤波">2.1.2.3. 非线性平滑（中值滤波）</a></li>
               <li><a href="#2124-边缘检测roberts-卷积核">2.1.2.4. 边缘检测（Roberts 卷积核）</a></li>
+              <li><a href="#2125-边缘检测prewitt-卷积核">2.1.2.5. 边缘检测（Prewitt 卷积核）</a></li>
+              <li><a href="#2126-边缘检测sober-卷积核">2.1.2.6. 边缘检测（Sober 卷积核）</a></li>
+              <li><a href="#2127-边缘检测laplacian-卷积核">2.1.2.7. 边缘检测（Laplacian 卷积核）</a></li>
             </ul>
           </li>
-          <li><a href="#213-边缘检测prewitt-卷积核">2.1.3. 边缘检测（Prewitt 卷积核）</a>
-            <ul>
-              <li><a href="#2131-边缘检测sober-卷积核">2.1.3.1. 边缘检测（Sober 卷积核）</a></li>
-              <li><a href="#2132-边缘检测laplacian-卷积核">2.1.3.2. 边缘检测（Laplacian 卷积核）</a></li>
-            </ul>
-          </li>
-          <li><a href="#214-多通道卷积">2.1.4. 多通道卷积</a></li>
-          <li><a href="#215-卷积计算量与参数量">2.1.5. 卷积计算量与参数量</a></li>
-          <li><a href="#216-深度可分离卷积">2.1.6. 深度可分离卷积</a></li>
-          <li><a href="#217-权值共享">2.1.7. 权值共享</a></li>
+          <li><a href="#213-多通道卷积">2.1.3. 多通道卷积</a></li>
+          <li><a href="#214-卷积计算量与参数量">2.1.4. 卷积计算量与参数量</a></li>
+          <li><a href="#215-深度可分离卷积">2.1.5. 深度可分离卷积</a></li>
+          <li><a href="#216-权值共享">2.1.6. 权值共享</a></li>
         </ul>
       </li>
       <li><a href="#22-特征图">2.2. 特征图</a>
@@ -3594,7 +3591,7 @@ g_y = \begin{bmatrix}
 
 \[\begin{aligned}
 g_x(x,y) = f(x+1,y+1) - f(x,y)\\
-g_y(x,y) = f(x+1,y) - f(x+1,y)
+g_y(x,y) = f(x+1,y) - f(x,y+1)
 \end{aligned}\]
 
 <p>对应的卷积核即为 Roberts 卷积核</p>
@@ -3614,7 +3611,7 @@ g_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-roberts.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-roberts.jpg" alt="Roberts卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h4 id="213-边缘检测prewitt-卷积核"><span class="me-2">2.1.3. 边缘检测（Prewitt 卷积核）</span><a href="#213-边缘检测prewitt-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h5 id="2125-边缘检测prewitt-卷积核"><span class="me-2">2.1.2.5. 边缘检测（Prewitt 卷积核）</span><a href="#2125-边缘检测prewitt-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>为了克服 Roberts 卷积核对边缘的定位不太准确的局限性，将二维卷积核扩展到中心对称的卷积核（中心对称卷积核的最小尺寸是 $3\times 3$ ），如 Prewitt 卷积核：</p>
 
@@ -3633,7 +3630,7 @@ G_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-prewitt.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-prewitt.jpg" alt="Prewitt卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h5 id="2131-边缘检测sober-卷积核"><span class="me-2">2.1.3.1. 边缘检测（Sober 卷积核）</span><a href="#2131-边缘检测sober-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2126-边缘检测sober-卷积核"><span class="me-2">2.1.2.6. 边缘检测（Sober 卷积核）</span><a href="#2126-边缘检测sober-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>注意到 Prewitt 卷积核中使用的是类似算数平均的运算，我们可以引入加权平均的思想予以替代，就可以得到 Sobel 卷积核。其核心思想为：邻域的像素对当前像素产生的影响（梯度）不是等价的，所以距离不同的像素具有不同的权值，对算子结果产生的影响也不同。一般来说，距离越远，产生的影响越小。正因为Sobel算子对于像素的位置的影响做了加权，与Prewitt算子、Roberts算子相比因此效果更好。</p>
 
@@ -3662,7 +3659,7 @@ G_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-sobel.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-sobel.jpg" alt="Sobel卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h5 id="2132-边缘检测laplacian-卷积核"><span class="me-2">2.1.3.2. 边缘检测（Laplacian 卷积核）</span><a href="#2132-边缘检测laplacian-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2127-边缘检测laplacian-卷积核"><span class="me-2">2.1.2.7. 边缘检测（Laplacian 卷积核）</span><a href="#2127-边缘检测laplacian-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>拉普拉斯提取边缘属于使用二阶导提取边缘，它是一种各向同性的二阶微分算子（具有旋转不变性）。各向同性就是指使用这一个算子，就能对任何走向的界线和线条进行锐化，无方向性。而像sobel等，它们在提取 $x$、$y$ 方向的边缘都是使用不同的算子来实现的。这拉普拉斯算子区别于其他一阶微分算子的优点。</p>
 
@@ -3692,7 +3689,7 @@ G_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-LOG.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-LOG.jpg" alt="LOG卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h4 id="214-多通道卷积"><span class="me-2">2.1.4. 多通道卷积</span><a href="#214-多通道卷积" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="213-多通道卷积"><span class="me-2">2.1.3. 多通道卷积</span><a href="#213-多通道卷积" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>多通道的卷积核，可以理解为多个单通道卷积核的组合，即对每个通道都采用相同的卷积核，然后进行相加，即</p>
 
@@ -3706,7 +3703,7 @@ G_y = \begin{bmatrix}
 
 <p>比如，前述 VGGNet-16 中我们可以看到，其输入的是三通道彩色图像，尺寸为 $224\times 224\times 3$。网络前两层卷积层分别使用了 $64$ 个 $3\times 3$ 卷积核，最终得到的是 $224\times 224\times 64$。</p>
 
-<h4 id="215-卷积计算量与参数量"><span class="me-2">2.1.5. 卷积计算量与参数量</span><a href="#215-卷积计算量与参数量" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="214-卷积计算量与参数量"><span class="me-2">2.1.4. 卷积计算量与参数量</span><a href="#214-卷积计算量与参数量" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>对于一个输入 $C_{in}$ 通道的尺寸为 $H_{in}\times W_{in}$ 的图像，采用 $K\times K$ 卷积核，卷积核个数 $C_{out}$，输出尺寸为 $H_{out}\times W_{out}$，输出单像素（一次卷积）需要进行：</p>
 
@@ -3732,7 +3729,7 @@ G_y = \begin{bmatrix}
 
 \[C_{in}\times K^2\times C_{out}\]
 
-<h4 id="216-深度可分离卷积"><span class="me-2">2.1.6. 深度可分离卷积</span><a href="#216-深度可分离卷积" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="215-深度可分离卷积"><span class="me-2">2.1.5. 深度可分离卷积</span><a href="#215-深度可分离卷积" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>深度可分离卷积（Depthwise separable convolution, DSC）由单通道卷积（深度卷积）和逐点卷积组成。深度卷积用于提取空间特征，逐点卷积用于提取通道特征。深度可分离卷积在特征维度上分组卷积，对每个channel进行独立的逐深度卷积（depthwise convolution），并在输出前使用一个1x1卷积（pointwise convolution）将所有通道进行聚合。</p>
 
@@ -3774,7 +3771,7 @@ G_y = \begin{bmatrix}
 
 <p>相比标准卷积，深度可分离卷积的参数量大幅减少。</p>
 
-<h4 id="217-权值共享"><span class="me-2">2.1.7. 权值共享</span><a href="#217-权值共享" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="216-权值共享"><span class="me-2">2.1.6. 权值共享</span><a href="#216-权值共享" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>权值共享（Weight Sharing）是卷积神经网络的核心特性之一，它通过让同一卷积核在输入的不同位置上重复使用，大幅减少模型的参数量，同时提升计算效率和泛化能力。具体而言：</p>
 
@@ -4475,6 +4472,13 @@ W &amp;\leftarrow W - \eta v
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
@@ -4497,13 +4501,6 @@ W &amp;\leftarrow W - \eta v
         
         <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
     </ul>

@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-12-02T01:55:12+08:00</updated>
+  <updated>2025-12-02T13:37:13+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -12,7 +12,7 @@
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
     href="http://localhost:4000/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
   <rights> © 2025 sirlis </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
@@ -186,7 +186,7 @@
     <link href="http://localhost:4000/posts/Pattern-Recognition-CNN/" rel="alternate" type="text/html" title="模式识别（卷积神经网络）" />
     <published>2025-06-03T11:03:49+08:00</published>
   
-    <updated>2025-06-05T17:58:26+08:00</updated>
+    <updated>2025-12-02T13:36:58+08:00</updated>
   
     <id>http://localhost:4000/posts/Pattern-Recognition-CNN/</id>
     <content src="http://localhost:4000/posts/Pattern-Recognition-CNN/" />
