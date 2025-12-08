@@ -1853,6 +1853,74 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -2418,7 +2486,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="12081 字"
+  title="12142 字"
 >
   <em>67 分钟</em>阅读</span>
 
@@ -2697,14 +2765,16 @@
   <li>将所有块的归一化直方图特征向量拼接，形成最终的 HOG 特征向量。
     <ul>
       <li>对于尺寸为 $64\times 128$ 的原始图片，被划分 $(8-1)\times (16-1)=105$ 个块；</li>
-      <li>最终得到 $105 \times 36 = 3780$ 维特征向量。</li>
+      <li>最终得到 $105 \times 36 = 3780$ 维特征向量，相比原始图片的 $64 \times 128 = 8192$ 维特征向量，HOG 特征向量维度缩小了一半左右。</li>
     </ul>
   </li>
 </ul>
 
 <p><a href="/assets/img/postsimg/20250415/hog1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/hog1.jpg" alt="HOG" class="lazyload" data-proofer-ignore></a></p>
 
-<p>可参考链接 <a href="https://zhuanlan.zhihu.com/p/627783852">图像特征工程：HOG 特征描述符的介绍</a></p>
+<p>下面给出了原始图像和其对应 HOG 特征图像的对比，详细计算过程可参考链接 <a href="https://zhuanlan.zhihu.com/p/627783852">图像特征工程：HOG 特征描述符的介绍</a>。</p>
+
+<p><a href="/assets/img/postsimg/20250415/hog2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/hog2.jpg" alt="HOG2" class="lazyload" data-proofer-ignore></a></p>
 
 <h4 id="123-傅里叶描述子fourier-descriptors"><span class="me-2">1.2.3. 傅里叶描述子（Fourier Descriptors）</span><a href="#123-傅里叶描述子fourier-descriptors" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -3516,6 +3586,13 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
         </li>
       
@@ -3538,13 +3615,6 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-RNN/">深度学习基础（RNN）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-LSTM/">深度学习基础（LSTM）</a>
         </li>
       
     </ul>
@@ -4079,6 +4149,17 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
   
     
     
@@ -4222,17 +4303,6 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
     
     
     
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
     
   
     
@@ -4400,10 +4470,10 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/artificial-intelligence/">artificial intelligence</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/artificial-intelligence/">artificial intelligence</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
@@ -4461,6 +4531,18 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5470,56 +5552,6 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
         
         
         <div class="col">
-          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/" class="card post-preview h-100">
-            <div class="card-body">
-              <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em
-  class="small"
-  data-ts="1743341659"
-  data-df="YYYY/MM/DD"
-  
->
-  2025/03/30
-</em>
-
-              <h4 class="pt-0 my-2" data-toc-skip>模式识别（非线性分类器）</h4>
-              <div class="text-muted small">
-                <p>
-                  
-
-
-
-
-
-                  很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。
-
-
-
-
-
-
-  1. 引言
-  2. 近邻法分类器（NN / KNN）
-    
-      2.1. 最近邻法
-      2...
-                </p>
-              </div>
-            </div>
-          </a>
-        </div>
-      
-        
-        
-        <div class="col">
           <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/" class="card post-preview h-100">
             <div class="card-body">
               <!--
@@ -5606,6 +5638,62 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
 
 
   1. 神经元...
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      
+        
+        
+        <div class="col">
+          <a href="/posts/Pattern-Recognition-CNN/" class="card post-preview h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class="small"
+  data-ts="1748919829"
+  data-df="YYYY/MM/DD"
+  
+>
+  2025/06/03
+</em>
+
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（卷积神经网络）</h4>
+              <div class="text-muted small">
+                <p>
+                  
+
+
+
+
+
+                  卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。
+
+
+
+
+
+  1. 基础概念
+    
+      1.1. 输入
+      1.2. 基本结构
+      1.3. 输出
+    
+  
+  2. 卷积层
+    
+      2.1. 卷积操作
+        
+       ...
                 </p>
               </div>
             </div>
@@ -6240,6 +6328,17 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
   
     
     
@@ -6383,17 +6482,6 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
     
     
     
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
     
   
     
@@ -6561,10 +6649,10 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
         <a class="post-tag btn btn-outline-primary" href="/tags/vscode/">vscode</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/artificial-intelligence/">artificial intelligence</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/artificial-intelligence/">artificial intelligence</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/reinforcement-learning/">reinforcement learning</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/other/">other</a>
