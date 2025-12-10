@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="人工智能（目标检测）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="目标检测是计算机视觉领域的基础任务，旨在通过算法自动检测图像中包含的目标类别信息和位置信息。本文将详细介绍基于锚框（Anchor）的目标检测算法，并介绍其原理和实现方法。" />
@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（目标检测）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-08T21:06:49+08:00","datePublished":"2025-12-08T21:06:49+08:00","description":"目标检测是计算机视觉领域的基础任务，旨在通过算法自动检测图像中包含的目标类别信息和位置信息。本文将详细介绍基于锚框（Anchor）的目标检测算法，并介绍其原理和实现方法。","headline":"人工智能（目标检测）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-object-detection/"},"url":"http://localhost:4000/posts/artificial-intelligence-object-detection/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-11T00:05:55+08:00","datePublished":"2025-12-08T21:06:49+08:00","description":"目标检测是计算机视觉领域的基础任务，旨在通过算法自动检测图像中包含的目标类别信息和位置信息。本文将详细介绍基于锚框（Anchor）的目标检测算法，并介绍其原理和实现方法。","headline":"人工智能（目标检测）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-object-detection/"},"url":"http://localhost:4000/posts/artificial-intelligence-object-detection/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1799,6 +1799,30 @@
 
     <!-- lastmod date -->
     
+    <span>
+      更新于
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class=""
+  data-ts="1765382755"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2025/12/11
+</em>
+
+    </span>
+    
 
   
 
@@ -1838,9 +1862,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3893 字"
+  title="4484 字"
 >
-  <em>21 分钟</em>阅读</span>
+  <em>24 分钟</em>阅读</span>
 
     </div>
 
@@ -1930,7 +1954,7 @@
 
 <h4 id="211-候选区域提取"><span class="me-2">2.1.1. 候选区域提取</span><a href="#211-候选区域提取" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>一张图像中可能存在多个物体需要分别定位和分类。显然，在训练分类器之前，需要使用一些方法将图像划分为小的区域，这些方法统称为Region Proposal Algorithms。一张图像中包含的信息非常丰富，图像中的物体有不同的形状、尺寸、颜色、纹理，而且物体间还有层次（hierarchical）关系。下图给出了四个例子，来说明目标检测的难度。</p>
+<p>一张图像中可能存在多个物体需要分别定位和分类。显然，在训练分类器之前，需要使用一些方法将图像划分为小的区域，这些方法统称为 Region Proposal Algorithms。一张图像中包含的信息非常丰富，图像中的物体有不同的形状、尺寸、颜色、纹理，而且物体间还有层次（hierarchical）关系。下图给出了四个例子，来说明目标检测的难度。</p>
 
 <p><a href="/assets/img/postsimg/20251208/region-proposal.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/region-proposal.jpg" alt="region proposal" class="lazyload" data-proofer-ignore></a></p>
 
@@ -1976,7 +2000,7 @@
   <li><strong>Selective Search</strong></li>
 </ul>
 
-<p>选择性搜索是用于目标检测的区域提议算法，它计算速度快，具有很高的召回率，基于颜色，纹理，大小和形状兼容计算相似区域的分层分组。Selective Search算法主要包含两个内容：</p>
+<p>选择性搜索是用于目标检测的区域提议算法，它计算速度快，具有很高的召回率。Selective Search 算法的核心是基于颜色，纹理，大小和形状兼容计算相似区域的分层分组，主要包含两个内容：</p>
 
 <ul>
   <li>Hierarchical Grouping Algorithm</li>
@@ -1991,7 +2015,7 @@
 
 <p>在 Diversification Strategies 中，主要计算了不同的相似性度量方式，包括颜色相似度、纹理相似度、尺度相似度、形状重合度等。最终将他们加权得到总的相似性度量。</p>
 
-<p>虽然能够大幅降低（提取~2K候选区域），但计算量仍然过高（每一个候选区域都需要过一次 CNN，且相邻区域间存在大量重复计算）。</p>
+<p>虽然Selective Search 算法能够大幅降低（提取~2K候选区域），但计算量仍然过高（每一个候选区域都需要过一次 CNN，且相邻区域间存在大量重复计算）。</p>
 
 <p>在送入 AlexNet 之前，候选框需要扩展 16 个像素的上下文区域（避免裁剪丢失目标边缘特征），再强制缩放为 $227\times 227$ 尺寸，适配 AlexNet 的输入要求。</p>
 
@@ -2005,7 +2029,7 @@
   <li>大小可能不完全匹配</li>
 </ul>
 
-<p>而作者表示，CNN 提取的深层特征（pool5 层）包含目标的精准位置线索，可通过线性模型学习这种 “候选框 - 真实框” 的映射关系，实现框的微调（Bounding Box Regression）。</p>
+<p>而作者表示，CNN 提取的深层特征（pool5 层）包含目标的精准位置线索，可通过<strong>线性模型</strong>学习这种 “候选框 - 真实框” 的映射关系，实现框的微调（Bounding Box Regression）。</p>
 
 <blockquote>
   <p>AlexNet 结构（R-CNN使用）</p>
@@ -2031,31 +2055,62 @@ fc6 → fc7 → fc8
   </ol>
 </blockquote>
 
-<p>线性模型的核心是学习候选框到真实框（Ground Truth）的 $4$ 个变换参数，线性模型的结构、目标函数和参数求解方式如下：</p>
+<p>线性模型的核心是学习候选框到真实框（Ground Truth）的 $4$ 个变换参数。线性模型的结构、目标函数和参数求解方式如下：</p>
+
 <ol>
-  <li><strong>目标参数定义</strong>：不直接预测边界框的绝对坐标，而是预测相对变换参数，以提升模型的尺度鲁棒性。设候选框$P=(P_x,P_y,P_w,P_h)$（$P_x,P_y$为中心坐标，$P_w,P_h$为宽高），真实框$G=(G_x,G_y,G_w,G_h)$，定义4个目标变换参数：
-\(\begin{cases}
+  <li><strong>目标参数定义</strong></li>
+</ol>
+
+<p>不直接预测边界框的绝对坐标，而是预测相对变换参数，以提升模型的尺度鲁棒性。设候选框$P=(P_x,P_y,P_w,P_h)$（$P_x,P_y$为中心坐标，$P_w,P_h$为宽高），真实框$G=(G_x,G_y,G_w,G_h)$，定义4个目标变换参数：</p>
+
+\[\begin{cases}
 t_x=\frac{G_x - P_x}{P_w}\\
 t_y=\frac{G_y - P_y}{P_h}\\
 t_w=\ln(\frac{G_w}{P_w})\\
 t_h=\ln(\frac{G_h}{P_h})
-\end{cases}\)
-其中$t_x,t_y$描述中心坐标的相对偏移，$t_w,t_h$描述宽高的相对缩放（取对数可确保缩放参数正负对称，避免尺寸为负）。</li>
-  <li><strong>线性模型结构</strong>：模型为 $4$ 个独立的 Ridge 回归（带 L2 正则的线性回归）模型，分别对应 $t_x,t_y,t_w,t_h$ 的预测。每个模型的表达式为 $\hat{t}=W^T f + b$，其中 $f$ 是 pool5 层的 9216 维特征向量，$W$ 是 9216 维的权重向量，$b$ 是偏置项，$\hat{t}$ 是预测的变换参数。使用独立模型可避免参数间的相互干扰，提升预测精度。</li>
-  <li>
-    <div class="table-wrapper"><table>
-      <tbody>
-        <tr>
-          <td><strong>损失函数与训练约束</strong>：训练的损失函数采用均方误差（MSE），即最小化$\sum_{i=1}^N (\hat{t}_i - t_i)^2+\lambda</td>
-          <td> </td>
-          <td>W</td>
-          <td> </td>
-          <td>^2$，其中 $\lambda$ 是 L2 正则化系数，用于防止过拟合。补充材料特别强调，训练样本需满足候选框与真实框的 IoU（交并比）大于 $0.6$，因为只有候选框与目标足够接近时，候选框到真实框的映射才近似线性，这是线性回归模型有效的前提。</td>
-        </tr>
-      </tbody>
-    </table></div>
-  </li>
+\end{cases}\]
+
+<p>其中$t_x,t_y$描述中心坐标的相对偏移，$t_w,t_h$描述宽高的相对缩放</p>
+
+<details>
+  <summary>
+    <font color="blue">思考：为何宽高与中心坐标的相对变换参数形式不一样？</font>
+  </summary>
+  <font color="blue">有如下几个考虑：
+
+- <b>为何宽高使用比值，而不是差值：</b>
+  - **尺度不变性**。假设候选框宽度 $P_w=10$，真实框宽度 $G_w=20$，宽度差为 $10$。但如果 $P_w=100, G_w=110$，差值也是 $10$，但物理意义完全不同：第一个是宽度翻倍，第二个只是增加了 $10\%$。而使用比值可以反应不同尺度框的相对缩放关系。
+  - **损失函数的公平性**。在训练时，一张图像中可能同时存在大物体和小物体。如果对大物体的宽高预测误差为10像素，对小物体的误差也为10像素，数值上相同。但对小物体来说，10像素可能是巨大的相对误差（比如50%），而对大物体可能是微小误差（比如5%）。使用差值损失会导致模型偏向优化大物体的绝对误差，而忽视小物体的相对精度。使用比值（对数）后，所有尺寸的物体都在相对变化空间中进行优化，实现了尺度公平。
+  - **梯度计算的稳定性**。如果使用差值，对于不同尺度的物体，梯度数值范围差异很大。
+  - **恢复预测时的数值合理性**。如果网络预测宽度差值很不准确，比如为一个很大的负数 $t_w=-15$，在用这个差值对候选框进行纠正时会得到比如 $\hat{G_w}=10-15=-5$ 种非法数字。
+- <b>为何宽高使用对数，而不是直接使用比值：</b>
+  - 放大一倍时比值为2, 而缩小0.5倍时比值为0.5，二者在数值上不对称；如果使用对数，$ln(2)\approx 0.693, ln(0.5)\approx -0.693$，对数比值更适合表示缩放关系；
+  - 直接比值的范围是 $(0,+\infty)$，这带来两个问题：（1）分布严重右偏，大多数比值在 $1$ 附近，但偶尔有极大值（如 $10$ 倍放大）；（2）梯度不稳定,大比值导致大梯度；
+  - 取对数后，范围变为 $(-\infty, +\infty)$，大多数值集中在 $0$ 附近，分布更接近正态分布，适合神经网络优化。</font>
+
+</details>
+
+<ol>
+  <li><strong>线性模型结构</strong></li>
 </ol>
+
+<p>模型为 $4$ 个独立的 Ridge 回归（带 L2 正则的线性回归）模型，分别对应 $t_x,t_y,t_w,t_h$ 的预测。每个模型的表达式为 $\hat{t}=W^T f + b$，其中 $f$ 是 pool5 层的 9216 维特征向量，$W$ 是 9216 维的权重向量，$b$ 是偏置项，$\hat{t}$ 是预测的变换参数。使用独立模型可避免参数间的相互干扰，提升预测精度。</p>
+
+<ol>
+  <li><strong>损失函数与训练约束</strong></li>
+</ol>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>训练的损失函数采用均方误差（MSE），即最小化$\sum_{i=1}^N (\hat{t}_i - t_i)^2+\lambda</td>
+      <td> </td>
+      <td>W</td>
+      <td> </td>
+      <td>^2$，其中 $\lambda$ 是 L2 正则化系数，用于防止过拟合。补充材料特别强调，训练样本需满足候选框与真实框的 IoU（交并比）大于 $0.6$，因为只有候选框与目标足够接近时，候选框到真实框的映射才近似线性，这是线性回归模型有效的前提。</td>
+    </tr>
+  </tbody>
+</table></div>
 
 <p>论文指出，无需多次迭代修正，一次线性回归的调整即可满足精度要求，多次调整反而会引入累积误差，降低检测性能。</p>
 
@@ -2384,6 +2439,20 @@ $$
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
         </li>
       
@@ -2392,20 +2461,6 @@ $$
         
         <li class="text-truncate lh-lg">
           <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Value-Approximation/">强化学习（值函数近似）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-RNN/">深度学习基础（RNN）</a>
         </li>
       
     </ul>
