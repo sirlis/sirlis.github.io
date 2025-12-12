@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（目标检测）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-11T00:05:55+08:00","datePublished":"2025-12-08T21:06:49+08:00","description":"目标检测是计算机视觉领域的基础任务，旨在通过算法自动检测图像中包含的目标类别信息和位置信息。本文将详细介绍基于锚框（Anchor）的目标检测算法，并介绍其原理和实现方法。","headline":"人工智能（目标检测）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-object-detection/"},"url":"http://localhost:4000/posts/artificial-intelligence-object-detection/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-13T00:54:42+08:00","datePublished":"2025-12-08T21:06:49+08:00","description":"目标检测是计算机视觉领域的基础任务，旨在通过算法自动检测图像中包含的目标类别信息和位置信息。本文将详细介绍基于锚框（Anchor）的目标检测算法，并介绍其原理和实现方法。","headline":"人工智能（目标检测）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-object-detection/"},"url":"http://localhost:4000/posts/artificial-intelligence-object-detection/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1627,6 +1627,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1643,6 +1655,30 @@
       
         
         
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -1812,13 +1848,13 @@
 
 <em
   class=""
-  data-ts="1765382755"
+  data-ts="1765558482"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/12/11
+  2025/12/13
 </em>
 
     </span>
@@ -1862,9 +1898,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4484 字"
+  title="6754 字"
 >
-  <em>24 分钟</em>阅读</span>
+  <em>37 分钟</em>阅读</span>
 
     </div>
 
@@ -1881,6 +1917,7 @@
   <li><a href="#1-目标检测基础">1. 目标检测基础</a>
     <ul>
       <li><a href="#11-基于锚框的目标检测">1.1. 基于锚框的目标检测</a></li>
+      <li><a href="#12-交并比iou">1.2. 交并比（IoU）</a></li>
     </ul>
   </li>
   <li><a href="#2-r-cnn-系列多阶段目标检测">2. R-CNN 系列多阶段目标检测</a>
@@ -1888,15 +1925,17 @@
       <li><a href="#21-r-cnn">2.1. R-CNN</a>
         <ul>
           <li><a href="#211-候选区域提取">2.1.1. 候选区域提取</a></li>
-          <li><a href="#212-边界框回归">2.1.2. 边界框回归</a></li>
-          <li><a href="#213-总结">2.1.3. 总结</a></li>
+          <li><a href="#212-候选框分类">2.1.2. 候选框分类</a></li>
+          <li><a href="#213-边界框回归">2.1.3. 边界框回归</a></li>
+          <li><a href="#214-非极大值抑制nms">2.1.4. 非极大值抑制（NMS）</a></li>
+          <li><a href="#215-总结">2.1.5. 总结</a></li>
         </ul>
       </li>
       <li><a href="#22-fast-r-cnn">2.2. Fast R-CNN</a>
         <ul>
-          <li><a href="#221-roi-映射">2.2.1. RoI 映射</a></li>
+          <li><a href="#221-roi-投影">2.2.1. RoI 投影</a></li>
           <li><a href="#222-roi-池化">2.2.2. RoI 池化</a></li>
-          <li><a href="#223-端到端分类回归">2.2.3. 端到端分类回归</a></li>
+          <li><a href="#223-损失函数">2.2.3. 损失函数</a></li>
           <li><a href="#224-总结">2.2.4. 总结</a></li>
         </ul>
       </li>
@@ -1932,6 +1971,12 @@
 </ul>
 
 <p><a href="/assets/img/postsimg/20251208/multi-stage-vs-single-stage.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/multi-stage-vs-single-stage.jpg" alt="多阶段目标检测和单阶段目标检测" class="lazyload" data-proofer-ignore></a></p>
+
+<h3 id="12-交并比iou"><span class="me-2">1.2. 交并比（IoU）</span><a href="#12-交并比iou" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>交并比（Intersection over Union，IoU）是两个框的相似度度量，用于度量两个框之间的相似度。其计算方式为：</p>
+
+\[IoU = \frac{A_1 \cap A_2}{A_1 \cup A_2}\]
 
 <h2 id="2-r-cnn-系列多阶段目标检测"><span class="me-2">2. R-CNN 系列多阶段目标检测</span><a href="#2-r-cnn-系列多阶段目标检测" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2015,13 +2060,60 @@
 
 <p>在 Diversification Strategies 中，主要计算了不同的相似性度量方式，包括颜色相似度、纹理相似度、尺度相似度、形状重合度等。最终将他们加权得到总的相似性度量。</p>
 
-<p>虽然Selective Search 算法能够大幅降低（提取~2K候选区域），但计算量仍然过高（每一个候选区域都需要过一次 CNN，且相邻区域间存在大量重复计算）。</p>
+<p>虽然 Selective Search 算法能够大幅降低（提取~2K候选区域），但计算量仍然过高（每一个候选区域都需要过一次 CNN，且相邻区域间存在大量重复计算）。</p>
 
 <p>在送入 AlexNet 之前，候选框需要扩展 16 个像素的上下文区域（避免裁剪丢失目标边缘特征），再强制缩放为 $227\times 227$ 尺寸，适配 AlexNet 的输入要求。</p>
 
-<h4 id="212-边界框回归"><span class="me-2">2.1.2. 边界框回归</span><a href="#212-边界框回归" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="212-候选框分类"><span class="me-2">2.1.2. 候选框分类</span><a href="#212-候选框分类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>在 R-CNN 中，Selective Search 生成的候选区域（region proposals）通常不够精确，主要体现在：</p>
+<p>对于每个候选框，输入预先训练好的 $20$ 个 SVM 分类器（只用于判断该输入候选框是该类样本还是背景），得到 $20$ 个类别的概率，然后选择概率最大的类别作为该候选框的类别，最终可以得到 $2000\times 1$ 的类别预测结果。</p>
+
+<p>上述每个 SVM 分类器的训练流程严格依赖 CNN 提取的特征，且需要人工构造正负样本。</p>
+
+<ul>
+  <li>
+    <p>CNN 特征预提取</p>
+
+    <ul>
+      <li>
+        <p>CNN 预训练</p>
+
+        <p>先在大规模分类数据集（如 ImageNet）上预训练一个 CNN（如 AlexNet），目的是让 CNN 学会提取通用的图像特征。虽然将 CNN 当作分类器去训练，但是训练完毕后只使用其前面的 5 个卷积层 + 3 个池化层作为特征提取器。</p>
+      </li>
+      <li>
+        <p>特征提取</p>
+
+        <p>对训练集的每张图像，用 Selective Search 生成约 2000 个候选框，将每个候选框裁剪、缩放为 CNN 要求的固定尺寸（如 $227\times 227$），输入预训练 CNN，输出 $4096$ 维的特征向量—— 这是 SVM 的输入特征。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>正负样本构建</p>
+
+    <ul>
+      <li>
+        <p>样本标注</p>
+
+        <p>正样本：对于当前类别 $C$，若候选框与该类的某个 GT 框的 IoU $≥ 0.5$，则标注为正样本（表示该候选框包含类别 $C$ 的目标）。注意：一个候选框只能属于一个类的正样本。</p>
+
+        <p>负样本：若候选框与所有类的 GT 框的 IoU $&lt; 0.5$，则标注为负样本（表示该候选框是背景）。注意：负样本数量远大于正样本，训练时需负样本采样（避免样本不均衡），通常随机选取部分负样本，或采用难负样本挖掘（Hard Negative Mining） 提升训练效果。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>SVM 训练</p>
+
+    <ul>
+      <li>构造样本集：$S_{C} = {(x_1, y_1), (x_2, y_2), …, (x_n, y_n)}$，其中 $x_i$ 为 $4096$ 维特征向量，$y_i$ 为类别标签（$+1$ 表示正样本，$-1$ 表示负样本背景）。</li>
+      <li>使用线性 SVM 分类器，因为计算效率高，训练目标是找到一个最优超平面，将正样本（目标）和负样本（背景）分开，同时最大化分类间隔。</li>
+      <li>损失函数：Hinge Loss，$L = \sum_{i}max(0, 1-y_i (w \cdot x_i+b)) + \lambda/2 \sum_i w_i^2$</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="213-边界框回归"><span class="me-2">2.1.3. 边界框回归</span><a href="#213-边界框回归" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>虽然已经完成了分类，但是每个候选框的坐标，也就是 Selective Search 生成的候选区域（region proposals）通常不够精确，主要体现在：</p>
 
 <ul>
   <li>边界框可能只覆盖目标的一部分</li>
@@ -2029,7 +2121,7 @@
   <li>大小可能不完全匹配</li>
 </ul>
 
-<p>而作者表示，CNN 提取的深层特征（pool5 层）包含目标的精准位置线索，可通过<strong>线性模型</strong>学习这种 “候选框 - 真实框” 的映射关系，实现框的微调（Bounding Box Regression）。</p>
+<p>R-CNN 的作者表示，CNN 提取的深层特征（pool5 层）包含目标的精准位置线索，可通过<strong>线性模型</strong>学习这种 “候选框 - 真实锚框” 的映射关系，实现框的微调（Bounding Box Regression）。</p>
 
 <blockquote>
   <p>AlexNet 结构（R-CNN使用）</p>
@@ -2055,13 +2147,13 @@ fc6 → fc7 → fc8
   </ol>
 </blockquote>
 
-<p>线性模型的核心是学习候选框到真实框（Ground Truth）的 $4$ 个变换参数。线性模型的结构、目标函数和参数求解方式如下：</p>
+<p>线性模型的核心是学习候选框到真实锚框（Ground Truth）的 $4$ 个变换参数。线性模型的结构、目标函数和参数求解方式如下：</p>
 
 <ol>
   <li><strong>目标参数定义</strong></li>
 </ol>
 
-<p>不直接预测边界框的绝对坐标，而是预测相对变换参数，以提升模型的尺度鲁棒性。设候选框$P=(P_x,P_y,P_w,P_h)$（$P_x,P_y$为中心坐标，$P_w,P_h$为宽高），真实框$G=(G_x,G_y,G_w,G_h)$，定义4个目标变换参数：</p>
+<p>不直接预测边界框的绝对坐标，而是预测相对变换参数，以提升模型的尺度鲁棒性。设候选框$P=(P_x,P_y,P_w,P_h)$（$P_x,P_y$为中心坐标，$P_w,P_h$为宽高），真实锚框$G=(G_x,G_y,G_w,G_h)$，定义4个目标变换参数：</p>
 
 \[\begin{cases}
 t_x=\frac{G_x - P_x}{P_w}\\
@@ -2076,17 +2168,47 @@ t_h=\ln(\frac{G_h}{P_h})
   <summary>
     <font color="blue">思考：为何宽高与中心坐标的相对变换参数形式不一样？</font>
   </summary>
-  <font color="blue">有如下几个考虑：
 
-- <b>为何宽高使用比值，而不是差值：</b>
-  - **尺度不变性**。假设候选框宽度 $P_w=10$，真实框宽度 $G_w=20$，宽度差为 $10$。但如果 $P_w=100, G_w=110$，差值也是 $10$，但物理意义完全不同：第一个是宽度翻倍，第二个只是增加了 $10\%$。而使用比值可以反应不同尺度框的相对缩放关系。
-  - **损失函数的公平性**。在训练时，一张图像中可能同时存在大物体和小物体。如果对大物体的宽高预测误差为10像素，对小物体的误差也为10像素，数值上相同。但对小物体来说，10像素可能是巨大的相对误差（比如50%），而对大物体可能是微小误差（比如5%）。使用差值损失会导致模型偏向优化大物体的绝对误差，而忽视小物体的相对精度。使用比值（对数）后，所有尺寸的物体都在相对变化空间中进行优化，实现了尺度公平。
-  - **梯度计算的稳定性**。如果使用差值，对于不同尺度的物体，梯度数值范围差异很大。
-  - **恢复预测时的数值合理性**。如果网络预测宽度差值很不准确，比如为一个很大的负数 $t_w=-15$，在用这个差值对候选框进行纠正时会得到比如 $\hat{G_w}=10-15=-5$ 种非法数字。
-- <b>为何宽高使用对数，而不是直接使用比值：</b>
-  - 放大一倍时比值为2, 而缩小0.5倍时比值为0.5，二者在数值上不对称；如果使用对数，$ln(2)\approx 0.693, ln(0.5)\approx -0.693$，对数比值更适合表示缩放关系；
-  - 直接比值的范围是 $(0,+\infty)$，这带来两个问题：（1）分布严重右偏，大多数比值在 $1$ 附近，但偶尔有极大值（如 $10$ 倍放大）；（2）梯度不稳定,大比值导致大梯度；
-  - 取对数后，范围变为 $(-\infty, +\infty)$，大多数值集中在 $0$ 附近，分布更接近正态分布，适合神经网络优化。</font>
+  <font color="blue">
+有如下几个考虑：
+
+<br />
+
+
+<b>为何宽高使用比值，而不是差值：</b>
+
+ <br />
+ 
+（1）尺度不变性。假设候选框宽度 $P_w=10$，真实锚框宽度 $G_w=20$，宽度差为 $10$。但如果 $P_w=100, G_w=110$，差值也是 $10$，但物理意义完全不同：第一个是宽度翻倍，第二个只是增加了 $10\%$。而使用比值可以反应不同尺度框的相对缩放关系。
+
+<br />
+
+（2）损失函数的公平性。在训练时，一张图像中可能同时存在大物体和小物体。如果对大物体的宽高预测误差为10像素，对小物体的误差也为10像素，数值上相同。但对小物体来说，10像素可能是巨大的相对误差（比如50%），而对大物体可能是微小误差（比如5%）。使用差值损失会导致模型偏向优化大物体的绝对误差，而忽视小物体的相对精度。使用比值（对数）后，所有尺寸的物体都在相对变化空间中进行优化，实现了尺度公平。
+
+<br />
+
+（3）梯度计算的稳定性。如果使用差值，对于不同尺度的物体，梯度数值范围差异很大。
+
+<br />
+
+（4）恢复预测时的数值合理性。如果网络预测宽度差值很不准确，比如为一个很大的负数 $t_w=-15$，在用这个差值对候选框进行纠正时会得到比如 $\hat{G_w}=10-15=-5$ 种非法数字。
+
+<br />
+
+<b>为何宽高使用对数，而不是直接使用比值：</b>
+
+<br />
+
+（1）放大一倍时比值为2，而缩小0.5倍时比值为0.5，二者在数值上不对称；如果使用对数，$ln(2)\approx 0.693, ln(0.5)\approx -0.693$，对数比值更适合表示缩放关系；
+
+<br />
+
+（2）直接比值的范围是 $(0,+\infty)$，这带来两个问题：（1）分布严重右偏，大多数比值在 $1$ 附近，但偶尔有极大值（如 $10$ 倍放大）；（2）梯度不稳定,大比值导致大梯度；
+
+<br />
+
+（3）取对数后，范围变为 $(-\infty, +\infty)$，大多数值集中在 $0$ 附近，分布更接近正态分布，适合神经网络优化。
+</font>
 
 </details>
 
@@ -2094,33 +2216,39 @@ t_h=\ln(\frac{G_h}{P_h})
   <li><strong>线性模型结构</strong></li>
 </ol>
 
-<p>模型为 $4$ 个独立的 Ridge 回归（带 L2 正则的线性回归）模型，分别对应 $t_x,t_y,t_w,t_h$ 的预测。每个模型的表达式为 $\hat{t}=W^T f + b$，其中 $f$ 是 pool5 层的 9216 维特征向量，$W$ 是 9216 维的权重向量，$b$ 是偏置项，$\hat{t}$ 是预测的变换参数。使用独立模型可避免参数间的相互干扰，提升预测精度。</p>
+<p>线性模型为 $4$ 个独立的 Ridge 回归（带 L2 正则的线性回归）模型，分别对应 $t_x,t_y,t_w,t_h$ 的预测。每个模型的表达式为 $\hat{t}=W^T f + b$，其中 $f$ 是 pool5 层的 9216 维特征向量，$W$ 是 9216 维的权重向量，$b$ 是偏置项，$\hat{t}$ 是预测的变换参数。使用独立模型可避免参数间的相互干扰，提升预测精度。</p>
 
 <ol>
   <li><strong>损失函数与训练约束</strong></li>
 </ol>
 
-<div class="table-wrapper"><table>
-  <tbody>
-    <tr>
-      <td>训练的损失函数采用均方误差（MSE），即最小化$\sum_{i=1}^N (\hat{t}_i - t_i)^2+\lambda</td>
-      <td> </td>
-      <td>W</td>
-      <td> </td>
-      <td>^2$，其中 $\lambda$ 是 L2 正则化系数，用于防止过拟合。补充材料特别强调，训练样本需满足候选框与真实框的 IoU（交并比）大于 $0.6$，因为只有候选框与目标足够接近时，候选框到真实框的映射才近似线性，这是线性回归模型有效的前提。</td>
-    </tr>
-  </tbody>
-</table></div>
+<p>训练的损失函数采用均方误差（MSE），即最小化</p>
+
+\[\sum_{i=1}^N (\hat{t}_i - t_i)^2+\lambda||W||^2\]
+
+<p>其中 $\lambda$ 是 L2 正则化系数，用于防止过拟合。补充材料特别强调，训练样本需满足候选框与真实锚框的 IoU（交并比）大于 $0.6$，因为只有候选框与目标足够接近时，候选框到真实锚框的映射才近似线性，这是线性回归模型有效的前提。</p>
 
 <p>论文指出，无需多次迭代修正，一次线性回归的调整即可满足精度要求，多次调整反而会引入累积误差，降低检测性能。</p>
 
-<h4 id="213-总结"><span class="me-2">2.1.3. 总结</span><a href="#213-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="214-非极大值抑制nms"><span class="me-2">2.1.4. 非极大值抑制（NMS）</span><a href="#214-非极大值抑制nms" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>R-CNN 最大的问题在于：候选区域提取、目标特征提取与分类、候选框位置和大小回归，三个步骤相互独立，要分别训练，测试效率也较低。</p>
+<p>非极大值抑制（Non-Maximum Suppression，NMS）是候选框筛选阶段的核心操作，其作用是去除冗余的目标检测框，保留最精准的一个框来定位目标。</p>
+
+<p>非极大值抑制作用于分类和回归之后，针对每个类别独立执行。其步骤如下：</p>
+
+<ul>
+  <li><strong>排序</strong>：对当前类别下所有候选框，按照 SVM 分类器输出的概率从高到低排序，得到一个候选框列表 $B$；</li>
+  <li><strong>筛选</strong>：从排序后的列表 $B$ 中，取出第一个候选框放入最终列表 $D$，并计算其与其他候选框的 IoU（交并比），如果 IoU 大于阈值（如 $0.5$），则该候选框被标记为冗余，将其从 $B$ 中删除；</li>
+  <li>重复上述筛选操作，直到整个候选框列表 $B$ 为空。最终列表 $D$ 中存放着该类别的所有最终检测框。</li>
+</ul>
+
+<h4 id="215-总结"><span class="me-2">2.1.5. 总结</span><a href="#215-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>R-CNN 最大的问题在于：候选区域提取、目标特征分类、候选框回归，三个步骤相互独立，要分别训练，测试效率也较低。</p>
 
 <h3 id="22-fast-r-cnn"><span class="me-2">2.2. Fast R-CNN</span><a href="#22-fast-r-cnn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>为了改善 R-CNN 的问题，作者提出了 Fast R-CNN。</p>
+<p>为了改善 R-CNN 的问题，作者提出了 Fast R-CNN。其核心改动是屏弃 SVM 分类器，改用 FC 层搭配两个不同的检测头同时完成分类和回归。那么作为 CNN 特征提取部分和 FC 层分类回归部分的连接，Fast R-CNN 的重要创新就在于提出的感兴趣区域投影（RoI Projection）和感兴趣区域池化（RoI Pooling）操作。</p>
 
 <p><a href="/assets/img/postsimg/20251208/fast-rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/fast-rcnn.jpg" alt="fast-rcnn" class="lazyload" data-proofer-ignore></a></p>
 
@@ -2134,9 +2262,17 @@ t_h=\ln(\frac{G_h}{P_h})
   <li>分类和回归：把提取的特征仅分类和回归；</li>
 </ol>
 
-<h4 id="221-roi-映射"><span class="me-2">2.2.1. RoI 映射</span><a href="#221-roi-映射" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="221-roi-投影"><span class="me-2">2.2.1. RoI 投影</span><a href="#221-roi-投影" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>感兴趣区域（Region of Interest, ROI）映射（Projection）指将原始图像坐标空间中的感兴趣区域映射到卷积特征图上的过程。</p>
+<p>感兴趣区域（Region of Interest, ROI）投影（Projection）指将原始图像坐标空间中的感兴趣区域投影到卷积特征图上的过程。</p>
+
+<p>投影的核心在于坐标的线性缩放，这个缩放是由 CNN 网络的结构，或者更具体说，是由 CNN 结构中使用的 <strong>总步长</strong>（Total Stride） 决定的。总步长是网络从输入到输出特征图空间尺寸缩放的倍数。它由卷积层和池化层的 stride 乘积决定。</p>
+
+<p>例如，一个经典的 VGG16 网络，在 conv5_3 之前，通常有 5 次步长为 2 的下采样（$2\times 2$ 池化，默认卷积使用 stride=2），这意味着特征图在宽和高上都变成了输入的 $1/(2^5) = 1/32$。则将原图像对应的四元数组转换到 feature maps 上就是每个值都除以 32 并 <strong>取整</strong> 到最接近的整数，得到投影的坐标，即为 ROI feture map。</p>
+
+<p>注意，投影过程存在 <strong>第一次量化损失</strong>。损失的信息如下图蓝色区域所示。在图中的例子中，一个 ROI 的原始大小为 $200\times145$，左上角设置为 $(296\times 192)$ 。除以 $32$（比例因子）并取整，左上角变为 $(9,6)$，宽高变为 $6\times 4$，得到的 ROI feature maps 为 $[9,6,6,4]$。</p>
+
+<p><a href="/assets/img/postsimg/20251208/roi-featurequant.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/roi-featurequant.jpg" alt="ROI量化损失" class="lazyload" data-proofer-ignore></a></p>
 
 <h4 id="222-roi-池化"><span class="me-2">2.2.2. RoI 池化</span><a href="#222-roi-池化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -2149,7 +2285,11 @@ t_h=\ln(\frac{G_h}{P_h})
 
 <p><a href="/assets/img/postsimg/20251208/roi-pooling.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/roi-pooling.jpg" alt="RoI Pooling" class="lazyload" data-proofer-ignore></a></p>
 
-<h4 id="223-端到端分类回归"><span class="me-2">2.2.3. 端到端分类回归</span><a href="#223-端到端分类回归" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<p>假设经过 ROI 池化后的固定大小为是一个超参数 $H\times W$ ，因为输入的 ROI feature map 大小不一样，假设为 $h\times w$，需要对这个特征图进行池化来减小尺寸，那么可以计算出池化窗口的尺寸为：$(h/H)\times (w/W)$。注意，池化窗口尺寸也需要进行 <strong>取整</strong>，如上图中，左上角的池化区域区域明显小于右上角的池化区域，这导致了 <strong>第二次量化损失</strong>（后续会有 RoI Align 方法消除该量化损失）。</p>
+
+<p>最后，用这个计算出的窗口对 RoI feature map 做 max pooling，Pooling 对每一个特征图通道都是独立的。</p>
+
+<h4 id="223-损失函数"><span class="me-2">2.2.3. 损失函数</span><a href="#223-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>Fast R-CNN 的核心突破之一是实现分类与边界框回归的端到端联合训练，其损失函数设计兼顾了分类任务的类别判别和回归任务的框位置微调，整体为多任务损失（Multi-Task Loss），由分类损失和回归损失加权组合而成。</p>
 
@@ -2202,29 +2342,11 @@ $$
 |x| - 0.5 &amp; \text{otherwise}
 \end{cases}\]
 
+<p>对损失函数分析如下：</p>
+
 <ul>
-  <li>
-    <div class="table-wrapper"><table>
-      <tbody>
-        <tr>
-          <td>当 $</td>
-          <td>x</td>
-          <td>&lt;1$ 时，近似为 L2 损失，梯度随误差减小而降低，训练更稳定；</td>
-        </tr>
-      </tbody>
-    </table></div>
-  </li>
-  <li>
-    <div class="table-wrapper"><table>
-      <tbody>
-        <tr>
-          <td>当 $</td>
-          <td>x</td>
-          <td>\ge1$ 时，近似为 L1 损失，避免 L2 损失因离群点导致的梯度爆炸，提升鲁棒性。</td>
-        </tr>
-      </tbody>
-    </table></div>
-  </li>
+  <li>当 $\vert x\vert&lt;1$ 时，近似为 L2 损失，梯度随误差减小而降低，训练更稳定；</li>
+  <li>当 $\vert x\vert \geq 1$ 时，近似为 L1 损失，避免 L2 损失因离群点导致的<strong>梯度</strong>爆炸，提升鲁棒性。（<font color="blue">思考：为什么？</font>）</li>
 </ul>
 
 <h4 id="224-总结"><span class="me-2">2.2.4. 总结</span><a href="#224-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
@@ -2236,23 +2358,45 @@ $$
 
 <h3 id="23-faster-r-cnn"><span class="me-2">2.3. Faster R-CNN</span><a href="#23-faster-r-cnn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>相比 Fast R-CNN，Faster R-CNN 引入了区域提议网络（Region Proposal Network，RPN）来代替启发式搜索来获得更好的锚框。</p>
-
-<p><a href="/assets/img/postsimg/20251208/faster-rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/faster-rcnn.jpg" alt="faster-rcnn" class="lazyload" data-proofer-ignore></a></p>
+<p>相比 Fast R-CNN，Faster R-CNN 引入了区域提议网络（Region Proposal Network，RPN）来代替启发式搜索（Selective Search）来获得更好的锚框。</p>
 
 <h4 id="231-rpn"><span class="me-2">2.3.1. RPN</span><a href="#231-rpn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p><a href="/assets/img/postsimg/20251208/RPN-0.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/RPN-0.jpg" alt="RPN0" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20251208/faster-rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/faster-rcnn.jpg" alt="faster-rcnn" class="lazyload" data-proofer-ignore></a></p>
 
-<p>在特征图上，通过滑动窗口提取对应区域的特征区域信息，然后将其送入一个小网络中（实际上小网络和前面的特征提取网络共同组成 RPN ）。</p>
+<p>观察上图可以发现，RPN 的输入是特征提取骨干网络部分的最后一层输出.在 RPN 输入的特征图上，从左上角开始，通过「<strong>滑动窗口</strong>」提取对应区域的特征区域信息，然后将其送入一个小网络中（如下图所示，实际上小网络和前面的特征提取网络共同组成 RPN ）。</p>
 
 <p><a href="/assets/img/postsimg/20251208/RPN-0.5.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/RPN-0.5.jpg" alt="RPN0.5" class="lazyload" data-proofer-ignore></a></p>
 
-<p>网络无法凭空产生锚框，因此人们预先设计了 $k$ 个形状不同的候选框，然后让网络预测候选框的相对偏移量（$k$ 个候选框会产生 $4k$ 个偏移量，即长宽和中心点的横纵坐标）。而每个候选框还需要额外预测两个分类概率值，用于判断该候选框是否属于背景或者目标（因此总共有 $2k$ 个分类得分）。</p>
+<ul>
+  <li><strong>锚框中心确定与逆向映射</strong></li>
+</ul>
+
+<p>特征图的每个像素点都会作为锚框的中心，这是锚框生成的基本规则。因此，锚框会从特征图的左上角开始，通过滑动窗口开始遍历。</p>
+
+<p>接着，需要把锚框的中心坐标映射回原始的输入图像。通常为了简化计算，Faster R-CNN 的特征提取网络会保证 padding 是 “same” 或经过调整，使得特征图坐标到原图坐标的映射是整数倍关系。所以我们不需要考虑卷积层会缩小特征图尺寸，只需要考虑有多少池化层（下采样）即可。因此，RPN 输入特征图上的一个像素在原始图像上的位置只与「总步长」有关。比如 VGG16 的 conv5_3，从原图到该特征图的总步长是 16，即 <code class="language-plaintext highlighter-rouge">stride=16</code>。</p>
+
+<blockquote>
+  <p>注意区分「感受野大小」与「总步长」的区别：</p>
+  <ul>
+    <li>感受野大小：特征图上每个像素对应的原图理论最大视野范围；</li>
+    <li>总步长：特征图上每个像素对应的原图的位置，或特征图上两个相邻像素在原图感受野的间隔距离。</li>
+  </ul>
+</blockquote>
+
+<p>设特征图上的点坐标为 $[x_f, y_f]$（行和列），原图中锚框中心的坐标 $[x_o, y_o]$ 为：</p>
+
+\[[x_o, y_o] = [(x_f+0.5)\times\text{stride},\; (y_f+0.5)\times\text{stride}]\]
+
+<ul>
+  <li><strong>锚框尺寸设计</strong></li>
+</ul>
+
+<p>光有锚框中心点依然无法产生锚框，因此人们「<strong>预先设计</strong>」了 $k$ 个形状不同的候选框，然后让网络预测候选框的相对偏移量（$k$ 个候选框会产生 $4k$ 个偏移量，即长宽和中心点的横纵坐标）。而每个候选框还需要额外预测两个分类概率值，用于判断该候选框是否属于背景或者目标（因此总共有 $2k$ 个分类得分）。</p>
 
 <p><a href="/assets/img/postsimg/20251208/RPN-0.75.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/RPN-0.75.jpg" alt="RPN0.75" class="lazyload" data-proofer-ignore></a></p>
 
-<p>Faster R-CNN 按照特定的宽高比去设置 9 个候选框（$128^2, 256^2, 512^2$ 三个尺度和 $1:1, 2:1, 1:2$ 三个长宽比组合）。注意候选框尺寸和待检测的目标特性有关系。比如，对于 COCO 数据集，候选框的尺寸就额外设置有 $64^2$ 尺寸。</p>
+<p>Faster R-CNN 按照特定的宽高比去设置 9 个候选框（$128^2, 256^2, 512^2$ 三个尺度和 $1:1, 2:1, 1:2$ 三个长宽比组合）。注意，候选框的尺寸和待检测的目标特性（数据集）有关系。比如，对于 COCO 数据集，因为其包含很多小目标，候选框的尺寸就额外设置有 $64^2$ 这种偏小的尺寸。</p>
 
 <p><a href="/assets/img/postsimg/20251208/RPN-1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20251208/RPN-1.jpg" alt="RPN1" class="lazyload" data-proofer-ignore></a></p>
 
@@ -2262,15 +2406,40 @@ $$
 
 <h4 id="232-损失函数"><span class="me-2">2.3.2. 损失函数</span><a href="#232-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>首先考虑一个真实的锚框标签，应该分配给那些候选框予以正负标签：</p>
+<p>在训练（反向传播）时：我们需要为所有的锚框计算损失。为此，我们必须为每个锚框分配一个“标签”，告诉它：</p>
 
 <ul>
-  <li>IoU 最高的候选框，赋予正标签</li>
-  <li>IoU &gt; 0.7 的候选框，赋予正标签</li>
-  <li>与所有真实锚框 IoU &lt; 0.3 的候选框，赋予负标签</li>
+  <li>
+    <p>分类标签：这个锚框应该是背景（$0$）还是前景（$1$）？</p>
+  </li>
+  <li>
+    <p>回归目标：如果它是前景，它应该向哪个真实锚框调整？（即那 $4$ 个偏移量的 “目标值” 是多少？）</p>
+  </li>
 </ul>
 
-<p>则损失函数如下：</p>
+<p>因此，我们需要将 RPN 给出的候选锚框，与真实标签框进行匹配：</p>
+
+<ul>
+  <li>首先计算所有候选锚框与所有真实锚框的 IoU</li>
+  <li>然后进行正样本分配
+    <ul>
+      <li>对每个真实锚框，找到与它 IoU 最大的那个候选锚框（即使 IoU 很小），强制标记为前景（保证每个真实锚框至少有一个锚框对应）。</li>
+      <li>候选锚框与任意真实锚框的 IoU $\geq 0.7$（论文默认阈值），标记为前景。</li>
+    </ul>
+  </li>
+  <li>接着进行负样本分配
+    <ul>
+      <li>与所有真实锚框 IoU $&lt; 0.3$ 的候选框，赋予负标签</li>
+    </ul>
+  </li>
+  <li>最后舍弃中间锚框
+    <ul>
+      <li>IoU 在 $[0.3, 0.7]$ 之间的候选锚框，属于“模糊样本”。它们不分配标签，不参与训练。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>基于上述分配，我们就可以算出每个样本的分类损失，和每个正样本的回归损失。则损失函数如下：</p>
 
 \[L(\{p_i\}, \{t_i\}) = \frac{1}{N_{cls}}\sum_{i} L_{cls}(p_i, p_i^\star) + \lambda \frac{1}{N_{reg}}\sum_i p_i^\star L_{reg}(t_i, t_i^\star)\]
 
@@ -2432,14 +2601,14 @@ $$
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
+          <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
+          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
         </li>
       
         
