@@ -1684,9 +1684,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4174 字"
+  title="4685 字"
 >
-  <em>23 分钟</em>阅读</span>
+  <em>26 分钟</em>阅读</span>
 
     </div>
 
@@ -1909,21 +1909,60 @@ Visual Geometry Group</li>
 <a href="/assets/img/postsimg/20210608/05.faster-rcnn.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/05.faster-rcnn.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
-  <li>将输入图像缩放至固定大小 <code class="language-plaintext highlighter-rouge">M x N</code>，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 256</code> 的 feature maps。</li>
-  <li>feature map 分别送入两个模块：Region Proposal Network （RPN）和 ROI Pooling。
+  <li>将输入图像缩放至固定大小 <code class="language-plaintext highlighter-rouge">M x N</code>，然后送入主干网络（比如VGG16）的 13 个卷积层、13 个 ReLU 激活函数、4 个池化层，得到 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 256</code> 的特征图。注意，这个特征图包含的锚框数量是 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 9</code> 个，即特征图上每个像素点都对应着 9 个锚框。接着，特征图分别送入两个分支：</li>
+  <li>RPN 模块
     <ul>
-      <li>RPN 模块中（左下角），首先经过 <code class="language-plaintext highlighter-rouge">3x3x256</code> 卷积和激活函数，相当于每个点又融合了周围 <code class="language-plaintext highlighter-rouge">3 x 3</code> 的空间信息（猜测这样做也许更鲁棒？进一步集中特征信息？），同时 256 深度不变。然后分为两条线。</li>
-      <li>上一条线做分类，对 <code class="language-plaintext highlighter-rouge">256</code> 通道图像做 <code class="language-plaintext highlighter-rouge">1 x 1 x 256</code> 卷积，即将输入图像于每个通道乘以卷积系数后加在一起，即相当于把原图像中本来各个独立的通道 “联通” 在了一起，得到一张单通道的 feature map。</li>
-      <li>单通道 feature map ，anchor，softmax</li>
-      <li>生成一堆 anchors，对其进行裁剪过滤后，通过 softmax 判断 anchors 属于前景（物体）还是背景，二分类。
-        <blockquote>
-          <p>anchors 是一个矩阵，代表了一组矩形框，矩阵的每一行表示矩形左上和右下点的座标，比如，<code class="language-plaintext highlighter-rouge">rpn/generate_anchors.py</code> 生成 9 个矩形共有三种形状，三种尺寸分别是小（蓝 128）中（红 256）大（绿 512），三种比例分别为 <code class="language-plaintext highlighter-rouge">1:1, 1:2, 2:1</code> 。
-<a href="/assets/img/postsimg/20210608/06.anchor.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/06.anchor.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
-        </blockquote>
+      <li>首先经过 <code class="language-plaintext highlighter-rouge">3x3x256</code> 卷积和激活函数，相当于每个点又融合了周围 <code class="language-plaintext highlighter-rouge">3x3</code> 的空间信息（对于被遮挡的目标至关重要），同时通道数保持不变，特征图尺寸依然为 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 256</code>。接着又分为两条线，分别做分类和回归：</li>
+      <li>分类（上一条线）：
+        <ul>
+          <li>注意到，特征图包含的锚框数量是 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 9</code> 个，每个锚框又是一个（前景/背景）的二分类问题，因此分类分支中必须要将特征转变为 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 9</code> 行 <code class="language-plaintext highlighter-rouge">2</code> 列的特征矩阵；</li>
+          <li>首先经过 <code class="language-plaintext highlighter-rouge">1x1x18</code> 卷积，得到 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 18</code> 的三维矩阵，然后经过 Reshape 得到 <code class="language-plaintext highlighter-rouge">[M/16 * N/16 * 9, 2]</code> 二维特征矩阵，即可对每一行做 softmax 激活，得到每个锚框的两个原始分数（logits），第一个分数是属于背景的概率，第二个分数是属于前景（物体）的概率，二者和为 $1$。</li>
+        </ul>
+      </li>
+      <li>回归（下一条线）
+        <ul>
+          <li>每个锚框需要预测 $4$ 个偏移量 $t_x, t_y, t_w, t_h$，因此一共需要 <code class="language-plaintext highlighter-rouge">M/16 x N/16 x 9 x 4</code> 维度的特征。</li>
+          <li>使用 <code class="language-plaintext highlighter-rouge">1x1x36</code> 卷积即可一步得到上述维度的特征；</li>
+          <li>根据偏移量和预设锚框宽高尺寸，计算得到预测的锚框中心位置和宽高尺寸为：
+            <div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>预测框中心x = 锚框中心x + tx × 锚框宽
+预测框中心y = 锚框中心y + ty × 锚框高
+预测框宽 = 锚框宽 × exp(tw)
+预测框高 = 锚框高 × exp(th)
+</pre></td></tr></tbody></table></code></div>            </div>
+          </li>
+          <li>应用上述计算完成的预测候选锚框的坐标和尺寸确定。</li>
+        </ul>
+      </li>
+      <li>生成最终的候选区域
+        <ul>
+          <li>在完成分类和回归两个分支后，我们得到了所有候选框的位置、尺寸、二分类概率；</li>
+          <li>如果不考虑背景分类，那么根据分类分支的前景概率，可先过滤掉概率低的框；</li>
+          <li>对剩余的框进行非极大值抑制（NMS），去除高度重叠的框；</li>
+          <li>最后选择选择前景概率最高的 $N$ 个框（训练时 $N=2000$，测试时 $N=300$）作为候选区域。</li>
+        </ul>
       </li>
     </ul>
   </li>
+  <li>ROI Pooling 模块
+    <ul>
+      <li>映射到特征图：将候选区域的坐标从原图空间映射到特征图空间（除以16）</li>
+      <li>区域裁剪：从共享特征图上裁剪出对应区域</li>
+      <li>最大池化：将每个区域池化为固定大小（如7×7）</li>
+      <li>输出：<code class="language-plaintext highlighter-rouge">(num_proposals, 7, 7, 256)</code> 的张量</li>
+    </ul>
+  </li>
 </ul>
+
+<blockquote>
+  <p>anchors 是一个矩阵，代表了一组矩形框，矩阵的每一行表示矩形左上和右下点的座标，比如，<code class="language-plaintext highlighter-rouge">rpn/generate_anchors.py</code> 生成 9 个矩形共有三种形状，三种尺寸分别是小（蓝 128）中（红 256）大（绿 512），三种比例分别为 <code class="language-plaintext highlighter-rouge">1:1, 1:2, 2:1</code> 。
+<a href="/assets/img/postsimg/20210608/06.anchor.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20210608/06.anchor.jpg" alt="alt text" class="lazyload" data-proofer-ignore></a></p>
+</blockquote>
 
 <h1 id="5-参考文献">5. 参考文献</h1>
 
