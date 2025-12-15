@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（卷积神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-02T13:36:58+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-15T17:55:34+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2851,6 +2851,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -3251,13 +3263,13 @@
 
 <em
   class=""
-  data-ts="1764653818"
+  data-ts="1765792534"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/12/02
+  2025/12/15
 </em>
 
     </span>
@@ -3301,9 +3313,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="13147 字"
+  title="14109 字"
 >
-  <em>73 分钟</em>阅读</span>
+  <em>78 分钟</em>阅读</span>
 
     </div>
 
@@ -3373,10 +3385,11 @@
   </li>
   <li><a href="#4-批归一化层">4. 批归一化层</a>
     <ul>
-      <li><a href="#41-批归一化计算">4.1. 批归一化计算</a></li>
-      <li><a href="#42-如何改善梯度">4.2. 如何改善梯度</a></li>
-      <li><a href="#43-反向传播">4.3. 反向传播</a></li>
-      <li><a href="#44-训练和测试的区别">4.4. 训练和测试的区别</a></li>
+      <li><a href="#41-训练时的批归一化计算">4.1. 训练时的批归一化计算</a></li>
+      <li><a href="#42-前向推理测试时的计算">4.2. 前向推理测试时的计算</a></li>
+      <li><a href="#43-批归一化如何改善梯度">4.3. 批归一化如何改善梯度</a></li>
+      <li><a href="#44-反向传播">4.4. 反向传播</a></li>
+      <li><a href="#45-总结">4.5. 总结</a></li>
     </ul>
   </li>
   <li><a href="#5-卷积神经网络训练">5. 卷积神经网络训练</a>
@@ -3981,48 +3994,103 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 
 <p>根据 <a href="../Pattern-Recognition-DNN/#2233-梯度消失">前述</a> 讨论我们知道，若参数初始化不合理，会导致梯度消失或梯度爆炸。解决方法可以通过采用更加合理的 <a href="#422-参数初始化">参数初始化</a> 方法，也可以采用本节介绍的引入批归一化层的方法。更多时候，引入批归一化层可以减少神经网络对超参数和初始化方式的敏感度，使得训练可以设置更高的学习率、采用更加粗暴的参数初始化方式，同时提升网络的深度。</p>
 
-<p>批归一化（Batch Normalization，BN）层可以用于经典的深度神经网络（多层感知机）和卷积神经网络中，但之所以在卷积神经网络部分介绍，是因为经典神经网络一版不会设置过深的层数，而卷积神经网络相较而言层数深得多，所面临的梯度消失或梯度爆炸问题也严重的多。</p>
+<p>批归一化（Batch Normalization, BN）是一种在神经网络训练过程中对每一层的预激活值（也就是送入激活函数前的值）进行标准化的技术。它通过对小批量（mini-batch）内的预激活值进行归一化，缓解了 “内部协变量偏移”（Internal Covariate Shift）问题，从而加速训练，提高收敛速度，并有一定正则化效果。</p>
 
-<h3 id="41-批归一化计算"><span class="me-2">4.1. 批归一化计算</span><a href="#41-批归一化计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<blockquote>
+  <p>这是 2015 年深度学习领域非常棒的一篇文献：《Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift》，这个算法目前已经被大量的应用，最新的文献算法很多都会引用这个算法，进行网络训练。</p>
 
-<p>对于输入数据 $z$ （可以是全连接层的输入或卷积层的特征图），批归一化的计算过程为：</p>
+  <p>批归一化（Batch Normalization，BN）层可以用于经典神经网络（DNN / MLP）和卷积神经网络（CNN）中，但之所以在卷积神经网络部分介绍，是因为经典神经网络一般不会设置过深的层数，而卷积神经网络相较而言层数深得多，所面临的梯度消失或梯度爆炸问题也严重的多。</p>
+</blockquote>
+
+<h3 id="41-训练时的批归一化计算"><span class="me-2">4.1. 训练时的批归一化计算</span><a href="#41-训练时的批归一化计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><a href="/assets/img/postsimg/20250603/BN.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/BN.jpg" alt="BN如何改善梯度" class="lazyload" data-proofer-ignore></a></p>
+
+<p>对于预激活值 $z$ （可以是全连接层的输出或卷积层的特征图），批归一化的计算过程为：</p>
 
 <ul>
   <li>
-    <p>计算当前批（batch）数据的均值</p>
+    <p>计算当前批数据的均值</p>
 
-\[\mu = \frac{1}{N}\sum_{i=1}^{N}z_i\]
+\[\mu_B = \frac{1}{N}\sum_{i=1}^{N}z_i\]
   </li>
   <li>
     <p>计算当前批数据的方差</p>
 
-\[\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(z_i-\mu)^2\]
+\[\sigma_B^2 = \frac{1}{N}\sum_{i=1}^{N}(z_i-\mu)^2\]
   </li>
   <li>
     <p>标准化（分母极小值 $\epsilon$ 防止除零）</p>
 
-\[\hat{z} = \frac{z-\mu}{\sqrt{\sigma^2+\epsilon}}\]
+\[\hat{z} = \frac{z-\mu_B}{\sqrt{\sigma_B^2+\epsilon}}\]
   </li>
+</ul>
+
+<blockquote>
+  <p>内部协变量偏移（Internal Covariate Shift）指的是低层网络在训练的时候更新了参数，而引起后面层输入数据分布发生变化。如果在每一层输入的时候，再加个归一化处理操作（上面三步），是一个很自然的想法，那为什么在批归一化提出之前，没有人尝试呢？</p>
+</blockquote>
+
+<ul>
   <li>
     <p>缩放和平移</p>
 
 \[y = \gamma \hat{z} + \beta\]
 
-    <p>其中 $\gamma,\beta$ 是可学习的两个参数，用于缩放和平移。</p>
+    <p>其中 $\gamma$（scale）、$\beta$（shift）是可学习的两个参数，用于缩放和平移。</p>
   </li>
 </ul>
 
-<p>在 DNN 中，BN 通常置于线性变换和激活函数之间：<code class="language-plaintext highlighter-rouge">Dense --&gt; BN --&gt; Tanh</code>，对每一维特征（即每一列）独立计算均值和方差；</p>
+<blockquote>
+  <p>如果仅仅使用前三步归一化公式，对网络某一层 A 的输出数据做归一化，然后送入网络下一层 B，这样是会影响到本层网络 A 所学习到的特征的。比如我网络中间某一层学习到特征数据本身就分布在 S 型激活函数的两侧，你强制把它归一化处理、标准差也限制在了 1，把数据变换成分布于 S 函数的中间部分，这样就相当于我这一层网络所学习到的特征分布被完全破坏。</p>
 
-<p>在 CNN 中，BN 通常置于卷积层和激活函数之间：<code class="language-plaintext highlighter-rouge">Conv --&gt; BN --&gt; ReLU</code>，对每个通道（channel）独立计算均值和方差。</p>
+  <p>所以，批归一化的贡献在于，增加了最后一步缩放和平移操作，让网络自适应的选择是否要保留原始数据的表示能力，还是进行归一化处理。</p>
+</blockquote>
 
-<h3 id="42-如何改善梯度"><span class="me-2">4.2. 如何改善梯度</span><a href="#42-如何改善梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>在 DNN 中，BN 通常置于线性变换和激活函数之间：<code class="language-plaintext highlighter-rouge">Dense --&gt; BN --&gt; Tanh</code>，对每一维特征（即每一列）独立计算均值和方差。因此，某一层神经元个数若为 $d$ 个，则批归一化层参数数量为 $d\times 2$。</p>
 
-<p>在「前向传播」中，BN 强制每层输入的分布固定（均值为 0，方差为 1），避免激活值过大或过小，这防止了梯度因输入值的极端变化而剧烈波动（如 ReLU 输入过大导致梯度爆炸，或 Sigmoid 输入过小导致梯度消失）。</p>
+<p>在 CNN 中，BN 通常置于卷积层和激活函数之间：<code class="language-plaintext highlighter-rouge">Conv --&gt; BN --&gt; ReLU</code>，对每个通道（channel）独立计算均值和方差。因此，某一层卷积核个数若为 $k$ 个，则批归一化层参数数量为 $k\times 2$。</p>
+
+<blockquote>
+  <p>举个例子：一个批次内有 10 张图片，每张图片有三个通道RBG，每张图片的高、宽是 H、W，那么均值就是计算 10 张图片 R 通道的像素数值总和除以 <code class="language-plaintext highlighter-rouge">10×W×H</code>，再计算 G 通道全部像素值总和除以 <code class="language-plaintext highlighter-rouge">10×W×H</code>，最后计算 B 通道的像素值总和除以<code class="language-plaintext highlighter-rouge">10×W×H</code>。方差的计算类似。</p>
+
+  <p>这里相当于使用了类似权值共享的策略，把一整张特征图当做一个神经元进行处理。</p>
+</blockquote>
+
+<h3 id="42-前向推理测试时的计算"><span class="me-2">4.2. 前向推理测试时的计算</span><a href="#42-前向推理测试时的计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>在推理阶段，一次只输入一个样本，因此不存在「批」的概念，此时采用训练过程中所有批的均值作为推理过程的均值，采用训练过程中所有批的标准差的无偏估计作为标准差：</p>
+
+\[\begin{aligned}
+E[z] &amp;= \mathbb{E}_B[\mu_B]\\
+Var[z] &amp;= \frac{m}{m-1}\mathbb{E}_B[\sigma_B^2]
+\end{aligned}\]
+
+<p>实际工程应用中，会在每批训练时，同时采用指数移动平均的方式更新全局统计量</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>batch_mean = mean(current_batch)
+batch_var = var(current_batch)
+global_mean = momentum * global_mean + (1 - momentum) * batch_mean
+global_var = momentum * global_var + (1 - momentum) * batch_var
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>这里的 <code class="language-plaintext highlighter-rouge">momentum</code> 通常接近 1（如 0.9），让全局统计量平滑变化。</p>
+
+<p>得到全局统计量后，进行标准化和缩放和平移，可得到推理结果：</p>
+
+\[\begin{aligned}
+  y &amp;= \gamma \cdot \frac{z-\mathbb{E}[z]}{\sqrt{\text{Var}[z]+\epsilon}} + \beta\\
+  &amp;= \frac{\gamma}{\sqrt{\text{Var}[z]+\epsilon}}\cdot z + \left( \beta - \frac{\gamma\mathbb{E}[z]}{\text{Var}[z]+\epsilon} \right)
+\end{aligned}\]
+
+<h3 id="43-批归一化如何改善梯度"><span class="me-2">4.3. 批归一化如何改善梯度</span><a href="#43-批归一化如何改善梯度" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>在「反向传播」中，BN 的标准化操作对梯度的影响体现在</p>
-
-<p><a href="/assets/img/postsimg/20250603/BN.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/BN.jpg" alt="BN如何改善梯度" class="lazyload" data-proofer-ignore></a></p>
 
 <ul>
   <li>原始神经元</li>
@@ -4031,26 +4099,26 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 \[\frac{\partial L}{\partial z} = \delta\]
 
 <ul>
-  <li>增加 BN 后</li>
+  <li>增加 BN 后（近似推导）</li>
 </ul>
 
 \[\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial \hat{z}}\frac{\partial \hat{z}}{\partial z} = \hat{\delta} \cdot \gamma \cdot \frac{1}{\sqrt{\sigma^2+\epsilon}}\]
 
-<p>（1）由于 BN 层输出 $y$ 相比原始线性组合输出 $x$ 的分布更加稳定，因此 $\hat{\delta}$ 相较于原始误差 $\delta$ 更加可靠；</p>
+<p>（1）由于 BN 层使得输出 $y$ 的分布更加稳定，因此 $\hat{\delta}$ 相较于原始误差 $\delta$ 更加稳定；</p>
 
 <p>（2）通过分母 $\sqrt{\sigma^2+\epsilon}$ 对梯度进行调控，输入方差大的梯度会被缩小，输入方差小的梯度会被放大；</p>
 
-<p>（3）通过可学习参数 $\gamma$ 跟踪损失函数，自适应调整梯度幅值。</p>
+<p>（3）通过可学习参数 $\gamma$ 跟踪损失函数，自适应调整梯度幅值。如果损失函数需要更大的梯度，$\gamma$ 会学习增大，反之会学习减小</p>
 
 <p>经过上述三步，尽可能让梯度保持在合理范围内。</p>
 
-<h3 id="43-反向传播"><span class="me-2">4.3. 反向传播</span><a href="#43-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="44-反向传播"><span class="me-2">4.4. 反向传播</span><a href="#44-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 \[\begin{aligned}
   \frac{\partial L}{\partial \gamma} &amp;= \sum_{i=1}^m\frac{\partial L}{\partial y_i}\cdot \hat{z}_i\quad m=\text{mini-batch size}\\
-  \gamma &amp;\leftarrow \gamma + \alpha\frac{\partial L}{\partial \gamma}\\
+  \gamma &amp;\leftarrow \gamma - \alpha\frac{\partial L}{\partial \gamma}\\
   \frac{\partial L}{\partial \beta} &amp;= \sum_{i=1}^m\frac{\partial L}{\partial y_i}\\
-  \beta &amp;\leftarrow \beta + \alpha\frac{\partial L}{\partial \beta}
+  \beta &amp;\leftarrow \beta - \alpha\frac{\partial L}{\partial \beta}
 \end{aligned}\]
 
 <p>可学习的参数允许网络自行决定是否保留标准化效果：</p>
@@ -4058,10 +4126,24 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 <ul>
   <li>如果 $\gamma=1,\beta=0$，则完全使用标准化后的分布;</li>
   <li>如果 $\gamma=\sigma,\beta=\mu$，则完全恢复原始分布；</li>
-  <li>通过训练学习平衡标准化与模型表达能力。</li>
+  <li>通过训练学习平衡准化效果与保留有用信息。</li>
 </ul>
 
-<h3 id="44-训练和测试的区别"><span class="me-2">4.4. 训练和测试的区别</span><a href="#44-训练和测试的区别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>训练初期：</p>
+
+<ul>
+  <li>输入分布不稳定，标准化帮助很大</li>
+  <li>$\gamma$ 保持在 1 附近，$\beta$ 在 0 附近</li>
+</ul>
+
+<p>训练后期：</p>
+
+<ul>
+  <li>如果网络学得很好，可能发现某些特征需要原始尺度</li>
+  <li>$\gamma$ 会偏离 1，$\beta$ 会偏离 0，以适应任务需求</li>
+</ul>
+
+<h3 id="45-总结"><span class="me-2">4.5. 总结</span><a href="#45-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>训练时，一次输入一批（batch）样本数据：</p>
 
@@ -4472,7 +4554,21 @@ W &amp;\leftarrow W - \eta v
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/CV-object-detection-2stage/">计算机视觉（Two-Stage 目标检测）</a>
         </li>
       
         
@@ -4487,20 +4583,6 @@ W &amp;\leftarrow W - \eta v
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/reinforcement-learning-Policy-Gradient/">强化学习（策略梯度法）</a>
         </li>
       
     </ul>

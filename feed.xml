@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2025-12-14T17:53:29+08:00</updated>
+  <updated>2025-12-15T23:39:39+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-object-detection/" rel="alternate" type="text/html" title="人工智能（目标检测）" />
     <published>2025-12-08T21:06:49+08:00</published>
   
-    <updated>2025-12-13T01:05:04+08:00</updated>
+    <updated>2025-12-15T17:55:34+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-object-detection/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-object-detection/" />
@@ -57,7 +57,13 @@
     
       1.1. 基于锚框的目标检测
       1.2. 非锚框的目标检测
-      1.3. 交并比（IoU）
+      1.3. 目标检测的主要指标
+        
+          1.3.1. 置信度阈值
+          1.3.2. 交并比（IoU）
+          1.3.3. 平均精度（AP）和均值平均精度（mAP）
+        
+      
     
   
   2. R-CNN 系列多阶段目标检测
@@ -66,14 +72,7 @@
         
           2.1.1. 候选区域提取
           2.1.2. 候选框分类
-          2.1.3. 边界框回归
-          2.1.4. 非极大值抑制（NMS）
-          2.1.5. 总结
-        
-      
-      2.2. Fast R-CNN
-        
-   ...
+         ...
     </summary>
   
 
