@@ -36,7 +36,7 @@
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="VSCode部署Python开发环境" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了基于 VSCode 的 Python 开发环境的搭建方法。" />
@@ -2155,6 +2155,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -2413,9 +2425,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="3475 字"
+  title="3893 字"
 >
-  <em>19 分钟</em>阅读</span>
+  <em>21 分钟</em>阅读</span>
 
     </div>
 
@@ -2471,7 +2483,8 @@
       <li><a href="#42-无法加载文件-windowspowershellprofileps1">4.2. 无法加载文件 \WindowsPowerShell\profile.ps1</a></li>
       <li><a href="#43-提示commandnotfounderror">4.3. 提示CommandNotFoundError</a></li>
       <li><a href="#44-omp-error-15-initializing-xxx">4.4. OMP: Error #15: Initializing xxx</a></li>
-      <li><a href="#45-refactor-failed">4.5. Refactor failed…</a></li>
+      <li><a href="#45-f2-重命名变量失败-refactor-failed">4.5. F2 重命名变量失败 Refactor failed…</a></li>
+      <li><a href="#46-使用-conda-命令时提示-usage-conda-scriptpy-">4.6. 使用 conda 命令时提示 usage: conda-script.py …</a></li>
     </ul>
   </li>
   <li><a href="#5-参考文献">5. 参考文献</a></li>
@@ -2515,6 +2528,16 @@
 <h3 id="32-安装anaconda"><span class="me-2">3.2. 安装Anaconda</span><a href="#32-安装anaconda" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>常用<strong>Anaconda</strong>配置Python环境[<a href="#ref1">1</a>]（若嫌弃庞大可使用<strong>Miniconda</strong>）。Anaconda是一个方便的python包管理和环境管理软件，一般用来配置不同的项目环境。我们常常会遇到这样的情况，正在做的项目A和项目B分别基于 python 3.7 和 python 3.9，而电脑一般只能安装一个环境，这个时候Anaconda就派上了用场，它可以创建多个互不干扰的环境，分别运行不同版本的软件包，以达到兼容的目的。</p>
+
+<blockquote>
+  <p>Miniconda 是一个免费的、微型的 Anaconda 发行版安装，仅包含 conda、Python、它们依赖的软件包以及少数其他有用的软件包。</p>
+
+  <p>Miniconda 安装和 Anaconda 发行版安装在同一个页面。想要获取最新的 Miniconda 安装程序，请访问 anaconda.com/download 并拉到 <strong>页面最下方</strong>。</p>
+
+  <p>下面的链接是当前支持的各个 python 版本和生命周期：</p>
+
+  <p>https://devguide.python.org/versions/#versions</p>
+</blockquote>
 
 <p>Anaconda通过管理工具包、开发环境、Python版本，大大简化了你的工作流程。不仅可以方便地安装、更新、卸载工具包，而且安装时能自动安装相应的依赖包，同时还能使用不同的虚拟环境隔离不同要求的项目。</p>
 
@@ -2995,7 +3018,7 @@ invocation to 'CALL conda.bat activate'.
 os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 </pre></td></tr></tbody></table></code></div></div>
 
-<h3 id="45-refactor-failed"><span class="me-2">4.5. Refactor failed…</span><a href="#45-refactor-failed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<h3 id="45-f2-重命名变量失败-refactor-failed"><span class="me-2">4.5. F2 重命名变量失败 Refactor failed…</span><a href="#45-f2-重命名变量失败-refactor-failed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>当打开一个 <code class="language-plaintext highlighter-rouge">.py</code> 文件，试图通过 <code class="language-plaintext highlighter-rouge">F2</code> 快捷键来修改变量名称时，会弹出 <code class="language-plaintext highlighter-rouge">Refactor failed.......</code> 一大串错误。这是因为如果该文件没有运行过，VSCode 默认的 Python 自动补齐和静态分析工具 Jedi 必须要求先运行一次 <code class="language-plaintext highlighter-rouge">.py</code> 文件才能进行改名。因此可以选择更加新的自动补齐和静态分析工具 Pylance （由微软开发）解决不运行文件而需要改名的操作。</p>
 
@@ -3003,11 +3026,48 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
 
 <p>左下角齿轮打开设置，输入 jedi ，定位到 <code class="language-plaintext highlighter-rouge">Python: Language Server</code>，然后将选项改成 <code class="language-plaintext highlighter-rouge">Pylance</code> ，提示需要安装 Pylance 插件，安装后重启 VSCode 即可。</p>
 
+<h3 id="46-使用-conda-命令时提示-usage-conda-scriptpy-"><span class="me-2">4.6. 使用 conda 命令时提示 usage: conda-script.py …</span><a href="#46-使用-conda-命令时提示-usage-conda-scriptpy-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>使用各种 <code class="language-plaintext highlighter-rouge">conda</code>命令时，如：</p>
+
+<pre><code class="language-cmd">conda --version
+conda env list
+</code></pre>
+<p>时提示如下信息：</p>
+
+<pre><code class="language-cmd">usage: conda-script.py [-h] [-V] command ...
+conda is a tool for managing and deploying applications, environments and packages. Options: positional arguments:
+...
+</code></pre>
+
+<p>在 PowerShell 中输入</p>
+
+<pre><code class="language-cmd">conda init
+</code></pre>
+<p>来进行自动初始化，若初始化后可以切换虚拟环境且无报错，则说明成功了。若没有成功，进行第二步。</p>
+
+<ul>
+  <li>打开文件资源管理器。</li>
+  <li>导航到 Anaconda 安装目录，文件夹名通常是 <code class="language-plaintext highlighter-rouge">Anaconda3</code> 或 <code class="language-plaintext highlighter-rouge">Miniconda3</code>。</li>
+  <li>进入该文件夹后，再进入 <code class="language-plaintext highlighter-rouge">Scripts</code> 子文件夹。</li>
+  <li>能在这个 Scripts 文件夹里找到 <code class="language-plaintext highlighter-rouge">conda.exe</code> 文件。</li>
+  <li>记下这个完整的路径。例如：<code class="language-plaintext highlighter-rouge">E:\ProgramFiles\miniconda3\Scripts</code>。</li>
+  <li>打开一个新的 PowerShell 终端。</li>
+  <li>输入下面的命令，但把 “你的Anaconda路径” 替换成你在上一步找到的实际路径。</li>
+</ul>
+
+<pre><code class="language-cmd">E:\ProgramFiles\miniconda3\Scripts init powershell
+</code></pre>
+
+<p>此时再尝试激活虚拟环境。如果还不成功我也没办法了。</p>
+
 <h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p><span id="ref1">[1]</span> <a href="https://www.zhihu.com/people/WaJueJiPrince">挖掘机小王子</a>. <a href="https://zhuanlan.zhihu.com/p/30324113">VSCode+Anaconda打造舒适的Python环境</a>.</p>
 
 <p><span id="ref1">[2]</span> <a href="https://www.cnblogs.com/Eric-Young/">Eric-Young</a>. <a href="https://www.cnblogs.com/Eric-Young/p/6393513.html">python之VSCode安装</a>.</p>
+
+<p><span id="ref1">[3]</span> 秋光的梦. <a href="https://zhuanlan.zhihu.com/p/1930284863879111690">Conda在VsCode中报错usage: conda-script.py [-h] [-v] [–no-plugins] [-V] COMMAND …的解决办法</a></p>
 
 
 </div>
@@ -3156,7 +3216,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
+          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
         </li>
       
         
@@ -3170,14 +3230,14 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/CV-object-detection-2stage/">计算机视觉（Two-Stage 目标检测）</a>
+          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
+          <a href="/posts/CV-object-detection-2stage/">计算机视觉（Two-Stage 目标检测）</a>
         </li>
       
         
@@ -6267,7 +6327,7 @@ os.environ[‘KMP_DUPLICATE_LIB_OK’]=‘True’
       </p>
 
       <p>©
-        2025
+        2026
         <a href="https://github.com/sirlis">sirlis</a>.
         
           <span
