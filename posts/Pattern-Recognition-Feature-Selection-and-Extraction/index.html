@@ -35,22 +35,23 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <!-- Begin Jekyll SEO tag v2.9.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（特征选择与特征提取）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别中特征的概念，包括颜色特征、形状特征、纹理特征、空间关系特征。然后介绍了常用的特征选择与特征提取方法，包括类别可分性准则、最优搜索、次优搜索、启发式搜索、线性特征提取、非线性特征提取等。" />
-<meta property="og:description" content="本文介绍了模式识别中特征的概念，包括颜色特征、形状特征、纹理特征、空间关系特征。然后介绍了常用的特征选择与特征提取方法，包括类别可分性准则、最优搜索、次优搜索、启发式搜索、线性特征提取、非线性特征提取等。" />
+<meta name="twitter:description" property="og:description" content="本文介绍了模式识别中特征的概念，包括颜色特征、形状特征、纹理特征、空间关系特征。然后介绍了常用的特征选择与特征提取方法，包括类别可分性准则、最优搜索、次优搜索、启发式搜索、线性特征提取、非线性特征提取等。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2025-04-15T17:15:49+08:00" />
+<meta property="article:modified_time" content="2026-05-09T12:23:14+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="模式识别（特征选择与特征提取）" />
+<meta name="twitter:title" content="模式识别（特征选择与特征提取）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-08T23:56:56+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了模式识别中特征的概念，包括颜色特征、形状特征、纹理特征、空间关系特征。然后介绍了常用的特征选择与特征提取方法，包括类别可分性准则、最优搜索、次优搜索、启发式搜索、线性特征提取、非线性特征提取等。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-09T12:23:14+08:00","datePublished":"2025-04-15T17:15:49+08:00","description":"本文介绍了模式识别中特征的概念，包括颜色特征、形状特征、纹理特征、空间关系特征。然后介绍了常用的特征选择与特征提取方法，包括类别可分性准则、最优搜索、次优搜索、启发式搜索、线性特征提取、非线性特征提取等。","headline":"模式识别（特征选择与特征提取）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Feature-Selection-and-Extraction/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -561,6 +562,74 @@
     
       
       
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
     
 
     
@@ -2436,13 +2505,13 @@
 
 <em
   class=""
-  data-ts="1765209416"
+  data-ts="1778300594"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/12/08
+  2026/05/09
 </em>
 
     </span>
@@ -2486,7 +2555,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="12142 字"
+  title="12172 字"
 >
   <em>67 分钟</em>阅读</span>
 
@@ -2827,9 +2896,13 @@ GLCM 的计算步骤如下：</p>
 
 <p><a href="/assets/img/postsimg/20250415/glcm.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/glcm.png" alt="GLCM" class="lazyload" data-proofer-ignore></a></p>
 
-<p>注意，定义方向时一般包含双向信息，比如 $0^{\circ}$ 与 $180^{\circ}$ 是同一方向，而 $45^{\circ}$ 与 $-135^{\circ}$ 是同一方向，因此统计概率时要考虑两种方向的组合。且注意到，灰度共生矩阵在双向定义下一定是一个对称矩阵。</p>
+<p>注意，定义方向时一般包含双向信息，比如 $0^{\circ}$ 与 $180^{\circ}$ 是同一方向，而 $45^{\circ}$ 与 $-135^{\circ}$ 是同一方向，因此统计概率时要考虑两种方向的组合。且注意到，灰度共生矩阵在双向定义下一定是一个对称矩阵。如下图所示：</p>
 
-<p>思考：有必要针对原始灰度图像计算灰度共生矩阵么？</p>
+<p><a href="/assets/img/postsimg/20250415/glcm3.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/glcm3.png" alt="GLCM3" class="lazyload" data-proofer-ignore></a></p>
+
+<p>对称 GLCM 的好处是消除方向的影响，让纹理特征更稳定。</p>
+
+<p><strong>思考：</strong> 有必要针对原始灰度图像计算灰度共生矩阵么？</p>
 
 <ul>
   <li>两不同的灰度像素组合 $51\to 165$ 和 $48\to173$ 几乎无区别！</li>
@@ -2839,7 +2912,7 @@ GLCM 的计算步骤如下：</p>
 
 <p>因此，我们可以降低灰度的级别，将其拆成若干区间，如取 $N=8$ 以降低 GLCM 的大小，且有效降低矩阵的稀疏性。</p>
 
-<p><a href="/assets/img/postsimg/20250415/glcm2.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/glcm2.png" alt="GLCM" class="lazyload" data-proofer-ignore></a></p>
+<p><a href="/assets/img/postsimg/20250415/glcm2.png" class="popup img-link "><img data-src="/assets/img/postsimg/20250415/glcm2.png" alt="GLCM2" class="lazyload" data-proofer-ignore></a></p>
 
 <p>虽然我们从 GLCM 中已经能反映出原图的某些特征，我们一般会将其进一步计算某些统计学特性。</p>
 
@@ -3586,35 +3659,35 @@ J(Y) &amp;= \Vert \boldsymbol{Y}-\boldsymbol{Y}\boldsymbol{w}_i^\star \Vert^2_F\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CV-object-detection-2stage/">计算机视觉（Two-Stage 目标检测）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
         </li>
       
     </ul>

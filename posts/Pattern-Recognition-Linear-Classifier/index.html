@@ -35,22 +35,23 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <!-- Begin Jekyll SEO tag v2.9.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（线性分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
-<meta property="og:description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
+<meta name="twitter:description" property="og:description" content="本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-03-03T14:25:19+08:00" />
+<meta property="article:modified_time" content="2026-05-09T12:23:14+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="模式识别（线性分类器）" />
+<meta name="twitter:title" content="模式识别（线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-12T14:12:28+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-09T12:23:14+08:00","datePublished":"2024-03-03T14:25:19+08:00","description":"本文介绍了模式识别的线性分类器，包括线性分类器的基础概念、垂直平分准则以及垂直平分分类器、Fisher 投影准则、感知准则、最小错分样本准则、最小平方误差准则、最小二乘估计。","headline":"模式识别（线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Linear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1457,13 +1458,13 @@
 
 <em
   class=""
-  data-ts="1749708748"
+  data-ts="1778300594"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/12
+  2026/05/09
 </em>
 
     </span>
@@ -1507,9 +1508,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="6552 字"
+  title="6687 字"
 >
-  <em>36 分钟</em>阅读</span>
+  <em>37 分钟</em>阅读</span>
 
     </div>
 
@@ -1806,6 +1807,18 @@ g_2(\boldsymbol{x}) &amp;= d_2(x) = \Vert \boldsymbol{x} - \boldsymbol{m}_2 \Ver
 <p>根据前述 Fisher 投影准则的优化目标（即选择合适的投影方向，使得投影后类间离散度 $S_b$ 尽可能大，同时总类内离散度 $S_w$ 尽可能小）可以写出如下分式形式的优化目标函数：</p>
 
 \[J(\boldsymbol{w}) = \frac{\tilde{S}_b}{\tilde{S}_w}=\frac{(\tilde{m}_1-\tilde{m}_2)^2}{\tilde{S}_1+\tilde{S}_2}\]
+
+<blockquote>
+  <p>思考，为什么不采取其他简单的形式，如</p>
+
+\[J(\boldsymbol{w}) = \tilde{S}_b-\tilde{S}_w\]
+
+  <ul>
+    <li>差值带来的是无归一化的绝对数值，不适合分类分离度评价；</li>
+    <li>分式形式契合广义瑞丽商，最优解为 $S_w^{-1}S_b$ 最大特征值对应的特征向量，可直接求解；</li>
+    <li>分式形式具备统计合理性，瑞利商本质是信噪比（SNR），最大化 SNR 等价于最小化分类误差下界（由 Chernoff 界 / 贝叶斯误差推导）</li>
+  </ul>
+</blockquote>
 
 <p>为了寻找最优投影方向 $\boldsymbol{w}$，需要将优化目标函数进行改写。由于</p>
 
@@ -2274,35 +2287,35 @@ L(\boldsymbol{w}) &amp;= \sum_{j=1}^N(f(\boldsymbol{x}_j)-y_j)^2\\
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CV-object-detection-2stage/">计算机视觉（Two-Stage 目标检测）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
         </li>
       
     </ul>

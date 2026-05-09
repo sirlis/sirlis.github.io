@@ -35,22 +35,23 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <!-- Begin Jekyll SEO tag v2.9.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="模式识别（LDA和PCA）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。" />
-<meta property="og:description" content="本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。" />
+<meta name="twitter:description" property="og:description" content="本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-05-02T10:03:19+08:00" />
+<meta property="article:modified_time" content="2026-05-09T12:23:14+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="模式识别（LDA和PCA）" />
+<meta name="twitter:title" content="模式识别（LDA和PCA）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-19T18:49:40+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-09T12:23:14+08:00","datePublished":"2024-05-02T10:03:19+08:00","description":"本文介绍了模式识别种常用的两种特征选择与特征降维方法，即线性判别分析（Linear Discriminant Analysis，LDA）和主成分分析（Principal Component Analysis，PCA）。","headline":"模式识别（LDA和PCA）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"},"url":"http://localhost:4000/posts/Pattern-Recognition-LDA&PCA/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1008,13 +1009,13 @@
 
 <em
   class=""
-  data-ts="1750330180"
+  data-ts="1778300594"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/19
+  2026/05/09
 </em>
 
     </span>
@@ -1058,9 +1059,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4535 字"
+  title="5060 字"
 >
-  <em>25 分钟</em>阅读</span>
+  <em>28 分钟</em>阅读</span>
 
     </div>
 
@@ -1090,10 +1091,10 @@
     <ul>
       <li><a href="#31-数学推导">3.1. 数学推导</a>
         <ul>
-          <li><a href="#311-最近重构性k-l变换">3.1.1. 最近重构性（K-L变换）</a></li>
+          <li><a href="#311-最近重构性">3.1.1. 最近重构性</a></li>
           <li><a href="#312-最大可分性">3.1.2. 最大可分性</a></li>
-          <li><a href="#313-拉格朗日乘子法求解">3.1.3. 拉格朗日乘子法求解</a></li>
-          <li><a href="#314-k-l-变换">3.1.4. K-L 变换</a></li>
+          <li><a href="#313-优化问题求解研">3.1.3. 优化问题求解（研）</a></li>
+          <li><a href="#314-k-l-变换补充说明研">3.1.4. K-L 变换补充说明（研）</a></li>
         </ul>
       </li>
       <li><a href="#32-算法流程">3.2. 算法流程</a></li>
@@ -1204,17 +1205,28 @@
 
 \[\boldsymbol{\mu} = \frac{1}{N} \sum_{\forall \boldsymbol{x}}\boldsymbol{x} = \frac{1}{N}\sum_{\boldsymbol{x}\in w_i} N_i\boldsymbol{\mu}_i\]
 
-<p>知道了前 $C-1$ 个 $(\boldsymbol{\mu}_i-\boldsymbol{\mu})$ 后，最后一个 $(\boldsymbol{\mu}_C-\boldsymbol{\mu})$ 可以有前面的 $\boldsymbol{\mu}_i$ 来线性表示，因此$\boldsymbol{S}_b$ 的秩为 $C-1$。</p>
+<p>知道了前 $C-1$ 个 $(\boldsymbol{\mu}_i-\boldsymbol{\mu})$ 后，最后一个 $(\boldsymbol{\mu}_C-\boldsymbol{\mu})$ 可以由前面的 $\boldsymbol{\mu}_i$ 来线性表示，因此$\boldsymbol{S}_b$ 的秩为 $C-1$。</p>
 
 <p>所以在计算特征向量矩阵（类内散度矩阵 $\boldsymbol{S}_w$ 的逆 $\times$ 类间散度矩阵 $\boldsymbol{S}_b$）时，可以发现只有 $C-1$ 个特征值不为零的特征向量。因此，<strong><font color="red">LDA 最多将特征维度降低到 $C-1$ 维</font></strong>。</p>
 
+<blockquote>
+  <ul>
+    <li>
+      <p>意味着多分类 LDA 特征维度可以选得比 C-1 少，相当于丢掉一部分有区分能力的特征方向，分类性能大概率会下降，偶尔差不多，极少情况下可能会略有增强。</p>
+    </li>
+    <li>
+      <p>当然也可以强行构造比 $C-1$ 更多的特征维度，但再往后的特征向量对应的特征值都是 0，投影后不会带来任何类间分离的增益，只是冗余维度。</p>
+    </li>
+  </ul>
+</blockquote>
+
 <p>假设样本原始特征维度为 $k$，前 $d=C-1$ 个最大特征值对应的特征向量组成的投影矩阵为 $\boldsymbol{W}=[\boldsymbol{w}<em>1, \boldsymbol{w}_2,\cdots, \boldsymbol{w}</em>{d}]\in \mathbb{R}^{k\times d}$，那么多分类 LDA 的优化目标函数为</p>
 
-\[\max_{\boldsymbol{W}} J(\boldsymbol{W}) = \frac{\boldsymbol{W}^\top\boldsymbol{S}_b\boldsymbol{W}}{\boldsymbol{W}^\top\boldsymbol{S}_w\boldsymbol{W}}\]
+\[\max_{\boldsymbol{W}} J(\boldsymbol{W}) = \frac{\text{tr}(\boldsymbol{W}^\top\boldsymbol{S}_b\boldsymbol{W})}{\text{tr}(\boldsymbol{W}^\top\boldsymbol{S}_w\boldsymbol{W})}\]
 
-<p>最终可将 $k$ 维高维特征降维至 $d$ 维</p>
+<p>采用拉格朗日乘子法同样可以求解上述优化问题，得到最优投影矩阵 $\boldsymbol{W}^\star$，其每一列是 $\boldsymbol{S}_w^{-1}\boldsymbol{S}_b$ 的特征向量。最终可将 $k$ 维高维特征降维至 $d$ 维</p>
 
-\[\boldsymbol{z} = \boldsymbol{W}\boldsymbol{x}\]
+\[\boldsymbol{z} = \boldsymbol{W}^\star\boldsymbol{x}\]
 
 <h3 id="25-lda-的特点"><span class="me-2">2.5. LDA 的特点</span><a href="#25-lda-的特点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1269,7 +1281,7 @@
 
 <p>基于最近重构性和最大可分性，能分别得到PCA的两种<strong>等价推导</strong>，下面分别展开说明。</p>
 
-<h4 id="311-最近重构性k-l变换"><span class="me-2">3.1.1. 最近重构性（K-L变换）</span><a href="#311-最近重构性k-l变换" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="311-最近重构性"><span class="me-2">3.1.1. 最近重构性</span><a href="#311-最近重构性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>首先对 $n$ 个 $d$ 维样本进行中心化，即将所有样本变换为均值为 0，也即</p>
 
@@ -1326,26 +1338,52 @@
 \[\Vert\boldsymbol{A}\Vert_F = \sqrt{\sum_{i=1}^m\sum_{j=1}^n \boldsymbol{A}_{ij}^2} = \sqrt{\text{tr}(\boldsymbol{A}^\top \boldsymbol{A})}\]
 </blockquote>
 
-\[\begin{aligned}
+<details>
+  <summary>
+    <font color="blue">
+思考：尝试展开并化简 J(W) 得到最近重构性描述下的投影优化问题
+
+</font>
+  </summary>
+
+  <font color="blue">
+
+$$
+\begin{aligned}
 \Vert\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top\Vert_F^2 &amp;= \text{tr}\left( (\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)^\top(\boldsymbol{X} - \boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) \right)\\
-&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - 2\text{tr}(\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) + \text{tr}(\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)\\
-&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})
-\end{aligned}\]
+（展开第1项转置）&amp;= \text{tr}\left( (\boldsymbol{X}^\top-\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top)(\boldsymbol{X}-\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) \right)\\
+&amp;=  \text{tr}(\boldsymbol{X}^\top\boldsymbol{X} - \boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top - \boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X} + \boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)\\
+（展开线性算子\text{tr}）&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) - \text{tr}(\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X})+\text{tr}(\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)\\
+（循环置换第3项）&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - 2\text{tr}(\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top) + \text{tr}(\boldsymbol{W}\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}\boldsymbol{W}^\top)\\
+（循环置换第3项）&amp;= \text{tr}(\boldsymbol{X}^\top\boldsymbol{X}) - \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})
+\end{aligned}
+$$
 
-<p>其中第二行展开是因为迹是线性算子，可以保证分配律。第三行展开利用了正交投影矩阵的性质和迹的循环置换性。</p>
+利用到如下性质：
 
-<blockquote>
-  <p>正交投影矩阵：$\boldsymbol{W}\boldsymbol{W}^\top = \boldsymbol{I}$</p>
+&gt;迹是线性算子，可以保证分配律：$\text{tr}(\boldsymbol{A}-\boldsymbol{B}+\boldsymbol{C}) = \text{tr}(\boldsymbol{A})-\text{tr}\boldsymbol{B}+\text{tr}(\boldsymbol{C})$
+&gt;
+&gt; 列正交矩阵：$\boldsymbol{W}^\top\boldsymbol{W} = \boldsymbol{I}$
+&gt;
+&gt; 迹的循环置换性：$\text{tr}(\boldsymbol{A}\boldsymbol{B}\boldsymbol{C}) = \text{tr}(\boldsymbol{B}\boldsymbol{C}\boldsymbol{A}) = \text{tr}(\boldsymbol{C}\boldsymbol{A}\boldsymbol{B})$
 
-  <p>迹的循环置换性：$\text{tr}(\boldsymbol{A}\boldsymbol{B}\boldsymbol{C}) = \text{tr}(\boldsymbol{B}\boldsymbol{C}\boldsymbol{A}) = \text{tr}(\boldsymbol{C}\boldsymbol{A}\boldsymbol{B})$</p>
-</blockquote>
+注意到，$\boldsymbol{X}^\top\boldsymbol{X}$ 是样本的协方差矩阵，对优化问题而言是常数，不影响优化结果，因此最近重构性推导的优化问题可描述为
 
-<p>注意到，$\boldsymbol{X}^\top\boldsymbol{X}$ 是样本的协方差矩阵，对优化问题而言是常数，不影响优化结果，因此最近重构性推导的优化问题可描述为</p>
 
-\[\begin{aligned}
+$$
+\boxed{
+\begin{aligned}
 \min_{\boldsymbol{W}} &amp;\quad -\text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W}) \\
 s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
-\end{aligned}\]
+\end{aligned}
+}
+$$
+
+</font>
+
+</details>
+
+<p>采用最近重构性的思想即为「<strong>K-L变换</strong>」。</p>
 
 <h4 id="312-最大可分性"><span class="me-2">3.1.2. 最大可分性</span><a href="#312-最大可分性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
@@ -1374,30 +1412,72 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
 
 <p>等价于求解如下优化问题</p>
 
-\[\begin{aligned}
+\[\boxed{
+\begin{aligned}
 \max_{\boldsymbol{W}} &amp;\quad \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})\\
 s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
-\end{aligned}\]
+\end{aligned}
+}\]
 
-<p>可以发现和最近重构性等价。</p>
+<p>可以发现和最近重构性「<strong>等价</strong>」。</p>
 
-<h4 id="313-拉格朗日乘子法求解"><span class="me-2">3.1.3. 拉格朗日乘子法求解</span><a href="#313-拉格朗日乘子法求解" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<p>采用最大可分性的思想即为「<strong>PCA</strong>」，也即 PCA 与 K-L变换「<strong>等价</strong>」。</p>
+
+<h4 id="313-优化问题求解研"><span class="me-2">3.1.3. 优化问题求解（研）</span><a href="#313-优化问题求解研" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>对于最近重构性，最小化目标函数，拉格朗日乘子项使用正号</p>
 
-\[J(\boldsymbol{W}) = -\text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})+\Lambda^\top(\boldsymbol{W}^\top\boldsymbol{W}-\boldsymbol{I})\]
+\[J(\boldsymbol{W}) = -\text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})+\text{tr}\left(\Lambda^\top(\boldsymbol{W}^\top\boldsymbol{W}-\boldsymbol{I})\right)\]
 
 <p>对于最大可分性，最大化目标函数，拉格朗日乘子项使用负号</p>
 
-\[J(\boldsymbol{W}) = \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})-\Lambda^\top(\boldsymbol{W}^\top\boldsymbol{W}-\boldsymbol{I})\]
+\[J(\boldsymbol{W}) = \text{tr}(\boldsymbol{W}^\top\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W})-\text{tr}\left(\Lambda^\top(\boldsymbol{W}^\top\boldsymbol{W}-\boldsymbol{I})\right)\]
 
-<p>二者等价。对上式求导（注意第一项利用迹的微分公式），令导数等于零，整理有</p>
+<p>二者等价。</p>
+
+<details>
+  <summary>
+    <font color="blue">
+思考：为何约束条件在拉格朗日项中写为迹的形式？
+
+</font>
+  </summary>
+
+  <font color="blue">
+
+目标函数是标量，而约束条件为矩阵，不能直接与标量进行运算，需要将约束条件写成迹的形式。问题转化为，加上迹以后，是否还和原约束等价？核心即证明：
+
+$$
+\boldsymbol{M} = \boldsymbol{0} \Leftrightarrow  \text{tr}(\Lambda^\top\boldsymbol{M})=0
+$$
+
+- 矩阵约束为 $\boldsymbol{M}$ 中的每个元素都是零，可任取一个同阶方阵 $\boldsymbol{\Lambda}$ 转置后与原矩阵相乘再取迹，本质就是用 $\boldsymbol{\Lambda}$ 的各个对应位置元素对 $\boldsymbol{M}$ 的所有元素加权，然后全部加和为一个标量
+  
+  $$
+  \text{tr}(\boldsymbol{\Lambda}^\top\boldsymbol{M}) = \sum_{i=1}^d\sum_{j=1}^d\lambda_{ji}m_{ji}
+  $$
+
+- 正向：若 $\boldsymbol{M}=\boldsymbol{0}$ 则不管权值去什么加权和肯定为零；
+  
+- 反向：若对任意 $\boldsymbol{\Lambda}$ 都有迹为零，则 $\boldsymbol{M}=\boldsymbol{0}$ 也必定成立 
+
+</font>
+
+</details>
+
+<p>对上式求导（注意第一项利用迹的微分公式），令导数等于零，整理有</p>
 
 \[\boldsymbol{X}^\top\boldsymbol{X}\boldsymbol{W} = \Lambda \boldsymbol{W}\]
 
 <p>该方程是特征值问题的形式，$\boldsymbol{W}$ 是协方差矩阵 $\boldsymbol{X}^\top\boldsymbol{X}$ 最大的 $d$ 个特征值对应的特征向量组成。$\Lambda$ 是对角线元素为协方差矩阵特征值的对角矩阵。根据 $\boldsymbol{z}_i=\boldsymbol{W}^\top\boldsymbol{x}_i$ 即可将特征降维。</p>
 
-<h4 id="314-k-l-变换"><span class="me-2">3.1.4. K-L 变换</span><a href="#314-k-l-变换" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<blockquote>
+  <p>当 $\boldsymbol{A}$ 对称时，迹的微分公式</p>
+
+\[\frac{\partial}{\partial \boldsymbol{W}} \text{tr}(\boldsymbol{W}^\top\boldsymbol{A}\boldsymbol{W}) = 2\boldsymbol{A}\boldsymbol{W}\]
+</blockquote>
+
+<h4 id="314-k-l-变换补充说明研"><span class="me-2">3.1.4. K-L 变换补充说明（研）</span><a href="#314-k-l-变换补充说明研" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>在信号处理领域，从最近重构性出发的推导过程被称为 <strong>K-L变换</strong>，用于离散信号的去相关的线性变换。从数学上看，K-L变换和 PCA 的核心步骤是相同的：都是对协方差矩阵进行特征值分解，然后选择最大的特征值对应的特征向量作为投影方向。K-L变换更偏向于信号处理领域，强调信号的能量集中特性，适用于随机信号的降维和压缩。PCA更偏向于统计学和机器学习领域，强调数据的方差解释能力，适用于数据的降维和可视化。两者在数学上是等价的，但在应用背景和解释方式上有所不同。</p>
 
@@ -1632,35 +1712,35 @@ s.t. &amp;\quad \boldsymbol{W}^\top\boldsymbol{W}=\boldsymbol{I}
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-object-detection/">人工智能（目标检测）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CV-object-detection-2stage/">计算机视觉（Two-Stage 目标检测）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
         </li>
       
     </ul>
