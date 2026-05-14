@@ -1566,9 +1566,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="8881 字"
+  title="10136 字"
 >
-  <em>49 分钟</em>阅读</span>
+  <em>56 分钟</em>阅读</span>
 
     </div>
 
@@ -1810,9 +1810,9 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 \[\boldsymbol{S}_t = \boldsymbol{S}_w + \boldsymbol{S}_b = \sum_{i=1}^C \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu})(\boldsymbol{x}-\boldsymbol{\mu})^\top\]
 
-<p>上述定义式可以通过展开后分析（交叉项为零）证明。</p>
+<p>上述定义式可以通过展开后分析（交叉项为零）证明。总离散度矩阵反映数据整体的变异性，是类内和类间离散的总和。当样本确定后，总离散度矩阵就「<strong>固定</strong>」了，这意味着类内离散度矩阵和类间离散度矩阵是此消彼长的关系。</p>
 
-<p>总离散度矩阵反映数据整体的变异性，是类内和类间离散的总和。为了更准确地度量类内离散度和类间离散度，可以引入一个标量来衡量离散度矩阵的“大小”———矩阵的迹和矩阵的行列式。</p>
+<p>为了更准确地度量类内离散度和类间离散度，可以引入一个标量来衡量离散度矩阵的“大小”———矩阵的迹和矩阵的行列式。</p>
 
 <ul>
   <li>
@@ -1924,7 +1924,7 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p>前述迭代聚类过程中，首先需要计算两个类别的相似性测度来决定哪两个类别进行合并或分离。根据具体任务需求，这里可以选择前面介绍过的任意相似性测度。</p>
 
-<p>其次，对于包含多个样本的类别，即使选择了特定的相似性测度，其具体计算也存在多样性。比如，选择欧氏距离作为相似性测度，那么可以采用以下三种计算方法：</p>
+<p>其次，对于包含多个样本的类别，即使选择了特定的相似性测度，其具体计算也存在多样性。比如，选择欧氏距离作为相似性测度，那么可以采用以下多种计算方法：</p>
 
 <ul>
   <li>最小距离法：将两类别中最「近」的两个数据点之间的欧氏距离作为测度；</li>
@@ -1933,6 +1933,76 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
   <li>组平均距离法：将两个类别之间所有点对距离的平均值作为类别相似性测度。相比于最小距离法和最大距离法，组平均距离法可以有效避免类内特殊点带来的不利影响；</li>
   <li>沃德距离法：将两个类别合并/拆分时带来的平方和误差（SSE）的变化量作为测度。</li>
 </ul>
+
+<p>下面从计算量的角度，对各种计算方法进行细致的分析：</p>
+
+<ul>
+  <li><strong>最小/最大距离法</strong>：</li>
+</ul>
+
+<p>假设聚类的某个阶段，把 $C_i, C_j$ 两个类别合并为 $C_k$，则计算新类别与任一旧类别 $C_m$ 的最近/最远距离为：</p>
+
+\[d(C_k, C_m) = \min\{d(C_i,C_m),d(C_j,C_m)\}\]
+
+<p>而不用重新遍历所有点对，只需比较 $C_i$ 与 $C_j$ 的距离即可。</p>
+
+<details>
+  <summary>
+    <font color="blue">思考：为什么？</font>
+  </summary>
+
+  <font color="blue">
+因为新类 $C_k=C_i\cup C_j$，$C_k$ 与 $C_m$ 的最近/最远点，只能
+
+- 要么是 $C_i$ 与 $C_m$ 的最近/最远点；
+
+- 要么是 $C_j$ 与 $C_m$ 的最近/最远点；
+
+只有初始构造距离矩阵那一次，需要算所有样本两两距离。后续每一步合并，都不再遍历样本，全靠递推维护。
+
+</font>
+
+</details>
+
+<ul>
+  <li><strong>组平均距离法</strong>：</li>
+</ul>
+
+<p>把  $C_i$ 里每一个点，都和 $C_j$ 里每一个点两两配对，全部组合都算一遍距离，再求平均值：</p>
+
+\[d(C_i, C_j)  = \frac{1}{N_i\cdot N_j}\sum_{\boldsymbol{x}_i \in C_i}\sum_{\boldsymbol{x}_j \in C_j} d(\boldsymbol{x}_i,\boldsymbol{x}_j)\]
+
+<p>合并新类后，也可以通过递归的方式计算上述距离：</p>
+
+\[d(C_k, C_m) = \frac{1}{N_i + N_j} \left[  N_i\cdot d(C_i, C_m) + N_j\cdot d(C_j, C_m) \right]\]
+
+<details>
+  <summary>
+    <font color="blue">思考：如何推导？</font>
+  </summary>
+
+  <font color="blue">
+按照定义
+
+$$ d(C_k, C_m) = \frac{1}{N_k\cdot N_m} \sum_{\boldsymbol{x}\in C_k}\sum_{\boldsymbol{y}\in C_m} d(\boldsymbol{x},\boldsymbol{y}) $$
+
+又因为 $C_k=C_i\cup C_j$，可将求和拆成两部分：
+
+$$ \sum_{\boldsymbol{x}\in C_k} \sum_{\boldsymbol{y}\in C_m} =  \sum_{\boldsymbol{x}\in C_i}\sum_{\boldsymbol{y}\in C_m} + \sum_{\boldsymbol{x}\in C_j}\sum_{\boldsymbol{y}\in C_m}$$
+
+代入上面的距离定义式，有
+
+$$
+\begin{aligned}
+d(C_k, C_m) &amp;= \frac{1}{(N_i+N_j)\cdot N_m} \left[ \sum_{\boldsymbol{x}\in C_i}\sum_{\boldsymbol{y}\in C_m} d(\boldsymbol{x},\boldsymbol{y}) + \sum_{\boldsymbol{x}\in C_j}\sum_{\boldsymbol{y}\in C_m} d(\boldsymbol{x},\boldsymbol{y})  \right]\\
+&amp;= \frac{1}{(N_i+N_j)\cdot N_m} \left[ N_i\cdot N_m \cdot d(C_i, C_m) + N_j\cdot N_m \cdot d(C_j, C_m)  \right]\\
+&amp;= \frac{1}{N_i+N_j} \left[ N_i\cdot d(C_i, C_m) + N_j\cdot d(C_j, C_m)  \right]
+\end{aligned}
+$$
+
+</font>
+
+</details>
 
 <h5 id="1313-举例"><span class="me-2">1.3.1.3. 举例</span><a href="#1313-举例" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
@@ -2079,7 +2149,7 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 <p>最经典的基于划分的聚类方法是 「<strong>K-means 聚类</strong>」。其核心思想是指定聚类中心，再通过迭代的方式更新聚类中心。</p>
 
 <ul>
-  <li><strong>第一步：样本集初始划分</strong></li>
+  <li><strong>第一步：初始化</strong></li>
 </ul>
 
 <p>（1）选择代表点</p>
@@ -2096,18 +2166,112 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p>不同的相似性测度选择也直接影响聚类的结果，一般而言常用的选择包括前面介绍的 欧几里得距离、闵科夫斯基距离、马氏距离、相关性测度等。</p>
 
+<p>选择完相似性测度（一般为欧氏距离），给定代表点，将剩余点按照所选的相似性测度进行分类，就可以把聚类的初始划分确定下来了。</p>
+
 <ul>
-  <li><strong>第二步：相似性测度选择和迭代计算</strong></li>
+  <li><strong>第二步：聚类准则函数选择</strong></li>
 </ul>
 
-<p>确定相似性测度后，遍历所有待分类的样本 $x_i$，计算该样本与每个聚类中心（代表点）的距离，按照最小距离原则将样本划分到 $C$ 类中的某一类。这里有两种不同的遍历方式：</p>
+<p>K-均值聚类采用「误差平方和准则」（本质是使用欧式距离），基本思想是，通过迭代寻找 $C$ 个聚类的划分方案，使得用这 $C$ 个聚类的均值来表达相应各类样本时所得到的总体误差最小。极小化误差平方和，需考察样本集所有可能的类划分，是NP难题。因此，K-均值算法采用迭代优化近似求解。</p>
+
+<p>在聚类初始划分的基础上，每一次迭代，都需要移动一个样本点 $\boldsymbol{x}$，因此我们需要分析移动样本点对误差平方和的影响。</p>
+
+<p>假设从 $w_k$ 类移入 $w_j$ 类，原类 $w_k$ 有 $N_k$ 个样本，均值为</p>
+
+\[\boldsymbol{m}_k = \frac{1}{N_k}\sum_{\boldsymbol{x}\in w_k} \boldsymbol{x}\]
+
+<p>移出样本 $\boldsymbol{x}$ 后，新均值为</p>
+
+\[\begin{aligned}
+\tilde{\boldsymbol{m}}_k &amp;= \frac{1}{N_j-1}\left(\sum_{\boldsymbol{x}\in w_k} \boldsymbol{x}-\boldsymbol{x} \right) = \frac{1}{N_j-1} ( N_k\boldsymbol{m}_k-\boldsymbol{x})\\
+&amp;=\boldsymbol{m}_k+\frac{1}{N_j-1}(\boldsymbol{m}_k-\boldsymbol{x})
+\end{aligned}\]
+
+<p>对于移入样本 $\boldsymbol{x}$ 后，类 $w_j$ 新均值为</p>
+
+\[\begin{aligned}
+\tilde{\boldsymbol{m}}_j &amp;= \frac{1}{N_j+1}\left(\sum_{\boldsymbol{x}\in w_j} \boldsymbol{x}+\boldsymbol{x} \right) = \frac{1}{N_j+1} ( N_j\boldsymbol{m}_j+\boldsymbol{x})\\
+&amp;=\boldsymbol{m}_j+\frac{1}{N_j+1}(\boldsymbol{x}-\boldsymbol{m}_j)
+\end{aligned}\]
+
+<p>对于原类 $w_k$，误差平方和为：</p>
+
+\[J_k = \sum_{\boldsymbol{x}\in w_k} \lVert \boldsymbol{x}-\boldsymbol{m}_k \rVert^2\]
+
+<p>移出样本 $\boldsymbol{x}$ 后，误差平方和为：</p>
+
+\[\tilde{J}_k = \sum_{\boldsymbol{x^\prime}\in w_k,\boldsymbol{x}^\prime \neq \boldsymbol{x}} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_k \rVert^2\]
+
+<p>利用<strong>离差平方和分解公式</strong>：</p>
+
+\[\sum_{\boldsymbol{x}^\prime \in S}\lVert \boldsymbol{x}^\prime - \tilde{\boldsymbol{m}}\rVert^2 = \sum_{\boldsymbol{x}^\prime \in S} \lVert \boldsymbol{x}^\prime - \boldsymbol{m}\rVert^2 -\vert S \vert \cdot \lVert \tilde{\boldsymbol{m}} - \boldsymbol{m}\rVert^2\]
+
+<p>这里 $S=w_k \backslash {\boldsymbol{x}}$ 表示移出样本后的集合，大小为 $\vert S \vert = N_k-1$。上述公式代入误差平方和，有</p>
+
+\[\tilde{J}_k = J_k - \lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2 - (N_k -1)\cdot \lVert \tilde{\boldsymbol{m}}_k - \boldsymbol{m}_k\rVert^2\]
+
+<p>再将均值更新公式代入，可以得到：</p>
+
+\[\boxed{
+\begin{aligned}
+\tilde{J}_k &amp;= J_k - \lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2 - (N_k -1)\frac{1}{(N_k-1)^2}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\\
+&amp;=J_k - \frac{N_k}{N_k-1}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2
+\end{aligned}
+}\]
+
+<p>同理，加入样本对目标类 $w_j$ 的影响：</p>
+
+\[\begin{aligned}
+J_j &amp;= \sum_{\boldsymbol{x}\in w_j} \lVert \boldsymbol{x}-\boldsymbol{m}_j \rVert^2\\
+\tilde{J}_j &amp;= \sum_{\boldsymbol{x}^\prime\in w_j} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_j \rVert^2 + \lVert \boldsymbol{x}-\tilde{\boldsymbol{m}}_j \rVert^2
+\end{aligned}\]
+
+<p>对于「第一项」，同样用离差平方和分解：</p>
+
+\[\sum_{\boldsymbol{x}^\prime \in w_j}\lVert \boldsymbol{x}^\prime -\tilde{\boldsymbol{m}}_j \rVert^2 = J_j + N_j\cdot \lVert \tilde{\boldsymbol{m}}_j - \boldsymbol{m}_j \rVert^2\]
+
+<p>且根据均值更新公式，有：</p>
+
+\[\lVert \tilde{\boldsymbol{m}}_j - \boldsymbol{m}_j \rVert^2 =\frac{1}{(N_j+1)^2}(\boldsymbol{x}-\boldsymbol{m}_j)^2\]
+
+<p>对于「第二项」，有：</p>
+
+\[\begin{aligned}
+\lVert \boldsymbol{x}-\tilde{\boldsymbol{m}}_j \rVert^2 &amp;= \lVert  \boldsymbol{x} - \boldsymbol{m}_j - \frac{1}{N_j+1}(\boldsymbol{x}-\boldsymbol{m}_j) \rVert \\
+&amp;= \left( 1-\frac{1}{N_j+1} \right)^2\lVert  \boldsymbol{x} - \boldsymbol{m}_j \rVert^2\\
+&amp;= \left( \frac{N_j}{N_j+1} \right)^2\lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2
+\end{aligned}\]
+
+<p>合并两项后得到：</p>
+
+\[\boxed{
+\tilde{J}_j = J_j +  \frac{N_j}{N_j+1} \lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2
+}\]
+
+<p>此时，移动带来的误差平方和变化为：</p>
+
+\[\Delta J = \tilde{J} -J = (\tilde{J}_k -J_k) + (\tilde{J}_j -J_j) =  \frac{N_j}{N_j+1} \lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2 - \frac{N_k}{N_k-1}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\]
+
+<p>要使总误差平方和减少，即 $\Delta J &lt; 0$，当样本数量较大时可忽略分式系数部分，即要求</p>
+
+\[\lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2 &lt; \lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\]
+
+<p>也即只有当 $\boldsymbol{x}$ 离 $\boldsymbol{m}_j$  的「欧式距离」比离 $\boldsymbol{m}_k$ 的「欧式距离」更近时才满足上述不等式。此时，把样本 $\boldsymbol{x}$ 从 $\boldsymbol{m}_k$ 移入 $\boldsymbol{m}_j$ 后，误差平方和减少。</p>
+
+<ul>
+  <li><strong>第三步：迭代</strong></li>
+</ul>
+
+<p>根据上述最小化误差平方和的推导，可以看出，迭代历所有待分类的样本 $\boldsymbol{x}_i$时，计算该样本与每个聚类中心（代表点）的距离，按照最小距离原则将样本划分到 $C$ 类中的某一类，最后即可得到最优聚类结果。</p>
+
+<p>在具体遍历方式上，还可以有两种不同的策略：</p>
 
 <ul>
   <li>
-    <p>方式1：将其余样本点按照与代表点距离最近原则，划分到相应类中（代表点保持不变）；</p>
+    <p>方式1：将其余样本点按照与代表点距离最近原则，逐个划分到相应类中（代表点保持不变）；</p>
   </li>
   <li>
-    <p>方式2：每个代表点自成一类，将样本依顺序归入与其最近的代表点那一类，并立即重新计算该类的均值以代替原来的代表点（代表点进行动态更新）。然后再计算下一个样本的归类，直至所有的样本都归到相应的类为止。</p>
+    <p>方式2：将样本依顺序归入与其最近的代表点那一类的同时，立即重新计算该类的均值以代替原来的代表点（代表点进行动态更新）。然后再计算下一个样本的归类，直至所有的样本都归到相应的类为止。</p>
   </li>
 </ul>
 
