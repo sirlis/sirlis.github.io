@@ -35,23 +35,22 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.9.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（无监督分类器）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。" />
-<meta name="twitter:description" property="og:description" content="本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。" />
+<meta property="og:description" content="本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2025-05-12T15:10:49+08:00" />
-<meta property="article:modified_time" content="2025-06-12T14:12:28+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="模式识别（无监督分类器）" />
+<meta property="twitter:title" content="模式识别（无监督分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-12T14:12:28+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-23T13:28:30+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1038,6 +1037,210 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -1460,6 +1663,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -1516,13 +1731,13 @@
 
 <em
   class=""
-  data-ts="1749708748"
+  data-ts="1779514110"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/06/12
+  2026/05/23
 </em>
 
     </span>
@@ -1566,9 +1781,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10136 字"
+  title="11504 字"
 >
-  <em>56 分钟</em>阅读</span>
+  <em>63 分钟</em>阅读</span>
 
     </div>
 
@@ -1626,8 +1841,9 @@
               <li><a href="#1321-k-均值聚类k-means">1.3.2.1. K-均值聚类（K-means）</a></li>
               <li><a href="#1322-k-means-算法">1.3.2.2. K-Means++ 算法</a></li>
               <li><a href="#1323-迭代自组织数据分析方法isodata">1.3.2.3. 迭代自组织数据分析方法（ISODATA）</a></li>
-              <li><a href="#1324-模糊-c-均值-聚类">1.3.2.4. 模糊 C-均值 聚类</a></li>
-              <li><a href="#1325-小结">1.3.2.5. 小结</a></li>
+              <li><a href="#1324--slic-算法">1.3.2.4.  SLIC 算法</a></li>
+              <li><a href="#1325-模糊-c-均值-聚类">1.3.2.5. 模糊 C-均值 聚类</a></li>
+              <li><a href="#1326-小结">1.3.2.6. 小结</a></li>
             </ul>
           </li>
           <li><a href="#133-基于密度的聚类">1.3.3. 基于密度的聚类</a>
@@ -2373,7 +2589,120 @@ J_j &amp;= \sum_{\boldsymbol{x}\in w_j} \lVert \boldsymbol{x}-\boldsymbol{m}_j \
 
 <hr />
 
-<h5 id="1324-模糊-c-均值-聚类"><span class="me-2">1.3.2.4. 模糊 C-均值 聚类</span><a href="#1324-模糊-c-均值-聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="1324--slic-算法"><span class="me-2">1.3.2.4.  SLIC 算法</span><a href="#1324--slic-算法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>下面介绍一个基于 K-均值聚类的、用于图像像素聚类的算法：<strong>简单线性聚类</strong>（Simple Linear Iterative Clustering，<strong>SLIC</strong>）算法。它是最常用、速度最快的超像素分割算法。</p>
+
+<blockquote>
+  <p><strong>超像素</strong>（superpixel）是将图像中相邻、颜色 / 纹理相近的多个原始小像素，自动聚合形成的一块连通大区域。</p>
+
+  <p><a href="/assets/img/postsimg/20250512/superpixel_image.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/superpixel_image.jpg" alt="superpixel_image" class="lazyload" data-proofer-ignore></a></p>
+
+  <p>超像素算法将像素组合成超像素，其可以用于替换像素网格的刚性结构。它们捕获图像冗余，提供计算图像特征的方便原语 (primitive)，并且大大降低了后续图像处理任务的复杂性。它们已经成为许多计算机视觉算法的关键构建块。</p>
+</blockquote>
+
+<p>SLIC 算法综合考虑了像素在颜色和空间上的距离，其颜色空间爱你使用 CIELAB 空间而不是 RGB 空间。</p>
+
+<blockquote>
+  <p>CIELAB由国际照明委员会在 1976 年制定。它的设计初衷并非为了给机器用，而是为了无限逼近人类的视觉感知。与 RGB、CMYK 这些依赖具体设备（如显示器、打印机）的色彩模型不同，Lab 是一个「设备无关」的色彩空间。这意味着，一个在 Lab 中定义的参数值，在任何能解释它的系统上，都应该激发起人眼相同的颜色感觉。</p>
+</blockquote>
+
+<p>CIELAB 由三个维度构成：</p>
+
+<ul>
+  <li>$L$：亮度，取值范围 $[0,100]$，从纯黑到纯白；</li>
+  <li>$a$：红绿轴，取值范围 $[-128,127]$，从纯绿色到纯红色；</li>
+  <li>$b$：黄蓝轴，取值范围 $[-128,127]$，从纯蓝色到纯黄色。</li>
+</ul>
+
+<blockquote>
+  <p>理解 Lab 的关键在于，$a, b$ 共同决定了色相和饱和度，而 $L$ 独立控制明度。这种分离是革命性的。在 RGB 中，要调亮一个红色，你需要同时增加 R、G、B 的值，但这不可避免地会改变颜色的饱和度，红色可能会发白。而在 Lab 中，你只需增加 $L$ 值，就能让红色在明度提升的同时，依然鲜艳如初。这就是为什么在 Photoshop 中，在 Lab 模式进行锐化、对比度调整却不影响色彩的原因。</p>
+</blockquote>
+
+<p>基于 CIELAB 颜色空间，SLIC 算法将像素可刻画为以下五维特征：</p>
+
+\[\boldsymbol{p} = [L, a, b, x, y]^T\]
+
+<p>SLIC 聚类算法的基本思路是：</p>
+
+<ol>
+  <li><strong>初始化聚类中心</strong></li>
+</ol>
+
+<ul>
+  <li>
+    <p>设图像共 $N$ 个像素，期望分成 $K$ 个超像素，则网格步长 $S = \sqrt{N/K}$，即每隔 $S$ 个像素放置一个聚类中心；</p>
+  </li>
+  <li>
+    <p>然后进行一次优化，把位于图像边缘的聚类中心，移动到 $3\times 3$ 邻域内梯度最小的位置；</p>
+    <blockquote>
+      <p>对于某个像素 $(x,y)$，其两个方向的梯度大小可只考虑亮度通道，近似为：</p>
+
+      <ul>
+        <li>$d_x = \left(L(x+1,y)-L(x-1,y)\right)$</li>
+        <li>$d_y = \left(L(x,y+1)-L(x,y-1)\right)$</li>
+      </ul>
+
+      <p>则像素梯度大小为 $g = \sqrt{g_x^2+g_y^2}$，如果想提高效率，甚至连开方都不需要。
+思考：若像素在图片最边上，取不到 $x+1$ 或 $y+1$ 怎么办？</p>
+    </blockquote>
+  </li>
+</ul>
+
+<ol>
+  <li><strong>迭代聚类</strong></li>
+</ol>
+
+<ul>
+  <li>局部邻域匹配：对每个像素，只在其周围 $2S×2S$ 范围内搜索聚类中心；
+<a href="/assets/img/postsimg/20250512/SLIC_neighbour.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/SLIC_neighbour.jpg" alt="SLIC_neighbour" class="lazyload" data-proofer-ignore></a>
+    <blockquote>
+      <p>通过局部邻域匹配，SLIC 算法计算复杂度为 $O(N)$，而传统 K-均值聚类算法计算复杂度为 $O(NK)$。</p>
+    </blockquote>
+  </li>
+  <li>像素到邻域内某个聚类中心颜色距离：\(d_c = \sqrt{(L_i - L_j)^2 + (a_i - a_j)^2 + (b_i - b_j)^2}\)</li>
+  <li>计算像素空间中像素的位置距离：\(d_s = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}\)</li>
+  <li>计算综合距离：\(d = \sqrt{d_c^2 + m^2\left(\frac{d_s}{S}\right)^2}\) 其中，
+    <ul>
+      <li>$S=\sqrt{N/K}$ 是单个超像素的理想边长，聚类中心将以该边长均匀网格采样；$N$ 是像素数量；</li>
+      <li>紧凑度系数 $m$ 用于调节颜色相似性和空间相似性的相对重要性，当 $m$ 比较大时，空间距离更加重要，生成的超像素更规整方正。当 $m$ 比较小时，生成的超像素可以更好的保持边缘，但尺寸和图形不规则；</li>
+      <li>把像素分配给综合距离 $D$ 最小的聚类中心；</li>
+    </ul>
+  </li>
+</ul>
+
+<ol>
+  <li><strong>更新聚类中心</strong></li>
+</ol>
+
+<ul>
+  <li>每隔超像素重新计算均值向量 $[\bar{L},\bar{a},\bar{b}, \bar{x},\bar{y}]^T$，作为新的聚类中心；</li>
+  <li>若所有新旧聚类中心的均值向量不在发生变化，则停止迭代，否则继续迭代。</li>
+</ul>
+
+<ol>
+  <li><strong>后处理</strong></li>
+</ol>
+
+<ul>
+  <li>把过小、不连通的超像素重新分配给邻近大超像素，保证最终每个超像素都是单连通区域。</li>
+</ul>
+
+<p>下面给出包含 SLIC 算法和一些其他超像素算法的聚类结果对比：</p>
+
+<p><a href="/assets/img/postsimg/20250512/image_superpixel_cluster_compare.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250512/image_superpixel_cluster_compare.jpg" alt="image_superpixel_cluster_compare" class="lazyload" data-proofer-ignore></a></p>
+
+<p>从左到右：原图、GS04、SLIC、改进的超像素方法。</p>
+
+<p>注意到，</p>
+
+<ul>
+  <li>GS04 更偏向颜色相似性，边缘贴合（边界召回）极好，但超像素尺寸不均、形状非常不规则；</li>
+  <li>SLIC 兼顾颜色与空间规整性，形状更整齐、尺寸更均匀;</li>
+  <li>SLIC 方法在图片下方某些区域的边缘混乱（可能原因是没有进行很好的优化，即没有把聚类中心移动到梯度平坦的位置）</li>
+</ul>
+
+<h5 id="1325-模糊-c-均值-聚类"><span class="me-2">1.3.2.5. 模糊 C-均值 聚类</span><a href="#1325-模糊-c-均值-聚类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>K-均值算法是一种硬聚类算法，算法的依据是类内误差平方和最小化准则，给集合中的每个样本赋予一个明确的类别。但在实际应用中，有时样本在形态和类属方面存在中介性，不存在严格的属性划分。为了更好的解决这类问题，<strong>将模糊理论引入K-均值算法</strong>（也称C-均值算法），将其从硬聚类推广到模糊聚类，即本节要介绍的模糊C均值算法（Fuzzy C-Means，FCM）。</p>
 
@@ -2439,7 +2768,7 @@ s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\l
 
 \[\max \Vert \boldsymbol{m}_i^{t+1} - \boldsymbol{m}_i^{t} \Vert &lt; \epsilon\]
 
-<h5 id="1325-小结"><span class="me-2">1.3.2.5. 小结</span><a href="#1325-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="1326-小结"><span class="me-2">1.3.2.6. 小结</span><a href="#1326-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>基于划分的聚类方法主要包括：K-Means 聚类、K-Means++ 聚类、ISODATA 聚类。三个方法是逐步递进完善的关系：</p>
 
@@ -2681,6 +3010,13 @@ s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\l
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
         </li>
       
@@ -2703,13 +3039,6 @@ s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\l
         
         <li class="text-truncate lh-lg">
           <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-CNN-classification/">人工智能（图像分类）</a>
         </li>
       
     </ul>
