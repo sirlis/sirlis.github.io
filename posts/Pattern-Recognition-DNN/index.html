@@ -2763,6 +2763,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -2969,9 +2981,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10938 字"
+  title="11391 字"
 >
-  <em>60 分钟</em>阅读</span>
+  <em>63 分钟</em>阅读</span>
 
     </div>
 
@@ -3023,6 +3035,7 @@
               <li><a href="#2234-梯度爆炸">2.2.3.4. 梯度爆炸</a></li>
             </ul>
           </li>
+          <li><a href="#224-计算图">2.2.4. 计算图</a></li>
         </ul>
       </li>
       <li><a href="#23-自组织神经网络">2.3. 自组织神经网络</a>
@@ -3762,6 +3775,120 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
   <li>使用更小的学习率：降低学习率可以减少参数更新的幅度。</li>
   <li>权重初始化：合理的初始化（如Xavier、He初始化）可以避免初始权重过大。</li>
 </ul>
+
+<h4 id="224-计算图"><span class="me-2">2.2.4. 计算图</span><a href="#224-计算图" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>以数学公式为中心推导反向传播算法比较复杂。现代深度学习框架都是基于计算图来构建的。</p>
+
+<p>正向传播和反向传播本质是一样的，都是在计算节点上进行了某种运算操作。</p>
+
+<ul>
+  <li><strong>以简单的加法</strong>（$z=x+y$）为例：</li>
+</ul>
+
+<pre><code class="language-mermaid">graph LR
+    H1[" "]
+    H2[" "]
+    H3[" "]
+    A[加法]
+
+    H1 -- x --&gt; A
+    H2 -- y --&gt; A
+    A -- z --&gt; H3
+
+    style H1 fill:none,stroke:none,color:transparent
+    style H2 fill:none,stroke:none,color:transparent
+    style H3 fill:none,stroke:none,color:transparent
+</code></pre>
+
+<pre><code class="language-mermaid">graph RL
+    H4[" "]
+    H5[" "]
+    H6[" "]
+    B[加法]
+
+    H6 -- loss对z的梯度 --&gt; B
+    B -- loss对z的梯度*1 --&gt; H4
+    B -- loss对z的梯度*1 --&gt; H5
+
+    style H4 fill:none,stroke:none,color:transparent
+    style H5 fill:none,stroke:none,color:transparent
+    style H6 fill:none,stroke:none,color:transparent
+</code></pre>
+<ul>
+  <li><strong>以简单的乘法</strong>（$z=xy$）为为例：</li>
+</ul>
+
+<pre><code class="language-mermaid">graph LR
+    H1[" "]
+    H2[" "]
+    H3[" "]
+
+    H1 -- x --&gt; A[乘法]
+    H2 -- y --&gt; A
+    A -- z --&gt; H3
+
+    style H1 fill:none,stroke:none
+    style H2 fill:none,stroke:none
+    style H3 fill:none,stroke:none
+</code></pre>
+
+<pre><code class="language-mermaid">graph RL
+    H4[" "]
+    H5[" "]
+    H6[" "]
+    B[乘法]
+
+    H6 -- loss对z的梯度 --&gt; B
+    B -- loss对z的梯度*y --&gt; H4
+    B -- loss对z的梯度*x --&gt; H5
+
+    style H4 fill:none,stroke:none
+    style H5 fill:none,stroke:none
+    style H6 fill:none,stroke:none
+
+</code></pre>
+
+<ul>
+  <li><strong>以神经网络</strong>（$Y=f(WX+b)$）为例：</li>
+</ul>
+
+<pre><code class="language-mermaid">graph LR
+A((输入)) --&gt;| X | B[矩阵乘法] --&gt;| XW | C[加法] --&gt; | XW+b | D[激活] --&gt;  E(Y)
+F((权重)) --&gt;| W | B[矩阵乘法]
+G((偏置)) --&gt;| b | C[加法]
+</code></pre>
+
+<pre><code class="language-mermaid">graph RL
+    E(loss) --&gt; D
+    D --&gt; |loss2| C
+    C --&gt; | loss3 | B
+    B --&gt; | loss4 | A
+    
+    B --&gt; | W的梯度 | F
+    C --&gt; | b的梯度 | G
+
+    A((输入))
+    B[矩阵乘法]
+    C[加法]
+    D[激活]
+    F((权重)) 
+    G((偏置))
+</code></pre>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>loss2 = loss * 激活函数的导数
+loss3 = loss2 * 1
+b的梯度 = loss2 * 1
+W的梯度 = [X]T * loss3
+loss4 = loss3 * [W]T
+</pre></td></tr></tbody></table></code></div></div>
 
 <h3 id="23-自组织神经网络"><span class="me-2">2.3. 自组织神经网络</span><a href="#23-自组织神经网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -7317,9 +7444,16 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
   
 
+  
+    
+
+    
+
+  
 
 
-  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.0/dist/jquery.min.js,npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.7/dayjs.min.js,npm/dayjs@1.11.7/locale/zh.min.js,npm/dayjs@1.11.7/plugin/relativeTime.min.js,npm/dayjs@1.11.7/plugin/localizedFormat.min.js,npm/tocbot@4.21.0/dist/tocbot.min.js,npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
 
 
 
@@ -7353,6 +7487,66 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 
 
+
+    
+      <!-- mermaid-js loader -->
+<script type="text/javascript">
+  (function () {
+    function updateMermaid(event) {
+      if (event.source === window && event.data && event.data.direction === ModeToggle.ID) {
+        const mode = event.data.message;
+
+        if (typeof mermaid === 'undefined') {
+          return;
+        }
+
+        let expectedTheme = mode === ModeToggle.DARK_MODE ? 'dark' : 'default';
+        let config = { theme: expectedTheme };
+
+        /* Re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */
+        $('.mermaid').each(function () {
+          let svgCode = $(this).prev().children().html();
+          $(this).removeAttr('data-processed');
+          $(this).html(svgCode);
+        });
+
+        mermaid.initialize(config);
+        mermaid.init(undefined, '.mermaid');
+      }
+    }
+
+    let initTheme = 'default';
+    const html = document.documentElement;
+
+    if (
+      (html.hasAttribute('data-mode') && html.getAttribute('data-mode') === 'dark') ||
+      (!html.hasAttribute('data-mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      initTheme = 'dark';
+    }
+
+    let mermaidConf = {
+      theme: initTheme /* <default|dark|forest|neutral> */
+    };
+
+    /* Create mermaid tag */
+    document.querySelectorAll('pre>code.language-mermaid').forEach((elem) => {
+      const svgCode = elem.textContent;
+      const backup = elem.parentElement;
+      backup.classList.add('unloaded');
+      /* create mermaid node */
+      let mermaid = document.createElement('pre');
+      mermaid.classList.add('mermaid');
+      const text = document.createTextNode(svgCode);
+      mermaid.appendChild(text);
+      backup.after(mermaid);
+    });
+
+    mermaid.initialize(mermaidConf);
+
+    window.addEventListener('message', updateMermaid);
+  })();
+</script>
 
     
 
