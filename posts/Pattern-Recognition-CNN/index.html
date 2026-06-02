@@ -2533,6 +2533,346 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -3107,6 +3447,54 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -3313,9 +3701,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="14109 字"
+  title="15354 字"
 >
-  <em>78 分钟</em>阅读</span>
+  <em>85 分钟</em>阅读</span>
 
     </div>
 
@@ -3374,7 +3762,14 @@
           <li><a href="#234-空洞卷积">2.3.4. 空洞卷积</a></li>
         </ul>
       </li>
-      <li><a href="#24-激活函数">2.4. 激活函数</a></li>
+      <li><a href="#24-激活函数">2.4. 激活函数</a>
+        <ul>
+          <li><a href="#241-relu-函数">2.4.1. ReLU 函数</a></li>
+          <li><a href="#242-leakyrelu-函数">2.4.2. LeakyReLU 函数</a></li>
+          <li><a href="#243-elu-函数">2.4.3. ELU 函数</a></li>
+          <li><a href="#244-swish-函数">2.4.4. Swish 函数</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#3-池化层">3. 池化层</a>
@@ -3951,7 +4346,92 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 
 <h3 id="24-激活函数"><span class="me-2">2.4. 激活函数</span><a href="#24-激活函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>卷积层后一般会应用一个激活函数来引入非线性。为了避免梯度消失，一般采用 ReLU 系列激活函数，详见 <a href="../Pattern-Recognition-DNN/#124-relu-系列函数">此处</a>。</p>
+<p>卷积层后一般会应用一个激活函数来引入非线性。为了避免梯度消失，一般采用 ReLU 系列激活函数或其改进的各类现代激活函数。</p>
+
+<h4 id="241-relu-函数"><span class="me-2">2.4.1. ReLU 函数</span><a href="#241-relu-函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>ReLU 全称是 Rectified Linear Unit，中文名称是线性整流函数，是在神经网络中常用的激活函数。通常意义下，其指代数学中的斜坡函数，即</p>
+
+\[\text{ReLU}(x) = max(0, x)\]
+
+<p>函数及其导数图像如下</p>
+
+<p><a href="/assets/img/postsimg/20250527/relu.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/relu.jpg" alt="ReLU函数" class="lazyload" data-proofer-ignore></a></p>
+
+<p>通过 ReLU 激活函数的函数图像可以看到，ReLU 对小于 $0$ 的值全部抑制为 $0$；对于正数则直接输出，这是一种单边抑制的特性，而这种单边抑制来源于生物学。ReLU 函数的导数计算也非常简单，$x$ 大于等于 $0$ 的时候，导数值为 $1$，在反向传播的过程中，它既不会放大梯度，造成梯度爆炸；也不会缩小梯度，造成梯度弥散的现象。</p>
+
+<blockquote>
+  <p>2012 年 ImageNet 竞赛的冠军模型是由 Hinton 和他的学生 Alex 设计的 AlexNet，其中使用了一个新的激活函数 ReLU（REctified Linear Unit，修正线性单元）。在这之前 Sigmoid 函数通常是神经网络激活函数的首选，上面也提到过，Sigmoid 函数在输入值较大或较小的时候容易出现梯度值接近于0的现象，也就是梯度弥散。出现梯度弥散现象，网络参数会长时间得不到更新，很容易导致训练不收敛或停滞不动的现象发生，网络层数较深的网络模型更容易发生梯度弥散现象，使得对神经网络的研究一直停留在浅层网络。值得一提的是，AlexNet是一个 8 层的网络，而后续提出的上百层的卷积神经网络也多是采用 ReLU 激活函数。</p>
+</blockquote>
+
+<p>ReLU函数的优缺点。</p>
+
+<p>优点：</p>
+
+<ul>
+  <li>梯度不发散。当输入值为正的时候，梯度恒为 $1$，没有梯度发散的现象，收敛速度快；</li>
+  <li>增大了网络的稀疏性。当输入值 $x &lt; 0$ 的时候，该层的输出为 $0$，训练完成后为 $0$ 的神经元越来越多，稀疏性会变大，网络的协同性会被破坏，更够迫使网络学习到更一般性的特征，泛化能力会变强。这也正是 dropout 的原理；</li>
+  <li>计算量变小。ReLU 函数和 Sigmoid 函数相比少了复杂的幂运算，且计算量变小；</li>
+</ul>
+
+<p>缺点：</p>
+
+<ul>
+  <li>输出均值非 $0$；</li>
+  <li>ReLU 死亡。若遇到异常输入导致输出和真实标签差距很大，此时误差反向传播更新参数（如偏置 $b$）使得 $b &lt; 0$，这使得后续正常输入经过该神经元后的输出值小于 $0$，此时神经元输出恒为 $0$, 对输出没有任何贡献，梯度反向传播时参数也得不到更新，那么此时该神经元就会 “死亡”。并且随着网络的训练，该层前面的神经元参数的更新幅度会随着模型的收敛而趋缓，输出变动会逐渐降低，这使得从概率上来说当前神经元完全复活的可能性极小, 也就可以称之为不可逆的死亡。</li>
+</ul>
+
+<h4 id="242-leakyrelu-函数"><span class="me-2">2.4.2. LeakyReLU 函数</span><a href="#242-leakyrelu-函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>LeakyReLU 函数用于环节 ReLU 神经元死亡的问题，它在激活函数输入 $x&lt;0$ 区间给出一个很小的负数输出梯度值，而不是直接输出 $0$，计算公式为：</p>
+
+\[f(x) = \max(\alpha x, x)\]
+
+<p>其中 $\alpha$ 是一个很小的常数，通常可赋值为 $0.01$。</p>
+
+<p>函数及其导数图像为</p>
+
+<p><a href="/assets/img/postsimg/20250527/leaky-relu.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/leaky-relu.jpg" alt="Leaky-ReLU函数" class="lazyload" data-proofer-ignore></a></p>
+
+<p>通过这个操作可以保留一些输入为负数时的信息，避免了输入为负数时神经元死亡的情况。</p>
+
+<h4 id="243-elu-函数"><span class="me-2">2.4.3. ELU 函数</span><a href="#243-elu-函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>ELU 函数（Exponential Linear Unit，指数线性单元）融合了 Sigmoid 函数和 ReLU 函数，该函数左侧具有软饱和性，右侧无饱和性。ELU 的定义为：</p>
+
+\[f(x) = \begin{cases}
+  x  &amp; \text{if } x \ge 0 \\
+  \alpha(e^x - 1) &amp; \text{if } x &lt; 0
+\end{cases}\]
+
+<p>函数图像为</p>
+
+<p><a href="/assets/img/postsimg/20250527/elu.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/elu.jpg" alt="ELU函数" class="lazyload" data-proofer-ignore></a></p>
+
+<h4 id="244-swish-函数"><span class="me-2">2.4.4. Swish 函数</span><a href="#244-swish-函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<p>Swish 函数（Swish Activation Function）是 2017 年 Google Brain 团队提出的一种激活函数，该函数的数学定义为：</p>
+
+\[f(x)  = x \cdot \text{Sigmoid}(\beta x)\]
+
+<p>Swish 函数的图像如下</p>
+
+<p><a href="/assets/img/postsimg/20250527/swish.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/swish.jpg" alt="Swish函数" class="lazyload" data-proofer-ignore></a></p>
+
+<ul>
+  <li>当 $\beta = 0$ 时，Swish 函数变为线性函数 $f(x) = \frac{x}{2}$；</li>
+  <li>当 $\beta = \infty$ 时，Swish 函数变为 $0$ 或 $x$，相当于 ReLU 函数。</li>
+</ul>
+
+<p>所以，Swish 函数可以看作是介于线性函数与 ReLU 函数之间的平滑函数。</p>
+
+<p>Swish 函数的导数计算如下</p>
+
+\[\frac{d}{dx} \text{Swish}(x) = \beta\cdot \text{Swish}(x) + \text{Sigmoid}(\beta x) (1-\beta\cdot \text{Swish}(x))\]
+
+<p>Swish 函数的导数图像如下</p>
+
+<p><a href="/assets/img/postsimg/20250527/swish-derivation.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/swish-derivation.jpg" alt="Swish函数的导数" class="lazyload" data-proofer-ignore></a></p>
 
 <h2 id="3-池化层"><span class="me-2">3. 池化层</span><a href="#3-池化层" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -4003,6 +4483,8 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 </blockquote>
 
 <h3 id="41-训练时的批归一化计算"><span class="me-2">4.1. 训练时的批归一化计算</span><a href="#41-训练时的批归一化计算" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>批归一化层一般放置于「<strong>卷积操作之后、激活函数之前</strong>」：</p>
 
 <p><a href="/assets/img/postsimg/20250603/BN.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/BN.jpg" alt="BN如何改善梯度" class="lazyload" data-proofer-ignore></a></p>
 
@@ -4554,6 +5036,13 @@ W &amp;\leftarrow W - \eta v
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
         </li>
       
@@ -4576,13 +5065,6 @@ W &amp;\leftarrow W - \eta v
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/vscode-python/">VSCode部署Python开发环境</a>
         </li>
       
     </ul>
