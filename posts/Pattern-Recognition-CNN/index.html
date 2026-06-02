@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（卷积神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-15T17:55:34+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-02T20:00:50+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -561,6 +561,210 @@
     
       
       
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
     
 
     
@@ -3595,6 +3799,18 @@
       
 
     
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
 
     
 
@@ -3651,13 +3867,13 @@
 
 <em
   class=""
-  data-ts="1765792534"
+  data-ts="1780401650"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/12/15
+  2026/06/02
 </em>
 
     </span>
@@ -3701,9 +3917,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="15354 字"
+  title="16184 字"
 >
-  <em>85 分钟</em>阅读</span>
+  <em>89 分钟</em>阅读</span>
 
     </div>
 
@@ -3732,13 +3948,14 @@
           <li><a href="#211-卷积核">2.1.1. 卷积核</a></li>
           <li><a href="#212-单通道卷积">2.1.2. 单通道卷积</a>
             <ul>
-              <li><a href="#2121-均值平滑平均滤波">2.1.2.1. 均值平滑（平均滤波）</a></li>
-              <li><a href="#2122-高斯平滑高斯滤波">2.1.2.2. 高斯平滑（高斯滤波）</a></li>
-              <li><a href="#2123-非线性平滑中值滤波">2.1.2.3. 非线性平滑（中值滤波）</a></li>
-              <li><a href="#2124-边缘检测roberts-卷积核">2.1.2.4. 边缘检测（Roberts 卷积核）</a></li>
-              <li><a href="#2125-边缘检测prewitt-卷积核">2.1.2.5. 边缘检测（Prewitt 卷积核）</a></li>
-              <li><a href="#2126-边缘检测sober-卷积核">2.1.2.6. 边缘检测（Sober 卷积核）</a></li>
-              <li><a href="#2127-边缘检测laplacian-卷积核">2.1.2.7. 边缘检测（Laplacian 卷积核）</a></li>
+              <li><a href="#2122-均值平滑平均滤波">2.1.2.2. 均值平滑（平均滤波）</a></li>
+              <li><a href="#2123-高斯平滑高斯滤波">2.1.2.3. 高斯平滑（高斯滤波）</a></li>
+              <li><a href="#2124-非线性平滑中值滤波">2.1.2.4. 非线性平滑（中值滤波）</a></li>
+              <li><a href="#2125-边缘检测roberts-卷积核">2.1.2.5. 边缘检测（Roberts 卷积核）</a></li>
+              <li><a href="#2126-边缘检测prewitt-卷积核">2.1.2.6. 边缘检测（Prewitt 卷积核）</a></li>
+              <li><a href="#2127-边缘检测sober-卷积核">2.1.2.7. 边缘检测（Sober 卷积核）</a></li>
+              <li><a href="#2128-边缘检测laplacian-卷积核">2.1.2.8. 边缘检测（Laplacian 卷积核）</a></li>
+              <li><a href="#2121-反向传播">2.1.2.1. 反向传播</a></li>
             </ul>
           </li>
           <li><a href="#213-多通道卷积">2.1.3. 多通道卷积</a></li>
@@ -3895,7 +4112,7 @@
   </li>
 </ol>
 
-<h5 id="2121-均值平滑平均滤波"><span class="me-2">2.1.2.1. 均值平滑（平均滤波）</span><a href="#2121-均值平滑平均滤波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2122-均值平滑平均滤波"><span class="me-2">2.1.2.2. 均值平滑（平均滤波）</span><a href="#2122-均值平滑平均滤波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>均值平滑（平均滤波）是常用的滤波方法，其原理是取一个 $K\times K$ 的矩阵，将矩阵中的元素除以 $K^2$，然后求和，得到一个 $K\times K$ 的矩阵，该矩阵的元素值都为 $K^2$。</p>
 
@@ -3925,7 +4142,7 @@
 <span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">blur</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> 
 </pre></td></tr></tbody></table></code></div></div>
 
-<h5 id="2122-高斯平滑高斯滤波"><span class="me-2">2.1.2.2. 高斯平滑（高斯滤波）</span><a href="#2122-高斯平滑高斯滤波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2123-高斯平滑高斯滤波"><span class="me-2">2.1.2.3. 高斯平滑（高斯滤波）</span><a href="#2123-高斯平滑高斯滤波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>相比于均值平滑，高斯平滑的权重矩阵稍微复杂一些，其基本思想是用邻域内像素的加权平均值替换中心像素（类比均值平滑，使用邻域内所有像素的算术平均值），权重按二维高斯分布。</p>
 
@@ -3954,7 +4171,7 @@
 <span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nc">GaussianBlur</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<h5 id="2123-非线性平滑中值滤波"><span class="me-2">2.1.2.3. 非线性平滑（中值滤波）</span><a href="#2123-非线性平滑中值滤波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2124-非线性平滑中值滤波"><span class="me-2">2.1.2.4. 非线性平滑（中值滤波）</span><a href="#2124-非线性平滑中值滤波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>在使用邻域平均法去噪的同时也使得边界变得模糊。而中值滤波是非线性的图像处理方法，在去噪的同时可以兼顾到边界信息的保留。虽然中值滤波不是卷积核（用排序代替加权平均），但是他是一种重要的平滑方法。</p>
 
@@ -3975,7 +4192,7 @@
 </pre></td><td class="rouge-code"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">imread</span><span class="p">(</span><span class="sh">'</span><span class="s">zxp_noise.jpg</span><span class="sh">'</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">medianBlur</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></div></div>
-<h5 id="2124-边缘检测roberts-卷积核"><span class="me-2">2.1.2.4. 边缘检测（Roberts 卷积核）</span><a href="#2124-边缘检测roberts-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2125-边缘检测roberts-卷积核"><span class="me-2">2.1.2.5. 边缘检测（Roberts 卷积核）</span><a href="#2125-边缘检测roberts-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>我们知道可以用 $L1$ 范数来近似梯度的幅值，即</p>
 
@@ -3989,10 +4206,10 @@ M(x,y) &amp;= \vert g_x(x,y) \vert + \vert g_y(x,y) \vert
 
 \[\begin{aligned}
 g_x = \begin{bmatrix}
--1\\ 
-1 \end{bmatrix},\quad
+-1\quad 1\end{bmatrix} ,\quad
 g_y = \begin{bmatrix}
--1\quad 1\end{bmatrix} 
+-1\\ 
+1 \end{bmatrix}
 \end{aligned}\]
 
 <p>类似地还有对角线方向的梯度近似，公式和算子如下：</p>
@@ -4019,7 +4236,7 @@ g_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-roberts.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-roberts.jpg" alt="Roberts卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h5 id="2125-边缘检测prewitt-卷积核"><span class="me-2">2.1.2.5. 边缘检测（Prewitt 卷积核）</span><a href="#2125-边缘检测prewitt-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2126-边缘检测prewitt-卷积核"><span class="me-2">2.1.2.6. 边缘检测（Prewitt 卷积核）</span><a href="#2126-边缘检测prewitt-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>为了克服 Roberts 卷积核对边缘的定位不太准确的局限性，将二维卷积核扩展到中心对称的卷积核（中心对称卷积核的最小尺寸是 $3\times 3$ ），如 Prewitt 卷积核：</p>
 
@@ -4038,7 +4255,7 @@ G_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-prewitt.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-prewitt.jpg" alt="Prewitt卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h5 id="2126-边缘检测sober-卷积核"><span class="me-2">2.1.2.6. 边缘检测（Sober 卷积核）</span><a href="#2126-边缘检测sober-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2127-边缘检测sober-卷积核"><span class="me-2">2.1.2.7. 边缘检测（Sober 卷积核）</span><a href="#2127-边缘检测sober-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>注意到 Prewitt 卷积核中使用的是类似算数平均的运算，我们可以引入加权平均的思想予以替代，就可以得到 Sobel 卷积核。其核心思想为：邻域的像素对当前像素产生的影响（梯度）不是等价的，所以距离不同的像素具有不同的权值，对算子结果产生的影响也不同。一般来说，距离越远，产生的影响越小。正因为Sobel算子对于像素的位置的影响做了加权，与Prewitt算子、Roberts算子相比因此效果更好。</p>
 
@@ -4067,7 +4284,7 @@ G_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-sobel.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-sobel.jpg" alt="Sobel卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
-<h5 id="2127-边缘检测laplacian-卷积核"><span class="me-2">2.1.2.7. 边缘检测（Laplacian 卷积核）</span><a href="#2127-边缘检测laplacian-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2128-边缘检测laplacian-卷积核"><span class="me-2">2.1.2.8. 边缘检测（Laplacian 卷积核）</span><a href="#2128-边缘检测laplacian-卷积核" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>拉普拉斯提取边缘属于使用二阶导提取边缘，它是一种各向同性的二阶微分算子（具有旋转不变性）。各向同性就是指使用这一个算子，就能对任何走向的界线和线条进行锐化，无方向性。而像sobel等，它们在提取 $x$、$y$ 方向的边缘都是使用不同的算子来实现的。这拉普拉斯算子区别于其他一阶微分算子的优点。</p>
 
@@ -4097,6 +4314,86 @@ G_y = \begin{bmatrix}
 
 <p><a href="/assets/img/postsimg/20250603/kernel-LOG.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/kernel-LOG.jpg" alt="LOG卷积核效果" class="lazyload" data-proofer-ignore></a></p>
 
+<h5 id="2121-反向传播"><span class="me-2">2.1.2.1. 反向传播</span><a href="#2121-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>除了边缘检测、模糊、去噪等特殊需求时会使用上述特定的卷积核（滤波器），更多时候希望 CNN 根据样本自动完成卷积核参数的更新。与经典神经网络类似，需要研究误差如何通过卷积层反向传播，并更新卷积层的权重（卷积核参数）和偏置。</p>
+
+<ul>
+  <li><strong>误差反向传播</strong></li>
+</ul>
+
+<p>下面以 $2\times 2$ 卷积为例分析前向传播和误差反向传播过程，前一输入层（$L-1$ 层）为 $3\times 3$ 特征图，经过卷积操作后得到 $2\times 2$ 特征图。我们可以将卷积过程展开成经典神经网络的形式，如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20250603/conv-forward.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/conv-forward.jpg" alt="卷积前向传播与等效经典神经网络形式" class="lazyload" data-proofer-ignore></a></p>
+
+<p>可以看出，$L$ 层的神经元只与 $L-1$ 层的特定 $4$ 个神经元相连。前向传播公式为：</p>
+
+\[\begin{aligned}
+z_{11} &amp;= a_{11}w_{11} + a_{12}w_{12} + a_{21}w_{21} + a_{22}w_{22} + b_{1}\\
+z_{12} &amp;= a_{12}w_{11} + a_{13}w_{12} + a_{22}w_{21} + a_{23}w_{22} + b_{2}\\
+z_{21} &amp;= a_{21}w_{11} + a_{22}w_{12} + a_{31}w_{21} + a_{32}w_{22} + b_{3}\\
+z_{22} &amp;= a_{22}w_{11} + a_{23}w_{12} + a_{32}w_{21} + a_{33}w_{22} + b_{4}
+\end{aligned}\]
+
+<p>可以看出，卷积本质上也是加和操作，那么可以套用经典神经网络的误差反向传播迭代式：</p>
+
+\[\delta^{L-1}_{j} = \frac{\partial L}{\partial z^{L-1}_{j}} = \frac{\partial L}{\partial z^{L}_{j}} \cdot \frac{\partial z^{L}_{j}}{\partial a^{L-1}_{j}}\cdot \frac{\partial a^{L-1}_{j}}{\partial z^{L-1}_{j}}\]
+
+<p>对于图中的 $a_{11}$，只与 $L$ 层的 $z_{11}$ 节点有连接，且有 $a_{11} = \sigma(z^{L-1}_{11})$。代入上面的迭代式有：</p>
+
+\[\begin{aligned}
+\delta^{L-1}_{11} = \frac{\partial L}{\partial z^{L-1}_{11}} &amp;= \frac{\partial L}{\partial z_{11}} \cdot \frac{\partial z_{11}}{\partial a_{11}}\cdot \frac{\partial a^{L-1}_{11}}{\partial z^{L-1}_{11}}\\
+&amp;= \delta^{L}_{11}\cdot w_{11}\cdot \sigma^\prime(z_{11}^{L-1})
+\end{aligned}\]
+
+<p>对于图中的 $a_{12}$，与 $L$ 层的 $z_{11}, z_{12}$ 节点均有连接（上面前向传播公式的前两个子式）。因此误差会从两个上层节点同时反向传播抵达，最终需要分别计算后加和，有：</p>
+
+\[\begin{aligned}
+\delta^{L-1}_{12} = \frac{\partial L}{\partial z^{L-1}_{12}} &amp;= \frac{\partial L}{\partial z_{11}} \cdot \frac{\partial z_{11}}{\partial a_{12}}\cdot \frac{\partial a^{L-1}_{12}}{\partial z^{L-1}_{12}} + \frac{\partial L}{\partial z_{12}} \cdot \frac{\partial z_{12}}{\partial a_{12}}\cdot \frac{\partial a^{L-1}_{12}}{\partial z^{L-1}_{12}}\\
+&amp;= \delta^{L}_{11}\cdot w_{12}\cdot \sigma^\prime(z_{12}^{L-1}) + \delta^{L}_{12}\cdot w_{11}\cdot \sigma^\prime(z_{12}^{L-1})\\
+&amp;=(\delta^{L}_{11}\cdot w_{12} + \delta^{L}_{12}\cdot w_{11})\cdot \sigma^\prime(z_{12}^{L-1})
+\end{aligned}\]
+
+<p>依此类推，可得：</p>
+
+\[\begin{aligned}
+\delta_{11}^{l-1} &amp;= \delta_{11}^{l} \cdot w_{11} \cdot \sigma'(z_{11}^{l-1})\\
+\delta_{12}^{l-1} &amp;= (\delta_{11}^{l} \cdot w_{12} + \delta_{12}^{l} \cdot w_{11}) \cdot \sigma'(z_{12}^{l-1})\\
+\delta_{13}^{l-1} &amp;= (\delta_{12}^{l} \cdot w_{12}) \cdot \sigma'(z_{13}^{l-1})\\
+\delta_{21}^{l-1} &amp;= (\delta_{11}^{l} \cdot w_{21} + \delta_{21}^{l} \cdot w_{11}) \cdot \sigma'(z_{21}^{l-1})\\
+\delta_{22}^{l-1} &amp;= (\delta_{11}^{l} \cdot w_{22} + \delta_{12}^{l} \cdot w_{21} + \delta_{21}^{l} \cdot w_{12} + \delta_{22}^{l} \cdot w_{11}) \cdot \sigma'(z_{22}^{l-1})\\
+\delta_{23}^{l-1} &amp;= (\delta_{12}^{l} \cdot w_{22} + \delta_{22}^{l} \cdot w_{12}) \cdot \sigma'(z_{23}^{l-1})\\
+\delta_{31}^{l-1} &amp;= \delta_{21}^{l} \cdot w_{21} \cdot \sigma'(z_{31}^{l-1})\\
+\delta_{32}^{l-1} &amp;= (\delta_{21}^{l} \cdot w_{22} + \delta_{22}^{l} \cdot w_{21}) \cdot \sigma'(z_{32}^{l-1})\\
+\delta_{33}^{l-1} &amp;= \delta_{22}^{l} \cdot w_{22} \cdot \sigma'(z_{33}^{l-1})
+\end{aligned}\]
+
+<p>分析上式，注意到误差可由卷积核旋转180度后对上层特征图进行卷积后得到，即：</p>
+
+\[\delta ^{l-1}=\delta ^l*\text{ROT}180\left( w^l \right) \odot \sigma^\prime\left( z^{l-1} \right)\]
+
+<p>如下图所示：</p>
+
+<p><a href="/assets/img/postsimg/20250603/conv-backward.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/conv-backward.jpg" alt="卷积误差反向传播" class="lazyload" data-proofer-ignore></a></p>
+
+<ul>
+  <li><strong>损失函数对偏置的梯度</strong></li>
+</ul>
+
+<p>偏置参数 $b$ 在 CNN 中是共享的，因此损失函数对偏置的导数为卷积层中各神经元的误差之和：</p>
+
+\[\frac{\partial L}{\partial b^l}=\sum_i{\sum_j{\frac{\partial L}{\partial z_{\left( i,j \right)}^{l}}}}\frac{\partial z_{\left( i,j \right)}^{l}}{\partial b^l}=\sum_i{\sum_j{\delta _{\left( i,j \right)}^{l}}}\]
+
+<ul>
+  <li><strong>损失函数对卷积核权重的梯度</strong></li>
+</ul>
+
+<p>损失函数对权重（卷积核参数）的导数是逐层计算的，单个卷积核对单层（单通道）输入特征图的反向传播，不同输入通道 $c$ 的梯度独立计算和存储，互不相加。</p>
+
+<p><a href="/assets/img/postsimg/20250603/conv-w-grad.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250603/conv-w-grad.jpg" alt="损失函数对卷积核权重的梯度示意图" class="lazyload" data-proofer-ignore></a></p>
+
+\[\frac{\partial L}{\partial w_{\left( m,n \right)}^{l}}=\sum_i{\sum_j{\frac{\partial L}{\partial z_{\left( i,j \right)}^{l}}}\frac{\partial z_{\left( i,j \right)}^{l}}{\partial w_{\left( m,n \right)}^{l}}=\sum_i{\sum_j{\delta _{\left( i,j \right)}^{l}}}\cdot a_{\left( i+m-1,j+n-1 \right)}^{l-1}}\]
+
 <h4 id="213-多通道卷积"><span class="me-2">2.1.3. 多通道卷积</span><a href="#213-多通道卷积" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>多通道的卷积核，可以理解为多个单通道卷积核的组合，即对每个通道都采用相同的卷积核，然后进行相加，即</p>
@@ -4118,7 +4415,7 @@ G_y = \begin{bmatrix}
 <ul>
   <li>卷积乘法运算：$K^2\times C_{in}$ 次；</li>
   <li>卷积加法运算：$K^2\times C_{in}-1$ 次；</li>
-  <li>偏置加法运算：$1$ 次</li>
+  <li>偏置加法运算：$1$ 次；</li>
 </ul>
 
 <p>一共需要进行 $H_{out}\times W_{out}\times C_{out}$ 次卷积操作，不考虑偏置加法运算的卷积计算量（FLOPs）如下：</p>
@@ -5043,6 +5340,13 @@ W &amp;\leftarrow W - \eta v
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-CNN/">模式识别（卷积神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
         </li>
       
@@ -5058,13 +5362,6 @@ W &amp;\leftarrow W - \eta v
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-LDA&PCA/">模式识别（LDA和PCA）</a>
         </li>
       
     </ul>
