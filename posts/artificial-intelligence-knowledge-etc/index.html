@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（知识表示与推理）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-13T17:28:13+08:00","datePublished":"2025-08-24T11:03:49+08:00","description":"在人工智能与知识管理领域，对知识的系统性认知与高效表示是实现智能推理和决策的基础。本文将从知识的本质出发，首先剖析知识的基本概念，明确其定义与分类，为后续探讨知识的表示与推理奠定理论基石；继而深入解析基于符号逻辑的多种知识表示方法，包括一阶谓词逻辑、产生式规则、框架式表示等经典范式，揭示逻辑推理的内在机制；同时，结合语义网技术，阐述以 RDF 为核心的知识表示体系及其在语义建模中的应用。通过理论与方法的结合，帮助读者构建对知识表示与推理的完整认知框架，为进一步探索智能系统的知识处理技术提供方向指引。","headline":"人工智能（知识表示与推理）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"},"url":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-07-07T17:08:52+08:00","datePublished":"2025-08-24T11:03:49+08:00","description":"在人工智能与知识管理领域，对知识的系统性认知与高效表示是实现智能推理和决策的基础。本文将从知识的本质出发，首先剖析知识的基本概念，明确其定义与分类，为后续探讨知识的表示与推理奠定理论基石；继而深入解析基于符号逻辑的多种知识表示方法，包括一阶谓词逻辑、产生式规则、框架式表示等经典范式，揭示逻辑推理的内在机制；同时，结合语义网技术，阐述以 RDF 为核心的知识表示体系及其在语义建模中的应用。通过理论与方法的结合，帮助读者构建对知识表示与推理的完整认知框架，为进一步探索智能系统的知识处理技术提供方向指引。","headline":"人工智能（知识表示与推理）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"},"url":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1231,18 +1231,6 @@
       
 
     
-      
-
-      
-      
-
-      
-      
-      
-
-      
-
-    
 
     
 
@@ -1299,13 +1287,13 @@
 
 <em
   class=""
-  data-ts="1757755693"
+  data-ts="1783415332"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/09/13
+  2026/07/07
 </em>
 
     </span>
@@ -1349,9 +1337,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="12495 字"
+  title="13076 字"
 >
-  <em>69 分钟</em>阅读</span>
+  <em>72 分钟</em>阅读</span>
 
     </div>
 
@@ -1378,12 +1366,11 @@
           <li><a href="#211-一阶谓词逻辑表示法">2.1.1. 一阶谓词逻辑表示法</a>
             <ul>
               <li><a href="#2111-命题逻辑">2.1.1.1. 命题逻辑</a></li>
-              <li><a href="#2112-个体与谓词">2.1.1.2. 个体与谓词</a></li>
-              <li><a href="#2113-一阶谓词">2.1.1.3. 一阶谓词</a></li>
-              <li><a href="#2114-连接词与量词">2.1.1.4. 连接词与量词</a></li>
-              <li><a href="#2115-论域与特征谓词">2.1.1.5. 论域与特征谓词</a></li>
-              <li><a href="#2116-推理规则">2.1.1.6. 推理规则</a></li>
-              <li><a href="#2117-归结原理">2.1.1.7. 归结原理</a></li>
+              <li><a href="#2112-谓词逻辑">2.1.1.2. 谓词逻辑</a></li>
+              <li><a href="#2113-一阶谓词逻辑">2.1.1.3. 一阶谓词逻辑</a></li>
+              <li><a href="#2114-论域与特征谓词">2.1.1.4. 论域与特征谓词</a></li>
+              <li><a href="#2115-推理规则">2.1.1.5. 推理规则</a></li>
+              <li><a href="#2116-归结原理">2.1.1.6. 归结原理</a></li>
             </ul>
           </li>
           <li><a href="#212-产生式表示法">2.1.2. 产生式表示法</a>
@@ -1412,7 +1399,7 @@
       </li>
     </ul>
   </li>
-  <li><a href="#5-参考文献">5. 参考文献</a></li>
+  <li><a href="#3-参考文献">3. 参考文献</a></li>
 </ul>
 
 <hr />
@@ -1504,110 +1491,90 @@
 
 <h5 id="2111-命题逻辑"><span class="me-2">2.1.1.1. 命题逻辑</span><a href="#2111-命题逻辑" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>在命题逻辑中，命题是一个非真即假的陈述句。一个命题不可以同时为真又为假，但是可以在一种条件下为真，另一种条件下假。命题逻辑表示有较大的局限性：</p>
+<p>命题逻辑是逻辑学的基础分支，研究由命题通过逻辑联结词构建复合命题的形式系统。系统由：</p>
 
 <ul>
-  <li>无法把它所描述的事物的结构即逻辑特征反映出来。 如 “老李是小李的父亲” 用命题逻辑就是一个字母 $y$，看不到内部的逻辑结构。</li>
-  <li>无法把两者共同的特征表示出来。如 “李白是诗人” 和 “杜甫是诗人” 用命题逻辑就是两个字母 $p$, $q$ 。</li>
-</ul>
-
-<p>由于这些原因，在命题逻辑的基础上发展起来了谓词逻辑，谓词逻辑具体组成包括<strong>谓词</strong>和<strong>个体</strong>两个部分。</p>
-
-<h5 id="2112-个体与谓词"><span class="me-2">2.1.1.2. 个体与谓词</span><a href="#2112-个体与谓词" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
-
-<p>（原子）命题本身是对一个事物性质的直接描述，或是对几个事物之间关系的判断。这里的 “事物” 就被称为<strong>个体</strong>。个体通常可以替换为其他的实例，这种不确定性使得个体具有 “变量” 的意味，我们以小写字母 $x,y,z,\cdots$ 来表示个体，称为 <strong>个体变量</strong>。</p>
-
-<p>对个体进行性质或关系的判断，称为谓词。谓词是从个体变量到真值的映射，使之具有 “函数” 的意味。我们通常使用大写字母 $P,Q,R,\cdots$ 表示一个谓词，并在其后的括号中填入个体变量表示对其判断。例如 $\text{P}(x)$ 表示 “$x$ 具有性质 $\text{P}$”。</p>
-
-<p>谓词的一般形式是：</p>
-
-\[\text{P}(x_1,x_2,x_3,\cdots,x_n)\]
-
-<p>其中 $P$ 是谓词，用来刻画个体的性质，状态和个体间的关系。个体 $x_1, \cdots, x_n$ 表示独立存在的事物或者某个抽象的概念。</p>
-
-<h5 id="2113-一阶谓词"><span class="me-2">2.1.1.3. 一阶谓词</span><a href="#2113-一阶谓词" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
-
-<p>如果个体是常量，变量或函数，称之为<strong>一阶谓词</strong>。</p>
-
-<ul>
-  <li>
-    <p><u>个体可以是常量</u>：例如 “老张是教师” 可以用谓词逻辑表示为：</p>
-
-\[\text{Teacher}(zhang)\]
-
-    <p>$\text{Teacher}$ 这个谓词名刻画了 $zhang$ 这个个体是教师这一性质。</p>
-  </li>
-  <li>
-    <p><u>个体可以是变量</u>：例如 $x&lt;5$ 可以用谓词逻辑表示为：</p>
-
-\[\text{Less}(x,5)\]
-
-    <p>less这个谓词名刻画了个体 $x$ 比个体 $5$ 小这一关系。当 $x$ 有具体的值的时候，这个谓词就有了具体的真 $T$ 或假 $F$ 的判定。同时，个体也存在个体域的概念，也即个体变量的取值范围。</p>
-  </li>
-  <li>
-    <p><u>个体可以是函数</u>：例如 “小李的父亲是教师” 可以用谓词逻辑表示为：</p>
-
-\[\text{Teacher}(\text{Father}(li))\]
-
-    <p>$\text{Father}(li)$ 是一个函数。谓词名 $\text{Teacher}$ 刻画了这个函数值 $\text{Father}(li)$ 的职业是教师这一性质。</p>
-  </li>
-</ul>
-
-<p>相比于命题逻辑，一阶谓词逻辑的优势如下：</p>
-
-<ul>
-  <li>一个事实性陈述：“A是B的老师”，命题逻辑只能将其定义为一个 $p$，而一阶谓词逻辑可以刻画其中的关系：</li>
-</ul>
-
-\[\text{Teacher}(A,B)\]
-
-<ul>
-  <li>可以构建二元谓词表示更加复杂的逻辑，如 “小李的妹妹和小张的哥哥结婚” 可以表示为：</li>
-</ul>
-
-\[\text{Married}(\text{Sister}(li),\text{Brother}(zhang))\]
-
-<ul>
-  <li>谓词（函数）还可以递归调用，例如 “小李的祖父” 可以表示为：</li>
-</ul>
-
-\[\text{Father}(\text{Father}(li))\]
-
-<details>
-  <summary>
-<font color="blue">尝试用一阶谓词逻辑描述如下命题</font>
-
-<span style="display:block;text-align:center;color:black;">Smith 作为一个工程师为 IBM 工作</span>
-
-</summary>
-
-\[\text{Work}(\text{Engineer}(Smith), IBM)\]
-
-</details>
-
-<h5 id="2114-连接词与量词"><span class="me-2">2.1.1.4. 连接词与量词</span><a href="#2114-连接词与量词" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
-
-<p>为了形成更为复杂的知识，需要额外定义两个概念，<strong>连接词</strong> 与 <strong>量词</strong>：</p>
-
-<ul>
-  <li>连接词：
+  <li><strong>命题</strong>：又称为原子命题，是一个非真即假的陈述句，一个命题不可以同时为真又为假，但是可以在一种条件下为真，另一种条件下假。</li>
+  <li><strong>连接词</strong>：
     <ul>
-      <li>否定（非）：$\lnot$
-析取（或）：$\lor$
-合取（且）：$\land$
-蕴含（推出）：$P\to Q$，$P$ 为前件，$Q$ 为后件
-等价（当且仅当）：$P\leftrightarrow Q$，$P$ 当且仅当 $Q$</li>
+      <li>否定（非） $\lnot$</li>
+      <li>合取（且） $\land$</li>
+      <li>析取（或） $\lor$</li>
+      <li>蕴含（推出）$\to$</li>
+      <li>等价（当且仅当）$\leftrightarrow$</li>
     </ul>
   </li>
-  <li>量词：
+  <li><strong>命题公式</strong>：通过有限次组合原子命题与联结词生成</li>
+</ul>
+
+<p>递归定义规则构成。</p>
+
+<p>以苏格拉底三段论为例：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>所有人都会死；苏格拉底是人；所以，苏格拉底会死
+所有人都会死；小明是人；所以，小明会死
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>定义如下命题：</p>
+
+<ul>
+  <li>$p$：所有人都会死</li>
+  <li>$q$：苏格拉底是人</li>
+  <li>$r$：苏格拉底会死</li>
+  <li>$s$：小明是人</li>
+  <li>$t$：小明会死</li>
+</ul>
+
+<p>则苏格拉底三段论可由命题逻辑表示为：</p>
+
+\[\begin{aligned}
+p\land q &amp;\to r\\
+p\land s &amp;\to t
+\end{aligned}\]
+
+<p>命题逻辑表示有较大的局限性：</p>
+
+<ul>
+  <li>无法把两者共同的特征表示出来。如 “李白是诗人” 和 “杜甫是诗人” 用命题逻辑就是两个字母 $p$, $q$（类似还有 “苏格拉底是人”和“小明是人”） ；</li>
+  <li>只能用完全独立的命题公式来表示逻辑结构一样但语义不同的情况（如上面两个三段论）；</li>
+  <li>无法把它所描述的事物的结构即逻辑特征反映出来。 如 “老李是小李的父亲” 用命题逻辑就是一个字母 $y$，看不到内部的逻辑结构；</li>
+  <li>无法区分「所有人」这种全称量词，也无法表示「苏格拉底」、「小明」这种具体的个体。</li>
+</ul>
+
+<p>由于这些原因，在命题逻辑的基础上发展起来了谓词逻辑。</p>
+
+<h5 id="2112-谓词逻辑"><span class="me-2">2.1.1.2. 谓词逻辑</span><a href="#2112-谓词逻辑" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>将命题按照三要素的方式继续拆解，形成谓词逻辑：</p>
+
+<ul>
+  <li><strong>个体</strong>（词）：表示具体 / 抽象的事物或对象，一般用小写字母表示。个体是命题中对事物或对象的指代，命题本身是对一个事物性质的直接描述，或是对几个事物之间关系的判断。个体通常可以替换为其他的实例，这种不确定性使得个体具有 “变量” 的意味，我们以小写字母 $x,y,z,\cdots$ 来表示个体，也可称为「个体变量」，如：
     <ul>
-      <li>全称量词（任意）：$\forall$</li>
-      <li>存在量词（存在）：$\exists$</li>
+      <li>$s$ - 苏格拉底</li>
+      <li>$x$ – 小明</li>
+    </ul>
+  </li>
+  <li><strong>谓词</strong>：是对个体进行性质或关系的判断。谓词是从个体变量到真值的映射，使之具有 “函数” 的意味。我们通常使用大写字母 $P,Q,R,\cdots$ 或首字母大写的英文单词（及其组合）表示一个谓词，并在其后的括号中填入个体变量表示对其判断，如：
+    <ul>
+      <li>$\text{P}(x)$ ：$x$ 具有性质 $\text{P}$</li>
+      <li>$\text{IsHuman}(a)$：$a$ 是人</li>
+      <li>$\text{WillDie}(a)$：$a$ 会死</li>
+      <li>$\text{P}(x_1,x_2,x_3,\cdots,x_n)$ 表示更加复杂的多元谓词</li>
+    </ul>
+  </li>
+  <li><strong>量词</strong>：刻画数量范围。量词的引入使得更为复杂的知识表示成为可能，量词也是区分命题逻辑和谓词逻辑的关键概念：
+    <ul>
+      <li>全称量词 $\forall$：<code class="language-plaintext highlighter-rouge">\forall</code> 所有、任意</li>
+      <li>存在量词 $\exist$：<code class="language-plaintext highlighter-rouge">\exist</code> 存在、有一些</li>
     </ul>
   </li>
 </ul>
 
-<p>量词是区分命题逻辑和一阶谓词逻辑的关键概念：</p>
+<p>以苏格拉底三段论为例，可直观看出谓词逻辑相较于命题逻辑的改进：</p>
 
 <ul>
   <li>
@@ -1657,7 +1624,91 @@
 
 </details>
 
-<h5 id="2115-论域与特征谓词"><span class="me-2">2.1.1.5. 论域与特征谓词</span><a href="#2115-论域与特征谓词" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2113-一阶谓词逻辑"><span class="me-2">2.1.1.3. 一阶谓词逻辑</span><a href="#2113-一阶谓词逻辑" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+
+<p>若谓词逻辑具备以下性质，则称之为「一阶谓词逻辑」：</p>
+
+<ul>
+  <li>量词仅能约束「个体」，不能约束谓词</li>
+  <li>谓词不能作为变元被量化</li>
+</ul>
+
+<blockquote>
+  <p>如果量词约束「谓词」，或把谓词当作变元放进另一个谓词，即为二阶谓词逻辑。</p>
+
+  <p>如描述「莱布尼茨定律（同一不可分辨性）」需要用到二阶谓词逻辑：</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>对于任意个体 x 和 y , 只要 x 和 y 相等, 那么 x, y 具有相同的性质
+</pre></td></tr></tbody></table></code></div>  </div>
+  <p>\(\forall x,y\; \text{Equal}(x,y) \to \forall P\; (P(x) \leftrightarrow P(y))\)</p>
+
+  <p>其中，全称量词 $\forall$ 约束了谓词 $P$，且谓词 $P$ 可被量化为某个具体的性质</p>
+</blockquote>
+
+<p>一阶谓词逻辑中，个体是常量，变量或函数，如：</p>
+
+<ul>
+  <li>
+    <p><u>个体可以是常量</u>：例如 “老张是教师” 可以用谓词逻辑表示为：</p>
+
+\[\text{Teacher}(zhang)\]
+
+    <p>$\text{Teacher}$ 这个谓词名刻画了 $zhang$ 这个个体是教师这一性质。</p>
+  </li>
+  <li>
+    <p><u>个体可以是变量</u>：例如 $x&lt;5$ 可以用谓词逻辑表示为：</p>
+
+\[\text{Less}(x,5)\]
+
+    <p>less这个谓词名刻画了个体 $x$ 比个体 $5$ 小这一关系。当 $x$ 有具体的值的时候，这个谓词就有了具体的真 $T$ 或假 $F$ 的判定。同时，个体也存在个体域的概念，也即个体变量的取值范围。</p>
+  </li>
+  <li>
+    <p><u>个体可以是函数</u>（即个体函数）：例如 “小李的父亲是教师” 可以用谓词逻辑表示为：</p>
+
+\[\text{IsTeacher}(\text{father}(li))\]
+
+    <p>其中，$\text{father}(li)$ 是一个函数，返回值还是一个个体，<strong>无法判断真假</strong>。
+而谓词名 $\text{IsTeacher}$ 刻画了这个个体 $\text{father}(li)$ 的职业是教师这一性质，是<strong>可以判断真假</strong>的。
+类似的二元谓词 $\text{IsFatherOf}(x, li)$ 作用于个体 $x$ 上生成命题，返回值是「$x$ 是否为 $li$ 的老师」这一命题的真假判断。</p>
+  </li>
+</ul>
+
+<p>相比于命题逻辑，一阶谓词逻辑的优势如下：</p>
+
+<ul>
+  <li>一个事实性陈述：“A是B的老师”，命题逻辑只能将其定义为一个 $p$，而一阶谓词逻辑可以刻画其中的关系：</li>
+</ul>
+
+\[\text{Teach}(A,B)\]
+
+<ul>
+  <li>可以构建二元谓词表示更加复杂的逻辑，如 “小李的妹妹和小张的哥哥结婚” 可以表示为：</li>
+</ul>
+
+\[\text{Married}(\text{sister}(li),\text{brother}(zhang))\]
+
+<ul>
+  <li>个体（函数）还可以递归调用，例如 “小李的祖父” 可以表示为：</li>
+</ul>
+
+\[\text{father}(\text{father}(li))\]
+
+<details>
+  <summary>
+<font color="blue">尝试用一阶谓词逻辑描述如下命题</font>
+
+<span style="display:block;text-align:center;color:black;">Smith 作为一个工程师为 IBM 工作</span>
+
+</summary>
+
+\[\text{WorkFor}(\text{IsEngineer}(Smith), IBM)\]
+
+</details>
+
+<h5 id="2114-论域与特征谓词"><span class="me-2">2.1.1.4. 论域与特征谓词</span><a href="#2114-论域与特征谓词" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>注意以下两个例子：</p>
 
@@ -1693,7 +1744,7 @@ H["（2）鸟是卵生生物"] --&gt; G
 
 \[\forall x\; (\text{Bird}(x)\to \text{From}(x, egg))\]
 
-<h5 id="2116-推理规则"><span class="me-2">2.1.1.6. 推理规则</span><a href="#2116-推理规则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2115-推理规则"><span class="me-2">2.1.1.5. 推理规则</span><a href="#2115-推理规则" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>基于前述一阶谓词逻辑的定义，我们想要对命题进行推理，一边确定命题的真假。推理需要一定的规则，在特定假设下能获得特定结论。</p>
 
@@ -1933,7 +1984,7 @@ H["（2）鸟是卵生生物"] --&gt; G
 
 </details>
 
-<h5 id="2117-归结原理"><span class="me-2">2.1.1.7. 归结原理</span><a href="#2117-归结原理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
+<h5 id="2116-归结原理"><span class="me-2">2.1.1.6. 归结原理</span><a href="#2116-归结原理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>归结演绎推理是基于一种称为归结原理（亦称消解原理，Resolution Principle）的推理规则的推理方法。归结原理是由鲁滨逊*（J.A.Robinson）于 1965 年首先提出。其核心是通过归结操作推导空子句以验证命题的「<strong>不可满足性</strong>」，它是谓词逻辑中一个相当有效的机械化推理方法。归结原理的出现，被认为是自动推理，特别是定理机器证明领域的重大突破。</p>
 
@@ -2961,7 +3012,7 @@ _tmp rdfs:member exp:HasChildren
   </li>
 </ul>
 
-<h2 id="5-参考文献"><span class="me-2">5. 参考文献</span><a href="#5-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="3-参考文献"><span class="me-2">3. 参考文献</span><a href="#3-参考文献" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>[1] <a href="https://www.bilibili.com/video/BV1f14y1L72C?p=7">bilibili 知识图谱</a></p>
 
@@ -3115,6 +3166,13 @@ _tmp rdfs:member exp:HasChildren
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
@@ -3130,13 +3188,6 @@ _tmp rdfs:member exp:HasChildren
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/">模式识别（特征选择与特征提取）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-Linear-Classifier/">模式识别（线性分类器）</a>
         </li>
       
     </ul>
