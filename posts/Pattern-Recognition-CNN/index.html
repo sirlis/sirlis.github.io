@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（卷积神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-07-07T19:50:21+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-07-07T19:51:37+08:00","datePublished":"2025-06-03T11:03:49+08:00","description":"卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。","headline":"模式识别（卷积神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-CNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-CNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -4243,7 +4243,7 @@
 
 <em
   class=""
-  data-ts="1783425021"
+  data-ts="1783425097"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -4293,7 +4293,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="16711 字"
+  title="16715 字"
 >
   <em>92 分钟</em>阅读</span>
 
@@ -4371,8 +4371,8 @@
       <li><a href="#42-池化尺寸计算">4.2. 池化尺寸计算</a></li>
       <li><a href="#43-反向传播">4.3. 反向传播</a>
         <ul>
-          <li><a href="#最大池化">最大池化</a></li>
-          <li><a href="#平均池化">平均池化</a></li>
+          <li><a href="#431-最大池化">4.3.1. 最大池化</a></li>
+          <li><a href="#432-平均池化">4.3.2. 平均池化</a></li>
         </ul>
       </li>
     </ul>
@@ -5151,7 +5151,7 @@ RF_i = K_i + (RF_{i-1}-1)\times S_i - P_i \quad \text{for border pixels}
 
 <h3 id="43-反向传播"><span class="me-2">4.3. 反向传播</span><a href="#43-反向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<h4 id="最大池化"><span class="me-2">最大池化</span><a href="#最大池化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="431-最大池化"><span class="me-2">4.3.1. 最大池化</span><a href="#431-最大池化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>以最大池化为例，可将前向传播转化为我们所熟悉的经典神经网络形式，即把原先二维矩阵的形式转化为一维向量的形式，可以理解为全连接神经网络的一种特殊形式，在这里神经元之间的权重参数是固定的，如下图所示：</p>
 
@@ -5192,7 +5192,7 @@ $$
 
 </details>
 
-<h4 id="平均池化"><span class="me-2">平均池化</span><a href="#平均池化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+<h4 id="432-平均池化"><span class="me-2">4.3.2. 平均池化</span><a href="#432-平均池化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
 <p>对于平均池化，也可以写成经典神经网络前向传播的形式进行分析，如下图所示：</p>
 

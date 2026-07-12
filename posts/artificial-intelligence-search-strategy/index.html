@@ -3514,9 +3514,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="11282 字"
+  title="11379 字"
 >
-  <em>62 分钟</em>阅读</span>
+  <em>63 分钟</em>阅读</span>
 
     </div>
 
@@ -4032,7 +4032,9 @@ d &amp;\equiv 28 \pmod{33}
 
 <h3 id="24-小结"><span class="me-2">2.4. 小结</span><a href="#24-小结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>深度优先搜索 能够快速地找到一条路径，是一种以时间换空间的方法，不能保证搜索到的路径是最优的。而 广度优先搜索 在搜索时呈波状推进形式，一路稳扎稳打，它是一种以时间换空间的方法，能够保证搜索到的路径是最优的。</p>
+<p>深度优先搜索沿着单条分支持续向下探索，能较快找到任意一条可达路径，它仅存储当前路径节点，空间占用更低，是 <strong>以空间换时间</strong> 的搜索算法，找到的第一条路径长度无法保证最短，不具备最优性。</p>
+
+<p>广度优先搜索以水波扩散、分层遍历的方式逐层推进节点，必须缓存每一层全部待访问节点，内存开销更大，属于 <strong>以时间换空间</strong> 的搜索算法；在所有边代价相等（无权图 / 迷宫步数）场景下，首次抵达目标的路径一定是最短路径，可保证解的最优性。</p>
 
 <h2 id="3-有信息搜索"><span class="me-2">3. 有信息搜索</span><a href="#3-有信息搜索" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -4339,7 +4341,7 @@ d &amp;\equiv 28 \pmod{33}
       <p>实际上，Dijkstra 本身就是单源最短路径算法，它运行完以后天然就得到了所有节点的 $g(n)$；$A^\star$ 只是在 Dijkstra 的骨架上再叠一个 $h(n)$ 来引导搜索方向。</p>
     </li>
     <li>
-      <p>算法发展上，先有 Dijkstra（1959），后有 $A^\star$ （1968 由 Hart 等人提出）对 Dijkstra 做 “启发式加速”。所以有写教材上会先介绍 Dijkstra 算法，再介绍 $A^\star$ 算法。</p>
+      <p>算法发展上，先有 Dijkstra（1959），后有 $A^\star$ （1968 由 Hart 等人提出）对 Dijkstra 做 “启发式加速”。所以有些教材上会先介绍 Dijkstra 算法，再介绍 $A^\star$ 算法。</p>
     </li>
   </ul>
 </blockquote>
