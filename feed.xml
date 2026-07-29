@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2026-07-12T16:59:24+08:00</updated>
+  <updated>2026-07-29T18:41:55+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,50 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>人工智能（自然语言处理-词向量）</title>
+    <link href="http://localhost:4000/posts/artificial-intelligence-NLP-wordvec/" rel="alternate" type="text/html" title="人工智能（自然语言处理-词向量）" />
+    <published>2025-12-08T21:06:49+08:00</published>
+  
+    <updated>2026-07-29T18:41:31+08:00</updated>
+  
+    <id>http://localhost:4000/posts/artificial-intelligence-NLP-wordvec/</id>
+    <content src="http://localhost:4000/posts/artificial-intelligence-NLP-wordvec/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Academic" />
+    
+    <category term="Knowledge" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      词向量是现代自然语言处理（NLP）最基础、最核心的语义表征单元，也是知识表示、语义推理、文本分类、机器翻译等下游任务不可或缺的底层基础工具。计算机无法直接理解人类自然语言文字，必须先将离散文字转化为可参与矩阵运算的数值向量，而词向量正是解决这一转化问题的核心方案。
+
+本文将从文字数字化的基础方案演进脉络入手，依次讲解字典序编码、独热编码的固有缺陷，引出分布式词嵌入（Word Embedding）的核心理论 —— 分布假设；再依托语言模型的发展路线，梳理传统统计 N-gram 语言模型、早期神经网络语言模型 NNLM 的建模思路与局限；最后聚焦工业界经典轻量化词向量工具 word2vec，拆解 CBoW、Skip-gram 两大模型结构、负采样加速训练原理，并解释词向量经典语义类比运算的内在可解释逻辑，完整梳理词向量技术从诞生到落地的完整演进链条。
+
+
+
+
+  1. 基本概念
+    ...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -143,7 +187,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-search-strategy/" rel="alternate" type="text/html" title="人工智能（搜索策略）" />
     <published>2025-09-17T09:29:49+08:00</published>
   
-    <updated>2025-09-22T20:27:56+08:00</updated>
+    <updated>2026-07-12T17:02:17+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-search-strategy/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-search-strategy/" />
@@ -229,71 +273,6 @@
         
           2.1.1. 一阶谓词逻辑表示法
      ...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>人工智能（绪论）</title>
-    <link href="http://localhost:4000/posts/artificial-intelligence-introduction/" rel="alternate" type="text/html" title="人工智能（绪论）" />
-    <published>2025-07-31T18:57:49+08:00</published>
-  
-    <updated>2025-09-09T09:24:12+08:00</updated>
-  
-    <id>http://localhost:4000/posts/artificial-intelligence-introduction/</id>
-    <content src="http://localhost:4000/posts/artificial-intelligence-introduction/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      绪论。
-
-
-
-
-  1. 什么是人工智能
-    
-      1.1. 人工智能
-      1.2. 机器学习
-      1.3. 深度学习
-      1.4. 模式识别
-      1.5. 关系图
-    
-  
-  2. 人工智能的发展历史
-    
-      2.1. 萌芽与理论探索期
-        
-          2.1.1. 图灵测试
-        
-      
-      2.2. 符号主义黄金时期
-        
-          2.2.1. 符号主义（Symbolicism）
-          2.2.2. 连接主义（Connectionism）
-          2.2.3. 行为主义（Behaviorism / Emergentism）
-          2.2.4. 三主义对比一览
-        
-      
-      ...
     </summary>
   
 
