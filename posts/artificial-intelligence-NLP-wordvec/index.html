@@ -1411,9 +1411,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="11862 字"
+  title="11956 字"
 >
-  <em>65 分钟</em>阅读</span>
+  <em>66 分钟</em>阅读</span>
 
     </div>
 
@@ -1690,33 +1690,55 @@ Tri-gram : {I, love, deep}, {love, deep, learning}
     <p><strong>嵌入投影层（线性查表映射）</strong></p>
 
     <ul>
-      <li>
-        <p>模型先对输入的 $n−1$ 个独热编码上下文词做线性投影，借助共享权重矩阵 $C\in \mathbb{R}^{v\times m}$，映射为 $n−1$ 个，将每个独热向量转换为低维稠密的分布式词向量（distributed vector）。其中，$v$ 代表词典总规模，$m$ 为预先设定的词向量维度（超参数）。</p>
-      </li>
-      <li>
-        <p>矩阵 $C$ 内部存储的正是我们最终需要学习得到的词向量。举个直观例子：假设词典大小 $v=6$，词向量维度 $m=3$，输入 $2$ 个独热编码词向量，那么单层的神经网络前向传播就等效于查表操作 —— 提取独热编码中值为 $1$ 的位置所对应的 $C$ 矩阵行向量，作为该词的稠密分布特征，如下图所示：</p>
-      </li>
+      <li>模型先对输入的 $n−1$ 个独热编码上下文词做线性投影，借助共享权重矩阵 $\boldsymbol{C}\in \mathbb{R}^{v\times m}$，将每个独热向量转换为低维稠密的分布式词向量（distributed vector）。其中，$v$ 代表词典总规模，$m$ 为预先设定的词向量维度（超参数）。</li>
+    </ul>
+
+\[\boldsymbol{Cx}_i=\boldsymbol{z}_i,\quad i=1,2,\cdots, n-1\]
+
+    <ul>
+      <li>矩阵 $C$ 内部存储的正是我们最终需要学习得到的词向量。举个直观例子：假设词典大小 $v=6$，词向量维度 $m=3$，输入 $2$ 个独热编码词向量，那么单层的神经网络前向传播就等效于查表操作 —— 提取独热编码中值为 $1$ 的位置所对应的 $C$ 矩阵行向量，作为该词的稠密分布特征，如下图所示：</li>
     </ul>
 
     <p><a href="/assets/img/postsimg/20260714/wordvec.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20260714/wordvec.jpg" alt="embedding" class="lazyload" data-proofer-ignore></a></p>
 
     <ul>
-      <li>由此可见，训练语言模型的过程，同时也是迭代优化权重矩阵 $C$ 和学习词向量表征的过程；词向量并非预定义常量，而是和网络其他参数一同参与训练更新。</li>
+      <li>由此可见，训练语言模型的过程，同时也是迭代优化权重矩阵 $\boldsymbol{C}$ 和学习词向量表征的过程；词向量并非预定义常量，而是和网络其他参数一同参与训练更新。</li>
     </ul>
   </li>
   <li>
-    <p><strong>隐藏层与输出层概率预测</strong></p>
+    <p><strong>隐藏层非线性变换</strong></p>
 
     <ul>
-      <li>将查表得到的 $n−1$ 个词向量拼接为一维长向量，送入后续前馈网络：先经过以 $\tanh$ 为激活函数的隐藏层，隐藏层维度为 $h=(n-1)\cdot m$；再接入维度等同于词典大小 $v$ 的 $\text{softmax}$ 输出（分类）层，最终输出目标此词 $w_t$ 对应的归一化条件概率。</li>
+      <li>将查表得到的 $n−1$ 个词向量拼接为一维长向量 $\boldsymbol{z}$，维度为 $D=(n-1)\cdot m$，送入后续前馈网络
+\(\boldsymbol{z}_1\oplus\boldsymbol{z}_2\oplus\cdots\boldsymbol{z}_{n-1}=\boldsymbol{z}\quad \in \mathbb{R}^{D},\;D=\left( N-1 \right) \cdot m\)</li>
+      <li>经过以 $\tanh$ 为激活函数的隐藏层，得到隐层输出 $\boldsymbol{h}\in\mathbb{R}^{H\times 1}$：</li>
+    </ul>
+
+    <p>\(\boldsymbol{h}=\tanh\left( \boldsymbol{Hz}+\boldsymbol{b}_1 \right) \quad \boldsymbol{H}\in \mathbb{R}^{H\times D}\)；</p>
+  </li>
+  <li>
+    <p><strong>输出层概率预测</strong></p>
+
+    <ul>
+      <li>隐层输出接入维度等同于词典大小 $v$ 的 $\text{softmax}$ 输出（分类）层，最终输出目标此词 $w_t$ 对应的归一化条件概率 $\hat{\boldsymbol{y}}\in\mathbb{R}^{V\times 1}$</li>
+    </ul>
+
+\[\hat{\boldsymbol{y}}=\text{softmax} \left( \boldsymbol{Uh}+\boldsymbol{Wz}+\boldsymbol{b}_2 \right) \quad \boldsymbol{U}\in \mathbb{R}^{V\times H},\boldsymbol{W}\in \mathbb{R}^{V\times D}\]
+
+    <ul>
       <li>整套网络将拼接后的上下文词向量映射为长度 $v$ 的概率分布向量，以此预估词典内所有词汇在给定上下文下出现的可能性。</li>
+      <li>权重矩阵 $\boldsymbol{W}$ 是上下文拼接向量 $\boldsymbol{z}$ 直接直通输出层的权重，不经过 tanh 隐层。用来保留简单线性依赖，缓解非线性层带来的信息损失。</li>
     </ul>
   </li>
 </ul>
 
-<p>模型训练采用带正则项的交叉熵损失函数，通过最小化全局损失更新全部网络参数：</p>
+<p>模型训练采用交叉熵损失函数，通过最小化全局损失更新全部网络参数：</p>
 
-\[L(\theta) = -\frac{1}{T}\sum_t \log f(\omega_{t-n+1},...,\omega_{t-1})+R(\theta)\]
+\[\mathcal{L}=-y^{\top}\log \boldsymbol{\hat{y}}=-\log \hat{p}_{w_t}\]
+
+<p>有时也带上正则项</p>
+
+\[\mathcal{L}=-\log \hat{p}_{w_t}+\frac{\lambda}{2}\left( |\boldsymbol{C|}_{F}^{2}+|\boldsymbol{H|}_{F}^{2}+|\boldsymbol{U|}_{F}^{2}+|\boldsymbol{W|}_{F}^{2}+|\boldsymbol{b}_1|_{2}^{2}+|\boldsymbol{b}_2|_{2}^{2} \right)\]
 
 <p>在每次用 SGD 学习更新模型的参数时，并不是所有的权重参数都会进行调整，只有当前 context 包含词的词向量才会被更新（因为映射层的输出只会得到这些词的输出，并参与接下来的运算）。真正的计算瓶颈主要是在 softmax 层的归一化函数上（需要对词典中所有的 $v$ 个词汇计算一遍条件概率）。</p>
 
