@@ -35,19 +35,20 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+    <!-- Begin Jekyll SEO tag v2.9.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="强化学习（值函数近似）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。" />
-<meta property="og:description" content="本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。" />
+<meta name="twitter:description" property="og:description" content="本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。" />
 <link rel="canonical" href="http://localhost:4000/posts/reinforcement-learning-Value-Approximation/" />
 <meta property="og:url" content="http://localhost:4000/posts/reinforcement-learning-Value-Approximation/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-01-02T18:12:19+08:00" />
+<meta property="article:modified_time" content="2025-11-17T23:46:31+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="强化学习（值函数近似）" />
+<meta name="twitter:title" content="强化学习（值函数近似）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-11-17T23:46:31+08:00","datePublished":"2023-01-02T18:12:19+08:00","description":"本文首先介绍了值函数近似（Value Approximation），然后分别结合 SARSA 和 Q-Learning 给出了两种 Q 函数近似的方法。通过分析线性函数作为估计函数的局限性，自然引入神经网络来进行非线性函数近似，引出了基于深度学习的 Q 函数估计网络：Deep Q-Network（DQN）。","headline":"强化学习（值函数近似）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"},"url":"http://localhost:4000/posts/reinforcement-learning-Value-Approximation/"}</script>
@@ -2502,6 +2503,13 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-NLP-wordvec/">人工智能（自然语言处理-词向量）</a>
         </li>
       
@@ -2524,13 +2532,6 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
     </ul>
@@ -4532,27 +4533,7 @@ s ---&gt; |f(θ)| ----&gt;Q(s,a2)         or        s ---&gt;|f(θ)| ----&gt;Q(s
 
 
 
-                  绪论。
-
-
-
-
-  1. 什么是人工智能
-    
-      1.1. 人工智能
-      1.2. 机器学习
-      1.3. 深度学习
-      1.4. 模式识别
-      1.5. 关系图
-    
-  
-  2. 人工智能的发展历史
-    
-      2.1. 萌芽与理论探索期
-        
-          2.1.1. 图灵测试
-        
-    ...
+                  本节课为人工智能绪论，将从基础概念入手，厘清人工智能、机器学习、深度学习与模式识别之间的层级关系；顺着时间脉络梳理人工智能完整发展历程，依次介绍萌芽探索期、符号主义黄金时代、两次 AI 寒冬、专家系统与知识工程、统计机器学习崛起、深度学习革命直至大模型时代的关键节点，对比符号主义、连接主义、行为主义三大学派的核心思想、优劣与现代演进；同时展示人工智能学科整体组成结构，并结合 AlphaGo ...
                 </p>
               </div>
             </div>

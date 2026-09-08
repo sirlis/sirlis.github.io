@@ -35,19 +35,20 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
-<meta name="generator" content="Jekyll v4.3.2" />
+    <!-- Begin Jekyll SEO tag v2.9.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="深度学习基础（PyTorch的数据集）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了 Pytorch 中针对计算机视觉方面的基本数据库类Dataset，基本的手写数字数据库MNIST，以及数据库加载函数 DataLoader。" />
-<meta property="og:description" content="本文介绍了 Pytorch 中针对计算机视觉方面的基本数据库类Dataset，基本的手写数字数据库MNIST，以及数据库加载函数 DataLoader。" />
+<meta name="twitter:description" property="og:description" content="本文介绍了 Pytorch 中针对计算机视觉方面的基本数据库类Dataset，基本的手写数字数据库MNIST，以及数据库加载函数 DataLoader。" />
 <link rel="canonical" href="http://localhost:4000/posts/deep-learning-basic-dataloader/" />
 <meta property="og:url" content="http://localhost:4000/posts/deep-learning-basic-dataloader/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-16T16:24:19+08:00" />
+<meta property="article:modified_time" content="2020-06-16T16:24:19+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="深度学习基础（PyTorch的数据集）" />
+<meta name="twitter:title" content="深度学习基础（PyTorch的数据集）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-06-16T16:24:19+08:00","datePublished":"2020-06-16T16:24:19+08:00","description":"本文介绍了 Pytorch 中针对计算机视觉方面的基本数据库类Dataset，基本的手写数字数据库MNIST，以及数据库加载函数 DataLoader。","headline":"深度学习基础（PyTorch的数据集）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/deep-learning-basic-dataloader/"},"url":"http://localhost:4000/posts/deep-learning-basic-dataloader/"}</script>
@@ -1377,23 +1378,23 @@ t10k-labels-idx1-ubyte.gz:  test set labels (4542 bytes)
     <span class="c1"># Training settings
 </span>    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="nc">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">'</span><span class="s">PyTorch MNIST Example</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--batch-size</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">input batch size for training (default: 64)</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">input batch size for training (default: 64)</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--test-batch-size</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">input batch size for testing (default: 1000)</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">input batch size for testing (default: 1000)</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--epochs</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">number of epochs to train (default: 10)</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">number of epochs to train (default: 10)</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--lr</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">LR</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">learning rate (default: 0.01)</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">learning rate (default: 0.01)</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--momentum</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">M</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">SGD momentum (default: 0.5)</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">SGD momentum (default: 0.5)</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--no-cuda</span><span class="sh">'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="sh">'</span><span class="s">store_true</span><span class="sh">'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">disables CUDA training</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">disables CUDA training</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--seed</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">S</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">random seed (default: 1)</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">random seed (default: 1)</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--log-interval</span><span class="sh">'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">how many batches to wait before logging training status</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">how many batches to wait before logging training status</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">--save-model</span><span class="sh">'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="sh">'</span><span class="s">store_true</span><span class="sh">'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="sh">'</span><span class="s">For Saving the current Model</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="nb">help</span><span class="o">=</span><span class="sh">'</span><span class="s">For Saving the current Model</span><span class="sh">'</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="nf">parse_args</span><span class="p">()</span>
 
     <span class="n">use_cuda</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span><span class="p">.</span><span class="n">no_cuda</span> <span class="ow">and</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span>
@@ -1632,6 +1633,13 @@ Train Epoch: 1 [9600/10000 (96%)]       Loss: 0.406439
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-NLP-wordvec/">人工智能（自然语言处理-词向量）</a>
         </li>
       
@@ -1654,13 +1662,6 @@ Train Epoch: 1 [9600/10000 (96%)]       Loss: 0.406439
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
     </ul>
