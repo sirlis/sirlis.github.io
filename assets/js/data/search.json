@@ -1441,8 +1441,8 @@
 
 
     
-    "snippet": "本文介绍了基于 Chirpy Jekyll Theme 的个人博客环境的搭建方法，并介绍了部署到 github pages 的方法。  1. 前言  2. 图片  3. 公式  4. 关于页面1. 前言博客主题位于：https://github.com/cotes2020/jekyll-theme-chirpy  注意，本文内容可能随着时间的推移变得过时。2. 图片推荐在 assets/ 下...",
-    "content": "本文介绍了基于 Chirpy Jekyll Theme 的个人博客环境的搭建方法，并介绍了部署到 github pages 的方法。  1. 前言  2. 图片  3. 公式  4. 关于页面1. 前言博客主题位于：https://github.com/cotes2020/jekyll-theme-chirpy  注意，本文内容可能随着时间的推移变得过时。2. 图片推荐在 assets/ 下面新建文件夹存放帖子图片，如 assets/postsimg/。在 md 文件中直接使用路径，如 ![img description](/assets/img/postsimg/20200505/1.jpg) 即可。帖子的图片无论是在本地（如VSCode打开xxx.github.io文件夹作为根目录）还是在线上（如 https://xxx.github.io）均能正常显示。3. 公式Jekyll支持Markdown的公式。在每个帖子开头增加 math: true 即可。他通过调用在线的 mathjax 来渲染。---title: xxxxdate: 20xx-xx-xx xx:xx:xx +0x00categories: [xxx, aaa]tags: [xxa]math: true # &lt;-- add this---4. 关于页面自行编辑 _tabs/about.md 文件。"
+    "snippet": "本文介绍了基于 Chirpy Jekyll Theme 的个人博客环境的搭建方法，并介绍了部署到 github pages 的方法。  1. 前言  2. 图片  3. 公式与流程图  4. 关于页面  5. 本地编辑和部署1. 前言博客主题位于：https://github.com/cotes2020/jekyll-theme-chirpy  注意，本文内容可能随着时间的推移变得过时。2....",
+    "content": "本文介绍了基于 Chirpy Jekyll Theme 的个人博客环境的搭建方法，并介绍了部署到 github pages 的方法。  1. 前言  2. 图片  3. 公式与流程图  4. 关于页面  5. 本地编辑和部署1. 前言博客主题位于：https://github.com/cotes2020/jekyll-theme-chirpy  注意，本文内容可能随着时间的推移变得过时。2. 图片推荐在 assets/ 下面新建文件夹存放帖子图片，如 assets/postsimg/。在 md 文件中直接使用路径，如 ![img description](/assets/img/postsimg/20200505/1.jpg) 即可。帖子的图片无论是在本地（如VSCode打开xxx.github.io文件夹作为根目录）还是在线上（如 https://xxx.github.io）均能正常显示。3. 公式与流程图Jekyll支持Markdown的公式和 Mermaid 流程图。在每个帖子开头增加 math: true 和 mermaid: true 即可。公式通过调用在线的 mathjax 来渲染。---title: xxxxdate: 20xx-xx-xx xx:xx:xx +0x00categories: [xxx, aaa]tags: [xxa]math: true # &lt;-- add thismermaid: true # &lt;-- add this---4. 关于页面自行编辑 _tabs/about.md 文件。5. 本地编辑和部署通过下面的命令换源bundle config set --global mirror.https://rubygems.org https://mirrors.tuna.tsinghua.edu.cn/rubygems或者编辑本地的 Gemfile 文件，将 https://rubygems.org 替换为 https://mirrors.tuna.tsinghua.edu.cn/rubygems通过下面的命令安装依赖包bundle install通过下面的命令启动服务bundle exec jekyll serve终端输出如下：...Server address: http://127.0.0.1:4000/ # &lt;-- click here to open in browserServer running... press ctrl-c to stop."
   }
   
 ]

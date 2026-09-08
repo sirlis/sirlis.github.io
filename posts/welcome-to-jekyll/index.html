@@ -657,9 +657,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="240 字"
+  title="372 字"
 >
-  <em>1 分钟</em>阅读</span>
+  <em>2 分钟</em>阅读</span>
 
     </div>
 
@@ -677,8 +677,9 @@
 <ul>
   <li><a href="#1-前言">1. 前言</a></li>
   <li><a href="#2-图片">2. 图片</a></li>
-  <li><a href="#3-公式">3. 公式</a></li>
+  <li><a href="#3-公式与流程图">3. 公式与流程图</a></li>
   <li><a href="#4-关于页面">4. 关于页面</a></li>
+  <li><a href="#5-本地编辑和部署">5. 本地编辑和部署</a></li>
 </ul>
 
 <h1 id="1-前言">1. 前言</h1>
@@ -697,9 +698,9 @@
 
 <p>帖子的图片无论是在本地（如VSCode打开xxx.github.io文件夹作为根目录）还是在线上（如 <code class="language-plaintext highlighter-rouge">https://xxx.github.io</code>）均能正常显示。</p>
 
-<h1 id="3-公式">3. 公式</h1>
+<h1 id="3-公式与流程图">3. 公式与流程图</h1>
 
-<p>Jekyll支持Markdown的公式。在每个帖子开头增加 <code class="language-plaintext highlighter-rouge">math: true</code> 即可。他通过调用在线的 mathjax 来渲染。</p>
+<p>Jekyll支持Markdown的公式和 Mermaid 流程图。在每个帖子开头增加 <code class="language-plaintext highlighter-rouge">math: true</code> 和 <code class="language-plaintext highlighter-rouge">mermaid: true</code> 即可。公式通过调用在线的 mathjax 来渲染。</p>
 
 <div class="language-yaml highlighter-rouge"><div class="code-header">
         <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span>
@@ -710,18 +711,60 @@
 5
 6
 7
+8
 </pre></td><td class="rouge-code"><pre><span class="nn">---</span>
 <span class="na">title</span><span class="pi">:</span> <span class="s">xxxx</span>
 <span class="na">date</span><span class="pi">:</span> <span class="s">20xx-xx-xx xx:xx:xx +0x00</span>
 <span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">xxx</span><span class="pi">,</span> <span class="nv">aaa</span><span class="pi">]</span>
 <span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">xxa</span><span class="pi">]</span>
 <span class="na">math</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1"># &lt;-- add this</span>
+<span class="na">mermaid</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1"># &lt;-- add this</span>
 <span class="nn">---</span>
 </pre></td></tr></tbody></table></code></div></div>
 
 <h1 id="4-关于页面">4. 关于页面</h1>
 
 <p>自行编辑 <code class="language-plaintext highlighter-rouge">_tabs/about.md</code> 文件。</p>
+
+<h1 id="5-本地编辑和部署">5. 本地编辑和部署</h1>
+
+<p>通过下面的命令换源</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bundle config <span class="nb">set</span> <span class="nt">--global</span> mirror.https://rubygems.org https://mirrors.tuna.tsinghua.edu.cn/rubygems
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>或者编辑本地的 <code class="language-plaintext highlighter-rouge">Gemfile</code> 文件，将 <code class="language-plaintext highlighter-rouge">https://rubygems.org</code> 替换为 <code class="language-plaintext highlighter-rouge">https://mirrors.tuna.tsinghua.edu.cn/rubygems</code></p>
+
+<p>通过下面的命令安装依赖包</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bundle <span class="nb">install</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>通过下面的命令启动服务</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bundle <span class="nb">exec </span>jekyll serve
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>终端输出如下：</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>...
+Server address: http://127.0.0.1:4000/ <span class="c"># &lt;-- click here to open in browser</span>
+Server running... press ctrl-c to stop.
+</pre></td></tr></tbody></table></code></div></div>
 
 </div>
 
