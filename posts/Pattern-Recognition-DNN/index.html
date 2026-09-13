@@ -35,23 +35,22 @@
   
 
   
-    <!-- Begin Jekyll SEO tag v2.9.0 -->
-<meta name="generator" content="Jekyll v4.4.1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="模式识别（经典神经网络）" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。" />
-<meta name="twitter:description" property="og:description" content="本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。" />
+<meta property="og:description" content="本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。" />
 <link rel="canonical" href="http://localhost:4000/posts/Pattern-Recognition-DNN/" />
 <meta property="og:url" content="http://localhost:4000/posts/Pattern-Recognition-DNN/" />
 <meta property="og:site_name" content="SIRLIS" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2025-05-27T14:32:49+08:00" />
-<meta property="article:modified_time" content="2026-06-02T20:00:50+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="模式识别（经典神经网络）" />
+<meta property="twitter:title" content="模式识别（经典神经网络）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-02T20:00:50+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-13T13:57:33+08:00","datePublished":"2025-05-27T14:32:49+08:00","description":"本文介绍了经典的人工神经网络，以及基于神经网络的分类器。人工神经网络（Artificial Neural Network，ANN）是模拟生物神经网络系统的一种计算模型，由大量计算节点（神经元）层层连接构成。通过改变神经元间的连接权重，ANN 可以对大量数据中的复杂映射关系进行建模。对于给定的任务，通过迭代训练进行计算节点权重参数更新，ANN 最终能够实现任务目标。","headline":"模式识别（经典神经网络）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-DNN/"},"url":"http://localhost:4000/posts/Pattern-Recognition-DNN/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2126,6 +2125,414 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -2568,13 +2975,13 @@
 
 <em
   class=""
-  data-ts="1780401650"
+  data-ts="1789279053"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2026/06/02
+  2026/09/13
 </em>
 
     </span>
@@ -2618,9 +3025,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10309 字"
+  title="10723 字"
 >
-  <em>57 分钟</em>阅读</span>
+  <em>59 分钟</em>阅读</span>
 
     </div>
 
@@ -3261,6 +3668,10 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
   <p>关于反向传播的标量推导可参考：https://zhuanlan.zhihu.com/p/96046514</p>
 </blockquote>
 
+<p>整个反向传播过程可以参考如下动图，可形象展示为何算法被称为「误差反向传播」：</p>
+
+<p><a href="/assets/img/postsimg/20250527/bp-anime.gif" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/bp-anime.gif" alt="bp-anime" class="lazyload" data-proofer-ignore></a></p>
+
 <h5 id="2233-梯度消失"><span class="me-2">2.2.3.3. 梯度消失</span><a href="#2233-梯度消失" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
 <p>分析权重的梯度</p>
@@ -3376,6 +3787,8 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
     style H5 fill:none,stroke:none,color:transparent
     style H6 fill:none,stroke:none,color:transparent
 </code></pre>
+<p>可以看出，加法运算「<u>梯度原样传播</u>」。</p>
+
 <ul>
   <li><strong>以简单的乘法</strong>（$z=xy$）为为例：</li>
 </ul>
@@ -3410,8 +3823,20 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 </code></pre>
 
+<p>可以看出，乘法运算「<u>梯度传播时乘以对侧分支的输入</u>」。</p>
+
 <ul>
-  <li><strong>以神经网络</strong>（$Y=f(WX+b)$）为例：</li>
+  <li>
+    <p><strong>激活函数</strong> 激活函数的 “反向” 表现为导数和偏导，而且都是精心设计的，其导数和偏导都可以用前向传播的值直接计算得到，如：</p>
+
+\[\begin{aligned}
+\text{sigmoid}'(x) &amp;= \text{sigmoid}(x)(1-\text{sigmoid}(x))\\
+\tanh'(x) &amp;=1-\tanh^2(x)\\
+\end{aligned}\]
+  </li>
+  <li>
+    <p><strong>以神经网络</strong>（$Y=f(WX+b)$）为例：</p>
+  </li>
 </ul>
 
 <pre><code class="language-mermaid">graph LR
@@ -3437,6 +3862,8 @@ G((偏置)) --&gt;| b | C[加法]
     G((偏置))
 </code></pre>
 
+<p>那么根据前面的所有计算图，可以得到如下反向传播结果（其中的乘法前后顺序和转置是为了保持维度匹配，满足矩阵乘法的维度和数学上对矩阵导数的定义）：</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="code-header">
         <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
       <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -3450,6 +3877,28 @@ b的梯度 = loss2 * 1
 W的梯度 = [X]T * loss3
 loss4 = loss3 * [W]T
 </pre></td></tr></tbody></table></code></div></div>
+
+<p>以一个真实计算图为例：</p>
+
+<p><a href="/assets/img/postsimg/20250527/computation-graph-0.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/computation-graph-0.jpg" alt="计算图" class="lazyload" data-proofer-ignore></a></p>
+
+<p>第一部分，使用 softmax+cross-entropy 损失函数，根据前面的推导我们知道，其反向传播结果就是「<code class="language-plaintext highlighter-rouge">输出-标签</code>」（$\boldsymbol{a}^L-\boldsymbol{y}$）：</p>
+
+<p><a href="/assets/img/postsimg/20250527/computation-graph-1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/computation-graph-1.jpg" alt="计算图1" class="lazyload" data-proofer-ignore></a></p>
+
+<p>然后误差传播到激活函数层，采用 sigmoid 激活函数，根据前面已知其导数是「<code class="language-plaintext highlighter-rouge">输出(1-输出)</code>」:</p>
+
+<p><a href="/assets/img/postsimg/20250527/computation-graph-2.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/computation-graph-2.jpg" alt="计算图2" class="lazyload" data-proofer-ignore></a></p>
+
+<p>然后误差传播到加法计算，根据前面已知其梯度是原样传播的，因此有：</p>
+
+<p><a href="/assets/img/postsimg/20250527/computation-graph-3.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/computation-graph-3.jpg" alt="计算图3" class="lazyload" data-proofer-ignore></a></p>
+
+<p>最后误差传播到乘法计算，有：</p>
+
+<p><a href="/assets/img/postsimg/20250527/computation-graph-4.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/computation-graph-4.jpg" alt="计算图3" class="lazyload" data-proofer-ignore></a></p>
+
+<p>计算图充分利用了前向传播的输出，<strong><font color="blue">深度学习框架在前向传播中计算了所有节点的输出，在反向传播中利用这些输出计算梯度，从而实现自动求导。</font></strong></p>
 
 <h3 id="23-自组织神经网络"><span class="me-2">2.3. 自组织神经网络</span><a href="#23-自组织神经网络" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -3745,6 +4194,20 @@ loss4 = loss3 * [W]T
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
         </li>
       
@@ -3760,20 +4223,6 @@ loss4 = loss3 * [W]T
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-NLP-wordvec/">人工智能（自然语言处理-词向量）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-search-strategy/">人工智能（搜索策略）</a>
         </li>
       
     </ul>
