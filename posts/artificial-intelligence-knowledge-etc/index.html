@@ -2703,7 +2703,7 @@ THEN  该动物是有蹄类动物
 </pre></td></tr></tbody></table></code></div></div>
 <h4 id="222-推理方法"><span class="me-2">2.2.2. 推理方法</span><a href="#222-推理方法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>产生是表示法的推理方法包括：</p>
+<p>产生式表示法的推理方法包括：</p>
 
 <ol>
   <li><strong>前向推理</strong>（Forward Chaining），也称为 “Horn 规则推理”，或称为数据驱动方式，是一种基于规则的推理方法，它通过将规则的左部作为输入，将规则的右部作为输出，并重复执行此过程，直到所有规则都被执行完毕，或通过规则库求得结论。正向推理会得出一些与目标无直接关系的事实，是有浪费的。
@@ -2985,11 +2985,11 @@ ISA:       【V6发动机】
 <p>语义网并非一个单一技术，而是一组 W3C 标准构成的分层技术栈，每一层都建立在前一层之上。W3C 组织是语义网主要的推动者和标准制定者：</p>
 
 <pre><code class="language-mermaid">flowchart LR
-    A[URI / IRI&lt;br/&gt;全局资源标识] --&gt; B[XML&lt;br/&gt;统一语法与交换格式]
-    B --&gt; C[RDF&lt;br/&gt;三元组描述资源关系]
-    C --&gt; D[RDFS / OWL&lt;br/&gt;定义类、属性与约束]
-    D --&gt; E[逻辑与推理&lt;br/&gt;演绎推理 / 规则]
-    E --&gt; F[信任&lt;br/&gt;证明与数字签名]
+    A["URI / IRI&lt;br/&gt;全局资源标识"] --&gt; B["XML&lt;br/&gt;统一语法与交换格式"]
+    B --&gt; C["RDF&lt;br/&gt;三元组描述资源关系"]
+    C --&gt; D["RDFS / OWL&lt;br/&gt;定义类、属性与约束"]
+    D --&gt; E["逻辑与推理&lt;br/&gt;演绎推理 / 规则"]
+    E --&gt; F["信任&lt;br/&gt;证明与数字签名"]
 </code></pre>
 
 <p>其中，各层职责如下：</p>
@@ -3379,9 +3379,9 @@ ISA:       【V6发动机】
 </ul>
 
 <pre><code class="language-mermaid">flowchart LR
-    A[RDF] --"规则&lt;br/&gt;Class, Property,..."--&gt; B[RDF-Schema&lt;br/&gt;（RDFS）]
+    A[RDF] --"规则：Class, Property,..."--&gt; B["RDF-Schema&lt;br/&gt;（RDFS）"]
 
-    B -- "更复杂规则+关系&lt;br/&gt;ComplexClass,..." --&gt; C[OWL]
+    B -- "更复杂规则+关系：ComplexClass,..." --&gt; C[OWL]
 </code></pre>
 
 <p>基于上述额外的预定义词汇，下面介绍几种典型的 OWL 表达构建：</p>
