@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（知识表示与推理）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-10T18:00:19+08:00","datePublished":"2025-08-24T11:03:49+08:00","description":"在人工智能与知识管理领域，对知识的系统性认知与高效表示是实现智能推理和决策的基础。本文将从知识的本质出发，首先剖析知识的基本概念，明确其定义与分类，为后续探讨知识的表示与推理奠定理论基石；继而深入解析基于符号逻辑的多种知识表示方法，包括一阶谓词逻辑、产生式规则、框架式表示等经典范式，揭示逻辑推理的内在机制；同时，结合语义网技术，阐述以 RDF 为核心的知识表示体系及其在语义建模中的应用。通过理论与方法的结合，帮助读者构建对知识表示与推理的完整认知框架，为进一步探索智能系统的知识处理技术提供方向指引。","headline":"人工智能（知识表示与推理）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"},"url":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-13T21:09:17+08:00","datePublished":"2025-08-24T11:03:49+08:00","description":"在人工智能与知识管理领域，对知识的系统性认知与高效表示是实现智能推理和决策的基础。本文将从知识的本质出发，首先剖析知识的基本概念，明确其定义与分类，为后续探讨知识的表示与推理奠定理论基石；继而深入解析基于符号逻辑的多种知识表示方法，包括一阶谓词逻辑、产生式规则、框架式表示等经典范式，揭示逻辑推理的内在机制；同时，结合语义网技术，阐述以 RDF 为核心的知识表示体系及其在语义建模中的应用。通过理论与方法的结合，帮助读者构建对知识表示与推理的完整认知框架，为进一步探索智能系统的知识处理技术提供方向指引。","headline":"人工智能（知识表示与推理）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"},"url":"http://localhost:4000/posts/artificial-intelligence-knowledge-etc/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1563,13 +1563,13 @@
 
 <em
   class=""
-  data-ts="1789034419"
+  data-ts="1789304957"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2026/09/10
+  2026/09/13
 </em>
 
     </span>
@@ -1613,9 +1613,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="22446 字"
+  title="22500 字"
 >
-  <em>124 分钟</em>阅读</span>
+  <em>125 分钟</em>阅读</span>
 
     </div>
 
@@ -3355,25 +3355,13 @@ ISA:       【V6发动机】
           <li>has Value → 值约束</li>
         </ul>
       </li>
-      <li>Cardinality Restrictions（基数约束）
-        <ul>
-          <li>用于定义基于属性值数量限制的类</li>
-          <li>maxQualifiedCardinality → 最大基数限定（至多）</li>
-          <li>minQualifiedCardinality → 最小基数限定（至少）</li>
-          <li>qualifiedCardinality → 精确基数限定</li>
-        </ul>
-      </li>
       <li>Property Characteristics（属性特性）
         <ul>
           <li>inverseOf → 逆属性</li>
           <li>SymmetricProperty → 对称属性</li>
-          <li>AsymmetricProperty → 非对称属性</li>
-          <li>propertyDisjointWith → 属性互斥</li>
-          <li>ReflexiveProperty → 自反属性</li>
           <li>FunctionalProperty → 函数型属性</li>
         </ul>
       </li>
-      <li>Property Chains → 属性链</li>
     </ul>
   </li>
 </ul>
@@ -3437,27 +3425,6 @@ exp:小明 exp:friend exp:小林
 
     <p><code class="language-plaintext highlighter-rouge">exp:publishedIn</code> 在主语属于 <code class="language-plaintext highlighter-rouge">exp:SemanticWebPaper</code> 类的时候，宾语的取值部分来自 <code class="language-plaintext highlighter-rouge">exp:CCF-A</code> 这个类。上述描述相当于「关于语义网的论文（<code class="language-plaintext highlighter-rouge">SemanticWebPaper</code> 的实例）发表在 <code class="language-plaintext highlighter-rouge">CCF-A</code> 类（会议/期刊）上」。</p>
   </li>
-  <li>
-    <p>声明属性的局部约束：基数限定</p>
-
-    <pre><code class="language-owl">exp:Person rdfs:subClassOf [ a owl:Restriction ;
-                             owl:onProperty exp:hasMother ;
-                             owl:cardinality "1"^^xsd:integer ] .
-</code></pre>
-
-    <p><code class="language-plaintext highlighter-rouge">exp:hasMother</code> 在主语属于 <code class="language-plaintext highlighter-rouge">exp:Person</code> 类的时候，宾语的取值只能有一个（每个人只有一个母亲）；”1” 的数据类型被声明为 <code class="language-plaintext highlighter-rouge">xsd:integer</code>。这是基数约束（Cardinality Restriction），本质上属于属性的局部约束，表示 <code class="language-plaintext highlighter-rouge">Person</code> 是「<code class="language-plaintext highlighter-rouge">hasMother</code> 取值恰好为 1」这类实例的子类。</p>
-  </li>
-  <li>
-    <p>声明相交的类</p>
-
-    <pre><code class="language-owl">exp:Mother owl:intersectionOf _tmp
-_tmp rdf:type rdfs:Collection
-_tmp rdfs:member exp:Person
-_tmp rdfs:member exp:HasChildren
-</code></pre>
-
-    <p><code class="language-plaintext highlighter-rouge">_tmp</code> 是临时资源，它是 <code class="language-plaintext highlighter-rouge">rdfs:Collection</code> 类型,是一个容器；它的两个成员是 <code class="language-plaintext highlighter-rouge">exp:Person</code>、<code class="language-plaintext highlighter-rouge">exp:HasChildren</code>。上述三元组说明 <code class="language-plaintext highlighter-rouge">exp:Mother</code> 是 <code class="language-plaintext highlighter-rouge">exp:Person</code>、<code class="language-plaintext highlighter-rouge">exp:HasChildren</code> 这两个类的交集。</p>
-  </li>
 </ul>
 
 <h4 id="342-语法表示"><span class="me-2">3.4.2. 语法表示</span><a href="#342-语法表示" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
@@ -3494,11 +3461,66 @@ _tmp rdfs:member exp:HasChildren
 <p>于是 W3C 启动 OWL2 修订，主要新增如下能力：</p>
 
 <ul>
+  <li>Cardinality Restrictions（基数约束）
+    <ul>
+      <li>用于定义基于属性值数量限制的类</li>
+      <li>maxQualifiedCardinality → 最大基数限定（至多）</li>
+      <li>minQualifiedCardinality → 最小基数限定（至少）</li>
+      <li>qualifiedCardinality → 精确基数限定</li>
+    </ul>
+  </li>
+  <li>Property Characteristics（属性特性）
+    <ul>
+      <li>inverseOf → 逆属性</li>
+      <li>SymmetricProperty → 对称属性</li>
+      <li>AsymmetricProperty → 非对称属性</li>
+      <li>propertyDisjointWith → 属性互斥</li>
+      <li>ReflexiveProperty → 自反属性</li>
+      <li>FunctionalProperty → 函数型属性</li>
+    </ul>
+  </li>
+  <li>Property Chains → 属性链</li>
+</ul>
+
+<p>其中：</p>
+
+<ul>
   <li>属性链（property chain）：<code class="language-plaintext highlighter-rouge">hasMother o hasMother ⊑ hasGrandmother</code> 母亲的母亲是祖母</li>
   <li>限定基数（qualified cardinality）：至少 2 个男性孩子</li>
+</ul>
+
+<p>其他一些特性包括：</p>
+
+<ul>
   <li>自约束属性（hasSelf）</li>
   <li>丰富的数据类型支持（数值、字符串比较）</li>
   <li>匿名个体、实体注解增强</li>
+</ul>
+
+<p>因此，OWL2可以实现更加丰富的定义，如：</p>
+
+<ul>
+  <li>
+    <p>声明属性的局部约束：基数限定</p>
+
+    <pre><code class="language-owl">exp:Person rdfs:subClassOf [ a owl:Restriction ;
+                             owl:onProperty exp:hasMother ;
+                             owl:cardinality "1"^^xsd:integer ] .
+</code></pre>
+
+    <p><code class="language-plaintext highlighter-rouge">exp:hasMother</code> 在主语属于 <code class="language-plaintext highlighter-rouge">exp:Person</code> 类的时候，宾语的取值只能有一个（每个人只有一个母亲）；”1” 的数据类型被声明为 <code class="language-plaintext highlighter-rouge">xsd:integer</code>。这是基数约束（Cardinality Restriction），本质上属于属性的局部约束，表示 <code class="language-plaintext highlighter-rouge">Person</code> 是「<code class="language-plaintext highlighter-rouge">hasMother</code> 取值恰好为 1」这类实例的子类。</p>
+  </li>
+  <li>
+    <p>声明相交的类</p>
+
+    <pre><code class="language-owl">exp:Mother owl:intersectionOf _tmp
+_tmp rdf:type rdfs:Collection
+_tmp rdfs:member exp:Person
+_tmp rdfs:member exp:HasChildren
+</code></pre>
+
+    <p><code class="language-plaintext highlighter-rouge">_tmp</code> 是临时资源，它是 <code class="language-plaintext highlighter-rouge">rdfs:Collection</code> 类型,是一个容器；它的两个成员是 <code class="language-plaintext highlighter-rouge">exp:Person</code>、<code class="language-plaintext highlighter-rouge">exp:HasChildren</code>。上述三元组说明 <code class="language-plaintext highlighter-rouge">exp:Mother</code> 是 <code class="language-plaintext highlighter-rouge">exp:Person</code>、<code class="language-plaintext highlighter-rouge">exp:HasChildren</code> 这两个类的交集。</p>
+  </li>
 </ul>
 
 <p>此外，最重要的改动为废弃 OWL Lite/DL/Full，换成 4 个 <strong>OWL2 Profile（剖面）</strong>，如下图所示：</p>
@@ -3534,22 +3556,22 @@ _tmp rdfs:member exp:HasChildren
 <p>TBox 中常见的公理类型有：</p>
 
 <ol>
-  <li>子类包含：(C \sqsubseteq D)，C 是 D 的子类。例：(Person \sqsubseteq Animal)</li>
-  <li>类等价：(C \equiv D)。例：(Human \equiv Person)</li>
-  <li>类不相交：(C \sqsubseteq \neg D)。例：(Male \sqsubseteq \neg Female)</li>
+  <li>子类包含：$C \sqsubseteq D$，C 是 D 的子类。例：$Person \sqsubseteq Animal$</li>
+  <li>类等价：$C \equiv D$。例：$Human \equiv Person$</li>
+  <li>类不相交：$C \sqsubseteq \neg D$。例：$Male \sqsubseteq \neg Female$</li>
   <li>属性公理（角色公理）
     <ul>
-      <li>属性子属性：(R \sqsubseteq S)</li>
-      <li>逆属性：(R \equiv R^-)</li>
+      <li>属性子属性：$R \sqsubseteq S$</li>
+      <li>逆属性：$R \equiv R^-$</li>
       <li>传递、对称、非自反等角色特征</li>
-      <li>属性链：(R_1 \circ R_2 \sqsubseteq R_3)</li>
+      <li>属性链：$R_1 \circ R_2 \sqsubseteq R_3$</li>
     </ul>
   </li>
   <li>类定义（带约束的复杂类）
     <ul>
-      <li>存在约束：(Person \sqsubseteq \exists hasParent.Person)（每个人都有父母，是人）</li>
-      <li>全称约束：(DogOwner \sqsubseteq \forall hasPet.Dog)（养狗的人所有宠物都是狗）</li>
-      <li>限定基数：(PersonWithTwoKids \equiv (=2\ hasChild.Person))（恰好 2 个孩子的人）</li>
+      <li>存在约束：$Person \sqsubseteq \exists hasParent.Person$（每个人都有父母，是人）</li>
+      <li>全称约束：$DogOwner \sqsubseteq \forall hasPet.Dog$（养狗的人所有宠物都是狗）</li>
+      <li>限定基数：$PersonWithTwoKids \equiv (=2\ hasChild.Person)$（恰好 2 个孩子的人）</li>
     </ul>
   </li>
 </ol>
@@ -3557,7 +3579,7 @@ _tmp rdfs:member exp:HasChildren
 <p>推理器对 TBox 做的推理包括：</p>
 
 <ul>
-  <li>类可满足性：这个类有没有可能存在实例？如果(C \sqsubseteq \neg C)，说明 C 不可能有实例（矛盾类）</li>
+  <li>类可满足性：这个类有没有可能存在实例？如果$C \sqsubseteq \neg C$，说明 C 不可能有实例（矛盾类）</li>
   <li>本体分类 / 层次计算：自动计算所有类的完整子类层次，把隐含的父子关系补全</li>
   <li>TBox 一致性：整套术语本身有没有矛盾（不需要任何实例）</li>
 </ul>
@@ -3583,8 +3605,8 @@ _tmp rdfs:member exp:HasChildren
 <p>ABox 是关于个体（实例）的断言集合，描述具体实体属于哪个类、实体之间有什么关系。ABox 里面只出现个体，引用 TBox 定义好的类和属性。ABox 包含两种基本断言：</p>
 
 <ol>
-  <li>概念断言（类型断言）：(a:C)，个体a属于类C。例：(张三:Person)</li>
-  <li>角色断言（关系断言）：((a,b):R)，个体 $a$ 和 $b$ 有属性 $R$。例：((张三,李母):hasMother)</li>
+  <li>概念断言（类型断言）：$a:C$，个体a属于类C。例：$张三:Person$</li>
+  <li>角色断言（关系断言）：$(a,b):R$，个体 $a$ 和 $b$ 有属性 $R$。例：$(张三,李母):hasMother$</li>
 </ol>
 
 <p>在具体推理时，推理器会同时加载 TBox 和 ABox，基于 TBox 的公理，对 ABox 实例做推导：</p>
@@ -4123,6 +4145,13 @@ ABox：<code class="language-plaintext highlighter-rouge">ZhangWei a :Male , :Fe
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
@@ -4131,13 +4160,6 @@ ABox：<code class="language-plaintext highlighter-rouge">ZhangWei a :Male , :Fe
         
         <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
         </li>
       
         

@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2026-09-13T21:08:39+08:00</updated>
+  <updated>2026-09-14T23:24:10+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -232,7 +232,7 @@
     <link href="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" rel="alternate" type="text/html" title="人工智能（知识表示与推理）" />
     <published>2025-08-24T11:03:49+08:00</published>
   
-    <updated>2026-09-10T18:00:19+08:00</updated>
+    <updated>2026-09-13T21:09:17+08:00</updated>
   
     <id>http://localhost:4000/posts/artificial-intelligence-knowledge-etc/</id>
     <content src="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" />
