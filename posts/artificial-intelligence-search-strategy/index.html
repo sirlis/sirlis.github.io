@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="人工智能（搜索策略）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-07-12T17:02:17+08:00","datePublished":"2025-09-17T09:29:49+08:00","description":"搜索算法是人工智能领域的核心基础，为智能系统提供了在复杂问题空间中寻找可行解或最优解的能力。从简单的迷宫寻路到复杂的游戏决策，搜索算法构成了许多人工智能应用的基石。","headline":"人工智能（搜索策略）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"},"url":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T00:41:19+08:00","datePublished":"2025-09-17T09:29:49+08:00","description":"搜索算法是人工智能领域的核心基础，为智能系统提供了在复杂问题空间中寻找可行解或最优解的能力。从简单的迷宫寻路到复杂的游戏决策，搜索算法构成了许多人工智能应用的基石。","headline":"人工智能（搜索策略）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"},"url":"http://localhost:4000/posts/artificial-intelligence-search-strategy/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -3464,13 +3464,13 @@
 
 <em
   class=""
-  data-ts="1783846937"
+  data-ts="1790008879"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2026/07/12
+  2026/09/22
 </em>
 
     </span>
@@ -3514,7 +3514,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="11379 字"
+  title="11417 字"
 >
   <em>63 分钟</em>阅读</span>
 
@@ -4570,10 +4570,19 @@ h(n) &amp;\leq c(n, n_1) + h(n_1)\\
       <li>
         <p><u>性质 2</u>：一致性保证了评估函数 $f$ 的值单调不减，保证搜索过程是平稳的：</p>
 
+        <p>对于节点 $n$ 和它的邻居 $n^\prime$，评估函数可写为：</p>
+
 \[\begin{aligned}
-f(n^\prime) &amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
+f(n^\prime) &amp;= g(n^\prime) + h(n^\prime)\\
+&amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
     &amp;= [g(n) + h(n)] + [c(n, n^\prime) + h(n^\prime) - h(n)]\\
-    &amp;= f(n) + [c(n, n^\prime) - (h(n) - h(n^\prime))] \leq f(n)
+    &amp;= f(n) + [c(n, n^\prime) - (h(n) - h(n^\prime))]
+\end{aligned}\]
+
+        <p>代入一致性条件 $h(n)- h(n^\prime)\leq c(n, n^\prime)$，有</p>
+
+\[\begin{aligned}
+f(n^\prime) \geq f(n)
 \end{aligned}\]
 
         <p>这意味着 $A^\star$ 算法在扩展节点时，是沿着一个 $f(n)$ 值的等值面（或非递减前沿）进行扩展的。它第一次访问到一个节点时，所使用的路径就是到达该节点的最短路径（即 $g(n)$ 已经是最小的）。</p>
@@ -4981,6 +4990,13 @@ f(n^\prime) &amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/artificial-intelligence-search-strategy/">人工智能（搜索策略）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
         </li>
       
@@ -5003,13 +5019,6 @@ f(n^\prime) &amp;= g(n) + c(n, n^\prime) + h(n^\prime)\\
         
         <li class="text-truncate lh-lg">
           <a href="/posts/welcome-to-jekyll/">欢迎使用Jekyll!</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-introduction/">人工智能（绪论）</a>
         </li>
       
     </ul>
