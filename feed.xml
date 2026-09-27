@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>SIRLIS</title>
   <subtitle>sirlis</subtitle>
-  <updated>2026-09-22T00:41:23+08:00</updated>
+  <updated>2026-09-27T19:21:37+08:00</updated>
   <author>
     <name>sirlis</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,68 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>数字孪生（光纤陀螺）</title>
+    <link href="http://localhost:4000/posts/digital-twin-gyro/" rel="alternate" type="text/html" title="数字孪生（光纤陀螺）" />
+    <published>2026-09-23T16:23:19+08:00</published>
+  
+    <updated>2026-09-23T16:23:19+08:00</updated>
+  
+    <id>http://localhost:4000/posts/digital-twin-gyro/</id>
+    <content src="http://localhost:4000/posts/digital-twin-gyro/" />
+    <author>
+      <name>sirlis</name>
+    </author>
+
+  
+    
+    <category term="Application" />
+    
+    <category term="Engineering" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      本文介绍了天文学中基本的座标系统。
+
+
+
+
+
+
+  1. 基本知识
+    
+      1.1. 光纤陀螺仪
+      1.2. 数字孪生模型
+        
+          1.2.1. 角度随机游走
+        
+      
+    
+  
+  2. 参考文献
+
+
+1. 基本知识
+
+1.1. 光纤陀螺仪
+
+陀螺仪（gyroscope）是用高速回转体的动量矩敏感壳体相对惯性空间绕正交于自转轴的一个或二个轴的角运动检测装置。利用其他原理制成的角运动检测装置起同样功能的也称陀螺仪。陀螺仪分为压电陀螺仪，微机械陀螺仪，光纤陀螺仪和激光陀螺仪，它们都是电子式的，并且它们可以和加速度计，磁阻芯片，GPS，做成惯性导航控制系统。
+
+光纤陀螺仪（Fiber Optic Gyroscope，FOG）是以光导纤维线圈为基础的敏感元件， 由激光二极管发射出的光线朝两个方向沿光导纤维传播...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -221,58 +283,6 @@
   1. 概述
   2. 无信息搜索
 ...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>人工智能（知识表示与推理）</title>
-    <link href="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" rel="alternate" type="text/html" title="人工智能（知识表示与推理）" />
-    <published>2025-08-24T11:03:49+08:00</published>
-  
-    <updated>2026-09-14T23:25:35+08:00</updated>
-  
-    <id>http://localhost:4000/posts/artificial-intelligence-knowledge-etc/</id>
-    <content src="http://localhost:4000/posts/artificial-intelligence-knowledge-etc/" />
-    <author>
-      <name>sirlis</name>
-    </author>
-
-  
-    
-    <category term="Academic" />
-    
-    <category term="Knowledge" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      在人工智能与知识管理领域，对知识的系统性认知与高效表示是实现智能推理和决策的基础。本文将从知识的本质出发，首先剖析知识的基本概念，明确其定义与分类，为后续探讨知识的表示与推理奠定理论基石；继而深入解析基于符号逻辑的多种知识表示方法，包括一阶谓词逻辑、产生式规则、框架式表示等经典范式，揭示逻辑推理的内在机制；同时，结合语义网技术，阐述以 RDF 为核心的知识表示体系及其在语义建模中的应用。通过理论与方法的结合，帮助读者构建对知识表示与推理的完整认知框架，为进一步探索智能系统的知识处理技术提供方向指引。
-
-
-
-
-  1. 知识的基本概念
-    
-      1.1. 什么是知识
-      1.2. 知识的分类
-      1.3. 知识表示与推理
-    
-  
-  2. 符号逻辑表示与推理
-    
-      2.1. 一阶谓词逻辑表示法
-        
-          2...
     </summary>
   
 

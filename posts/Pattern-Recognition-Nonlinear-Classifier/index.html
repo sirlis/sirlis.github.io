@@ -2029,7 +2029,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="20965 字"
+  title="21004 字"
 >
   <em>116 分钟</em>阅读</span>
 
@@ -2676,7 +2676,7 @@ y_k(\boldsymbol{w}^\top \boldsymbol{x}_k + b) &amp;= 1\\
 
     <p>注意到类别标签取值为 $\pm 1$，因此 $y_k^2 = 1$，则可以得到最优参数 $b^\star$ 的形式</p>
 
-\[b^\star = y_k-w^\top \boldsymbol{x}_k= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_i^\top \boldsymbol{x}_k\]
+\[b^\star = y_k-w^\top \boldsymbol{x}_k= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_k^\top \boldsymbol{x}_k\]
 
     <p>考虑到样本带噪声的情况，我们也可以通过对所有支持向量求出 $b$ 后取均值得到 $b^\star$。</p>
   </li>
@@ -2843,7 +2843,7 @@ s.t. &amp;\quad  y_i(\boldsymbol{w}^\top \boldsymbol{x_i}+b) \geq 1, \;\forall i
   <li>梯度可行条件条件：$\lambda_i+\mu_i=C$，因此 $ \mu \geq 0 \Rightarrow \lambda_i \leq C$
     <ul>
       <li>$0&lt;\lambda_i &lt; C \Rightarrow \mu_i &gt; 0 \Rightarrow \xi_i = 0$：样本是支持向量；</li>
-      <li>$\lambda_i = C \Rightarrow \mu_i = 0$：$\xi_i$ 取值任意，样本不是支持向量；
+      <li>$\lambda_i = C \Rightarrow \mu_i = 0$：$\xi_i$ 取值任意，样本是（违规）支持向量；
         <ul>
           <li>$0\leq \xi_i &lt; 1$：样本落在最大间隔内部；</li>
           <li>$\xi_i = 1$：样本落在分类超平面上；</li>
@@ -2866,9 +2866,13 @@ s.t. &amp;\quad \sum_{i=1}^N \lambda_i y_i=0,\; \textcolor{green}{0\leq \lambda_
 <p>最后我们也可以解得优化问题的最优解为</p>
 
 \[\begin{aligned}
-w^\star &amp;= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\\
-b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}^\top \boldsymbol{x}_k\quad \text{support vector}\; (\boldsymbol{x}_k,y_k)
+w^\star &amp;= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\quad \text{all support vector}\\
+b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}^\top_k \boldsymbol{x}_k\quad \text{legal support vector}\; (\boldsymbol{x}_k,y_k)
 \end{aligned}\]
+
+<blockquote>
+  <p>不论是否违规，支持向量都要用于计算 $\boldsymbol{w}^\star$，但违规支持向量不可用来计算 $b^\star$</p>
+</blockquote>
 
 <p>得到 <strong>SVM 的判别函数</strong> 如下</p>
 
@@ -5181,6 +5185,18 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
   
 
@@ -6078,58 +6094,6 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <div class="col">
-          <a href="/posts/Pattern-Recognition-Feature-Selection-and-Extraction/" class="card post-preview h-100">
-            <div class="card-body">
-              <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em
-  class="small"
-  data-ts="1744708549"
-  data-df="YYYY/MM/DD"
-  
->
-  2025/04/15
-</em>
-
-              <h4 class="pt-0 my-2" data-toc-skip>模式识别（特征选择与特征提取）</h4>
-              <div class="text-muted small">
-                <p>
-                  
-
-
-
-
-
-                  本文介绍了模式识别中特征的概念，包括颜色特征、形状特征、纹理特征、空间关系特征。然后介绍了常用的特征选择与特征提取方法，包括类别可分性准则、最优搜索、次优搜索、启发式搜索、线性特征提取、非线性特征提取等。
-
-
-
-
-
-
-  1. 特征
-    
-      1.1. 颜色特征
-        
-          1.1.1. 颜色直方图
-          1.1.2. 颜色矩
-      ...
-                </p>
-              </div>
-            </div>
-          </a>
-        </div>
-      
-        
-        
-        <div class="col">
           <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/" class="card post-preview h-100">
             <div class="card-body">
               <!--
@@ -6216,6 +6180,62 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
 
 
   1. 神经元...
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      
+        
+        
+        <div class="col">
+          <a href="/posts/Pattern-Recognition-CNN/" class="card post-preview h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em
+  class="small"
+  data-ts="1748919829"
+  data-df="YYYY/MM/DD"
+  
+>
+  2025/06/03
+</em>
+
+              <h4 class="pt-0 my-2" data-toc-skip>模式识别（卷积神经网络）</h4>
+              <div class="text-muted small">
+                <p>
+                  
+
+
+
+
+
+                  卷积神经网络是一种专门用于处理网格状数据（如图像、视频）的深度学习模型，其核心思想是通过局部感受野、权值共享和层次化特征提取来自动学习数据的空间或时序模式。
+
+
+
+
+
+  1. 基础概念
+    
+      1.1. 输入
+      1.2. 基本结构
+      1.3. 输出
+    
+  
+  2. 卷积层
+    
+      2.1. 卷积操作
+        
+       ...
                 </p>
               </div>
             </div>
