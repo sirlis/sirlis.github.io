@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（非线性分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-18T14:08:19+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-27T20:14:02+08:00","datePublished":"2025-03-30T21:34:19+08:00","description":"很多情况下，类别之间的分类边界并不是线性的，一种更好的选择是使用更复杂的非线性函数来描述分类。本文介绍了模式识别常用的非线性分类器，主要包括近邻法分类器（NN、KNN）、支持向量机（SVM）、决策树（DT），最后介绍分类器的集成。本章内容预计花费 4 个课时学习。","headline":"模式识别（非线性分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Nonlinear-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1979,13 +1979,13 @@
 
 <em
   class=""
-  data-ts="1760767699"
+  data-ts="1790511242"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2025/10/18
+  2026/09/27
 </em>
 
     </span>
@@ -2029,7 +2029,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="21004 字"
+  title="21028 字"
 >
   <em>116 分钟</em>阅读</span>
 
@@ -2676,7 +2676,7 @@ y_k(\boldsymbol{w}^\top \boldsymbol{x}_k + b) &amp;= 1\\
 
     <p>注意到类别标签取值为 $\pm 1$，因此 $y_k^2 = 1$，则可以得到最优参数 $b^\star$ 的形式</p>
 
-\[b^\star = y_k-w^\top \boldsymbol{x}_k= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_k^\top \boldsymbol{x}_k\]
+\[b^\star = y_k-w^\top \boldsymbol{x}_k= y_k-(\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_i)^\top \boldsymbol{x}_k\]
 
     <p>考虑到样本带噪声的情况，我们也可以通过对所有支持向量求出 $b$ 后取均值得到 $b^\star$。</p>
   </li>
@@ -2867,7 +2867,7 @@ s.t. &amp;\quad \sum_{i=1}^N \lambda_i y_i=0,\; \textcolor{green}{0\leq \lambda_
 
 \[\begin{aligned}
 w^\star &amp;= \sum_{i=1}^N \lambda_i y_i \boldsymbol{x_i}\quad \text{all support vector}\\
-b^\star &amp;= y_k-\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}^\top_k \boldsymbol{x}_k\quad \text{legal support vector}\; (\boldsymbol{x}_k,y_k)
+b^\star &amp;= y_k-\big(\sum_{i=1}^N \lambda_i y_i \boldsymbol{x}_i\big)^\top \boldsymbol{x}_k\quad \text{legal support vector}
 \end{aligned}\]
 
 <blockquote>
@@ -3835,7 +3835,7 @@ $，则分裂后的均方误差为：</p>
   <p>当 $\varepsilon = 0.5$ 时（相当于基分类器随机猜测），对应权重系数为 0。但凡基分类器是一个弱分类器，其权重系数就会大于零。基分类器性能越好，错误率越小，权重系数越大。注意，此处的权重定义并非随意指定的，而是可以通过加性模型（Additive Model）的梯度下降优化或指数损失函数的最小化严格推导得出，详见后文。</p>
 </blockquote>
 
-<p>但凡弱分类器的错误率 $\varepsilon &lt; 0.5$，即可对样本集中的所有样本更新权值分布，即</p>
+<p>但凡弱分类器的错误率 $\varepsilon &lt; 0.5$，即可对样本集中的所有样本更新权值分布。对于任意样本 $i$，其权值分布会根据其分类结果进行更新，即</p>
 
 \[w_{t+1}(i) = \begin{cases}
   w_t(i)\exp(-\alpha_t),\; h_i(\boldsymbol{x}) = y_i\\
@@ -3867,7 +3867,7 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
 
 <p>当预测正确时，$yH(\boldsymbol{x})&gt;0$，损失较小；反之损失较大。</p>
 
-<p>在第 $t$ 轮迭代中，假设已经得到前 $t-1$ 轮的模型 $H_{t+1}(x)$，当前目标是找到一个弱分类器 $h_t(\boldsymbol{x})$ 和权重 $\alpha_t$ 使得以下损失函数最小化</p>
+<p>在第 $t$ 轮迭代中，假设已经得到前 $t-1$ 轮的模型 $H_{t-1}(x)$，当前目标是找到一个弱分类器 $h_t(\boldsymbol{x})$ 和权重 $\alpha_t$ 使得以下损失函数最小化</p>
 
 \[L(\alpha_t, h_t) = \mathbb{E}_D\left[e^{-y(H_{t-1}(\boldsymbol{x}) + \alpha_t h_t(\boldsymbol{x}))}\right]\]
 
@@ -4081,6 +4081,13 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-search-strategy/">人工智能（搜索策略）</a>
         </li>
       
@@ -4103,13 +4110,6 @@ w_{t+1}(i) &amp;= \frac{w_{t+1}(i)}{\sum_{j=1}^n w_{t+1}(j)}
         
         <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/welcome-to-jekyll/">欢迎使用Jekyll!</a>
         </li>
       
     </ul>
