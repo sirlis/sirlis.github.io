@@ -50,7 +50,7 @@
 <meta property="twitter:title" content="模式识别（无监督分类器）" />
 <meta name="twitter:site" content="@none" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-23T13:28:30+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-10-11T22:54:50+08:00","datePublished":"2025-05-12T15:10:49+08:00","description":"本文介绍了无监督分类器的设计原理和方法。不同于前面章节介绍的分类器，无监督分类器旨在没有类别标签的情况下完成样本的分类。由于样本的类别标签位置，无监督分类器具有一定的学习能力，因此相关分类方法又被称为无监督学习。聚类（Clustering）分析是最典型的无监督学习方法。","headline":"模式识别（无监督分类器）","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"},"url":"http://localhost:4000/posts/Pattern-Recognition-Unsupervised-Classifier/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1731,13 +1731,13 @@
 
 <em
   class=""
-  data-ts="1779514110"
+  data-ts="1791730490"
   data-df="YYYY/MM/DD"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  2026/05/23
+  2026/10/11
 </em>
 
     </span>
@@ -1781,9 +1781,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="11504 字"
+  title="12176 字"
 >
-  <em>63 分钟</em>阅读</span>
+  <em>67 分钟</em>阅读</span>
 
     </div>
 
@@ -2026,9 +2026,75 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 \[\boldsymbol{S}_t = \boldsymbol{S}_w + \boldsymbol{S}_b = \sum_{i=1}^C \sum_{\boldsymbol{x}\in w_i}(\boldsymbol{x}-\boldsymbol{\mu})(\boldsymbol{x}-\boldsymbol{\mu})^\top\]
 
-<p>上述定义式可以通过展开后分析（交叉项为零）证明。总离散度矩阵反映数据整体的变异性，是类内和类间离散的总和。当样本确定后，总离散度矩阵就「<strong>固定</strong>」了，这意味着类内离散度矩阵和类间离散度矩阵是此消彼长的关系。</p>
+<p>上述定义式可以通过展开后分析（交叉项为零）证明</p>
 
-<p>为了更准确地度量类内离散度和类间离散度，可以引入一个标量来衡量离散度矩阵的“大小”———矩阵的迹和矩阵的行列式。</p>
+<blockquote>
+  <p>对总散度内向量做拆分</p>
+
+\[\boldsymbol x-\boldsymbol \mu
+=(\boldsymbol x-\boldsymbol \mu_i)+(\boldsymbol \mu_i-\boldsymbol \mu)\]
+
+  <p>代入总散度定义：</p>
+
+\[\begin{aligned}
+\boldsymbol S_t
+=&amp;\sum_{i=1}^k\sum_{\boldsymbol x\in w_i}\Big[(\boldsymbol x-\boldsymbol \mu_i)+(\boldsymbol \mu_i-\boldsymbol \mu)\Big]
+\Big[(\boldsymbol x-\boldsymbol \mu_i)+(\boldsymbol \mu_i-\boldsymbol \mu)\Big]^\top \\
+=&amp;\sum_{i=1}^k\sum_{\boldsymbol x\in w_i}
+\Big\{
+(\boldsymbol x-\boldsymbol \mu_i)(\boldsymbol x-\boldsymbol \mu_i)^\top+(\boldsymbol x-\boldsymbol \mu_i)(\boldsymbol \mu_i-\boldsymbol \mu)^\top\\
+&amp;\quad \quad \quad \quad +(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol x-\boldsymbol \mu_i)^\top+(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol \mu_i-\boldsymbol \mu)^\top
+\Big\}
+\end{aligned}\]
+
+  <p>拆分为四项求和：</p>
+
+\[\begin{aligned}
+\boldsymbol S_t
+=\underbrace{\sum_{i=1}^k\sum_{\boldsymbol x\in w_i}(\boldsymbol x-\boldsymbol \mu_i)(\boldsymbol x-\boldsymbol \mu_i)^\top}_{项A=\boldsymbol S_w}
++\underbrace{\sum_{i=1}^k\sum_{\boldsymbol x\in w_i}(\boldsymbol x-\boldsymbol \mu_i)(\boldsymbol \mu_i-\boldsymbol \mu)^\top}_{项B}\\
++\underbrace{\sum_{i=1}^k\sum_{\boldsymbol x\in w_i}(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol x-\boldsymbol \mu_i)^\top}_{项C}
++\underbrace{\sum_{i=1}^k\sum_{\boldsymbol x\in w_i}(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol \mu_i-\boldsymbol \mu)^\top}_{项D}
+\end{aligned}\]
+
+  <p>证明交叉项 $B=\boldsymbol 0,\;C=\boldsymbol 0$。对项 $B$，将与 $\boldsymbol x$ 无关的 $(\boldsymbol \mu_i-\boldsymbol \mu)^\top$ 提出内层求和：</p>
+
+\[\boldsymbol B=\sum_{i=1}^k
+\left[
+\Big(\sum_{\boldsymbol x\in w_i}(\boldsymbol x-\boldsymbol \mu_i)\Big)
+(\boldsymbol \mu_i-\boldsymbol \mu)^\top
+\right]\]
+
+  <p>第$i$类内求和：</p>
+
+\[\sum_{\boldsymbol x\in w_i}(\boldsymbol x-\boldsymbol \mu_i)
+=\sum_{\boldsymbol x\in w_i}\boldsymbol x - N_i\boldsymbol \mu_i
+=N_i\boldsymbol \mu_i-N_i\boldsymbol \mu_i=\boldsymbol 0\]
+
+  <p>因此 $\boldsymbol B=\boldsymbol 0$。</p>
+
+  <p>项 $C$ 是项 $B$ 的转置：
+\(\boldsymbol C=\boldsymbol B^\top=\boldsymbol 0^\top=\boldsymbol 0\)</p>
+
+  <p>化简项 $D$</p>
+
+  <p>$(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol \mu_i-\boldsymbol \mu)^\top$ 与样本 $\boldsymbol x$ 无关，提出内层求和：</p>
+
+\[\begin{aligned}
+\boldsymbol D
+&amp;=\sum_{i=1}^k
+\left[
+(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol \mu_i-\boldsymbol \mu)^\top
+\sum_{\boldsymbol x\in w_i}1
+\right]\\
+&amp;=\sum_{i=1}^k N_i(\boldsymbol \mu_i-\boldsymbol \mu)(\boldsymbol \mu_i-\boldsymbol \mu)^\top=\boldsymbol S_b
+\end{aligned}\]
+
+</blockquote>
+
+<p>总离散度矩阵反映数据整体的变异性，是类内和类间离散的总和。当样本确定后，总离散度矩阵就「<strong>固定</strong>」了，这意味着类内离散度矩阵和类间离散度矩阵是此消彼长的关系。</p>
+
+<p>矩阵形式的离散度不便于使用，为了更准确地度量类内离散度和类间离散度，可以引入一个标量来衡量离散度矩阵的「大小」———矩阵的迹和矩阵的行列式。</p>
 
 <ul>
   <li>
@@ -2094,7 +2160,7 @@ r &amp;= \frac{\text{Cov}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{\sigma_{\b
 
 <p>综上，我们希望最小化如下定义的 SD 有效性函数：</p>
 
-\[\min \; \text{SD}(C) = \alpha\cdot \text{Dis}(C) + \text{Var}(C)\]
+\[\min \; \text{SD}(C) = \alpha\cdot \text{Scat}(C) +(1-\alpha) \cdot\text{Dis}(C)\]
 
 <p>该准则函数越小表明聚类效果越好。</p>
 
@@ -2390,85 +2456,120 @@ $$
 
 <p>K-均值聚类采用「误差平方和准则」（本质是使用欧式距离），基本思想是，通过迭代寻找 $C$ 个聚类的划分方案，使得用这 $C$ 个聚类的均值来表达相应各类样本时所得到的总体误差最小。极小化误差平方和，需考察样本集所有可能的类划分，是NP难题。因此，K-均值算法采用迭代优化近似求解。</p>
 
-<p>在聚类初始划分的基础上，每一次迭代，都需要移动一个样本点 $\boldsymbol{x}$，因此我们需要分析移动样本点对误差平方和的影响。</p>
+<p>在聚类初始划分的基础上，每一次迭代，都需要移动一个样本点 $\boldsymbol{x}$，因此我们需要分析移动样本点对误差平方和的影响，确定 <strong>如何移动使得误差平方和变小</strong>。</p>
 
 <p>假设从 $w_k$ 类移入 $w_j$ 类，原类 $w_k$ 有 $N_k$ 个样本，均值为</p>
 
 \[\boldsymbol{m}_k = \frac{1}{N_k}\sum_{\boldsymbol{x}\in w_k} \boldsymbol{x}\]
 
-<p>移出样本 $\boldsymbol{x}$ 后，新均值为</p>
+<p>移出样本 $\boldsymbol{x}_p$ 后，新均值为</p>
 
 \[\begin{aligned}
-\tilde{\boldsymbol{m}}_k &amp;= \frac{1}{N_j-1}\left(\sum_{\boldsymbol{x}\in w_k} \boldsymbol{x}-\boldsymbol{x} \right) = \frac{1}{N_j-1} ( N_k\boldsymbol{m}_k-\boldsymbol{x})\\
-&amp;=\boldsymbol{m}_k+\frac{1}{N_j-1}(\boldsymbol{m}_k-\boldsymbol{x})
-\end{aligned}\]
-
-<p>对于移入样本 $\boldsymbol{x}$ 后，类 $w_j$ 新均值为</p>
-
-\[\begin{aligned}
-\tilde{\boldsymbol{m}}_j &amp;= \frac{1}{N_j+1}\left(\sum_{\boldsymbol{x}\in w_j} \boldsymbol{x}+\boldsymbol{x} \right) = \frac{1}{N_j+1} ( N_j\boldsymbol{m}_j+\boldsymbol{x})\\
-&amp;=\boldsymbol{m}_j+\frac{1}{N_j+1}(\boldsymbol{x}-\boldsymbol{m}_j)
+\tilde{\boldsymbol{m}}_k &amp;= \frac{1}{N_k-1}\left(\sum_{\boldsymbol{x}\in w_k} \boldsymbol{x}-\boldsymbol{x}_p \right) = \frac{1}{N_k-1} ( N_k\boldsymbol{m}_k-\boldsymbol{x}_p)\\
+&amp;=\boldsymbol{m}_k+\frac{1}{N_k-1}(\boldsymbol{m}_k-\boldsymbol{x}_p)
 \end{aligned}\]
 
 <p>对于原类 $w_k$，误差平方和为：</p>
 
 \[J_k = \sum_{\boldsymbol{x}\in w_k} \lVert \boldsymbol{x}-\boldsymbol{m}_k \rVert^2\]
 
-<p>移出样本 $\boldsymbol{x}$ 后，误差平方和为：</p>
+<p>移出样本 $\boldsymbol{x}$ 后，类 $w_k$ 误差平方和为：</p>
 
-\[\tilde{J}_k = \sum_{\boldsymbol{x^\prime}\in w_k,\boldsymbol{x}^\prime \neq \boldsymbol{x}} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_k \rVert^2\]
+\[\tilde{J}_k = \sum_{\boldsymbol{x^\prime}\in w_k,\boldsymbol{x}^\prime \neq \boldsymbol{x}_p} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_k \rVert^2\]
 
-<p>利用<strong>离差平方和分解公式</strong>：</p>
+<p>根据聚类的要求，我们希望分析移出样本 $\boldsymbol{x}$ 前后，类 $w_k$ 误差平方和的变化情况，也即计算类 $w_k$ 误差平方和与移出前的误差平方和的差，也即我们关心 $\Delta J_k = \tilde{J}_k - J_k$，但样本移动前后两个误差平方和表达式中的均值不同，不便于直接做差。</p>
 
-\[\sum_{\boldsymbol{x}^\prime \in S}\lVert \boldsymbol{x}^\prime - \tilde{\boldsymbol{m}}\rVert^2 = \sum_{\boldsymbol{x}^\prime \in S} \lVert \boldsymbol{x}^\prime - \boldsymbol{m}\rVert^2 -\vert S \vert \cdot \lVert \tilde{\boldsymbol{m}} - \boldsymbol{m}\rVert^2\]
+<p>因此，我们需要利用<strong>离差平方和分解公式</strong>：</p>
 
-<p>这里 $S=w_k \backslash {\boldsymbol{x}}$ 表示移出样本后的集合，大小为 $\vert S \vert = N_k-1$。上述公式代入误差平方和，有</p>
+\[\sum_{\boldsymbol{x}^\prime\in S}{\lVert \boldsymbol{x}^\prime-\boldsymbol{\tilde{m}} \rVert^2=\sum_{\boldsymbol{x}^\prime\in S}{\lVert \boldsymbol{x}^\prime-\boldsymbol{m} \rVert^2+\left| S \right|\cdot \lVert \tilde{\boldsymbol{m}}-\boldsymbol{m} \rVert^2}}\]
 
-\[\tilde{J}_k = J_k - \lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2 - (N_k -1)\cdot \lVert \tilde{\boldsymbol{m}}_k - \boldsymbol{m}_k\rVert^2\]
+<p>这里 $S$ 表示样本所在集合，$\vert S \vert = N$ 为集合大小。</p>
 
-<p>再将均值更新公式代入，可以得到：</p>
+<p>对 $\tilde{J}_k$ 进行离差平方和分解，有</p>
+
+\[\begin{aligned}
+\tilde{J}_k &amp;=\sum_{\boldsymbol{x^\prime}\in w_k,\boldsymbol{x}^\prime \ne \boldsymbol{x}_p} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_k \rVert^2 = \sum_{\boldsymbol{x}\in w_k,\boldsymbol{x}^\prime \ne \boldsymbol{x}_p} \lVert \boldsymbol{x}-\boldsymbol{m}_k \rVert^2 + \lVert S \rVert \cdot \lVert \tilde{\boldsymbol{m}}_k - \boldsymbol{m}_k\rVert^2\\
+&amp;= \sum_{\boldsymbol{x^\prime}\in w_k} \lVert \boldsymbol{x}^\prime-\boldsymbol{m}_k \rVert^2 - \lVert \boldsymbol{x}_p - \boldsymbol{m}_k \rVert^2 + \lVert S \rVert \cdot \lVert \tilde{\boldsymbol{m}}_k - \boldsymbol{m}_k\rVert^2\\
+&amp;=J_k - \lVert \boldsymbol{x}_p-\boldsymbol{m}_k\rVert^2 + (N_k -1)\cdot \lVert \tilde{\boldsymbol{m}}_k - \boldsymbol{m}_k\rVert^2  
+\end{aligned}\]
+
+<p>表达式中，$\boldsymbol{x}_p,N_k,\boldsymbol{m}_k$ 是比较好获取的已知数据，但样本移动后的新均值 $\boldsymbol{\tilde{m}}_k$ 需要大量计算才能得到，需要想办法将其消除。</p>
+
+<p>根据均值的定义，有：</p>
+
+\[\begin{aligned}
+\boldsymbol m_k&amp;=\frac{1}{N_k}\sum_{\boldsymbol x\in w_k}\boldsymbol x\\
+N_k \boldsymbol m_k&amp;=\sum_{\boldsymbol x\in w_k}\boldsymbol x\\
+N_k\boldsymbol m_k - \boldsymbol x_p &amp;= \sum_{\boldsymbol x\in w_k,\boldsymbol x\neq \boldsymbol x_p}\boldsymbol x\\
+\tilde{\boldsymbol m}_k&amp;=\frac{1}{N_k-1} \sum_{\boldsymbol x\in w_k,\boldsymbol x\neq \boldsymbol x_p}\boldsymbol x= \frac{1}{N_k-1}\left(N_k\boldsymbol m_k - \boldsymbol x_p\right)\\
+&amp;=\boldsymbol m_k+\frac{1}{N_k-1}(\boldsymbol m_k-\boldsymbol x_p)
+\end{aligned}\]
+
+<blockquote>
+  <p>可以看作是均值的减量更新公式 =o=</p>
+</blockquote>
+
+<p>则有</p>
+
+\[\begin{aligned}
+	\boldsymbol{\tilde{m}}_k-\boldsymbol{m}_k&amp;=\frac{1}{N_k-1}\left( \boldsymbol{m}_k-\boldsymbol{x}_p \right)\\
+	\left( N_k-1 \right) \lVert \boldsymbol{m}_k-\boldsymbol{m}_k \rVert ^2&amp;=\frac{1}{N_k-1}\lVert \boldsymbol{m}_k-\boldsymbol{x}_p \rVert ^2\\
+\end{aligned}\]
+
+<p>再将上式代入 $\tilde{J_k}$ 表达式，可以得到：</p>
 
 \[\boxed{
 \begin{aligned}
-\tilde{J}_k &amp;= J_k - \lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2 - (N_k -1)\frac{1}{(N_k-1)^2}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\\
-&amp;=J_k - \frac{N_k}{N_k-1}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2
+\tilde{J}_k &amp;= J_k - \lVert \boldsymbol{x}_p-\boldsymbol{m}_k\rVert^2 + \frac{1}{(N_k-1)}\lVert \boldsymbol m_k-\boldsymbol x_p\rVert^2\\
+&amp;=J_k - \frac{N_k-2}{N_k-1}\lVert \boldsymbol m_k-\boldsymbol x_p\rVert^2
 \end{aligned}
 }\]
 
-<p>同理，加入样本对目标类 $w_j$ 的影响：</p>
+<p>同理，对于移入样本 $\boldsymbol{x}$ 后，类 $w_j$ 新均值为</p>
+
+\[\begin{aligned}
+\tilde{\boldsymbol{m}}_j &amp;= \frac{1}{N_j+1}\left(\sum_{\boldsymbol{x}\in w_j} \boldsymbol{x}+\boldsymbol{x}_p \right) = \frac{1}{N_j+1} ( N_j\boldsymbol{m}_j+\boldsymbol{x}_p)\\
+&amp;=\boldsymbol{m}_j+\frac{1}{N_j+1}(\boldsymbol{x}_p-\boldsymbol{m}_j)
+\end{aligned}\]
+
+<p>加入样本前后，类 $w_j$ 的误差平方和分别为：</p>
 
 \[\begin{aligned}
 J_j &amp;= \sum_{\boldsymbol{x}\in w_j} \lVert \boldsymbol{x}-\boldsymbol{m}_j \rVert^2\\
-\tilde{J}_j &amp;= \sum_{\boldsymbol{x}^\prime\in w_j} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_j \rVert^2 + \lVert \boldsymbol{x}-\tilde{\boldsymbol{m}}_j \rVert^2
+\tilde{J}_j &amp;= \sum_{\boldsymbol{x}^\prime\in w_j} \lVert \boldsymbol{x}^\prime-\tilde{\boldsymbol{m}}_j \rVert^2 + \lVert \boldsymbol{x}_p-\tilde{\boldsymbol{m}}_j \rVert^2
 \end{aligned}\]
 
-<p>对于「第一项」，同样用离差平方和分解：</p>
+<p>对于 $\tilde{J}_j$ 的「第一项」，同样用<strong>离差平方和分解</strong>：</p>
 
 \[\sum_{\boldsymbol{x}^\prime \in w_j}\lVert \boldsymbol{x}^\prime -\tilde{\boldsymbol{m}}_j \rVert^2 = J_j + N_j\cdot \lVert \tilde{\boldsymbol{m}}_j - \boldsymbol{m}_j \rVert^2\]
 
-<p>且根据均值更新公式，有：</p>
+<p>且根据 <strong>均值增量更新公式</strong>，有：</p>
 
-\[\lVert \tilde{\boldsymbol{m}}_j - \boldsymbol{m}_j \rVert^2 =\frac{1}{(N_j+1)^2}(\boldsymbol{x}-\boldsymbol{m}_j)^2\]
+\[\tilde{\boldsymbol{m}}_j = \boldsymbol{m}_j + \frac{1}{N_j+1}(\boldsymbol{x}_p-\boldsymbol{m}_j)\]
 
-<p>对于「第二项」，有：</p>
+<p>代入 $\tilde{J}_j$ 的「第一项」，有：</p>
+
+\[\sum_{\boldsymbol{x}^\prime \in w_j}\lVert \boldsymbol{x}^\prime -\tilde{\boldsymbol{m}}_j \rVert^2 =J_j +  \frac{N_j }{(N_j+1)^2}\lVert\boldsymbol{x}_p-\boldsymbol{m}_j\rVert^2\]
+
+<p>代入 $\tilde{J}_j$ 的「第二项」，有：</p>
 
 \[\begin{aligned}
-\lVert \boldsymbol{x}-\tilde{\boldsymbol{m}}_j \rVert^2 &amp;= \lVert  \boldsymbol{x} - \boldsymbol{m}_j - \frac{1}{N_j+1}(\boldsymbol{x}-\boldsymbol{m}_j) \rVert \\
-&amp;= \left( 1-\frac{1}{N_j+1} \right)^2\lVert  \boldsymbol{x} - \boldsymbol{m}_j \rVert^2\\
-&amp;= \left( \frac{N_j}{N_j+1} \right)^2\lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2
+\lVert \boldsymbol{x}_p-\tilde{\boldsymbol{m}}_j \rVert^2 &amp;= \lVert  \boldsymbol{x}_p - \boldsymbol{m}_j - \frac{1}{N_j+1}(\boldsymbol{x}_p-\boldsymbol{m}_j) \rVert^2 \\
+&amp;= \left( 1-\frac{1}{N_j+1} \right)^2\lVert  \boldsymbol{x}_p - \boldsymbol{m}_j \rVert^2\\
+&amp;= \left( \frac{N_j}{N_j+1} \right)^2\lVert \boldsymbol{x}_p - \boldsymbol{m}_j \rVert^2
 \end{aligned}\]
 
 <p>合并两项后得到：</p>
 
 \[\boxed{
-\tilde{J}_j = J_j +  \frac{N_j}{N_j+1} \lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2
+\tilde{J}_j = J_j +  \frac{N_j}{N_j+1} \lVert \boldsymbol{x}_p - \boldsymbol{m}_j \rVert^2
 }\]
 
 <p>此时，移动带来的误差平方和变化为：</p>
 
-\[\Delta J = \tilde{J} -J = (\tilde{J}_k -J_k) + (\tilde{J}_j -J_j) =  \frac{N_j}{N_j+1} \lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2 - \frac{N_k}{N_k-1}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\]
+\[\Delta J = \tilde{J} -J = (\tilde{J}_k -J_k) + (\tilde{J}_j -J_j) =  \frac{N_j}{N_j+1} \lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2 - \frac{N_k-2}{N_k-1}\lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\]
 
-<p>要使总误差平方和减少，即 $\Delta J &lt; 0$，当样本数量较大时可忽略分式系数部分，即要求</p>
+<p>要使总误差平方和减少，即 $\Delta J &lt; 0$，当样本数量较大时可<strong>忽略分式系数</strong>部分，即要求</p>
 
 \[\lVert \boldsymbol{x} - \boldsymbol{m}_j \rVert^2 &lt; \lVert \boldsymbol{x}-\boldsymbol{m}_k\rVert^2\]
 
@@ -2643,12 +2744,22 @@ J_j &amp;= \sum_{\boldsymbol{x}\in w_j} \lVert \boldsymbol{x}-\boldsymbol{m}_j \
         <li>$d_y = \left(L(x,y+1)-L(x,y-1)\right)$</li>
       </ul>
 
-      <p>则像素梯度大小为 $g = \sqrt{g_x^2+g_y^2}$，如果想提高效率，甚至连开方都不需要。
-思考：若像素在图片最边上，取不到 $x+1$ 或 $y+1$ 怎么办？</p>
+      <p>则像素梯度大小为 $g = \sqrt{g_x^2+g_y^2}$，如果想提高效率，甚至连开方都不需要。</p>
+
     </blockquote>
+
+    <details>
+
+      <summary>
+        <p>思考：若像素在图片最边上，取不到 $x+1$ 或 $y+1$ 怎么办？&lt;/summary&gt;
+（1）方案 1：clamp（复制边界填充）
+（2）方案 2：直接改用单边差分（一阶前向 / 后向差分）
+&lt;/details&gt;</p>
+
+      </summary>
+    </details>
   </li>
 </ul>
-
 <ol>
   <li><strong>迭代聚类</strong></li>
 </ol>
@@ -2676,7 +2787,7 @@ J_j &amp;= \sum_{\boldsymbol{x}\in w_j} \lVert \boldsymbol{x}-\boldsymbol{m}_j \
 </ol>
 
 <ul>
-  <li>每隔超像素重新计算均值向量 $[\bar{L},\bar{a},\bar{b}, \bar{x},\bar{y}]^T$，作为新的聚类中心；</li>
+  <li>每个超像素重新计算均值向量 $[\bar{L},\bar{a},\bar{b}, \bar{x},\bar{y}]^T$，作为新的聚类中心；</li>
   <li>若所有新旧聚类中心的均值向量不在发生变化，则停止迭代，否则继续迭代。</li>
 </ul>
 
@@ -2750,11 +2861,28 @@ s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\l
 
 <p>解得</p>
 
-\[\mu_j(\boldsymbol{x}_i) = \left(\frac{\lambda_i}{d\Vert\boldsymbol{x}_i-\boldsymbol{m}_j\Vert^2}\right)^{\frac{1}{b-1}}\]
+\[\mu_j(\boldsymbol{x}_i) = \left(\frac{\lambda_i}{b\lVert\boldsymbol{x}_i-\boldsymbol{m}_j\rVert^2}\right)^{\frac{1}{b-1}}\]
 
-<p>将上述解代入约束等式可解得 $\lambda_i$，再次代回隶属度方差方程可解得 $\mu_j(\boldsymbol{x}_i)$</p>
+<blockquote>
+  <p>常将常数 $b$ 吸收进拉格朗日乘子，简化写为</p>
 
-\[\mu_j(\boldsymbol{x}_i) = \frac{\left(\frac{1}{\Vert \boldsymbol{x}_i-\boldsymbol{m}_j \Vert^2}\right)^{\frac{1}{b-1}}}  {\sum_{j=1}^C\left(\frac{1}{\Vert \boldsymbol{x}_i-\boldsymbol{m}_j \Vert^2}\right)^{\frac{1}{b-1}}}\]
+\[\mu_j(\boldsymbol x_i) = \left(\frac{\lambda_i}{\|\boldsymbol x_i-\boldsymbol m_j\|^2}\right)^{\frac{1}{b-1}}\]
+</blockquote>
+
+<p>将上述解代入约束条件</p>
+
+\[\begin{aligned}
+\sum_{j=1}^C \left(\frac{\lambda_i}{\|\boldsymbol x_i-\boldsymbol m_j\|^2}\right)^{\frac{1}{b-1}} &amp;= 1\\
+\lambda_i^{\frac{1}{b-1}} \sum_{j=1}^C \left(\frac{1}{\|\boldsymbol x_i-\boldsymbol m_j\|^2}\right)^{\frac{1}{b-1}} &amp;= 1
+\end{aligned}\]
+
+<p>可解得</p>
+
+\[\lambda_i^{\frac{1}{b-1}} = \frac{1}{\displaystyle\sum_{j=1}^C \left(\frac{1}{\|\boldsymbol x_i-\boldsymbol m_j\|^2}\right)^{\frac{1}{b-1}}}\]
+
+<p>再次代回隶属度方差方程可解得 $\mu_j(\boldsymbol{x}_i)$</p>
+
+\[\mu_j(\boldsymbol{x}_i) = \frac{\left(\frac{1}{\lVert \boldsymbol{x}_i-\boldsymbol{m}_j \rVert^2}\right)^{\frac{1}{b-1}}}  {\sum_{j=1}^C\left(\frac{1}{\lVert \boldsymbol{x}_i-\boldsymbol{m}_j \rVert^2}\right)^{\frac{1}{b-1}}}\]
 
 <p>对特定聚类中心 $\boldsymbol{m}_j$ 求偏导并令其为零，得到</p>
 
@@ -3010,6 +3138,13 @@ s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\l
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Nonlinear-Classifier/">模式识别（非线性分类器）</a>
         </li>
       
@@ -3032,13 +3167,6 @@ s.t.\quad &amp; \sum_{j=1}^{C}\mu_j(\boldsymbol{x}_i) = 1 \quad \forall i=1,2,\l
         
         <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/deep-learning-basic-math/">深度学习（基础数学知识）</a>
         </li>
       
     </ul>
