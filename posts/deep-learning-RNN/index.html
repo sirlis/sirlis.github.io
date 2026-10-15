@@ -1120,7 +1120,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4581 字"
+  title="4575 字"
 >
   <em>25 分钟</em>阅读</span>
 
@@ -1233,11 +1233,11 @@ $$
 
 其中, $\boldsymbol 1_i$ 表示第 $i$ 维为1，其余维为0的向量。 -->
 
-\[\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = \sum_{t=1}^T \left[ - \boldsymbol y_t ln\hat{\boldsymbol y_t} \right]\]
+\[L = \sum_{t=1}^T  L_t = \sum_{t=1}^T \left[ - \boldsymbol y_t ln\hat{\boldsymbol y_t} \right]\]
 
 <p>注意到，对于任意时刻 $t$ 的损失函数 $\boldsymbol L_t$，在 $N$ 分类问题中其与每个维度分量均有关，因此损失函数可以进一步写为</p>
 
-\[\boldsymbol L = \sum_{t=1}^T \boldsymbol L_t = -\sum_{t=1}^T\sum_{j=1}^N y_{tj}{\rm ln} \hat{y_{tj}}\]
+\[L = \sum_{t=1}^T  L_t = -\sum_{t=1}^T\sum_{j=1}^N y_{tj}{\rm ln} \hat{y_{tj}}\]
 
 <p>上式就是负对数似然函数的形式。</p>
 
@@ -1257,12 +1257,12 @@ $$
 $$ -->
 
 \[\begin{aligned}
-\frac{\partial L}{\partial \boldsymbol c} &amp;= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \boldsymbol c}
-= \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat{\boldsymbol y_t}} \frac{\partial \hat{\boldsymbol y_t}}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
-&amp;= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat{\boldsymbol y_t}})\cdot softmax'\cdot \boldsymbol I\\
+\frac{\partial L}{\partial \boldsymbol c} &amp;= \sum_{t=1}^T \frac{\partial  L_t}{\partial \boldsymbol c}
+= \sum_{t=1}^T \frac{\partial  L_t}{\partial \hat{\boldsymbol y_t}} \frac{\partial \hat{\boldsymbol y_t}}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol c}\\
+&amp;= \sum_{t=1}^T -(\frac{\boldsymbol y_t}{\hat{\boldsymbol y_t}})\cdot \text{softmax}'\cdot \boldsymbol I\\
 \end{aligned}\]
 
-<p>由于 $softmax’$ 需要分情况讨论，当 $j=i$ 时 $softmax’ = \hat y_j(1-\hat y_j)$；当 $j\neq i$ 时 $softmax’ = \hat y_j\hat y_i$，那么有</p>
+<p>由于 $\text{softmax}’$ 需要分情况讨论，当 $j=i$ 时 $\text{softmax}’ = \hat y_j(1-\hat y_j)$；当 $j\neq i$ 时 $\text{softmax}’ = \hat y_j\hat y_i$，那么有</p>
 
 \[\begin{aligned}
 \frac{\partial L}{\partial \boldsymbol c}
@@ -1304,7 +1304,7 @@ $$ -->
 <p>那么对 $\boldsymbol V$ 的偏导为</p>
 
 \[\begin{aligned}
-\frac{\partial L}{\partial V} &amp;= \sum_{t=1}^T \frac{\partial L_t}{\partial c}
+\frac{\partial L}{\partial V} &amp;= \sum_{t=1}^T \frac{\partial L_t}{\partial \boldsymbol{V}}
 = \sum_{t=1}^T \frac{\partial \boldsymbol L_t}{\partial \hat {\boldsymbol y_t}} \frac{\partial \hat {\boldsymbol y_t}}{\partial \boldsymbol o_t} \frac{\partial \boldsymbol o_t}{\partial \boldsymbol V}\\
 &amp;= \sum_{t=1}^T (\hat {\boldsymbol y_t}-\boldsymbol y_t)\boldsymbol h_t
 \end{aligned}\]
