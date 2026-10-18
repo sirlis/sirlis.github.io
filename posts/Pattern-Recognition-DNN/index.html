@@ -2533,6 +2533,74 @@
     
 
   
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+
+    
+
+    <!-- lazy-load images <https://github.com/aFarkas/lazysizes#readme> -->
+    
+    
+
+    <!-- add image placeholder -->
+    
+      
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+      
+    
+
+    <!-- combine -->
+    
+
+  
 
   
 
@@ -3025,7 +3093,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="10723 字"
+  title="10798 字"
 >
   <em>59 分钟</em>阅读</span>
 
@@ -3426,20 +3494,25 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <h5 id="2231-损失函数"><span class="me-2">2.2.3.1. 损失函数</span><a href="#2231-损失函数" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5>
 
-<p>一个多层感知机或者一个前馈神经网络可以看作是一个复杂的非线性多元函数。在进行网络参数优化前，我们需要设置一个<strong>衡量误差的量化函数</strong>，该函数除了用于评判当前网络对于目标任务的性能外，其最重要的功能就是指导网络参数的优化方向及优化量，这个量化函数就是我们常说的「损失函数」。</p>
+<p>一个多层感知机或者一个前馈神经网络可以看作是一个复杂的非线性多元函数。在进行网络参数优化前，我们需要设置一个<strong>衡量误差的量化函数</strong>，该函数除了用于评判当前网络对于目标任务的性能外，其最重要的功能就是指导网络参数的优化方向及优化量，这个量化函数就是我们常说的「损失函数」。神经网络的训练目标就是通过调整权重和偏置来最小化损失函数。</p>
 
-<p>神经网络的训练目标就是通过调整权重和偏置来最小化损失函数。</p>
+<p>假设输出层网络输出为$a^L_i=\hat y_i$，则损失函数为</p>
 
 <ul>
   <li>
-    <p>对于 <u>回归任务</u>，希望在 $n$ 个样本点上的预测输出 $a^L_i$ 与真实标签 $y_i$ 尽可能接近（$i=1,2,\cdots,n$），采用「均方误差」（Mean Square Error，MSE）来衡量相似性，即需要最小化</p>
+    <p>对于 <u>回归任务</u>，希望在 $n$ 个样本点上的预测输出 $\hat{\boldsymbol{y}}_i$ 与真实标签 $\boldsymbol{y}_i$ 尽可能接近（$i=1,2,\cdots,n$），采用「均方误差」（Mean Square Error，MSE）来衡量相似性，即需要最小化</p>
 
-\[L = \frac{1}{n}\sum_{i=1}^n\Vert a^L_i - y_i \Vert_2^2\\\]
+\[Loss = MSE = \frac{1}{n}\sum_{i=1}^n\sum_{j=1}^j( \hat y_{ij} - y_{ij} )^2\\\]
+
+    <blockquote>
+      <p>为了保持量纲不变，可以使用均方根误差 RMSE 来代替 MSE
+ \(RMSE = \sqrt{MSE}\)</p>
+    </blockquote>
   </li>
   <li>
-    <p>对于 $k$ <u>分类任务</u>，设第 $i$ 个样本的标签向量 $\boldsymbol{y}_i = [y_i^{1},y_i^{2},\cdots, y_i^k]^\top$（一般为独热编码），那么我们希望神经网络的输出 $\boldsymbol{a}^L_i$ 与标签 $\boldsymbol{y}_i$ 尽可能的相似，采用 <strong>CE</strong> （交叉熵）来衡量相似性，即需要最小化</p>
+    <p>对于 $k$ <u>分类任务</u>，设第 $i$ 个样本的标签向量 $\boldsymbol{y}<em>i = [y</em>{i1},y_{i2},\cdots, y_{ik}]^\top$（一般为独热编码），那么我们希望神经网络的输出 $\boldsymbol{a}^L_i$ 与标签 $\boldsymbol{y}_i$ 尽可能的相似，采用 <strong>CE</strong> （交叉熵）来衡量相似性，即需要最小化</p>
 
-\[L = -\frac{1}{n}\sum_{i=1}^n \sum_{j=1}^k y_i^j \ln a^{L,j}_i\]
+\[Loss = CE = -\frac{1}{n}\sum_{i=1}^n \sum_{j=1}^k y_{ij} \ln \hat y_{ij}\]
   </li>
 </ul>
 
@@ -3449,11 +3522,11 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <p>由于神经网络及其损失函数构成了一个非常复杂的多元函数，求解其局部最小值点的解析解在绝大多数情况下是不可行的，需采用数值优化方法来寻找其局部极小值点，这里要介绍的 <strong>误差</strong>「<strong>反向传播算法</strong>」（BP算法）就是其中之一，其核心是采用「梯度下降法」来更新网络参数，从而达到网络参数的优化。而运行梯度下降算法，就需要计算出损失函数关于网络中各个参数（权重和偏置）的偏导数，这就需要借助「链式法则」来实现：</p>
 
-\[\frac{\partial L}{\partial W} =  \frac{\partial L}{\partial a} \frac{\partial a}{\partial z} \frac{\partial z}{\partial W}\]
+\[\frac{\partial Loss}{\partial W} =  \frac{\partial Loss}{\partial a} \frac{\partial a}{\partial z} \frac{\partial z}{\partial W}\]
 
 <p>这里的「<strong><font color="blue">误差</font></strong>」是一个新的概念 $\delta$，其定义为损失函数 $L$ 关于某层神经元预激活值 ${z}^L$ 的梯度，可简要表述如下：</p>
 
-\[\frac{\partial L}{\partial W} =  \underbrace{\frac{\partial L}{\partial a} \frac{\partial a}{\partial z}}_{\delta} \frac{\partial z}{\partial W} \quad\Rightarrow \quad \delta = \frac{\partial L}{\partial z}\]
+\[\frac{\partial Loss}{\partial W} =  \underbrace{\frac{\partial Loss}{\partial a} \frac{\partial a}{\partial z}}_{\delta} \frac{\partial z}{\partial W} \quad\Rightarrow \quad \delta = \frac{\partial Loss}{\partial z}\]
 
 <p>引入误差不仅能简化反向传播过程的表达式，还可以将其写为递推形式（参见后文用 $\delta^{l+1}$ 来求解 $\delta^l$）。</p>
 
@@ -3465,44 +3538,50 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
 <ul>
   <li>
-    <p><u>回归问题</u></p>
+    <p><u>1元回归问题</u></p>
 
     <p><a href="/assets/img/postsimg/20250527/output-layer-regression.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/output-layer-regression.jpg" alt="回归问题输出层结构" class="lazyload" data-proofer-ignore></a></p>
 
     <p>采用「MSE + 恒等函数$f$」组合的输出层 $L$，有</p>
 
-\[{a}^{L} = {z}^L\\\]
+\[\hat{y} = {a}^{L} = {z}^L\\\]
 
     <p>损失函数为</p>
 
-\[L = \Vert a^L - y \Vert_2^2\]
+\[Loss = (\hat{y} - y )^2\]
 
     <p>输出层 $L$ 的误差为（忽略常数系数）</p>
 
-\[\delta^{L} \triangleq \frac{\partial L}{\partial {z}^L} = \frac{\partial L}{\partial {a}^L} = \textcolor{red}{a^L-y}\]
+\[\delta^{L} \triangleq \frac{\partial Loss}{\partial {z}^L} = \frac{\partial Loss}{\partial \hat y} = \textcolor{red}{\hat y-y}\]
   </li>
   <li>
-    <p><u>分类问题</u></p>
+    <p><u>k分类问题</u></p>
 
     <p><a href="/assets/img/postsimg/20250527/output-layer-classification.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/output-layer-classification.jpg" alt="分类问题输出层结构" class="lazyload" data-proofer-ignore></a></p>
 
-    <p>采用「CE + softmax函数」组合的输出层，损失函数为</p>
+    <p>采用「CE + softmax函数」组合的输出层，有</p>
 
-\[L = -\sum_{j=1}^k y_j \ln a^L_j\]
+\[\hat{y}_k = {a}^{L}_k\\\]
+
+    <p>损失函数为</p>
+
+\[Loss = -\sum_{j=1}^k y_j \ln \hat y_j\]
 
     <p>其中第 $j$ 个神经元的输出为</p>
 
-\[a^L_j = \text{softmax}(z^L) = \frac{e^{z_j^L}}{\sum_{i=1}^k e^{z^L_i}} = \frac{e^{z_j^L}}{e^{z_1^L}+e^{z_2^L}+\cdots+e^{z_k^L}}\]
+\[\hat y_j = \text{softmax}(z^L) = \frac{e^{z_j^L}}{\sum_{i=1}^k e^{z^L_i}} = \frac{e^{z_j^L}}{e^{z_1^L}+e^{z_2^L}+\cdots+e^{z_k^L}}\]
 
     <p>则第 $j$ 个神经元的误差为</p>
 
-\[\delta^{L}_j \triangleq \frac{\partial L}{\partial z_j^L} = \sum_{i=1}^k\frac{\partial L}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_j^L}\]
+\[\delta^{L}_j \triangleq \frac{\partial Loss}{\partial z_j^L} = \sum_{i=1}^k\frac{\partial Loss}{\partial \hat y_i} \frac{\partial \hat y_i}{\partial z_j^L}\]
 
-    <p>注意此处需要对 $i$ 进行 <strong>遍历</strong> 然后求和，因为根据 softmax 函数定义，每个输出 $a_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关（分母求和部分），此外，$a_j$ 比较特殊，其分子分母都和 $z_j$ 有关。</p>
+    <p>注意此处需要对 $i$ 进行 <strong>遍历</strong> 然后求和，因为根据 softmax 函数定义，每个输出 $\hat{y}_i$ 都和第 $j$ 个神经元预激活值 $z_j$ 有关（分母求和部分），此外，$\hat{y}_j$ 比较特殊，其分子分母都和 $z_j$ 有关。</p>
+
+    <p><a href="/assets/img/postsimg/20250527/softmax-derivation.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20250527/softmax-derivation.jpg" alt="softmax 函数导数" class="lazyload" data-proofer-ignore></a></p>
 
     <p>第一项</p>
 
-\[\frac{\partial L}{\partial a^L_i} = -\frac{y_i}{a^L_i}\]
+\[\frac{\partial Loss}{\partial \hat y_i} = -\frac{y_i}{a^L_i}\]
 
     <p>第二项（也即 softmax 函数的导数），又因为 softmax 分子和分母都含有预激活值 $z_j^L$，需要根据其下标取值分两种情况讨论：</p>
 
@@ -3555,7 +3634,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
     </details>
 
-    <p>合并上述结果，误差为 $\textcolor{red}{\delta_j^L = a_j^L-y_j}$。</p>
+    <p>合并上述结果，误差为 $\delta_j^L = a_j^L-y_j=\textcolor{red}{ \hat y_j - y_j} $。</p>
 
     <details>
       <summary>
@@ -3572,7 +3651,7 @@ b &amp;\leftarrow b + \eta y_3 \Rightarrow b = 0
 
         <p>注意到 $y_i$ 是独热编码的概率值，其和为 $1$，因此有</p>
 
-\[\delta^{L}_j = -y_j + a_j^L\]
+\[\delta^{L}_j = -y_j + a_j^L = \hat y_j - y_j\]
 
         <p>又因为 $y_i$ 是独热编码的概率值，只有一个位置（假设是第 $i$ 个位置）是 $1$, 其他位置都是 $0$，因此对于 $k$ 分类任务，输出层误差可写为</p>
 
@@ -4194,6 +4273,13 @@ loss4 = loss3 * [W]T
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/deep-learning-RNN/">深度学习基础（RNN）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/Pattern-Recognition-Unsupervised-Classifier/">模式识别（无监督分类器）</a>
         </li>
       
@@ -4216,13 +4302,6 @@ loss4 = loss3 * [W]T
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
         </li>
       
     </ul>
