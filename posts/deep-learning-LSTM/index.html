@@ -1688,7 +1688,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="4722 字"
+  title="4738 字"
 >
   <em>26 分钟</em>阅读</span>
 
@@ -1739,6 +1739,8 @@
 
 <p><a href="/assets/img/postsimg/20201004/1.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201004/1.jpg" alt="rnn-lstm" class="lazyload" data-proofer-ignore></a></p>
 
+<p>可以看出，相比 RNN，LSTM 多了一条横向的 $\boldsymbol{c}$ 状态流，称之为「细胞状态」，后面我们会知道，LSTM 的细胞状态 $\boldsymbol{c}$ 就相当于 RNN 的隐状态 $\boldsymbol{h}$。</p>
+
 <h2 id="12-模型"><span class="me-2">1.2. 模型</span><a href="#12-模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>LSTM 网络的循环单元结构如下图所示</p>
@@ -1748,9 +1750,9 @@
 <p>其中，LSTM 引入三个门来控制信息的传递，分别为遗忘门 $\boldsymbol{f}_t$、输入门 $\boldsymbol{i}_t$、输出门 $\boldsymbol{o}_t$。三个门的作用是：</p>
 
 <ul>
-  <li>遗忘门 $\boldsymbol{f}<em>t$ 控制上一个时刻的内部状态 $\boldsymbol{c}</em>{t-1}$ 需要遗忘多少信息；</li>
-  <li>输入门 $\boldsymbol{i}_t$ 控制当前时刻的候选状态 $\boldsymbol{c}_t$ 有多少信息需要保存；</li>
-  <li>输出门 $\boldsymbol{o}_t$ 控制当前时刻的内部状态 $\boldsymbol{c}_t$ 有多少信息需要输出给外部状态 $\boldsymbol{h}_t$。</li>
+  <li>遗忘门 $\boldsymbol{f}_{t}$ 控制上一个时刻的细胞状态需要遗忘多少信息；</li>
+  <li>输入门 $\boldsymbol{i}_t$ 控制当前时刻的候选细胞状态 $\tilde{\boldsymbol{c}}_t$ 有多少信息需要保存；</li>
+  <li>输出门 $\boldsymbol{o}_t$ 控制当前时刻的细胞状态 $\boldsymbol{c}_t$ 有多少信息需要输出给外部状态 $\boldsymbol{h}_t$。</li>
 </ul>
 
 <h2 id="13-前向传播"><span class="me-2">1.3. 前向传播</span><a href="#13-前向传播" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -1763,20 +1765,20 @@
 \boldsymbol{o}_t &amp;= \sigma(\boldsymbol W_o \boldsymbol{h}_{t-1} + \boldsymbol{U}_o \boldsymbol{x}_t + \boldsymbol{b}_o)=\sigma([\boldsymbol W_o, \boldsymbol{U}_o]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
 \end{aligned}\]
 
-<p>其中，$\sigma$ 为 $sigmoid$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的“门”是一种“软”门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。注意到，等式右边包含一个对 $\boldsymbol{h}_{t-1}$ 和 $\boldsymbol{x}_t$ <strong>向量拼接</strong>的操作，相应的参数也因此进行了拼接。</p>
+<p>其中，$\sigma$ 为 $\text{sigmoid}$ 激活函数，输出区间为 $[0,1]$。也就是说，LSTM 网络中的「门」是一种「软」门，取值在 $[0,1]$ 之间，表示以一定的比例允许信息通过。注意到，等式右边包含一个对 $\boldsymbol{h}_{t-1}$ 和 $\boldsymbol{x}_t$ <strong>向量拼接</strong>的操作，相应的参数也因此进行了拼接。</p>
 
 <p>相比 RNN，LSTM 引入了一个新的状态，称为细胞状态（cell state），表示为 $\boldsymbol{c}_t$，专门进行现行的循环信息传递，同时输出（非线性地）输出信息给隐层状态 $\boldsymbol{h}_t\in \mathbb{R}^D$。计算公式如下</p>
 
 \[\begin{aligned}
-\boldsymbol{c}_t &amp;= \tanh(\boldsymbol W_c \boldsymbol{h}_{t-1} + \boldsymbol{U}_c \boldsymbol{x}_t + \boldsymbol{b}_c)=\tanh([\boldsymbol W_c, \boldsymbol{U}_c]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
-\boldsymbol{c}_t &amp;= \boldsymbol{f}_t \odot \boldsymbol{c}_{t-1} + \boldsymbol{i}_t \odot \boldsymbol{c}_t\\
+\tilde{\boldsymbol{c}}_t &amp;= \tanh(\boldsymbol W_c \boldsymbol{h}_{t-1} + \boldsymbol{U}_c \boldsymbol{x}_t + \boldsymbol{b}_c)=\tanh([\boldsymbol W_c, \boldsymbol{U}_c]\cdot[\boldsymbol{h}_{t-1}, \boldsymbol{x}_t]^T + \boldsymbol{b}_f)\\
+\boldsymbol{c}_t &amp;= \boldsymbol{f}_t \odot \boldsymbol{c}_{t-1} + \boldsymbol{i}_t \odot \tilde{\boldsymbol{c}}_t\\
 \boldsymbol{h}_t &amp;= \boldsymbol{o}_t \odot \tanh(\boldsymbol{c}_t)
 \end{aligned}\]
 
 <p>其中，</p>
 <ul>
-  <li>$\boldsymbol{c}_t\in\mathbb{R}^D$ 是通过非线性函数（$\tanh$）得到的候选状态，</li>
-  <li>$\boldsymbol{c}_{t-1}$ 是上一时刻的记忆单元，</li>
+  <li>$\tilde{\boldsymbol{c}}_t\in\mathbb{R}^D$ 是通过非线性函数（$\tanh$）得到的候选长期记忆；</li>
+  <li>$\boldsymbol{c}_{t-1}$ 是上一时刻的细胞状态（长期记忆）；</li>
   <li>$\odot$ 是向量的元素乘积。</li>
 </ul>
 
@@ -1841,19 +1843,26 @@
 
 <p><a href="/assets/img/postsimg/20201004/lstm-remember_gate_with_memory.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201004/lstm-remember_gate_with_memory.jpg" alt="lstm-remember_gate_with_memory_1" class="lazyload" data-proofer-ignore></a></p>
 
-<p>根据不同的门状态取值，可以实现不同的功能。当 $\boldsymbol{f}_t = 0,\boldsymbol{i}_t = 1$ 时，记忆单元将历史信息清空，并将候选状态向量 $\boldsymbol{c}_t$ 写入，但此时记忆单元 $\boldsymbol{c}_t$ 依然和上一时刻的历史信息相关。当$\boldsymbol{f}_t = 1,\boldsymbol{i}_t = 0$ 时，记忆单元将复制上一时刻的内容，不写入新的信息。</p>
+<p>上图中，根据不同的门状态取值，可以实现不同的功能。极端情况下，当 $\boldsymbol{f}_t = 0,\boldsymbol{i}_t = 1$ 时，长期记忆将历史信息清空，并将候选状态向量 $\tilde{\boldsymbol{c}}_t$ 全量写入。当$\boldsymbol{f}_t = 1,\boldsymbol{i}_t = 0$ 时，记忆单元将复制上一时刻的内容，不写入新的信息。</p>
 
 <p>最后两个模块是根据输出门来计算有多少新的长期记忆得到保留，以计算新的短期记忆：</p>
 
 <p><a href="/assets/img/postsimg/20201004/lstm-output_gate.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201004/lstm-output_gate.jpg" alt="lstm-output_gate" class="lazyload" data-proofer-ignore></a></p>
 
-<p>当我们使用 LSTM 时，一般输入的信息是一个时序序列，如根据公司的前四天的历史股价去预测未来一天的股价高低，如下图所示：</p>
+<p>当我们使用 LSTM 时，一般输入的信息是一个时序序列，如根据公司的前四天的历史股价去预测未来一天的股价高低，<strong><font color="red">采用最终时刻的隐状态 $\boldsymbol h$（再通过一个全连接层映射到预测空间）</font></strong>，如下图所示：</p>
 
 <p><a href="/assets/img/postsimg/20201004/lstm-example.jpg" class="popup img-link "><img data-src="/assets/img/postsimg/20201004/lstm-example.jpg" alt="lstm_example" class="lazyload" data-proofer-ignore></a></p>
 
-<p>循环神经网络中的隐状态 $\boldsymbol h$ 存储了历史信息，可以看作一种记忆（Memory）。在简单循环网络中，隐状态每个时刻都会被重写，因此可以看作一种短期记忆（Short-Term Memory）。在神经网络中，长期记忆（Long-Term Memory）可以看作网络参数，隐含了从训练数据中学到的经验，其更新周期要远远慢于短期记忆。</p>
+<p>其中，</p>
 
-<p>而在 LSTM 网络中，记忆单元 $\boldsymbol c$ 可以在某个时刻捕捉到某个关键信息，并有能力将此关键信息保存一定的时间间隔。记忆单元 $\boldsymbol c$ 中保存信息的生命周期要长于短期记忆 $\boldsymbol h$，但又远远短于长期记忆，<strong>长短期记忆是指长的“短期记忆”。因此称为长短期记忆（Long Short-Term Memory）</strong>。</p>
+<ul>
+  <li>
+    <p>隐状态 $\boldsymbol h$ 存储了历史信息，可以看作一种记忆（Memory）。在简单循环网络中，隐状态每个时刻都会被重写，因此可以看作一种短期记忆（Short-Term Memory）。</p>
+  </li>
+  <li>
+    <p>细胞状态 $\boldsymbol c$ 可以在某个时刻捕捉到某个关键信息，并有能力将此关键信息保存一定的时间间隔，其保存信息的生命周期要长于短期记忆 $\boldsymbol h$，但又远远称不上是长期记忆。所以，<strong>长短期记忆是指「长」的“短期记忆”。因此称为长短期记忆（Long Short-Term Memory）</strong>。</p>
+  </li>
+</ul>
 
 <h2 id="14-如何解决梯度消失"><span class="me-2">1.4. 如何解决梯度消失</span><a href="#14-如何解决梯度消失" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -2593,6 +2602,13 @@ cuDNN error: CUDNN_STATUS_BAD_PARAM
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/Pattern-Recognition-DNN/">模式识别（经典神经网络）</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/deep-learning-RNN/">深度学习基础（RNN）</a>
         </li>
       
@@ -2615,13 +2631,6 @@ cuDNN error: CUDNN_STATUS_BAD_PARAM
         
         <li class="text-truncate lh-lg">
           <a href="/posts/artificial-intelligence-search-strategy/">人工智能（搜索策略）</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/artificial-intelligence-knowledge-etc/">人工智能（知识表示与推理）</a>
         </li>
       
     </ul>
